@@ -7,7 +7,11 @@
 //
 
 #import <Foundation/Foundation.h>
+#import <CoreLocation/CoreLocation.h>
+@import CoreBluetooth;
 
-@interface GXBeacon : NSObject
+@interface GXBeacon : NSObject<CLLocationManagerDelegate,CBPeripheralManagerDelegate>
+
++ (GXBeacon *)sharedManager;
 
 @end

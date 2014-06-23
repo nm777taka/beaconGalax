@@ -22,6 +22,7 @@
 		0F7A25BD19587ADE001B7839 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 0F7A25BB19587ADE001B7839 /* InfoPlist.strings */; };
 		0F7A25BF19587ADE001B7839 /* BeaconGalaxTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 0F7A25BE19587ADE001B7839 /* BeaconGalaxTests.m */; };
 		0F7A25CD19587E3B001B7839 /* GXBeacon.m in Sources */ = {isa = PBXBuildFile; fileRef = 0F7A25CC19587E3B001B7839 /* GXBeacon.m */; };
+		0F7A25CF19587E74001B7839 /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0F7A25CE19587E74001B7839 /* CoreLocation.framework */; };
 		CEEFFA2740D749D0AE5B5B2D /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 0F597A99B7864A4393B072E4 /* libPods.a */; };
 /* End PBXBuildFile section */
 
@@ -58,6 +59,7 @@
 		0F7A25BE19587ADE001B7839 /* BeaconGalaxTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BeaconGalaxTests.m; sourceTree = "<group>"; };
 		0F7A25CB19587E3B001B7839 /* GXBeacon.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GXBeacon.h; sourceTree = "<group>"; };
 		0F7A25CC19587E3B001B7839 /* GXBeacon.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GXBeacon.m; sourceTree = "<group>"; };
+		0F7A25CE19587E74001B7839 /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
 		E359C94E1AFB4D60B499DEE6 /* Pods.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.xcconfig; path = Pods/Pods.xcconfig; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -66,6 +68,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				0F7A25CF19587E74001B7839 /* CoreLocation.framework in Frameworks */,
 				0F7A259619587ADE001B7839 /* CoreGraphics.framework in Frameworks */,
 				0F7A259819587ADE001B7839 /* UIKit.framework in Frameworks */,
 				0F7A259419587ADE001B7839 /* Foundation.framework in Frameworks */,
@@ -109,6 +112,7 @@
 		0F7A259219587ADE001B7839 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				0F7A25CE19587E74001B7839 /* CoreLocation.framework */,
 				0F7A259319587ADE001B7839 /* Foundation.framework */,
 				0F7A259519587ADE001B7839 /* CoreGraphics.framework */,
 				0F7A259719587ADE001B7839 /* UIKit.framework */,
