@@ -1,0 +1,30 @@
+PODS:
+  - BlocksKit (2.2.3):
+    - BlocksKit/All
+  - BlocksKit/All (2.2.3):
+    - BlocksKit/Core
+    - BlocksKit/DynamicDelegate
+    - BlocksKit/MessageUI
+    - BlocksKit/UIKit
+  - BlocksKit/Core (2.2.3)
+  - BlocksKit/DynamicDelegate (2.2.3)
+  - BlocksKit/MessageUI (2.2.3):
+    - BlocksKit/Core
+    - BlocksKit/DynamicDelegate
+  - BlocksKit/UIKit (2.2.3):
+    - BlocksKit/Core
+    - BlocksKit/DynamicDelegate
+  - Canvas (0.1.1)
+  - FlatUIKit (1.4)
+
+DEPENDENCIES:
+  - BlocksKit
+  - Canvas
+  - FlatUIKit
+
+SPEC CHECKSUMS:
+  BlocksKit: 07c8a80f04275efac6a5f8b973782489c083a182
+  Canvas: 45356a2e61087a776bfde5090676d290cf67f7f2
+  FlatUIKit: edc1ed0c130687dc64a10e45851cc58925f6893d
+
+COCOAPODS: 0.33.1
