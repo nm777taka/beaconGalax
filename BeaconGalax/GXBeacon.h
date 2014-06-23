@@ -10,7 +10,10 @@
 #import <CoreLocation/CoreLocation.h>
 @import CoreBluetooth;
 
+#define kGXBeaconRegionMax 20
 @interface GXBeacon : NSObject<CLLocationManagerDelegate,CBPeripheralManagerDelegate>
+
+@property (nonatomic) NSMutableArray *regions;
 
 + (GXBeacon *)sharedManager;
 
