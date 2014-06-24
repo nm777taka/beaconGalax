@@ -59,6 +59,55 @@
 
 }
 
+#pragma mark - Utility - モニタリング
+- (void)startMonitoring
+{
+    
+}
+
+- (void)stopMonitoring
+{
+    
+}
+
+- (void)startMonitoringAllRegion
+{
+    
+}
+
+- (void)startMonitoringRegion:(GXBeaconRegion *)region
+{
+    
+}
+
+- (void)stopMonitoringAllRegion
+{
+    
+}
+
+- (void)stopMonitoringRegion:(GXBeaconRegion *)region
+{
+    
+}
+
+#pragma mark - Utility -レンジング
+- (void)startRanging:(GXBeaconRegion *)region
+{
+    if (!region.isRanging) {
+        [self.locationManager startRangingBeaconsInRegion:region];
+        region.isRanging = YES;
+    }
+}
+
+- (void)stopRanging:(GXBeaconRegion *)region
+{
+    if (region.isRanging) {
+        [self.locationManager stopRangingBeaconsInRegion:region];
+        region.beacons = nil;
+        region.isRanging = NO;
+    }
+}
+
 #pragma mark - リージョンマネジメント
 //リージョンを登録
 - (GXBeaconRegion *)registerRegion:(NSString *)UUIDString identifier:(NSString *)identifier
@@ -105,6 +154,65 @@
     return region;
 }
 
+//レンジング開始
+- (void)enterRegion:(CLBeaconRegion *)region
+{
+    //GXBeaconRegionを探す
+    GXBeaconRegion *gxRegion = [self lookupRegion:region];
+    if (!gxRegion) {
+        return;
+    }
+    
+    //既に領域内にいた
+    if (gxRegion.hasEntered) {
+        return;
+    }
+    
+    if (gxRegion.rangingEnabled) {
+        //レンジングを開始
+        [self startRanging:gxRegion];
+    }
+    
+    gxRegion.hasEntered = YES;
+    //デリゲート処理
+}
+
+//レンジング停止
+- (void)exitRegion:(CLBeaconRegion *)region
+{
+    GXBeaconRegion *gxRegion = [self lookupRegion:region];
+    
+    if (!gxRegion) {
+        return;
+    }
+    if (! gxRegion.hasEntered) {
+        return;
+    }
+    if (gxRegion.rangingEnabled) {
+        
+        [self stopRanging:gxRegion];
+    }
+    
+    gxRegion.hasEntered = YES;
+    //デリゲート
+}
+
+- (GXBeaconRegion *)lookupRegion:(CLBeaconRegion *)region
+{
+    for (GXBeaconRegion *gxRegion in self.regions) {
+        if ([gxRegion.proximityUUID.UUIDString isEqualToString:region.proximityUUID.UUIDString] &&
+            [gxRegion.identifier isEqualToString:region.identifier]&&
+            gxRegion.major == region.major &&
+             gxRegion.minor == region.minor) {
+            
+            return gxRegion;
+                
+        }
+    }
+    
+    return nil;
+}
+
 #pragma mark - リージョン監視処理(リージョンイベント)
 //リージョン監視の開始ができるかどうか
 - (BOOL)isMonitoringCapable
@@ -127,33 +235,41 @@
     return YES;
 }
 
-//モニタリング開始
+//モニタリング開始用デリゲート
 - (void)locationManager:(CLLocationManager *)manager didStartMonitoringForRegion:(CLRegion *)region
 {
     //既に領域内にいた場合に呼ばれないため、requestStateForRegionを呼んで今の状態をリクエスト
     if ([region isKindOfClass:[CLBeaconRegion class]]) {
         
+        GXBeaconRegion *gxRegion = [self lookupRegion:(CLBeaconRegion *)region];
+        if (gxRegion) {
+            gxRegion.failCount = 0;
+        }
     }
     
     [self.locationManager requestStateForRegion:region];
 }
 
-
+//領域に入ったイベントをキャッチ
 - (void)locationManager:(CLLocationManager *)manager didEnterRegion:(CLRegion *)region
 {
     if ([region isKindOfClass:[CLBeaconRegion class]]) {
         
-        
+        [self enterRegion:(CLBeaconRegion *)region];
     }
 }
 
+//領域をでたイベントをキャッチ
 - (void)locationManager:(CLLocationManager *)manager didExitRegion:(CLRegion *)region
 {
     if ([region isKindOfClass:[CLBeaconRegion class]]) {
-        //なにかする
+        
+        //exit
+        [self exitRegion:(CLBeaconRegion *)region];
     }
 }
 
+//既に領域内にいた場合対策
 - (void)locationManager:(CLLocationManager *)manager didDetermineState:(CLRegionState)state forRegion:(CLRegion *)region
 {
     if ([region isKindOfClass:[CLBeaconRegion class]]) {
@@ -172,7 +288,27 @@
     }
 }
 
+#pragma mark - レンジングイベント
+- (void)locationManager:(CLLocationManager *)manager didRangeBeacons:(NSArray *)beacons inRegion:(CLBeaconRegion *)region
+{
+    GXBeaconRegion *gxRegion = [self lookupRegion:(CLBeaconRegion *)region];
+    if (!gxRegion) {
+        return;
+    }
+    gxRegion.beacons = beacons;
+    
+    //デリゲート
+}
 
-
+- (void)locationManager:(CLLocationManager *)manager rangingBeaconsDidFailForRegion:(CLBeaconRegion *)region withError:(NSError *)error
+{
+    GXBeaconRegion *gxRegion = [self lookupRegion:region];
+    if (!gxRegion) {
+        return;
+    }
+    
+    //レンジングを停止
+    [self stopRanging:gxRegion];
+}
 
 @end
