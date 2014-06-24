@@ -9,6 +9,7 @@
 #import <Foundation/Foundation.h>
 
 static NSString * const TableViewCustomCellIdentifier = @"GXCustomCell";
+static NSString * const TableViewCustomSectionHeaderIdentifier = @"GXCustomSectionHeader";
 
 @interface GXTableViewConst : NSObject
 

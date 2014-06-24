@@ -12,6 +12,7 @@
 
 #import "GXCustomCell.h"
 #import "GXTableViewConst.h"
+#import "GXCustomSectionHeader.h"
 
 #define kBeaconUUID @"B9407F30-F5F8-466E-AFF9-25556B57FE6D"
 #define kIdentifier @"Estimote"
@@ -58,6 +59,9 @@
     //カスタムcellを登録
     UINib *nib = [UINib nibWithNibName:TableViewCustomCellIdentifier bundle:nil];
     [self.beaconTable registerNib:nib forCellReuseIdentifier:@"cell"];
+    
+    UINib *secHeadernib = [UINib nibWithNibName:TableViewCustomSectionHeaderIdentifier bundle:nil];
+    [self.beaconTable registerNib:secHeadernib forCellReuseIdentifier:@"sectionHeader"];
     
     
 }
@@ -166,6 +170,22 @@
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     return 60;
+}
+
+- (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section
+{
+    GXCustomSectionHeader *headerCell = [self.beaconTable dequeueReusableCellWithIdentifier:@"sectionHeader"];
+    
+    NSLog(@"custom header %@",headerCell);
+    
+    headerCell.identifierLabel.text = @"test";
+    
+    return headerCell;
+}
+
+- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
+{
+    return 70;
 }
 
 #pragma mark - GXBeacon Delegate
