@@ -12,7 +12,7 @@
 @interface GXBeaconTableViewController : UIViewController<UITableViewDataSource,UITableViewDelegate,GXBeaconDelegate>
 
 @property (weak, nonatomic) IBOutlet UITableView *beaconTable;
-@property (weak, nonatomic) IBOutlet UILabel *bluethoothLabel;
+@property (weak, nonatomic) IBOutlet UILabel *bluetoothLabel;
 @property (weak, nonatomic) IBOutlet UILabel *AuthLabel;
 @property (weak, nonatomic) IBOutlet UIButton *monitaringButton;
 

@@ -16,7 +16,14 @@
 
 @protocol GXBeaconDelegate <NSObject>
 
+//ビーコンがレンジング対象になった場合にテーブルビューを更新する
 - (void)didRangeBeacons:(GXBeaconRegion *)region;
+
+//bluetooth設定をラベルに反映
+- (void)didUpdatePeripheralState:(NSString *)state;
+
+//位置情報サービス設定をラベルに反映
+- (void)didUpdateLocationStatus:(NSString *)status;
 
 @end
 

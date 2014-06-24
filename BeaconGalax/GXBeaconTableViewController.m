@@ -167,6 +167,7 @@
 }
 
 #pragma mark - TalbeViewDelegate
+
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     return 60;
@@ -176,9 +177,9 @@
 {
     GXCustomSectionHeader *headerCell = [self.beaconTable dequeueReusableCellWithIdentifier:@"sectionHeader"];
     
-    NSLog(@"custom header %@",headerCell);
+    GXBeaconRegion *region = self.beacon.regions[section];
     
-    headerCell.identifierLabel.text = @"test";
+    headerCell.identifierLabel.text = region.identifier;
     
     return headerCell;
 }
@@ -198,6 +199,21 @@
     }
     
     [self.beaconTable reloadData];
+}
+
+- (void)didUpdatePeripheralState:(NSString *)state
+{
+    NSMutableString *bluetoothLabelText = [NSMutableString stringWithFormat:@"Bluetooh:"];
+    [bluetoothLabelText appendString:state];
+
+    self.bluetoothLabel.text = bluetoothLabelText;
+}
+
+- (void)didUpdateLocationStatus:(NSString *)status
+{
+    NSMutableString *locationLabelText = [NSMutableString stringWithFormat:@"location:"];
+    [locationLabelText appendString:status];
+    self.AuthLabel.text = locationLabelText;
 }
 
 #pragma mark - Buttonアクション -

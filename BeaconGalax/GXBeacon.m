@@ -54,13 +54,80 @@
 //bluetooh設定状況の通知先
 - (void)peripheralManagerDidUpdateState:(CBPeripheralManager *)peripheral
 {
+    if ([self isMonitoringCapable]) {
+        [self startMonitoringAllRegion];
+    } else {
+        //stopモニタリング
+    }
     
+    if ([self.delegate respondsToSelector:@selector(didUpdatePeripheralState:)]) {
+        
+        [self.delegate didUpdatePeripheralState:[self peripheralStateWithString:peripheral.state]];
+    }
+}
+
+- (NSString *)peripheralStateWithString:(CBPeripheralManagerState)state
+{
+    switch (state) {
+        case CBPeripheralManagerStatePoweredOn:
+            return @"On";
+            break;
+        case CBPeripheralManagerStatePoweredOff:
+            return @"Off";
+            break;
+        case CBPeripheralManagerStateUnauthorized:
+            return @"Unauthorized";
+            break;
+        case CBPeripheralManagerStateResetting:
+            return @"Resetting";
+            break;
+        case CBPeripheralManagerStateUnknown:
+            return @"UnKnown";
+            break;
+        case CBPeripheralManagerStateUnsupported:
+            return @"Unsupported";
+            break;
+            
+        default:
+            break;
+    }
 }
 
 #pragma mark - CoreLocationデリゲート通知
 //位置情報設定状況の通知先
 - (void)locationManager:(CLLocationManager *)manager didChangeAuthorizationStatus:(CLAuthorizationStatus)status
 {
+    if ([self isMonitoringCapable]) {
+        [self startMonitoringAllRegion];
+    } else {
+        //モニタリングストップ
+    }
+    
+    if ([self.delegate respondsToSelector:@selector(didUpdateLocationStatus:)]) {
+        [self.delegate didUpdateLocationStatus:[self locationAuthorizationStateString:status]];
+    }
+    
+}
+
+- (NSString *)locationAuthorizationStateString:(CLAuthorizationStatus)status
+{
+    switch (status) {
+        case kCLAuthorizationStatusAuthorized:
+            return @"Authorized";
+            break;
+        case kCLAuthorizationStatusDenied:
+            return @"Denied";
+            break;
+        case kCLAuthorizationStatusNotDetermined:
+            return @"NotDetermined";
+            break;
+        case kCLAuthorizationStatusRestricted:
+            return @"Restricted";
+            break;
+            
+        default:
+            break;
+    }
 }
 
 #pragma mark - Utility - モニタリング

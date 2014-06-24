@@ -57,7 +57,7 @@
                     <connections>
                         <outlet property="AuthLabel" destination="U0K-cV-7S9" id="776-q8-h1P"/>
                         <outlet property="beaconTable" destination="hEm-M8-Tfp" id="QFX-xe-gnz"/>
-                        <outlet property="bluethoothLabel" destination="n1X-yU-wT5" id="mW4-tz-5py"/>
+                        <outlet property="bluetoothLabel" destination="n1X-yU-wT5" id="wNm-W3-xjo"/>
                         <outlet property="monitaringButton" destination="4tc-Td-ksb" id="B9X-lz-Oq9"/>
                     </connections>
                 </viewController>
