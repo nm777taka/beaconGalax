@@ -14,6 +14,9 @@
 @property CBPeripheralManager *peripheralManager;
 @property CLLocationManager *locationManager;
 
+@property BOOL monitoringEnabled;
+@property BOOL isMonitoring;
+
 @end
 
 @implementation GXBeacon
@@ -39,6 +42,8 @@
         self.peripheralManager = [[CBPeripheralManager alloc]initWithDelegate:self queue:nil];
         self.locationManager = [CLLocationManager new];
         self.locationManager.delegate = self;
+        
+        self.regions = [NSMutableArray new];
     }
     
     return self;
@@ -56,13 +61,13 @@
 //位置情報設定状況の通知先
 - (void)locationManager:(CLLocationManager *)manager didChangeAuthorizationStatus:(CLAuthorizationStatus)status
 {
-
 }
 
 #pragma mark - Utility - モニタリング
 - (void)startMonitoring
 {
-    
+    self.monitoringEnabled = YES;
+    [self startMonitoringAllRegion];
 }
 
 - (void)stopMonitoring
@@ -72,12 +77,27 @@
 
 - (void)startMonitoringAllRegion
 {
+    if (! self.monitoringEnabled) {
+        return;
+    }
+    if (! [self isMonitoringCapable]) {
+        return;
+    }
+    if (self.isMonitoring) {
+        return;
+    }
+    NSLog(@"start Monitoring");
+    for (GXBeaconRegion *region in self.regions) {
+        [self startMonitoringRegion:region];
+    }
+    self.isMonitoring = YES;
     
 }
 
 - (void)startMonitoringRegion:(GXBeaconRegion *)region
 {
-    
+    [self.locationManager startMonitoringForRegion:region];
+    region.isMonitoring = YES;
 }
 
 - (void)stopMonitoringAllRegion
@@ -120,7 +140,7 @@
     
     [region clearFlags];
     [self.regions addObject:region];
-    
+    NSLog(@"登録");
     return region;
     
 }
@@ -154,12 +174,13 @@
     return region;
 }
 
-//レンジング開始
+//ロック画面へのノーティフィケーションデリゲート呼び出し
 - (void)enterRegion:(CLBeaconRegion *)region
 {
     //GXBeaconRegionを探す
     GXBeaconRegion *gxRegion = [self lookupRegion:region];
     if (!gxRegion) {
+        NSLog(@"no region");
         return;
     }
     
@@ -175,6 +196,8 @@
     
     gxRegion.hasEntered = YES;
     //デリゲート処理
+    
+    NSLog(@"enter");
 }
 
 //レンジング停止
@@ -276,6 +299,7 @@
         switch (state) {
             case CLRegionStateInside:
                 //なにかする
+                [self enterRegion:(CLBeaconRegion *)region];
                 break;
             case CLRegionStateOutside:
             case CLRegionStateUnknown:
@@ -291,13 +315,21 @@
 #pragma mark - レンジングイベント
 - (void)locationManager:(CLLocationManager *)manager didRangeBeacons:(NSArray *)beacons inRegion:(CLBeaconRegion *)region
 {
+    NSLog(@"レンジング");
     GXBeaconRegion *gxRegion = [self lookupRegion:(CLBeaconRegion *)region];
     if (!gxRegion) {
         return;
     }
     gxRegion.beacons = beacons;
     
+    NSLog(@"beacon count : %d",gxRegion.beacons.count);
+    
     //デリゲート
+    //リロードデータ呼ばないといけないフラグ
+    if ([self.delegate respondsToSelector:@selector(didRangeBeacons:)]) {
+        [self.delegate didRangeBeacons:gxRegion];
+    }
+    
 }
 
 - (void)locationManager:(CLLocationManager *)manager rangingBeaconsDidFailForRegion:(CLBeaconRegion *)region withError:(NSError *)error

@@ -10,12 +10,16 @@
 #import "GXBeacon.h"
 #import "GXBeaconRegion.h"
 
+#import "GXCustomCell.h"
+#import "GXTableViewConst.h"
+
 #define kBeaconUUID @"B9407F30-F5F8-466E-AFF9-25556B57FE6D"
 #define kIdentifier @"Estimote"
 
 @interface GXBeaconTableViewController ()
 
 @property GXBeacon *beacon;
+- (IBAction)startMonitoring:(id)sender;
 
 @end
 
@@ -36,7 +40,11 @@
 {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
+    self.beaconTable.delegate = self;
+    self.beaconTable.dataSource = self;
+    
     self.beacon = [GXBeacon sharedManager];
+    self.beacon.delegate = self;
     
     GXBeaconRegion *region;
 
@@ -47,12 +55,23 @@
         //ノーティフィケーション用のフラグ設定をやるっぽい
     }
     
+    //カスタムcellを登録
+    UINib *nib = [UINib nibWithNibName:TableViewCustomCellIdentifier bundle:nil];
+    [self.beaconTable registerNib:nib forCellReuseIdentifier:@"cell"];
+    
+    
 }
 
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:YES];
     
+}
+
+- (void)viewDidAppear:(BOOL)animated
+{
+    [super viewDidAppear:YES];
+    [self.beacon startMonitoring];
 }
 
 - (void)didReceiveMemoryWarning
@@ -76,15 +95,19 @@
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
     return [self.beacon.regions count];
+
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
     GXBeaconRegion *region = [self.beacon.regions objectAtIndex:section];
+    
+    
     if (region) {
         if (region.beacons == nil) {
             return 0;
         } else {
+            
             return region.beacons.count;
         }
     }
@@ -92,89 +115,75 @@
     return 0;
 }
 
-- (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section
+
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"tableHeaderCell"];
-    GXBeaconRegion *region = self.beacon.regions[section];
-    if (region) {
-        UILabel *identifierLabel = (UILabel *)[cell viewWithTag:1];
-        UILabel *UUIDLabel = (UILabel *)[cell viewWithTag:2];
-        UILabel *majorLabel = (UILabel *)[cell viewWithTag:3];
-        UILabel *minorLable = (UILabel *)[cell viewWithTag:4];
-        UIImageView* monitoring = (UIImageView *)[cell viewWithTag:5];
-        UIImageView *entered = (UIImageView *)[cell viewWithTag:6];
-        identifierLabel.text = region.identifier;
-        UUIDLabel.adjustsFontSizeToFitWidth = YES;
-        UUIDLabel.text = region.proximityUUID.UUIDString;
-        
-        if (region.major) {
-            majorLabel.text = [NSString stringWithFormat:@"major: %@",region.major];
-        } else {
-            majorLabel.text = @"major : any";
-        }
-        
-        if (region.minor) {
-            minorLable.text = [NSString stringWithFormat:@"minor: %@",region.minor];
-        } else {
-            minorLable.text = @"minor : any";
-        }
-        
-        if (region.isMonitoring) {
-            monitoring.image = [UIImage imageNamed:@"green.png"];
-        } else {
-            monitoring.image = [UIImage imageNamed:@"red.png"];
-        }
-        
-        if (region.hasEntered) {
-            entered.image = [UIImage imageNamed:@"green.png"];
-        } else {
-            entered.image = [UIImage imageNamed:@"red.png"];
-        }
+    
+    
+    GXCustomCell *cell = [self.beaconTable dequeueReusableCellWithIdentifier:@"cell"];
+    if (cell == nil) {
+        cell = [[GXCustomCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"cell"];
     }
+    
+    [self configureCell:cell atIndexPath:indexPath];
     
     return cell;
 }
 
-- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
+- (void)configureCell:(GXCustomCell *)cell atIndexPath:(NSIndexPath *)indexPath
 {
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"tableCell"];
+    GXBeaconRegion *region = self.beacon.regions[indexPath.section];
     
-    GXBeaconRegion *region = self.beacon.regions[indexPath.row];
     if (region && region.beacons) {
-        
         CLBeacon *beacon = region.beacons[indexPath.row];
-        if (beacon) {
-            UILabel *majorLabel = (UILabel *)[cell viewWithTag:1];
-            UILabel *minorLabel = (UILabel *)[cell viewWithTag:2];
-            UILabel *RSSILabel = (UILabel *)[cell viewWithTag:3];
-            UILabel *accLabel = (UILabel *)[cell viewWithTag:4];
-            UILabel *proxLabel = (UILabel *)[cell viewWithTag:5];
-            majorLabel.text = [NSString stringWithFormat:@"major %@",beacon.major];
-            minorLabel.text = [NSString stringWithFormat:@"minor %@",beacon.minor];
-            RSSILabel.text = [NSString stringWithFormat:@"RSSI %ld",(long)beacon.rssi];
-            accLabel.text = [NSString stringWithFormat:@"ACC %f",beacon.accuracy];
-            
-            switch (beacon.proximity) {
-                case CLProximityUnknown:
-                    proxLabel.text = @"Proximity: Unknown";
-                    break;
-                case CLProximityFar:
-                    proxLabel.text = @"Proximity: Far";
-                    break;
-                case CLProximityNear:
-                    proxLabel.text = @"Proximity: Near";
-                    break;
-                case CLProximityImmediate:
-                    proxLabel.text = @"Proximity: Immediate";
-                    break;
-                    
-                default:
-                    break;
-            }
+        
+        cell.majorLable.text = [NSString stringWithFormat:@"major:%@",beacon.major];
+        cell.minorLabel.text = [NSString stringWithFormat:@"minor:%@",beacon.minor];
+        cell.rssiLabel.text = [NSString stringWithFormat:@"rssi:%ld",(long)beacon.rssi];
+        cell.accLabel.text = [NSString stringWithFormat:@"acc:%lf",beacon.accuracy];
+        
+        switch (beacon.proximity) {
+            case CLProximityFar:
+                cell.proxLabel.text = @"prox:Far";
+                break;
+            case CLProximityUnknown:
+                cell.proxLabel.text = @"prox:Unknown";
+                break;
+            case CLProximityNear:
+                cell.proxLabel.text = @"prox:Near";
+                break;
+            case CLProximityImmediate:
+                cell.proxLabel.text = @"prox:Immediate";
+                
+            default:
+                break;
         }
     }
     
-    return cell;
+}
+
+#pragma mark - TalbeViewDelegate
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    return 60;
+}
+
+#pragma mark - GXBeacon Delegate
+- (void)didRangeBeacons:(GXBeaconRegion *)region
+{
+    if (!region.beacons) {
+        NSLog(@"didRangeBeacon:count 0");
+    } else {
+        
+    }
+    
+    [self.beaconTable reloadData];
+}
+
+#pragma mark - Buttonアクション -
+- (IBAction)startMonitoring:(id)sender {
+    
+    [self.beacon startMonitoring];
 }
 
 @end

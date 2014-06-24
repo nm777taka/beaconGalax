@@ -14,9 +14,18 @@
 
 #define kGXBeaconRegionMax 20
 
+@protocol GXBeaconDelegate <NSObject>
+
+- (void)didRangeBeacons:(GXBeaconRegion *)region;
+
+@end
+
+
+
 @interface GXBeacon : NSObject<CLLocationManagerDelegate,CBPeripheralManagerDelegate>
 
 @property (nonatomic) NSMutableArray *regions;
+@property (nonatomic,weak) id <GXBeaconDelegate> delegate;
 
 + (GXBeacon *)sharedManager;
 - (GXBeaconRegion *)registerRegion:(NSString *)UUIDString identifier:(NSString *)identifier;
@@ -24,5 +33,8 @@
 - (GXBeaconRegion *)registerRegion:(NSString *)UUIDString major:(CLBeaconMajorValue)major minor:(CLBeaconMinorValue)minor identifier:(NSString *)identifier;
 
 
+- (void)startMonitoring;
+
 
 @end
+
