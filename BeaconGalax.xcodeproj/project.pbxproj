@@ -32,6 +32,8 @@
 		0FD26D7B1959F0E7005E2B95 /* GXTableViewConst.m in Sources */ = {isa = PBXBuildFile; fileRef = 0FD26D7A1959F0E7005E2B95 /* GXTableViewConst.m */; };
 		0FD26D811959F689005E2B95 /* GXCustomSectionHeader.m in Sources */ = {isa = PBXBuildFile; fileRef = 0FD26D7F1959F689005E2B95 /* GXCustomSectionHeader.m */; };
 		0FD26D821959F689005E2B95 /* GXCustomSectionHeader.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0FD26D801959F689005E2B95 /* GXCustomSectionHeader.xib */; };
+		0FD26D85195A0680005E2B95 /* GXGradientView.m in Sources */ = {isa = PBXBuildFile; fileRef = 0FD26D84195A0680005E2B95 /* GXGradientView.m */; };
+		0FD26D89195A0A11005E2B95 /* UIColor+GXtheme.m in Sources */ = {isa = PBXBuildFile; fileRef = 0FD26D88195A0A11005E2B95 /* UIColor+GXtheme.m */; };
 		CEEFFA2740D749D0AE5B5B2D /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 0F597A99B7864A4393B072E4 /* libPods.a */; };
 /* End PBXBuildFile section */
 
@@ -83,6 +85,10 @@
 		0FD26D7E1959F689005E2B95 /* GXCustomSectionHeader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GXCustomSectionHeader.h; sourceTree = "<group>"; };
 		0FD26D7F1959F689005E2B95 /* GXCustomSectionHeader.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GXCustomSectionHeader.m; sourceTree = "<group>"; };
 		0FD26D801959F689005E2B95 /* GXCustomSectionHeader.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = GXCustomSectionHeader.xib; sourceTree = "<group>"; };
+		0FD26D83195A0680005E2B95 /* GXGradientView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GXGradientView.h; sourceTree = "<group>"; };
+		0FD26D84195A0680005E2B95 /* GXGradientView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GXGradientView.m; sourceTree = "<group>"; };
+		0FD26D87195A0A11005E2B95 /* UIColor+GXtheme.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIColor+GXtheme.h"; sourceTree = "<group>"; };
+		0FD26D88195A0A11005E2B95 /* UIColor+GXtheme.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIColor+GXtheme.m"; sourceTree = "<group>"; };
 		E359C94E1AFB4D60B499DEE6 /* Pods.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.xcconfig; path = Pods/Pods.xcconfig; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -148,6 +154,8 @@
 		0F7A259919587ADE001B7839 /* BeaconGalax */ = {
 			isa = PBXGroup;
 			children = (
+				0FD26D8A195A0E54005E2B95 /* utility */,
+				0FD26D86195A09DC005E2B95 /* category */,
 				0FD26D7D1959F343005E2B95 /* const */,
 				0FD26D7C1959F32C005E2B95 /* View */,
 				0F7A25C819587DFA001B7839 /* storyboard */,
@@ -231,6 +239,8 @@
 				0FD26D7E1959F689005E2B95 /* GXCustomSectionHeader.h */,
 				0FD26D7F1959F689005E2B95 /* GXCustomSectionHeader.m */,
 				0FD26D801959F689005E2B95 /* GXCustomSectionHeader.xib */,
+				0FD26D83195A0680005E2B95 /* GXGradientView.h */,
+				0FD26D84195A0680005E2B95 /* GXGradientView.m */,
 			);
 			name = View;
 			sourceTree = "<group>";
@@ -242,6 +252,22 @@
 				0FD26D7A1959F0E7005E2B95 /* GXTableViewConst.m */,
 			);
 			name = const;
+			sourceTree = "<group>";
+		};
+		0FD26D86195A09DC005E2B95 /* category */ = {
+			isa = PBXGroup;
+			children = (
+				0FD26D87195A0A11005E2B95 /* UIColor+GXtheme.h */,
+				0FD26D88195A0A11005E2B95 /* UIColor+GXtheme.m */,
+			);
+			name = category;
+			sourceTree = "<group>";
+		};
+		0FD26D8A195A0E54005E2B95 /* utility */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = utility;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -386,6 +412,8 @@
 				0F7A25D219588264001B7839 /* GXBeaconRegion.m in Sources */,
 				0F7A25CD19587E3B001B7839 /* GXBeacon.m in Sources */,
 				0F7A25A019587ADE001B7839 /* main.m in Sources */,
+				0FD26D85195A0680005E2B95 /* GXGradientView.m in Sources */,
+				0FD26D89195A0A11005E2B95 /* UIColor+GXtheme.m in Sources */,
 				0F7A25AA19587ADE001B7839 /* GXViewController.m in Sources */,
 				0F7A25D51959B56E001B7839 /* GXBeaconTableViewController.m in Sources */,
 				0FD26D7B1959F0E7005E2B95 /* GXTableViewConst.m in Sources */,
