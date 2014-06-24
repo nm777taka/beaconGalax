@@ -69,6 +69,7 @@
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:YES];
+    [self.beaconTable reloadData];
     
 }
 
@@ -182,6 +183,9 @@
     headerCell.identifierLabel.text = region.identifier;
     
     return headerCell;
+
+
+    
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
