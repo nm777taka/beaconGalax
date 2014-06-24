@@ -24,6 +24,9 @@
 		0F7A25CD19587E3B001B7839 /* GXBeacon.m in Sources */ = {isa = PBXBuildFile; fileRef = 0F7A25CC19587E3B001B7839 /* GXBeacon.m */; };
 		0F7A25CF19587E74001B7839 /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0F7A25CE19587E74001B7839 /* CoreLocation.framework */; };
 		0F7A25D219588264001B7839 /* GXBeaconRegion.m in Sources */ = {isa = PBXBuildFile; fileRef = 0F7A25D119588264001B7839 /* GXBeaconRegion.m */; };
+		0F7A25D51959B56E001B7839 /* GXBeaconTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0F7A25D41959B56E001B7839 /* GXBeaconTableViewController.m */; };
+		0F7A25D81959C014001B7839 /* green.png in Resources */ = {isa = PBXBuildFile; fileRef = 0F7A25D61959C014001B7839 /* green.png */; };
+		0F7A25D91959C014001B7839 /* red.png in Resources */ = {isa = PBXBuildFile; fileRef = 0F7A25D71959C014001B7839 /* red.png */; };
 		CEEFFA2740D749D0AE5B5B2D /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 0F597A99B7864A4393B072E4 /* libPods.a */; };
 /* End PBXBuildFile section */
 
@@ -63,6 +66,10 @@
 		0F7A25CE19587E74001B7839 /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
 		0F7A25D019588264001B7839 /* GXBeaconRegion.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GXBeaconRegion.h; sourceTree = "<group>"; };
 		0F7A25D119588264001B7839 /* GXBeaconRegion.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GXBeaconRegion.m; sourceTree = "<group>"; };
+		0F7A25D31959B56E001B7839 /* GXBeaconTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GXBeaconTableViewController.h; sourceTree = "<group>"; };
+		0F7A25D41959B56E001B7839 /* GXBeaconTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GXBeaconTableViewController.m; sourceTree = "<group>"; };
+		0F7A25D61959C014001B7839 /* green.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = green.png; sourceTree = "<group>"; };
+		0F7A25D71959C014001B7839 /* red.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = red.png; sourceTree = "<group>"; };
 		E359C94E1AFB4D60B499DEE6 /* Pods.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.xcconfig; path = Pods/Pods.xcconfig; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -128,9 +135,11 @@
 		0F7A259919587ADE001B7839 /* BeaconGalax */ = {
 			isa = PBXGroup;
 			children = (
-				0F7A25C919587E0C001B7839 /* Controller */,
 				0F7A25C819587DFA001B7839 /* storyboard */,
+				0F7A25C919587E0C001B7839 /* Controller */,
 				0F7A25AB19587ADE001B7839 /* Images.xcassets */,
+				0F7A25D61959C014001B7839 /* green.png */,
+				0F7A25D71959C014001B7839 /* red.png */,
 				0F7A259A19587ADE001B7839 /* Supporting Files */,
 			);
 			path = BeaconGalax;
@@ -183,6 +192,8 @@
 				0F7A25CC19587E3B001B7839 /* GXBeacon.m */,
 				0F7A25D019588264001B7839 /* GXBeaconRegion.h */,
 				0F7A25D119588264001B7839 /* GXBeaconRegion.m */,
+				0F7A25D31959B56E001B7839 /* GXBeaconTableViewController.h */,
+				0F7A25D41959B56E001B7839 /* GXBeaconTableViewController.m */,
 			);
 			name = Controller;
 			sourceTree = "<group>";
@@ -276,7 +287,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				0F7A25AC19587ADE001B7839 /* Images.xcassets in Resources */,
+				0F7A25D81959C014001B7839 /* green.png in Resources */,
 				0F7A259E19587ADE001B7839 /* InfoPlist.strings in Resources */,
+				0F7A25D91959C014001B7839 /* red.png in Resources */,
 				0F7A25A719587ADE001B7839 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -333,6 +346,7 @@
 				0F7A25CD19587E3B001B7839 /* GXBeacon.m in Sources */,
 				0F7A25A019587ADE001B7839 /* main.m in Sources */,
 				0F7A25AA19587ADE001B7839 /* GXViewController.m in Sources */,
+				0F7A25D51959B56E001B7839 /* GXBeaconTableViewController.m in Sources */,
 				0F7A25A419587ADE001B7839 /* GXAppDelegate.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
