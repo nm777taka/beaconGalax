@@ -261,6 +261,7 @@
 //リージョンを登録
 - (GXBeaconRegion *)registerRegion:(NSString *)UUIDString identifier:(NSString *)identifier
 {
+    NSLog(@"register Region : %@",identifier);
     if (self.regions.count >= kGXBeaconRegionMax) {
         return nil;
     }

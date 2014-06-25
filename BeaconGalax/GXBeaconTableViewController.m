@@ -31,6 +31,7 @@
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
         // Custom initialization
+        
     }
     return self;
 }
@@ -47,14 +48,24 @@
     self.beacon = [GXBeacon sharedManager];
     self.beacon.delegate = self;
     
-    GXBeaconRegion *region;
-
-    region = [self.beacon registerRegion:kBeaconUUID identifier:kIdentifier];
-    if (region) {
-        region.rangingEnabled = YES;
+    
+    //一回だけ実行
+    static dispatch_once_t onceToken;
+    
+    dispatch_once(&onceToken,^{
         
-        //ノーティフィケーション用のフラグ設定をやるっぽい
-    }
+        GXBeaconRegion *region;
+        
+        region = [self.beacon registerRegion:kBeaconUUID identifier:kIdentifier];
+        if (region) {
+            region.rangingEnabled = YES;
+            
+            //ノーティフィケーション用のフラグ設定をやるっぽい
+        }
+
+    });
+
+    
     
     //カスタムcellを登録
     UINib *nib = [UINib nibWithNibName:TableViewCustomCellIdentifier bundle:nil];
@@ -70,7 +81,6 @@
 {
     [super viewWillAppear:YES];
     [self.beaconTable reloadData];
-    
 }
 
 - (void)viewDidAppear:(BOOL)animated
@@ -99,6 +109,7 @@
 #pragma mark - UITableViewDataSource
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
+    NSLog(@"section num : %d",self.beacon.regions.count);
     return [self.beacon.regions count];
 
 }
