@@ -9,7 +9,7 @@
 #import "GXBeaconTableViewController.h"
 #import "GXBeacon.h"
 #import "GXBeaconRegion.h"
-
+#import <CSAnimationView.h>
 #import "GXCustomCell.h"
 #import "GXTableViewConst.h"
 #import "GXCustomSectionHeader.h"
@@ -68,7 +68,6 @@
     });
 
     
-    
     //カスタムcellを登録
     UINib *nib = [UINib nibWithNibName:TableViewCustomCellIdentifier bundle:nil];
     [self.beaconTable registerNib:nib forCellReuseIdentifier:@"cell"];
@@ -81,14 +80,16 @@
 
 - (void)viewWillAppear:(BOOL)animated
 {
-    [super viewWillAppear:YES];
+    [super viewWillAppear:animated];
     [self.beaconTable reloadData];
+    [self.beacon startMonitoring];
+    
+    [self.view startCanvasAnimation];
 }
 
 - (void)viewDidAppear:(BOOL)animated
 {
     [super viewDidAppear:YES];
-    [self.beacon startMonitoring];
 }
 
 - (void)didReceiveMemoryWarning
@@ -256,6 +257,8 @@
         default:
             break;
     }
+    
+    
 }
 
 #pragma mark - Buttonアクション -

@@ -29,6 +29,10 @@
 		0F7A25D91959C014001B7839 /* red.png in Resources */ = {isa = PBXBuildFile; fileRef = 0F7A25D71959C014001B7839 /* red.png */; };
 		0F7A25DD1959E4AF001B7839 /* GXCustomCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 0F7A25DB1959E4AF001B7839 /* GXCustomCell.m */; };
 		0F7A25DE1959E4AF001B7839 /* GXCustomCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0F7A25DC1959E4AF001B7839 /* GXCustomCell.xib */; };
+		0F7F412B195B206100A796AD /* me.png in Resources */ = {isa = PBXBuildFile; fileRef = 0F7F412A195B206100A796AD /* me.png */; };
+		0F7F412D195B206800A796AD /* GXAction.png in Resources */ = {isa = PBXBuildFile; fileRef = 0F7F412C195B206800A796AD /* GXAction.png */; };
+		0F7F412F195B206C00A796AD /* GXBeaconTable.png in Resources */ = {isa = PBXBuildFile; fileRef = 0F7F412E195B206C00A796AD /* GXBeaconTable.png */; };
+		0F7F4131195B22DC00A796AD /* GXBeaconTable-reverse.png in Resources */ = {isa = PBXBuildFile; fileRef = 0F7F4130195B22DC00A796AD /* GXBeaconTable-reverse.png */; };
 		0FD26D7B1959F0E7005E2B95 /* GXTableViewConst.m in Sources */ = {isa = PBXBuildFile; fileRef = 0FD26D7A1959F0E7005E2B95 /* GXTableViewConst.m */; };
 		0FD26D811959F689005E2B95 /* GXCustomSectionHeader.m in Sources */ = {isa = PBXBuildFile; fileRef = 0FD26D7F1959F689005E2B95 /* GXCustomSectionHeader.m */; };
 		0FD26D821959F689005E2B95 /* GXCustomSectionHeader.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0FD26D801959F689005E2B95 /* GXCustomSectionHeader.xib */; };
@@ -76,11 +80,15 @@
 		0F7A25D119588264001B7839 /* GXBeaconRegion.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GXBeaconRegion.m; sourceTree = "<group>"; };
 		0F7A25D31959B56E001B7839 /* GXBeaconTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GXBeaconTableViewController.h; sourceTree = "<group>"; };
 		0F7A25D41959B56E001B7839 /* GXBeaconTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GXBeaconTableViewController.m; sourceTree = "<group>"; };
-		0F7A25D61959C014001B7839 /* green.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = green.png; sourceTree = "<group>"; };
-		0F7A25D71959C014001B7839 /* red.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = red.png; sourceTree = "<group>"; };
+		0F7A25D61959C014001B7839 /* green.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = green.png; path = BeaconGalax/green.png; sourceTree = "<group>"; };
+		0F7A25D71959C014001B7839 /* red.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = red.png; path = BeaconGalax/red.png; sourceTree = "<group>"; };
 		0F7A25DA1959E4AF001B7839 /* GXCustomCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GXCustomCell.h; sourceTree = "<group>"; };
 		0F7A25DB1959E4AF001B7839 /* GXCustomCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GXCustomCell.m; sourceTree = "<group>"; };
 		0F7A25DC1959E4AF001B7839 /* GXCustomCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = GXCustomCell.xib; sourceTree = "<group>"; };
+		0F7F412A195B206100A796AD /* me.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = me.png; sourceTree = "<group>"; };
+		0F7F412C195B206800A796AD /* GXAction.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = GXAction.png; sourceTree = "<group>"; };
+		0F7F412E195B206C00A796AD /* GXBeaconTable.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = GXBeaconTable.png; sourceTree = "<group>"; };
+		0F7F4130195B22DC00A796AD /* GXBeaconTable-reverse.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "GXBeaconTable-reverse.png"; sourceTree = "<group>"; };
 		0FD26D791959F0E7005E2B95 /* GXTableViewConst.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GXTableViewConst.h; sourceTree = "<group>"; };
 		0FD26D7A1959F0E7005E2B95 /* GXTableViewConst.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GXTableViewConst.m; sourceTree = "<group>"; };
 		0FD26D7E1959F689005E2B95 /* GXCustomSectionHeader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GXCustomSectionHeader.h; sourceTree = "<group>"; };
@@ -124,6 +132,7 @@
 		0F7A258719587ADE001B7839 = {
 			isa = PBXGroup;
 			children = (
+				0F7F4129195B203900A796AD /* Resources */,
 				0F7A259919587ADE001B7839 /* BeaconGalax */,
 				0F7A25B819587ADE001B7839 /* BeaconGalaxTests */,
 				0F7A259219587ADE001B7839 /* Frameworks */,
@@ -164,8 +173,6 @@
 				0F7A25C819587DFA001B7839 /* storyboard */,
 				0F7A25C919587E0C001B7839 /* Controller */,
 				0F7A25AB19587ADE001B7839 /* Images.xcassets */,
-				0F7A25D61959C014001B7839 /* green.png */,
-				0F7A25D71959C014001B7839 /* red.png */,
 				0F7A259A19587ADE001B7839 /* Supporting Files */,
 			);
 			path = BeaconGalax;
@@ -231,6 +238,19 @@
 				0F7A25A319587ADE001B7839 /* GXAppDelegate.m */,
 			);
 			name = AppDelegate;
+			sourceTree = "<group>";
+		};
+		0F7F4129195B203900A796AD /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				0F7F412E195B206C00A796AD /* GXBeaconTable.png */,
+				0F7F4130195B22DC00A796AD /* GXBeaconTable-reverse.png */,
+				0F7F412C195B206800A796AD /* GXAction.png */,
+				0F7F412A195B206100A796AD /* me.png */,
+				0F7A25D61959C014001B7839 /* green.png */,
+				0F7A25D71959C014001B7839 /* red.png */,
+			);
+			name = Resources;
 			sourceTree = "<group>";
 		};
 		0FD26D7C1959F32C005E2B95 /* View */ = {
@@ -357,9 +377,13 @@
 				0FD26D821959F689005E2B95 /* GXCustomSectionHeader.xib in Resources */,
 				0F7A25AC19587ADE001B7839 /* Images.xcassets in Resources */,
 				0F7A25D81959C014001B7839 /* green.png in Resources */,
+				0F7F412F195B206C00A796AD /* GXBeaconTable.png in Resources */,
+				0F7F412B195B206100A796AD /* me.png in Resources */,
 				0F7A259E19587ADE001B7839 /* InfoPlist.strings in Resources */,
 				0F7A25D91959C014001B7839 /* red.png in Resources */,
 				0F7A25A719587ADE001B7839 /* Main.storyboard in Resources */,
+				0F7F412D195B206800A796AD /* GXAction.png in Resources */,
+				0F7F4131195B22DC00A796AD /* GXBeaconTable-reverse.png in Resources */,
 				0F7A25DE1959E4AF001B7839 /* GXCustomCell.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
