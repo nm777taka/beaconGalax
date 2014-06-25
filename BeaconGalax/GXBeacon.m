@@ -8,6 +8,7 @@
 
 #import "GXBeacon.h"
 #import "GXBeaconRegion.h"
+#import "GXNotification.h"
 
 @interface GXBeacon()
 
@@ -44,9 +45,30 @@
         self.locationManager.delegate = self;
         
         self.regions = [NSMutableArray new];
+        
+        [[NSNotificationCenter defaultCenter]addObserver:self
+                                                selector:@selector(applicationDidBecomeActive)
+                                                    name:UIApplicationDidBecomeActiveNotification
+                                                  object:nil];
     }
     
     return self;
+}
+
+#pragma mark - GXNotificationCenterハンドラ
+- (void)applicationDidBecomeActive
+{
+    //アプリがフォアグランドになった時にリージョンのステータスをアップデートする
+    
+    [NSTimer bk_scheduledTimerWithTimeInterval:1.0f block:^(NSTimer *timer) {
+        for (GXBeaconRegion *region in self.regions) {
+            if (region.isMonitoring) {
+                [self.locationManager requestStateForRegion:region];
+                
+                NSLog(@"フォアグランドハンドラ");
+            }
+        }
+    } repeats:NO];
 }
 
 #pragma mark - デバイス管理
@@ -54,10 +76,14 @@
 //bluetooh設定状況の通知先
 - (void)peripheralManagerDidUpdateState:(CBPeripheralManager *)peripheral
 {
+    NSLog(@"bluetooth update");
+    
     if ([self isMonitoringCapable]) {
         [self startMonitoringAllRegion];
     } else {
         //stopモニタリング
+        NSLog(@"stopモニタリング");
+        [self stopMonitoringAllRegion];
     }
     
     if ([self.delegate respondsToSelector:@selector(didUpdatePeripheralState:)]) {
@@ -101,6 +127,7 @@
         [self startMonitoringAllRegion];
     } else {
         //モニタリングストップ
+        [self stopMonitoringAllRegion];
     }
     
     if ([self.delegate respondsToSelector:@selector(didUpdateLocationStatus:)]) {
@@ -139,7 +166,8 @@
 
 - (void)stopMonitoring
 {
-    
+    self.monitoringEnabled = NO;
+    [self stopMonitoringAllRegion];
 }
 
 - (void)startMonitoringAllRegion
@@ -161,20 +189,52 @@
     
 }
 
+
 - (void)startMonitoringRegion:(GXBeaconRegion *)region
 {
+    if (!self.monitoringEnabled) {
+        NSLog(@"return 1");
+        return;
+    }
+    if (![self isMonitoringCapable]) {
+        NSLog(@"return 2");
+        return;
+    }
+    if (self.isMonitoring) {
+        NSLog(@"return 3");
+        return;
+    }
+    
+    NSLog(@"monitoring : %@",region.identifier);
+    
     [self.locationManager startMonitoringForRegion:region];
+    
     region.isMonitoring = YES;
 }
 
 - (void)stopMonitoringAllRegion
 {
+    if (!self.isMonitoring) {
+        return;
+    }
     
+    for (GXBeaconRegion *region in self.regions) {
+        [self stopMonitoringRegion:region];
+    }
+    
+    self.isMonitoring = NO;
 }
 
 - (void)stopMonitoringRegion:(GXBeaconRegion *)region
 {
-    
+    [self.locationManager stopMonitoringForRegion:region];
+    [self stopRanging:region];
+    region.isMonitoring = NO;
+    if (region.hasEntered) {
+        region.hasEntered = NO;
+        
+        //notification用のデリゲート
+    }
 }
 
 #pragma mark - Utility -レンジング
@@ -194,6 +254,8 @@
         region.isRanging = NO;
     }
 }
+
+
 
 #pragma mark - リージョンマネジメント
 //リージョンを登録
@@ -371,10 +433,40 @@
             case CLRegionStateOutside:
             case CLRegionStateUnknown:
                 //なにかする
+                [self exitRegion:(CLBeaconRegion *)region];
                 break;
                 
             default:
                 break;
+        }
+    }
+}
+
+- (void)locationManager:(CLLocationManager *)manager monitoringDidFailForRegion:(CLRegion *)region withError:(NSError *)error
+{
+    
+    NSLog(@"monitoringDidFailForRegion");
+    
+    if ([region isKindOfClass:[CLBeaconRegion class]]) {
+        GXBeaconRegion *gxRegion = [self lookupRegion:(CLBeaconRegion *)region];
+        
+        if (!gxRegion) {
+            return;
+        }
+        
+        [self stopMonitoringRegion:gxRegion];
+        self.isMonitoring = NO;
+        
+        if (gxRegion.failCount < GXBeaconRegionFailCountMax) {
+            gxRegion.failCount++;
+            
+            [NSTimer bk_scheduledTimerWithTimeInterval:1.0f block:^(NSTimer *timer) {
+                
+                //モニタリングをトライ
+                NSLog(@"モニタリングtry");
+                [self startMonitoringRegion:gxRegion];
+                
+            } repeats:NO];
         }
     }
 }

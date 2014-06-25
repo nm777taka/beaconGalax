@@ -39,7 +39,7 @@
 - (GXBeaconRegion *)registerRegion:(NSString *)UUIDString major:(CLBeaconMajorValue)major identifier:(NSString *)identifier;
 - (GXBeaconRegion *)registerRegion:(NSString *)UUIDString major:(CLBeaconMajorValue)major minor:(CLBeaconMinorValue)minor identifier:(NSString *)identifier;
 
-
+- (void)requestUpdatgeForStatus;
 - (void)startMonitoring;
 
 

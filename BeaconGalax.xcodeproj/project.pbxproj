@@ -34,6 +34,7 @@
 		0FD26D821959F689005E2B95 /* GXCustomSectionHeader.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0FD26D801959F689005E2B95 /* GXCustomSectionHeader.xib */; };
 		0FD26D85195A0680005E2B95 /* GXGradientView.m in Sources */ = {isa = PBXBuildFile; fileRef = 0FD26D84195A0680005E2B95 /* GXGradientView.m */; };
 		0FD26D89195A0A11005E2B95 /* UIColor+GXtheme.m in Sources */ = {isa = PBXBuildFile; fileRef = 0FD26D88195A0A11005E2B95 /* UIColor+GXtheme.m */; };
+		0FD26D8D195A9820005E2B95 /* GXNotification.m in Sources */ = {isa = PBXBuildFile; fileRef = 0FD26D8C195A9820005E2B95 /* GXNotification.m */; };
 		CEEFFA2740D749D0AE5B5B2D /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 0F597A99B7864A4393B072E4 /* libPods.a */; };
 /* End PBXBuildFile section */
 
@@ -89,6 +90,8 @@
 		0FD26D84195A0680005E2B95 /* GXGradientView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GXGradientView.m; sourceTree = "<group>"; };
 		0FD26D87195A0A11005E2B95 /* UIColor+GXtheme.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIColor+GXtheme.h"; sourceTree = "<group>"; };
 		0FD26D88195A0A11005E2B95 /* UIColor+GXtheme.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIColor+GXtheme.m"; sourceTree = "<group>"; };
+		0FD26D8B195A9820005E2B95 /* GXNotification.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GXNotification.h; sourceTree = "<group>"; };
+		0FD26D8C195A9820005E2B95 /* GXNotification.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GXNotification.m; sourceTree = "<group>"; };
 		E359C94E1AFB4D60B499DEE6 /* Pods.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.xcconfig; path = Pods/Pods.xcconfig; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -266,6 +269,8 @@
 		0FD26D8A195A0E54005E2B95 /* utility */ = {
 			isa = PBXGroup;
 			children = (
+				0FD26D8B195A9820005E2B95 /* GXNotification.h */,
+				0FD26D8C195A9820005E2B95 /* GXNotification.m */,
 			);
 			name = utility;
 			sourceTree = "<group>";
@@ -416,6 +421,7 @@
 				0FD26D89195A0A11005E2B95 /* UIColor+GXtheme.m in Sources */,
 				0F7A25AA19587ADE001B7839 /* GXViewController.m in Sources */,
 				0F7A25D51959B56E001B7839 /* GXBeaconTableViewController.m in Sources */,
+				0FD26D8D195A9820005E2B95 /* GXNotification.m in Sources */,
 				0FD26D7B1959F0E7005E2B95 /* GXTableViewConst.m in Sources */,
 				0F7A25A419587ADE001B7839 /* GXAppDelegate.m in Sources */,
 			);

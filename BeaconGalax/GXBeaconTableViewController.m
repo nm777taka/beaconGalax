@@ -203,6 +203,7 @@
     }
     
     [self.beaconTable reloadData];
+    
 }
 
 - (void)didUpdatePeripheralState:(NSString *)state

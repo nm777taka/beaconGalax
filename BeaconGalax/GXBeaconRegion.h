@@ -8,6 +8,8 @@
 
 #import <CoreLocation/CoreLocation.h>
 
+#define GXBeaconRegionFailCountMax 3
+
 @interface GXBeaconRegion : CLBeaconRegion
 
 @property (nonatomic) BOOL rangingEnabled;
