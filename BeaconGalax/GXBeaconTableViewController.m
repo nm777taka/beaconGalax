@@ -20,7 +20,9 @@
 @interface GXBeaconTableViewController ()
 
 @property GXBeacon *beacon;
-- (IBAction)startMonitoring:(id)sender;
+@property (weak, nonatomic) IBOutlet UIButton *monitoringButton;
+@property GXBeaconMonitoringStatus monitoringStatus;
+- (IBAction)monitoringButtonPushed:(id)sender;
 
 @end
 
@@ -221,8 +223,8 @@
 {
     NSMutableString *bluetoothLabelText = [NSMutableString stringWithFormat:@"Bluetooh:"];
     [bluetoothLabelText appendString:state];
-
     self.bluetoothLabel.text = bluetoothLabelText;
+
 }
 
 - (void)didUpdateLocationStatus:(NSString *)status
@@ -232,10 +234,40 @@
     self.AuthLabel.text = locationLabelText;
 }
 
-#pragma mark - Buttonアクション -
-- (IBAction)startMonitoring:(id)sender {
+- (void)didUpdateMonitoringStatus:(GXBeaconMonitoringStatus)status
+{
+    self.monitoringStatus = status;
     
-    [self.beacon startMonitoring];
+    switch (status) {
+        case kGXBeaconMonitoringStatusDisabled:
+            self.monitoringButton.enabled = NO;
+            [self.monitoringButton setTitle:@"Disable" forState:UIControlStateNormal];
+            break;
+            
+        case kGXBeaconMonitoringStatusMonitoring:
+            self.monitoringButton.enabled = YES;
+            [self.monitoringButton setTitle:@"Monitoring(press to off)" forState:UIControlStateNormal];
+            break;
+        case kGXBeaconMonitoringStatusStopped:
+            self.monitoringButton.enabled = YES;
+            [self.monitoringButton setTitle:@"Stopped(press to on)" forState:UIControlStateNormal];
+            break;
+            
+        default:
+            break;
+    }
+}
+
+#pragma mark - Buttonアクション -
+
+- (IBAction)monitoringButtonPushed:(id)sender {
+    
+    if (self.monitoringStatus == kGXBeaconMonitoringStatusStopped) {
+        [self.beacon startMonitoring];
+    }
+    if (self.monitoringStatus == kGXBeaconMonitoringStatusMonitoring) {
+        [self.beacon stopMonitoring];
+    }
 }
 
 @end

@@ -90,8 +90,12 @@
         
         [self.delegate didUpdatePeripheralState:[self peripheralStateWithString:peripheral.state]];
     }
+    
+    [self updateMonitoringStatus];
 }
 
+#pragma mark - TODO : リファクタリングしたい
+//リファクタリングしたい
 - (NSString *)peripheralStateWithString:(CBPeripheralManagerState)state
 {
     switch (state) {
@@ -108,10 +112,10 @@
             return @"Resetting";
             break;
         case CBPeripheralManagerStateUnknown:
-            return @"UnKnown";
+            return @"Unknown";
             break;
         case CBPeripheralManagerStateUnsupported:
-            return @"Unsupported";
+            return @"UnSupported";
             break;
             
         default:
@@ -134,6 +138,7 @@
         [self.delegate didUpdateLocationStatus:[self locationAuthorizationStateString:status]];
     }
     
+    [self updateMonitoringStatus];
 }
 
 - (NSString *)locationAuthorizationStateString:(CLAuthorizationStatus)status
@@ -187,6 +192,8 @@
     }
     self.isMonitoring = YES;
     
+    [self updateMonitoringStatus];
+
 }
 
 
@@ -210,6 +217,7 @@
     [self.locationManager startMonitoringForRegion:region];
     
     region.isMonitoring = YES;
+    
 }
 
 - (void)stopMonitoringAllRegion
@@ -223,6 +231,8 @@
     }
     
     self.isMonitoring = NO;
+    
+    [self updateMonitoringStatus];
 }
 
 - (void)stopMonitoringRegion:(GXBeaconRegion *)region
@@ -235,7 +245,32 @@
         
         //notification用のデリゲート
     }
+    
 }
+
+- (GXBeaconMonitoringStatus)getUpdateMonitoringStatus
+{
+    if (![self isMonitoringCapable]) {
+        return kGXBeaconMonitoringStatusDisabled;
+    }
+    if (self.isMonitoring) {
+        return kGXBeaconMonitoringStatusMonitoring;
+    } else {
+        return kGXBeaconMonitoringStatusStopped;
+    }
+}
+
+- (void)updateMonitoringStatus
+{
+    GXBeaconMonitoringStatus current = self.monitoringStatus;
+    GXBeaconMonitoringStatus newStatus = [self getUpdateMonitoringStatus];
+    if (current != newStatus) {
+        if ([self.delegate respondsToSelector:@selector(didUpdateMonitoringStatus:)]) {
+            [self.delegate didUpdateMonitoringStatus:newStatus];
+        }
+    }
+}
+
 
 #pragma mark - Utility -レンジング
 - (void)startRanging:(GXBeaconRegion *)region

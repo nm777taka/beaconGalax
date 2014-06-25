@@ -14,6 +14,14 @@
 
 #define kGXBeaconRegionMax 20
 
+typedef enum {
+    
+    kGXBeaconMonitoringStatusDisabled,
+    kGXBeaconMonitoringStatusStopped,
+    kGXBeaconMonitoringStatusMonitoring
+    
+}GXBeaconMonitoringStatus;
+
 @protocol GXBeaconDelegate <NSObject>
 
 //ビーコンがレンジング対象になった場合にテーブルビューを更新する
@@ -25,6 +33,9 @@
 //位置情報サービス設定をラベルに反映
 - (void)didUpdateLocationStatus:(NSString *)status;
 
+//tableViewのモニタリングボタンの状態管理
+- (void)didUpdateMonitoringStatus:(GXBeaconMonitoringStatus)status;
+
 @end
 
 
@@ -33,6 +44,8 @@
 
 @property (nonatomic) NSMutableArray *regions;
 @property (nonatomic,weak) id <GXBeaconDelegate> delegate;
+@property GXBeaconMonitoringStatus monitoringStatus;
+
 
 + (GXBeacon *)sharedManager;
 - (GXBeaconRegion *)registerRegion:(NSString *)UUIDString identifier:(NSString *)identifier;
@@ -41,7 +54,7 @@
 
 - (void)requestUpdatgeForStatus;
 - (void)startMonitoring;
-
+- (void)stopMonitoring;
 
 @end
 
