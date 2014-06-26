@@ -26,6 +26,21 @@
 	<true/>
 	<key>UIMainStoryboardFile</key>
 	<string>Main</string>
+	<key>FacebookAppID</key>
+	<string>559613677480642</string>
+	<key>FacebookDisplayName</key>
+	<string>beaconGalax</string>
+	<key>CFBundleURLTypes</key>
+	<array>
+		<dict>
+			<key>CFBundleURLName</key>
+			<string>com.nm777.BeaconGalax</string>
+			<key>CFBundleURLSchemes</key>
+			<array>
+				<string>fb5596136774806</string>
+			</array>
+		</dict>
+	</array>
 	<key>UIRequiredDeviceCapabilities</key>
 	<array>
 		<string>armv7</string>
