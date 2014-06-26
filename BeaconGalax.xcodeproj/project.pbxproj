@@ -34,6 +34,12 @@
 		0F7F412F195B206C00A796AD /* GXBeaconTable.png in Resources */ = {isa = PBXBuildFile; fileRef = 0F7F412E195B206C00A796AD /* GXBeaconTable.png */; };
 		0F7F4131195B22DC00A796AD /* GXBeaconTable-reverse.png in Resources */ = {isa = PBXBuildFile; fileRef = 0F7F4130195B22DC00A796AD /* GXBeaconTable-reverse.png */; };
 		0F7F4133195C74BF00A796AD /* KiiSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0F7F4132195C74BF00A796AD /* KiiSDK.framework */; };
+		0F7F4135195C751000A796AD /* MobileCoreServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0F7F4134195C751000A796AD /* MobileCoreServices.framework */; };
+		0F7F4137195C751E00A796AD /* Accounts.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0F7F4136195C751E00A796AD /* Accounts.framework */; };
+		0F7F4139195C752800A796AD /* Social.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0F7F4138195C752800A796AD /* Social.framework */; };
+		0F7F413B195C753300A796AD /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0F7F413A195C753300A796AD /* Security.framework */; };
+		0F7F413D195C753B00A796AD /* ImageIO.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0F7F413C195C753B00A796AD /* ImageIO.framework */; };
+		0F7F413F195C754800A796AD /* libsqlite3.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 0F7F413E195C754800A796AD /* libsqlite3.dylib */; };
 		0FD26D7B1959F0E7005E2B95 /* GXTableViewConst.m in Sources */ = {isa = PBXBuildFile; fileRef = 0FD26D7A1959F0E7005E2B95 /* GXTableViewConst.m */; };
 		0FD26D811959F689005E2B95 /* GXCustomSectionHeader.m in Sources */ = {isa = PBXBuildFile; fileRef = 0FD26D7F1959F689005E2B95 /* GXCustomSectionHeader.m */; };
 		0FD26D821959F689005E2B95 /* GXCustomSectionHeader.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0FD26D801959F689005E2B95 /* GXCustomSectionHeader.xib */; };
@@ -91,6 +97,12 @@
 		0F7F412E195B206C00A796AD /* GXBeaconTable.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = GXBeaconTable.png; sourceTree = "<group>"; };
 		0F7F4130195B22DC00A796AD /* GXBeaconTable-reverse.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "GXBeaconTable-reverse.png"; sourceTree = "<group>"; };
 		0F7F4132195C74BF00A796AD /* KiiSDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = KiiSDK.framework; sourceTree = "<group>"; };
+		0F7F4134195C751000A796AD /* MobileCoreServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MobileCoreServices.framework; path = System/Library/Frameworks/MobileCoreServices.framework; sourceTree = SDKROOT; };
+		0F7F4136195C751E00A796AD /* Accounts.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Accounts.framework; path = System/Library/Frameworks/Accounts.framework; sourceTree = SDKROOT; };
+		0F7F4138195C752800A796AD /* Social.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Social.framework; path = System/Library/Frameworks/Social.framework; sourceTree = SDKROOT; };
+		0F7F413A195C753300A796AD /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
+		0F7F413C195C753B00A796AD /* ImageIO.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ImageIO.framework; path = System/Library/Frameworks/ImageIO.framework; sourceTree = SDKROOT; };
+		0F7F413E195C754800A796AD /* libsqlite3.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libsqlite3.dylib; path = usr/lib/libsqlite3.dylib; sourceTree = SDKROOT; };
 		0FD26D791959F0E7005E2B95 /* GXTableViewConst.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GXTableViewConst.h; sourceTree = "<group>"; };
 		0FD26D7A1959F0E7005E2B95 /* GXTableViewConst.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GXTableViewConst.m; sourceTree = "<group>"; };
 		0FD26D7E1959F689005E2B95 /* GXCustomSectionHeader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GXCustomSectionHeader.h; sourceTree = "<group>"; };
@@ -110,6 +122,12 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				0F7F413F195C754800A796AD /* libsqlite3.dylib in Frameworks */,
+				0F7F413D195C753B00A796AD /* ImageIO.framework in Frameworks */,
+				0F7F413B195C753300A796AD /* Security.framework in Frameworks */,
+				0F7F4139195C752800A796AD /* Social.framework in Frameworks */,
+				0F7F4137195C751E00A796AD /* Accounts.framework in Frameworks */,
+				0F7F4135195C751000A796AD /* MobileCoreServices.framework in Frameworks */,
 				0F7A25CF19587E74001B7839 /* CoreLocation.framework in Frameworks */,
 				0F7A259619587ADE001B7839 /* CoreGraphics.framework in Frameworks */,
 				0F7A259819587ADE001B7839 /* UIKit.framework in Frameworks */,
@@ -156,6 +174,12 @@
 		0F7A259219587ADE001B7839 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				0F7F413E195C754800A796AD /* libsqlite3.dylib */,
+				0F7F413C195C753B00A796AD /* ImageIO.framework */,
+				0F7F413A195C753300A796AD /* Security.framework */,
+				0F7F4138195C752800A796AD /* Social.framework */,
+				0F7F4136195C751E00A796AD /* Accounts.framework */,
+				0F7F4134195C751000A796AD /* MobileCoreServices.framework */,
 				0F7F4132195C74BF00A796AD /* KiiSDK.framework */,
 				0F7A25CE19587E74001B7839 /* CoreLocation.framework */,
 				0F7A259319587ADE001B7839 /* Foundation.framework */,
