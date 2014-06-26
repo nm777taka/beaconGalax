@@ -81,7 +81,6 @@
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
-    [self.beaconTable reloadData];
     [self.beacon startMonitoring];
     
     [self.view startCanvasAnimation];

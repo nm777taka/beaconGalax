@@ -33,6 +33,7 @@
 		0F7F412D195B206800A796AD /* GXAction.png in Resources */ = {isa = PBXBuildFile; fileRef = 0F7F412C195B206800A796AD /* GXAction.png */; };
 		0F7F412F195B206C00A796AD /* GXBeaconTable.png in Resources */ = {isa = PBXBuildFile; fileRef = 0F7F412E195B206C00A796AD /* GXBeaconTable.png */; };
 		0F7F4131195B22DC00A796AD /* GXBeaconTable-reverse.png in Resources */ = {isa = PBXBuildFile; fileRef = 0F7F4130195B22DC00A796AD /* GXBeaconTable-reverse.png */; };
+		0F7F4133195C74BF00A796AD /* KiiSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0F7F4132195C74BF00A796AD /* KiiSDK.framework */; };
 		0FD26D7B1959F0E7005E2B95 /* GXTableViewConst.m in Sources */ = {isa = PBXBuildFile; fileRef = 0FD26D7A1959F0E7005E2B95 /* GXTableViewConst.m */; };
 		0FD26D811959F689005E2B95 /* GXCustomSectionHeader.m in Sources */ = {isa = PBXBuildFile; fileRef = 0FD26D7F1959F689005E2B95 /* GXCustomSectionHeader.m */; };
 		0FD26D821959F689005E2B95 /* GXCustomSectionHeader.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0FD26D801959F689005E2B95 /* GXCustomSectionHeader.xib */; };
@@ -89,6 +90,7 @@
 		0F7F412C195B206800A796AD /* GXAction.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = GXAction.png; sourceTree = "<group>"; };
 		0F7F412E195B206C00A796AD /* GXBeaconTable.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = GXBeaconTable.png; sourceTree = "<group>"; };
 		0F7F4130195B22DC00A796AD /* GXBeaconTable-reverse.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "GXBeaconTable-reverse.png"; sourceTree = "<group>"; };
+		0F7F4132195C74BF00A796AD /* KiiSDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = KiiSDK.framework; sourceTree = "<group>"; };
 		0FD26D791959F0E7005E2B95 /* GXTableViewConst.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GXTableViewConst.h; sourceTree = "<group>"; };
 		0FD26D7A1959F0E7005E2B95 /* GXTableViewConst.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GXTableViewConst.m; sourceTree = "<group>"; };
 		0FD26D7E1959F689005E2B95 /* GXCustomSectionHeader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GXCustomSectionHeader.h; sourceTree = "<group>"; };
@@ -113,6 +115,7 @@
 				0F7A259819587ADE001B7839 /* UIKit.framework in Frameworks */,
 				0F7A259419587ADE001B7839 /* Foundation.framework in Frameworks */,
 				CEEFFA2740D749D0AE5B5B2D /* libPods.a in Frameworks */,
+				0F7F4133195C74BF00A796AD /* KiiSDK.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -153,6 +156,7 @@
 		0F7A259219587ADE001B7839 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				0F7F4132195C74BF00A796AD /* KiiSDK.framework */,
 				0F7A25CE19587E74001B7839 /* CoreLocation.framework */,
 				0F7A259319587ADE001B7839 /* Foundation.framework */,
 				0F7A259519587ADE001B7839 /* CoreGraphics.framework */,
@@ -573,6 +577,10 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)",
+				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "BeaconGalax/BeaconGalax-Prefix.pch";
 				INFOPLIST_FILE = "BeaconGalax/BeaconGalax-Info.plist";
@@ -587,6 +595,10 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)",
+				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "BeaconGalax/BeaconGalax-Prefix.pch";
 				INFOPLIST_FILE = "BeaconGalax/BeaconGalax-Info.plist";
