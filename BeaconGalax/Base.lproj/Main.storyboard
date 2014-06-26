@@ -111,7 +111,57 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ZJq-Bh-Ka2" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="353" y="789"/>
+            <point key="canvasLocation" x="423" y="831"/>
+        </scene>
+        <!--Login View Controller-->
+        <scene sceneID="pVw-jq-tED">
+            <objects>
+                <viewController id="D3g-qf-jYO" customClass="GXLoginViewController" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="Hqa-G1-GF8"/>
+                        <viewControllerLayoutGuide type="bottom" id="ceT-N0-zXb"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="FBg-bN-3MM">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="j48-Ef-a3n" customClass="FBLoginView">
+                                <rect key="frame" x="37" y="402" width="240" height="50"/>
+                                <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                            </view>
+                            <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="dwM-WL-WhR" customClass="FBProfilePictureView">
+                                <rect key="frame" x="37" y="151" width="50" height="50"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                            </view>
+                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="6fR-Vf-F0G">
+                                <rect key="frame" x="37" y="89" width="246" height="21"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="eCH-VL-xqN">
+                                <rect key="frame" x="118" y="165" width="159" height="21"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
+                        <color key="backgroundColor" red="0.94991052149999999" green="0.43531729079999998" blue="0.51115577850000005" alpha="1" colorSpace="calibratedRGB"/>
+                    </view>
+                    <navigationItem key="navigationItem" id="6Gx-Pk-qom"/>
+                    <connections>
+                        <outlet property="loginView" destination="j48-Ef-a3n" id="lPd-QH-CC7"/>
+                        <outlet property="nameLabel" destination="eCH-VL-xqN" id="Jcc-Il-bUq"/>
+                        <outlet property="profilePictView" destination="dwM-WL-WhR" id="uCF-6E-KYT"/>
+                        <outlet property="statusLabel" destination="6fR-Vf-F0G" id="aQw-qq-28K"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Hbv-Ve-4PE" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="383" y="-432"/>
         </scene>
         <!--View Controller-->
         <scene sceneID="ufC-wZ-h7g">
@@ -154,6 +204,11 @@
                                 <segue destination="nTi-EP-km8" kind="push" id="YyH-I1-Lgb"/>
                             </connections>
                         </barButtonItem>
+                        <barButtonItem key="rightBarButtonItem" title="login" id="9bd-yr-NcF">
+                            <connections>
+                                <segue destination="D3g-qf-jYO" kind="push" id="pHr-t0-orH"/>
+                            </connections>
+                        </barButtonItem>
                     </navigationItem>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="x5A-6p-PRh" sceneMemberID="firstResponder"/>
@@ -176,7 +231,7 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="M6F-H1-0Hu" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="353" y="110"/>
+            <point key="canvasLocation" x="-107" y="110"/>
         </scene>
     </scenes>
     <resources>
