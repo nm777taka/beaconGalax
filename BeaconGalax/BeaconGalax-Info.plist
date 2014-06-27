@@ -35,7 +35,7 @@
 		<dict>
 			<key>CFBundleURLSchemes</key>
 			<array>
-				<string>fb${559613677480642}</string>
+				<string>fb559613677480642</string>
 			</array>
 			<key>CFBundleURLName</key>
 			<string>com.nm777.${PRODUCT_NAME:rfc1034identifier}</string>

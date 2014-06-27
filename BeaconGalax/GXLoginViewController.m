@@ -37,7 +37,7 @@
     
     self.loginView.delegate = self;
     
-    //[self kiiCloudLogin];
+    [self kiiCloudLogin];
     
 }
 

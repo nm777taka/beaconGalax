@@ -37,7 +37,7 @@
 {
     
     
-    //BOOL wasHandled = [FBAppCall handleOpenURL:url sourceApplication:sourceApplication];
+    BOOL wasHandled = [FBAppCall handleOpenURL:url sourceApplication:sourceApplication];
     
     
     
