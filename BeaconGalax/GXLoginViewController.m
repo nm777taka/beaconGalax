@@ -27,6 +27,7 @@
     return self;
 }
 
+#pragma mark - ViewLifeCycle
 - (void)viewDidLoad
 {
     [super viewDidLoad];
@@ -38,6 +39,14 @@
     self.loginView.delegate = self;
     
     [self kiiCloudLogin];
+    
+}
+
+
+
+- (void)viewDidAppear:(BOOL)animated
+{
+    [super viewDidAppear:animated];
     
 }
 
@@ -65,6 +74,8 @@
 {
     self.profilePictView.profileID = [user objectID];
     self.nameLabel.text = user.name;
+    
+    NSLog(@"プロフィール取得");
 }
 
 //ログイン中を表示する時
@@ -130,6 +141,12 @@
     if (error == nil) {
         
         NSLog(@"login successed");
+        
+        //push通知
+        [Kii enableAPNSWithDevelopmentMode:TRUE andNotificationTypes:UIRemoteNotificationTypeAlert |
+         UIRemoteNotificationTypeSound |
+         UIRemoteNotificationTypeBadge];
+
     } else {
         NSLog(@"error : %@",error);
     }

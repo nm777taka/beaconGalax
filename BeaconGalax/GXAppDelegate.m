@@ -37,11 +37,19 @@
 {
     
     
-    BOOL wasHandled = [FBAppCall handleOpenURL:url sourceApplication:sourceApplication];
-    
-    
-    
     return [KiiSocialConnect handleOpenURL:url];
+}
+
+- (void)application:(UIApplication *)application didRegisterForRemoteNotificationsWithDeviceToken:(NSData *)deviceToken
+{
+    [Kii setAPNSDeviceToken:deviceToken];
+    [KiiPushInstallation installWithBlock:^(KiiPushInstallation *installation, NSError *error) {
+        if (error == nil) {
+            NSLog(@"push installed!");
+        } else {
+            NSLog(@"Error installing: %@",error);
+        }
+    }];
 }
 							
 - (void)applicationWillResignActive:(UIApplication *)application
