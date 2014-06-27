@@ -37,9 +37,11 @@
 {
     
     
-    BOOL wasHandled = [FBAppCall handleOpenURL:url sourceApplication:sourceApplication];
+    //BOOL wasHandled = [FBAppCall handleOpenURL:url sourceApplication:sourceApplication];
     
-    return wasHandled;
+    
+    
+    return [KiiSocialConnect handleOpenURL:url];
 }
 							
 - (void)applicationWillResignActive:(UIApplication *)application

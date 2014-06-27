@@ -37,6 +37,8 @@
     
     self.loginView.delegate = self;
     
+    //[self kiiCloudLogin];
+    
 }
 
 - (void)didReceiveMemoryWarning
@@ -111,6 +113,26 @@
 }
 
 
+#pragma mark - KiiCloudログイン
+- (void)kiiCloudLogin
+{
+    [KiiSocialConnect setupNetwork:kiiSCNFacebook withKey:@"559613677480642" andSecret:nil andOptions:nil];
+    
+    NSDictionary *options = [NSDictionary dictionaryWithObjectsAndKeys:
+                             [NSArray arrayWithObject:@"email"],@"permissions", nil];
+    
+    [KiiSocialConnect logIn:kiiSCNFacebook usingOptions:options withDelegate:self andCallback:@selector(loginFinished:usingNetwork:withError:)];
+    
+}
 
+- (void)loginFinished:(KiiUser *)user usingNetwork:(KiiSocialNetworkName)network withError:(NSError *)error {
+    
+    if (error == nil) {
+        
+        NSLog(@"login successed");
+    } else {
+        NSLog(@"error : %@",error);
+    }
+}
 
 @end
