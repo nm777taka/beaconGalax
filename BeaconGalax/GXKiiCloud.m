@@ -7,6 +7,7 @@
 //
 
 #import "GXKiiCloud.h"
+#import "GXNotification.h"
 
 @implementation GXKiiCloud
 
@@ -56,6 +57,9 @@
         [Kii enableAPNSWithDevelopmentMode:TRUE andNotificationTypes:UIRemoteNotificationTypeAlert |
          UIRemoteNotificationTypeSound |
          UIRemoteNotificationTypeBadge];
+        
+        [[NSNotificationCenter defaultCenter] postNotificationName:GXLoginSuccessedNotification object:nil];
+        
         
     } else {
         NSLog(@"error : %@",error);

@@ -11,5 +11,6 @@
 @interface GXNotification : NSObject
 
 UIKIT_EXTERN  NSString *const GXapplicationDidBecomeActibve;
+UIKIT_EXTERN  NSString *const GXLoginSuccessedNotification;
 
 @end

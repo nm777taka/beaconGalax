@@ -42,6 +42,7 @@
 		0F7F413F195C754800A796AD /* libsqlite3.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 0F7F413E195C754800A796AD /* libsqlite3.dylib */; };
 		0F7F4142195C823000A796AD /* GXLoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0F7F4141195C823000A796AD /* GXLoginViewController.m */; };
 		0F7F4147195E77F200A796AD /* GXKiiCloud.m in Sources */ = {isa = PBXBuildFile; fileRef = 0F7F4146195E77F200A796AD /* GXKiiCloud.m */; };
+		0F7F4149195E9F7700A796AD /* GLAX-U-homeI.png in Resources */ = {isa = PBXBuildFile; fileRef = 0F7F4148195E9F7700A796AD /* GLAX-U-homeI.png */; };
 		0FD26D7B1959F0E7005E2B95 /* GXTableViewConst.m in Sources */ = {isa = PBXBuildFile; fileRef = 0FD26D7A1959F0E7005E2B95 /* GXTableViewConst.m */; };
 		0FD26D811959F689005E2B95 /* GXCustomSectionHeader.m in Sources */ = {isa = PBXBuildFile; fileRef = 0FD26D7F1959F689005E2B95 /* GXCustomSectionHeader.m */; };
 		0FD26D821959F689005E2B95 /* GXCustomSectionHeader.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0FD26D801959F689005E2B95 /* GXCustomSectionHeader.xib */; };
@@ -109,6 +110,7 @@
 		0F7F4141195C823000A796AD /* GXLoginViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GXLoginViewController.m; sourceTree = "<group>"; };
 		0F7F4145195E77F200A796AD /* GXKiiCloud.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GXKiiCloud.h; sourceTree = "<group>"; };
 		0F7F4146195E77F200A796AD /* GXKiiCloud.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GXKiiCloud.m; sourceTree = "<group>"; };
+		0F7F4148195E9F7700A796AD /* GLAX-U-homeI.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "GLAX-U-homeI.png"; sourceTree = "<group>"; };
 		0FD26D791959F0E7005E2B95 /* GXTableViewConst.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GXTableViewConst.h; sourceTree = "<group>"; };
 		0FD26D7A1959F0E7005E2B95 /* GXTableViewConst.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GXTableViewConst.m; sourceTree = "<group>"; };
 		0FD26D7E1959F689005E2B95 /* GXCustomSectionHeader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GXCustomSectionHeader.h; sourceTree = "<group>"; };
@@ -277,6 +279,7 @@
 		0F7F4129195B203900A796AD /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				0F7F4148195E9F7700A796AD /* GLAX-U-homeI.png */,
 				0F7F412E195B206C00A796AD /* GXBeaconTable.png */,
 				0F7F4130195B22DC00A796AD /* GXBeaconTable-reverse.png */,
 				0F7F412C195B206800A796AD /* GXAction.png */,
@@ -435,6 +438,7 @@
 				0F7A25AC19587ADE001B7839 /* Images.xcassets in Resources */,
 				0F7A25D81959C014001B7839 /* green.png in Resources */,
 				0F7F412F195B206C00A796AD /* GXBeaconTable.png in Resources */,
+				0F7F4149195E9F7700A796AD /* GLAX-U-homeI.png in Resources */,
 				0F7F412B195B206100A796AD /* me.png in Resources */,
 				0F7A259E19587ADE001B7839 /* InfoPlist.strings in Resources */,
 				0F7A25D91959C014001B7839 /* red.png in Resources */,

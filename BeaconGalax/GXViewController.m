@@ -48,6 +48,44 @@
     
     self.kiiCloudManager = [GXKiiCloud sharedManager];
     
+
+}
+
+- (void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+    [self.view startCanvasAnimation];
+}
+
+- (void)viewDidAppear:(BOOL)animated
+{
+
+
+}
+
+- (void)didReceiveMemoryWarning
+{
+    [super didReceiveMemoryWarning];
+    // Dispose of any resources that can be recreated.
+}
+
+#pragma mark - Exit
+- (IBAction)goBack:(UIStoryboardSegue *)sender
+{
+    
+}
+
+#pragma mark - Button Action
+- (void)testSelector:(id)sender
+{
+    NSLog(@"touch");
+}
+
+#pragma mark acconts-fb(使うかどうかは今後)
+
+- (void)loginForFBapp
+{
+    
     //accounts
     if (self.accountStore == nil) {
         self.accountStore = [ACAccountStore new];
@@ -82,6 +120,7 @@
                     NSString *accessToken = [facebookCredential oauthToken];
                     NSLog(@"email : %@ , fullname : %@ ,token : %@",email,fullName,accessToken);
                     
+                    
                     //ここでログイン処理
                 }
             } else {
@@ -94,47 +133,7 @@
             }
         });
     }];
-    
 
-}
-
-- (void)viewWillAppear:(BOOL)animated
-{
-    [super viewWillAppear:animated];
-    [self.view startCanvasAnimation];
-}
-
-- (void)viewDidAppear:(BOOL)animated
-{
-//    if (![KiiUser loggedIn])
-//        [self.kiiCloudManager kiiCloudLogin];
-
-}
-
-- (void)didReceiveMemoryWarning
-{
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
-}
-
-#pragma mark - Exit
-- (IBAction)goBack:(UIStoryboardSegue *)sender
-{
-    
-}
-
-#pragma mark - Button Action
-- (void)testSelector:(id)sender
-{
-    NSLog(@"touch");
-}
-
-#pragma mark FB-handle
-- (void)loginViewFetchedUserInfo:(FBLoginView *)loginView user:(id<FBGraphUser>)user
-{
-    self.fbProfileImageView.profileID = [user objectID];
-    
-    NSLog(@"プロフィール取得");
 }
 
 

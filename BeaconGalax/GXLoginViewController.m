@@ -7,12 +7,18 @@
 //
 
 #import "GXLoginViewController.h"
+#import "GXKiiCloud.h"
+#import "GXNotification.h"
+
+#import <FlatUIKit/FlatUIKit.h>
 
 @interface GXLoginViewController ()
 @property (weak, nonatomic) IBOutlet UILabel *statusLabel;
 @property (weak, nonatomic) IBOutlet UILabel *nameLabel;
 @property (weak, nonatomic) IBOutlet FBProfilePictureView *profilePictView;
 @property (weak, nonatomic) IBOutlet FBLoginView *loginView;
+
+@property FUIButton *loginButton;
 
 @end
 
@@ -38,16 +44,37 @@
     
     self.loginView.delegate = self;
     
-    //[self kiiCloudLogin];
+    
+    //init UI
+    //LoginButton
+    self.loginButton = [[FUIButton alloc]initWithFrame:CGRectMake(self.view.center.x - 100 ,self.view.center.y + 100, 200, 50)];
+    self.loginButton.buttonColor = [UIColor turquoiseColor];
+    self.loginButton.shadowColor = [UIColor greenSeaColor];
+    self.loginButton.shadowHeight = 3.0f;
+    self.loginButton.cornerRadius = 6.0f;
+    self.loginButton.titleLabel.font = [UIFont boldFlatFontOfSize:16];
+    [self.loginButton setTitleColor:[UIColor cloudsColor] forState:UIControlStateNormal];
+    [self.loginButton setTitleColor:[UIColor cloudsColor] forState:UIControlStateHighlighted];
+    [self.loginButton setTitle:@"LOGIN" forState:UIControlStateNormal];
+    [self.loginButton addTarget:self action:@selector(loginButtonAction) forControlEvents:UIControlEventTouchUpInside];
+    [self.view addSubview:self.loginButton];
+    
+    //Notification
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(loginHandler) name:GXLoginSuccessedNotification object:nil];
     
 }
 
+- (void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+    [self configureButton];
+    
+}
 
 
 - (void)viewDidAppear:(BOOL)animated
 {
     [super viewDidAppear:animated];
-    [self kiiCloudLogin];
     
 }
 
@@ -55,6 +82,11 @@
 {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
+}
+
+- (void)loginButtonAction
+{
+    [[GXKiiCloud sharedManager] kiiCloudLogin];
 }
 
 /*
@@ -124,33 +156,24 @@
     
 }
 
-
-#pragma mark - KiiCloudログイン
-- (void)kiiCloudLogin
+- (void)configureButton
 {
-    [KiiSocialConnect setupNetwork:kiiSCNFacebook withKey:@"559613677480642" andSecret:nil andOptions:nil];
-    
-    NSDictionary *options = [NSDictionary dictionaryWithObjectsAndKeys:
-                             [NSArray arrayWithObject:@"email"],@"permissions", nil];
-    
-    [KiiSocialConnect logIn:kiiSCNFacebook usingOptions:options withDelegate:self andCallback:@selector(loginFinished:usingNetwork:withError:)];
-    
+    if ([KiiUser loggedIn]) {
+        [self.loginButton setTitle:@"LOGOUT" forState:UIControlStateNormal];
+    } else {
+        [self.loginButton setTitle:@"LOGIN" forState:UIControlStateNormal];
+    }
 }
 
-- (void)loginFinished:(KiiUser *)user usingNetwork:(KiiSocialNetworkName)network withError:(NSError *)error {
-    
-    if (error == nil) {
-        
-        NSLog(@"login successed");
-        
-        //push通知
-        [Kii enableAPNSWithDevelopmentMode:TRUE andNotificationTypes:UIRemoteNotificationTypeAlert |
-         UIRemoteNotificationTypeSound |
-         UIRemoteNotificationTypeBadge];
+#pragma  mark GXNotification
+- (void)loginHandler
+{
+    [self configureButton];
+}
 
-    } else {
-        NSLog(@"error : %@",error);
-    }
+#pragma mark - Exit
+- (IBAction)goBack:(UIStoryboardSegue *)sender
+{
 }
 
 @end
