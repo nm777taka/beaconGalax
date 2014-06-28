@@ -10,11 +10,16 @@
 #import "GXKiiCloud.h"
 #import <CSAnimationView.h>
 #import <FlatUIKit/FlatUIKit.h>
+#import <FacebookSDK/Facebook.h>
+#import <Accounts/Accounts.h>
 
 
 @interface GXViewController ()
 
 @property GXKiiCloud *kiiCloudManager;
+@property (weak, nonatomic) IBOutlet FBProfilePictureView *fbProfileImageView;
+
+@property (nonatomic) ACAccountStore *accountStore;
 
 @end
 
@@ -25,7 +30,8 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-	// Do any additional setup after loading the view, typically from a nib.
+    
+    //UI init
     FUIButton *helpButton = [[FUIButton alloc]initWithFrame:CGRectMake(self.view.frame.size.width / 3, self.view.frame.size.height - 100, 100, 50)];
     
     helpButton.buttonColor = [UIColor turquoiseColor];
@@ -41,6 +47,54 @@
     [self.view addSubview:helpButton];
     
     self.kiiCloudManager = [GXKiiCloud sharedManager];
+    
+    //accounts
+    if (self.accountStore == nil) {
+        self.accountStore = [ACAccountStore new];
+    }
+    
+    //facebokに指定
+    ACAccountType *accountType = [self.accountStore accountTypeWithAccountTypeIdentifier:ACAccountTypeIdentifierFacebook];
+    
+    //許可
+    NSDictionary *options = @{ACFacebookAppIdKey:@"559613677480642",
+                              ACFacebookAudienceKey:ACFacebookAudienceOnlyMe,
+                              ACFacebookPermissionsKey : @[@"email"]};
+    
+    [self.accountStore requestAccessToAccountsWithType:accountType options:options completion:^(BOOL granted, NSError *error) {
+        
+        dispatch_async(dispatch_get_main_queue(), ^{
+            
+            if (granted) {
+                
+                //ユーザがfacebookアカウントへのアクセスを許可した
+                NSArray *facebookAccounts = [self.accountStore accountsWithAccountType:accountType];
+                
+                if (facebookAccounts.count >0) {
+                    ACAccount *facebookAccount = [facebookAccounts lastObject];
+                    
+                    //メールアドレスを取得
+                    NSString *email = facebookAccount.username;
+                    NSString *fullName = [[facebookAccount valueForKey:@"properties"] objectForKey:@"ACUIDisplayUsername"];
+                    
+                    //アクセストークンを取得
+                    ACAccountCredential *facebookCredential = [facebookAccount credential];
+                    NSString *accessToken = [facebookCredential oauthToken];
+                    NSLog(@"email : %@ , fullname : %@ ,token : %@",email,fullName,accessToken);
+                    
+                    //ここでログイン処理
+                }
+            } else {
+                if ([error code] == ACErrorAccountNotFound) {
+                    NSLog(@"iOSにfaceBookアカウントが登録されていません。設定から追加して下さい");
+                } else {
+                    //ユーザが許可しない
+                    NSLog(@"facebookが有効になっていません");
+                }
+            }
+        });
+    }];
+    
 
 }
 
@@ -52,7 +106,8 @@
 
 - (void)viewDidAppear:(BOOL)animated
 {
-    [self.kiiCloudManager kiiCloudLogin];
+//    if (![KiiUser loggedIn])
+//        [self.kiiCloudManager kiiCloudLogin];
 
 }
 
@@ -72,6 +127,14 @@
 - (void)testSelector:(id)sender
 {
     NSLog(@"touch");
+}
+
+#pragma mark FB-handle
+- (void)loginViewFetchedUserInfo:(FBLoginView *)loginView user:(id<FBGraphUser>)user
+{
+    self.fbProfileImageView.profileID = [user objectID];
+    
+    NSLog(@"プロフィール取得");
 }
 
 
