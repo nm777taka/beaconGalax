@@ -35,7 +35,7 @@
 //シングルサインオンの有効
 - (BOOL)application:(UIApplication *)application openURL:(NSURL *)url sourceApplication:(NSString *)sourceApplication annotation:(id)annotation
 {
-    
+    BOOL wasHandled = [FBAppCall handleOpenURL:url sourceApplication:sourceApplication];
     
     return [KiiSocialConnect handleOpenURL:url];
 }

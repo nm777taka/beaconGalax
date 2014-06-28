@@ -8,6 +8,7 @@
 
 #import "GXViewController.h"
 #import <CSAnimationView.h>
+#import <FlatUIKit/FlatUIKit.h>
 
 
 @interface GXViewController ()
@@ -16,11 +17,25 @@
 
 @implementation GXViewController
 
+#pragma mark - ViewLifeCycle
+
 - (void)viewDidLoad
 {
     [super viewDidLoad];
 	// Do any additional setup after loading the view, typically from a nib.
-
+    FUIButton *helpButton = [[FUIButton alloc]initWithFrame:CGRectMake(self.view.frame.size.width / 3, self.view.frame.size.height - 100, 100, 50)];
+    
+    helpButton.buttonColor = [UIColor turquoiseColor];
+    helpButton.shadowColor = [UIColor greenSeaColor];
+    helpButton.shadowHeight = 3.0f;
+    helpButton.cornerRadius = 6.0f;
+    helpButton.titleLabel.font = [UIFont boldFlatFontOfSize:16];
+    [helpButton setTitleColor:[UIColor cloudsColor] forState:UIControlStateNormal];
+    [helpButton setTitleColor:[UIColor cloudsColor] forState:UIControlStateHighlighted];
+    [helpButton setTitle:@"HELP" forState:UIControlStateNormal];
+    [helpButton addTarget:self action:@selector(testSelector:) forControlEvents:UIControlEventTouchUpInside];
+    
+    [self.view addSubview:helpButton];
 
 }
 
@@ -44,6 +59,12 @@
 - (IBAction)goBack:(UIStoryboardSegue *)sender
 {
     
+}
+
+#pragma mark - Button Action
+- (void)testSelector:(id)sender
+{
+    NSLog(@"touch");
 }
 
 

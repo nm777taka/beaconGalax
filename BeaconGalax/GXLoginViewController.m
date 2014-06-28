@@ -38,7 +38,7 @@
     
     self.loginView.delegate = self;
     
-    [self kiiCloudLogin];
+    //[self kiiCloudLogin];
     
 }
 
@@ -47,6 +47,7 @@
 - (void)viewDidAppear:(BOOL)animated
 {
     [super viewDidAppear:animated];
+    [self kiiCloudLogin];
     
 }
 
@@ -130,7 +131,7 @@
     [KiiSocialConnect setupNetwork:kiiSCNFacebook withKey:@"559613677480642" andSecret:nil andOptions:nil];
     
     NSDictionary *options = [NSDictionary dictionaryWithObjectsAndKeys:
-                             [NSArray arrayWithObject:@"email"],@"permissions", nil];
+                             [NSArray arrayWithObject:@"email"],@"permissions",@"public_profile", nil];
     
     [KiiSocialConnect logIn:kiiSCNFacebook usingOptions:options withDelegate:self andCallback:@selector(loginFinished:usingNetwork:withError:)];
     
