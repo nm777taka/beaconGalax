@@ -198,7 +198,7 @@
                         </barButtonItem>
                         <barButtonItem key="rightBarButtonItem" title="Item" id="fuZ-8Q-S4s">
                             <connections>
-                                <segue destination="D3g-qf-jYO" kind="modal" id="RDx-oP-zoK"/>
+                                <segue destination="D3g-qf-jYO" kind="modal" identifier="GoToLoginView" id="RDx-oP-zoK"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>

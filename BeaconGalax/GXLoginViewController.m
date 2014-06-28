@@ -86,7 +86,14 @@
 
 - (void)loginButtonAction
 {
-    [[GXKiiCloud sharedManager] kiiCloudLogin];
+    if ([KiiUser loggedIn]) {
+        [KiiUser logOut];
+    } else if (![KiiUser loggedIn]){
+        [[GXKiiCloud sharedManager] kiiCloudLogin];
+    }
+    
+    [self configureButton];
+    
 }
 
 /*

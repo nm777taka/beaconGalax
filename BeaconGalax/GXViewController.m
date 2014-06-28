@@ -48,6 +48,11 @@
     
     self.kiiCloudManager = [GXKiiCloud sharedManager];
     
+    if (![KiiUser loggedIn]) {
+        
+        [self performSegueWithIdentifier:@"GoToLoginView" sender:self];
+    }
+    
 
 }
 
@@ -59,7 +64,6 @@
 
 - (void)viewDidAppear:(BOOL)animated
 {
-
 
 }
 
