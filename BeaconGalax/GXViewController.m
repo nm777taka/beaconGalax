@@ -7,11 +7,14 @@
 //
 
 #import "GXViewController.h"
+#import "GXKiiCloud.h"
 #import <CSAnimationView.h>
 #import <FlatUIKit/FlatUIKit.h>
 
 
 @interface GXViewController ()
+
+@property GXKiiCloud *kiiCloudManager;
 
 @end
 
@@ -36,6 +39,8 @@
     [helpButton addTarget:self action:@selector(testSelector:) forControlEvents:UIControlEventTouchUpInside];
     
     [self.view addSubview:helpButton];
+    
+    self.kiiCloudManager = [GXKiiCloud sharedManager];
 
 }
 
@@ -47,6 +52,8 @@
 
 - (void)viewDidAppear:(BOOL)animated
 {
+    [self.kiiCloudManager kiiCloudLogin];
+
 }
 
 - (void)didReceiveMemoryWarning

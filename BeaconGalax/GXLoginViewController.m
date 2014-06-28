@@ -131,7 +131,7 @@
     [KiiSocialConnect setupNetwork:kiiSCNFacebook withKey:@"559613677480642" andSecret:nil andOptions:nil];
     
     NSDictionary *options = [NSDictionary dictionaryWithObjectsAndKeys:
-                             [NSArray arrayWithObject:@"email"],@"permissions",@"public_profile", nil];
+                             [NSArray arrayWithObject:@"email"],@"permissions", nil];
     
     [KiiSocialConnect logIn:kiiSCNFacebook usingOptions:options withDelegate:self andCallback:@selector(loginFinished:usingNetwork:withError:)];
     

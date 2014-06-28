@@ -41,6 +41,7 @@
 		0F7F413D195C753B00A796AD /* ImageIO.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0F7F413C195C753B00A796AD /* ImageIO.framework */; };
 		0F7F413F195C754800A796AD /* libsqlite3.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 0F7F413E195C754800A796AD /* libsqlite3.dylib */; };
 		0F7F4142195C823000A796AD /* GXLoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0F7F4141195C823000A796AD /* GXLoginViewController.m */; };
+		0F7F4147195E77F200A796AD /* GXKiiCloud.m in Sources */ = {isa = PBXBuildFile; fileRef = 0F7F4146195E77F200A796AD /* GXKiiCloud.m */; };
 		0FD26D7B1959F0E7005E2B95 /* GXTableViewConst.m in Sources */ = {isa = PBXBuildFile; fileRef = 0FD26D7A1959F0E7005E2B95 /* GXTableViewConst.m */; };
 		0FD26D811959F689005E2B95 /* GXCustomSectionHeader.m in Sources */ = {isa = PBXBuildFile; fileRef = 0FD26D7F1959F689005E2B95 /* GXCustomSectionHeader.m */; };
 		0FD26D821959F689005E2B95 /* GXCustomSectionHeader.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0FD26D801959F689005E2B95 /* GXCustomSectionHeader.xib */; };
@@ -106,6 +107,8 @@
 		0F7F413E195C754800A796AD /* libsqlite3.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libsqlite3.dylib; path = usr/lib/libsqlite3.dylib; sourceTree = SDKROOT; };
 		0F7F4140195C823000A796AD /* GXLoginViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GXLoginViewController.h; sourceTree = "<group>"; };
 		0F7F4141195C823000A796AD /* GXLoginViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GXLoginViewController.m; sourceTree = "<group>"; };
+		0F7F4145195E77F200A796AD /* GXKiiCloud.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GXKiiCloud.h; sourceTree = "<group>"; };
+		0F7F4146195E77F200A796AD /* GXKiiCloud.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GXKiiCloud.m; sourceTree = "<group>"; };
 		0FD26D791959F0E7005E2B95 /* GXTableViewConst.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GXTableViewConst.h; sourceTree = "<group>"; };
 		0FD26D7A1959F0E7005E2B95 /* GXTableViewConst.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GXTableViewConst.m; sourceTree = "<group>"; };
 		0FD26D7E1959F689005E2B95 /* GXCustomSectionHeader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GXCustomSectionHeader.h; sourceTree = "<group>"; };
@@ -249,16 +252,14 @@
 		0F7A25C919587E0C001B7839 /* Controller */ = {
 			isa = PBXGroup;
 			children = (
+				0F7F4144195E77D600A796AD /* kiiCloud */,
+				0F7F4143195E77C300A796AD /* Beacon */,
 				0F7A25CA19587E1E001B7839 /* AppDelegate */,
 				0F7A25A819587ADE001B7839 /* GXViewController.h */,
 				0F7A25A919587ADE001B7839 /* GXViewController.m */,
-				0F7A25CB19587E3B001B7839 /* GXBeacon.h */,
-				0F7A25CC19587E3B001B7839 /* GXBeacon.m */,
-				0F7A25D019588264001B7839 /* GXBeaconRegion.h */,
-				0F7A25D119588264001B7839 /* GXBeaconRegion.m */,
 				0F7A25D31959B56E001B7839 /* GXBeaconTableViewController.h */,
-				0F7A25D41959B56E001B7839 /* GXBeaconTableViewController.m */,
 				0F7F4140195C823000A796AD /* GXLoginViewController.h */,
+				0F7A25D41959B56E001B7839 /* GXBeaconTableViewController.m */,
 				0F7F4141195C823000A796AD /* GXLoginViewController.m */,
 			);
 			name = Controller;
@@ -284,6 +285,26 @@
 				0F7A25D71959C014001B7839 /* red.png */,
 			);
 			name = Resources;
+			sourceTree = "<group>";
+		};
+		0F7F4143195E77C300A796AD /* Beacon */ = {
+			isa = PBXGroup;
+			children = (
+				0F7A25CB19587E3B001B7839 /* GXBeacon.h */,
+				0F7A25CC19587E3B001B7839 /* GXBeacon.m */,
+				0F7A25D019588264001B7839 /* GXBeaconRegion.h */,
+				0F7A25D119588264001B7839 /* GXBeaconRegion.m */,
+			);
+			name = Beacon;
+			sourceTree = "<group>";
+		};
+		0F7F4144195E77D600A796AD /* kiiCloud */ = {
+			isa = PBXGroup;
+			children = (
+				0F7F4145195E77F200A796AD /* GXKiiCloud.h */,
+				0F7F4146195E77F200A796AD /* GXKiiCloud.m */,
+			);
+			name = kiiCloud;
 			sourceTree = "<group>";
 		};
 		0FD26D7C1959F32C005E2B95 /* View */ = {
@@ -474,6 +495,7 @@
 			files = (
 				0FD26D811959F689005E2B95 /* GXCustomSectionHeader.m in Sources */,
 				0F7A25DD1959E4AF001B7839 /* GXCustomCell.m in Sources */,
+				0F7F4147195E77F200A796AD /* GXKiiCloud.m in Sources */,
 				0F7A25D219588264001B7839 /* GXBeaconRegion.m in Sources */,
 				0F7A25CD19587E3B001B7839 /* GXBeacon.m in Sources */,
 				0F7A25A019587ADE001B7839 /* main.m in Sources */,
