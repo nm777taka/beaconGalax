@@ -13,5 +13,7 @@
 + (GXKiiCloud *)sharedManager;
 
 - (void)kiiCloudLogin;
+- (void)createBucket:(NSString *)title;
+- (void)setObject:(KiiObject *)object;
 
 @end

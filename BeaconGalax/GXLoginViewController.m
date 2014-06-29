@@ -109,7 +109,6 @@ static NSInteger  const logOutAlertViewTag = 2;
         logOutAlertView.tag = logOutAlertViewTag;
         
         [logOutAlertView show];
-
         
         
     } else if (![KiiUser loggedIn]){
@@ -217,6 +216,27 @@ static NSInteger  const logOutAlertViewTag = 2;
     loggedInAlertView.tag = logInAlertViewTag;
     
     [loggedInAlertView show];
+    
+    if ([KiiUser loggedIn]) {
+        
+        KiiBucket *bucket = [Kii bucketWithName:@"pushBucket"];
+        NSError *error = nil;
+        BOOL isSubscribed = [KiiPushSubscription checkSubscriptionSynchronous:bucket withError:&error];
+        
+        if (isSubscribed) {
+            //
+        } else {
+            
+            [KiiPushSubscription subscribe:bucket withBlock:^(KiiPushSubscription *subscription, NSError *error) {
+                if (error == nil) {
+                    NSLog(@"bucket succeessd");
+                } else {
+                    NSLog(@"bucket error : %@",error);
+                }
+            }];
+        }
+    }
+
     
     [self configureButton];
     

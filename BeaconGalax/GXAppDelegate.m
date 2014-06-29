@@ -54,11 +54,13 @@
 
 - (void)application:(UIApplication *)application didReceiveRemoteNotification:(NSDictionary *)userInfo
 {
+    
+    NSLog(@"push");
     KiiPushMessage *message = [KiiPushMessage messageFromAPNS:userInfo];
     NSString *title = [message getValueOfKiiMessageField:KiiMessage_BUCKET_ID];
     NSString *description = [message getValueOfKiiMessageField:KiiMessage_TYPE];
     
-    FUIAlertView *loggedInAlertView = [[FUIAlertView alloc] initWithTitle:title message:description delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
+    FUIAlertView *loggedInAlertView = [[FUIAlertView alloc] initWithTitle:@"HELP!!!" message:description delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
     loggedInAlertView.titleLabel.textColor = [UIColor cloudsColor];
     loggedInAlertView.titleLabel.font = [UIFont boldFlatFontOfSize:16];
     

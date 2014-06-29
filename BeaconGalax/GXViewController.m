@@ -21,6 +21,8 @@
 
 @property (nonatomic) ACAccountStore *accountStore;
 
+@property KiiBucket *bucket;
+
 @end
 
 @implementation GXViewController
@@ -48,22 +50,23 @@
     
     self.kiiCloudManager = [GXKiiCloud sharedManager];
     
-    if (![KiiUser loggedIn]) {
-        
-        [self performSegueWithIdentifier:@"GoToLoginView" sender:self];
-    }
-    
 }
 
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
     [self.view startCanvasAnimation];
+
 }
 
 - (void)viewDidAppear:(BOOL)animated
 {
     [super viewDidAppear:animated];
+    
+    if (![KiiUser loggedIn]) {
+        
+        [self performSegueWithIdentifier:@"GoToLoginView" sender:self];
+    }
 
 }
 
@@ -96,7 +99,12 @@
 //    
 //    NSLog(@"timestamp %@",timestamp);
     
+    KiiBucket *bucket = [Kii bucketWithName:@"pushBucket"];
+    KiiObject *newObj = [bucket createObject];
+    NSError *error = nil;
+    [newObj saveSynchronous:&error];
     
+        
 }
 
 #pragma mark acconts-fb(使うかどうかは今後)
