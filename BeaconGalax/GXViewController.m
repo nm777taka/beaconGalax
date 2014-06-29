@@ -82,7 +82,21 @@
 #pragma mark - Button Action
 - (void)testSelector:(id)sender
 {
-    NSLog(@"touch");
+//    //test sertver code　を実行する
+//    KiiServerCodeEntry *entry = [Kii serverCodeEntry:@"server_time"];
+//    
+//    //set the custom paraeters.
+//    
+//    NSError *error = nil;
+//    KiiServerCodeExecResult *result = [entry executeSynchronous:nil withError:&error];
+//    
+//    //Parse
+//    NSDictionary *returenedDict = [result returnedValue];
+//    NSString *timestamp = [returenedDict objectForKey:@"returnedValue"];
+//    
+//    NSLog(@"timestamp %@",timestamp);
+    
+    
 }
 
 #pragma mark acconts-fb(使うかどうかは今後)

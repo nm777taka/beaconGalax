@@ -63,6 +63,7 @@ static NSInteger  const logOutAlertViewTag = 2;
     //Notification
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(loginHandler) name:GXLoginSuccessedNotification object:nil];
     
+    
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -218,6 +219,7 @@ static NSInteger  const logOutAlertViewTag = 2;
     [loggedInAlertView show];
     
     [self configureButton];
+    
 }
 
 #pragma mark - FUIAlertViewDelegate
