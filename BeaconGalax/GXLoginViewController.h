@@ -8,8 +8,10 @@
 
 #import <UIKit/UIKit.h>
 #import <FacebookSDK.h>
+#import <FlatUIKit/FlatUIKit.h>
 
 
-@interface GXLoginViewController : UIViewController<FBLoginViewDelegate>
+
+@interface GXLoginViewController : UIViewController<FBLoginViewDelegate,FUIAlertViewDelegate>
 
 @end

@@ -9,9 +9,6 @@
 #import "GXLoginViewController.h"
 #import "GXKiiCloud.h"
 #import "GXNotification.h"
-
-#import <FlatUIKit/FlatUIKit.h>
-
 @interface GXLoginViewController ()
 @property (weak, nonatomic) IBOutlet UILabel *statusLabel;
 @property (weak, nonatomic) IBOutlet UILabel *nameLabel;
@@ -23,6 +20,10 @@
 @end
 
 @implementation GXLoginViewController
+
+static NSInteger  const logInAlertViewTag = 1;
+static NSInteger  const logOutAlertViewTag = 2;
+
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -88,6 +89,28 @@
 {
     if ([KiiUser loggedIn]) {
         [KiiUser logOut];
+        
+        FUIAlertView *logOutAlertView = [[FUIAlertView alloc] initWithTitle:@"LOGOUT" message:@"GALAXをログアウトしました。" delegate:self cancelButtonTitle:nil otherButtonTitles:@"OK", nil];
+        logOutAlertView.titleLabel.textColor = [UIColor cloudsColor];
+        logOutAlertView.titleLabel.font = [UIFont boldFlatFontOfSize:16];
+        
+        logOutAlertView.alertContainer.backgroundColor = [UIColor midnightBlueColor];
+        logOutAlertView.backgroundOverlay.backgroundColor = [[UIColor cloudsColor] colorWithAlphaComponent:0.8];
+        
+        logOutAlertView.messageLabel.font = [UIFont boldFlatFontOfSize:14];
+        logOutAlertView.messageLabel.textColor = [UIColor cloudsColor];
+        
+        logOutAlertView.defaultButtonFont = [UIFont boldFlatFontOfSize:16];
+        logOutAlertView.defaultButtonColor = [UIColor cloudsColor];
+        logOutAlertView.defaultButtonShadowColor = [UIColor asbestosColor];
+        logOutAlertView.defaultButtonTitleColor = [UIColor asbestosColor];
+        
+        logOutAlertView.tag = logOutAlertViewTag;
+        
+        [logOutAlertView show];
+
+        
+        
     } else if (![KiiUser loggedIn]){
         [[GXKiiCloud sharedManager] kiiCloudLogin];
     }
@@ -175,7 +198,37 @@
 #pragma  mark GXNotification
 - (void)loginHandler
 {
+    FUIAlertView *loggedInAlertView = [[FUIAlertView alloc] initWithTitle:@"HELLO" message:@"GALAXへようこそ" delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
+    loggedInAlertView.titleLabel.textColor = [UIColor cloudsColor];
+    loggedInAlertView.titleLabel.font = [UIFont boldFlatFontOfSize:16];
+    
+    loggedInAlertView.messageLabel.textColor = [UIColor cloudsColor];
+    loggedInAlertView.messageLabel.font = [UIFont boldFlatFontOfSize:14];
+    
+    loggedInAlertView.backgroundOverlay.backgroundColor = [[UIColor cloudsColor] colorWithAlphaComponent:0.8];
+    loggedInAlertView.alertContainer.backgroundColor = [UIColor midnightBlueColor];
+    
+    loggedInAlertView.defaultButtonColor = [UIColor cloudsColor];
+    loggedInAlertView.defaultButtonShadowColor = [UIColor asbestosColor];
+    loggedInAlertView.defaultButtonTitleColor = [UIColor asbestosColor];
+    loggedInAlertView.defaultButtonFont = [UIFont boldFlatFontOfSize:16];
+    
+    loggedInAlertView.tag = logInAlertViewTag;
+    
+    [loggedInAlertView show];
+    
     [self configureButton];
+}
+
+#pragma mark - FUIAlertViewDelegate
+- (void)alertView:(FUIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
+{
+    if (alertView.tag == 1) {
+        NSLog(@"login");
+        [self dismissViewControllerAnimated:YES completion:nil];
+    } else if (alertView.tag == 2) {
+        NSLog(@"logout");
+    }
 }
 
 #pragma mark - Exit

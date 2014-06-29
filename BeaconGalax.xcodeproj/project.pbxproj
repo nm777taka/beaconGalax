@@ -261,8 +261,8 @@
 				0F7A25A919587ADE001B7839 /* GXViewController.m */,
 				0F7F4140195C823000A796AD /* GXLoginViewController.h */,
 				0F7F4141195C823000A796AD /* GXLoginViewController.m */,
-				0F7A25D31959B56E001B7839 /* GXBeaconTableViewController.h */,
 				0F7A25D41959B56E001B7839 /* GXBeaconTableViewController.m */,
+				0F7A25D31959B56E001B7839 /* GXBeaconTableViewController.h */,
 			);
 			name = Controller;
 			sourceTree = "<group>";

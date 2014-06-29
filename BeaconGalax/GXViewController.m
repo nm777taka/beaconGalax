@@ -53,7 +53,6 @@
         [self performSegueWithIdentifier:@"GoToLoginView" sender:self];
     }
     
-
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -64,6 +63,7 @@
 
 - (void)viewDidAppear:(BOOL)animated
 {
+    [super viewDidAppear:animated];
 
 }
 
