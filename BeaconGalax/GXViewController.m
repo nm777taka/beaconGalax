@@ -34,8 +34,7 @@
     [super viewDidLoad];
     
     //UI init
-    FUIButton *helpButton = [[FUIButton alloc]initWithFrame:CGRectMake(self.view.frame.size.width / 3, self.view.frame.size.height - 100, 100, 50)];
-    
+    FUIButton *helpButton = [[FUIButton alloc]initWithFrame:CGRectMake(self.view.center.x - 50, self.view.frame.size.height - 100, 100, 50)];
     helpButton.buttonColor = [UIColor turquoiseColor];
     helpButton.shadowColor = [UIColor greenSeaColor];
     helpButton.shadowHeight = 3.0f;
