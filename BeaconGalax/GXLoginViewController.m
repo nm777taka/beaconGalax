@@ -9,6 +9,7 @@
 #import "GXLoginViewController.h"
 #import "GXKiiCloud.h"
 #import "GXNotification.h"
+#import "GXTopicManager.h"
 #import "GXBucketManager.h"
 @interface GXLoginViewController ()
 @property (weak, nonatomic) IBOutlet UILabel *statusLabel;
@@ -63,6 +64,8 @@ static NSInteger  const logOutAlertViewTag = 2;
     
     //Notification
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(loginHandler) name:GXLoginSuccessedNotification object:nil];
+    
+    
     
     
 }
@@ -238,12 +241,24 @@ static NSInteger  const logOutAlertViewTag = 2;
         }
     }
     
-    
-    //galaxUserとしてApplicationBucketに登録
-    [[GXBucketManager sharedMager] registerGalaxUser:[KiiUser currentUser]];
+    //初回ログイン用処理
+    dispatch_once_t once;
+    dispatch_once(&once, ^{
+        [self signUp];
+    });
 
     [self configureButton];
     
+}
+
+- (void)signUp
+{
+    //galaxUserとしてApplicationBucketに登録
+    [[GXBucketManager sharedMager] registerGalaxUser:[KiiUser currentUser]];
+    
+    //userScopeでnotifyTopictを作成
+    [[GXTopicManager sharedManager] createDefaultUserTopic];
+
 }
 
 #pragma mark - FUIAlertViewDelegate

@@ -45,6 +45,7 @@
 		0F7F4149195E9F7700A796AD /* GLAX-U-homeI.png in Resources */ = {isa = PBXBuildFile; fileRef = 0F7F4148195E9F7700A796AD /* GLAX-U-homeI.png */; };
 		0FA17E371961A09700158421 /* GXBucketManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 0FA17E361961A09700158421 /* GXBucketManager.m */; };
 		0FA17E3A1961A7A400158421 /* GXBucketNameConst.m in Sources */ = {isa = PBXBuildFile; fileRef = 0FA17E391961A7A400158421 /* GXBucketNameConst.m */; };
+		0FA17E3D1961B00100158421 /* GXTopicManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 0FA17E3C1961B00100158421 /* GXTopicManager.m */; };
 		0FD26D7B1959F0E7005E2B95 /* GXTableViewConst.m in Sources */ = {isa = PBXBuildFile; fileRef = 0FD26D7A1959F0E7005E2B95 /* GXTableViewConst.m */; };
 		0FD26D811959F689005E2B95 /* GXCustomSectionHeader.m in Sources */ = {isa = PBXBuildFile; fileRef = 0FD26D7F1959F689005E2B95 /* GXCustomSectionHeader.m */; };
 		0FD26D821959F689005E2B95 /* GXCustomSectionHeader.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0FD26D801959F689005E2B95 /* GXCustomSectionHeader.xib */; };
@@ -117,6 +118,8 @@
 		0FA17E361961A09700158421 /* GXBucketManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GXBucketManager.m; sourceTree = "<group>"; };
 		0FA17E381961A7A400158421 /* GXBucketNameConst.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GXBucketNameConst.h; sourceTree = "<group>"; };
 		0FA17E391961A7A400158421 /* GXBucketNameConst.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GXBucketNameConst.m; sourceTree = "<group>"; };
+		0FA17E3B1961B00100158421 /* GXTopicManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GXTopicManager.h; sourceTree = "<group>"; };
+		0FA17E3C1961B00100158421 /* GXTopicManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GXTopicManager.m; sourceTree = "<group>"; };
 		0FD26D791959F0E7005E2B95 /* GXTableViewConst.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GXTableViewConst.h; sourceTree = "<group>"; };
 		0FD26D7A1959F0E7005E2B95 /* GXTableViewConst.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GXTableViewConst.m; sourceTree = "<group>"; };
 		0FD26D7E1959F689005E2B95 /* GXCustomSectionHeader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GXCustomSectionHeader.h; sourceTree = "<group>"; };
@@ -322,6 +325,8 @@
 			children = (
 				0FA17E351961A09700158421 /* GXBucketManager.h */,
 				0FA17E361961A09700158421 /* GXBucketManager.m */,
+				0FA17E3B1961B00100158421 /* GXTopicManager.h */,
+				0FA17E3C1961B00100158421 /* GXTopicManager.m */,
 			);
 			name = Model;
 			sourceTree = "<group>";
@@ -529,6 +534,7 @@
 				0F7F4142195C823000A796AD /* GXLoginViewController.m in Sources */,
 				0F7A25D51959B56E001B7839 /* GXBeaconTableViewController.m in Sources */,
 				0FD26D8D195A9820005E2B95 /* GXNotification.m in Sources */,
+				0FA17E3D1961B00100158421 /* GXTopicManager.m in Sources */,
 				0FD26D7B1959F0E7005E2B95 /* GXTableViewConst.m in Sources */,
 				0F7A25A419587ADE001B7839 /* GXAppDelegate.m in Sources */,
 			);

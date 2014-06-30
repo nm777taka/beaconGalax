@@ -37,12 +37,12 @@
 
 - (void)registerGalaxUser:(KiiUser *)user
 {
+    KiiBucket *bucket = [Kii bucketWithName:@"galax_user"];
     
-    //初回(サインアップ時のみbucketに登録
-    //GDCで一回だけ実行させる
-    static dispatch_once_t onceToken;
-    dispatch_once(&onceToken,^{
-        KiiBucket *bucket = [Kii bucketWithName:@"galax_user"];
+    KiiClause *clause = [KiiClause equals:@"email" value:user.email];
+    KiiQuery *query = [KiiQuery queryWithClause:clause];
+    
+    if (query == nil) {
         KiiObject *object = [bucket createObject];
         
         [object setObject:user.username forKey:@"name"];
@@ -55,10 +55,14 @@
         if (error != nil) {
             NSLog(@"error:%@",error);
         } else {
-            NSLog(@"succeessed");
+            NSLog(@"ギャラックスユーザバケットへ登録完了");
         }
 
-    });
+    } else {
+        NSLog(@"すでに登録されてます");
+        return;
+    }
+    
 }
 
 @end
