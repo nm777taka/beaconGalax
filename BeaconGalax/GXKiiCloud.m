@@ -8,6 +8,7 @@
 
 #import "GXKiiCloud.h"
 #import "GXNotification.h"
+#import "GXBucketManager.h"
 
 @implementation GXKiiCloud
 

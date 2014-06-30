@@ -9,6 +9,7 @@
 #import "GXLoginViewController.h"
 #import "GXKiiCloud.h"
 #import "GXNotification.h"
+#import "GXBucketManager.h"
 @interface GXLoginViewController ()
 @property (weak, nonatomic) IBOutlet UILabel *statusLabel;
 @property (weak, nonatomic) IBOutlet UILabel *nameLabel;
@@ -236,8 +237,11 @@ static NSInteger  const logOutAlertViewTag = 2;
             }];
         }
     }
-
     
+    
+    //galaxUserとしてApplicationBucketに登録
+    [[GXBucketManager sharedMager] registerGalaxUser:[KiiUser currentUser]];
+
     [self configureButton];
     
 }

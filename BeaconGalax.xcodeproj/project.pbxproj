@@ -43,6 +43,8 @@
 		0F7F4142195C823000A796AD /* GXLoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0F7F4141195C823000A796AD /* GXLoginViewController.m */; };
 		0F7F4147195E77F200A796AD /* GXKiiCloud.m in Sources */ = {isa = PBXBuildFile; fileRef = 0F7F4146195E77F200A796AD /* GXKiiCloud.m */; };
 		0F7F4149195E9F7700A796AD /* GLAX-U-homeI.png in Resources */ = {isa = PBXBuildFile; fileRef = 0F7F4148195E9F7700A796AD /* GLAX-U-homeI.png */; };
+		0FA17E371961A09700158421 /* GXBucketManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 0FA17E361961A09700158421 /* GXBucketManager.m */; };
+		0FA17E3A1961A7A400158421 /* GXBucketNameConst.m in Sources */ = {isa = PBXBuildFile; fileRef = 0FA17E391961A7A400158421 /* GXBucketNameConst.m */; };
 		0FD26D7B1959F0E7005E2B95 /* GXTableViewConst.m in Sources */ = {isa = PBXBuildFile; fileRef = 0FD26D7A1959F0E7005E2B95 /* GXTableViewConst.m */; };
 		0FD26D811959F689005E2B95 /* GXCustomSectionHeader.m in Sources */ = {isa = PBXBuildFile; fileRef = 0FD26D7F1959F689005E2B95 /* GXCustomSectionHeader.m */; };
 		0FD26D821959F689005E2B95 /* GXCustomSectionHeader.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0FD26D801959F689005E2B95 /* GXCustomSectionHeader.xib */; };
@@ -111,6 +113,10 @@
 		0F7F4145195E77F200A796AD /* GXKiiCloud.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GXKiiCloud.h; sourceTree = "<group>"; };
 		0F7F4146195E77F200A796AD /* GXKiiCloud.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GXKiiCloud.m; sourceTree = "<group>"; };
 		0F7F4148195E9F7700A796AD /* GLAX-U-homeI.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "GLAX-U-homeI.png"; sourceTree = "<group>"; };
+		0FA17E351961A09700158421 /* GXBucketManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GXBucketManager.h; sourceTree = "<group>"; };
+		0FA17E361961A09700158421 /* GXBucketManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GXBucketManager.m; sourceTree = "<group>"; };
+		0FA17E381961A7A400158421 /* GXBucketNameConst.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GXBucketNameConst.h; sourceTree = "<group>"; };
+		0FA17E391961A7A400158421 /* GXBucketNameConst.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GXBucketNameConst.m; sourceTree = "<group>"; };
 		0FD26D791959F0E7005E2B95 /* GXTableViewConst.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GXTableViewConst.h; sourceTree = "<group>"; };
 		0FD26D7A1959F0E7005E2B95 /* GXTableViewConst.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GXTableViewConst.m; sourceTree = "<group>"; };
 		0FD26D7E1959F689005E2B95 /* GXCustomSectionHeader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GXCustomSectionHeader.h; sourceTree = "<group>"; };
@@ -202,6 +208,8 @@
 		0F7A259919587ADE001B7839 /* BeaconGalax */ = {
 			isa = PBXGroup;
 			children = (
+				0FA17E3119619EB600158421 /* Model */,
+				0F7F4144195E77D600A796AD /* kiiCloud */,
 				0FD26D8A195A0E54005E2B95 /* utility */,
 				0FD26D86195A09DC005E2B95 /* category */,
 				0FD26D7D1959F343005E2B95 /* const */,
@@ -254,7 +262,6 @@
 		0F7A25C919587E0C001B7839 /* Controller */ = {
 			isa = PBXGroup;
 			children = (
-				0F7F4144195E77D600A796AD /* kiiCloud */,
 				0F7F4143195E77C300A796AD /* Beacon */,
 				0F7A25CA19587E1E001B7839 /* AppDelegate */,
 				0F7A25A819587ADE001B7839 /* GXViewController.h */,
@@ -310,6 +317,15 @@
 			name = kiiCloud;
 			sourceTree = "<group>";
 		};
+		0FA17E3119619EB600158421 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				0FA17E351961A09700158421 /* GXBucketManager.h */,
+				0FA17E361961A09700158421 /* GXBucketManager.m */,
+			);
+			name = Model;
+			sourceTree = "<group>";
+		};
 		0FD26D7C1959F32C005E2B95 /* View */ = {
 			isa = PBXGroup;
 			children = (
@@ -330,6 +346,8 @@
 			children = (
 				0FD26D791959F0E7005E2B95 /* GXTableViewConst.h */,
 				0FD26D7A1959F0E7005E2B95 /* GXTableViewConst.m */,
+				0FA17E381961A7A400158421 /* GXBucketNameConst.h */,
+				0FA17E391961A7A400158421 /* GXBucketNameConst.m */,
 			);
 			name = const;
 			sourceTree = "<group>";
@@ -500,7 +518,9 @@
 				0FD26D811959F689005E2B95 /* GXCustomSectionHeader.m in Sources */,
 				0F7A25DD1959E4AF001B7839 /* GXCustomCell.m in Sources */,
 				0F7F4147195E77F200A796AD /* GXKiiCloud.m in Sources */,
+				0FA17E3A1961A7A400158421 /* GXBucketNameConst.m in Sources */,
 				0F7A25D219588264001B7839 /* GXBeaconRegion.m in Sources */,
+				0FA17E371961A09700158421 /* GXBucketManager.m in Sources */,
 				0F7A25CD19587E3B001B7839 /* GXBeacon.m in Sources */,
 				0F7A25A019587ADE001B7839 /* main.m in Sources */,
 				0FD26D85195A0680005E2B95 /* GXGradientView.m in Sources */,
