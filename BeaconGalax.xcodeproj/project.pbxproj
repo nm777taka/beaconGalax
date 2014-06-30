@@ -211,6 +211,7 @@
 		0F7A259919587ADE001B7839 /* BeaconGalax */ = {
 			isa = PBXGroup;
 			children = (
+				0F7F4143195E77C300A796AD /* Beacon */,
 				0FA17E3119619EB600158421 /* Model */,
 				0F7F4144195E77D600A796AD /* kiiCloud */,
 				0FD26D8A195A0E54005E2B95 /* utility */,
@@ -265,7 +266,6 @@
 		0F7A25C919587E0C001B7839 /* Controller */ = {
 			isa = PBXGroup;
 			children = (
-				0F7F4143195E77C300A796AD /* Beacon */,
 				0F7A25CA19587E1E001B7839 /* AppDelegate */,
 				0F7A25A819587ADE001B7839 /* GXViewController.h */,
 				0F7A25A919587ADE001B7839 /* GXViewController.m */,
