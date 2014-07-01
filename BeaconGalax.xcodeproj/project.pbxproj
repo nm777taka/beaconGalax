@@ -46,6 +46,7 @@
 		0FA17E371961A09700158421 /* GXBucketManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 0FA17E361961A09700158421 /* GXBucketManager.m */; };
 		0FA17E3A1961A7A400158421 /* GXBucketNameConst.m in Sources */ = {isa = PBXBuildFile; fileRef = 0FA17E391961A7A400158421 /* GXBucketNameConst.m */; };
 		0FA17E3D1961B00100158421 /* GXTopicManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 0FA17E3C1961B00100158421 /* GXTopicManager.m */; };
+		0FA17E4019623FB700158421 /* GXUserManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 0FA17E3F19623FB700158421 /* GXUserManager.m */; };
 		0FD26D7B1959F0E7005E2B95 /* GXTableViewConst.m in Sources */ = {isa = PBXBuildFile; fileRef = 0FD26D7A1959F0E7005E2B95 /* GXTableViewConst.m */; };
 		0FD26D811959F689005E2B95 /* GXCustomSectionHeader.m in Sources */ = {isa = PBXBuildFile; fileRef = 0FD26D7F1959F689005E2B95 /* GXCustomSectionHeader.m */; };
 		0FD26D821959F689005E2B95 /* GXCustomSectionHeader.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0FD26D801959F689005E2B95 /* GXCustomSectionHeader.xib */; };
@@ -120,6 +121,8 @@
 		0FA17E391961A7A400158421 /* GXBucketNameConst.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GXBucketNameConst.m; sourceTree = "<group>"; };
 		0FA17E3B1961B00100158421 /* GXTopicManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GXTopicManager.h; sourceTree = "<group>"; };
 		0FA17E3C1961B00100158421 /* GXTopicManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GXTopicManager.m; sourceTree = "<group>"; };
+		0FA17E3E19623FB700158421 /* GXUserManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GXUserManager.h; sourceTree = "<group>"; };
+		0FA17E3F19623FB700158421 /* GXUserManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GXUserManager.m; sourceTree = "<group>"; };
 		0FD26D791959F0E7005E2B95 /* GXTableViewConst.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GXTableViewConst.h; sourceTree = "<group>"; };
 		0FD26D7A1959F0E7005E2B95 /* GXTableViewConst.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GXTableViewConst.m; sourceTree = "<group>"; };
 		0FD26D7E1959F689005E2B95 /* GXCustomSectionHeader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GXCustomSectionHeader.h; sourceTree = "<group>"; };
@@ -327,6 +330,8 @@
 				0FA17E361961A09700158421 /* GXBucketManager.m */,
 				0FA17E3B1961B00100158421 /* GXTopicManager.h */,
 				0FA17E3C1961B00100158421 /* GXTopicManager.m */,
+				0FA17E3E19623FB700158421 /* GXUserManager.h */,
+				0FA17E3F19623FB700158421 /* GXUserManager.m */,
 			);
 			name = Model;
 			sourceTree = "<group>";
@@ -523,6 +528,7 @@
 				0FD26D811959F689005E2B95 /* GXCustomSectionHeader.m in Sources */,
 				0F7A25DD1959E4AF001B7839 /* GXCustomCell.m in Sources */,
 				0F7F4147195E77F200A796AD /* GXKiiCloud.m in Sources */,
+				0FA17E4019623FB700158421 /* GXUserManager.m in Sources */,
 				0FA17E3A1961A7A400158421 /* GXBucketNameConst.m in Sources */,
 				0F7A25D219588264001B7839 /* GXBeaconRegion.m in Sources */,
 				0FA17E371961A09700158421 /* GXBucketManager.m in Sources */,

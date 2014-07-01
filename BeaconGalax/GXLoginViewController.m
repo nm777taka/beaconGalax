@@ -11,6 +11,7 @@
 #import "GXNotification.h"
 #import "GXTopicManager.h"
 #import "GXBucketManager.h"
+#import "GXUserManager.h"
 @interface GXLoginViewController ()
 @property (weak, nonatomic) IBOutlet UILabel *statusLabel;
 @property (weak, nonatomic) IBOutlet UILabel *nameLabel;
@@ -241,25 +242,35 @@ static NSInteger  const logOutAlertViewTag = 2;
         }
     }
     
-    //初回ログイン用処理
-    dispatch_once_t once;
-    dispatch_once(&once, ^{
-        [self signUp];
-    });
-
+    //新規ユーザだった場合はバケットなどの初期化処理
+    //ユーザがすでに追加するカラムを持っていなかったら
+//    if (![[KiiUser currentUser] getObjectForKey:@"isMember"]) {
+//        [[KiiUser currentUser] setObject:[NSNumber numberWithBool:YES] forKey:@"isMember"];
+//        NSError *error = nil;
+//        [[KiiUser currentUser] saveSynchronous:&error];
+//
+//        [self signUp];
+//    }
+    
+    
+    
     [self configureButton];
     
 }
 
-- (void)signUp
-{
-    //galaxUserとしてApplicationBucketに登録
-    [[GXBucketManager sharedMager] registerGalaxUser:[KiiUser currentUser]];
-    
-    //userScopeでnotifyTopictを作成
-    [[GXTopicManager sharedManager] createDefaultUserTopic];
-
-}
+//- (void)signUp
+//{
+//    NSLog(@"signUp");
+//    //galaxUserとしてApplicationBucketに登録
+//    [[GXBucketManager sharedMager] registerGalaxUser:[KiiUser currentUser]];
+//    
+//    //userScopeでnotifyTopictを作成
+//    [[GXTopicManager sharedManager] createDefaultUserTopic];
+//    
+//    //Userに属性を追加
+//    [[GXUserManager sharedManager] addCalam:[KiiUser currentUser]];
+//
+//}
 
 #pragma mark - FUIAlertViewDelegate
 - (void)alertView:(FUIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex

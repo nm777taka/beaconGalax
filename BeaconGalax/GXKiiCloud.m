@@ -9,6 +9,8 @@
 #import "GXKiiCloud.h"
 #import "GXNotification.h"
 #import "GXBucketManager.h"
+#import "GXTopicManager.h"
+#import "GXUserManager.h"
 
 @implementation GXKiiCloud
 
@@ -31,6 +33,7 @@
     
     if (self) {
         //init
+        
     }
     
     return self;
@@ -52,7 +55,29 @@
     
     if (error == nil) {
         
-        NSLog(@"login successed");
+        KiiBucket *bucket = [GXBucketManager sharedMager].galaxUser;
+        
+        NSError *erorr = nil;
+        KiiClause *clause = [KiiClause equals:@"email" value:user.email];
+        KiiQuery *query = [KiiQuery queryWithClause:clause];
+        NSMutableArray *allResult = [NSMutableArray new];
+        KiiQuery *nextQuery;
+        
+        NSArray *results = [bucket executeQuerySynchronous:query withError:&erorr andNext:&nextQuery];
+        
+        [allResult addObjectsFromArray:results];
+        
+        if (allResult.count == 0) {
+            NSLog(@"signUp!!");
+            [[GXBucketManager sharedMager] registerGalaxUser:user];
+            [[GXTopicManager sharedManager] createDefaultUserTopic];
+            
+        } else {
+            NSLog(@"login");
+        }
+        
+        
+                             
         
         //push通知
         [Kii enableAPNSWithDevelopmentMode:TRUE andNotificationTypes:UIRemoteNotificationTypeAlert |
@@ -60,6 +85,7 @@
          UIRemoteNotificationTypeBadge];
         
         [[NSNotificationCenter defaultCenter] postNotificationName:GXLoginSuccessedNotification object:nil];
+        
         
         
     } else {

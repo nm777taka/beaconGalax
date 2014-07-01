@@ -7,6 +7,8 @@
 //
 
 #import "GXBucketManager.h"
+#import "GXUserManager.h"
+#import "GXTopicManager.h"
 
 @implementation GXBucketManager
 
@@ -28,6 +30,7 @@
     
     if (self) {
         //init
+        self.galaxUser = [Kii bucketWithName:@"galax_user"];
     }
     
     return self;
@@ -37,32 +40,25 @@
 
 - (void)registerGalaxUser:(KiiUser *)user
 {
-    KiiBucket *bucket = [Kii bucketWithName:@"galax_user"];
     
-    KiiClause *clause = [KiiClause equals:@"email" value:user.email];
-    KiiQuery *query = [KiiQuery queryWithClause:clause];
+//    KiiClause *clause = [KiiClause equals:@"email" value:user.email];
+//    KiiQuery *query = [KiiQuery queryWithClause:clause];
     
-    if (query == nil) {
-        KiiObject *object = [bucket createObject];
-        
-        [object setObject:user.username forKey:@"name"];
-        [object setObject:user.email forKey:@"email"];
-        [object setObject:user.objectURI forKey:@"uri"];
-        
-        NSError *error = nil;
-        [object saveSynchronous:&error];
-        
-        if (error != nil) {
-            NSLog(@"error:%@",error);
-        } else {
-            NSLog(@"ギャラックスユーザバケットへ登録完了");
-        }
-
+    KiiObject *object = [self.galaxUser createObject];
+    
+    [object setObject:user.username forKey:@"name"];
+    [object setObject:user.email forKey:@"email"];
+    [object setObject:user.objectURI forKey:@"uri"];
+    
+    NSError *error = nil;
+    [object saveSynchronous:&error];
+    
+    if (error != nil) {
+        NSLog(@"error:%@",error);
     } else {
-        NSLog(@"すでに登録されてます");
-        return;
+        NSLog(@"ギャラックスユーザバケットへ登録完了");
     }
-    
+
 }
 
 @end
