@@ -8,6 +8,7 @@
 
 #import "GXViewController.h"
 #import "GXKiiCloud.h"
+#import "GXBucketManager.h"
 #import <CSAnimationView.h>
 #import <FlatUIKit/FlatUIKit.h>
 #import <FacebookSDK/Facebook.h>
@@ -82,6 +83,7 @@
 }
 
 #pragma mark - Button Action
+#pragma mark - とりあえずユーザ追加ボタンにする
 - (void)testSelector:(id)sender
 {
 //    //test sertver code　を実行する
@@ -98,10 +100,8 @@
 //    
 //    NSLog(@"timestamp %@",timestamp);
     
-    KiiBucket *bucket = [Kii bucketWithName:@"pushBucket"];
-    KiiObject *newObj = [bucket createObject];
-    NSError *error = nil;
-    [newObj saveSynchronous:&error];
+    [[GXBucketManager sharedMager] registerNearUser:[KiiUser currentUser]];
+    
     
         
 }

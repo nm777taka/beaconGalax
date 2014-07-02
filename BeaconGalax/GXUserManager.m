@@ -7,6 +7,7 @@
 //
 
 #import "GXUserManager.h"
+#import "GXNotification.h"
 
 @implementation GXUserManager
 
@@ -33,7 +34,7 @@
 }
 
 
-#pragma mark UserFiledC
+#pragma mark UserFiled
 - (void)addCalamAtSignup:(KiiUser *)user
 {
     //とりあえずログインしたら近くにいることにする
@@ -43,16 +44,12 @@
     
     [user setObject:@YES forKey:@"isNear"];
     [user setObject:@YES forKey:@"isMember"];
-//    [user saveWithBlock:^(KiiUser *user, NSError *error) {
-//        if (error) {
-//            NSLog(@"addCalamError:%@",error);
-//        } else {
-//            NSLog(@"add Calam successed");
-//        }
-//    }];
     [user saveSynchronous:&error];
+    
     if (error) {
         NSLog(@"error : %@",error);
+    } else {
+        
     }
     
 }

@@ -71,13 +71,13 @@
             NSLog(@"signUp!!");
             [[GXBucketManager sharedMager] registerGalaxUser:user];
             [[GXTopicManager sharedManager] createDefaultUserTopic];
+            //[[GXUserManager sharedManager] addCalamAtSignup:user];
+            
             
         } else {
             NSLog(@"login");
         }
         
-        
-                             
         
         //push通知
         [Kii enableAPNSWithDevelopmentMode:TRUE andNotificationTypes:UIRemoteNotificationTypeAlert |

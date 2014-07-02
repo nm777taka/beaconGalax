@@ -11,9 +11,12 @@
 @interface GXBucketManager : NSObject
 
 @property (nonatomic) KiiBucket *galaxUser;
+@property (nonatomic) KiiBucket *nearUser;
 
 + (GXBucketManager *)sharedMager;
 - (void)registerGalaxUser:(KiiUser *)user;
+- (void)registerNearUser:(KiiUser *)user;
+
 
 
 @end
