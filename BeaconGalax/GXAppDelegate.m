@@ -57,10 +57,10 @@
     
     NSLog(@"push");
     //パース
-    NSString *name = userInfo[@"From"];
-    NSString *description = userInfo[@"msgBody"];
-    
-    FUIAlertView *loggedInAlertView = [[FUIAlertView alloc] initWithTitle:name message:description delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
+//    NSString *name = userInfo[@"From"];
+//    NSString *description = userInfo[@"msgBody"];
+    NSLog(@"呼ばれた@notification");
+    FUIAlertView *loggedInAlertView = [[FUIAlertView alloc] initWithTitle:@"test" message:@"test" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
     loggedInAlertView.titleLabel.textColor = [UIColor cloudsColor];
     loggedInAlertView.titleLabel.font = [UIFont boldFlatFontOfSize:16];
     

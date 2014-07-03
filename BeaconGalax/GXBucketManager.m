@@ -86,6 +86,9 @@
     
     NSLog(@"registerdUser : %lu",(unsigned long)allResults.count);
     
+    KiiObject *obj = allResults.firstObject;
+    NSLog(@"near user uri : %@",[obj getObjectForKey:@"uri"]);
+    
     return allResults;
     
 }

@@ -13,6 +13,8 @@
 + (GXTopicManager *)sharedManager;
 - (void)createUserTopic:(NSString *)title;
 - (void)createDefaultUserTopic;
+- (void)setACL;
+
 
 
 @end

@@ -242,6 +242,8 @@ static NSInteger  const logOutAlertViewTag = 2;
         }
     }
     
+    [[GXTopicManager sharedManager] setACL];
+    
     
     
     [self configureButton];

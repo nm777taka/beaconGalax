@@ -106,6 +106,8 @@
     self.nearUser = [[GXBucketManager sharedManager] getNearUser:[KiiUser currentUser]];
     
     
+    
+    
     NSLog(@"near user count : %d",self.nearUser.count);
     
     if (self.nearUser.count != 0) {
@@ -114,17 +116,19 @@
         
         for (KiiObject *target in self.nearUser) {
             NSString *targetURI = [target getObjectForKey:@"uri"];
+            NSLog(@"targetURI : %@",targetURI);
             KiiUser *targetUser = [KiiUser userWithURI:targetURI];
+            NSLog(@"target USer name:%@",targetUser.email);
             KiiTopic *targetTopic = [targetUser topicWithName:@"invite_notify"];
             
             KiiAPNSFields *apnsFiled = [KiiAPNSFields createFields];
             
             //ここでpushになにかしら情報を加えることができる
-            NSMutableDictionary *dictionary = [NSMutableDictionary dictionary];
-            [dictionary setObject:targetUser.displayName forKey:@"From"];
-            [dictionary setObject:@"HELP" forKey:@"msgBody"];
-            
-            [apnsFiled setSpecificData:dictionary];
+//            NSMutableDictionary *dictionary = [NSMutableDictionary dictionary];
+//            [dictionary setObject:targetUser.displayName forKey:@"From"];
+//            [dictionary setObject:@"HELP" forKey:@"msgBody"];
+//            
+//            [apnsFiled setSpecificData:dictionary];
             
             KiiPushMessage *message = [KiiPushMessage composeMessageWithAPNSFields:apnsFiled andGCMFields:nil];
             
