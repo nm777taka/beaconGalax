@@ -56,11 +56,11 @@
 {
     
     NSLog(@"push");
-    KiiPushMessage *message = [KiiPushMessage messageFromAPNS:userInfo];
-    NSString *title = [message getValueOfKiiMessageField:KiiMessage_BUCKET_ID];
-    NSString *description = [message getValueOfKiiMessageField:KiiMessage_TYPE];
+    //パース
+    NSString *name = userInfo[@"From"];
+    NSString *description = userInfo[@"msgBody"];
     
-    FUIAlertView *loggedInAlertView = [[FUIAlertView alloc] initWithTitle:@"HELP!!!" message:description delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
+    FUIAlertView *loggedInAlertView = [[FUIAlertView alloc] initWithTitle:name message:description delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
     loggedInAlertView.titleLabel.textColor = [UIColor cloudsColor];
     loggedInAlertView.titleLabel.font = [UIFont boldFlatFontOfSize:16];
     
