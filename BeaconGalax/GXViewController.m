@@ -86,7 +86,7 @@
 }
 
 #pragma mark - Button Action
-#pragma mark - とりあえずユーザ追加ボタンにする
+
 - (void)testSelector:(id)sender
 {
 //    //test sertver code　を実行する

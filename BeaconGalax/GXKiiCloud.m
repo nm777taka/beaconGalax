@@ -58,7 +58,7 @@
         KiiBucket *bucket = [GXBucketManager sharedManager].galaxUser;
         
         NSError *erorr = nil;
-        KiiClause *clause = [KiiClause equals:@"email" value:user.email];
+        KiiClause *clause = [KiiClause equals:@"uri" value:user.objectURI];
         KiiQuery *query = [KiiQuery queryWithClause:clause];
         NSMutableArray *allResult = [NSMutableArray new];
         KiiQuery *nextQuery;
