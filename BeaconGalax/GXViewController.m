@@ -23,6 +23,7 @@
 @property (nonatomic) ACAccountStore *accountStore;
 
 @property KiiBucket *bucket;
+@property NSMutableArray *nearUser;
 
 @end
 
@@ -49,6 +50,8 @@
     [self.view addSubview:helpButton];
     
     self.kiiCloudManager = [GXKiiCloud sharedManager];
+    
+    self.nearUser = [NSMutableArray new];
     
 }
 
@@ -100,10 +103,44 @@
 //    
 //    NSLog(@"timestamp %@",timestamp);
     
-    [[GXBucketManager sharedMager] registerNearUser:[KiiUser currentUser]];
+    self.nearUser = [[GXBucketManager sharedManager] getNearUser:[KiiUser currentUser]];
     
     
+    NSLog(@"near user count : %d",self.nearUser.count);
+    
+    if (self.nearUser.count != 0) {
         
+        NSError *error = nil;
+        
+        for (KiiObject *target in self.nearUser) {
+            NSString *targetURI = [target getObjectForKey:@"uri"];
+            KiiUser *targetUser = [KiiUser userWithURI:targetURI];
+            KiiTopic *targetTopic = [targetUser topicWithName:@"invite_notify"];
+            
+            KiiAPNSFields *apnsFiled = [KiiAPNSFields createFields];
+            
+            //ここでpushになにかしら情報を加えることができる
+            NSMutableDictionary *dictionary = [NSMutableDictionary dictionary];
+            [dictionary setObject:targetUser.displayName forKey:@"From"];
+            [dictionary setObject:@"HELP" forKey:@"msgBody"];
+            
+            [apnsFiled setSpecificData:dictionary];
+            
+            KiiPushMessage *message = [KiiPushMessage composeMessageWithAPNSFields:apnsFiled andGCMFields:nil];
+            
+            //send
+            [targetTopic sendMessageSynchronous:message withError:&error];
+            
+            if (error) {
+                NSLog(@"push message error %@",error);
+            } else {
+                NSLog(@"push message successed");
+            }
+        }
+    
+    }
+    
+    
 }
 
 #pragma mark acconts-fb(使うかどうかは今後)

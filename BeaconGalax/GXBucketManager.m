@@ -13,7 +13,7 @@
 
 @implementation GXBucketManager
 
-+ (GXBucketManager *)sharedMager
++ (GXBucketManager *)sharedManager
 {
     static GXBucketManager *sharedSingleton;
     static dispatch_once_t onceToken;
@@ -46,7 +46,7 @@
     
 //    KiiClause *clause = [KiiClause equals:@"email" value:user.email];
 //    KiiQuery *query = [KiiQuery queryWithClause:clause];
-    
+   
     KiiObject *object = [self.galaxUser createObject];
     
     [object setObject:user.username forKey:@"name"];
@@ -67,13 +67,13 @@
 }
 
 //UserBucket
-- (void)registerNearUser:(KiiUser *)user
+- (NSMutableArray *)getNearUser:(KiiUser *)user
 {
     //ApplicatiaonBucketからparam=nearのやつをひっぱってくる
-    //ユーザ（自分)はのぞく(まだ実装してない)
+
     NSError *error = nil;
     KiiClause *clause1 = [KiiClause equals:@"isNear" value:@YES];
-    KiiClause *clause2 = [KiiClause notEquals:@"email" value:user.email];
+    KiiClause *clause2 = [KiiClause notEquals:@"uri" value:user.objectURI];
     KiiClause *totalClause = [KiiClause and:clause1,clause2,nil];
 
     KiiQuery *query = [KiiQuery queryWithClause:totalClause];
@@ -84,14 +84,9 @@
     
     [allResults addObjectsFromArray:results];
     
-    NSLog(@"registerdUser : %d",allResults.count);
+    NSLog(@"registerdUser : %lu",(unsigned long)allResults.count);
     
-    for (KiiObject *obj in allResults) {
-        KiiObject *newObj = [self.nearUser createObject];
-        
-    }
-    
-    
+    return allResults;
     
 }
 

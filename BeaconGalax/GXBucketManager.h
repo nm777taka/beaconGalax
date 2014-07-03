@@ -13,9 +13,9 @@
 @property (nonatomic) KiiBucket *galaxUser;
 @property (nonatomic) KiiBucket *nearUser;
 
-+ (GXBucketManager *)sharedMager;
++ (GXBucketManager *)sharedManager;
 - (void)registerGalaxUser:(KiiUser *)user;
-- (void)registerNearUser:(KiiUser *)user;
+- (NSMutableArray *)getNearUser:(KiiUser *)user;
 
 
 

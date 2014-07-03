@@ -55,7 +55,7 @@
     
     if (error == nil) {
         
-        KiiBucket *bucket = [GXBucketManager sharedMager].galaxUser;
+        KiiBucket *bucket = [GXBucketManager sharedManager].galaxUser;
         
         NSError *erorr = nil;
         KiiClause *clause = [KiiClause equals:@"email" value:user.email];
@@ -69,7 +69,7 @@
         
         if (allResult.count == 0) {
             NSLog(@"signUp!!");
-            [[GXBucketManager sharedMager] registerGalaxUser:user];
+            [[GXBucketManager sharedManager] registerGalaxUser:user];
             [[GXTopicManager sharedManager] createDefaultUserTopic];
             //[[GXUserManager sharedManager] addCalamAtSignup:user];
             
