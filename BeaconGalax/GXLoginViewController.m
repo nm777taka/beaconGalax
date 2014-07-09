@@ -12,6 +12,7 @@
 #import "GXTopicManager.h"
 #import "GXBucketManager.h"
 #import "GXUserManager.h"
+#import "FUIAlertView+GXAlertView.h"
 @interface GXLoginViewController ()
 @property (weak, nonatomic) IBOutlet UILabel *statusLabel;
 @property (weak, nonatomic) IBOutlet UILabel *nameLabel;
@@ -97,20 +98,7 @@ static NSInteger  const logOutAlertViewTag = 2;
         [KiiUser logOut];
         
         FUIAlertView *logOutAlertView = [[FUIAlertView alloc] initWithTitle:@"LOGOUT" message:@"GALAXをログアウトしました。" delegate:self cancelButtonTitle:nil otherButtonTitles:@"OK", nil];
-        logOutAlertView.titleLabel.textColor = [UIColor cloudsColor];
-        logOutAlertView.titleLabel.font = [UIFont boldFlatFontOfSize:16];
-        
-        logOutAlertView.alertContainer.backgroundColor = [UIColor midnightBlueColor];
-        logOutAlertView.backgroundOverlay.backgroundColor = [[UIColor cloudsColor] colorWithAlphaComponent:0.8];
-        
-        logOutAlertView.messageLabel.font = [UIFont boldFlatFontOfSize:14];
-        logOutAlertView.messageLabel.textColor = [UIColor cloudsColor];
-        
-        logOutAlertView.defaultButtonFont = [UIFont boldFlatFontOfSize:16];
-        logOutAlertView.defaultButtonColor = [UIColor cloudsColor];
-        logOutAlertView.defaultButtonShadowColor = [UIColor asbestosColor];
-        logOutAlertView.defaultButtonTitleColor = [UIColor asbestosColor];
-        
+        logOutAlertView = [FUIAlertView gxLoginTheme:logOutAlertView];
         logOutAlertView.tag = logOutAlertViewTag;
         
         [logOutAlertView show];
@@ -204,19 +192,8 @@ static NSInteger  const logOutAlertViewTag = 2;
 - (void)loginHandler
 {
     FUIAlertView *loggedInAlertView = [[FUIAlertView alloc] initWithTitle:@"HELLO" message:@"GALAXへようこそ" delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
-    loggedInAlertView.titleLabel.textColor = [UIColor cloudsColor];
-    loggedInAlertView.titleLabel.font = [UIFont boldFlatFontOfSize:16];
     
-    loggedInAlertView.messageLabel.textColor = [UIColor cloudsColor];
-    loggedInAlertView.messageLabel.font = [UIFont boldFlatFontOfSize:14];
-    
-    loggedInAlertView.backgroundOverlay.backgroundColor = [[UIColor cloudsColor] colorWithAlphaComponent:0.8];
-    loggedInAlertView.alertContainer.backgroundColor = [UIColor midnightBlueColor];
-    
-    loggedInAlertView.defaultButtonColor = [UIColor cloudsColor];
-    loggedInAlertView.defaultButtonShadowColor = [UIColor asbestosColor];
-    loggedInAlertView.defaultButtonTitleColor = [UIColor asbestosColor];
-    loggedInAlertView.defaultButtonFont = [UIFont boldFlatFontOfSize:16];
+    loggedInAlertView = [FUIAlertView gxLoginTheme:loggedInAlertView];
     
     loggedInAlertView.tag = logInAlertViewTag;
     
