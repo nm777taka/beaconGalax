@@ -32,8 +32,12 @@
     if (self) {
         //init
         self.galaxUser = [Kii bucketWithName:@"galax_user"];
-        self.nearUser = [Kii bucketWithName:@"near_user"];
+        self.questBoard = [Kii bucketWithName:@"quest_board"];
         
+        self.questMember = [Kii bucketWithName:@"quest_member"];
+        
+        self.nearUser = [Kii bucketWithName:@"near_user"];
+        self.joinedQuest = [Kii bucketWithName:@"joined_quest"];
     }
     
     return self;

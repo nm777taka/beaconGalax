@@ -218,14 +218,14 @@
 			isa = PBXGroup;
 			children = (
 				0F7F4143195E77C300A796AD /* Beacon */,
+				0F7F4144195E77D600A796AD /* KiiCloud */,
+				0FD26D8A195A0E54005E2B95 /* Utility */,
+				0FD26D86195A09DC005E2B95 /* Category */,
+				0FD26D7D1959F343005E2B95 /* Const */,
 				0FA17E3119619EB600158421 /* Model */,
-				0F7F4144195E77D600A796AD /* kiiCloud */,
-				0FD26D8A195A0E54005E2B95 /* utility */,
-				0FD26D86195A09DC005E2B95 /* category */,
-				0FD26D7D1959F343005E2B95 /* const */,
 				0FD26D7C1959F32C005E2B95 /* View */,
-				0F7A25C819587DFA001B7839 /* storyboard */,
 				0F7A25C919587E0C001B7839 /* Controller */,
+				0F7A25C819587DFA001B7839 /* storyboard */,
 				0F7A25AB19587ADE001B7839 /* Images.xcassets */,
 				0F7A259A19587ADE001B7839 /* Supporting Files */,
 			);
@@ -317,13 +317,13 @@
 			name = Beacon;
 			sourceTree = "<group>";
 		};
-		0F7F4144195E77D600A796AD /* kiiCloud */ = {
+		0F7F4144195E77D600A796AD /* KiiCloud */ = {
 			isa = PBXGroup;
 			children = (
 				0F7F4145195E77F200A796AD /* GXKiiCloud.h */,
 				0F7F4146195E77F200A796AD /* GXKiiCloud.m */,
 			);
-			name = kiiCloud;
+			name = KiiCloud;
 			sourceTree = "<group>";
 		};
 		0FA17E3119619EB600158421 /* Model */ = {
@@ -354,7 +354,7 @@
 			name = View;
 			sourceTree = "<group>";
 		};
-		0FD26D7D1959F343005E2B95 /* const */ = {
+		0FD26D7D1959F343005E2B95 /* Const */ = {
 			isa = PBXGroup;
 			children = (
 				0FD26D791959F0E7005E2B95 /* GXTableViewConst.h */,
@@ -362,10 +362,10 @@
 				0FA17E381961A7A400158421 /* GXBucketNameConst.h */,
 				0FA17E391961A7A400158421 /* GXBucketNameConst.m */,
 			);
-			name = const;
+			name = Const;
 			sourceTree = "<group>";
 		};
-		0FD26D86195A09DC005E2B95 /* category */ = {
+		0FD26D86195A09DC005E2B95 /* Category */ = {
 			isa = PBXGroup;
 			children = (
 				0FD26D87195A0A11005E2B95 /* UIColor+GXtheme.h */,
@@ -373,16 +373,16 @@
 				0F1B0A7F196D5BFD00E43499 /* FUIAlertView+GXAlertView.h */,
 				0F1B0A80196D5BFD00E43499 /* FUIAlertView+GXAlertView.m */,
 			);
-			name = category;
+			name = Category;
 			sourceTree = "<group>";
 		};
-		0FD26D8A195A0E54005E2B95 /* utility */ = {
+		0FD26D8A195A0E54005E2B95 /* Utility */ = {
 			isa = PBXGroup;
 			children = (
 				0FD26D8B195A9820005E2B95 /* GXNotification.h */,
 				0FD26D8C195A9820005E2B95 /* GXNotification.m */,
 			);
-			name = utility;
+			name = Utility;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */

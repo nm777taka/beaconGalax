@@ -9,9 +9,16 @@
 #import <Foundation/Foundation.h>
 
 @interface GXBucketManager : NSObject
-
+//AppScope
 @property (nonatomic) KiiBucket *galaxUser;
+@property (nonatomic) KiiBucket *questBoard;
+
+//GroupScope
+@property (nonatomic) KiiBucket *questMember;
+
+//UserScope
 @property (nonatomic) KiiBucket *nearUser;
+@property (nonatomic) KiiBucket *joinedQuest;
 
 + (GXBucketManager *)sharedManager;
 - (void)registerGalaxUser:(KiiUser *)user;
