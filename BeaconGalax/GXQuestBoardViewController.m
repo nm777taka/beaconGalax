@@ -7,8 +7,12 @@
 //
 
 #import "GXQuestBoardViewController.h"
+#import "GXQuestTableCell.h"
+#import "GXTableViewConst.h"
 
 @interface GXQuestBoardViewController ()
+
+@property NSMutableArray *questArray;
 
 @end
 
@@ -23,10 +27,26 @@
     return self;
 }
 
+#pragma mark - ViewLifeCycle
 - (void)viewDidLoad
 {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
+    self.questTable.delegate = self;
+    self.questTable.dataSource = self;
+    
+    self.questArray = [NSMutableArray new];
+    
+    //カスタムCellを登録
+    UINib *nib = [UINib nibWithNibName:QuestTableViewCellIdentifier bundle:nil];
+    [self.questTable registerNib:nib forCellReuseIdentifier:@"cell"];
+}
+
+- (void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+    
+    //テーブルデータソース配列フェッチ処理
 }
 
 - (void)didReceiveMemoryWarning
@@ -45,5 +65,45 @@
     // Pass the selected object to the new view controller.
 }
 */
+
+#pragma mark - UITableViewDataSource
+- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
+{
+    return 1;
+}
+
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
+{
+    return 1;
+}
+
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    GXQuestTableCell *cell = [self.questTable dequeueReusableCellWithIdentifier:@"cell"];
+    if (cell == nil) {
+        cell = [[GXQuestTableCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"cell"];
+    }
+    
+    [self configureCell:cell atIndexPath:indexPath];
+    
+    return cell;
+    
+}
+
+#pragma mark -TableViewDelegate
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    return 150;
+}
+
+- (void)configureCell:(GXQuestTableCell *)cell atIndexPath:(NSIndexPath *)indexPath
+{
+    
+    //バケットからフェッチしたobjectの各要素
+    cell.questTitleLable.text = @"test";
+    cell.questDescriptionLabel.text = @"description";
+    
+    
+}
 
 @end

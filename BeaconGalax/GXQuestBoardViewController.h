@@ -7,8 +7,8 @@
 //
 
 #import <UIKit/UIKit.h>
-
-@interface GXQuestBoardViewController : UIViewController
+#import <FlatUIKit/FlatUIKit.h>
+@interface GXQuestBoardViewController : UIViewController<UITableViewDelegate,UITableViewDataSource>
 @property (weak, nonatomic) IBOutlet UITableView *questTable;
 
 @end

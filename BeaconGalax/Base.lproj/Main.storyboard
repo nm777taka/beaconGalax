@@ -187,6 +187,16 @@
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                             </view>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="AZV-WA-s8c">
+                                <rect key="frame" x="240" y="119" width="46" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" title="login">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <segue destination="D3g-qf-jYO" kind="modal" identifier="GoToLoginView" id="6Xy-IE-lGu"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
@@ -196,9 +206,9 @@
                                 <segue destination="nTi-EP-km8" kind="push" id="YyH-I1-Lgb"/>
                             </connections>
                         </barButtonItem>
-                        <barButtonItem key="rightBarButtonItem" title="Item" id="fuZ-8Q-S4s">
+                        <barButtonItem key="rightBarButtonItem" title="Quest" id="fuZ-8Q-S4s">
                             <connections>
-                                <segue destination="D3g-qf-jYO" kind="modal" identifier="GoToLoginView" id="RDx-oP-zoK"/>
+                                <segue destination="b0w-JV-JWa" kind="push" id="8uW-uS-XYU"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
@@ -245,6 +255,7 @@
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                     </view>
+                    <navigationItem key="navigationItem" id="qhv-e8-WNy"/>
                     <connections>
                         <outlet property="questTable" destination="Xbd-IO-NTZ" id="GeW-Rt-mY7"/>
                     </connections>
