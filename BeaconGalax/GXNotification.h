@@ -13,4 +13,6 @@
 UIKIT_EXTERN  NSString *const GXapplicationDidBecomeActibve;
 UIKIT_EXTERN  NSString *const GXLoginSuccessedNotification;
 
+UIKIT_EXTERN NSString *const GXQuestCreatedNotification;
+
 @end

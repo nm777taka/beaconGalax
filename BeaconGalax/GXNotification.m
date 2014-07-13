@@ -13,5 +13,7 @@
 NSString *const GXapplicationDidBecomeActibve = @"GXapplicationDidBecomeActibve";
 NSString *const GXLoginSuccessedNotification = @"GXLoginSuccessedNotification";
 
+NSString *const GXQuestCreatedNotification = @"GXQuestCreatedNotification";
+
 
 @end

@@ -9,8 +9,10 @@
 #import "GXQuestBoardViewController.h"
 #import "GXQuestTableCell.h"
 #import "GXTableViewConst.h"
+#import "GXCollectionViewCell.h"
 
 @interface GXQuestBoardViewController ()
+@property (weak, nonatomic) IBOutlet UICollectionView *questCollectionView;
 
 @property NSMutableArray *questArray;
 
@@ -32,15 +34,39 @@
 {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
-    self.questTable.delegate = self;
-    self.questTable.dataSource = self;
+    
+    self.questCollectionView.delegate = self;
+    self.questCollectionView.dataSource = self;
     
     self.questArray = [NSMutableArray new];
     
-    //カスタムCellを登録
-    UINib *nib = [UINib nibWithNibName:QuestTableViewCellIdentifier bundle:nil];
-    [self.questTable registerNib:nib forCellReuseIdentifier:@"cell"];
+    //QuestCreateButton init
+    FUIButton *questCreateButton = [[FUIButton alloc]initWithFrame:CGRectMake(self.view.center.x - 100, self.view.frame.size.height-50 , 200, 50)];
+    questCreateButton.buttonColor = [UIColor sunflowerColor];
+    questCreateButton.shadowColor = [UIColor orangeColor];
+    questCreateButton.shadowHeight = 3.0f;
+    questCreateButton.cornerRadius = 6.0f;
+    questCreateButton.titleLabel.font = [UIFont boldFlatFontOfSize:16];
+    [questCreateButton setTitleColor:[UIColor cloudsColor] forState:UIControlStateNormal];
+    [questCreateButton setTitleColor:[UIColor cloudsColor] forState:UIControlStateHighlighted];
+    [questCreateButton setTitle:@"Create"forState:UIControlStateNormal];
+    [questCreateButton bk_addEventHandler:^(id sender) {
+        //handler
+        //画面遷移
+        [self performSegueWithIdentifier:@"GoToQuestCreateView" sender:self];
+        
+        
+    } forControlEvents:UIControlEventTouchUpInside];
+    
+    //TableViewの上に出す
+    [self.view insertSubview:questCreateButton aboveSubview:self.view];
+    
+    
+    //CollectionView
+    self.questCollectionView.backgroundColor = [UIColor cloudsColor];
+    
 }
+
 
 - (void)viewWillAppear:(BOOL)animated
 {
@@ -55,55 +81,45 @@
     // Dispose of any resources that can be recreated.
 }
 
-/*
 #pragma mark - Navigation
 
-// In a storyboard-based application, you will often want to do a little preparation before navigation
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
 {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-*/
-
-#pragma mark - UITableViewDataSource
-- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
-{
-    return 1;
-}
-
-- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
-{
-    return 1;
-}
-
-- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    GXQuestTableCell *cell = [self.questTable dequeueReusableCellWithIdentifier:@"cell"];
-    if (cell == nil) {
-        cell = [[GXQuestTableCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"cell"];
-    }
     
-    [self configureCell:cell atIndexPath:indexPath];
+}
+
+#pragma mark - CollectionViewDataSource
+- (NSInteger)numberOfSectionsInCollectionView:(UICollectionView *)collectionView
+{
+    return 1;
+}
+
+- (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section
+{
+    return 10;
+}
+
+- (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath
+{
+    static NSString *cellIdentifier = @"Cell";
+    GXCollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:cellIdentifier forIndexPath:indexPath];
+    cell.layer.cornerRadius = 5.0f;
+    //cell.layer.masksToBounds = NO; //これ絶対
+//    cell.layer.shadowOffset = CGSizeMake(0,3);
+//    cell.layer.shadowColor = [UIColor asbestosColor].CGColor;
+//    cell.layer.shadowOpacity = 0.8;
+    cell.layer.shadowPath = [[UIBezierPath bezierPathWithRect:cell.bounds] CGPath];
+    cell.layer.shouldRasterize = YES;
+    cell.layer.rasterizationScale = [UIScreen mainScreen].scale;
+    
+    cell.titleLabel.text = @"クエスト名";
+    cell.descriptionLabel.text  = @"クエストの詳細";
     
     return cell;
     
 }
 
-#pragma mark -TableViewDelegate
-- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    return 150;
-}
 
-- (void)configureCell:(GXQuestTableCell *)cell atIndexPath:(NSIndexPath *)indexPath
-{
-    
-    //バケットからフェッチしたobjectの各要素
-    cell.questTitleLable.text = @"test";
-    cell.questDescriptionLabel.text = @"description";
-    
-    
-}
+
 
 @end

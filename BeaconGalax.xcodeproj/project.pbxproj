@@ -47,6 +47,13 @@
 		0F821F31196E32F50002664D /* GXQuestBoardViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0F821F30196E32F50002664D /* GXQuestBoardViewController.m */; };
 		0F821F38196E35BD0002664D /* GXQuestTableCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 0F821F36196E35BD0002664D /* GXQuestTableCell.m */; };
 		0F821F39196E35BD0002664D /* GXQuestTableCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0F821F37196E35BD0002664D /* GXQuestTableCell.xib */; };
+		0F821F3C196E91E50002664D /* GXQuestCreateViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0F821F3B196E91E50002664D /* GXQuestCreateViewController.m */; };
+		0F821F42196EA3DC0002664D /* UIPlaceHolderTextView.m in Sources */ = {isa = PBXBuildFile; fileRef = 0F821F41196EA3DC0002664D /* UIPlaceHolderTextView.m */; };
+		0F821F44196EE6820002664D /* Common_ButtonNavigationDone@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 0F821F43196EE6820002664D /* Common_ButtonNavigationDone@2x.png */; };
+		0F821F46196EE68A0002664D /* Common_ButtonNavigationClose@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 0F821F45196EE68A0002664D /* Common_ButtonNavigationClose@2x.png */; };
+		0F821F4C196FCA5D0002664D /* GXQuest.m in Sources */ = {isa = PBXBuildFile; fileRef = 0F821F4B196FCA5D0002664D /* GXQuest.m */; };
+		0F821F5719724EF70002664D /* CHTCollectionViewWaterfallLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = 0F821F5619724EF70002664D /* CHTCollectionViewWaterfallLayout.m */; };
+		0F821F5A197258C50002664D /* GXCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 0F821F59197258C50002664D /* GXCollectionViewCell.m */; };
 		0FA17E371961A09700158421 /* GXBucketManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 0FA17E361961A09700158421 /* GXBucketManager.m */; };
 		0FA17E3A1961A7A400158421 /* GXBucketNameConst.m in Sources */ = {isa = PBXBuildFile; fileRef = 0FA17E391961A7A400158421 /* GXBucketNameConst.m */; };
 		0FA17E3D1961B00100158421 /* GXTopicManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 0FA17E3C1961B00100158421 /* GXTopicManager.m */; };
@@ -126,6 +133,18 @@
 		0F821F35196E35BD0002664D /* GXQuestTableCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GXQuestTableCell.h; sourceTree = "<group>"; };
 		0F821F36196E35BD0002664D /* GXQuestTableCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GXQuestTableCell.m; sourceTree = "<group>"; };
 		0F821F37196E35BD0002664D /* GXQuestTableCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = GXQuestTableCell.xib; sourceTree = "<group>"; };
+		0F821F3A196E91E50002664D /* GXQuestCreateViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GXQuestCreateViewController.h; sourceTree = "<group>"; };
+		0F821F3B196E91E50002664D /* GXQuestCreateViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GXQuestCreateViewController.m; sourceTree = "<group>"; };
+		0F821F40196EA3DC0002664D /* UIPlaceHolderTextView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UIPlaceHolderTextView.h; sourceTree = "<group>"; };
+		0F821F41196EA3DC0002664D /* UIPlaceHolderTextView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UIPlaceHolderTextView.m; sourceTree = "<group>"; };
+		0F821F43196EE6820002664D /* Common_ButtonNavigationDone@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Common_ButtonNavigationDone@2x.png"; sourceTree = "<group>"; };
+		0F821F45196EE68A0002664D /* Common_ButtonNavigationClose@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Common_ButtonNavigationClose@2x.png"; sourceTree = "<group>"; };
+		0F821F4A196FCA5D0002664D /* GXQuest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GXQuest.h; sourceTree = "<group>"; };
+		0F821F4B196FCA5D0002664D /* GXQuest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GXQuest.m; sourceTree = "<group>"; };
+		0F821F5519724EF70002664D /* CHTCollectionViewWaterfallLayout.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CHTCollectionViewWaterfallLayout.h; sourceTree = "<group>"; };
+		0F821F5619724EF70002664D /* CHTCollectionViewWaterfallLayout.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CHTCollectionViewWaterfallLayout.m; sourceTree = "<group>"; };
+		0F821F58197258C50002664D /* GXCollectionViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GXCollectionViewCell.h; sourceTree = "<group>"; };
+		0F821F59197258C50002664D /* GXCollectionViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GXCollectionViewCell.m; sourceTree = "<group>"; };
 		0FA17E351961A09700158421 /* GXBucketManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GXBucketManager.h; sourceTree = "<group>"; };
 		0FA17E361961A09700158421 /* GXBucketManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GXBucketManager.m; sourceTree = "<group>"; };
 		0FA17E381961A7A400158421 /* GXBucketNameConst.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GXBucketNameConst.h; sourceTree = "<group>"; };
@@ -289,6 +308,8 @@
 				0F7A25D31959B56E001B7839 /* GXBeaconTableViewController.h */,
 				0F821F2F196E32F50002664D /* GXQuestBoardViewController.h */,
 				0F821F30196E32F50002664D /* GXQuestBoardViewController.m */,
+				0F821F3A196E91E50002664D /* GXQuestCreateViewController.h */,
+				0F821F3B196E91E50002664D /* GXQuestCreateViewController.m */,
 			);
 			name = Controller;
 			sourceTree = "<group>";
@@ -305,6 +326,8 @@
 		0F7F4129195B203900A796AD /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				0F821F43196EE6820002664D /* Common_ButtonNavigationDone@2x.png */,
+				0F821F45196EE68A0002664D /* Common_ButtonNavigationClose@2x.png */,
 				0F7F4148195E9F7700A796AD /* GLAX-U-homeI.png */,
 				0F7F412E195B206C00A796AD /* GXBeaconTable.png */,
 				0F7F4130195B22DC00A796AD /* GXBeaconTable-reverse.png */,
@@ -345,6 +368,8 @@
 				0FA17E3C1961B00100158421 /* GXTopicManager.m */,
 				0FA17E3E19623FB700158421 /* GXUserManager.h */,
 				0FA17E3F19623FB700158421 /* GXUserManager.m */,
+				0F821F4A196FCA5D0002664D /* GXQuest.h */,
+				0F821F4B196FCA5D0002664D /* GXQuest.m */,
 			);
 			name = Model;
 			sourceTree = "<group>";
@@ -352,6 +377,8 @@
 		0FD26D7C1959F32C005E2B95 /* View */ = {
 			isa = PBXGroup;
 			children = (
+				0F821F5519724EF70002664D /* CHTCollectionViewWaterfallLayout.h */,
+				0F821F5619724EF70002664D /* CHTCollectionViewWaterfallLayout.m */,
 				0F7A25DA1959E4AF001B7839 /* GXCustomCell.h */,
 				0F7A25DB1959E4AF001B7839 /* GXCustomCell.m */,
 				0F7A25DC1959E4AF001B7839 /* GXCustomCell.xib */,
@@ -363,6 +390,8 @@
 				0F821F35196E35BD0002664D /* GXQuestTableCell.h */,
 				0F821F36196E35BD0002664D /* GXQuestTableCell.m */,
 				0F821F37196E35BD0002664D /* GXQuestTableCell.xib */,
+				0F821F58197258C50002664D /* GXCollectionViewCell.h */,
+				0F821F59197258C50002664D /* GXCollectionViewCell.m */,
 			);
 			name = View;
 			sourceTree = "<group>";
@@ -394,6 +423,8 @@
 			children = (
 				0FD26D8B195A9820005E2B95 /* GXNotification.h */,
 				0FD26D8C195A9820005E2B95 /* GXNotification.m */,
+				0F821F40196EA3DC0002664D /* UIPlaceHolderTextView.h */,
+				0F821F41196EA3DC0002664D /* UIPlaceHolderTextView.m */,
 			);
 			name = Utility;
 			sourceTree = "<group>";
@@ -481,6 +512,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				0FD26D821959F689005E2B95 /* GXCustomSectionHeader.xib in Resources */,
+				0F821F44196EE6820002664D /* Common_ButtonNavigationDone@2x.png in Resources */,
 				0F7A25AC19587ADE001B7839 /* Images.xcassets in Resources */,
 				0F7A25D81959C014001B7839 /* green.png in Resources */,
 				0F7F412F195B206C00A796AD /* GXBeaconTable.png in Resources */,
@@ -493,6 +525,7 @@
 				0F7F412D195B206800A796AD /* GXAction.png in Resources */,
 				0F7F4131195B22DC00A796AD /* GXBeaconTable-reverse.png in Resources */,
 				0F7A25DE1959E4AF001B7839 /* GXCustomCell.xib in Resources */,
+				0F821F46196EE68A0002664D /* Common_ButtonNavigationClose@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -549,19 +582,24 @@
 				0F7F4147195E77F200A796AD /* GXKiiCloud.m in Sources */,
 				0FA17E4019623FB700158421 /* GXUserManager.m in Sources */,
 				0FA17E3A1961A7A400158421 /* GXBucketNameConst.m in Sources */,
+				0F821F4C196FCA5D0002664D /* GXQuest.m in Sources */,
 				0F1B0A81196D5BFD00E43499 /* FUIAlertView+GXAlertView.m in Sources */,
 				0F7A25D219588264001B7839 /* GXBeaconRegion.m in Sources */,
 				0FA17E371961A09700158421 /* GXBucketManager.m in Sources */,
+				0F821F5A197258C50002664D /* GXCollectionViewCell.m in Sources */,
 				0F7A25CD19587E3B001B7839 /* GXBeacon.m in Sources */,
 				0F7A25A019587ADE001B7839 /* main.m in Sources */,
 				0FD26D85195A0680005E2B95 /* GXGradientView.m in Sources */,
 				0FD26D89195A0A11005E2B95 /* UIColor+GXtheme.m in Sources */,
+				0F821F3C196E91E50002664D /* GXQuestCreateViewController.m in Sources */,
 				0F7A25AA19587ADE001B7839 /* GXViewController.m in Sources */,
+				0F821F5719724EF70002664D /* CHTCollectionViewWaterfallLayout.m in Sources */,
 				0F7F4142195C823000A796AD /* GXLoginViewController.m in Sources */,
 				0F7A25D51959B56E001B7839 /* GXBeaconTableViewController.m in Sources */,
 				0FD26D8D195A9820005E2B95 /* GXNotification.m in Sources */,
 				0FA17E3D1961B00100158421 /* GXTopicManager.m in Sources */,
 				0FD26D7B1959F0E7005E2B95 /* GXTableViewConst.m in Sources */,
+				0F821F42196EA3DC0002664D /* UIPlaceHolderTextView.m in Sources */,
 				0F7A25A419587ADE001B7839 /* GXAppDelegate.m in Sources */,
 				0F821F38196E35BD0002664D /* GXQuestTableCell.m in Sources */,
 				0F821F31196E32F50002664D /* GXQuestBoardViewController.m in Sources */,

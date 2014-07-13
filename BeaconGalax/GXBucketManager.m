@@ -70,6 +70,23 @@
 
 }
 
+- (void)registerQuest:(GXQuest *)quest
+{
+    KiiObject *object = [self.questBoard createObject];
+    [object setObject:quest.title forKey:@"title"];
+    [object setObject:quest.description forKey:@"description"];
+    [object setObject:quest.isCompleted forKey:@"isComplited"];
+    
+    NSError *error  = nil;
+    [object saveSynchronous:&error];
+    
+    if (error != nil) {
+        NSLog(@"error : %@",error);
+    } else {
+        NSLog(@"クエストの作成に成功");
+    }
+}
+
 //UserBucket
 - (NSMutableArray *)getNearUser:(KiiUser *)user
 {

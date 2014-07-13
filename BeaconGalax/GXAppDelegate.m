@@ -7,7 +7,6 @@
 //
 
 #import "GXAppDelegate.h"
-#import <FacebookSDK.h>
 
 @implementation GXAppDelegate
 
@@ -15,8 +14,6 @@
 {
     // Override point for customization after application launch.
     
-    //facebook SDK 対応クラスをロード
-    [FBLoginView class];
     
     //kiiCloudの設定
     [Kii beginWithID:@"89c1cddc" andKey:@"b84c451265c396ea57d3eb50784cc29a" andSite:kiiSiteJP];
@@ -35,7 +32,6 @@
 //シングルサインオンの有効
 - (BOOL)application:(UIApplication *)application openURL:(NSURL *)url sourceApplication:(NSString *)sourceApplication annotation:(id)annotation
 {
-    BOOL wasHandled = [FBAppCall handleOpenURL:url sourceApplication:sourceApplication];
     
     return [KiiSocialConnect handleOpenURL:url];
 }

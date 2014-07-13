@@ -41,7 +41,6 @@ install_resource()
       ;;
   esac
 }
-install_resource "Facebook-iOS-SDK/src/FBUserSettingsViewResources.bundle"
 install_resource "FlatUIKit/Resources/Lato-Bold.ttf"
 install_resource "FlatUIKit/Resources/Lato-Italic.ttf"
 install_resource "FlatUIKit/Resources/Lato-Light.ttf"

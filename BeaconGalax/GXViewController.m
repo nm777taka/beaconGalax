@@ -11,14 +11,12 @@
 #import "GXBucketManager.h"
 #import <CSAnimationView.h>
 #import <FlatUIKit/FlatUIKit.h>
-#import <FacebookSDK/Facebook.h>
 #import <Accounts/Accounts.h>
 
 
 @interface GXViewController ()
 
 @property GXKiiCloud *kiiCloudManager;
-@property (weak, nonatomic) IBOutlet FBProfilePictureView *fbProfileImageView;
 
 @property (nonatomic) ACAccountStore *accountStore;
 
@@ -68,7 +66,8 @@
     
     if (![KiiUser loggedIn]) {
         
-        [self performSegueWithIdentifier:@"GoToLoginView" sender:self];
+#pragma mark debug用処理
+        //[self performSegueWithIdentifier:@"GoToLoginView" sender:self];
     }
 
 }

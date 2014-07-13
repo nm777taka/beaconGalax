@@ -7,6 +7,7 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "GXQuest.h"
 
 @interface GXBucketManager : NSObject
 //AppScope
@@ -23,7 +24,7 @@
 + (GXBucketManager *)sharedManager;
 - (void)registerGalaxUser:(KiiUser *)user;
 - (NSMutableArray *)getNearUser:(KiiUser *)user;
-
+- (void)registerQuest:(GXQuest *)quest;
 
 
 @end
