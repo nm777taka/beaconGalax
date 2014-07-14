@@ -7,10 +7,12 @@
 //
 
 #import <UIKit/UIKit.h>
+#import <FlatUIKit/FlatUIKit.h>
 
 @interface GXCollectionViewCell : UICollectionViewCell
 @property (weak, nonatomic) IBOutlet UILabel *titleLabel;
 @property (weak, nonatomic) IBOutlet UILabel *descriptionLabel;
-@property (weak, nonatomic) IBOutlet UIImageView *blackView;
+
+@property (weak, nonatomic) IBOutlet FUIButton *joinButton;
 
 @end

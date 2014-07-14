@@ -3,11 +3,14 @@
 #import "GXTableViewConst.h"
 #import "GXCollectionViewCell.h"
 #import "GXBucketManager.h"
+#import "GXNotification.h"
+#import "GXQuestDetialViewController.h"
 
 @interface GXQuestBoardViewController ()
 @property (weak, nonatomic) IBOutlet UICollectionView *questCollectionView;
 
-@property NSMutableArray *questArray;
+@property  NSMutableArray *questArray;
+@property GXQuestDetialViewController *detailViewController;
 
 @end
 
@@ -34,7 +37,7 @@
     self.questArray = [NSMutableArray new];
     
     //QuestCreateButton init
-    FUIButton *questCreateButton = [[FUIButton alloc]initWithFrame:CGRectMake(self.view.center.x - 100, self.view.frame.size.height-100 , 200, 50)];
+    FUIButton *questCreateButton = [[FUIButton alloc]initWithFrame:CGRectMake(self.view.center.x - 100, self.view.frame.size.height-80 , 200, 50)];
     questCreateButton.buttonColor = [UIColor sunflowerColor];
     questCreateButton.shadowColor = [UIColor orangeColor];
     questCreateButton.shadowHeight = 3.0f;
@@ -58,6 +61,9 @@
     //CollectionView
     self.questCollectionView.backgroundColor = [UIColor cloudsColor];
     
+    //notification
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(gxQuestFetchedHandler:) name:GXQuestFetchedNotification object:nil];
+    
 }
 
 
@@ -66,9 +72,7 @@
     [super viewWillAppear:animated];
     
     //テーブルデータソース配列フェッチ処理
-    self.questArray = [[[GXBucketManager sharedManager] fetchQuestWithNotComplited] mutableCopy];
-    
-    NSLog(@"quest count %ld",self.questArray.count);
+    self.questArray = [[GXBucketManager sharedManager] fetchQuestWithNotComplited];
     
     [self.questCollectionView reloadData];
     
@@ -105,7 +109,24 @@
     
     [self configureCell:cell atIndexPath:indexPath];
     
+    
+    
     return cell;
+    
+}
+
+#pragma mark CollectionViewDelegate
+- (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath
+{
+    //notificationで選択されたセルのデータを飛ばす
+    //詳細画面表示
+    if (self.detailViewController == nil) {
+        self.detailViewController = [self.storyboard instantiateViewControllerWithIdentifier:@"QuestDetailView"];
+        
+    }
+    self.detailViewController.quest = self.questArray[indexPath.row];
+    self.detailViewController.view.frame = CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height);
+    [self.view addSubview:self.detailViewController.view];
     
 }
 
@@ -124,9 +145,17 @@
     KiiObject *quest = self.questArray[indexPath.row];
     cell.titleLabel.text = [quest getObjectForKey:@"title"];
     cell.descriptionLabel.text = [quest getObjectForKey:@"description"];
+    
+    
 }
 
-
+#pragma mark GXNotificationHandler
+- (void)gxQuestFetchedHandler:(GXNotification *)info
+{
+    NSLog(@"通知");
+    [self.questCollectionView reloadData];
+    NSLog(@"questArray:%ld",self.questArray.count);
+}
 
 
 @end

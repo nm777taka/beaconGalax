@@ -7,6 +7,7 @@
 //
 
 #import "GXCollectionViewCell.h"
+#import "FUIButton+GXTheme.h"
 #import <FlatUIKit/FlatUIKit.h>
 
 @implementation GXCollectionViewCell
@@ -23,18 +24,23 @@
     return self;
 }
 
+#pragma mark - UI
 - (void)drawRect:(CGRect)rect
 {
     // Drawing code
     self.backgroundColor = [UIColor turquoiseColor];
-    self.blackView.backgroundColor = [[UIColor wetAsphaltColor] colorWithAlphaComponent:0.7];
+    
     
     self.titleLabel.font = [UIFont boldFlatFontOfSize:16];
     self.titleLabel.textColor = [UIColor cloudsColor];
     
     self.descriptionLabel.font = [UIFont boldFlatFontOfSize:10];
     self.descriptionLabel.textColor = [UIColor cloudsColor];
-
+    
+    //クエスト参加ボタン
+    [FUIButton gxQuestTheme:self.joinButton];
+    
+    
 }
 
 

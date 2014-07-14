@@ -141,16 +141,22 @@
     KiiClause *clause = [KiiClause equals:@"isCompleted" value:NO];
     KiiQuery *query = [KiiQuery queryWithClause:clause];
     KiiQuery *nextQuery;
-    NSArray *results = [self.questBoard executeQuerySynchronous:query withError:&error andNext:&nextQuery];
-    [allResult addObjectsFromArray:results];
+   NSArray *results = [self.questBoard executeQuerySynchronous:query withError:&error andNext:&nextQuery];
     
-    if (allResult.count == 0) {
-        NSLog(@"count = 0");
-        return nil;
+    if (error == nil) {
+        [allResult addObjectsFromArray:results];
     }
-    
+//    [self.questBoard executeQuery:query withBlock:^(KiiQuery *query, KiiBucket *bucket, NSArray *results, KiiQuery *nextQuery, NSError *error) {
+//        if (error) {
+//            NSLog(@"error :%@",error);
+//        } else {
+//            NSLog(@"resutls-count %u",results.count
+//                  );
+//            [allResult addObjectsFromArray:results];
+//            
+//        }
+//    }];
     return allResult;
-    
 }
 
 @end

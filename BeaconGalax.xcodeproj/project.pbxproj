@@ -64,6 +64,8 @@
 		0FD26D85195A0680005E2B95 /* GXGradientView.m in Sources */ = {isa = PBXBuildFile; fileRef = 0FD26D84195A0680005E2B95 /* GXGradientView.m */; };
 		0FD26D89195A0A11005E2B95 /* UIColor+GXtheme.m in Sources */ = {isa = PBXBuildFile; fileRef = 0FD26D88195A0A11005E2B95 /* UIColor+GXtheme.m */; };
 		0FD26D8D195A9820005E2B95 /* GXNotification.m in Sources */ = {isa = PBXBuildFile; fileRef = 0FD26D8C195A9820005E2B95 /* GXNotification.m */; };
+		0FF97538197398A100C1C66C /* FUIButton+GXTheme.m in Sources */ = {isa = PBXBuildFile; fileRef = 0FF97537197398A100C1C66C /* FUIButton+GXTheme.m */; };
+		0FF9753E1973C2C500C1C66C /* GXQuestDetialViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0FF9753D1973C2C500C1C66C /* GXQuestDetialViewController.m */; };
 		CEEFFA2740D749D0AE5B5B2D /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 0F597A99B7864A4393B072E4 /* libPods.a */; };
 /* End PBXBuildFile section */
 
@@ -164,6 +166,10 @@
 		0FD26D88195A0A11005E2B95 /* UIColor+GXtheme.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIColor+GXtheme.m"; sourceTree = "<group>"; };
 		0FD26D8B195A9820005E2B95 /* GXNotification.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GXNotification.h; sourceTree = "<group>"; };
 		0FD26D8C195A9820005E2B95 /* GXNotification.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GXNotification.m; sourceTree = "<group>"; };
+		0FF97536197398A100C1C66C /* FUIButton+GXTheme.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "FUIButton+GXTheme.h"; sourceTree = "<group>"; };
+		0FF97537197398A100C1C66C /* FUIButton+GXTheme.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "FUIButton+GXTheme.m"; sourceTree = "<group>"; };
+		0FF9753C1973C2C500C1C66C /* GXQuestDetialViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GXQuestDetialViewController.h; sourceTree = "<group>"; };
+		0FF9753D1973C2C500C1C66C /* GXQuestDetialViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GXQuestDetialViewController.m; sourceTree = "<group>"; };
 		E359C94E1AFB4D60B499DEE6 /* Pods.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.xcconfig; path = Pods/Pods.xcconfig; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -310,6 +316,8 @@
 				0F821F30196E32F50002664D /* GXQuestBoardViewController.m */,
 				0F821F3A196E91E50002664D /* GXQuestCreateViewController.h */,
 				0F821F3B196E91E50002664D /* GXQuestCreateViewController.m */,
+				0FF9753C1973C2C500C1C66C /* GXQuestDetialViewController.h */,
+				0FF9753D1973C2C500C1C66C /* GXQuestDetialViewController.m */,
 			);
 			name = Controller;
 			sourceTree = "<group>";
@@ -414,6 +422,8 @@
 				0FD26D88195A0A11005E2B95 /* UIColor+GXtheme.m */,
 				0F1B0A7F196D5BFD00E43499 /* FUIAlertView+GXAlertView.h */,
 				0F1B0A80196D5BFD00E43499 /* FUIAlertView+GXAlertView.m */,
+				0FF97536197398A100C1C66C /* FUIButton+GXTheme.h */,
+				0FF97537197398A100C1C66C /* FUIButton+GXTheme.m */,
 			);
 			name = Category;
 			sourceTree = "<group>";
@@ -581,6 +591,7 @@
 				0F7A25DD1959E4AF001B7839 /* GXCustomCell.m in Sources */,
 				0F7F4147195E77F200A796AD /* GXKiiCloud.m in Sources */,
 				0FA17E4019623FB700158421 /* GXUserManager.m in Sources */,
+				0FF97538197398A100C1C66C /* FUIButton+GXTheme.m in Sources */,
 				0FA17E3A1961A7A400158421 /* GXBucketNameConst.m in Sources */,
 				0F821F4C196FCA5D0002664D /* GXQuest.m in Sources */,
 				0F1B0A81196D5BFD00E43499 /* FUIAlertView+GXAlertView.m in Sources */,
@@ -591,6 +602,7 @@
 				0F7A25A019587ADE001B7839 /* main.m in Sources */,
 				0FD26D85195A0680005E2B95 /* GXGradientView.m in Sources */,
 				0FD26D89195A0A11005E2B95 /* UIColor+GXtheme.m in Sources */,
+				0FF9753E1973C2C500C1C66C /* GXQuestDetialViewController.m in Sources */,
 				0F821F3C196E91E50002664D /* GXQuestCreateViewController.m in Sources */,
 				0F7A25AA19587ADE001B7839 /* GXViewController.m in Sources */,
 				0F821F5719724EF70002664D /* CHTCollectionViewWaterfallLayout.m in Sources */,
