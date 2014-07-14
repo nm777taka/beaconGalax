@@ -23,8 +23,13 @@
 
 + (GXBucketManager *)sharedManager;
 - (void)registerGalaxUser:(KiiUser *)user;
-- (NSMutableArray *)getNearUser:(KiiUser *)user;
 - (void)registerQuest:(GXQuest *)quest;
+- (NSMutableArray *)fetchQuestWithNotComplited;
+
+
+
+- (NSMutableArray *)getNearUser:(KiiUser *)user;
+
 
 
 @end

@@ -12,10 +12,14 @@
 #import "GXQuest.h"
 #import "FUIAlertView+GXAlertView.h"
 #import "GXNotification.h"
+
+#define ALERT_QUEST_SUCCESS 1
+
 @interface GXQuestCreateViewController ()
 
 
 @end
+
 
 @implementation GXQuestCreateViewController
 
@@ -102,7 +106,7 @@
             //アラート
             FUIAlertView *alert = [[FUIAlertView alloc] initWithTitle:@"test" message:@"test" delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
             
-            alert = [FUIAlertView gxLoginTheme:alert];
+            [FUIAlertView gxLoginTheme:alert];
             [alert show];
             
             
@@ -134,12 +138,29 @@
 
 - (void)alertView:(FUIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
 {
+    switch (alertView.tag) {
+        case ALERT_QUEST_SUCCESS:
+            if (buttonIndex == 0) {
+                [self dismissViewControllerAnimated:YES completion:nil];
+            }
+            break;
+            
+        default:
+            break;
+    }
 }
 
 #pragma makr - GXNotification
 - (void)questCreated:(GXNotification *)notification
 {
     NSLog(@"クエスト作成成功");
+    
     //アラート
+    FUIAlertView *alert = [[FUIAlertView alloc] initWithTitle:@"テスト" message:@"テスト" delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
+    
+    [FUIAlertView gxQuestTheme:alert];
+    alert.tag = ALERT_QUEST_SUCCESS;
+    [alert show];
+    
 }
 @end

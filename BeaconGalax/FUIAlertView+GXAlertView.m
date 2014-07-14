@@ -11,7 +11,7 @@
 
 @implementation FUIAlertView (GXAlertView)
 
-+ (FUIAlertView *)gxLoginTheme:(FUIAlertView *)alert
++ (void)gxLoginTheme:(FUIAlertView *)alert
 {
     alert.titleLabel.textColor = [UIColor cloudsColor];
     alert.titleLabel.font = [UIFont boldFlatFontOfSize:16];
@@ -27,7 +27,24 @@
     alert.defaultButtonTitleColor = [UIColor asbestosColor];
     alert.defaultButtonFont = [UIFont boldFlatFontOfSize:16];
     
-    return alert;
+}
+
++ (void)gxQuestTheme:(FUIAlertView *)alert
+{
+    alert.titleLabel.textColor = [UIColor cloudsColor];
+    alert.titleLabel.font = [UIFont boldFlatFontOfSize:16];
+    
+    alert.messageLabel.textColor = [UIColor cloudsColor];
+    alert.messageLabel.font = [UIFont boldFlatFontOfSize:14];
+    
+    alert.backgroundOverlay.backgroundColor = [[UIColor cloudsColor] colorWithAlphaComponent:0.8];
+    alert.alertContainer.backgroundColor = [UIColor belizeHoleColor];
+    
+    alert.defaultButtonColor = [UIColor cloudsColor];
+    alert.defaultButtonShadowColor = [UIColor asbestosColor];
+    alert.defaultButtonTitleColor = [UIColor asbestosColor];
+    alert.defaultButtonFont = [UIFont boldFlatFontOfSize:16];
+    
 }
 
 @end

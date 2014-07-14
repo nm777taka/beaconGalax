@@ -93,7 +93,7 @@ static NSInteger  const logOutAlertViewTag = 2;
         [KiiUser logOut];
         
         FUIAlertView *logOutAlertView = [[FUIAlertView alloc] initWithTitle:@"LOGOUT" message:@"GALAXをログアウトしました。" delegate:self cancelButtonTitle:nil otherButtonTitles:@"OK", nil];
-        logOutAlertView = [FUIAlertView gxLoginTheme:logOutAlertView];
+        [FUIAlertView gxLoginTheme:logOutAlertView];
         logOutAlertView.tag = logOutAlertViewTag;
         
         [logOutAlertView show];
@@ -132,7 +132,7 @@ static NSInteger  const logOutAlertViewTag = 2;
 {
     FUIAlertView *loggedInAlertView = [[FUIAlertView alloc] initWithTitle:@"HELLO" message:@"GALAXへようこそ" delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
     
-    loggedInAlertView = [FUIAlertView gxLoginTheme:loggedInAlertView];
+     [FUIAlertView gxLoginTheme:loggedInAlertView];
     
     loggedInAlertView.tag = logInAlertViewTag;
     

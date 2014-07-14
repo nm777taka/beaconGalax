@@ -75,7 +75,7 @@
     KiiObject *object = [self.questBoard createObject];
     [object setObject:quest.title forKey:@"title"];
     [object setObject:quest.description forKey:@"description"];
-    [object setObject:quest.isCompleted forKey:@"isComplited"];
+    [object setObject:quest.isCompleted forKey:@"isCompleted"];
     
     NSError *error  = nil;
     [object saveSynchronous:&error];
@@ -83,7 +83,7 @@
     if (error != nil) {
         NSLog(@"error : %@",error);
     } else {
-        NSLog(@"クエストの作成に成功");
+        [[NSNotificationCenter defaultCenter] postNotificationName:GXQuestCreatedNotification object:nil];
     }
 }
 
@@ -122,9 +122,7 @@
     KiiQuery *query = [KiiQuery queryWithClause:clause];
     NSMutableArray *allResults = [NSMutableArray new];
     KiiQuery *nextQuery;
-    
     NSArray *results = [self.galaxUser executeQuerySynchronous:query withError:&error andNext:&nextQuery];
-    
     [allResults addObjectsFromArray:results];
     if (allResults.count == 1) {
         
@@ -133,6 +131,26 @@
     }
     
     return nil;
+}
+
+#pragma mark Quest Method
+- (NSMutableArray *)fetchQuestWithNotComplited
+{
+    NSError *error = nil;
+    NSMutableArray *allResult = [NSMutableArray new];
+    KiiClause *clause = [KiiClause equals:@"isCompleted" value:NO];
+    KiiQuery *query = [KiiQuery queryWithClause:clause];
+    KiiQuery *nextQuery;
+    NSArray *results = [self.questBoard executeQuerySynchronous:query withError:&error andNext:&nextQuery];
+    [allResult addObjectsFromArray:results];
+    
+    if (allResult.count == 0) {
+        NSLog(@"count = 0");
+        return nil;
+    }
+    
+    return allResult;
+    
 }
 
 @end

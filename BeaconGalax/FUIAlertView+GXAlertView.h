@@ -10,6 +10,8 @@
 
 @interface FUIAlertView (GXAlertView)
 
-+ (FUIAlertView *)gxLoginTheme:(FUIAlertView *)alert;
++ (void)gxLoginTheme:(FUIAlertView *)alert;
+
++ (void)gxQuestTheme:(FUIAlertView *)alert;
 
 @end
