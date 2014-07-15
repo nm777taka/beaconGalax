@@ -9,7 +9,7 @@
 #import <UIKit/UIKit.h>
 #import <FlatUIKit/FlatUIKit.h>
 
-@interface GXQuestDetialViewController : UIViewController
+@interface GXQuestDetialViewController : UIViewController<FUIAlertViewDelegate>
 
 @property (nonatomic,retain) KiiObject *quest;
 

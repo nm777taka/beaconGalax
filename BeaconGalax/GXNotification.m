@@ -19,6 +19,8 @@ NSString *const GXQuestFetchedNotification = @"GXQuestFetchedNotification";
 
 NSString *const GXQuestCellTouchedNotification = @"GXQuestCellTouchedNotification";
 
+NSString *const GXQuestDeletedNotification = @"GXQuestDeletedNotification";
+
 
 
 @end

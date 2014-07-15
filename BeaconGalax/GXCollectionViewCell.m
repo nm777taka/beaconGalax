@@ -38,7 +38,7 @@
     self.descriptionLabel.textColor = [UIColor cloudsColor];
     
     //クエスト参加ボタン
-    [FUIButton gxQuestTheme:self.joinButton];
+    [FUIButton gxQuestTheme:self.joinButton withName:@"JOIN"];
     
     
 }

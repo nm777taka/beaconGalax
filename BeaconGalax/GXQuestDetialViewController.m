@@ -8,6 +8,8 @@
 
 #import "GXQuestDetialViewController.h"
 #import "FUIButton+GXTheme.h"
+#import "FUIAlertView+GXAlertView.h"
+#import "GXNotification.h"
 
 @interface GXQuestDetialViewController ()
 - (IBAction)closeAction:(id)sender;
@@ -17,6 +19,9 @@
 @property (weak, nonatomic) IBOutlet UILabel *descriptionLabel;
 @property (weak, nonatomic) IBOutlet FUIButton *joinButton;
 @property (weak, nonatomic) IBOutlet UIButton *bgButton;
+
+@property BOOL isCreatedUser;
+
 - (IBAction)bgButtonAction:(id)sender;
 
 @end
@@ -53,7 +58,7 @@
     self.descriptionLabel.textColor = [UIColor cloudsColor];
     self.descriptionLabel.font = [UIFont boldFlatFontOfSize:13];
     
-    [FUIButton gxQuestTheme:self.joinButton ];
+    [FUIButton gxQuestTheme:self.joinButton withName:@"JOIN"];
     
 }
 
@@ -61,6 +66,7 @@
 {
     [super viewWillAppear:animated];
     [self configureDetailView];
+    [self configureButton];
 }
 
 - (void)viewDidAppear:(BOOL)animated
@@ -101,11 +107,46 @@
 
 }
 
+#pragma mark - Configure Button
+- (void)configureButton
+{
+    //クエスト作成者なら削除ボタンを
+    //クエスト作成者でないなら参加ボタンを
+    
+    KiiUser *currentUser = [KiiUser currentUser];
+    NSString *questCreatedUserURI = [self.quest getObjectForKey:@"created_user_uri"];
+    
+    if ([currentUser.objectURI compare:questCreatedUserURI] == NSOrderedSame) {
+        [FUIButton gxQuestTheme:self.joinButton withName:@"DELETE"];
+        self.isCreatedUser = YES;
+    } else {
+        [FUIButton gxQuestTheme:self.joinButton withName:@"JOIN"];
+        self.isCreatedUser = NO;
+    }
+    
+}
+
 - (IBAction)closeAction:(id)sender {
     [self closeView];
 }
 
 - (IBAction)joinAction:(id)sender {
+    
+    if (self.isCreatedUser) {
+        //削除
+        NSLog(@"delete");
+        
+        
+        FUIAlertView *alert = [[FUIAlertView alloc] initWithTitle:@"確認" message:@"あなたが作成したクエストを削除しますか？" delegate:self cancelButtonTitle:@"NO" otherButtonTitles:@"OK", nil];
+        [FUIAlertView gxQuestTheme:alert];
+        [alert show];
+
+        
+        } else {
+        //参加
+        NSLog(@"はいった");
+    }
+    
 }
 - (IBAction)bgButtonAction:(id)sender {
     [self closeView];
@@ -119,5 +160,33 @@
         [self.view removeFromSuperview];
         
     }];
+}
+
+#pragma mark Alert Delegate
+- (void)alertView:(FUIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
+{
+    switch (buttonIndex) {
+        case 1: //削除OK
+            NSLog(@"clicked");
+            [self deleteQuest];
+            break;
+            
+        default:
+            break;
+    }
+}
+
+- (void)deleteQuest
+{
+    NSError *error = nil;
+    KiiObject *obj = [KiiObject objectWithURI:self.quest.objectURI];
+    [obj deleteSynchronous:&error];
+    if (error != nil) {
+        NSLog(@"error----------> %@",error);
+    } else {
+        [[NSNotificationCenter defaultCenter] postNotificationName:GXQuestDeletedNotification object:nil];
+        [self closeView];
+    }
+    
 }
 @end

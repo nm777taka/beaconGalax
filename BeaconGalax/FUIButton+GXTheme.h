@@ -11,6 +11,6 @@
 
 @interface FUIButton (GXTheme)
 
-+ (void)gxQuestTheme:(FUIButton *)button;
++ (void)gxQuestTheme:(FUIButton *)button withName:(NSString *)name;
 
 @end

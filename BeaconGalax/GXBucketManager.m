@@ -75,6 +75,7 @@
     KiiObject *object = [self.questBoard createObject];
     [object setObject:quest.title forKey:@"title"];
     [object setObject:quest.description forKey:@"description"];
+    [object setObject:quest.createUserURI forKey:@"created_user_uri"];
     [object setObject:quest.isCompleted forKey:@"isCompleted"];
     
     NSError *error  = nil;

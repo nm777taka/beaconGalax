@@ -10,7 +10,7 @@
 
 @implementation FUIButton (GXTheme)
 
-+ (void)gxQuestTheme:(FUIButton *)button
++ (void)gxQuestTheme:(FUIButton *)button withName:(NSString *)name
 {
     button.titleLabel.font = [UIFont boldFlatFontOfSize:14];
     [button setTitleColor:[UIColor cloudsColor] forState:UIControlStateNormal];
@@ -21,7 +21,7 @@
     button.shadowHeight = 2.0f;
     button.cornerRadius = 1.0;
     
-    [button setTitle:@"JOIN" forState:UIControlStateNormal];
+    [button setTitle:name forState:UIControlStateNormal];
 }
 
 @end

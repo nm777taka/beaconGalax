@@ -63,6 +63,7 @@
     
     //notification
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(gxQuestFetchedHandler:) name:GXQuestFetchedNotification object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(gxQuestDeletedHandler:) name:GXQuestDeletedNotification object:nil];
     
 }
 
@@ -71,17 +72,21 @@
 {
     [super viewWillAppear:animated];
     
-    //テーブルデータソース配列フェッチ処理
-    self.questArray = [[GXBucketManager sharedManager] fetchQuestWithNotComplited];
-    
-    [self.questCollectionView reloadData];
-    
+    [self fetchQuest];
 }
 
 - (void)didReceiveMemoryWarning
 {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
+}
+
+- (void)fetchQuest
+{
+   self.questArray = [[GXBucketManager sharedManager] fetchQuestWithNotComplited];
+   [self.questCollectionView reloadData];
+
+ 
 }
 
 #pragma mark - Navigation
@@ -157,5 +162,9 @@
     NSLog(@"questArray:%ld",self.questArray.count);
 }
 
+- (void)gxQuestDeletedHandler:(GXNotification *)info
+{
+    [self fetchQuest];
+}
 
 @end

@@ -19,4 +19,6 @@ UIKIT_EXTERN NSString *const GXQuestFetchedNotification;
 
 UIKIT_EXTERN NSString *const GXQuestCellTouchedNotification;
 
+UIKIT_EXTERN NSString *const GXQuestDeletedNotification;
+
 @end

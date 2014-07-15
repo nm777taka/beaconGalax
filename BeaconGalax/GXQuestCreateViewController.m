@@ -114,6 +114,7 @@
             GXQuest *quest = [GXQuest new];
             quest.title = self.titleLabel.text;
             quest.description = self.descriptionTextView.text;
+            quest.createUserURI = [KiiUser currentUser].objectURI;
             quest.isCompleted = [NSNumber numberWithBool:NO];
             [[GXBucketManager sharedManager] registerQuest:quest];
         }
