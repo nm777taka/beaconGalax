@@ -9,7 +9,17 @@
 			<key>isShown</key>
 			<false/>
 		</dict>
+		<key>Pods-Bolts.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
 		<key>Pods-Canvas.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
+		<key>Pods-Facebook-iOS-SDK.xcscheme</key>
 		<dict>
 			<key>isShown</key>
 			<false/>
@@ -27,22 +37,32 @@
 	</dict>
 	<key>SuppressBuildableAutocreation</key>
 	<dict>
-		<key>9B221181BE484FCDBE15C8BE</key>
+		<key>0C1448FC6DFD4E7E98889EB3</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>A3E49E4459A54C3492AA8FDF</key>
+		<key>0C9EE2607A9E4B0888EA8033</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>BBAAFE1CCA494294974238D3</key>
+		<key>247A62FAE38C4FF4BE5BBDC4</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>C546462C9B0948DD8EC14F18</key>
+		<key>9FA75DB9BAE645198CEF8B26</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>ABCFAE30A67D4474A0A145FE</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>CF1E7D14AF9B4573B0CD6327</key>
 		<dict>
 			<key>primary</key>
 			<true/>
