@@ -64,6 +64,9 @@
 		0FD26D85195A0680005E2B95 /* GXGradientView.m in Sources */ = {isa = PBXBuildFile; fileRef = 0FD26D84195A0680005E2B95 /* GXGradientView.m */; };
 		0FD26D89195A0A11005E2B95 /* UIColor+GXtheme.m in Sources */ = {isa = PBXBuildFile; fileRef = 0FD26D88195A0A11005E2B95 /* UIColor+GXtheme.m */; };
 		0FD26D8D195A9820005E2B95 /* GXNotification.m in Sources */ = {isa = PBXBuildFile; fileRef = 0FD26D8C195A9820005E2B95 /* GXNotification.m */; };
+		0FF16CD9197F73EB00B02702 /* GXCustomNavViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 0FF16CD8197F73EB00B02702 /* GXCustomNavViewCell.m */; };
+		0FF16CDC197F742A00B02702 /* GXCustomNavViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0FF16CDB197F742A00B02702 /* GXCustomNavViewController.m */; };
+		0FF16CDF197F7B5D00B02702 /* GXHomeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0FF16CDE197F7B5D00B02702 /* GXHomeViewController.m */; };
 		0FF97538197398A100C1C66C /* FUIButton+GXTheme.m in Sources */ = {isa = PBXBuildFile; fileRef = 0FF97537197398A100C1C66C /* FUIButton+GXTheme.m */; };
 		0FF9753E1973C2C500C1C66C /* GXQuestDetialViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0FF9753D1973C2C500C1C66C /* GXQuestDetialViewController.m */; };
 		CEEFFA2740D749D0AE5B5B2D /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 0F597A99B7864A4393B072E4 /* libPods.a */; };
@@ -166,6 +169,12 @@
 		0FD26D88195A0A11005E2B95 /* UIColor+GXtheme.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIColor+GXtheme.m"; sourceTree = "<group>"; };
 		0FD26D8B195A9820005E2B95 /* GXNotification.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GXNotification.h; sourceTree = "<group>"; };
 		0FD26D8C195A9820005E2B95 /* GXNotification.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GXNotification.m; sourceTree = "<group>"; };
+		0FF16CD7197F73EB00B02702 /* GXCustomNavViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GXCustomNavViewCell.h; sourceTree = "<group>"; };
+		0FF16CD8197F73EB00B02702 /* GXCustomNavViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GXCustomNavViewCell.m; sourceTree = "<group>"; };
+		0FF16CDA197F742A00B02702 /* GXCustomNavViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GXCustomNavViewController.h; sourceTree = "<group>"; };
+		0FF16CDB197F742A00B02702 /* GXCustomNavViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GXCustomNavViewController.m; sourceTree = "<group>"; };
+		0FF16CDD197F7B5D00B02702 /* GXHomeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GXHomeViewController.h; sourceTree = "<group>"; };
+		0FF16CDE197F7B5D00B02702 /* GXHomeViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GXHomeViewController.m; sourceTree = "<group>"; };
 		0FF97536197398A100C1C66C /* FUIButton+GXTheme.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "FUIButton+GXTheme.h"; sourceTree = "<group>"; };
 		0FF97537197398A100C1C66C /* FUIButton+GXTheme.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "FUIButton+GXTheme.m"; sourceTree = "<group>"; };
 		0FF9753C1973C2C500C1C66C /* GXQuestDetialViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GXQuestDetialViewController.h; sourceTree = "<group>"; };
@@ -305,19 +314,16 @@
 		0F7A25C919587E0C001B7839 /* Controller */ = {
 			isa = PBXGroup;
 			children = (
+				0FF16CE6197F7BE300B02702 /* QuestDetailViewContoller */,
+				0FF16CE5197F7BC400B02702 /* QuestBoardViewController */,
+				0FF16CE4197F7B9800B02702 /* QuestCreateViewController */,
+				0FF16CE3197F7B8D00B02702 /* BeaconViewController */,
+				0FF16CE2197F7B8100B02702 /* LoginViewController */,
+				0FF16CE1197F7B7500B02702 /* RootViewController */,
+				0FF16CE0197F7B6900B02702 /* HomeViewController */,
 				0F7A25CA19587E1E001B7839 /* AppDelegate */,
-				0F7A25A819587ADE001B7839 /* GXViewController.h */,
-				0F7A25A919587ADE001B7839 /* GXViewController.m */,
-				0F7F4140195C823000A796AD /* GXLoginViewController.h */,
-				0F7F4141195C823000A796AD /* GXLoginViewController.m */,
-				0F7A25D41959B56E001B7839 /* GXBeaconTableViewController.m */,
-				0F7A25D31959B56E001B7839 /* GXBeaconTableViewController.h */,
-				0F821F2F196E32F50002664D /* GXQuestBoardViewController.h */,
-				0F821F30196E32F50002664D /* GXQuestBoardViewController.m */,
-				0F821F3A196E91E50002664D /* GXQuestCreateViewController.h */,
-				0F821F3B196E91E50002664D /* GXQuestCreateViewController.m */,
-				0FF9753C1973C2C500C1C66C /* GXQuestDetialViewController.h */,
-				0FF9753D1973C2C500C1C66C /* GXQuestDetialViewController.m */,
+				0FF16CDA197F742A00B02702 /* GXCustomNavViewController.h */,
+				0FF16CDB197F742A00B02702 /* GXCustomNavViewController.m */,
 			);
 			name = Controller;
 			sourceTree = "<group>";
@@ -400,6 +406,8 @@
 				0F821F37196E35BD0002664D /* GXQuestTableCell.xib */,
 				0F821F58197258C50002664D /* GXCollectionViewCell.h */,
 				0F821F59197258C50002664D /* GXCollectionViewCell.m */,
+				0FF16CD7197F73EB00B02702 /* GXCustomNavViewCell.h */,
+				0FF16CD8197F73EB00B02702 /* GXCustomNavViewCell.m */,
 			);
 			name = View;
 			sourceTree = "<group>";
@@ -437,6 +445,69 @@
 				0F821F41196EA3DC0002664D /* UIPlaceHolderTextView.m */,
 			);
 			name = Utility;
+			sourceTree = "<group>";
+		};
+		0FF16CE0197F7B6900B02702 /* HomeViewController */ = {
+			isa = PBXGroup;
+			children = (
+				0FF16CDD197F7B5D00B02702 /* GXHomeViewController.h */,
+				0FF16CDE197F7B5D00B02702 /* GXHomeViewController.m */,
+			);
+			name = HomeViewController;
+			sourceTree = "<group>";
+		};
+		0FF16CE1197F7B7500B02702 /* RootViewController */ = {
+			isa = PBXGroup;
+			children = (
+				0F7A25A819587ADE001B7839 /* GXViewController.h */,
+				0F7A25A919587ADE001B7839 /* GXViewController.m */,
+			);
+			name = RootViewController;
+			sourceTree = "<group>";
+		};
+		0FF16CE2197F7B8100B02702 /* LoginViewController */ = {
+			isa = PBXGroup;
+			children = (
+				0F7F4140195C823000A796AD /* GXLoginViewController.h */,
+				0F7F4141195C823000A796AD /* GXLoginViewController.m */,
+			);
+			name = LoginViewController;
+			sourceTree = "<group>";
+		};
+		0FF16CE3197F7B8D00B02702 /* BeaconViewController */ = {
+			isa = PBXGroup;
+			children = (
+				0F7A25D41959B56E001B7839 /* GXBeaconTableViewController.m */,
+				0F7A25D31959B56E001B7839 /* GXBeaconTableViewController.h */,
+			);
+			name = BeaconViewController;
+			sourceTree = "<group>";
+		};
+		0FF16CE4197F7B9800B02702 /* QuestCreateViewController */ = {
+			isa = PBXGroup;
+			children = (
+				0F821F3A196E91E50002664D /* GXQuestCreateViewController.h */,
+				0F821F3B196E91E50002664D /* GXQuestCreateViewController.m */,
+			);
+			name = QuestCreateViewController;
+			sourceTree = "<group>";
+		};
+		0FF16CE5197F7BC400B02702 /* QuestBoardViewController */ = {
+			isa = PBXGroup;
+			children = (
+				0F821F2F196E32F50002664D /* GXQuestBoardViewController.h */,
+				0F821F30196E32F50002664D /* GXQuestBoardViewController.m */,
+			);
+			name = QuestBoardViewController;
+			sourceTree = "<group>";
+		};
+		0FF16CE6197F7BE300B02702 /* QuestDetailViewContoller */ = {
+			isa = PBXGroup;
+			children = (
+				0FF9753C1973C2C500C1C66C /* GXQuestDetialViewController.h */,
+				0FF9753D1973C2C500C1C66C /* GXQuestDetialViewController.m */,
+			);
+			name = QuestDetailViewContoller;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -594,6 +665,8 @@
 			files = (
 				0FD26D811959F689005E2B95 /* GXCustomSectionHeader.m in Sources */,
 				0F7A25DD1959E4AF001B7839 /* GXCustomCell.m in Sources */,
+				0FF16CDF197F7B5D00B02702 /* GXHomeViewController.m in Sources */,
+				0FF16CDC197F742A00B02702 /* GXCustomNavViewController.m in Sources */,
 				0F7F4147195E77F200A796AD /* GXKiiCloud.m in Sources */,
 				0FA17E4019623FB700158421 /* GXUserManager.m in Sources */,
 				0FF97538197398A100C1C66C /* FUIButton+GXTheme.m in Sources */,
@@ -617,6 +690,7 @@
 				0FA17E3D1961B00100158421 /* GXTopicManager.m in Sources */,
 				0FD26D7B1959F0E7005E2B95 /* GXTableViewConst.m in Sources */,
 				0F821F42196EA3DC0002664D /* UIPlaceHolderTextView.m in Sources */,
+				0FF16CD9197F73EB00B02702 /* GXCustomNavViewCell.m in Sources */,
 				0F7A25A419587ADE001B7839 /* GXAppDelegate.m in Sources */,
 				0F821F38196E35BD0002664D /* GXQuestTableCell.m in Sources */,
 				0F821F31196E32F50002664D /* GXQuestBoardViewController.m in Sources */,
