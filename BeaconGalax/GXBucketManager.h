@@ -7,14 +7,28 @@
 //
 
 #import <Foundation/Foundation.h>
+#import <KiiSDK/Kii.h>
+#import "GXQuest.h"
 
 @interface GXBucketManager : NSObject
-
+//AppScope
 @property (nonatomic) KiiBucket *galaxUser;
+@property (nonatomic) KiiBucket *questBoard;
+
+//GroupScope
+@property (nonatomic) KiiBucket *questMember;
+
+//UserScope
 @property (nonatomic) KiiBucket *nearUser;
+@property (nonatomic) KiiBucket *joinedQuest;
 
 + (GXBucketManager *)sharedManager;
 - (void)registerGalaxUser:(KiiUser *)user;
+- (void)registerQuest:(GXQuest *)quest;
+- (NSMutableArray *)fetchQuestWithNotComplited;
+
+
+
 - (NSMutableArray *)getNearUser:(KiiUser *)user;
 
 

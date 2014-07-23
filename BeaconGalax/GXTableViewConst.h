@@ -10,6 +10,7 @@
 
 static NSString * const TableViewCustomCellIdentifier = @"GXCustomCell";
 static NSString * const TableViewCustomSectionHeaderIdentifier = @"GXCustomSectionHeader";
+static NSString * const QuestTableViewCellIdentifier = @"GXQuestTableCell";
 
 @interface GXTableViewConst : NSObject
 

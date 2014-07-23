@@ -12,11 +12,11 @@
 #import "GXTopicManager.h"
 #import "GXBucketManager.h"
 #import "GXUserManager.h"
+#import "FUIAlertView+GXAlertView.h"
 @interface GXLoginViewController ()
 @property (weak, nonatomic) IBOutlet UILabel *statusLabel;
 @property (weak, nonatomic) IBOutlet UILabel *nameLabel;
-@property (weak, nonatomic) IBOutlet FBProfilePictureView *profilePictView;
-@property (weak, nonatomic) IBOutlet FBLoginView *loginView;
+
 
 @property FUIButton *loginButton;
 
@@ -43,10 +43,6 @@ static NSInteger  const logOutAlertViewTag = 2;
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     
-    //パーミッション設定
-    self.loginView.readPermissions = @[@"public_profile",@"email"];
-    
-    self.loginView.delegate = self;
     
     
     //init UI
@@ -97,20 +93,7 @@ static NSInteger  const logOutAlertViewTag = 2;
         [KiiUser logOut];
         
         FUIAlertView *logOutAlertView = [[FUIAlertView alloc] initWithTitle:@"LOGOUT" message:@"GALAXをログアウトしました。" delegate:self cancelButtonTitle:nil otherButtonTitles:@"OK", nil];
-        logOutAlertView.titleLabel.textColor = [UIColor cloudsColor];
-        logOutAlertView.titleLabel.font = [UIFont boldFlatFontOfSize:16];
-        
-        logOutAlertView.alertContainer.backgroundColor = [UIColor midnightBlueColor];
-        logOutAlertView.backgroundOverlay.backgroundColor = [[UIColor cloudsColor] colorWithAlphaComponent:0.8];
-        
-        logOutAlertView.messageLabel.font = [UIFont boldFlatFontOfSize:14];
-        logOutAlertView.messageLabel.textColor = [UIColor cloudsColor];
-        
-        logOutAlertView.defaultButtonFont = [UIFont boldFlatFontOfSize:16];
-        logOutAlertView.defaultButtonColor = [UIColor cloudsColor];
-        logOutAlertView.defaultButtonShadowColor = [UIColor asbestosColor];
-        logOutAlertView.defaultButtonTitleColor = [UIColor asbestosColor];
-        
+        [FUIAlertView gxLoginTheme:logOutAlertView];
         logOutAlertView.tag = logOutAlertViewTag;
         
         [logOutAlertView show];
@@ -135,62 +118,6 @@ static NSInteger  const logOutAlertViewTag = 2;
 }
 */
 
-#pragma mark - Facebook Delegate
-
-//公開プロフィールをとってきたとき
-- (void)loginViewFetchedUserInfo:(FBLoginView *)loginView user:(id<FBGraphUser>)user
-{
-    self.profilePictView.profileID = [user objectID];
-    self.nameLabel.text = user.name;
-    
-    NSLog(@"プロフィール取得");
-}
-
-//ログイン中を表示する時
-- (void)loginViewShowingLoggedInUser:(FBLoginView *)loginView
-{
-    self.statusLabel.text = @"You're logged in as";
-}
-
-//ログアウト中の表示
-- (void)loginViewShowingLoggedOutUser:(FBLoginView *)loginView
-{
-    self.statusLabel.text = @"You're not logged in ";
-    self.profilePictView.profileID = nil;
-    self.nameLabel.text = @"";
-}
-
-//エラーハンドラ
-- (void)loginView:(FBLoginView *)loginView handleError:(NSError *)error
-{
-    NSString *alertMessage, *alertTitle;
-    
-    if ([FBErrorUtility shouldNotifyUserForError:error]) {
-        
-        alertTitle = @"Facebook error";
-        alertMessage = [FBErrorUtility userMessageForError:error];
-    } else if ([FBErrorUtility errorCategoryForError:error] == FBErrorCategoryAuthenticationReopenSession) {
-        alertTitle = @"Session Error";
-        alertMessage = @"Your current session is no longer valid. Please log in again";
-    } else if ([FBErrorUtility errorCategoryForError:error] == FBErrorCategoryUserCancelled) {
-        NSLog(@"user cancelled login");
-    } else {
-        alertTitle = @"Something went wrong";
-        alertMessage = @"Please try again later.";
-        NSLog(@"Unexpected error: %@",error);
-        
-    }
-    
-    if (alertMessage) {
-        [[[UIAlertView alloc] initWithTitle:alertTitle
-                                    message:alertMessage
-                                   delegate:nil
-                          cancelButtonTitle:@"OK"
-                          otherButtonTitles:nil] show];
-    }
-    
-}
-
 - (void)configureButton
 {
     if ([KiiUser loggedIn]) {
@@ -204,19 +131,8 @@ static NSInteger  const logOutAlertViewTag = 2;
 - (void)loginHandler
 {
     FUIAlertView *loggedInAlertView = [[FUIAlertView alloc] initWithTitle:@"HELLO" message:@"GALAXへようこそ" delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
-    loggedInAlertView.titleLabel.textColor = [UIColor cloudsColor];
-    loggedInAlertView.titleLabel.font = [UIFont boldFlatFontOfSize:16];
     
-    loggedInAlertView.messageLabel.textColor = [UIColor cloudsColor];
-    loggedInAlertView.messageLabel.font = [UIFont boldFlatFontOfSize:14];
-    
-    loggedInAlertView.backgroundOverlay.backgroundColor = [[UIColor cloudsColor] colorWithAlphaComponent:0.8];
-    loggedInAlertView.alertContainer.backgroundColor = [UIColor midnightBlueColor];
-    
-    loggedInAlertView.defaultButtonColor = [UIColor cloudsColor];
-    loggedInAlertView.defaultButtonShadowColor = [UIColor asbestosColor];
-    loggedInAlertView.defaultButtonTitleColor = [UIColor asbestosColor];
-    loggedInAlertView.defaultButtonFont = [UIFont boldFlatFontOfSize:16];
+     [FUIAlertView gxLoginTheme:loggedInAlertView];
     
     loggedInAlertView.tag = logInAlertViewTag;
     

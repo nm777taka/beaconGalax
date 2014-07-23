@@ -11,14 +11,12 @@
 #import "GXBucketManager.h"
 #import <CSAnimationView.h>
 #import <FlatUIKit/FlatUIKit.h>
-#import <FacebookSDK/Facebook.h>
 #import <Accounts/Accounts.h>
 
 
 @interface GXViewController ()
 
 @property GXKiiCloud *kiiCloudManager;
-@property (weak, nonatomic) IBOutlet FBProfilePictureView *fbProfileImageView;
 
 @property (nonatomic) ACAccountStore *accountStore;
 
@@ -34,6 +32,8 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    
+    self.view.backgroundColor = [UIColor colorWithRed:1.000 green:0.952 blue:0.138 alpha:1.000];
     
     //UI init
     FUIButton *helpButton = [[FUIButton alloc]initWithFrame:CGRectMake(self.view.center.x - 50, self.view.frame.size.height - 100, 100, 50)];
@@ -68,7 +68,8 @@
     
     if (![KiiUser loggedIn]) {
         
-        [self performSegueWithIdentifier:@"GoToLoginView" sender:self];
+#pragma mark debug用処理
+        //[self performSegueWithIdentifier:@"GoToLoginView" sender:self];
     }
 
 }

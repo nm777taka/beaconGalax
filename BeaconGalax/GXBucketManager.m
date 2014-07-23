@@ -32,8 +32,12 @@
     if (self) {
         //init
         self.galaxUser = [Kii bucketWithName:@"galax_user"];
-        self.nearUser = [Kii bucketWithName:@"near_user"];
+        self.questBoard = [Kii bucketWithName:@"quest_board"];
         
+        self.questMember = [Kii bucketWithName:@"quest_member"];
+        
+        self.nearUser = [Kii bucketWithName:@"near_user"];
+        self.joinedQuest = [Kii bucketWithName:@"joined_quest"];
     }
     
     return self;
@@ -64,6 +68,25 @@
         NSLog(@"ギャラックスユーザバケットへ登録完了");
     }
 
+}
+
+- (void)registerQuest:(GXQuest *)quest
+{
+    KiiObject *object = [self.questBoard createObject];
+    [object setObject:quest.title forKey:@"title"];
+    [object setObject:quest.description forKey:@"description"];
+    [object setObject:quest.createUserURI forKey:@"created_user_uri"];
+    [object setObject:quest.isCompleted forKey:@"isCompleted"];
+    
+    NSError *error  = nil;
+    [object saveSynchronous:&error];
+    
+    if (error != nil) {
+        NSLog(@"error : %@",error);
+    } else {
+        [[NSNotificationCenter defaultCenter] postNotificationName:GXQuestCreatedNotification object:nil];
+    }
+    
 }
 
 //UserBucket
@@ -101,9 +124,7 @@
     KiiQuery *query = [KiiQuery queryWithClause:clause];
     NSMutableArray *allResults = [NSMutableArray new];
     KiiQuery *nextQuery;
-    
     NSArray *results = [self.galaxUser executeQuerySynchronous:query withError:&error andNext:&nextQuery];
-    
     [allResults addObjectsFromArray:results];
     if (allResults.count == 1) {
         
@@ -112,6 +133,32 @@
     }
     
     return nil;
+}
+
+#pragma mark Quest Method
+- (NSMutableArray *)fetchQuestWithNotComplited
+{
+    NSError *error = nil;
+    NSMutableArray *allResult = [NSMutableArray new];
+    KiiClause *clause = [KiiClause equals:@"isCompleted" value:NO];
+    KiiQuery *query = [KiiQuery queryWithClause:clause];
+    KiiQuery *nextQuery;
+   NSArray *results = [self.questBoard executeQuerySynchronous:query withError:&error andNext:&nextQuery];
+    
+    if (error == nil) {
+        [allResult addObjectsFromArray:results];
+    }
+//    [self.questBoard executeQuery:query withBlock:^(KiiQuery *query, KiiBucket *bucket, NSArray *results, KiiQuery *nextQuery, NSError *error) {
+//        if (error) {
+//            NSLog(@"error :%@",error);
+//        } else {
+//            NSLog(@"resutls-count %u",results.count
+//                  );
+//            [allResult addObjectsFromArray:results];
+//            
+//        }
+//    }];
+    return allResult;
 }
 
 @end

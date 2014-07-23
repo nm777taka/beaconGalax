@@ -7,6 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
+#import <KiiSDK/Kii.h>
 #import <FlatUIKit/FlatUIKit.h>
 
 @interface GXAppDelegate : UIResponder <UIApplicationDelegate>

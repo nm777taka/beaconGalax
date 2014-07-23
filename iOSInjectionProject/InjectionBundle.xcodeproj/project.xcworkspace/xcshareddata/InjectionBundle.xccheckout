@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>IDESourceControlProjectFavoriteDictionaryKey</key>
+	<false/>
+	<key>IDESourceControlProjectIdentifier</key>
+	<string>608BB7A6-169E-4E8D-92FF-BDCE4B9DE8B5</string>
+	<key>IDESourceControlProjectName</key>
+	<string>InjectionBundle</string>
+	<key>IDESourceControlProjectOriginsDictionary</key>
+	<dict>
+		<key>0B736BB0-B8B9-42C5-A280-BE139A8D6812</key>
+		<string>https://github.com/nm777taka/beaconGalax.git</string>
+	</dict>
+	<key>IDESourceControlProjectPath</key>
+	<string>iOSInjectionProject/InjectionBundle.xcodeproj/project.xcworkspace</string>
+	<key>IDESourceControlProjectRelativeInstallPathDictionary</key>
+	<dict>
+		<key>0B736BB0-B8B9-42C5-A280-BE139A8D6812</key>
+		<string>../../..</string>
+	</dict>
+	<key>IDESourceControlProjectURL</key>
+	<string>https://github.com/nm777taka/beaconGalax.git</string>
+	<key>IDESourceControlProjectVersion</key>
+	<integer>110</integer>
+	<key>IDESourceControlProjectWCCIdentifier</key>
+	<string>0B736BB0-B8B9-42C5-A280-BE139A8D6812</string>
+	<key>IDESourceControlProjectWCConfigurations</key>
+	<array>
+		<dict>
+			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
+			<string>public.vcs.git</string>
+			<key>IDESourceControlWCCIdentifierKey</key>
+			<string>0B736BB0-B8B9-42C5-A280-BE139A8D6812</string>
+			<key>IDESourceControlWCCName</key>
+			<string>BeaconGalax</string>
+		</dict>
+	</array>
+</dict>
+</plist>
