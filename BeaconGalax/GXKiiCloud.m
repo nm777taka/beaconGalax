@@ -67,6 +67,7 @@
         
         [allResult addObjectsFromArray:results];
         
+        
         if (allResult.count == 0) {
             NSLog(@"signUp!!");
             [[GXBucketManager sharedManager] registerGalaxUser:user];
@@ -76,6 +77,22 @@
             
         } else {
             NSLog(@"login");
+            
+            //バケット購読処理
+            //購読の確認
+            KiiBucket *bucket = [Kii bucketWithName:@"quest_board"];
+            BOOL isSubscribed = [KiiPushSubscription checkSubscriptionSynchronous:bucket withError:&error];
+            if (isSubscribed) {
+                NSLog(@"quest_boardバケット購読済み");
+            } else {
+                //購読処理
+                [KiiPushSubscription subscribeSynchronous:bucket withError:&error];
+                if (error != nil) {
+                    NSLog(@"error:%@",error);
+                } else {
+                    NSLog(@"quest_boardバケット購読完了");
+                }
+            }
         }
         
         

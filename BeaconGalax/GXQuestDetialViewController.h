@@ -8,6 +8,7 @@
 
 #import <UIKit/UIKit.h>
 #import <FlatUIKit/FlatUIKit.h>
+#import <KiiSDK/Kii.h>
 
 @interface GXQuestDetialViewController : UIViewController<FUIAlertViewDelegate>
 

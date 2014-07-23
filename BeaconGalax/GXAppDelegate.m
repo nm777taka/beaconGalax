@@ -24,6 +24,11 @@
                          andSecret:nil
                         andOptions:nil];
     
+    //Push通知処理
+    [application registerForRemoteNotificationTypes:UIRemoteNotificationTypeAlert | UIRemoteNotificationTypeBadge | UIRemoteNotificationTypeSound];
+    
+
+    
     
     
     return YES;
@@ -51,27 +56,15 @@
 - (void)application:(UIApplication *)application didReceiveRemoteNotification:(NSDictionary *)userInfo
 {
     
-    NSLog(@"push");
-    //パース
-//    NSString *name = userInfo[@"From"];
-//    NSString *description = userInfo[@"msgBody"];
-    NSLog(@"呼ばれた@notification");
-    FUIAlertView *loggedInAlertView = [[FUIAlertView alloc] initWithTitle:@"test" message:@"test" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
-    loggedInAlertView.titleLabel.textColor = [UIColor cloudsColor];
-    loggedInAlertView.titleLabel.font = [UIFont boldFlatFontOfSize:16];
+    //アプリがフォアグランドで起動している時にPush通知を受信した場合
+    if (application.applicationState == UIApplicationStateActive) {
+        NSLog(@"push通知受信@フォアグランド");
+    }
     
-    loggedInAlertView.messageLabel.textColor = [UIColor cloudsColor];
-    loggedInAlertView.messageLabel.font = [UIFont boldFlatFontOfSize:14];
-    
-    loggedInAlertView.backgroundOverlay.backgroundColor = [[UIColor cloudsColor] colorWithAlphaComponent:0.8];
-    loggedInAlertView.alertContainer.backgroundColor = [UIColor midnightBlueColor];
-    
-    loggedInAlertView.defaultButtonColor = [UIColor cloudsColor];
-    loggedInAlertView.defaultButtonShadowColor = [UIColor asbestosColor];
-    loggedInAlertView.defaultButtonTitleColor = [UIColor asbestosColor];
-    loggedInAlertView.defaultButtonFont = [UIFont boldFlatFontOfSize:16];
-        
-    [loggedInAlertView show];
+    //バックグランドからPUSH通知でアクティブになったとき
+    if (application.applicationState == UIApplicationStateInactive) {
+        NSLog(@"プッシュ通知からアクティブ");
+    }
     
 }
 							

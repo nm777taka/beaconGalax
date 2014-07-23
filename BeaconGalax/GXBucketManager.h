@@ -7,6 +7,7 @@
 //
 
 #import <Foundation/Foundation.h>
+#import <KiiSDK/Kii.h>
 #import "GXQuest.h"
 
 @interface GXBucketManager : NSObject
