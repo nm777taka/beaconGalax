@@ -67,6 +67,7 @@
 		0FF16CD9197F73EB00B02702 /* GXCustomNavViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 0FF16CD8197F73EB00B02702 /* GXCustomNavViewCell.m */; };
 		0FF16CDC197F742A00B02702 /* GXCustomNavViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0FF16CDB197F742A00B02702 /* GXCustomNavViewController.m */; };
 		0FF16CDF197F7B5D00B02702 /* GXHomeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0FF16CDE197F7B5D00B02702 /* GXHomeViewController.m */; };
+		0FF16CE9197F86DB00B02702 /* NSMutableArray+Extended.m in Sources */ = {isa = PBXBuildFile; fileRef = 0FF16CE8197F86DB00B02702 /* NSMutableArray+Extended.m */; };
 		0FF97538197398A100C1C66C /* FUIButton+GXTheme.m in Sources */ = {isa = PBXBuildFile; fileRef = 0FF97537197398A100C1C66C /* FUIButton+GXTheme.m */; };
 		0FF9753E1973C2C500C1C66C /* GXQuestDetialViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0FF9753D1973C2C500C1C66C /* GXQuestDetialViewController.m */; };
 		CEEFFA2740D749D0AE5B5B2D /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 0F597A99B7864A4393B072E4 /* libPods.a */; };
@@ -175,6 +176,8 @@
 		0FF16CDB197F742A00B02702 /* GXCustomNavViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GXCustomNavViewController.m; sourceTree = "<group>"; };
 		0FF16CDD197F7B5D00B02702 /* GXHomeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GXHomeViewController.h; sourceTree = "<group>"; };
 		0FF16CDE197F7B5D00B02702 /* GXHomeViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GXHomeViewController.m; sourceTree = "<group>"; };
+		0FF16CE7197F86DB00B02702 /* NSMutableArray+Extended.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSMutableArray+Extended.h"; sourceTree = "<group>"; };
+		0FF16CE8197F86DB00B02702 /* NSMutableArray+Extended.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSMutableArray+Extended.m"; sourceTree = "<group>"; };
 		0FF97536197398A100C1C66C /* FUIButton+GXTheme.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "FUIButton+GXTheme.h"; sourceTree = "<group>"; };
 		0FF97537197398A100C1C66C /* FUIButton+GXTheme.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "FUIButton+GXTheme.m"; sourceTree = "<group>"; };
 		0FF9753C1973C2C500C1C66C /* GXQuestDetialViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GXQuestDetialViewController.h; sourceTree = "<group>"; };
@@ -432,6 +435,8 @@
 				0F1B0A80196D5BFD00E43499 /* FUIAlertView+GXAlertView.m */,
 				0FF97536197398A100C1C66C /* FUIButton+GXTheme.h */,
 				0FF97537197398A100C1C66C /* FUIButton+GXTheme.m */,
+				0FF16CE7197F86DB00B02702 /* NSMutableArray+Extended.h */,
+				0FF16CE8197F86DB00B02702 /* NSMutableArray+Extended.m */,
 			);
 			name = Category;
 			sourceTree = "<group>";
@@ -689,6 +694,7 @@
 				0FD26D8D195A9820005E2B95 /* GXNotification.m in Sources */,
 				0FA17E3D1961B00100158421 /* GXTopicManager.m in Sources */,
 				0FD26D7B1959F0E7005E2B95 /* GXTableViewConst.m in Sources */,
+				0FF16CE9197F86DB00B02702 /* NSMutableArray+Extended.m in Sources */,
 				0F821F42196EA3DC0002664D /* UIPlaceHolderTextView.m in Sources */,
 				0FF16CD9197F73EB00B02702 /* GXCustomNavViewCell.m in Sources */,
 				0F7A25A419587ADE001B7839 /* GXAppDelegate.m in Sources */,

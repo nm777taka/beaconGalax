@@ -8,6 +8,7 @@
 
 #import "GXCustomNavViewController.h"
 #import "GXCustomNavViewCell.h"
+#import "GXNotification.h"
 
 @interface GXCustomNavViewController ()
 @property (weak, nonatomic) IBOutlet UICollectionView *navCollectionView;
@@ -35,6 +36,8 @@
     
     self.navList = [NSArray new];
     self.navList = @[@"ホーム",@"クエスト",@"友達の動き",@"フレンド",@"自分",@"トロフィ-",@"セッティング"];
+    
+    
 }
 
 - (void)didReceiveMemoryWarning
@@ -85,6 +88,21 @@
 #pragma mark - CollectionViewDelegate
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath
 {
-    NSLog(@"selected Cell is %d",indexPath.row);
+    
+    switch (indexPath.row) {
+        case 0:
+            [[NSNotificationCenter defaultCenter] postNotificationName:GXViewSegueNotification object:nil];
+            break;
+        case 1:
+            [[NSNotificationCenter defaultCenter] postNotificationName:GXViewSegueNotification object:@"goto_QuestBoard"];
+            
+        default:
+            break;
+    }
+    
+    
+    
 }
+
+
 @end

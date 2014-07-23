@@ -7,6 +7,9 @@
 //
 
 #import "GXHomeViewController.h"
+#import "NSMutableArray+Extended.h"
+#import "GXNotification.h"
+
 
 @interface GXHomeViewController ()
 @property (weak, nonatomic) IBOutlet UITableView *joinedQuestTableView;
@@ -14,7 +17,8 @@
 - (IBAction)gotoQuestBoard:(id)sender;
 
 
-@property NSArray *joinedQuestList;
+@property NSMutableArray *joinedQuestList;
+
 
 @end
 
@@ -35,6 +39,22 @@
     // Do any additional setup after loading the view.
     self.joinedQuestTableView.delegate = self;
     self.joinedQuestTableView.dataSource = self;
+    
+    NSMutableArray *subItems;
+    self.joinedQuestList = [NSMutableArray array];
+    subItems = [NSMutableArray array];
+    subItems = [@[@"テスト1"] mutableCopy];
+    subItems.extended = YES;
+    [self.joinedQuestList addObject:subItems];
+    
+    subItems = [NSMutableArray array];
+    subItems.extended = YES;
+    [subItems addObject:@"テスト2"];
+    [subItems addObject:@"テスト3"];
+    [self.joinedQuestList addObject:subItems];
+    
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(viewSegueHandler:) name:GXViewSegueNotification object:nil];
     
     
 }
@@ -59,15 +79,114 @@
 #pragma mark - TableViewDataSource
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
-    return 1;
+    return self.joinedQuestList.count;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return self.joinedQuestList.count;
+    return ((NSMutableArray *)self.joinedQuestList[(NSInteger)section]).extended ? [self.joinedQuestList[(NSInteger)section] count]+1 : 1;
 }
 
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    static NSString *ParentCellIdentifier = @"ParentCell";
+    static NSString *ChildCellIdentifier = @"ChildCell";
+    
+    NSInteger section = indexPath.section;
+    NSInteger row = indexPath.row;
+    NSMutableArray *subItems;
+    subItems = self.joinedQuestList[section];
+    
+    UITableViewCell *cell;
+    
+    NSString *identifier;
+    
+    if (row == 0) {
+        identifier = ParentCellIdentifier;
+    } else {
+        identifier = ChildCellIdentifier;
+    }
+    
+    cell = [tableView dequeueReusableCellWithIdentifier:identifier];
+    if (cell == nil) {
+        cell = [[UITableViewCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:identifier];
+    }
+    
+    NSString *strText;
+    if (row == 0) {
+        strText = [NSString stringWithFormat:@"==== section [%d] ===",indexPath.section];
+    } else {
+        strText = [NSString stringWithFormat:@"row (%d) ==== ",indexPath.row];
+    }
+    
+    //Configure
+    cell.textLabel.text = strText;
+    
+    return cell;
+}
+
+#pragma mark UItableViewDelegate
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    NSInteger section = indexPath.section;
+    NSInteger row = indexPath.row;
+    
+    NSMutableArray *subItems;
+    subItems = self.joinedQuestList[section];
+    
+    if (row == 0) {
+        subItems.extended = !subItems.extended;
+        
+        if (subItems.extended == NO) {
+            //animation
+            [self collapseSubItemAtIndex:row+1 maxRow:[subItems count]+1 section:section];
+        } else {
+            //animation
+            [self expandItemAtIndex:row+1 maxRow:[subItems count]+1 section:section];
+        }
+    }
+}
+
+#pragma mark TableViewAnimation
+//縮小
+- (void)collapseSubItemAtIndex:(int)firstRow maxRow:(int)maxRow section:(int)section
+{
+    NSMutableArray *indexPaths = [NSMutableArray new];
+    
+    for (int i=firstRow; i<maxRow; i++) {
+        [indexPaths addObject:[NSIndexPath indexPathForRow:i inSection:section]];
+    }
+    
+    [self.joinedQuestTableView deleteRowsAtIndexPaths:indexPaths withRowAnimation:UITableViewRowAnimationFade];
+}
+
+//拡張
+- (void)expandItemAtIndex:(int)firstRow maxRow:(int)maxRow section:(int)section
+{
+    NSMutableArray *indexPaths = [NSMutableArray new];
+    for (int i=firstRow; i<maxRow; i++) {
+        [indexPaths addObject:[NSIndexPath indexPathForRow:i inSection:section]];
+    }
+    [self.joinedQuestTableView insertRowsAtIndexPaths:indexPaths withRowAnimation:UITableViewRowAnimationFade];
+    [self.joinedQuestTableView scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:firstRow inSection:section] atScrollPosition:UITableViewScrollPositionTop animated:YES];
+    
+}
+
+- (void)viewSegueHandler:(NSNotification *)info
+{
+    id distinationViewName = [info object];
+    
+    if (distinationViewName == nil) {
+        //homeに戻る
+        [self.navigationController popToRootViewControllerAnimated:YES];
+        return;
+    }
+    
+    [self performSegueWithIdentifier:distinationViewName sender:self];
+}
 
 - (IBAction)gotoQuestBoard:(id)sender {
 }
+
+
 @end

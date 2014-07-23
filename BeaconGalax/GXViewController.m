@@ -9,7 +9,10 @@
 #import "GXViewController.h"
 #import "GXKiiCloud.h"
 #import "GXBucketManager.h"
+#import "GXHomeViewController.h"
+#import "GXQuestBoardViewController.h"
 #import <CSAnimationView.h>
+#import "GXNotification.h"
 #import <FlatUIKit/FlatUIKit.h>
 #import <Accounts/Accounts.h>
 
@@ -19,6 +22,7 @@
 @property GXKiiCloud *kiiCloudManager;
 
 @property (nonatomic) ACAccountStore *accountStore;
+@property (weak, nonatomic) IBOutlet UIView *contentView;
 
 @property KiiBucket *bucket;
 @property NSMutableArray *nearUser;
@@ -35,19 +39,19 @@
     
     self.view.backgroundColor = [UIColor colorWithRed:1.000 green:0.952 blue:0.138 alpha:1.000];
     
-    //UI init
-    FUIButton *helpButton = [[FUIButton alloc]initWithFrame:CGRectMake(self.view.center.x - 50, self.view.frame.size.height - 100, 100, 50)];
-    helpButton.buttonColor = [UIColor turquoiseColor];
-    helpButton.shadowColor = [UIColor greenSeaColor];
-    helpButton.shadowHeight = 3.0f;
-    helpButton.cornerRadius = 6.0f;
-    helpButton.titleLabel.font = [UIFont boldFlatFontOfSize:16];
-    [helpButton setTitleColor:[UIColor cloudsColor] forState:UIControlStateNormal];
-    [helpButton setTitleColor:[UIColor cloudsColor] forState:UIControlStateHighlighted];
-    [helpButton setTitle:@"HELP" forState:UIControlStateNormal];
-    [helpButton addTarget:self action:@selector(testSelector:) forControlEvents:UIControlEventTouchUpInside];
-    
-    [self.view addSubview:helpButton];
+//    //UI init
+//    FUIButton *helpButton = [[FUIButton alloc]initWithFrame:CGRectMake(self.view.center.x - 50, self.view.frame.size.height - 100, 100, 50)];
+//    helpButton.buttonColor = [UIColor turquoiseColor];
+//    helpButton.shadowColor = [UIColor greenSeaColor];
+//    helpButton.shadowHeight = 3.0f;
+//    helpButton.cornerRadius = 6.0f;
+//    helpButton.titleLabel.font = [UIFont boldFlatFontOfSize:16];
+//    [helpButton setTitleColor:[UIColor cloudsColor] forState:UIControlStateNormal];
+//    [helpButton setTitleColor:[UIColor cloudsColor] forState:UIControlStateHighlighted];
+//    [helpButton setTitle:@"HELP" forState:UIControlStateNormal];
+//    [helpButton addTarget:self action:@selector(testSelector:) forControlEvents:UIControlEventTouchUpInside];
+//    
+//    [self.view addSubview:helpButton];
     
     self.kiiCloudManager = [GXKiiCloud sharedManager];
     
@@ -202,6 +206,8 @@
     }];
 
 }
+
+
 
 
 
