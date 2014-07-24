@@ -9,8 +9,7 @@
 #import "GXViewController.h"
 #import "GXKiiCloud.h"
 #import "GXBucketManager.h"
-#import "GXHomeViewController.h"
-#import "GXQuestBoardViewController.h"
+#import "GXContinerViewController.h"
 #import <CSAnimationView.h>
 #import "GXNotification.h"
 #import <FlatUIKit/FlatUIKit.h>
@@ -22,7 +21,7 @@
 @property GXKiiCloud *kiiCloudManager;
 
 @property (nonatomic) ACAccountStore *accountStore;
-@property (weak, nonatomic) IBOutlet UIView *contentView;
+@property (weak, nonatomic) GXContinerViewController *containerViewController;
 
 @property KiiBucket *bucket;
 @property NSMutableArray *nearUser;
@@ -62,7 +61,7 @@
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
-    [self.view startCanvasAnimation];
+
 
 }
 
@@ -208,7 +207,21 @@
 }
 
 
+- (BOOL)shouldPerformSegueWithIdentifier:(NSString *)identifier sender:(id)sender
+{
+    NSLog(@"%s", __PRETTY_FUNCTION__);
+    
+    return YES;
+}
 
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
+{
+    NSLog(@"%s", __PRETTY_FUNCTION__);
+    
+    if ([segue.identifier isEqualToString:@"embedContainer"]) {
+        self.containerViewController = segue.destinationViewController;
+    }
+}
 
 
 @end

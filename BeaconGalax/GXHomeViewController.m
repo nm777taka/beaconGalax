@@ -9,6 +9,7 @@
 #import "GXHomeViewController.h"
 #import "NSMutableArray+Extended.h"
 #import "GXNotification.h"
+#import "GXQuestBoardViewController.h"
 
 
 @interface GXHomeViewController ()
@@ -52,10 +53,6 @@
     [subItems addObject:@"テスト2"];
     [subItems addObject:@"テスト3"];
     [self.joinedQuestList addObject:subItems];
-    
-    
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(viewSegueHandler:) name:GXViewSegueNotification object:nil];
-    
     
 }
 
@@ -172,18 +169,6 @@
     
 }
 
-- (void)viewSegueHandler:(NSNotification *)info
-{
-    id distinationViewName = [info object];
-    
-    if (distinationViewName == nil) {
-        //homeに戻る
-        [self.navigationController popToRootViewControllerAnimated:YES];
-        return;
-    }
-    
-    [self performSegueWithIdentifier:distinationViewName sender:self];
-}
 
 - (IBAction)gotoQuestBoard:(id)sender {
 }

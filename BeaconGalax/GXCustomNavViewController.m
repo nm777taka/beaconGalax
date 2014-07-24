@@ -89,12 +89,29 @@
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath
 {
     
+    NSLog(@"%s",__PRETTY_FUNCTION__);
+    
+    NSNumber *num = [NSNumber numberWithInteger:indexPath.row];
+    
     switch (indexPath.row) {
         case 0:
-            [[NSNotificationCenter defaultCenter] postNotificationName:GXViewSegueNotification object:nil];
+            [[NSNotificationCenter defaultCenter] postNotificationName:GXViewSegueNotification object:num];
             break;
         case 1:
-            [[NSNotificationCenter defaultCenter] postNotificationName:GXViewSegueNotification object:@"goto_QuestBoard"];
+            [[NSNotificationCenter defaultCenter] postNotificationName:GXViewSegueNotification object:num];
+            break;
+        
+        case 2:
+            [[NSNotificationCenter defaultCenter] postNotificationName:GXViewSegueNotification object:num];
+            break;
+            
+        case 3:
+            [[NSNotificationCenter defaultCenter] postNotificationName:GXViewSegueNotification object:num];
+            break;
+            
+        case 4:
+            [[NSNotificationCenter defaultCenter] postNotificationName:GXViewSegueNotification object:num];
+            break;
             
         default:
             break;

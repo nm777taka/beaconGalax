@@ -36,26 +36,26 @@
     
     self.questArray = [NSMutableArray new];
     
-    //QuestCreateButton init
-    FUIButton *questCreateButton = [[FUIButton alloc]initWithFrame:CGRectMake(self.view.center.x - 100, self.view.frame.size.height-80 , 200, 50)];
-    questCreateButton.buttonColor = [UIColor sunflowerColor];
-    questCreateButton.shadowColor = [UIColor orangeColor];
-    questCreateButton.shadowHeight = 3.0f;
-    questCreateButton.cornerRadius = 6.0f;
-    questCreateButton.titleLabel.font = [UIFont boldFlatFontOfSize:16];
-    [questCreateButton setTitleColor:[UIColor cloudsColor] forState:UIControlStateNormal];
-    [questCreateButton setTitleColor:[UIColor cloudsColor] forState:UIControlStateHighlighted];
-    [questCreateButton setTitle:@"Create"forState:UIControlStateNormal];
-    [questCreateButton bk_addEventHandler:^(id sender) {
-        //handler
-        //画面遷移
-        [self performSegueWithIdentifier:@"GoToQuestCreateView" sender:self];
-        
-        
-    } forControlEvents:UIControlEventTouchUpInside];
+//    //QuestCreateButton init
+//    FUIButton *questCreateButton = [[FUIButton alloc]initWithFrame:CGRectMake(self.view.center.x - 100, self.view.frame.size.height-80 , 200, 50)];
+//    questCreateButton.buttonColor = [UIColor sunflowerColor];
+//    questCreateButton.shadowColor = [UIColor orangeColor];
+//    questCreateButton.shadowHeight = 3.0f;
+//    questCreateButton.cornerRadius = 6.0f;
+//    questCreateButton.titleLabel.font = [UIFont boldFlatFontOfSize:16];
+//    [questCreateButton setTitleColor:[UIColor cloudsColor] forState:UIControlStateNormal];
+//    [questCreateButton setTitleColor:[UIColor cloudsColor] forState:UIControlStateHighlighted];
+//    [questCreateButton setTitle:@"Create"forState:UIControlStateNormal];
+//    [questCreateButton bk_addEventHandler:^(id sender){
+//        //handler
+//        //画面遷移
+//        [self performSegueWithIdentifier:@"GoToQuestCreateView" sender:self];
+//        
+//        
+//    } forControlEvents:UIControlEventTouchUpInside];
     
     //TableViewの上に出す
-    [self.view insertSubview:questCreateButton aboveSubview:self.view];
+   //[self.view insertSubview:questCreateButton aboveSubview:self.view];
     
     
     //CollectionView
