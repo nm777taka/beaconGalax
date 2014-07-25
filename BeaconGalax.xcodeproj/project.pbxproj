@@ -57,6 +57,7 @@
 		0F821F4C196FCA5D0002664D /* GXQuest.m in Sources */ = {isa = PBXBuildFile; fileRef = 0F821F4B196FCA5D0002664D /* GXQuest.m */; };
 		0F821F5719724EF70002664D /* CHTCollectionViewWaterfallLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = 0F821F5619724EF70002664D /* CHTCollectionViewWaterfallLayout.m */; };
 		0F821F5A197258C50002664D /* GXCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 0F821F59197258C50002664D /* GXCollectionViewCell.m */; };
+		0F82302C1982334A0081C9BE /* GTScrollViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0F82302B1982334A0081C9BE /* GTScrollViewController.m */; };
 		0F8BB0AA1980CEED00D5499F /* GXEmptySegue.m in Sources */ = {isa = PBXBuildFile; fileRef = 0F8BB0A91980CEED00D5499F /* GXEmptySegue.m */; };
 		0F8BB0AD1980D15600D5499F /* GXContinerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0F8BB0AC1980D15600D5499F /* GXContinerViewController.m */; };
 		0FA17E371961A09700158421 /* GXBucketManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 0FA17E361961A09700158421 /* GXBucketManager.m */; };
@@ -162,6 +163,8 @@
 		0F821F5619724EF70002664D /* CHTCollectionViewWaterfallLayout.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CHTCollectionViewWaterfallLayout.m; sourceTree = "<group>"; };
 		0F821F58197258C50002664D /* GXCollectionViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GXCollectionViewCell.h; sourceTree = "<group>"; };
 		0F821F59197258C50002664D /* GXCollectionViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GXCollectionViewCell.m; sourceTree = "<group>"; };
+		0F82302A1982334A0081C9BE /* GTScrollViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GTScrollViewController.h; sourceTree = "<group>"; };
+		0F82302B1982334A0081C9BE /* GTScrollViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GTScrollViewController.m; sourceTree = "<group>"; };
 		0F8BB0A81980CEED00D5499F /* GXEmptySegue.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GXEmptySegue.h; sourceTree = "<group>"; };
 		0F8BB0A91980CEED00D5499F /* GXEmptySegue.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GXEmptySegue.m; sourceTree = "<group>"; };
 		0F8BB0AB1980D15600D5499F /* GXContinerViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GXContinerViewController.h; sourceTree = "<group>"; };
@@ -376,6 +379,8 @@
 				0FF16CDB197F742A00B02702 /* GXCustomNavViewController.m */,
 				0F8BB0AB1980D15600D5499F /* GXContinerViewController.h */,
 				0F8BB0AC1980D15600D5499F /* GXContinerViewController.m */,
+				0F82302A1982334A0081C9BE /* GTScrollViewController.h */,
+				0F82302B1982334A0081C9BE /* GTScrollViewController.m */,
 			);
 			name = Controller;
 			sourceTree = "<group>";
@@ -731,6 +736,7 @@
 				0F7A25D219588264001B7839 /* GXBeaconRegion.m in Sources */,
 				0FA17E371961A09700158421 /* GXBucketManager.m in Sources */,
 				0F821F5A197258C50002664D /* GXCollectionViewCell.m in Sources */,
+				0F82302C1982334A0081C9BE /* GTScrollViewController.m in Sources */,
 				0F7A25CD19587E3B001B7839 /* GXBeacon.m in Sources */,
 				0F7A25A019587ADE001B7839 /* main.m in Sources */,
 				0FD26D85195A0680005E2B95 /* GXGradientView.m in Sources */,

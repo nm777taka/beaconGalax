@@ -10,11 +10,20 @@
 #import "NSMutableArray+Extended.h"
 #import "GXNotification.h"
 #import "GXQuestBoardViewController.h"
+#import "GTScrollViewController.h"
+
+#define PADDING_TOP_BUTTOM 10
+#define PADDING_LEFT_RIGHT 10
+#define CORNER_RADIUS 2
+#define SHADOW_RADIUS 3
+#define SHADOW_OPACITY 0.5
 
 
 @interface GXHomeViewController ()
 @property (weak, nonatomic) IBOutlet UITableView *joinedQuestTableView;
 @property (weak, nonatomic) IBOutlet UIButton *joinQuestButton;
+@property (weak, nonatomic) IBOutlet UIScrollView *scrollView;
+@property (strong,nonatomic) NSMutableArray *scrollerViews;
 - (IBAction)gotoQuestBoard:(id)sender;
 
 
@@ -40,6 +49,25 @@
     // Do any additional setup after loading the view.
     self.joinedQuestTableView.delegate = self;
     self.joinedQuestTableView.dataSource = self;
+    
+    //ScrollView
+    _scrollerViews = [NSMutableArray new];
+    UIView *questButton = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 300, 200)];
+    [questButton setBackgroundColor:[UIColor orangeColor]];
+    
+    UIView *joinedQuestView  = [[UIView alloc] initWithFrame:CGRectMake(0,0,300,400)];
+    joinedQuestView.backgroundColor = [UIColor colorWithRed:0.140 green:1.000 blue:0.529 alpha:1.000];
+    
+    [_scrollView setContentSize:CGSizeMake(320, 900)];
+    [_scrollView setScrollEnabled:YES];
+    _scrollView.backgroundColor = [UIColor whiteColor];
+    [_scrollView setShowsVerticalScrollIndicator:NO];
+    [_scrollView setShowsHorizontalScrollIndicator:NO];
+    
+    //更新されちゃう.viewの下に追加できるようにする
+    [self addView:questButton];
+    [self addView:joinedQuestView];
+    
     
     NSMutableArray *subItems;
     self.joinedQuestList = [NSMutableArray array];
@@ -173,5 +201,41 @@
 - (IBAction)gotoQuestBoard:(id)sender {
 }
 
+#pragma mark - ScrollViewMethod
+- (void)addView:(UIView *)view
+{
+    UIView *lastView = [_scrollView.subviews lastObject];
+    _scrollerViews = [[NSMutableArray alloc] initWithArray:_scrollView.subviews];
+    NSLog(@"ScrollViewCount: %d",_scrollView.subviews.count);
+    float y = lastView.frame.origin.y + lastView.frame.size.height+PADDING_TOP_BUTTOM;
+    if(lastView == nil) {
+        y = 10;
+    }
+    
+    CGRect frame = view.frame;
+    frame.origin.y = y;
+    frame.origin.x = PADDING_LEFT_RIGHT;
+    view.frame = frame;
+    
+    view.layer.masksToBounds = NO;
+    view.layer.cornerRadius = CORNER_RADIUS;
+    view.layer.shadowOffset = CGSizeMake(0, 0);
+    view.layer.shadowRadius = SHADOW_RADIUS;
+    view.layer.shadowOpacity = SHADOW_OPACITY;
+    
+    //viewサイズがscrollViewのサイズを超えてたら
+    //scrollViewのサイズを更新する
+    if((view.frame.origin.y + view.frame.size.height) >= _scrollView.frame.size.height) {
+        
+        //new height
+        float newHeight = view.frame.origin.y + view.frame.size.height + PADDING_TOP_BUTTOM;
+        [_scrollView setContentSize:CGSizeMake(self.view.frame.size.width, newHeight)];
+        
+    }
+    
+    [_scrollView addSubview:view];
+
+    
+}
 
 @end
