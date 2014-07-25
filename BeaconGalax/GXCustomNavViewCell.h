@@ -11,5 +11,6 @@
 @interface GXCustomNavViewCell : UICollectionViewCell
 @property (weak, nonatomic) IBOutlet UILabel *viewNameLabel;
 @property (weak, nonatomic) IBOutlet UIImageView *viewIcon;
+@property (weak, nonatomic) IBOutlet UIView *indicator;
 
 @end

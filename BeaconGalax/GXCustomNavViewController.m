@@ -9,11 +9,13 @@
 #import "GXCustomNavViewController.h"
 #import "GXCustomNavViewCell.h"
 #import "GXNotification.h"
+#import "GXNavigationItem.h"
 
 @interface GXCustomNavViewController ()
 @property (weak, nonatomic) IBOutlet UICollectionView *navCollectionView;
 @property NSArray *navList;
-
+@property NSDictionary *navImageDict;
+@property NSMutableArray *collectionDataSource;
 @end
 
 @implementation GXCustomNavViewController
@@ -37,7 +39,29 @@
     self.navList = [NSArray new];
     self.navList = @[@"ホーム",@"クエスト",@"友達の動き",@"フレンド",@"自分",@"トロフィ-",@"セッティング"];
     
+    _navImageDict = @{@"0":[UIImage imageNamed:@"home.png"],
+                      @"1":[UIImage imageNamed:@"quest.png"],
+                      @"2":[UIImage imageNamed:@"friendNow.png"],
+                      @"3":[UIImage imageNamed:@"friend.png"]};
     
+    _collectionDataSource = [NSMutableArray new];
+    
+    [self configureNavigationItem];
+    
+    //最初はhomeViewにいるため
+    GXNavigationItem *first = _collectionDataSource.firstObject;
+    first.isSelected = YES;
+}
+
+//init
+- (void)configureNavigationItem
+{
+    for (NSString *name in _navList) {
+        GXNavigationItem *navigationItem = [GXNavigationItem new];
+        navigationItem.viewName = name;
+        navigationItem.isSelected = NO;
+        [_collectionDataSource addObject:navigationItem];
+    }
 }
 
 - (void)didReceiveMemoryWarning
@@ -65,7 +89,7 @@
 
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section
 {
-    return self.navList.count;
+    return _collectionDataSource.count;
 }
 
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath
@@ -82,7 +106,20 @@
 
 - (void)configureCell:(GXCustomNavViewCell *)cell atIndexPath:(NSIndexPath *)indexPath
 {
-    cell.viewNameLabel.text = self.navList[indexPath.row];
+    GXNavigationItem *item;
+    item = _collectionDataSource[indexPath.row];
+    cell.viewNameLabel.text = item.viewName;
+    cell.viewNameLabel.font = [UIFont boldFlatFontOfSize:12];
+    cell.viewIcon.image = _navImageDict[[NSString stringWithFormat:@"%d",indexPath.row]];
+    
+    //選択されたindicatorを黒くする
+    if (item.isSelected) {
+        cell.indicator.hidden = NO;
+        cell.indicator.backgroundColor = [UIColor blackColor];
+    } else {
+        cell.indicator.hidden = YES;
+    }
+    
 }
 
 #pragma mark - CollectionViewDelegate
@@ -91,6 +128,22 @@
     
     NSLog(@"%s",__PRETTY_FUNCTION__);
     
+    
+    GXNavigationItem *selectedItem = _collectionDataSource[indexPath.row];
+    selectedItem.isSelected = YES;
+    
+    for (GXNavigationItem *item in _collectionDataSource) {
+        if (item.isSelected == YES) {
+            if ([item.viewName isEqualToString:selectedItem.viewName]) {
+                //
+            } else {
+                item.isSelected = NO;
+            }
+        }
+    }
+    
+    [_navCollectionView reloadData];
+        
     NSNumber *num = [NSNumber numberWithInteger:indexPath.row];
     
     switch (indexPath.row) {

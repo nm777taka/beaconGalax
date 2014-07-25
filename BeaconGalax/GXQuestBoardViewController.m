@@ -59,7 +59,7 @@
     
     
     //CollectionView
-    self.questCollectionView.backgroundColor = [UIColor cloudsColor];
+    //self.questCollectionView.backgroundColor = [UIColor cloudsColor];
     
     //notification
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(gxQuestFetchedHandler:) name:GXQuestFetchedNotification object:nil];
@@ -70,9 +70,9 @@
 
 - (void)viewWillAppear:(BOOL)animated
 {
-    [super viewWillAppear:animated];
     
-    [self fetchQuest];
+    
+    //[self fetchQuest];
 }
 
 - (void)didReceiveMemoryWarning

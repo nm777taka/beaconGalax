@@ -11,6 +11,7 @@
 		0F1987E419811EFF003FD92A /* GXFriendsProfileViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0F1987E319811EFF003FD92A /* GXFriendsProfileViewController.m */; };
 		0F1987E819811F14003FD92A /* GXUserProfileViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0F1987E719811F14003FD92A /* GXUserProfileViewController.m */; };
 		0F1B0A81196D5BFD00E43499 /* FUIAlertView+GXAlertView.m in Sources */ = {isa = PBXBuildFile; fileRef = 0F1B0A80196D5BFD00E43499 /* FUIAlertView+GXAlertView.m */; };
+		0F27DAF119824BC20000E0D0 /* GXNavigationItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 0F27DAF019824BC20000E0D0 /* GXNavigationItem.m */; };
 		0F7A259419587ADE001B7839 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0F7A259319587ADE001B7839 /* Foundation.framework */; };
 		0F7A259619587ADE001B7839 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0F7A259519587ADE001B7839 /* CoreGraphics.framework */; };
 		0F7A259819587ADE001B7839 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0F7A259719587ADE001B7839 /* UIKit.framework */; };
@@ -58,6 +59,12 @@
 		0F821F5719724EF70002664D /* CHTCollectionViewWaterfallLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = 0F821F5619724EF70002664D /* CHTCollectionViewWaterfallLayout.m */; };
 		0F821F5A197258C50002664D /* GXCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 0F821F59197258C50002664D /* GXCollectionViewCell.m */; };
 		0F82302C1982334A0081C9BE /* GTScrollViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0F82302B1982334A0081C9BE /* GTScrollViewController.m */; };
+		0F82302F198245CA0081C9BE /* home.png in Resources */ = {isa = PBXBuildFile; fileRef = 0F82302E198245CA0081C9BE /* home.png */; };
+		0F823031198245D30081C9BE /* bell.png in Resources */ = {isa = PBXBuildFile; fileRef = 0F823030198245D30081C9BE /* bell.png */; };
+		0F823033198245DB0081C9BE /* menu.png in Resources */ = {isa = PBXBuildFile; fileRef = 0F823032198245DB0081C9BE /* menu.png */; };
+		0F823035198245E30081C9BE /* friendNow.png in Resources */ = {isa = PBXBuildFile; fileRef = 0F823034198245E30081C9BE /* friendNow.png */; };
+		0F823037198245EC0081C9BE /* friend.png in Resources */ = {isa = PBXBuildFile; fileRef = 0F823036198245EC0081C9BE /* friend.png */; };
+		0F823039198245F40081C9BE /* quest.png in Resources */ = {isa = PBXBuildFile; fileRef = 0F823038198245F40081C9BE /* quest.png */; };
 		0F8BB0AA1980CEED00D5499F /* GXEmptySegue.m in Sources */ = {isa = PBXBuildFile; fileRef = 0F8BB0A91980CEED00D5499F /* GXEmptySegue.m */; };
 		0F8BB0AD1980D15600D5499F /* GXContinerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0F8BB0AC1980D15600D5499F /* GXContinerViewController.m */; };
 		0FA17E371961A09700158421 /* GXBucketManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 0FA17E361961A09700158421 /* GXBucketManager.m */; };
@@ -98,6 +105,8 @@
 		0F1987E719811F14003FD92A /* GXUserProfileViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GXUserProfileViewController.m; sourceTree = "<group>"; };
 		0F1B0A7F196D5BFD00E43499 /* FUIAlertView+GXAlertView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "FUIAlertView+GXAlertView.h"; sourceTree = "<group>"; };
 		0F1B0A80196D5BFD00E43499 /* FUIAlertView+GXAlertView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "FUIAlertView+GXAlertView.m"; sourceTree = "<group>"; };
+		0F27DAEF19824BC20000E0D0 /* GXNavigationItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GXNavigationItem.h; sourceTree = "<group>"; };
+		0F27DAF019824BC20000E0D0 /* GXNavigationItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GXNavigationItem.m; sourceTree = "<group>"; };
 		0F597A99B7864A4393B072E4 /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		0F7A259019587ADE001B7839 /* BeaconGalax.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = BeaconGalax.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		0F7A259319587ADE001B7839 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -165,6 +174,12 @@
 		0F821F59197258C50002664D /* GXCollectionViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GXCollectionViewCell.m; sourceTree = "<group>"; };
 		0F82302A1982334A0081C9BE /* GTScrollViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GTScrollViewController.h; sourceTree = "<group>"; };
 		0F82302B1982334A0081C9BE /* GTScrollViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GTScrollViewController.m; sourceTree = "<group>"; };
+		0F82302E198245CA0081C9BE /* home.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = home.png; sourceTree = "<group>"; };
+		0F823030198245D30081C9BE /* bell.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = bell.png; sourceTree = "<group>"; };
+		0F823032198245DB0081C9BE /* menu.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = menu.png; sourceTree = "<group>"; };
+		0F823034198245E30081C9BE /* friendNow.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = friendNow.png; sourceTree = "<group>"; };
+		0F823036198245EC0081C9BE /* friend.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = friend.png; sourceTree = "<group>"; };
+		0F823038198245F40081C9BE /* quest.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = quest.png; sourceTree = "<group>"; };
 		0F8BB0A81980CEED00D5499F /* GXEmptySegue.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GXEmptySegue.h; sourceTree = "<group>"; };
 		0F8BB0A91980CEED00D5499F /* GXEmptySegue.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GXEmptySegue.m; sourceTree = "<group>"; };
 		0F8BB0AB1980D15600D5499F /* GXContinerViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GXContinerViewController.h; sourceTree = "<group>"; };
@@ -307,6 +322,7 @@
 		0F7A259919587ADE001B7839 /* BeaconGalax */ = {
 			isa = PBXGroup;
 			children = (
+				0F82302D198245B10081C9BE /* images */,
 				0F7F4143195E77C300A796AD /* Beacon */,
 				0F7F4144195E77D600A796AD /* KiiCloud */,
 				0FD26D8A195A0E54005E2B95 /* Utility */,
@@ -430,6 +446,19 @@
 			name = KiiCloud;
 			sourceTree = "<group>";
 		};
+		0F82302D198245B10081C9BE /* images */ = {
+			isa = PBXGroup;
+			children = (
+				0F823036198245EC0081C9BE /* friend.png */,
+				0F823038198245F40081C9BE /* quest.png */,
+				0F823034198245E30081C9BE /* friendNow.png */,
+				0F823032198245DB0081C9BE /* menu.png */,
+				0F823030198245D30081C9BE /* bell.png */,
+				0F82302E198245CA0081C9BE /* home.png */,
+			);
+			name = images;
+			sourceTree = "<group>";
+		};
 		0FA17E3119619EB600158421 /* Model */ = {
 			isa = PBXGroup;
 			children = (
@@ -441,6 +470,8 @@
 				0FA17E3F19623FB700158421 /* GXUserManager.m */,
 				0F821F4A196FCA5D0002664D /* GXQuest.h */,
 				0F821F4B196FCA5D0002664D /* GXQuest.m */,
+				0F27DAEF19824BC20000E0D0 /* GXNavigationItem.h */,
+				0F27DAF019824BC20000E0D0 /* GXNavigationItem.m */,
 			);
 			name = Model;
 			sourceTree = "<group>";
@@ -658,12 +689,17 @@
 			files = (
 				0FD26D821959F689005E2B95 /* GXCustomSectionHeader.xib in Resources */,
 				0F821F44196EE6820002664D /* Common_ButtonNavigationDone@2x.png in Resources */,
+				0F82302F198245CA0081C9BE /* home.png in Resources */,
+				0F823033198245DB0081C9BE /* menu.png in Resources */,
 				0F7A25AC19587ADE001B7839 /* Images.xcassets in Resources */,
+				0F823035198245E30081C9BE /* friendNow.png in Resources */,
 				0F7A25D81959C014001B7839 /* green.png in Resources */,
 				0F7F412F195B206C00A796AD /* GXBeaconTable.png in Resources */,
 				0F7F4149195E9F7700A796AD /* GLAX-U-homeI.png in Resources */,
 				0F7F412B195B206100A796AD /* me.png in Resources */,
 				0F821F39196E35BD0002664D /* GXQuestTableCell.xib in Resources */,
+				0F823031198245D30081C9BE /* bell.png in Resources */,
+				0F823037198245EC0081C9BE /* friend.png in Resources */,
 				0F7A259E19587ADE001B7839 /* InfoPlist.strings in Resources */,
 				0F7A25D91959C014001B7839 /* red.png in Resources */,
 				0F7A25A719587ADE001B7839 /* Main.storyboard in Resources */,
@@ -671,6 +707,7 @@
 				0F7F4131195B22DC00A796AD /* GXBeaconTable-reverse.png in Resources */,
 				0F7A25DE1959E4AF001B7839 /* GXCustomCell.xib in Resources */,
 				0F821F46196EE68A0002664D /* Common_ButtonNavigationClose@2x.png in Resources */,
+				0F823039198245F40081C9BE /* quest.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -737,6 +774,7 @@
 				0FA17E371961A09700158421 /* GXBucketManager.m in Sources */,
 				0F821F5A197258C50002664D /* GXCollectionViewCell.m in Sources */,
 				0F82302C1982334A0081C9BE /* GTScrollViewController.m in Sources */,
+				0F27DAF119824BC20000E0D0 /* GXNavigationItem.m in Sources */,
 				0F7A25CD19587E3B001B7839 /* GXBeacon.m in Sources */,
 				0F7A25A019587ADE001B7839 /* main.m in Sources */,
 				0FD26D85195A0680005E2B95 /* GXGradientView.m in Sources */,

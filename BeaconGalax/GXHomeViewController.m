@@ -24,8 +24,8 @@
 @property (weak, nonatomic) IBOutlet UIButton *joinQuestButton;
 @property (weak, nonatomic) IBOutlet UIScrollView *scrollView;
 @property (strong,nonatomic) NSMutableArray *scrollerViews;
-- (IBAction)gotoQuestBoard:(id)sender;
 
+- (IBAction)gotoQuestBoard:(id)sender;
 
 @property NSMutableArray *joinedQuestList;
 
@@ -52,13 +52,13 @@
     
     //ScrollView
     _scrollerViews = [NSMutableArray new];
-    UIView *questButton = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 300, 200)];
+    UIView *questButton = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 300,100)];
     [questButton setBackgroundColor:[UIColor orangeColor]];
     
-    UIView *joinedQuestView  = [[UIView alloc] initWithFrame:CGRectMake(0,0,300,400)];
+    UIView *joinedQuestView  = [[UIView alloc] initWithFrame:CGRectMake(0,0,300,200)];
     joinedQuestView.backgroundColor = [UIColor colorWithRed:0.140 green:1.000 blue:0.529 alpha:1.000];
     
-    [_scrollView setContentSize:CGSizeMake(320, 900)];
+    [_scrollView setContentSize:CGSizeMake(self.view.frame.size.width,self.view.frame.size.height)];
     [_scrollView setScrollEnabled:YES];
     _scrollView.backgroundColor = [UIColor whiteColor];
     [_scrollView setShowsVerticalScrollIndicator:NO];
