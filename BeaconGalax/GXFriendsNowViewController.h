@@ -7,7 +7,8 @@
 //
 
 #import <UIKit/UIKit.h>
+#import <FlatUIKit/FlatUIKit.h>
 
-@interface GXFriendsNowViewController : UIViewController
+@interface GXFriendsNowViewController : UIViewController<UICollectionViewDelegate,UICollectionViewDataSource>
 
 @end

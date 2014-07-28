@@ -50,6 +50,8 @@
     self.joinedQuestTableView.delegate = self;
     self.joinedQuestTableView.dataSource = self;
     
+    self.view.backgroundColor = [UIColor colorWithRed:0.000 green:0.647 blue:0.865 alpha:1.000];
+    
     //ScrollView
     _scrollerViews = [NSMutableArray new];
     UIView *questButton = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 300,100)];

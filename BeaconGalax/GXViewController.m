@@ -36,8 +36,6 @@
 {
     [super viewDidLoad];
     
-    self.view.backgroundColor = [UIColor colorWithRed:1.000 green:0.952 blue:0.138 alpha:1.000];
-    
 //    //UI init
 //    FUIButton *helpButton = [[FUIButton alloc]initWithFrame:CGRectMake(self.view.center.x - 50, self.view.frame.size.height - 100, 100, 50)];
 //    helpButton.buttonColor = [UIColor turquoiseColor];

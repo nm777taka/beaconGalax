@@ -12,6 +12,7 @@
 		0F1987E819811F14003FD92A /* GXUserProfileViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0F1987E719811F14003FD92A /* GXUserProfileViewController.m */; };
 		0F1B0A81196D5BFD00E43499 /* FUIAlertView+GXAlertView.m in Sources */ = {isa = PBXBuildFile; fileRef = 0F1B0A80196D5BFD00E43499 /* FUIAlertView+GXAlertView.m */; };
 		0F27DAF119824BC20000E0D0 /* GXNavigationItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 0F27DAF019824BC20000E0D0 /* GXNavigationItem.m */; };
+		0F27DAF5198676B00000E0D0 /* GXFriendsNowViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 0F27DAF4198676B00000E0D0 /* GXFriendsNowViewCell.m */; };
 		0F7A259419587ADE001B7839 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0F7A259319587ADE001B7839 /* Foundation.framework */; };
 		0F7A259619587ADE001B7839 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0F7A259519587ADE001B7839 /* CoreGraphics.framework */; };
 		0F7A259819587ADE001B7839 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0F7A259719587ADE001B7839 /* UIKit.framework */; };
@@ -107,6 +108,8 @@
 		0F1B0A80196D5BFD00E43499 /* FUIAlertView+GXAlertView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "FUIAlertView+GXAlertView.m"; sourceTree = "<group>"; };
 		0F27DAEF19824BC20000E0D0 /* GXNavigationItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GXNavigationItem.h; sourceTree = "<group>"; };
 		0F27DAF019824BC20000E0D0 /* GXNavigationItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GXNavigationItem.m; sourceTree = "<group>"; };
+		0F27DAF3198676B00000E0D0 /* GXFriendsNowViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GXFriendsNowViewCell.h; sourceTree = "<group>"; };
+		0F27DAF4198676B00000E0D0 /* GXFriendsNowViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GXFriendsNowViewCell.m; sourceTree = "<group>"; };
 		0F597A99B7864A4393B072E4 /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		0F7A259019587ADE001B7839 /* BeaconGalax.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = BeaconGalax.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		0F7A259319587ADE001B7839 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -496,6 +499,8 @@
 				0F821F59197258C50002664D /* GXCollectionViewCell.m */,
 				0FF16CD7197F73EB00B02702 /* GXCustomNavViewCell.h */,
 				0FF16CD8197F73EB00B02702 /* GXCustomNavViewCell.m */,
+				0F27DAF3198676B00000E0D0 /* GXFriendsNowViewCell.h */,
+				0F27DAF4198676B00000E0D0 /* GXFriendsNowViewCell.m */,
 			);
 			name = View;
 			sourceTree = "<group>";
@@ -777,6 +782,7 @@
 				0F27DAF119824BC20000E0D0 /* GXNavigationItem.m in Sources */,
 				0F7A25CD19587E3B001B7839 /* GXBeacon.m in Sources */,
 				0F7A25A019587ADE001B7839 /* main.m in Sources */,
+				0F27DAF5198676B00000E0D0 /* GXFriendsNowViewCell.m in Sources */,
 				0FD26D85195A0680005E2B95 /* GXGradientView.m in Sources */,
 				0FD26D89195A0A11005E2B95 /* UIColor+GXtheme.m in Sources */,
 				0F8BB0AD1980D15600D5499F /* GXContinerViewController.m in Sources */,

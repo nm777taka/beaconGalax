@@ -37,7 +37,7 @@
     self.questArray = [NSMutableArray new];
     
 //    //QuestCreateButton init
-//    FUIButton *questCreateButton = [[FUIButton alloc]initWithFrame:CGRectMake(self.view.center.x - 100, self.view.frame.size.height-80 , 200, 50)];
+//    FUIButton *questCreateButton = [[FUIButton alloc]initWithFrame:CGRectMake(self.view.center.x - 100, self.view.frame.size.height - 150 , 200, 50)];
 //    questCreateButton.buttonColor = [UIColor sunflowerColor];
 //    questCreateButton.shadowColor = [UIColor orangeColor];
 //    questCreateButton.shadowHeight = 3.0f;
@@ -53,9 +53,9 @@
 //        
 //        
 //    } forControlEvents:UIControlEventTouchUpInside];
-    
-    //TableViewの上に出す
-   //[self.view insertSubview:questCreateButton aboveSubview:self.view];
+//    
+//    //TableViewの上に出す
+//    [self.view insertSubview:questCreateButton aboveSubview:self.view];
     
     
     //CollectionView
@@ -104,7 +104,8 @@
 
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section
 {
-    return self.questArray.count;
+//    return self.questArray.count;
+    return 5;
 }
 
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath
@@ -146,10 +147,11 @@
     cell.layer.shadowPath = [[UIBezierPath bezierPathWithRect:cell.bounds] CGPath];
     cell.layer.shouldRasterize = YES;
     cell.layer.rasterizationScale = [UIScreen mainScreen].scale;
+    cell.backgroundColor = [UIColor colorWithRed:0.950 green:0.435 blue:0.511 alpha:1.000];
     
-    KiiObject *quest = self.questArray[indexPath.row];
-    cell.titleLabel.text = [quest getObjectForKey:@"title"];
-    cell.descriptionLabel.text = [quest getObjectForKey:@"description"];
+//    KiiObject *quest = self.questArray[indexPath.row];
+//    cell.questNameLabel.text = [quest getObjectForKey:@"title"];
+    cell.questNameLabel.text = @"testName";
     
     
 }

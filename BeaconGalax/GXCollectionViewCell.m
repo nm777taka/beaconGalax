@@ -28,18 +28,6 @@
 - (void)drawRect:(CGRect)rect
 {
     // Drawing code
-    self.backgroundColor = [UIColor turquoiseColor];
-    
-    
-    self.titleLabel.font = [UIFont boldFlatFontOfSize:16];
-    self.titleLabel.textColor = [UIColor cloudsColor];
-    
-    self.descriptionLabel.font = [UIFont boldFlatFontOfSize:10];
-    self.descriptionLabel.textColor = [UIColor cloudsColor];
-    
-    //クエスト参加ボタン
-    [FUIButton gxQuestTheme:self.joinButton withName:@"JOIN"];
-    
     
 }
 
