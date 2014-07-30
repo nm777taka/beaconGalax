@@ -84,7 +84,7 @@
     cell.layer.shadowPath = [[UIBezierPath bezierPathWithRect:cell.bounds] CGPath];
     cell.layer.shouldRasterize = YES;
     cell.layer.rasterizationScale = [UIScreen mainScreen].scale;
-    cell.backgroundColor = [UIColor colorWithRed:0.950 green:0.435 blue:0.511 alpha:1.000];
+    cell.backgroundColor = [UIColor cloudsColor];
     
     //    KiiObject *quest = self.questArray[indexPath.row];
     //    cell.questNameLabel.text = [quest getObjectForKey:@"title"];

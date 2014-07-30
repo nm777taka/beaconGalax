@@ -12,7 +12,7 @@
 #import "GXQuestBoardViewController.h"
 #import "GTScrollViewController.h"
 
-#define PADDING_TOP_BUTTOM 10
+#define PADDING_TOP_BUTTOM 15
 #define PADDING_LEFT_RIGHT 10
 #define CORNER_RADIUS 2
 #define SHADOW_RADIUS 3
@@ -54,35 +54,34 @@
     
     //ScrollView
     _scrollerViews = [NSMutableArray new];
-    UIView *questButton = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 300,100)];
-    [questButton setBackgroundColor:[UIColor orangeColor]];
+
+    UIButton *questButton = [UIButton buttonWithType:UIButtonTypeCustom];
+    questButton.frame = CGRectMake(self.view.center.x - 135, 0, 270, 40);
+    [questButton setBackgroundImage:[UIImage imageNamed:@"homeViewQuestJoinButton.png"] forState:UIControlStateNormal];
+    questButton.imageView.contentMode = UIViewContentModeScaleAspectFit;
     
-    UIView *joinedQuestView  = [[UIView alloc] initWithFrame:CGRectMake(0,0,300,200)];
-    joinedQuestView.backgroundColor = [UIColor colorWithRed:0.140 green:1.000 blue:0.529 alpha:1.000];
+    UIView *joinedQuestView  = [[UIView alloc] initWithFrame:CGRectMake(0,0,290,284)];
+    UIImageView *mockImage = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"homeViewJoinedQuestTable.png"]];
+    mockImage.frame = joinedQuestView.frame;
+    mockImage.contentMode = UIViewContentModeScaleAspectFit;
+    [joinedQuestView addSubview:mockImage];
+    
+    UIButton *questCreateButton = [UIButton buttonWithType:UIButtonTypeCustom];
+    questCreateButton.frame = CGRectMake(self.view.center.x - 70/2, self.view.frame.size.height - 200, 70, 70);
+    [questCreateButton setBackgroundImage:[UIImage imageNamed:@"questCreateButton.png"] forState:UIControlStateNormal];
+    //questCreateButton.imageView.contentMode = UIViewContentModeScaleAspectFit;
     
     [_scrollView setContentSize:CGSizeMake(self.view.frame.size.width,self.view.frame.size.height)];
     [_scrollView setScrollEnabled:YES];
-    _scrollView.backgroundColor = [UIColor whiteColor];
+    _scrollView.backgroundColor = [UIColor colorWithRed:0.195 green:0.935 blue:0.974 alpha:1.000];
     [_scrollView setShowsVerticalScrollIndicator:NO];
     [_scrollView setShowsHorizontalScrollIndicator:NO];
     
-    //更新されちゃう.viewの下に追加できるようにする
-    [self addView:questButton];
+    [self addButton:questButton];
     [self addView:joinedQuestView];
     
+    [self.view insertSubview:questCreateButton atIndex:1];
     
-    NSMutableArray *subItems;
-    self.joinedQuestList = [NSMutableArray array];
-    subItems = [NSMutableArray array];
-    subItems = [@[@"テスト1"] mutableCopy];
-    subItems.extended = YES;
-    [self.joinedQuestList addObject:subItems];
-    
-    subItems = [NSMutableArray array];
-    subItems.extended = YES;
-    [subItems addObject:@"テスト2"];
-    [subItems addObject:@"テスト3"];
-    [self.joinedQuestList addObject:subItems];
     
 }
 
@@ -238,6 +237,30 @@
     [_scrollView addSubview:view];
 
     
+}
+- (void)addButton:(UIButton *)button
+{
+    UIView *lastView = [_scrollView.subviews lastObject];
+    _scrollerViews = [[NSMutableArray alloc] initWithArray:_scrollView.subviews];
+    float y = lastView.frame.origin.y + lastView.frame.size.height + PADDING_TOP_BUTTOM;
+    if (lastView == nil) {
+        y = 10;
+    }
+    
+    CGRect frame = button.frame;
+    
+    //x座標はbuttonのもっているframeに合わせる
+    frame.origin.y = y;
+    button.frame = frame;
+    
+    if((button.frame.origin.y + button.frame.size.height) >= _scrollView.frame.size.height) {
+        
+        //new height
+        float newHeight = button.frame.origin.y + button.frame.size.height + PADDING_TOP_BUTTOM;
+        [_scrollView setContentSize:CGSizeMake(self.view.frame.size.width, newHeight)];
+    }
+    
+    [_scrollView addSubview:button];
 }
 
 @end

@@ -11,6 +11,10 @@
 #import "GXNotification.h"
 #import "GXNavigationItem.h"
 
+#define CORNER_RADIUS 2
+#define SHADOW_RADIUS 3
+#define SHADOW_OPACITY 0.5
+
 @interface GXCustomNavViewController ()
 @property (weak, nonatomic) IBOutlet UICollectionView *navCollectionView;
 @property NSArray *navList;
@@ -51,6 +55,14 @@
     //最初はhomeViewにいるため
     GXNavigationItem *first = _collectionDataSource.firstObject;
     first.isSelected = YES;
+    
+    
+    //ドロップシャドウ
+    self.view.layer.masksToBounds = NO;
+    self.view.layer.cornerRadius = CORNER_RADIUS;
+    self.view.layer.shadowOffset = CGSizeMake(0, 2);
+    self.view.layer.shadowRadius = SHADOW_RADIUS;
+    self.view.layer.shadowOpacity = SHADOW_OPACITY;
 }
 
 //init

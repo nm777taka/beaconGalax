@@ -10,5 +10,6 @@
 
 @interface GXFriendsNowViewCell : UICollectionViewCell
 @property (weak, nonatomic) IBOutlet UILabel *priceName;
+@property (weak, nonatomic) IBOutlet UIImageView *placeImage;
 
 @end

@@ -8,6 +8,6 @@
 
 #import <UIKit/UIKit.h>
 
-@interface GXFriendsProfileViewController : UIViewController
+@interface GXFriendsProfileViewController : UIViewController<UITableViewDataSource,UITableViewDelegate>
 
 @end
