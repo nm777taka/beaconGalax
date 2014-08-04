@@ -10,6 +10,7 @@
 #import "GXUserManager.h"
 #import "GXTopicManager.h"
 #import "GXNotification.h"
+#import "GXFacebook.h"
 
 @implementation GXBucketManager
 
@@ -57,8 +58,12 @@
     [object setObject:user.email forKey:@"email"];
     [object setObject:user.objectURI forKey:@"uri"];
     [object setObject:@YES forKey:@"isNear"];
-    [object setObject:@YES forKey:@"iSMember"];
+    [object setObject:@YES forKey:@"isMember"];
     
+    GXFacebook *fbManager = [GXFacebook sharedManager];
+    if (fbManager.facebook_id) {
+        [object setObject:fbManager.facebook_id forKey:@"facebook_id"];
+    }
     NSError *error = nil;
     [object saveSynchronous:&error];
     

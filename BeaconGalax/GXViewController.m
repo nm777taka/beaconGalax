@@ -70,7 +70,7 @@
     if (![KiiUser loggedIn]) {
         
 #pragma mark debug用処理
-        //[self performSegueWithIdentifier:@"GoToLoginView" sender:self];
+        [self performSegueWithIdentifier:@"GoToLoginView" sender:self];
     }
 
 }

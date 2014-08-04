@@ -15,4 +15,5 @@ static NSString * const GXFriendsProfileCellIdentifier = @"GXFriendsProfileCell"
 
 @interface GXTableViewConst : NSObject
 
+
 @end

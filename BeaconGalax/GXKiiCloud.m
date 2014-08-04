@@ -11,6 +11,7 @@
 #import "GXBucketManager.h"
 #import "GXTopicManager.h"
 #import "GXUserManager.h"
+#import "GXFacebook.h"
 
 @implementation GXKiiCloud
 
@@ -56,7 +57,6 @@
     if (error == nil) {
         
         KiiBucket *bucket = [GXBucketManager sharedManager].galaxUser;
-        
         NSError *erorr = nil;
         KiiClause *clause = [KiiClause equals:@"uri" value:user.objectURI];
         KiiQuery *query = [KiiQuery queryWithClause:clause];
@@ -67,12 +67,13 @@
         
         [allResult addObjectsFromArray:results];
         
-        
         if (allResult.count == 0) {
             NSLog(@"signUp!!");
+            //ユーザ登録
             [[GXBucketManager sharedManager] registerGalaxUser:user];
+            //ユーザ領域にトピックを作成
             [[GXTopicManager sharedManager] createDefaultUserTopic];
-            //[[GXUserManager sharedManager] addCalamAtSignup:user];
+            
             
             
         } else {
@@ -102,8 +103,6 @@
          UIRemoteNotificationTypeBadge];
         
         [[NSNotificationCenter defaultCenter] postNotificationName:GXLoginSuccessedNotification object:nil];
-        
-        
         
     } else {
         NSLog(@"error : %@",error);

@@ -9,9 +9,12 @@
 #import <UIKit/UIKit.h>
 #import <KiiSDK/Kii.h>
 #import <FlatUIKit/FlatUIKit.h>
+#import "FBConnect.h"
+#import "GXFacebook.h"
 
-@interface GXAppDelegate : UIResponder <UIApplicationDelegate>
+@interface GXAppDelegate : UIResponder <UIApplicationDelegate,FBSessionDelegate,FBRequestDelegate>
 
 @property (strong, nonatomic) UIWindow *window;
+@property GXFacebook *gxFbManager;
 
 @end

@@ -12,8 +12,22 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
-    // Override point for customization after application launch.
+    //Facebook GraphAPIのための初期化処理
+    self.gxFbManager = [GXFacebook sharedManager];
     
+    //アクセストークン周り
+    NSUserDefaults *ud = [NSUserDefaults standardUserDefaults];
+    if ([ud objectForKey:@"FBAccessTokenKey"]
+        && [ud objectForKey:@"FBExpirationDateKey"]) {
+        
+        self.gxFbManager.facebook.accessToken = [ud objectForKey:@"FBAccessTokenKey"];
+        self.gxFbManager.facebook.expirationDate = [ud objectForKey:@"FBExpirationDateKey"];
+    }
+    
+    if (![self.gxFbManager.facebook isSessionValid]) {
+        [self.gxFbManager.facebook authorize:nil];
+    }
+    [self.gxFbManager getUserInfo];
     
     //kiiCloudの設定
     [Kii beginWithID:@"89c1cddc" andKey:@"b84c451265c396ea57d3eb50784cc29a" andSite:kiiSiteJP];
@@ -28,15 +42,14 @@
     [application registerForRemoteNotificationTypes:UIRemoteNotificationTypeAlert | UIRemoteNotificationTypeBadge | UIRemoteNotificationTypeSound];
     
 
-    
-    
-    
     return YES;
 }
+
 
 //シングルサインオンの有効
 - (BOOL)application:(UIApplication *)application openURL:(NSURL *)url sourceApplication:(NSString *)sourceApplication annotation:(id)annotation
 {
+    
     
     return [KiiSocialConnect handleOpenURL:url];
 }
@@ -67,6 +80,12 @@
     }
     
 }
+
+- (void)fbDidLogin {
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    [defaults setObject:[self.gxFbManager.facebook accessToken] forKey:@"FBAccessTokenKey"];
+    [defaults setObject:[self.gxFbManager.facebook expirationDate] forKey:@"FBExpirationDateKey"];
+}
 							
 - (void)applicationWillResignActive:(UIApplication *)application
 {
@@ -94,5 +113,7 @@
 {
     // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
 }
+
+
 
 @end

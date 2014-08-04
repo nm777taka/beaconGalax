@@ -1,14 +1,14 @@
 //
-//  GXQuestTableCell.m
+//  GXHomeTableViewCell.m
 //  BeaconGalax
 //
-//  Created by 古田貴久 on 2014/07/10.
+//  Created by 古田貴久 on 2014/07/31.
 //  Copyright (c) 2014年 古田貴久. All rights reserved.
 //
 
-#import "GXQuestTableCell.h"
+#import "GXHomeTableViewCell.h"
 
-@implementation GXQuestTableCell
+@implementation GXHomeTableViewCell
 
 - (void)awakeFromNib
 {
@@ -22,6 +22,4 @@
     // Configure the view for the selected state
 }
 
-- (IBAction)joinAction:(id)sender {
-}
 @end

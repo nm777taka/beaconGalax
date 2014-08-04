@@ -15,6 +15,12 @@
 #define SHADOW_RADIUS 3
 #define SHADOW_OPACITY 0.5
 
+#define HOME 0
+#define QUEST 1
+#define FRIENDS_NOW 2
+#define FRIENDS_PROFILE 3
+#define USER_PROFILE 4
+
 @interface GXCustomNavViewController ()
 @property (weak, nonatomic) IBOutlet UICollectionView *navCollectionView;
 @property NSArray *navList;
@@ -46,7 +52,8 @@
     _navImageDict = @{@"0":[UIImage imageNamed:@"home.png"],
                       @"1":[UIImage imageNamed:@"quest.png"],
                       @"2":[UIImage imageNamed:@"friendNow.png"],
-                      @"3":[UIImage imageNamed:@"friend.png"]};
+                      @"3":[UIImage imageNamed:@"friend.png"],
+                      @"4":[UIImage imageNamed:@"user.png"]};
     
     _collectionDataSource = [NSMutableArray new];
     
@@ -159,22 +166,22 @@
     NSNumber *num = [NSNumber numberWithInteger:indexPath.row];
     
     switch (indexPath.row) {
-        case 0:
+        case HOME:
             [[NSNotificationCenter defaultCenter] postNotificationName:GXViewSegueNotification object:num];
             break;
-        case 1:
+        case QUEST:
             [[NSNotificationCenter defaultCenter] postNotificationName:GXViewSegueNotification object:num];
             break;
         
-        case 2:
+        case FRIENDS_NOW:
             [[NSNotificationCenter defaultCenter] postNotificationName:GXViewSegueNotification object:num];
             break;
             
-        case 3:
+        case FRIENDS_PROFILE:
             [[NSNotificationCenter defaultCenter] postNotificationName:GXViewSegueNotification object:num];
             break;
             
-        case 4:
+        case USER_PROFILE:
             [[NSNotificationCenter defaultCenter] postNotificationName:GXViewSegueNotification object:num];
             break;
             

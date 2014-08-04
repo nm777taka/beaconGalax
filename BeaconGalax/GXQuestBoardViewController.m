@@ -1,5 +1,4 @@
 #import "GXQuestBoardViewController.h"
-#import "GXQuestTableCell.h"
 #import "GXTableViewConst.h"
 #import "GXCollectionViewCell.h"
 #import "GXBucketManager.h"
@@ -33,6 +32,7 @@
     
     self.questCollectionView.delegate = self;
     self.questCollectionView.dataSource = self;
+    
     
     self.questArray = [NSMutableArray new];
     
@@ -124,15 +124,15 @@
 #pragma mark CollectionViewDelegate
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath
 {
-    //notificationで選択されたセルのデータを飛ばす
-    //詳細画面表示
-    if (self.detailViewController == nil) {
-        self.detailViewController = [self.storyboard instantiateViewControllerWithIdentifier:@"QuestDetailView"];
-        
-    }
-    self.detailViewController.quest = self.questArray[indexPath.row];
-    self.detailViewController.view.frame = CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height);
-    [self.view addSubview:self.detailViewController.view];
+//    //notificationで選択されたセルのデータを飛ばす
+//    //詳細画面表示
+//    if (self.detailViewController == nil) {
+//        self.detailViewController = [self.storyboard instantiateViewControllerWithIdentifier:@"QuestDetailView"];
+//        
+//    }
+//    self.detailViewController.quest = self.questArray[indexPath.row];
+//    self.detailViewController.view.frame = CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height);
+//    [self.view addSubview:self.detailViewController.view];
     
 }
 

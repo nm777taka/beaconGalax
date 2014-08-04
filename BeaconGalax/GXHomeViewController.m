@@ -11,6 +11,9 @@
 #import "GXNotification.h"
 #import "GXQuestBoardViewController.h"
 #import "GTScrollViewController.h"
+#import "GXHomeTableViewCell.h"
+#import "GXHomeTableViewHeader.h"
+
 
 #define PADDING_TOP_BUTTOM 15
 #define PADDING_LEFT_RIGHT 10
@@ -24,6 +27,9 @@
 @property (weak, nonatomic) IBOutlet UIButton *joinQuestButton;
 @property (weak, nonatomic) IBOutlet UIScrollView *scrollView;
 @property (strong,nonatomic) NSMutableArray *scrollerViews;
+
+@property NSArray *section1Array;
+@property NSArray *section2Array;
 
 - (IBAction)gotoQuestBoard:(id)sender;
 
@@ -60,11 +66,15 @@
     [questButton setBackgroundImage:[UIImage imageNamed:@"homeViewQuestJoinButton.png"] forState:UIControlStateNormal];
     questButton.imageView.contentMode = UIViewContentModeScaleAspectFit;
     
-    UIView *joinedQuestView  = [[UIView alloc] initWithFrame:CGRectMake(0,0,290,284)];
-    UIImageView *mockImage = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"homeViewJoinedQuestTable.png"]];
-    mockImage.frame = joinedQuestView.frame;
-    mockImage.contentMode = UIViewContentModeScaleAspectFit;
-    [joinedQuestView addSubview:mockImage];
+    UITableView *questTableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 0, 300, 200) style:UITableViewStylePlain];
+    questTableView.delegate = self;
+    questTableView.dataSource = self;
+    //カスタムクラスをアタッチ
+    [questTableView registerNib:[UINib nibWithNibName:@"GXHomeTableViewCell" bundle:nil] forCellReuseIdentifier:@"cell"];
+    [questTableView registerNib:[UINib nibWithNibName:@"GXHomeTableViewHeader" bundle:nil] forCellReuseIdentifier:@"sectionHeader"];
+    
+    questTableView.scrollEnabled = NO;
+    
     
     UIButton *questCreateButton = [UIButton buttonWithType:UIButtonTypeCustom];
     questCreateButton.frame = CGRectMake(self.view.center.x - 70/2, self.view.frame.size.height - 200, 70, 70);
@@ -78,10 +88,14 @@
     [_scrollView setShowsHorizontalScrollIndicator:NO];
     
     [self addButton:questButton];
-    [self addView:joinedQuestView];
+    [self addTableView:questTableView];
+
     
+    //TableView
     [self.view insertSubview:questCreateButton atIndex:1];
     
+    self.section1Array = @[@"1",@"2",@"3"];
+    self.section2Array = @[@"4",@"5"];
     
 }
 
@@ -105,97 +119,84 @@
 #pragma mark - TableViewDataSource
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
-    return self.joinedQuestList.count;
+    return 1;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return ((NSMutableArray *)self.joinedQuestList[(NSInteger)section]).extended ? [self.joinedQuestList[(NSInteger)section] count]+1 : 1;
+    return 4;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    static NSString *ParentCellIdentifier = @"ParentCell";
-    static NSString *ChildCellIdentifier = @"ChildCell";
+    static NSString *cellIdentifier = @"cell";
     
-    NSInteger section = indexPath.section;
-    NSInteger row = indexPath.row;
-    NSMutableArray *subItems;
-    subItems = self.joinedQuestList[section];
+    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:cellIdentifier];
     
-    UITableViewCell *cell;
-    
-    NSString *identifier;
-    
-    if (row == 0) {
-        identifier = ParentCellIdentifier;
-    } else {
-        identifier = ChildCellIdentifier;
-    }
-    
-    cell = [tableView dequeueReusableCellWithIdentifier:identifier];
     if (cell == nil) {
-        cell = [[UITableViewCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:identifier];
+        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellIdentifier];
     }
     
-    NSString *strText;
-    if (row == 0) {
-        strText = [NSString stringWithFormat:@"==== section [%d] ===",indexPath.section];
-    } else {
-        strText = [NSString stringWithFormat:@"row (%d) ==== ",indexPath.row];
-    }
+//    if (indexPath.section == 0) {
+//        NSLog(@"index path %d",indexPath.section);
+//        [self configureCell:cell atIndexPath:indexPath];
+//
+//    } else if (indexPath.section == 1) {
+//        NSLog(@"index path %d",indexPath.section);
+//        [self configureCell:cell atIndexPath:indexPath];
+//    }
+   
     
-    //Configure
-    cell.textLabel.text = strText;
+    [self updateTableSize:tableView];
     
     return cell;
 }
 
-#pragma mark UItableViewDelegate
-- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+- (void)configureCell:(UITableViewCell *)cell atIndexPath:(NSIndexPath *)indexPath
 {
     NSInteger section = indexPath.section;
-    NSInteger row = indexPath.row;
     
-    NSMutableArray *subItems;
-    subItems = self.joinedQuestList[section];
-    
-    if (row == 0) {
-        subItems.extended = !subItems.extended;
-        
-        if (subItems.extended == NO) {
-            //animation
-            [self collapseSubItemAtIndex:row+1 maxRow:[subItems count]+1 section:section];
-        } else {
-            //animation
-            [self expandItemAtIndex:row+1 maxRow:[subItems count]+1 section:section];
-        }
+    switch (section) {
+        case 0:
+            NSLog(@"0");
+            cell.textLabel.text = self.section1Array[indexPath.row];
+            break;
+        case 1:
+            NSLog(@"1");
+            cell.textLabel.text = self.section2Array[indexPath.row];
+            break;
+            
+        default:
+            break;
     }
+    
 }
 
-#pragma mark TableViewAnimation
-//縮小
-- (void)collapseSubItemAtIndex:(int)firstRow maxRow:(int)maxRow section:(int)section
+- (void)updateTableSize:(UITableView *)tableView
 {
-    NSMutableArray *indexPaths = [NSMutableArray new];
+    tableView.frame = CGRectMake(tableView.frame.origin.x,
+                                 tableView.frame.origin.y,
+                                 tableView.contentSize.width,
+                                 MIN(tableView.contentSize.height, tableView.bounds.size.height));
     
-    for (int i=firstRow; i<maxRow; i++) {
-        [indexPaths addObject:[NSIndexPath indexPathForRow:i inSection:section]];
-    }
-    
-    [self.joinedQuestTableView deleteRowsAtIndexPaths:indexPaths withRowAnimation:UITableViewRowAnimationFade];
 }
 
-//拡張
-- (void)expandItemAtIndex:(int)firstRow maxRow:(int)maxRow section:(int)section
+#pragma mark - UITableViewDelegate
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    NSMutableArray *indexPaths = [NSMutableArray new];
-    for (int i=firstRow; i<maxRow; i++) {
-        [indexPaths addObject:[NSIndexPath indexPathForRow:i inSection:section]];
-    }
-    [self.joinedQuestTableView insertRowsAtIndexPaths:indexPaths withRowAnimation:UITableViewRowAnimationFade];
-    [self.joinedQuestTableView scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:firstRow inSection:section] atScrollPosition:UITableViewScrollPositionTop animated:YES];
-    
+    NSLog(@"indexPath.row : %u",indexPath.row);
+}
+
+- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
+{
+    return 50;
+}
+
+- (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section
+{
+    GXHomeTableViewHeader *headerCell = [tableView dequeueReusableCellWithIdentifier:@"sectionHeader"];;
+    return headerCell;
 }
 
 
@@ -208,9 +209,9 @@
     UIView *lastView = [_scrollView.subviews lastObject];
     _scrollerViews = [[NSMutableArray alloc] initWithArray:_scrollView.subviews];
     NSLog(@"ScrollViewCount: %d",_scrollView.subviews.count);
-    float y = lastView.frame.origin.y + lastView.frame.size.height+PADDING_TOP_BUTTOM;
+    float y = lastView.frame.origin.y + lastView.frame.size.height+PADDING_TOP_BUTTOM * 1.5;
     if(lastView == nil) {
-        y = 10;
+        y = 20;
     }
     
     CGRect frame = view.frame;
@@ -238,6 +239,40 @@
 
     
 }
+- (void)addTableView:(UITableView *)view
+{
+    UIView *lastView = [_scrollView.subviews lastObject];
+    _scrollerViews = [[NSMutableArray alloc] initWithArray:_scrollView.subviews];
+    NSLog(@"ScrollViewCount: %d",_scrollView.subviews.count);
+    float y = lastView.frame.origin.y + lastView.frame.size.height+PADDING_TOP_BUTTOM * 1.5;
+    if(lastView == nil) {
+        y = 10;
+    }
+    
+    CGRect frame = view.frame;
+    frame.origin.y = y;
+    frame.origin.x = PADDING_LEFT_RIGHT;
+    view.frame = frame;
+    
+    view.layer.masksToBounds = NO;
+    view.layer.cornerRadius = CORNER_RADIUS;
+    view.layer.shadowOffset = CGSizeMake(0, 0);
+    view.layer.shadowRadius = SHADOW_RADIUS;
+    view.layer.shadowOpacity = SHADOW_OPACITY;
+    
+    //viewサイズがscrollViewのサイズを超えてたら
+    //scrollViewのサイズを更新する
+    if((view.frame.origin.y + view.frame.size.height) >= _scrollView.frame.size.height) {
+        
+        //new height
+        float newHeight = view.frame.origin.y + view.frame.size.height + PADDING_TOP_BUTTOM;
+        [_scrollView setContentSize:CGSizeMake(self.view.frame.size.width, newHeight)];
+        
+    }
+    
+    [_scrollView addSubview:view];
+}
+
 - (void)addButton:(UIButton *)button
 {
     UIView *lastView = [_scrollView.subviews lastObject];
