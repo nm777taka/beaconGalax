@@ -12,22 +12,6 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
-    //Facebook GraphAPIのための初期化処理
-    self.gxFbManager = [GXFacebook sharedManager];
-    
-    //アクセストークン周り
-    NSUserDefaults *ud = [NSUserDefaults standardUserDefaults];
-    if ([ud objectForKey:@"FBAccessTokenKey"]
-        && [ud objectForKey:@"FBExpirationDateKey"]) {
-        
-        self.gxFbManager.facebook.accessToken = [ud objectForKey:@"FBAccessTokenKey"];
-        self.gxFbManager.facebook.expirationDate = [ud objectForKey:@"FBExpirationDateKey"];
-    }
-    
-    if (![self.gxFbManager.facebook isSessionValid]) {
-        [self.gxFbManager.facebook authorize:nil];
-    }
-    [self.gxFbManager getUserInfo];
     
     //kiiCloudの設定
     [Kii beginWithID:@"89c1cddc" andKey:@"b84c451265c396ea57d3eb50784cc29a" andSite:kiiSiteJP];
@@ -40,8 +24,7 @@
     
     //Push通知処理
     [application registerForRemoteNotificationTypes:UIRemoteNotificationTypeAlert | UIRemoteNotificationTypeBadge | UIRemoteNotificationTypeSound];
-    
-
+   
     return YES;
 }
 
@@ -49,21 +32,23 @@
 //シングルサインオンの有効
 - (BOOL)application:(UIApplication *)application openURL:(NSURL *)url sourceApplication:(NSString *)sourceApplication annotation:(id)annotation
 {
-    
+    NSLog(@"%s",__PRETTY_FUNCTION__);
     
     return [KiiSocialConnect handleOpenURL:url];
 }
 
+#pragma mark -ToDo:Pushのインストール周りの挙動がおかしい
 - (void)application:(UIApplication *)application didRegisterForRemoteNotificationsWithDeviceToken:(NSData *)deviceToken
 {
+    NSLog(@"%s",__PRETTY_FUNCTION__);
     [Kii setAPNSDeviceToken:deviceToken];
-    [KiiPushInstallation installWithBlock:^(KiiPushInstallation *installation, NSError *error) {
-        if (error == nil) {
-            NSLog(@"push installed!");
-        } else {
-            NSLog(@"Error installing: %@",error);
-        }
-    }];
+//    [KiiPushInstallation installWithBlock:^(KiiPushInstallation *installation, NSError *error) {
+//        if (error == nil) {
+//            NSLog(@"push installed!");
+//        } else {
+//            NSLog(@"Error installing: %@",error);
+//        }
+//    }];
 }
 
 - (void)application:(UIApplication *)application didReceiveRemoteNotification:(NSDictionary *)userInfo
@@ -81,12 +66,7 @@
     
 }
 
-- (void)fbDidLogin {
-    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-    [defaults setObject:[self.gxFbManager.facebook accessToken] forKey:@"FBAccessTokenKey"];
-    [defaults setObject:[self.gxFbManager.facebook expirationDate] forKey:@"FBExpirationDateKey"];
-}
-							
+
 - (void)applicationWillResignActive:(UIApplication *)application
 {
     // Sent when the application is about to move from active to inactive state. This can occur for certain types of temporary interruptions (such as an incoming phone call or SMS message) or when the user quits the application and it begins the transition to the background state.
@@ -112,6 +92,51 @@
 - (void)applicationWillTerminate:(UIApplication *)application
 {
     // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
+}
+
+#pragma mark FBDelegate
+- (void)requestLoading:(FBRequest *)request
+{
+    
+}
+
+/**
+ * Called when the server responds and begins to send back data.
+ */
+- (void)request:(FBRequest *)request didReceiveResponse:(NSURLResponse *)response
+{
+    
+}
+
+/**
+ * Called when an error prevents the request from completing successfully.
+ */
+- (void)request:(FBRequest *)request didFailWithError:(NSError *)error
+{
+    
+}
+
+/**
+ * Called when a request returns and its response has been parsed into
+ * an object.
+ *
+ * The resulting object may be a dictionary, an array, a string, or a number,
+ * depending on thee format of the API response.
+ */
+- (void)request:(FBRequest *)request didLoad:(id)result
+{
+    NSLog(@"%s",__PRETTY_FUNCTION__);
+    NSLog(@"%@", result);
+}
+
+/**
+ * Called when a request returns a response.
+ *
+ * The result object is the raw response from the server of type NSData
+ */
+- (void)request:(FBRequest *)request didLoadRawResponse:(NSData *)data
+{
+    
 }
 
 

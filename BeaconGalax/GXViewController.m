@@ -65,11 +65,10 @@
 
 - (void)viewDidAppear:(BOOL)animated
 {
+    NSLog(@"%s",__PRETTY_FUNCTION__);
     [super viewDidAppear:animated];
     
     if (![KiiUser loggedIn]) {
-        
-#pragma mark debug用処理
         [self performSegueWithIdentifier:@"GoToLoginView" sender:self];
     }
 
@@ -207,14 +206,12 @@
 
 - (BOOL)shouldPerformSegueWithIdentifier:(NSString *)identifier sender:(id)sender
 {
-    NSLog(@"%s", __PRETTY_FUNCTION__);
     
     return YES;
 }
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
 {
-    NSLog(@"%s", __PRETTY_FUNCTION__);
     
     if ([segue.identifier isEqualToString:@"embedContainer"]) {
         self.containerViewController = segue.destinationViewController;

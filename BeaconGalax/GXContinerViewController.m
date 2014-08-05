@@ -70,7 +70,6 @@
 #pragma mark - Segue
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
 {
-    NSLog(@"%s", __PRETTY_FUNCTION__);
     
     if ([segue.identifier isEqualToString:SegueIdentifier_Home] ) {
         

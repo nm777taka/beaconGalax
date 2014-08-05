@@ -210,7 +210,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="x5A-6p-PRh" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-54" y="-556"/>
+            <point key="canvasLocation" x="-23" y="-564"/>
         </scene>
         <!--Quest Create View Controller - クエスト-->
         <scene sceneID="scZ-cN-Wn1">

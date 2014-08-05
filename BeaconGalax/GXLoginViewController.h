@@ -8,6 +8,7 @@
 
 #import <UIKit/UIKit.h>
 #import <FlatUIKit/FlatUIKit.h>
+#import <Facebook-iOS-SDK/FacebookSDK/FacebookSDK.h>
 
 
 

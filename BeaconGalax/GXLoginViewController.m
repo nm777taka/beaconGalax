@@ -43,8 +43,6 @@ static NSInteger  const logOutAlertViewTag = 2;
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     
-    
-    
     //init UI
     //LoginButton
     self.loginButton = [[FUIButton alloc]initWithFrame:CGRectMake(self.view.center.x - 100 ,self.view.center.y + 100, 200, 50)];
@@ -130,6 +128,7 @@ static NSInteger  const logOutAlertViewTag = 2;
 #pragma  mark GXNotification
 - (void)loginHandler
 {
+        
     FUIAlertView *loggedInAlertView = [[FUIAlertView alloc] initWithTitle:@"HELLO" message:@"GALAXへようこそ" delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
     
      [FUIAlertView gxLoginTheme:loggedInAlertView];

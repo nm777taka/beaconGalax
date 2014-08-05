@@ -60,10 +60,6 @@
     [object setObject:@YES forKey:@"isNear"];
     [object setObject:@YES forKey:@"isMember"];
     
-    GXFacebook *fbManager = [GXFacebook sharedManager];
-    if (fbManager.facebook_id) {
-        [object setObject:fbManager.facebook_id forKey:@"facebook_id"];
-    }
     NSError *error = nil;
     [object saveSynchronous:&error];
     
