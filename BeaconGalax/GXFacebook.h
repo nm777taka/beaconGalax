@@ -7,15 +7,12 @@
 //
 
 #import <Foundation/Foundation.h>
-#import <FacebookSDK/Facebook.h>
-#import "FBConnect.h"
+#import <AFNetworking/AFNetworking.h>
+#import <KiiSDK/Kii.h>
 
-
-@interface GXFacebook : NSObject<FBRequestDelegate,FBSessionDelegate>
+@interface GXFacebook : NSObject
 
 + (GXFacebook *)sharedManager;
-- (void)getUserInfo;
-@property (nonatomic,retain) Facebook *facebook;
-@property (nonatomic,retain) NSString *facebook_id;
+- (void)getUserFacebookID;
 
 @end

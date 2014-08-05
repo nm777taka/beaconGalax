@@ -55,21 +55,7 @@
 - (void)loginFinished:(KiiUser *)user usingNetwork:(KiiSocialNetworkName)network withError:(NSError *)error {
     
     if (error == nil) {
-        
-        NSDictionary *dict = [KiiSocialConnect getAccessTokenDictionaryForNetwork:kiiSCNFacebook];
-        NSLog(@"%@",dict);
-        
-        //AFnetworkingでユーザの情報をとってくる
-        NSString *api_url = [NSString stringWithFormat:@"https://graph.facebook.com/me?access_token=%@",[dict objectForKey:@"access_token"]];
-        AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
-        
-        [manager GET:api_url parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
-            //成功
-            NSLog(@"%@",responseObject);
-        } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-            NSLog(@"error:%@",error);
-        }];
-        
+                
         KiiBucket *bucket = [GXBucketManager sharedManager].galaxUser;
         NSError *erorr = nil;
         KiiClause *clause = [KiiClause equals:@"uri" value:user.objectURI];
@@ -83,11 +69,11 @@
         
         if (allResult.count == 0) {
             NSLog(@"signUp!!");
+            
             //ユーザ登録
             [[GXBucketManager sharedManager] registerGalaxUser:user];
             //ユーザ領域にトピックを作成
             [[GXTopicManager sharedManager] createDefaultUserTopic];
-            
             
             
         } else {

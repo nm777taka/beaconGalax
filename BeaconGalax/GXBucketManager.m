@@ -60,6 +60,7 @@
     [object setObject:@YES forKey:@"isNear"];
     [object setObject:@YES forKey:@"isMember"];
     
+    
     NSError *error = nil;
     [object saveSynchronous:&error];
     
@@ -67,6 +68,7 @@
         NSLog(@"error:%@",error);
     } else {
         NSLog(@"ギャラックスユーザバケットへ登録完了");
+        [[GXFacebook sharedManager] getUserFacebookID];
     }
 
 }
@@ -161,5 +163,6 @@
 //    }];
     return allResult;
 }
+
 
 @end
