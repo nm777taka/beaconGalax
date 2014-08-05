@@ -55,7 +55,9 @@
 - (void)loginFinished:(KiiUser *)user usingNetwork:(KiiSocialNetworkName)network withError:(NSError *)error {
     
     if (error == nil) {
-                
+        
+        //初回ログイン時か調べる（サインアップorサインイン)
+        
         KiiBucket *bucket = [GXBucketManager sharedManager].galaxUser;
         NSError *erorr = nil;
         KiiClause *clause = [KiiClause equals:@"uri" value:user.objectURI];
@@ -67,7 +69,7 @@
         
         [allResult addObjectsFromArray:results];
         
-        if (allResult.count == 0) {
+        if (allResult.count == 0) { //サインアップ
             NSLog(@"signUp!!");
             
             //ユーザ登録
