@@ -22,5 +22,6 @@ NSString *const GXQuestCellTouchedNotification = @"GXQuestCellTouchedNotificatio
 NSString *const GXQuestDeletedNotification = @"GXQuestDeletedNotification";
 
 
+NSString *const GXViewSegueNotification = @"GXViewSegueNotification";
 
 @end

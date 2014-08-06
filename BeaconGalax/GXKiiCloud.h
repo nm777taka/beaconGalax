@@ -8,7 +8,7 @@
 
 #import <Foundation/Foundation.h>
 #import <KiiSDK/Kii.h>
-
+#import <AFNetworking/AFNetworking.h>
 @interface GXKiiCloud : NSObject
 
 + (GXKiiCloud *)sharedManager;

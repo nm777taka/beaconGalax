@@ -1,5 +1,4 @@
 #import "GXQuestBoardViewController.h"
-#import "GXQuestTableCell.h"
 #import "GXTableViewConst.h"
 #import "GXCollectionViewCell.h"
 #import "GXBucketManager.h"
@@ -34,32 +33,33 @@
     self.questCollectionView.delegate = self;
     self.questCollectionView.dataSource = self;
     
+    
     self.questArray = [NSMutableArray new];
     
-    //QuestCreateButton init
-    FUIButton *questCreateButton = [[FUIButton alloc]initWithFrame:CGRectMake(self.view.center.x - 100, self.view.frame.size.height-80 , 200, 50)];
-    questCreateButton.buttonColor = [UIColor sunflowerColor];
-    questCreateButton.shadowColor = [UIColor orangeColor];
-    questCreateButton.shadowHeight = 3.0f;
-    questCreateButton.cornerRadius = 6.0f;
-    questCreateButton.titleLabel.font = [UIFont boldFlatFontOfSize:16];
-    [questCreateButton setTitleColor:[UIColor cloudsColor] forState:UIControlStateNormal];
-    [questCreateButton setTitleColor:[UIColor cloudsColor] forState:UIControlStateHighlighted];
-    [questCreateButton setTitle:@"Create"forState:UIControlStateNormal];
-    [questCreateButton bk_addEventHandler:^(id sender) {
-        //handler
-        //画面遷移
-        [self performSegueWithIdentifier:@"GoToQuestCreateView" sender:self];
-        
-        
-    } forControlEvents:UIControlEventTouchUpInside];
-    
-    //TableViewの上に出す
-    [self.view insertSubview:questCreateButton aboveSubview:self.view];
+//    //QuestCreateButton init
+//    FUIButton *questCreateButton = [[FUIButton alloc]initWithFrame:CGRectMake(self.view.center.x - 100, self.view.frame.size.height - 150 , 200, 50)];
+//    questCreateButton.buttonColor = [UIColor sunflowerColor];
+//    questCreateButton.shadowColor = [UIColor orangeColor];
+//    questCreateButton.shadowHeight = 3.0f;
+//    questCreateButton.cornerRadius = 6.0f;
+//    questCreateButton.titleLabel.font = [UIFont boldFlatFontOfSize:16];
+//    [questCreateButton setTitleColor:[UIColor cloudsColor] forState:UIControlStateNormal];
+//    [questCreateButton setTitleColor:[UIColor cloudsColor] forState:UIControlStateHighlighted];
+//    [questCreateButton setTitle:@"Create"forState:UIControlStateNormal];
+//    [questCreateButton bk_addEventHandler:^(id sender){
+//        //handler
+//        //画面遷移
+//        [self performSegueWithIdentifier:@"GoToQuestCreateView" sender:self];
+//        
+//        
+//    } forControlEvents:UIControlEventTouchUpInside];
+//    
+//    //TableViewの上に出す
+//    [self.view insertSubview:questCreateButton aboveSubview:self.view];
     
     
     //CollectionView
-    self.questCollectionView.backgroundColor = [UIColor cloudsColor];
+    //self.questCollectionView.backgroundColor = [UIColor cloudsColor];
     
     //notification
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(gxQuestFetchedHandler:) name:GXQuestFetchedNotification object:nil];
@@ -70,9 +70,9 @@
 
 - (void)viewWillAppear:(BOOL)animated
 {
-    [super viewWillAppear:animated];
     
-    [self fetchQuest];
+    
+    //[self fetchQuest];
 }
 
 - (void)didReceiveMemoryWarning
@@ -104,7 +104,8 @@
 
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section
 {
-    return self.questArray.count;
+//    return self.questArray.count;
+    return 5;
 }
 
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath
@@ -123,15 +124,15 @@
 #pragma mark CollectionViewDelegate
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath
 {
-    //notificationで選択されたセルのデータを飛ばす
-    //詳細画面表示
-    if (self.detailViewController == nil) {
-        self.detailViewController = [self.storyboard instantiateViewControllerWithIdentifier:@"QuestDetailView"];
-        
-    }
-    self.detailViewController.quest = self.questArray[indexPath.row];
-    self.detailViewController.view.frame = CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height);
-    [self.view addSubview:self.detailViewController.view];
+//    //notificationで選択されたセルのデータを飛ばす
+//    //詳細画面表示
+//    if (self.detailViewController == nil) {
+//        self.detailViewController = [self.storyboard instantiateViewControllerWithIdentifier:@"QuestDetailView"];
+//        
+//    }
+//    self.detailViewController.quest = self.questArray[indexPath.row];
+//    self.detailViewController.view.frame = CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height);
+//    [self.view addSubview:self.detailViewController.view];
     
 }
 
@@ -146,10 +147,11 @@
     cell.layer.shadowPath = [[UIBezierPath bezierPathWithRect:cell.bounds] CGPath];
     cell.layer.shouldRasterize = YES;
     cell.layer.rasterizationScale = [UIScreen mainScreen].scale;
+    cell.backgroundColor = [UIColor cloudsColor];
     
-    KiiObject *quest = self.questArray[indexPath.row];
-    cell.titleLabel.text = [quest getObjectForKey:@"title"];
-    cell.descriptionLabel.text = [quest getObjectForKey:@"description"];
+//    KiiObject *quest = self.questArray[indexPath.row];
+//    cell.questNameLabel.text = [quest getObjectForKey:@"title"];
+    cell.questNameLabel.text = @"testName";
     
     
 }

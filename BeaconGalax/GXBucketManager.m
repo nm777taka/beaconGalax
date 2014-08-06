@@ -10,6 +10,7 @@
 #import "GXUserManager.h"
 #import "GXTopicManager.h"
 #import "GXNotification.h"
+#import "GXFacebook.h"
 
 @implementation GXBucketManager
 
@@ -57,7 +58,8 @@
     [object setObject:user.email forKey:@"email"];
     [object setObject:user.objectURI forKey:@"uri"];
     [object setObject:@YES forKey:@"isNear"];
-    [object setObject:@YES forKey:@"iSMember"];
+    [object setObject:@YES forKey:@"isMember"];
+    
     
     NSError *error = nil;
     [object saveSynchronous:&error];
@@ -66,6 +68,7 @@
         NSLog(@"error:%@",error);
     } else {
         NSLog(@"ギャラックスユーザバケットへ登録完了");
+        [[GXFacebook sharedManager] getUserFacebookID];
     }
 
 }
@@ -116,23 +119,18 @@
     
 }
 
-- (KiiObject *)getMeFromAppBucket:(KiiUser *)user
+- (KiiObject *)getMeFromAppBucket
 {
+    KiiUser *user = [KiiUser currentUser];
     NSError *error = nil;
-    
-    KiiClause *clause = [KiiClause equals:@"email" value:user.email];
+    KiiBucket *galax_user = [GXBucketManager sharedManager].galaxUser;
+    KiiClause *clause = [KiiClause equals:@"uri" value:user.objectURI];
     KiiQuery *query = [KiiQuery queryWithClause:clause];
-    NSMutableArray *allResults = [NSMutableArray new];
     KiiQuery *nextQuery;
-    NSArray *results = [self.galaxUser executeQuerySynchronous:query withError:&error andNext:&nextQuery];
-    [allResults addObjectsFromArray:results];
-    if (allResults.count == 1) {
-        
-        KiiObject *obj = allResults.firstObject;
-        return obj;
-    }
+    NSArray *results = [galax_user executeQuerySynchronous:query withError:&error andNext:&nextQuery];
+    KiiObject *userObject = results.firstObject;
     
-    return nil;
+    return userObject;
 }
 
 #pragma mark Quest Method
@@ -160,5 +158,6 @@
 //    }];
     return allResult;
 }
+
 
 @end

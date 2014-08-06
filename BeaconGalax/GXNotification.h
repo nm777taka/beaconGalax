@@ -21,4 +21,7 @@ UIKIT_EXTERN NSString *const GXQuestCellTouchedNotification;
 
 UIKIT_EXTERN NSString *const GXQuestDeletedNotification;
 
+//navigation
+UIKIT_EXTERN NSString *const GXViewSegueNotification;
+
 @end

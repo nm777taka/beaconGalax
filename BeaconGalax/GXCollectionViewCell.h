@@ -10,9 +10,15 @@
 #import <FlatUIKit/FlatUIKit.h>
 
 @interface GXCollectionViewCell : UICollectionViewCell
-@property (weak, nonatomic) IBOutlet UILabel *titleLabel;
-@property (weak, nonatomic) IBOutlet UILabel *descriptionLabel;
 
-@property (weak, nonatomic) IBOutlet FUIButton *joinButton;
+//QuestBoardView
+@property (weak, nonatomic) IBOutlet UIImageView *iconImageView;
+@property (weak, nonatomic) IBOutlet UILabel *questNameLabel;
+@property (weak, nonatomic) IBOutlet UILabel *questTimeLabel;
+
+//FriendNowView
+@property (weak, nonatomic) IBOutlet UIImageView *placeImageView;
+@property (weak, nonatomic) IBOutlet UILabel *placeName;
+@property (weak, nonatomic) IBOutlet UIView *headerView;
 
 @end

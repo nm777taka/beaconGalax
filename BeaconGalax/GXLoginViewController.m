@@ -16,11 +16,15 @@
 @interface GXLoginViewController ()
 @property (weak, nonatomic) IBOutlet UILabel *statusLabel;
 @property (weak, nonatomic) IBOutlet UILabel *nameLabel;
-
+@property (nonatomic,retain) FBProfilePictureView *profilePictureView;
 
 @property FUIButton *loginButton;
+@property FUIButton *startButton;
 
 @end
+
+#define BUTTON_SLID_DOWN_OFFSET_Y 70
+#define LOGIN_BUTTON_OFFSET_Y 150
 
 @implementation GXLoginViewController
 
@@ -43,11 +47,11 @@ static NSInteger  const logOutAlertViewTag = 2;
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     
-    
-    
     //init UI
     //LoginButton
-    self.loginButton = [[FUIButton alloc]initWithFrame:CGRectMake(self.view.center.x - 100 ,self.view.center.y + 100, 200, 50)];
+    self.loginButton = [[FUIButton alloc]initWithFrame:CGRectMake(self.view.center.x - 100 ,
+                                                                  self.view.center.y + LOGIN_BUTTON_OFFSET_Y,
+                                                                  200, 50)];
     self.loginButton.buttonColor = [UIColor turquoiseColor];
     self.loginButton.shadowColor = [UIColor greenSeaColor];
     self.loginButton.shadowHeight = 3.0f;
@@ -59,12 +63,36 @@ static NSInteger  const logOutAlertViewTag = 2;
     [self.loginButton addTarget:self action:@selector(loginButtonAction) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:self.loginButton];
     
+    //startボタン
+    self.startButton = [[FUIButton alloc] initWithFrame:CGRectMake(self.view.center.x-100,
+                                                                   self.view.center.y+LOGIN_BUTTON_OFFSET_Y,
+                                                                   200, 50)];
+    
+    self.startButton.buttonColor = [UIColor turquoiseColor];
+    self.startButton.shadowColor = [UIColor greenSeaColor];
+    self.startButton.shadowHeight = 3.0f;
+    self.startButton.cornerRadius = 6.0f;
+    self.startButton.titleLabel.font = [UIFont boldFlatFontOfSize:16];
+    [self.startButton setTitleColor:[UIColor cloudsColor] forState:UIControlStateNormal];
+    [self.startButton setTitleColor:[UIColor cloudsColor] forState:UIControlStateHighlighted];
+    [self.startButton setTitle:@"GetStarted" forState:UIControlStateNormal];
+    [self.startButton bk_addEventHandler:^(id sender) {
+        //home画面に遷移
+        [self dismissViewControllerAnimated:YES completion:nil];
+    } forControlEvents:UIControlEventTouchUpInside];
+    self.startButton.alpha = 0.0f;
+    [self.view addSubview:self.startButton];
+    
+    //プロフィール写真
+    self.profilePictureView = [[FBProfilePictureView alloc] initWithFrame:CGRectMake(self.view.center.x-50, self.view.center.y, 100, 100)];
+    [self.profilePictureView.layer setCornerRadius:50.0f];
+    [self.profilePictureView.layer setBorderColor:[UIColor whiteColor].CGColor];
+    [self.profilePictureView.layer setBorderWidth:1.5f];
+    [self.view addSubview:self.profilePictureView];
+    self.profilePictureView.hidden = YES;
+    
     //Notification
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(loginHandler) name:GXLoginSuccessedNotification object:nil];
-    
-    
-    
-    
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -91,13 +119,14 @@ static NSInteger  const logOutAlertViewTag = 2;
 {
     if ([KiiUser loggedIn]) {
         [KiiUser logOut];
-        
         FUIAlertView *logOutAlertView = [[FUIAlertView alloc] initWithTitle:@"LOGOUT" message:@"GALAXをログアウトしました。" delegate:self cancelButtonTitle:nil otherButtonTitles:@"OK", nil];
         [FUIAlertView gxLoginTheme:logOutAlertView];
         logOutAlertView.tag = logOutAlertViewTag;
         
         [logOutAlertView show];
         
+        self.profilePictureView.hidden = YES;
+        [self fadeOut];
         
     } else if (![KiiUser loggedIn]){
         [[GXKiiCloud sharedManager] kiiCloudLogin];
@@ -127,16 +156,29 @@ static NSInteger  const logOutAlertViewTag = 2;
     }
 }
 
+- (void)configurePicutureView
+{
+   //現在のユーザのKiiObjectをフェッチする
+    KiiObject *userObject = [[GXBucketManager sharedManager] getMeFromAppBucket];
+    NSString *fb_id = [userObject getObjectForKey:@"facebook_id"];
+    self.profilePictureView.profileID = fb_id;
+    
+    if (self.profilePictureView.hidden == YES) {
+        self.profilePictureView.hidden = NO;
+    }
+}
+
 #pragma  mark GXNotification
 - (void)loginHandler
 {
-    FUIAlertView *loggedInAlertView = [[FUIAlertView alloc] initWithTitle:@"HELLO" message:@"GALAXへようこそ" delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
-    
-     [FUIAlertView gxLoginTheme:loggedInAlertView];
-    
-    loggedInAlertView.tag = logInAlertViewTag;
-    
-    [loggedInAlertView show];
+        
+//    FUIAlertView *loggedInAlertView = [[FUIAlertView alloc] initWithTitle:@"HELLO" message:@"GALAXへようこそ" delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
+//    
+//     [FUIAlertView gxLoginTheme:loggedInAlertView];
+//    
+//    loggedInAlertView.tag = logInAlertViewTag;
+//    
+//    [loggedInAlertView show];
     
     if ([KiiUser loggedIn]) {
         
@@ -161,8 +203,9 @@ static NSInteger  const logOutAlertViewTag = 2;
     [[GXTopicManager sharedManager] setACL];
     
     
-    
     [self configureButton];
+    [self configurePicutureView];
+    [self buttonShowAnimationWithLogin];
     
 }
 
@@ -181,5 +224,58 @@ static NSInteger  const logOutAlertViewTag = 2;
 - (IBAction)goBack:(UIStoryboardSegue *)sender
 {
 }
+
+#pragma mark ButtonAnimation
+- (void)buttonShowAnimationWithLogin
+{
+    [UIView animateWithDuration:1.0f delay:0 options:UIViewAnimationOptionCurveEaseOut animations:^{
+        CGRect newFrame = CGRectMake(self.loginButton.frame.origin.x,
+                                     self.loginButton.frame.origin.y+BUTTON_SLID_DOWN_OFFSET_Y,
+                                     self.loginButton.frame.size.width,
+                                     self.loginButton.frame.size.height);
+        
+        self.loginButton.frame = newFrame;
+        
+    } completion:^(BOOL finished) {
+        
+        [self fadeIn];
+        
+    }];
+}
+
+- (void)butonShowAnimationSlideUP
+{
+    [UIView animateWithDuration:0.5f delay:0 options:UIViewAnimationOptionCurveEaseOut animations:^{
+        CGRect newFrame = CGRectMake(self.loginButton.frame.origin.x,
+                                     self.loginButton.frame.origin.y - BUTTON_SLID_DOWN_OFFSET_Y,
+                                     self.loginButton.frame.size.width,
+                                     self.loginButton.frame.size.height);
+        
+        self.loginButton.frame = newFrame;
+        
+    } completion:^(BOOL finished) {
+        //
+    }];
+}
+
+- (void)fadeIn
+{
+    [UIView animateWithDuration:0.5f delay:0 options:UIViewAnimationOptionCurveEaseIn animations:^{
+        self.startButton.alpha = 1.0f;
+    } completion:^(BOOL finished) {
+        //
+    }];
+}
+
+- (void)fadeOut
+{
+    [UIView animateWithDuration:0.5f delay:0 options:UIViewAnimationOptionCurveEaseOut animations:^{
+        self.startButton.alpha = 0.0f;
+    } completion:^(BOOL finished) {
+        //loginボタンを元の位置に戻す
+        [self butonShowAnimationSlideUP];
+    }];
+}
+
 
 @end
