@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		0F1060C119921822004509B6 /* GXActionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0F1060C019921822004509B6 /* GXActionViewController.m */; };
 		0F1987E019811EE4003FD92A /* GXFriendsNowViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0F1987DF19811EE4003FD92A /* GXFriendsNowViewController.m */; };
 		0F1987E419811EFF003FD92A /* GXFriendsProfileViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0F1987E319811EFF003FD92A /* GXFriendsProfileViewController.m */; };
 		0F1987E819811F14003FD92A /* GXUserProfileViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0F1987E719811F14003FD92A /* GXUserProfileViewController.m */; };
@@ -111,6 +112,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		0F1060BF19921822004509B6 /* GXActionViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GXActionViewController.h; sourceTree = "<group>"; };
+		0F1060C019921822004509B6 /* GXActionViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GXActionViewController.m; sourceTree = "<group>"; };
 		0F1987DE19811EE4003FD92A /* GXFriendsNowViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GXFriendsNowViewController.h; sourceTree = "<group>"; };
 		0F1987DF19811EE4003FD92A /* GXFriendsNowViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GXFriendsNowViewController.m; sourceTree = "<group>"; };
 		0F1987E219811EFF003FD92A /* GXFriendsProfileViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GXFriendsProfileViewController.h; sourceTree = "<group>"; };
@@ -286,6 +289,15 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		0F1060BE199217FC004509B6 /* ActionViewController */ = {
+			isa = PBXGroup;
+			children = (
+				0F1060BF19921822004509B6 /* GXActionViewController.h */,
+				0F1060C019921822004509B6 /* GXActionViewController.m */,
+			);
+			name = ActionViewController;
+			sourceTree = "<group>";
+		};
 		0F1987DD19811EC5003FD92A /* FriendsNowViewController */ = {
 			isa = PBXGroup;
 			children = (
@@ -467,6 +479,7 @@
 		0F7A25C919587E0C001B7839 /* Controller */ = {
 			isa = PBXGroup;
 			children = (
+				0F1060BE199217FC004509B6 /* ActionViewController */,
 				0F5FA5FC198DCFFD00F41B05 /* RootContainer */,
 				0F5FA5FB198DCFEE00F41B05 /* CustomNavigation */,
 				0F1987E519811F04003FD92A /* UserProfileViewController */,
@@ -919,6 +932,7 @@
 				0F7A25AA19587ADE001B7839 /* GXViewController.m in Sources */,
 				0F821F5719724EF70002664D /* CHTCollectionViewWaterfallLayout.m in Sources */,
 				0F5FA5F6198DCF5300F41B05 /* GXFacebook.m in Sources */,
+				0F1060C119921822004509B6 /* GXActionViewController.m in Sources */,
 				0F7F4142195C823000A796AD /* GXLoginViewController.m in Sources */,
 				0F7A25D51959B56E001B7839 /* GXBeaconTableViewController.m in Sources */,
 				0FD26D8D195A9820005E2B95 /* GXNotification.m in Sources */,

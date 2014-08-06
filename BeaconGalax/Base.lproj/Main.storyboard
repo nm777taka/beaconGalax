@@ -336,7 +336,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="pG6-VM-peR" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1082" y="-1452"/>
+            <point key="canvasLocation" x="1172" y="-1447"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="tlG-Bd-YLs">
@@ -723,6 +723,68 @@
             </objects>
             <point key="canvasLocation" x="500" y="-504"/>
         </scene>
+        <!--Action View Controller-->
+        <scene sceneID="luP-vL-7nU">
+            <objects>
+                <viewController storyboardIdentifier="ActionView" id="9LS-Jp-fSE" customClass="GXActionViewController" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="3Hj-NA-jip"/>
+                        <viewControllerLayoutGuide type="bottom" id="nR3-g9-Nm6"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="3VZ-ya-i6U">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="463"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="JlL-DA-UDa" customClass="CSAnimationView">
+                                <rect key="frame" x="20" y="82" width="280" height="300"/>
+                                <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                <subviews>
+                                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="What's Up?" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bDp-Js-8p0">
+                                        <rect key="frame" x="72" y="13" width="136" height="21"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <fontDescription key="fontDescription" name="HelveticaNeue-Bold" family="Helvetica Neue" pointSize="17"/>
+                                        <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ZZT-Ob-9r1">
+                                        <rect key="frame" x="242" y="5" width="38" height="38"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <state key="normal" image="Common_ButtonNavigationClose.png">
+                                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="closeButtonAction:" destination="9LS-Jp-fSE" eventType="touchUpInside" id="f7l-ee-X7P"/>
+                                        </connections>
+                                    </button>
+                                </subviews>
+                                <color key="backgroundColor" red="0.83529418710000003" green="0.91764712329999998" blue="0.36470589040000001" alpha="1" colorSpace="deviceRGB"/>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="string" keyPath="type" value="fadeIn"/>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="duration">
+                                        <real key="value" value="0.5"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="delay">
+                                        <integer key="value" value="0"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
+                            </view>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                    <nil key="simulatedStatusBarMetrics"/>
+                    <nil key="simulatedTopBarMetrics"/>
+                    <nil key="simulatedBottomBarMetrics"/>
+                    <simulatedOrientationMetrics key="simulatedOrientationMetrics"/>
+                    <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+                    <size key="freeformSize" width="320" height="463"/>
+                    <connections>
+                        <outlet property="animationView" destination="JlL-DA-UDa" id="v20-SC-SPn"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="qbT-MK-QaM" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="254" y="-1437"/>
+        </scene>
         <!--Home View Controller-->
         <scene sceneID="IUh-rZ-Cto">
             <objects>
@@ -760,6 +822,7 @@
         </scene>
     </scenes>
     <resources>
+        <image name="Common_ButtonNavigationClose.png" width="38" height="38"/>
         <image name="GLAX-U-homeI.png" width="640" height="1136"/>
         <image name="bell-white.png" width="1200" height="1200"/>
         <image name="home.png" width="1200" height="1200"/>

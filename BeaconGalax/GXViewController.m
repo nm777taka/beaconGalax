@@ -68,9 +68,9 @@
     NSLog(@"%s",__PRETTY_FUNCTION__);
     [super viewDidAppear:animated];
     
-    if (![KiiUser loggedIn]) {
-        [self performSegueWithIdentifier:@"GoToLoginView" sender:self];
-    }
+//    if (![KiiUser loggedIn]) {
+//        [self performSegueWithIdentifier:@"GoToLoginView" sender:self];
+//    }
 
 }
 

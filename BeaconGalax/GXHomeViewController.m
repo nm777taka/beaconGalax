@@ -13,6 +13,7 @@
 #import "GTScrollViewController.h"
 #import "GXHomeTableViewCell.h"
 #import "GXHomeTableViewHeader.h"
+#import "GXActionViewController.h"
 
 
 #define PADDING_TOP_BUTTOM 15
@@ -28,8 +29,8 @@
 @property (weak, nonatomic) IBOutlet UIScrollView *scrollView;
 @property (strong,nonatomic) NSMutableArray *scrollerViews;
 
-@property NSArray *section1Array;
-@property NSArray *section2Array;
+
+@property (nonatomic,retain) GXActionViewController *actionViewController;
 
 - (IBAction)gotoQuestBoard:(id)sender;
 
@@ -56,6 +57,10 @@
     self.joinedQuestTableView.delegate = self;
     self.joinedQuestTableView.dataSource = self;
     
+    //ActionViewをStoryBoardから取得しておく
+    self.actionViewController = [self.storyboard instantiateViewControllerWithIdentifier:@"ActionView"];
+    
+    
     self.view.backgroundColor = [UIColor colorWithRed:0.000 green:0.647 blue:0.865 alpha:1.000];
     
     //ScrollView
@@ -75,11 +80,14 @@
     
     questTableView.scrollEnabled = NO;
     
-    
-    UIButton *questCreateButton = [UIButton buttonWithType:UIButtonTypeCustom];
-    questCreateButton.frame = CGRectMake(self.view.center.x - 70/2, self.view.frame.size.height - 200, 70, 70);
-    [questCreateButton setBackgroundImage:[UIImage imageNamed:@"questCreateButton.png"] forState:UIControlStateNormal];
+    //アクションビュー呼び出しButton
+    UIButton *actionButton = [UIButton buttonWithType:UIButtonTypeCustom];
+    actionButton.frame = CGRectMake(self.view.center.x - 70/2, self.view.frame.size.height - 200, 70, 70);
+    [actionButton setBackgroundImage:[UIImage imageNamed:@"questCreateButton.png"] forState:UIControlStateNormal];
     //questCreateButton.imageView.contentMode = UIViewContentModeScaleAspectFit;
+    [actionButton bk_addEventHandler:^(id sender) {
+        [self.view addSubview:self.actionViewController.view];
+    } forControlEvents:UIControlEventTouchUpInside];
     
     [_scrollView setContentSize:CGSizeMake(self.view.frame.size.width,self.view.frame.size.height)];
     [_scrollView setScrollEnabled:YES];
@@ -92,10 +100,8 @@
 
     
     //TableView
-    [self.view insertSubview:questCreateButton atIndex:1];
+    [self.view insertSubview:actionButton atIndex:1];
     
-    self.section1Array = @[@"1",@"2",@"3"];
-    self.section2Array = @[@"4",@"5"];
     
 }
 
@@ -159,11 +165,9 @@
     switch (section) {
         case 0:
             NSLog(@"0");
-            cell.textLabel.text = self.section1Array[indexPath.row];
             break;
         case 1:
             NSLog(@"1");
-            cell.textLabel.text = self.section2Array[indexPath.row];
             break;
             
         default:
