@@ -645,17 +645,17 @@
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                 <color key="backgroundColor" red="0.20392156859999999" green="0.94117647059999998" blue="0.98039215690000003" alpha="1" colorSpace="calibratedRGB"/>
                                 <collectionViewFlowLayout key="collectionViewLayout" scrollDirection="horizontal" minimumLineSpacing="5" minimumInteritemSpacing="5" id="OZC-CK-yNd">
-                                    <size key="itemSize" width="100" height="44"/>
+                                    <size key="itemSize" width="100" height="43"/>
                                     <size key="headerReferenceSize" width="0.0" height="0.0"/>
                                     <size key="footerReferenceSize" width="0.0" height="0.0"/>
                                     <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
                                 </collectionViewFlowLayout>
                                 <cells>
                                     <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="Cell" id="Ibe-i2-f7M" customClass="GXCustomNavViewCell">
-                                        <rect key="frame" x="0.0" y="-1" width="100" height="44"/>
+                                        <rect key="frame" x="0.0" y="-1" width="100" height="43"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                         <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
-                                            <rect key="frame" x="0.0" y="0.0" width="100" height="44"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="100" height="43"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="ホーム" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="nIB-SX-467">
@@ -677,7 +677,7 @@
                                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                         </view>
                                         <color key="backgroundColor" red="0.20392156859999999" green="0.94117647059999998" blue="0.98039215690000003" alpha="1" colorSpace="calibratedRGB"/>
-                                        <size key="customSize" width="100" height="44"/>
+                                        <size key="customSize" width="100" height="43"/>
                                         <connections>
                                             <outlet property="indicator" destination="GX1-Lo-Mau" id="MTa-10-CXi"/>
                                             <outlet property="viewIcon" destination="bHU-aH-Anm" id="96D-pJ-ji4"/>
@@ -756,6 +756,13 @@
                                             <action selector="closeButtonAction:" destination="9LS-Jp-fSE" eventType="touchUpInside" id="f7l-ee-X7P"/>
                                         </connections>
                                     </button>
+                                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="周りにいる仲間に伝えます" textAlignment="center" lineBreakMode="wordWrap" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="vrL-gx-b0q">
+                                        <rect key="frame" x="33" y="207" width="214" height="35"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="17"/>
+                                        <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
                                 </subviews>
                                 <color key="backgroundColor" red="0.83529418710000003" green="0.91764712329999998" blue="0.36470589040000001" alpha="1" colorSpace="deviceRGB"/>
                                 <userDefinedRuntimeAttributes>
@@ -779,6 +786,7 @@
                     <size key="freeformSize" width="320" height="463"/>
                     <connections>
                         <outlet property="animationView" destination="JlL-DA-UDa" id="v20-SC-SPn"/>
+                        <outlet property="label" destination="vrL-gx-b0q" id="WWw-zK-eBw"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="qbT-MK-QaM" userLabel="First Responder" sceneMemberID="firstResponder"/>

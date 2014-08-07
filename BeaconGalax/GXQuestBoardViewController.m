@@ -64,6 +64,7 @@
     //notification
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(gxQuestFetchedHandler:) name:GXQuestFetchedNotification object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(gxQuestDeletedHandler:) name:GXQuestDeletedNotification object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(gxQuestFetchedHandler:) name:GXQuestFetchedNotification object:nil];
     
 }
 
@@ -71,8 +72,7 @@
 - (void)viewWillAppear:(BOOL)animated
 {
     
-    
-    //[self fetchQuest];
+    [self fetchQuest];
 }
 
 - (void)didReceiveMemoryWarning
@@ -84,8 +84,7 @@
 - (void)fetchQuest
 {
    self.questArray = [[GXBucketManager sharedManager] fetchQuestWithNotComplited];
-   [self.questCollectionView reloadData];
-
+//   [self.questCollectionView reloadData];
  
 }
 
@@ -104,8 +103,7 @@
 
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section
 {
-//    return self.questArray.count;
-    return 5;
+    return self.questArray.count;
 }
 
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath
@@ -114,7 +112,6 @@
     GXCollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:cellIdentifier forIndexPath:indexPath];
     
     [self configureCell:cell atIndexPath:indexPath];
-    
     
     
     return cell;
@@ -149,10 +146,8 @@
     cell.layer.rasterizationScale = [UIScreen mainScreen].scale;
     cell.backgroundColor = [UIColor cloudsColor];
     
-//    KiiObject *quest = self.questArray[indexPath.row];
-//    cell.questNameLabel.text = [quest getObjectForKey:@"title"];
-    cell.questNameLabel.text = @"testName";
-    
+    KiiObject *quest = self.questArray[indexPath.row];
+    cell.questNameLabel.text = [quest getObjectForKey:@"title"];
     
 }
 
