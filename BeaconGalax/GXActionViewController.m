@@ -7,6 +7,9 @@
 //
 
 #import "GXActionViewController.h"
+#import "FUIButton+GXTheme.h"
+#import "GXQuest.h"
+#import "GXBucketManager.h"
 
 @interface GXActionViewController ()
 @property (weak, nonatomic) IBOutlet CSAnimationView *animationView;
@@ -33,9 +36,14 @@
     [self.animationView.layer setCornerRadius:10];
     
     //Buttonイニシャライズ
-        
+    FUIButton *b1 = [[FUIButton alloc] initWithFrame:CGRectMake(10, self.animationView.frame.origin.y + 10, 100, 30)];
+    [FUIButton gxQuestTheme:b1 withName:@"ご飯"];
+    [b1 addTarget:self action:@selector(questCreateForEat) forControlEvents:UIControlEventTouchUpInside];
+    [self.animationView addSubview:b1];
+    
     
 }
+
 
 - (void)viewWillAppear:(BOOL)animated
 {
@@ -74,6 +82,39 @@
 //        self.animationView.type = CSAnimationTypeBounceUp;
 //    });
     [self.view removeFromSuperview];
+    
+}
+
+
+#pragma mark ButtonAction
+- (void)questCreateForEat
+{
+    NSLog(@"%s",__PRETTY_FUNCTION__);
+    
+    KiiBucket *bucket = [GXBucketManager sharedManager].galaxUser;
+    NSError *error = nil;
+    KiiClause *clause = [KiiClause equals:@"uri" value:[KiiUser currentUser].objectURI];
+    KiiQuery *query = [KiiQuery queryWithClause:clause];
+    NSMutableArray *allResult = [NSMutableArray new];
+    KiiQuery *nextQuery;
+    
+    NSArray *results = [bucket executeQuerySynchronous:query withError:&error andNext:&nextQuery];
+    
+    KiiObject *current_userObject = results.firstObject;
+    
+    
+    if (current_userObject) {
+        NSString *userName = [current_userObject getObjectForKey:@"name"];
+        GXQuest *quest = [GXQuest new];
+        quest.title = @"一緒にご飯いこう";
+        quest.description = [NSString stringWithFormat:@"%@がご飯にいこうと言っています",userName];
+        quest.createUserURI = current_userObject.objectURI;
+        quest.fb_id = [current_userObject getObjectForKey:@"facebook_id"];
+        quest.isCompleted = [NSNumber numberWithBool:NO];
+        [[GXBucketManager sharedManager ] registerQuest:quest];
+    } else {
+        NSLog(@"ユーザを取得できませんでした");
+    }
     
 }
 @end

@@ -159,7 +159,7 @@ static NSInteger  const logOutAlertViewTag = 2;
 - (void)configurePicutureView
 {
    //現在のユーザのKiiObjectをフェッチする
-    KiiObject *userObject = [[GXBucketManager sharedManager] getMeFromAppBucket];
+    KiiObject *userObject = [[GXBucketManager sharedManager] getMeFromGalaxUserBucket];
     NSString *fb_id = [userObject getObjectForKey:@"facebook_id"];
     self.profilePictureView.profileID = fb_id;
     

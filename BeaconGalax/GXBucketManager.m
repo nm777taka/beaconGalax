@@ -54,8 +54,6 @@
    
     KiiObject *object = [self.galaxUser createObject];
     
-    [object setObject:user.username forKey:@"name"];
-    [object setObject:user.email forKey:@"email"];
     [object setObject:user.objectURI forKey:@"uri"];
     [object setObject:@YES forKey:@"isNear"];
     [object setObject:@YES forKey:@"isMember"];
@@ -79,6 +77,7 @@
     [object setObject:quest.title forKey:@"title"];
     [object setObject:quest.description forKey:@"description"];
     [object setObject:quest.createUserURI forKey:@"created_user_uri"];
+    [object setObject:quest.fb_id forKey:@"facebook_id"];
     [object setObject:quest.isCompleted forKey:@"isCompleted"];
     
     NSError *error  = nil;
@@ -119,18 +118,20 @@
     
 }
 
-- (KiiObject *)getMeFromAppBucket
+- (KiiObject *)getMeFromGalaxUserBucket;
 {
-    KiiUser *user = [KiiUser currentUser];
+    KiiBucket *bucket = [GXBucketManager sharedManager].galaxUser;
     NSError *error = nil;
-    KiiBucket *galax_user = [GXBucketManager sharedManager].galaxUser;
-    KiiClause *clause = [KiiClause equals:@"uri" value:user.objectURI];
+    KiiClause *clause = [KiiClause equals:@"uri" value:[KiiUser currentUser].objectURI];
     KiiQuery *query = [KiiQuery queryWithClause:clause];
+    NSMutableArray *allResult = [NSMutableArray new];
     KiiQuery *nextQuery;
-    NSArray *results = [galax_user executeQuerySynchronous:query withError:&error andNext:&nextQuery];
-    KiiObject *userObject = results.firstObject;
     
-    return userObject;
+    NSArray *results = [bucket executeQuerySynchronous:query withError:&error andNext:&nextQuery];
+    
+    KiiObject *current_userObject = results.firstObject;
+    
+    return current_userObject;
 }
 
 #pragma mark Quest Method
