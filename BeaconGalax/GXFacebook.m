@@ -51,6 +51,8 @@
         //成功
         NSLog(@"%@",responseObject);
         NSString *user_id = [responseObject objectForKey:@"id"];
+        NSString *user_name = [responseObject objectForKey:@"name"];
+        NSString *user_email = [responseObject objectForKey:@"email"];
         
         //GalaxUserBucketからuserをフェッチして
         //パラムを追加
@@ -64,6 +66,8 @@
         NSArray *results = [bucket executeQuerySynchronous:query withError:&error andNext:&nextQuery];
         
         KiiObject *current_userObject = results.firstObject;
+        [current_userObject setObject:user_name forKey:@"name"];
+        [current_userObject setObject:user_email forKey:@"email"];
         [current_userObject setObject:user_id forKey:@"facebook_id"];
         [current_userObject saveSynchronous:&error];
         

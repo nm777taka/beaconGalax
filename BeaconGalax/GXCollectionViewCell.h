@@ -8,13 +8,19 @@
 
 #import <UIKit/UIKit.h>
 #import <FlatUIKit/FlatUIKit.h>
+#import <FacebookSDK/Facebook.h>
 
 @interface GXCollectionViewCell : UICollectionViewCell
 
 //QuestBoardView
-@property (weak, nonatomic) IBOutlet UIImageView *iconImageView;
+
+@property (weak, nonatomic) IBOutlet FBProfilePictureView *fbIConView;
+
 @property (weak, nonatomic) IBOutlet UILabel *questNameLabel;
-@property (weak, nonatomic) IBOutlet UILabel *questTimeLabel;
+
+@property (weak, nonatomic) IBOutlet UILabel *currentJoinCountLabel;
+- (IBAction)joinButton:(id)sender;
+
 
 //FriendNowView
 @property (weak, nonatomic) IBOutlet UIImageView *placeImageView;

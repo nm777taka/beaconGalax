@@ -129,6 +129,7 @@ static NSInteger  const logOutAlertViewTag = 2;
         [self fadeOut];
         
     } else if (![KiiUser loggedIn]){
+        [SVProgressHUD show];
         [[GXKiiCloud sharedManager] kiiCloudLogin];
     }
     
@@ -159,7 +160,7 @@ static NSInteger  const logOutAlertViewTag = 2;
 - (void)configurePicutureView
 {
    //現在のユーザのKiiObjectをフェッチする
-    KiiObject *userObject = [[GXBucketManager sharedManager] getMeFromAppBucket];
+    KiiObject *userObject = [[GXBucketManager sharedManager] getMeFromGalaxUserBucket];
     NSString *fb_id = [userObject getObjectForKey:@"facebook_id"];
     self.profilePictureView.profileID = fb_id;
     
@@ -179,6 +180,7 @@ static NSInteger  const logOutAlertViewTag = 2;
 //    loggedInAlertView.tag = logInAlertViewTag;
 //    
 //    [loggedInAlertView show];
+    [SVProgressHUD dismiss];
     
     if ([KiiUser loggedIn]) {
         

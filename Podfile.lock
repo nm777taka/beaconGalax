@@ -40,6 +40,10 @@ PODS:
   - Facebook-iOS-SDK (3.15.1):
     - Bolts
   - FlatUIKit (1.4)
+  - HexColors (2.2.1)
+  - SVProgressHUD (1.0)
+  - TSMessages (0.9.9):
+    - HexColors
 
 DEPENDENCIES:
   - AFNetworking (~> 2.0)
@@ -47,6 +51,8 @@ DEPENDENCIES:
   - Canvas
   - Facebook-iOS-SDK
   - FlatUIKit
+  - SVProgressHUD
+  - TSMessages
 
 SPEC CHECKSUMS:
   AFNetworking: 6d7b76aa5d04c8c37daad3eef4b7e3f2a7620da3
@@ -55,5 +61,8 @@ SPEC CHECKSUMS:
   Canvas: 45356a2e61087a776bfde5090676d290cf67f7f2
   Facebook-iOS-SDK: 56214af8e0ef16e751eb2804250326b709e571b8
   FlatUIKit: edc1ed0c130687dc64a10e45851cc58925f6893d
+  HexColors: 01384d2bbe8dc4ffa43c3b4135db6e976952d153
+  SVProgressHUD: 5034c6e22b8c2ca3e09402e48d41ed0340aa1c50
+  TSMessages: 2999ef55e532378692e9d14d32da2bb60e285129
 
 COCOAPODS: 0.33.1

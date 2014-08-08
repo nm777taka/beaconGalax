@@ -64,15 +64,15 @@
     //notification
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(gxQuestFetchedHandler:) name:GXQuestFetchedNotification object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(gxQuestDeletedHandler:) name:GXQuestDeletedNotification object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(gxQuestFetchedHandler:) name:GXQuestFetchedNotification object:nil];
     
 }
 
-
+#pragma mark - Todo :毎回フェッチするんじゃなくて、変更があった場合のみにしたい
 - (void)viewWillAppear:(BOOL)animated
 {
     
-    
-    //[self fetchQuest];
+    [self fetchQuest];
 }
 
 - (void)didReceiveMemoryWarning
@@ -83,9 +83,9 @@
 
 - (void)fetchQuest
 {
+   [SVProgressHUD showWithStatus:@"ロード中" maskType:SVProgressHUDMaskTypeGradient];
    self.questArray = [[GXBucketManager sharedManager] fetchQuestWithNotComplited];
-   [self.questCollectionView reloadData];
-
+//   [self.questCollectionView reloadData];
  
 }
 
@@ -104,8 +104,7 @@
 
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section
 {
-//    return self.questArray.count;
-    return 5;
+    return self.questArray.count;
 }
 
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath
@@ -114,7 +113,6 @@
     GXCollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:cellIdentifier forIndexPath:indexPath];
     
     [self configureCell:cell atIndexPath:indexPath];
-    
     
     
     return cell;
@@ -149,11 +147,9 @@
     cell.layer.rasterizationScale = [UIScreen mainScreen].scale;
     cell.backgroundColor = [UIColor cloudsColor];
     
-//    KiiObject *quest = self.questArray[indexPath.row];
-//    cell.questNameLabel.text = [quest getObjectForKey:@"title"];
-    cell.questNameLabel.text = @"testName";
-    
-    
+    KiiObject *quest = self.questArray[indexPath.row];
+    cell.questNameLabel.text = [quest getObjectForKey:@"title"];
+    cell.fbIConView.profileID = [quest getObjectForKey:@"facebook_id"];
 }
 
 #pragma mark GXNotificationHandler
@@ -162,6 +158,8 @@
     NSLog(@"通知");
     [self.questCollectionView reloadData];
     NSLog(@"questArray:%ld",self.questArray.count);
+    [SVProgressHUD dismiss];
+    [SVProgressHUD showSuccessWithStatus:@"ロード完了"];
 }
 
 - (void)gxQuestDeletedHandler:(GXNotification *)info
