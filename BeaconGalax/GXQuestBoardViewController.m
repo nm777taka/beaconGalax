@@ -68,7 +68,7 @@
     
 }
 
-
+#pragma mark - Todo :毎回フェッチするんじゃなくて、変更があった場合のみにしたい
 - (void)viewWillAppear:(BOOL)animated
 {
     
@@ -148,7 +148,7 @@
     
     KiiObject *quest = self.questArray[indexPath.row];
     cell.questNameLabel.text = [quest getObjectForKey:@"title"];
-    
+    cell.fbIConView.profileID = [quest getObjectForKey:@"facebook_id"];
 }
 
 #pragma mark GXNotificationHandler

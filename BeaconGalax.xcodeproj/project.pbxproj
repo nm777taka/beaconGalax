@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		0F060C90199394060052402F /* card.png in Resources */ = {isa = PBXBuildFile; fileRef = 0F060C8F199394060052402F /* card.png */; };
 		0F1060C119921822004509B6 /* GXActionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0F1060C019921822004509B6 /* GXActionViewController.m */; };
 		0F1987E019811EE4003FD92A /* GXFriendsNowViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0F1987DF19811EE4003FD92A /* GXFriendsNowViewController.m */; };
 		0F1987E419811EFF003FD92A /* GXFriendsProfileViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0F1987E319811EFF003FD92A /* GXFriendsProfileViewController.m */; };
@@ -112,6 +113,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		0F060C8F199394060052402F /* card.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = card.png; sourceTree = "<group>"; };
 		0F1060BF19921822004509B6 /* GXActionViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GXActionViewController.h; sourceTree = "<group>"; };
 		0F1060C019921822004509B6 /* GXActionViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GXActionViewController.m; sourceTree = "<group>"; };
 		0F1987DE19811EE4003FD92A /* GXFriendsNowViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GXFriendsNowViewController.h; sourceTree = "<group>"; };
@@ -547,6 +549,7 @@
 		0F82302D198245B10081C9BE /* images */ = {
 			isa = PBXGroup;
 			children = (
+				0F060C8F199394060052402F /* card.png */,
 				0F823036198245EC0081C9BE /* friend.png */,
 				0F27DAF819875B2B0000E0D0 /* homeViewJoinedQuestTable.png */,
 				0F823038198245F40081C9BE /* quest.png */,
@@ -844,6 +847,7 @@
 				0F7A259E19587ADE001B7839 /* InfoPlist.strings in Resources */,
 				0F7A25D91959C014001B7839 /* red.png in Resources */,
 				0F7A25A719587ADE001B7839 /* Main.storyboard in Resources */,
+				0F060C90199394060052402F /* card.png in Resources */,
 				0F5FA5EE198A31D900F41B05 /* GXHomeTableViewHeader.xib in Resources */,
 				0F7F412D195B206800A796AD /* GXAction.png in Resources */,
 				0F7F4131195B22DC00A796AD /* GXBeaconTable-reverse.png in Resources */,

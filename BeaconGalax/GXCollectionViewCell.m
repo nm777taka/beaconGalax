@@ -28,8 +28,12 @@
 - (void)drawRect:(CGRect)rect
 {
     // Drawing code
+    self.questNameLabel.font = [UIFont boldFlatFontOfSize:16];
+    [self.fbIConView.layer setCornerRadius:25.f];
     
 }
 
 
+- (IBAction)joinButton:(id)sender {
+}
 @end
