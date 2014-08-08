@@ -46,6 +46,7 @@ typedef NS_ENUM(NSUInteger, kQuestType){
     [self.animationView.layer setCornerRadius:10];
     
     //Buttonイニシャライズ
+    
     FUIButton *b1 = [[FUIButton alloc] initWithFrame:CGRectMake(10, self.animationView.frame.origin.y + 10, 100, 30)];
     [FUIButton gxQuestTheme:b1 withName:@"お腹すいた..."];
     
@@ -175,5 +176,6 @@ typedef NS_ENUM(NSUInteger, kQuestType){
 {
     //クエスト作成された
     NSLog(@"クエスト作成");
+    [TSMessage showNotificationWithTitle:@"Success" subtitle:@"クエストが作成されました" type:TSMessageNotificationTypeSuccess];
 }
 @end

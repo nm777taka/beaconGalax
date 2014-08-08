@@ -9,6 +9,7 @@
 #import <UIKit/UIKit.h>
 #import <FlatUIKit/FlatUIKit.h>
 #import <BlocksKit/BlocksKit+UIKit.h>
+#import <SVProgressHUD/SVProgressHUD.h>
 
 @interface GXQuestBoardViewController : UIViewController<UICollectionViewDataSource,UICollectionViewDelegate>
 

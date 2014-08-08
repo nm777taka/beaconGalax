@@ -9,6 +9,7 @@
 #import <UIKit/UIKit.h>
 #import <Canvas/CSAnimationView.h>
 #import <FlatUIKit/FlatUIKit.h>
+#import <TSMessages/TSMessage.h>
 
 @interface GXActionViewController : UIViewController
 

@@ -83,6 +83,7 @@
 
 - (void)fetchQuest
 {
+   [SVProgressHUD showWithStatus:@"ロード中" maskType:SVProgressHUDMaskTypeGradient];
    self.questArray = [[GXBucketManager sharedManager] fetchQuestWithNotComplited];
 //   [self.questCollectionView reloadData];
  
@@ -157,6 +158,8 @@
     NSLog(@"通知");
     [self.questCollectionView reloadData];
     NSLog(@"questArray:%ld",self.questArray.count);
+    [SVProgressHUD dismiss];
+    [SVProgressHUD showSuccessWithStatus:@"ロード完了"];
 }
 
 - (void)gxQuestDeletedHandler:(GXNotification *)info

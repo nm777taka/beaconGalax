@@ -129,6 +129,7 @@ static NSInteger  const logOutAlertViewTag = 2;
         [self fadeOut];
         
     } else if (![KiiUser loggedIn]){
+        [SVProgressHUD show];
         [[GXKiiCloud sharedManager] kiiCloudLogin];
     }
     
@@ -179,6 +180,7 @@ static NSInteger  const logOutAlertViewTag = 2;
 //    loggedInAlertView.tag = logInAlertViewTag;
 //    
 //    [loggedInAlertView show];
+    [SVProgressHUD dismiss];
     
     if ([KiiUser loggedIn]) {
         
