@@ -35,5 +35,9 @@
 
 
 - (IBAction)joinButton:(id)sender {
+    
+    //クエストに参加する
+    
+    
 }
 @end

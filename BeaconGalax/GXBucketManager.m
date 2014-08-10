@@ -44,14 +44,11 @@
     return self;
 }
 
-//ApplicationBucket
+#pragma mark - AppScope
 
 - (void)registerGalaxUser:(KiiUser *)user
 {
     
-//    KiiClause *clause = [KiiClause equals:@"email" value:user.email];
-//    KiiQuery *query = [KiiQuery queryWithClause:clause];
-   
     KiiObject *object = [self.galaxUser createObject];
     
     [object setObject:user.objectURI forKey:@"uri"];
@@ -78,6 +75,8 @@
     [object setObject:quest.description forKey:@"description"];
     [object setObject:quest.createUserURI forKey:@"created_user_uri"];
     [object setObject:quest.fb_id forKey:@"facebook_id"];
+    [object setObject:quest.group_uri forKey:@"group_uri"];
+    [object setObject:quest.isStarted forKey:@"isStarted"];
     [object setObject:quest.isCompleted forKey:@"isCompleted"];
     
     NSError *error  = nil;
@@ -91,7 +90,14 @@
     
 }
 
-//UserBucket
+#pragma mark - GroupScope
+- (void)registerQuestMember:(KiiUser *)user
+{
+    KiiObject *object = [self.questMember createObject];
+    
+}
+
+#pragma mark - UserScope
 - (NSMutableArray *)getNearUser:(KiiUser *)user
 {
     //ApplicatiaonBucketからparam=nearのやつをひっぱってくる

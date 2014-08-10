@@ -4,14 +4,20 @@
 #import "GXBucketManager.h"
 #import "GXNotification.h"
 #import "GXQuestDetialViewController.h"
+#import "FUIAlertView+GXAlertView.h"
 
 @interface GXQuestBoardViewController ()
-@property (weak, nonatomic) IBOutlet UICollectionView *questCollectionView;
 
+@property (weak, nonatomic) IBOutlet UICollectionView *questCollectionView;
 @property  NSMutableArray *questArray;
 @property GXQuestDetialViewController *detailViewController;
 
+@property NSIndexPath *joinButtonIndexPath;
+
 @end
+
+#define FUIAlertButtonIndex_JOIN 1
+#define FUIAlertButtonIndex_CANCEL 0
 
 @implementation GXQuestBoardViewController
 
@@ -138,10 +144,6 @@
 - (void)configureCell:(GXCollectionViewCell *)cell atIndexPath:(NSIndexPath *)indexPath
 {
     cell.layer.cornerRadius = 5.0f;
-    //cell.layer.masksToBounds = NO; //これ絶対
-    //    cell.layer.shadowOffset = CGSizeMake(0,3);
-    //    cell.layer.shadowColor = [UIColor asbestosColor].CGColor;
-    //    cell.layer.shadowOpacity = 0.8;
     cell.layer.shadowPath = [[UIBezierPath bezierPathWithRect:cell.bounds] CGPath];
     cell.layer.shouldRasterize = YES;
     cell.layer.rasterizationScale = [UIScreen mainScreen].scale;
@@ -150,6 +152,34 @@
     KiiObject *quest = self.questArray[indexPath.row];
     cell.questNameLabel.text = [quest getObjectForKey:@"title"];
     cell.fbIConView.profileID = [quest getObjectForKey:@"facebook_id"];
+    
+    [cell.joinButton addTarget:self action:@selector(joinButtonTouch:event:) forControlEvents:UIControlEventTouchUpInside];
+}
+
+#pragma mark - ボタンアクション
+- (void)joinButtonTouch:(UIButton *)sender event:(UIEvent *)event
+{
+    //どのセルのjoinボタンが押されたら取得
+    UITouch *touch = [[event allTouches] anyObject];
+    CGPoint point  = [touch locationInView:self.questCollectionView];
+    self.joinButtonIndexPath = [self.questCollectionView indexPathForItemAtPoint:point];
+    
+    KiiObject *obj = self.questArray[self.joinButtonIndexPath.row];
+    NSString *createdUser = [obj getObjectForKey:@"created_user_uri"];
+        
+    //ボタンを押したユーザがクエスト作成者かどうか
+    if ([createdUser isEqualToString:[KiiUser currentUser].objectURI]) {
+        //なにもしない
+        NSLog(@"クエスト作成者です");
+    } else {
+       
+        FUIAlertView *alert = [[FUIAlertView alloc] initWithTitle:@"確認" message:@"このクエストに参加しますか？" delegate:self cancelButtonTitle:@"キャンセル" otherButtonTitles:@"参加", nil];
+        [FUIAlertView gxQuestTheme:alert];
+        [alert show];
+        
+    }
+    
+    
 }
 
 #pragma mark GXNotificationHandler
@@ -166,5 +196,21 @@
 {
     [self fetchQuest];
 }
+
+#pragma mark - FUIAlertViewDelegate
+- (void)alertView:(FUIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
+{
+    if (buttonIndex == FUIAlertButtonIndex_JOIN) {
+        
+        //クエストオブジェクトを取得
+        KiiObject *obj = self.questArray[self.joinButtonIndexPath.row];
+        //UserScopeのバケットに登録
+        //作成者のinvite_notifyトピックに
+        //参加したことを通知する
+        
+    }
+}
+
+
 
 @end

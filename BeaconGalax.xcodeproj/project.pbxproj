@@ -133,8 +133,6 @@
 		0F27DAFE198766AC0000E0D0 /* questCreateButton.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = questCreateButton.png; sourceTree = "<group>"; };
 		0F27DB0019876A750000E0D0 /* menu-white.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "menu-white.png"; sourceTree = "<group>"; };
 		0F27DB0219876A780000E0D0 /* bell-white.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "bell-white.png"; sourceTree = "<group>"; };
-		0F27DB04198774CB0000E0D0 /* GXFriendsProfileTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GXFriendsProfileTableViewCell.h; sourceTree = "<group>"; };
-		0F27DB05198774CB0000E0D0 /* GXFriendsProfileTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GXFriendsProfileTableViewCell.m; sourceTree = "<group>"; };
 		0F597A99B7864A4393B072E4 /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		0F5FA5EA198A31D900F41B05 /* GXHomeTableViewHeader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GXHomeTableViewHeader.h; sourceTree = "<group>"; };
 		0F5FA5EB198A31D900F41B05 /* GXHomeTableViewHeader.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GXHomeTableViewHeader.m; sourceTree = "<group>"; };
@@ -597,8 +595,6 @@
 				0F27DAF4198676B00000E0D0 /* GXFriendsNowViewCell.m */,
 				0FF16CD7197F73EB00B02702 /* GXCustomNavViewCell.h */,
 				0FF16CD8197F73EB00B02702 /* GXCustomNavViewCell.m */,
-				0F27DB04198774CB0000E0D0 /* GXFriendsProfileTableViewCell.h */,
-				0F27DB05198774CB0000E0D0 /* GXFriendsProfileTableViewCell.m */,
 			);
 			name = CollectionViewCell;
 			sourceTree = "<group>";

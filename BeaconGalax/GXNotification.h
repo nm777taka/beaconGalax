@@ -11,8 +11,11 @@
 @interface GXNotification : NSObject
 
 UIKIT_EXTERN  NSString *const GXapplicationDidBecomeActibve;
+
+//ログイン関連
 UIKIT_EXTERN  NSString *const GXLoginSuccessedNotification;
 
+//クエスト関連
 UIKIT_EXTERN NSString *const GXQuestCreatedNotification;
 
 UIKIT_EXTERN NSString *const GXQuestFetchedNotification;

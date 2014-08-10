@@ -315,9 +315,6 @@
                                                     <state key="normal" title="JOIN">
                                                         <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                                     </state>
-                                                    <connections>
-                                                        <action selector="joinButton:" destination="1iM-g5-iXG" eventType="touchUpInside" id="l2o-hd-Hbl"/>
-                                                    </connections>
                                                 </button>
                                                 <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="02" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="RZk-Fg-ad0">
                                                     <rect key="frame" x="97" y="127" width="55" height="33"/>
@@ -334,6 +331,7 @@
                                         <connections>
                                             <outlet property="currentJoinCountLabel" destination="RZk-Fg-ad0" id="MHd-oo-vkp"/>
                                             <outlet property="fbIConView" destination="j2m-Sg-Krk" id="9uN-Tj-XkF"/>
+                                            <outlet property="joinButton" destination="sq3-eE-fZD" id="vne-fy-f40"/>
                                             <outlet property="questNameLabel" destination="cN4-Vx-BJX" id="5DT-5x-YoN"/>
                                         </connections>
                                     </collectionViewCell>

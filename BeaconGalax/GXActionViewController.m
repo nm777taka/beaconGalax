@@ -126,7 +126,6 @@ typedef NS_ENUM(NSUInteger, kQuestType){
     
     KiiObject *current_userObject = results.firstObject;
     
-    
     if (current_userObject) {
         NSString *userName = [current_userObject getObjectForKey:@"name"];
         GXQuest *quest = [GXQuest new];
@@ -143,12 +142,28 @@ typedef NS_ENUM(NSUInteger, kQuestType){
                 break;
         }
         
+        //Group作成
+        NSError *error = nil;
+        NSString *groupName = [NSString stringWithFormat:@"%@_Group",quest.title];
+        KiiGroup *group = [KiiGroup groupWithName:groupName];
+        
+        [group saveSynchronous:&error];
+        if (error != nil) {
+            NSLog(@"error : %@",error);
+        }
+        
+        
+        //クエスト作成
+        NSString *groupUri = [group objectURI];
         quest.title = questTitle;
         quest.description = questDescription;
-        quest.createUserURI = current_userObject.objectURI;
+        quest.createUserURI = [current_userObject getObjectForKey:@"uri"];
         quest.fb_id = [current_userObject getObjectForKey:@"facebook_id"];
+        quest.group_uri = groupUri;
+        quest.isStarted = [NSNumber numberWithBool:NO];
         quest.isCompleted = [NSNumber numberWithBool:NO];
         [[GXBucketManager sharedManager ] registerQuest:quest];
+        
         [self closeView];
         
     } else {

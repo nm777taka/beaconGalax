@@ -11,7 +11,7 @@
 #import <BlocksKit/BlocksKit+UIKit.h>
 #import <SVProgressHUD/SVProgressHUD.h>
 
-@interface GXQuestBoardViewController : UIViewController<UICollectionViewDataSource,UICollectionViewDelegate>
+@interface GXQuestBoardViewController : UIViewController<UICollectionViewDataSource,UICollectionViewDelegate,FUIAlertViewDelegate>
 
 
 @end

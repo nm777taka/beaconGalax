@@ -19,7 +19,9 @@
 @property (weak, nonatomic) IBOutlet UILabel *questNameLabel;
 
 @property (weak, nonatomic) IBOutlet UILabel *currentJoinCountLabel;
-- (IBAction)joinButton:(id)sender;
+
+@property (weak, nonatomic) IBOutlet UIButton *joinButton;
+
 
 
 //FriendNowView
