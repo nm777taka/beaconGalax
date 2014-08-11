@@ -11,6 +11,7 @@
 #import "GXTopicManager.h"
 #import "GXNotification.h"
 #import "GXFacebook.h"
+#import "GXDictonaryKeys.h"
 
 @implementation GXBucketManager
 
@@ -38,7 +39,9 @@
         self.questMember = [Kii bucketWithName:@"quest_member"];
         
         self.nearUser = [Kii bucketWithName:@"near_user"];
-        self.joinedQuest = [Kii bucketWithName:@"joined_quest"];
+        
+        //Userスコープ
+        self.joinedQuest = [[KiiUser currentUser] bucketWithName:@"joined_quest"];
     }
     
     return self;
@@ -168,6 +171,58 @@
         }
     }];
     return allResult;
+}
+
+#pragma mark - データ操作用
+
+//指定バケットのすべてのデータを取得
+- (NSMutableArray *)getAllObject:(KiiBucket *)bucket
+{
+    NSError *error = nil;
+    
+    KiiQuery *all_query = [KiiQuery queryWithClause:nil];
+    
+    NSMutableArray *allResults = [NSMutableArray array];
+    
+    KiiQuery *nextQuery;
+    
+    NSArray *results = [bucket executeQuerySynchronous:all_query
+                                             withError:&error
+                                               andNext:&nextQuery];
+    
+    [allResults addObjectsFromArray:results];
+    
+    return allResults;
+}
+
+//指定バケットのオブジェクトの名前を
+//コンソールに出力(確認用)
+- (void)displayAllObject:(KiiBucket *)bucket
+{
+    
+    NSMutableArray *allResults = [self getAllObject:bucket];
+    
+    for (KiiObject *obj in allResults) {
+        NSLog(@"%@",[obj getObjectForKey:quest_title]);
+        NSLog(@"%@",[obj getObjectForKey:quest_createUserURI]);
+    }
+ 
+}
+
+//指定バケットのすべてのデータを削除
+- (void)deleteAllObject:(KiiBucket *)bucket
+{
+    NSMutableArray *allResults = [self getAllObject:bucket];
+    NSError *error = nil;
+    for (KiiObject *obj in allResults) {
+        [obj deleteSynchronous:&error];
+        if (error == nil) {
+            NSLog(@"バケット内のすべてのデータを削除");
+        } else {
+            NSLog(@"%s",__PRETTY_FUNCTION__);
+            NSLog(@"error : %@",error);
+        }
+    }
 }
 
 

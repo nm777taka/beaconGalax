@@ -5,6 +5,7 @@
 #import "GXNotification.h"
 #import "GXQuestDetialViewController.h"
 #import "FUIAlertView+GXAlertView.h"
+#import "GXDictonaryKeys.h"
 
 @interface GXQuestBoardViewController ()
 
@@ -71,6 +72,11 @@
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(gxQuestFetchedHandler:) name:GXQuestFetchedNotification object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(gxQuestDeletedHandler:) name:GXQuestDeletedNotification object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(gxQuestFetchedHandler:) name:GXQuestFetchedNotification object:nil];
+    
+    //指定バケットのデータをすべて削除
+    KiiBucket *bucket = [GXBucketManager sharedManager].joinedQuest;
+    //[[GXBucketManager sharedManager] deleteAllObject:bucket];
+    [[GXBucketManager sharedManager] displayAllObject:bucket];
     
 }
 
@@ -166,9 +172,10 @@
     
     KiiObject *obj = self.questArray[self.joinButtonIndexPath.row];
     NSString *createdUser = [obj getObjectForKey:@"created_user_uri"];
-        
+    
     //ボタンを押したユーザがクエスト作成者かどうか
-    if ([createdUser isEqualToString:[KiiUser currentUser].objectURI]) {
+    //デバッグ
+    if (![createdUser isEqualToString:[KiiUser currentUser].objectURI]) {
         //なにもしない
         NSLog(@"クエスト作成者です");
     } else {
@@ -200,11 +207,34 @@
 #pragma mark - FUIAlertViewDelegate
 - (void)alertView:(FUIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
 {
-    if (buttonIndex == FUIAlertButtonIndex_JOIN) {
-        
+    if (buttonIndex == 1) {
+        NSError *error = nil;
         //クエストオブジェクトを取得
-        KiiObject *obj = self.questArray[self.joinButtonIndexPath.row];
-        //UserScopeのバケットに登録
+        KiiObject *selectedQuest= self.questArray[self.joinButtonIndexPath.row];
+        
+        //ユーザスコープのバケットを取得
+        KiiBucket *joinedQuestBucket = [GXBucketManager sharedManager].joinedQuest;
+        
+        KiiObject *newObj = [joinedQuestBucket createObject];
+        [newObj setObject:[selectedQuest getObjectForKey:quest_title] forKey:quest_title];
+        [newObj setObject:[selectedQuest getObjectForKey:quest_description] forKey:quest_description];
+        [newObj setObject:[selectedQuest getObjectForKey:quest_createdUser_fbid] forKey:quest_createdUser_fbid];
+        [newObj setObject:[selectedQuest getObjectForKey:quest_createUserURI] forKey:quest_createUserURI];
+        [newObj setObject:[selectedQuest getObjectForKey:quest_groupURI] forKey:quest_groupURI];
+        [newObj setObject:[selectedQuest getObjectForKey:quest_isCompleted] forKey:quest_isCompleted];
+        [newObj setObject:[selectedQuest getObjectForKey:quest_isStarted] forKey:quest_isStarted];
+        
+        [newObj saveSynchronous:&error];
+        
+        if (error) {
+            NSLog(@"%s",__PRETTY_FUNCTION__);
+            NSLog(@"error : %@",error);
+        } else {
+            NSLog(@"ユーザバケットへ登録が完了");
+            NSLog(@"%s",__PRETTY_FUNCTION__);
+            [[GXBucketManager sharedManager] displayAllObject:joinedQuestBucket];
+        }
+        
         //作成者のinvite_notifyトピックに
         //参加したことを通知する
         

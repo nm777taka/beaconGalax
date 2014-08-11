@@ -20,6 +20,7 @@
 		0F27DAFF198766AC0000E0D0 /* questCreateButton.png in Resources */ = {isa = PBXBuildFile; fileRef = 0F27DAFE198766AC0000E0D0 /* questCreateButton.png */; };
 		0F27DB0119876A750000E0D0 /* menu-white.png in Resources */ = {isa = PBXBuildFile; fileRef = 0F27DB0019876A750000E0D0 /* menu-white.png */; };
 		0F27DB0319876A780000E0D0 /* bell-white.png in Resources */ = {isa = PBXBuildFile; fileRef = 0F27DB0219876A780000E0D0 /* bell-white.png */; };
+		0F4AEA971998D086009879C6 /* GXDictonaryKeys.m in Sources */ = {isa = PBXBuildFile; fileRef = 0F4AEA961998D086009879C6 /* GXDictonaryKeys.m */; };
 		0F5FA5ED198A31D900F41B05 /* GXHomeTableViewHeader.m in Sources */ = {isa = PBXBuildFile; fileRef = 0F5FA5EB198A31D900F41B05 /* GXHomeTableViewHeader.m */; };
 		0F5FA5EE198A31D900F41B05 /* GXHomeTableViewHeader.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0F5FA5EC198A31D900F41B05 /* GXHomeTableViewHeader.xib */; };
 		0F5FA5F2198A324600F41B05 /* GXHomeTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 0F5FA5F0198A324600F41B05 /* GXHomeTableViewCell.m */; };
@@ -90,7 +91,6 @@
 		0FD26D7B1959F0E7005E2B95 /* GXTableViewConst.m in Sources */ = {isa = PBXBuildFile; fileRef = 0FD26D7A1959F0E7005E2B95 /* GXTableViewConst.m */; };
 		0FD26D811959F689005E2B95 /* GXCustomSectionHeader.m in Sources */ = {isa = PBXBuildFile; fileRef = 0FD26D7F1959F689005E2B95 /* GXCustomSectionHeader.m */; };
 		0FD26D821959F689005E2B95 /* GXCustomSectionHeader.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0FD26D801959F689005E2B95 /* GXCustomSectionHeader.xib */; };
-		0FD26D85195A0680005E2B95 /* GXGradientView.m in Sources */ = {isa = PBXBuildFile; fileRef = 0FD26D84195A0680005E2B95 /* GXGradientView.m */; };
 		0FD26D89195A0A11005E2B95 /* UIColor+GXtheme.m in Sources */ = {isa = PBXBuildFile; fileRef = 0FD26D88195A0A11005E2B95 /* UIColor+GXtheme.m */; };
 		0FD26D8D195A9820005E2B95 /* GXNotification.m in Sources */ = {isa = PBXBuildFile; fileRef = 0FD26D8C195A9820005E2B95 /* GXNotification.m */; };
 		0FF16CD9197F73EB00B02702 /* GXCustomNavViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 0FF16CD8197F73EB00B02702 /* GXCustomNavViewCell.m */; };
@@ -133,6 +133,8 @@
 		0F27DAFE198766AC0000E0D0 /* questCreateButton.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = questCreateButton.png; sourceTree = "<group>"; };
 		0F27DB0019876A750000E0D0 /* menu-white.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "menu-white.png"; sourceTree = "<group>"; };
 		0F27DB0219876A780000E0D0 /* bell-white.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "bell-white.png"; sourceTree = "<group>"; };
+		0F4AEA951998D086009879C6 /* GXDictonaryKeys.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GXDictonaryKeys.h; sourceTree = "<group>"; };
+		0F4AEA961998D086009879C6 /* GXDictonaryKeys.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GXDictonaryKeys.m; sourceTree = "<group>"; };
 		0F597A99B7864A4393B072E4 /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		0F5FA5EA198A31D900F41B05 /* GXHomeTableViewHeader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GXHomeTableViewHeader.h; sourceTree = "<group>"; };
 		0F5FA5EB198A31D900F41B05 /* GXHomeTableViewHeader.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GXHomeTableViewHeader.m; sourceTree = "<group>"; };
@@ -235,8 +237,6 @@
 		0FD26D7E1959F689005E2B95 /* GXCustomSectionHeader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GXCustomSectionHeader.h; sourceTree = "<group>"; };
 		0FD26D7F1959F689005E2B95 /* GXCustomSectionHeader.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GXCustomSectionHeader.m; sourceTree = "<group>"; };
 		0FD26D801959F689005E2B95 /* GXCustomSectionHeader.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = GXCustomSectionHeader.xib; sourceTree = "<group>"; };
-		0FD26D83195A0680005E2B95 /* GXGradientView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GXGradientView.h; sourceTree = "<group>"; };
-		0FD26D84195A0680005E2B95 /* GXGradientView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GXGradientView.m; sourceTree = "<group>"; };
 		0FD26D87195A0A11005E2B95 /* UIColor+GXtheme.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIColor+GXtheme.h"; sourceTree = "<group>"; };
 		0FD26D88195A0A11005E2B95 /* UIColor+GXtheme.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIColor+GXtheme.m"; sourceTree = "<group>"; };
 		0FD26D8B195A9820005E2B95 /* GXNotification.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GXNotification.h; sourceTree = "<group>"; };
@@ -624,8 +624,6 @@
 				0F8420A11988C96B003241D1 /* CollectionViewCell */,
 				0F8420A01988C953003241D1 /* collecitonViewLayout */,
 				0F84209E1988C924003241D1 /* home */,
-				0FD26D83195A0680005E2B95 /* GXGradientView.h */,
-				0FD26D84195A0680005E2B95 /* GXGradientView.m */,
 			);
 			name = View;
 			sourceTree = "<group>";
@@ -639,6 +637,8 @@
 				0FA17E391961A7A400158421 /* GXBucketNameConst.m */,
 				0F7881FD1988D1C3002783D6 /* GXViewConst.h */,
 				0F7881FE1988D1C3002783D6 /* GXViewConst.m */,
+				0F4AEA951998D086009879C6 /* GXDictonaryKeys.h */,
+				0F4AEA961998D086009879C6 /* GXDictonaryKeys.m */,
 			);
 			name = Const;
 			sourceTree = "<group>";
@@ -923,7 +923,6 @@
 				0F7A25CD19587E3B001B7839 /* GXBeacon.m in Sources */,
 				0F7A25A019587ADE001B7839 /* main.m in Sources */,
 				0F27DAF5198676B00000E0D0 /* GXFriendsNowViewCell.m in Sources */,
-				0FD26D85195A0680005E2B95 /* GXGradientView.m in Sources */,
 				0FD26D89195A0A11005E2B95 /* UIColor+GXtheme.m in Sources */,
 				0F8BB0AD1980D15600D5499F /* GXContinerViewController.m in Sources */,
 				0FF9753E1973C2C500C1C66C /* GXQuestDetialViewController.m in Sources */,
@@ -937,6 +936,7 @@
 				0F7A25D51959B56E001B7839 /* GXBeaconTableViewController.m in Sources */,
 				0FD26D8D195A9820005E2B95 /* GXNotification.m in Sources */,
 				0F7881FF1988D1C3002783D6 /* GXViewConst.m in Sources */,
+				0F4AEA971998D086009879C6 /* GXDictonaryKeys.m in Sources */,
 				0FA17E3D1961B00100158421 /* GXTopicManager.m in Sources */,
 				0FD26D7B1959F0E7005E2B95 /* GXTableViewConst.m in Sources */,
 				0F1987E819811F14003FD92A /* GXUserProfileViewController.m in Sources */,

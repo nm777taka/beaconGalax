@@ -32,5 +32,10 @@
 - (NSMutableArray *)getNearUser:(KiiUser *)user;
 
 
+//データ操作用
+- (void)deleteAllObject:(KiiBucket *)bucket;
+- (void)displayAllObject:(KiiBucket *)bucket;
+
+
 
 @end
