@@ -200,6 +200,10 @@ static NSInteger  const logOutAlertViewTag = 2;
                 }
             }];
         }
+        
+        [[UIApplication sharedApplication] registerForRemoteNotificationTypes:UIRemoteNotificationTypeAlert | UIRemoteNotificationTypeBadge | UIRemoteNotificationTypeSound];
+        
+        [Kii enableAPNSWithDevelopmentMode:YES andNotificationTypes:UIRemoteNotificationTypeAlert|UIRemoteNotificationTypeSound|UIRemoteNotificationTypeBadge];
     }
     
     [[GXTopicManager sharedManager] setACL];

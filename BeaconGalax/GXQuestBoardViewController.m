@@ -174,7 +174,7 @@
     
     //ボタンを押したユーザがクエスト作成者かどうか
     //デバッグ
-    if (![createdUser isEqualToString:[KiiUser currentUser].objectURI]) {
+    if ([createdUser isEqualToString:[KiiUser currentUser].objectURI]) {
         //なにもしない
         NSLog(@"クエスト作成者です");
     } else {
@@ -270,7 +270,7 @@
     [apnsFields setSpecificData:dictionary];
     
     // Enable the silent push notification by setting "content-available"
-    [apnsFields setContentAvailable:@1];
+    //[apnsFields setContentAvailable:@1];
     
     KiiPushMessage *message = [KiiPushMessage composeMessageWithAPNSFields:apnsFields
                                                               andGCMFields:nil];
