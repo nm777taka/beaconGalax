@@ -7,6 +7,7 @@
 //
 
 #import "GXTopicManager.h"
+#import "GXDictonaryKeys.h"
 
 @implementation GXTopicManager
 
@@ -34,12 +35,14 @@
     return self;
 }
 
+//サインアップ時に作られる
+//アクセスはだれでも可能な招待用トピック
 - (void)createDefaultUserTopic
 {
     
     NSError *error = nil;
     KiiUser *user = [KiiUser currentUser];
-    KiiTopic *topic = [user topicWithName:@"invite_notify"];
+    KiiTopic *topic = [user topicWithName:topic_invite];
     
     BOOL isSubscribed = [KiiPushSubscription checkSubscriptionSynchronous:topic withError:&error];
     ;
@@ -69,7 +72,7 @@
 {
     NSError *error = nil;
     KiiUser *user = [KiiUser currentUser];
-    KiiTopic *topic = [user topicWithName:@"invite_notify"];
+    KiiTopic *topic = [user topicWithName:topic_invite];
     KiiACL *acl = [topic topicACL];
     KiiAnyAuthenticatedUser *authenticatedUser = [KiiAnyAuthenticatedUser aclSubject];
     KiiACLEntry *entry1 = [KiiACLEntry entryWithSubject:authenticatedUser andAction:KiiACLTopicActionSubscribe];

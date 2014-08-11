@@ -99,9 +99,7 @@
         }
         
         //push通知
-        [Kii enableAPNSWithDevelopmentMode:TRUE andNotificationTypes:UIRemoteNotificationTypeAlert |
-         UIRemoteNotificationTypeSound |
-         UIRemoteNotificationTypeBadge];
+        [[UIApplication sharedApplication] registerForRemoteNotificationTypes:UIRemoteNotificationTypeAlert | UIRemoteNotificationTypeBadge | UIRemoteNotificationTypeSound];
         
         [[NSNotificationCenter defaultCenter] postNotificationName:GXLoginSuccessedNotification object:nil];
         

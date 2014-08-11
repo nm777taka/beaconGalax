@@ -22,8 +22,6 @@
                          andSecret:nil
                         andOptions:nil];
     
-    //Push通知処理
-    [application registerForRemoteNotificationTypes:UIRemoteNotificationTypeAlert | UIRemoteNotificationTypeBadge | UIRemoteNotificationTypeSound];
    
     return YES;
 }
@@ -41,18 +39,27 @@
 - (void)application:(UIApplication *)application didRegisterForRemoteNotificationsWithDeviceToken:(NSData *)deviceToken
 {
     NSLog(@"%s",__PRETTY_FUNCTION__);
+    NSLog(@"device token :%@",deviceToken);
     [Kii setAPNSDeviceToken:deviceToken];
-//    [KiiPushInstallation installWithBlock:^(KiiPushInstallation *installation, NSError *error) {
-//        if (error == nil) {
-//            NSLog(@"push installed!");
-//        } else {
-//            NSLog(@"Error installing: %@",error);
-//        }
-//    }];
+    [KiiPushInstallation installWithBlock:^(KiiPushInstallation *installation, NSError *error) {
+        if (error == nil) {
+            NSLog(@"push installed!");
+        } else {
+            NSLog(@"Error installing: %@",error);
+        }
+    }];
 }
 
 - (void)application:(UIApplication *)application didReceiveRemoteNotification:(NSDictionary *)userInfo
 {
+    KiiPushMessage *message = [KiiPushMessage messageFromAPNS:userInfo];
+    
+    // Get Topic string using getValueOfKiiMessageField.
+    // "KiiMessage_TOPIC" is enum that is defined in KiiMessageField.
+    NSString *topicName = [message getValueOfKiiMessageField:KiiMessage_TOPIC];
+    
+    // Show alert message
+    [message showMessageAlertWithTitle:topicName];
     
     //アプリがフォアグランドで起動している時にPush通知を受信した場合
     if (application.applicationState == UIApplicationStateActive) {

@@ -83,7 +83,6 @@
 #pragma mark - Todo :毎回フェッチするんじゃなくて、変更があった場合のみにしたい
 - (void)viewWillAppear:(BOOL)animated
 {
-    
     [self fetchQuest];
 }
 
@@ -207,6 +206,7 @@
 #pragma mark - FUIAlertViewDelegate
 - (void)alertView:(FUIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
 {
+    //選択したクエストを自分のバケットに登録
     if (buttonIndex == 1) {
         NSError *error = nil;
         //クエストオブジェクトを取得
@@ -237,7 +237,52 @@
         
         //作成者のinvite_notifyトピックに
         //参加したことを通知する
+        [self sendPushNotification];
         
+    }
+    
+}
+
+#pragma mark - Push通知
+- (void)sendPushNotification
+{
+    NSError *error = nil;
+    
+    // Instantiate a user-scope topic.
+    KiiUser* user = [KiiUser currentUser];
+    NSString *topicname = topic_invite;
+    KiiTopic *topic = [user topicWithName:topicname];
+    
+    // Create APNs message fields
+    KiiAPNSFields *apnsFields = [KiiAPNSFields createFields];
+    
+    // This snippet assumes that you are using the silent push notification,
+    // so the AlertBody is not set.
+    //[apnsFields setAlertBody:@"Show message"];
+    
+    // Build a push message.
+    // GCM fields is set nil, so the message will not send to Android devices
+    NSMutableDictionary *dictionary = [NSMutableDictionary dictionary];
+    [dictionary setObject:@"Do Something"
+                   forKey:@"Item"];
+    [dictionary setObject:[NSNumber numberWithInt:1]
+                   forKey:@"Done"];
+    [apnsFields setSpecificData:dictionary];
+    
+    // Enable the silent push notification by setting "content-available"
+    [apnsFields setContentAvailable:@1];
+    
+    KiiPushMessage *message = [KiiPushMessage composeMessageWithAPNSFields:apnsFields
+                                                              andGCMFields:nil];
+    
+    // Send the push message.
+    [topic sendMessageSynchronous:message
+                        withError:&error];
+    if (error != nil) {
+        // There was a problem.
+        NSLog(@"error:%@",error);
+    } else {
+        NSLog(@"push通知送信");
     }
 }
 
