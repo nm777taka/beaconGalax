@@ -152,7 +152,6 @@ typedef NS_ENUM(NSUInteger, kQuestType){
             NSLog(@"error : %@",error);
         }
         
-        
         //クエスト作成
         NSString *groupUri = [group objectURI];
         quest.title = questTitle;
@@ -162,7 +161,16 @@ typedef NS_ENUM(NSUInteger, kQuestType){
         quest.group_uri = groupUri;
         quest.isStarted = [NSNumber numberWithBool:NO];
         quest.isCompleted = [NSNumber numberWithBool:NO];
-        [[GXBucketManager sharedManager ] registerQuest:quest];
+        
+        if ([[GXBucketManager sharedManager] isExitedQuest:quest.title]) {
+            //既に作成済みの同じタイプのクエストが存在するので
+            //そこに参加するように促す
+            [TSMessage showNotificationWithTitle:@"すでに同じタイプのクエストがあります"
+                                            type:TSMessageNotificationTypeMessage];
+        } else {
+            [[GXBucketManager sharedManager ] registerQuest:quest];
+
+        }
         
         [self closeView];
         
@@ -171,6 +179,7 @@ typedef NS_ENUM(NSUInteger, kQuestType){
     }
     
 }
+
 
 - (void)configureParts
 {

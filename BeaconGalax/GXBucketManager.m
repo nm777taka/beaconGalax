@@ -90,7 +90,33 @@
     } else {
         [[NSNotificationCenter defaultCenter] postNotificationName:GXQuestCreatedNotification object:nil];
     }
+}
+
+- (BOOL)isExitedQuest:(NSString *)questTitle
+{
+    BOOL ret = false;
     
+    KiiClause *clause1 = [KiiClause equals:@"title" value:questTitle];
+    KiiClause *clause2 = [KiiClause equals:@"isCompleted" value:@NO];
+    KiiClause *totalClause = [KiiClause and:clause1,clause2,nil];
+    KiiQuery *query = [KiiQuery queryWithClause:totalClause];
+    
+    KiiQuery *nextQuery;
+    NSError *error = nil;
+    
+    NSArray *result = [self.questBoard executeQuerySynchronous:query
+                                                     withError:&error
+                                                       andNext:&nextQuery];
+    
+    NSMutableArray *allResults = [NSMutableArray new];
+    [allResults addObjectsFromArray:result];
+    
+    if (allResults.count != 0) {
+        ret = true;
+        NSLog(@"ret is true");
+    }
+    
+    return ret;
 }
 
 #pragma mark - GroupScope
@@ -171,7 +197,7 @@
 {
     NSError *error = nil;
     NSMutableArray *allResult = [NSMutableArray new];
-    KiiClause *clause = [KiiClause equals:@"isCompleted" value:NO];
+    KiiClause *clause = [KiiClause equals:@"isCompleted" value:@NO];
     KiiQuery *query = [KiiQuery queryWithClause:clause];
     KiiQuery *nextQuery;
     

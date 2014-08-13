@@ -28,6 +28,7 @@
 - (NSMutableArray *)fetchQuestWithNotComplited;
 - (KiiObject *)getMeFromGalaxUserBucket;
 - (BOOL)isJoinedQuest:(NSString *)questTitile;
+- (BOOL)isExitedQuest:(NSString *)questTitle;
 
 - (NSMutableArray *)getNearUser:(KiiUser *)user;
 
