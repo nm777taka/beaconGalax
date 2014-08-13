@@ -119,6 +119,22 @@
     return ret;
 }
 
+- (NSMutableArray *)getJoinedQuest
+{
+    NSMutableArray *allResults = [NSMutableArray new];
+    KiiQuery *query = [KiiQuery queryWithClause:nil];
+    
+    [self.joinedQuest executeQuery:query withBlock:^(KiiQuery *query, KiiBucket *bucket, NSArray *results, KiiQuery *nextQuery, NSError *error) {
+        
+        [allResults addObjectsFromArray:results];
+        NSLog(@"getJoinedQuest");
+        [[NSNotificationCenter defaultCenter] postNotificationName:GXQuestFetchedNotification object:nil];
+        
+    }];
+    
+    return allResults;
+}
+
 #pragma mark - GroupScope
 - (void)registerQuestMember:(KiiUser *)user
 {

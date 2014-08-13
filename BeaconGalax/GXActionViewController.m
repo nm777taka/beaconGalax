@@ -61,7 +61,7 @@ typedef NS_ENUM(NSUInteger, kQuestType){
    
     self.createButton = [[FUIButton alloc] initWithFrame:CGRectMake(self.animationView.frame.size.width/2.0f - 50, self.animationView.frame.size.height - 50, 100, 30)];
     [FUIButton gxQuestTheme:self.createButton withName:@"OK"];
-    [self.createButton addTarget:self action:@selector(questCreate) forControlEvents:UIControlEventTouchUpInside];
+    [self.createButton addTarget:self action:@selector(questCreateAction) forControlEvents:UIControlEventTouchUpInside];
     [self.animationView addSubview:self.createButton];
     //最初は消しとく
     self.createButton.alpha = 0.0f;
@@ -111,7 +111,7 @@ typedef NS_ENUM(NSUInteger, kQuestType){
 
 
 #pragma mark ButtonAction
-- (void)questCreate
+- (void)questCreateAction
 {
     NSLog(@"%s",__PRETTY_FUNCTION__);
     
@@ -128,7 +128,6 @@ typedef NS_ENUM(NSUInteger, kQuestType){
     
     if (current_userObject) {
         NSString *userName = [current_userObject getObjectForKey:@"name"];
-        GXQuest *quest = [GXQuest new];
         NSString *questTitle;
         NSString *questDescription;
         
@@ -142,9 +141,35 @@ typedef NS_ENUM(NSUInteger, kQuestType){
                 break;
         }
         
+        if ([[GXBucketManager sharedManager] isExitedQuest:questTitle]) {
+            //既に作成済みの同じタイプのクエストが存在するので
+            //そこに参加するように促す
+            [TSMessage showNotificationWithTitle:@"すでに同じタイプのクエストがあります"
+                                            type:TSMessageNotificationTypeMessage];
+        } else {
+            
+            [self questCreate:questTitle andDesciption:questDescription andUserObject:current_userObject];
+
+        }
+        
+    } else {
+        NSLog(@"ユーザを取得できませんでした");
+    }
+    
+}
+
+- (void)questCreate:(NSString *)title andDesciption:(NSString *)description andUserObject:(KiiObject *)current_userObject
+{
+    if ([[GXBucketManager sharedManager] isExitedQuest:title]) {
+        //既に作成済みの同じタイプのクエストが存在するので
+        //そこに参加するように促す
+        [TSMessage showNotificationWithTitle:@"すでに同じタイプのクエストがあります"
+                                        type:TSMessageNotificationTypeMessage];
+    } else {
+        
         //Group作成
         NSError *error = nil;
-        NSString *groupName = [NSString stringWithFormat:@"%@_Group",quest.title];
+        NSString *groupName = [NSString stringWithFormat:@"%@_Group",title];
         KiiGroup *group = [KiiGroup groupWithName:groupName];
         
         [group saveSynchronous:&error];
@@ -154,30 +179,19 @@ typedef NS_ENUM(NSUInteger, kQuestType){
         
         //クエスト作成
         NSString *groupUri = [group objectURI];
-        quest.title = questTitle;
-        quest.description = questDescription;
+        GXQuest *quest = [GXQuest new];
+        quest.title = title;
+        quest.description = description;
         quest.createUserURI = [current_userObject getObjectForKey:@"uri"];
         quest.fb_id = [current_userObject getObjectForKey:@"facebook_id"];
         quest.group_uri = groupUri;
         quest.isStarted = [NSNumber numberWithBool:NO];
         quest.isCompleted = [NSNumber numberWithBool:NO];
         
-        if ([[GXBucketManager sharedManager] isExitedQuest:quest.title]) {
-            //既に作成済みの同じタイプのクエストが存在するので
-            //そこに参加するように促す
-            [TSMessage showNotificationWithTitle:@"すでに同じタイプのクエストがあります"
-                                            type:TSMessageNotificationTypeMessage];
-        } else {
-            [[GXBucketManager sharedManager ] registerQuest:quest];
-
-        }
+        [[GXBucketManager sharedManager ] registerQuest:quest];
         
-        [self closeView];
-        
-    } else {
-        NSLog(@"ユーザを取得できませんでした");
     }
-    
+ 
 }
 
 
@@ -200,6 +214,7 @@ typedef NS_ENUM(NSUInteger, kQuestType){
 {
     //クエスト作成された
     NSLog(@"クエスト作成");
+    [self closeView];
     [TSMessage showNotificationWithTitle:@"Success" subtitle:@"クエストが作成されました" type:TSMessageNotificationTypeSuccess];
 }
 @end

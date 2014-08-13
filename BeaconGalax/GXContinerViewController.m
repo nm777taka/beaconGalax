@@ -52,6 +52,7 @@
 {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
+    NSLog(@"%s",__PRETTY_FUNCTION__);
     self.transitionInProgress = NO;
     self.currentSegueIdentifier = SegueIdentifier_Home;
     [self performSegueWithIdentifier:self.currentSegueIdentifier sender:nil];
@@ -135,7 +136,7 @@
     
     [self transitionFromViewController:fromViewController
                       toViewController:toViewController
-                              duration:1.0f options:UIViewAnimationOptionTransitionNone
+                              duration:0.1f options:UIViewAnimationOptionTransitionNone
                             animations:nil
                             completion:^(BOOL finished) {
                                 

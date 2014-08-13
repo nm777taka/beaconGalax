@@ -14,6 +14,8 @@
 #import "GXHomeTableViewCell.h"
 #import "GXHomeTableViewHeader.h"
 #import "GXActionViewController.h"
+#import "GXBucketManager.h"
+#import "GXDictonaryKeys.h"
 
 
 #define PADDING_TOP_BUTTOM 15
@@ -57,6 +59,8 @@
     self.joinedQuestTableView.delegate = self;
     self.joinedQuestTableView.dataSource = self;
     
+    self.joinedQuestList = [NSMutableArray new];
+    
     //ActionViewをStoryBoardから取得しておく
     self.actionViewController = [self.storyboard instantiateViewControllerWithIdentifier:@"ActionView"];
     
@@ -96,13 +100,42 @@
     [_scrollView setShowsHorizontalScrollIndicator:NO];
     
     [self addButton:questButton];
-    [self addTableView:questTableView];
+    //[self addTableView:questTableView];
 
     
     //TableView
     [self.view insertSubview:actionButton atIndex:1];
     
     
+    //Notification
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(fetchQuestHandler:) name:GXQuestFetchedNotification object:nil];
+    
+    
+    NSLog(@"%s",__PRETTY_FUNCTION__);
+    
+    
+}
+
+- (void)viewWillAppear:(BOOL)animated
+{
+    NSLog(@"%s",__PRETTY_FUNCTION__);
+    [super viewWillAppear:animated];
+    
+    //fetch
+    [self questFetch];
+    
+}
+
+- (void)questFetch
+{
+    NSLog(@"%s",__PRETTY_FUNCTION__);
+    //自分のバケットから
+    //参加しているクエストを取得
+    if ([KiiUser loggedIn]) {
+        
+       self.joinedQuestList =  [[GXBucketManager sharedManager] getJoinedQuest];
+        
+    }
 }
 
 - (void)didReceiveMemoryWarning
@@ -111,16 +144,6 @@
     // Dispose of any resources that can be recreated.
 }
 
-/*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
-{
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-*/
 
 #pragma mark - TableViewDataSource
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
@@ -137,42 +160,26 @@
 {
     static NSString *cellIdentifier = @"cell";
     
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:cellIdentifier];
+    GXHomeTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:cellIdentifier];
     
     if (cell == nil) {
-        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellIdentifier];
+        cell = [[GXHomeTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellIdentifier];
     }
     
-//    if (indexPath.section == 0) {
-//        NSLog(@"index path %d",indexPath.section);
-//        [self configureCell:cell atIndexPath:indexPath];
-//
-//    } else if (indexPath.section == 1) {
-//        NSLog(@"index path %d",indexPath.section);
-//        [self configureCell:cell atIndexPath:indexPath];
-//    }
-   
+    cell.textLabel.text = @"test";
     
     [self updateTableSize:tableView];
+    
+    [self configureCell:cell atIndexPath:indexPath];
     
     return cell;
 }
 
 - (void)configureCell:(UITableViewCell *)cell atIndexPath:(NSIndexPath *)indexPath
 {
-    NSInteger section = indexPath.section;
-    
-    switch (section) {
-        case 0:
-            NSLog(@"0");
-            break;
-        case 1:
-            NSLog(@"1");
-            break;
-            
-        default:
-            break;
-    }
+    NSLog(@"%s",__PRETTY_FUNCTION__);
+    KiiObject *quest = self.joinedQuestList[indexPath.row];
+    //cell.textLabel.text = [quest getObjectForKey:quest_title];
     
 }
 
@@ -300,6 +307,14 @@
     }
     
     [_scrollView addSubview:button];
+}
+
+#pragma  mark - ノーティフィケーション
+- (void)fetchQuestHandler:(NSNotification *)info
+{
+    NSLog(@"フェッチ完了");
+    NSLog(@"%d",self.joinedQuestList.count);
+    [self.joinedQuestTableView reloadData];
 }
 
 @end
