@@ -75,7 +75,7 @@
     
     //指定バケットのデータをすべて削除
     KiiBucket *bucket = [GXBucketManager sharedManager].joinedQuest;
-    //[[GXBucketManager sharedManager] deleteAllObject:bucket];
+    ///[[GXBucketManager sharedManager] deleteAllObject:bucket];
     [[GXBucketManager sharedManager] displayAllObject:bucket];
     
 }
@@ -172,18 +172,38 @@
     KiiObject *obj = self.questArray[self.joinButtonIndexPath.row];
     NSString *createdUser = [obj getObjectForKey:@"created_user_uri"];
     
-    //ボタンを押したユーザがクエスト作成者かどうか
-    //デバッグ
-    if ([createdUser isEqualToString:[KiiUser currentUser].objectURI]) {
-        //なにもしない
-        NSLog(@"クエスト作成者です");
-    } else {
-       
+    
+    do {
+        
+        if ([createdUser isEqualToString:[KiiUser currentUser].objectURI]) {
+            //なにもしない
+            NSLog(@"クエスト作成者です");
+            [TSMessage showNotificationWithTitle:@"ERROR"
+                                        subtitle:@"クエスト作成者です"
+                                            type:TSMessageNotificationTypeError];
+            break;
+        }
+        
+        KiiObject *obj = self.questArray[self.joinButtonIndexPath.row];
+        NSString *questTitle = [obj getObjectForKey:@"title"];
+        NSLog(@"取得したタイトル:%@",questTitle);
+        
+        //このタイトルをクエリに自分のバケットからデータを探す処理
+        if ([[GXBucketManager sharedManager] isJoinedQuest:questTitle]) {
+            
+            //既に参加済みの同じクエストがある
+            [TSMessage showNotificationWithTitle:@"ERROR"
+                                        subtitle:@"既に参加済みの同じクエストがあります"
+                                            type:TSMessageNotificationTypeError];
+            break;
+        }
+        
         FUIAlertView *alert = [[FUIAlertView alloc] initWithTitle:@"確認" message:@"このクエストに参加しますか？" delegate:self cancelButtonTitle:@"キャンセル" otherButtonTitles:@"参加", nil];
         [FUIAlertView gxQuestTheme:alert];
         [alert show];
         
-    }
+        
+    }while(false);
     
     
 }
@@ -204,6 +224,7 @@
 }
 
 #pragma mark - FUIAlertViewDelegate
+#pragma mark - Todo ここで既に参加済みの同じクエストがあった場合の処理
 - (void)alertView:(FUIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
 {
     //選択したクエストを自分のバケットに登録
@@ -211,10 +232,15 @@
         NSError *error = nil;
         //クエストオブジェクトを取得
         KiiObject *selectedQuest= self.questArray[self.joinButtonIndexPath.row];
+        NSString *createUserURI = [selectedQuest getObjectForKey:quest_createUserURI];
+        NSLog(@"%@",createUserURI);
+        KiiUser *createUser = [KiiUser userWithURI:createUserURI];
+        NSLog(@"createUser:%@",createUser);
         
         //ユーザスコープのバケットを取得
         KiiBucket *joinedQuestBucket = [GXBucketManager sharedManager].joinedQuest;
         
+        //コピー
         KiiObject *newObj = [joinedQuestBucket createObject];
         [newObj setObject:[selectedQuest getObjectForKey:quest_title] forKey:quest_title];
         [newObj setObject:[selectedQuest getObjectForKey:quest_description] forKey:quest_description];
@@ -232,41 +258,39 @@
         } else {
             NSLog(@"ユーザバケットへ登録が完了");
             NSLog(@"%s",__PRETTY_FUNCTION__);
+            [TSMessage showNotificationWithTitle:@"クエストに参加しました"
+                                            type:TSMessageNotificationTypeMessage];
+            
             [[GXBucketManager sharedManager] displayAllObject:joinedQuestBucket];
         }
         
         //作成者のinvite_notifyトピックに
         //参加したことを通知する
-        [self sendPushNotification];
+        [self sendPushNotification:createUser];
         
     }
     
 }
 
 #pragma mark - Push通知
-- (void)sendPushNotification
+- (void)sendPushNotification:(KiiUser *)user
 {
     NSError *error = nil;
     
-    // Instantiate a user-scope topic.
-    KiiUser* user = [KiiUser currentUser];
     NSString *topicname = topic_invite;
     KiiTopic *topic = [user topicWithName:topicname];
     
     // Create APNs message fields
     KiiAPNSFields *apnsFields = [KiiAPNSFields createFields];
     
-    // This snippet assumes that you are using the silent push notification,
     // so the AlertBody is not set.
     //[apnsFields setAlertBody:@"Show message"];
     
     // Build a push message.
     // GCM fields is set nil, so the message will not send to Android devices
     NSMutableDictionary *dictionary = [NSMutableDictionary dictionary];
-    [dictionary setObject:@"Do Something"
-                   forKey:@"Item"];
-    [dictionary setObject:[NSNumber numberWithInt:1]
-                   forKey:@"Done"];
+    KiiUser *joinedUser = [KiiUser currentUser];
+    [dictionary setValue:joinedUser forKey:@"joined_user"];
     [apnsFields setSpecificData:dictionary];
     
     // Enable the silent push notification by setting "content-available"

@@ -10,6 +10,7 @@
 #import <FlatUIKit/FlatUIKit.h>
 #import <BlocksKit/BlocksKit+UIKit.h>
 #import <SVProgressHUD/SVProgressHUD.h>
+#import <TSMessages/TSMessage.h>
 
 @interface GXQuestBoardViewController : UIViewController<UICollectionViewDataSource,UICollectionViewDelegate,FUIAlertViewDelegate>
 

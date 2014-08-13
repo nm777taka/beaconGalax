@@ -143,6 +143,29 @@
     return current_userObject;
 }
 
+- (BOOL)isJoinedQuest:(NSString *)questTitile
+{
+    BOOL ret = false;
+    
+    KiiClause *clause = [KiiClause equals:@"title" value:questTitile];
+    KiiQuery *query =[KiiQuery queryWithClause:clause];
+    NSMutableArray *allResults = [NSMutableArray new];
+    KiiQuery *nextQuery;
+    NSError *error = nil;
+    
+    NSArray *result = [self.joinedQuest executeQuerySynchronous:query
+                                                      withError:&error
+                                                        andNext:&nextQuery];
+    [allResults addObject:result];
+    
+    if (allResults.count == 0) {
+        ret = false;
+    } else {
+        ret = true;
+    }
+    return ret;
+}
+
 #pragma mark Quest Method
 - (NSMutableArray *)fetchQuestWithNotComplited
 {

@@ -35,7 +35,6 @@
     return [KiiSocialConnect handleOpenURL:url];
 }
 
-#pragma mark -ToDo:Pushのインストール周りの挙動がおかしい
 - (void)application:(UIApplication *)application didRegisterForRemoteNotificationsWithDeviceToken:(NSData *)deviceToken
 {
     NSLog(@"%s",__PRETTY_FUNCTION__);
@@ -59,11 +58,11 @@
     NSString *topicName = [message getValueOfKiiMessageField:KiiMessage_TOPIC];
     
     // Show alert message
-    [message showMessageAlertWithTitle:topicName];
     
     //アプリがフォアグランドで起動している時にPush通知を受信した場合
     if (application.applicationState == UIApplicationStateActive) {
         NSLog(@"push通知受信@フォアグランド");
+        [message showMessageAlertWithTitle:topicName];
     }
     
     //バックグランドからPUSH通知でアクティブになったとき
