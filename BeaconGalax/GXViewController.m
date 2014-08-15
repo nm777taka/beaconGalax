@@ -36,20 +36,7 @@
 {
     [super viewDidLoad];
     
-//    //UI init
-//    FUIButton *helpButton = [[FUIButton alloc]initWithFrame:CGRectMake(self.view.center.x - 50, self.view.frame.size.height - 100, 100, 50)];
-//    helpButton.buttonColor = [UIColor turquoiseColor];
-//    helpButton.shadowColor = [UIColor greenSeaColor];
-//    helpButton.shadowHeight = 3.0f;
-//    helpButton.cornerRadius = 6.0f;
-//    helpButton.titleLabel.font = [UIFont boldFlatFontOfSize:16];
-//    [helpButton setTitleColor:[UIColor cloudsColor] forState:UIControlStateNormal];
-//    [helpButton setTitleColor:[UIColor cloudsColor] forState:UIControlStateHighlighted];
-//    [helpButton setTitle:@"HELP" forState:UIControlStateNormal];
-//    [helpButton addTarget:self action:@selector(testSelector:) forControlEvents:UIControlEventTouchUpInside];
-//    
-//    [self.view addSubview:helpButton];
-    
+
     self.kiiCloudManager = [GXKiiCloud sharedManager];
     
     self.nearUser = [NSMutableArray new];

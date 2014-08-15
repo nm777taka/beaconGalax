@@ -100,7 +100,7 @@
     [_scrollView setShowsHorizontalScrollIndicator:NO];
     
     [self addButton:questButton];
-    //[self addTableView:questTableView];
+    [self addTableView:questTableView];
 
     
     //TableView
@@ -153,7 +153,7 @@
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return 4;
+    return self.joinedQuestList.count;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -175,11 +175,11 @@
     return cell;
 }
 
-- (void)configureCell:(UITableViewCell *)cell atIndexPath:(NSIndexPath *)indexPath
+- (void)configureCell:(GXHomeTableViewCell *)cell atIndexPath:(NSIndexPath *)indexPath
 {
     NSLog(@"%s",__PRETTY_FUNCTION__);
     KiiObject *quest = self.joinedQuestList[indexPath.row];
-    //cell.textLabel.text = [quest getObjectForKey:quest_title];
+    cell.textLabel.text = [quest getObjectForKey:quest_title];
     
 }
 
@@ -314,6 +314,8 @@
 {
     NSLog(@"フェッチ完了");
     NSLog(@"%d",self.joinedQuestList.count);
+    KiiObject *obj = self.joinedQuestList[0];
+    NSLog(@"%@",[obj getObjectForKey:quest_title]);
     [self.joinedQuestTableView reloadData];
 }
 
