@@ -26,10 +26,9 @@
 
 
 @interface GXHomeViewController ()
-@property (weak, nonatomic) IBOutlet UITableView *joinedQuestTableView;
 @property (weak, nonatomic) IBOutlet UIButton *joinQuestButton;
-@property (weak, nonatomic) IBOutlet UIScrollView *scrollView;
 @property (strong,nonatomic) NSMutableArray *scrollerViews;
+@property (weak, nonatomic) IBOutlet UITableView *questTableView;
 
 
 @property (nonatomic,retain) GXActionViewController *actionViewController;
@@ -56,16 +55,14 @@
 {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
-    self.joinedQuestTableView.delegate = self;
-    self.joinedQuestTableView.dataSource = self;
+    self.questTableView.delegate = self;
+    self.questTableView.dataSource = self;
     
     self.joinedQuestList = [NSMutableArray new];
     
     //ActionViewをStoryBoardから取得しておく
     self.actionViewController = [self.storyboard instantiateViewControllerWithIdentifier:@"ActionView"];
     
-    
-    self.view.backgroundColor = [UIColor colorWithRed:0.000 green:0.647 blue:0.865 alpha:1.000];
     
     //ScrollView
     _scrollerViews = [NSMutableArray new];
@@ -75,14 +72,16 @@
     [questButton setBackgroundImage:[UIImage imageNamed:@"homeViewQuestJoinButton.png"] forState:UIControlStateNormal];
     questButton.imageView.contentMode = UIViewContentModeScaleAspectFit;
     
-    UITableView *questTableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 0, 300, 200) style:UITableViewStylePlain];
-    questTableView.delegate = self;
-    questTableView.dataSource = self;
+    self.questTableView.delegate = self;
+    self.questTableView.dataSource = self;
     //カスタムクラスをアタッチ
-    [questTableView registerNib:[UINib nibWithNibName:@"GXHomeTableViewCell" bundle:nil] forCellReuseIdentifier:@"cell"];
-    [questTableView registerNib:[UINib nibWithNibName:@"GXHomeTableViewHeader" bundle:nil] forCellReuseIdentifier:@"sectionHeader"];
-    
-    questTableView.scrollEnabled = NO;
+    [self.questTableView registerNib:[UINib nibWithNibName:@"GXHomeTableViewCell" bundle:nil] forCellReuseIdentifier:@"cell"];
+    [self.questTableView registerNib:[UINib nibWithNibName:@"GXHomeTableViewHeader" bundle:nil] forCellReuseIdentifier:@"sectionHeader"];
+    self.questTableView.layer.masksToBounds = NO;
+    self.questTableView.layer.cornerRadius = CORNER_RADIUS;
+    self.questTableView.layer.shadowOffset = CGSizeMake(0, 0);
+    self.questTableView.layer.shadowRadius = SHADOW_RADIUS;
+    self.questTableView.layer.shadowOpacity = SHADOW_OPACITY;
     
     //アクションビュー呼び出しButton
     UIButton *actionButton = [UIButton buttonWithType:UIButtonTypeCustom];
@@ -93,15 +92,7 @@
         [self.view addSubview:self.actionViewController.view];
     } forControlEvents:UIControlEventTouchUpInside];
     
-    [_scrollView setContentSize:CGSizeMake(self.view.frame.size.width,self.view.frame.size.height)];
-    [_scrollView setScrollEnabled:YES];
-    _scrollView.backgroundColor = [UIColor colorWithRed:0.195 green:0.935 blue:0.974 alpha:1.000];
-    [_scrollView setShowsVerticalScrollIndicator:NO];
-    [_scrollView setShowsHorizontalScrollIndicator:NO];
-    
-    [self addButton:questButton];
-    [self addTableView:questTableView];
-
+    [self.view addSubview:questButton];
     
     //TableView
     [self.view insertSubview:actionButton atIndex:1];
@@ -112,7 +103,6 @@
     
     
     NSLog(@"%s",__PRETTY_FUNCTION__);
-    
     
 }
 
@@ -166,10 +156,6 @@
         cell = [[GXHomeTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellIdentifier];
     }
     
-    cell.textLabel.text = @"test";
-    
-    [self updateTableSize:tableView];
-    
     [self configureCell:cell atIndexPath:indexPath];
     
     return cell;
@@ -179,7 +165,12 @@
 {
     NSLog(@"%s",__PRETTY_FUNCTION__);
     KiiObject *quest = self.joinedQuestList[indexPath.row];
-    cell.textLabel.text = [quest getObjectForKey:quest_title];
+    cell.contentsLabel.text = [quest getObjectForKey:quest_title];
+    cell.contentsLabel.font = [UIFont boldFlatFontOfSize:15];
+    cell.contentsLabel.textColor = [UIColor midnightBlueColor];
+    cell.iconView.profileID = [quest getObjectForKey:quest_createdUser_fbid];
+    [self updateTableSize:self.questTableView];
+
     
 }
 
@@ -199,6 +190,11 @@
     NSLog(@"indexPath.row : %u",indexPath.row);
 }
 
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    return 70;
+}
+
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
 {
     return 50;
@@ -215,6 +211,7 @@
 }
 
 #pragma mark - ScrollViewMethod
+/*
 - (void)addView:(UIView *)view
 {
     UIView *lastView = [_scrollView.subviews lastObject];
@@ -283,7 +280,6 @@
     
     [_scrollView addSubview:view];
 }
-
 - (void)addButton:(UIButton *)button
 {
     UIView *lastView = [_scrollView.subviews lastObject];
@@ -308,6 +304,8 @@
     
     [_scrollView addSubview:button];
 }
+ 
+ */
 
 #pragma  mark - ノーティフィケーション
 - (void)fetchQuestHandler:(NSNotification *)info
@@ -316,7 +314,7 @@
     NSLog(@"%d",self.joinedQuestList.count);
     KiiObject *obj = self.joinedQuestList[0];
     NSLog(@"%@",[obj getObjectForKey:quest_title]);
-    [self.joinedQuestTableView reloadData];
+    [self.questTableView reloadData];
 }
 
 @end
