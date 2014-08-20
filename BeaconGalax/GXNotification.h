@@ -18,7 +18,10 @@ UIKIT_EXTERN  NSString *const GXLoginSuccessedNotification;
 //クエスト関連
 UIKIT_EXTERN NSString *const GXQuestCreatedNotification;
 
-UIKIT_EXTERN NSString *const GXQuestFetchedNotification;
+UIKIT_EXTERN NSString *const GXQuestFetchedQuestWithJoinedNotification;
+
+UIKIT_EXTERN NSString *const GXFetchQuestNotComplitedNotification;
+
 
 UIKIT_EXTERN NSString *const GXQuestCellTouchedNotification;
 

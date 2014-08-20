@@ -11,6 +11,7 @@
 
 @property (weak, nonatomic) IBOutlet UICollectionView *questCollectionView;
 @property  NSMutableArray *questArray;
+
 @property GXQuestDetialViewController *detailViewController;
 
 @property NSIndexPath *joinButtonIndexPath;
@@ -40,7 +41,6 @@
     self.questCollectionView.delegate = self;
     self.questCollectionView.dataSource = self;
     
-    
     self.questArray = [NSMutableArray new];
     
 //    //QuestCreateButton init
@@ -69,9 +69,8 @@
     //self.questCollectionView.backgroundColor = [UIColor cloudsColor];
     
     //notification
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(gxQuestFetchedHandler:) name:GXQuestFetchedNotification object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(gxQuestFetchedHandler:) name:GXFetchQuestNotComplitedNotification object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(gxQuestDeletedHandler:) name:GXQuestDeletedNotification object:nil];
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(gxQuestFetchedHandler:) name:GXQuestFetchedNotification object:nil];
     
     //指定バケットのデータをすべて削除
     KiiBucket *bucket = [GXBucketManager sharedManager].joinedQuest;
@@ -94,9 +93,8 @@
 
 - (void)fetchQuest
 {
-   [SVProgressHUD showWithStatus:@"ロード中" maskType:SVProgressHUDMaskTypeGradient];
-   self.questArray = [[GXBucketManager sharedManager] fetchQuestWithNotComplited];
-//   [self.questCollectionView reloadData];
+
+    self.questArray = [[GXBucketManager sharedManager] fetchQuestWithNotComplited];
  
 }
 
@@ -211,11 +209,9 @@
 #pragma mark GXNotificationHandler
 - (void)gxQuestFetchedHandler:(GXNotification *)info
 {
-    NSLog(@"通知");
+    
     [self.questCollectionView reloadData];
-    NSLog(@"questArray:%ld",self.questArray.count);
-    [SVProgressHUD dismiss];
-    [SVProgressHUD showSuccessWithStatus:@"ロード完了"];
+    [[NSNotificationCenter defaultCenter] removeObserver: self];
 }
 
 - (void)gxQuestDeletedHandler:(GXNotification *)info
@@ -309,7 +305,5 @@
         NSLog(@"push通知送信");
     }
 }
-
-
 
 @end

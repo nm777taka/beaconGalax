@@ -35,12 +35,14 @@
 
 - (IBAction)gotoQuestBoard:(id)sender;
 
-@property NSMutableArray *joinedQuestList;
+@property (strong,nonatomic)NSMutableArray *joinedQuestList;
 
 
 @end
 
 @implementation GXHomeViewController
+
+dispatch_once_t onceToken;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -51,22 +53,25 @@
     return self;
 }
 
+
 - (void)viewDidLoad
 {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
+    //Containerでviewを切り替える際に、メモリから開放されちゃうみたい
+    //なのでViewDidLoadが何回も呼ばれてしまう
+    //初期化はインスタンスに対して一回だけにする
     self.questTableView.delegate = self;
     self.questTableView.dataSource = self;
     
+    
     self.joinedQuestList = [NSMutableArray new];
+
     
     //ActionViewをStoryBoardから取得しておく
     self.actionViewController = [self.storyboard instantiateViewControllerWithIdentifier:@"ActionView"];
     
     
-    //ScrollView
-    _scrollerViews = [NSMutableArray new];
-
     UIButton *questButton = [UIButton buttonWithType:UIButtonTypeCustom];
     questButton.frame = CGRectMake(self.view.center.x - 135, 0, 270, 40);
     [questButton setBackgroundImage:[UIImage imageNamed:@"homeViewQuestJoinButton.png"] forState:UIControlStateNormal];
@@ -90,25 +95,24 @@
     //questCreateButton.imageView.contentMode = UIViewContentModeScaleAspectFit;
     [actionButton bk_addEventHandler:^(id sender) {
         [self.view addSubview:self.actionViewController.view];
+        [self.questTableView reloadData]; 
+        
     } forControlEvents:UIControlEventTouchUpInside];
     
     [self.view addSubview:questButton];
     
     //TableView
     [self.view insertSubview:actionButton atIndex:1];
-    
+
     
     //Notification
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(fetchQuestHandler:) name:GXQuestFetchedNotification object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(fetchQuestHandler:) name:GXQuestFetchedQuestWithJoinedNotification object:nil];
     
-    
-    NSLog(@"%s",__PRETTY_FUNCTION__);
-    
+    NSLog(@"didLoad");
 }
 
 - (void)viewWillAppear:(BOOL)animated
 {
-    NSLog(@"%s",__PRETTY_FUNCTION__);
     [super viewWillAppear:animated];
     
     //fetch
@@ -118,13 +122,11 @@
 
 - (void)questFetch
 {
-    NSLog(@"%s",__PRETTY_FUNCTION__);
     //自分のバケットから
     //参加しているクエストを取得
     if ([KiiUser loggedIn]) {
         
        self.joinedQuestList =  [[GXBucketManager sharedManager] getJoinedQuest];
-        
     }
 }
 
@@ -310,11 +312,10 @@
 #pragma  mark - ノーティフィケーション
 - (void)fetchQuestHandler:(NSNotification *)info
 {
-    NSLog(@"フェッチ完了");
-    NSLog(@"%d",self.joinedQuestList.count);
-    KiiObject *obj = self.joinedQuestList[0];
-    NSLog(@"%@",[obj getObjectForKey:quest_title]);
+    
     [self.questTableView reloadData];
+    [[NSNotificationCenter defaultCenter] removeObserver: self];
+    
 }
 
 @end

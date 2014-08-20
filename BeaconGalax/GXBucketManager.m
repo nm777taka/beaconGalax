@@ -128,8 +128,7 @@
         
         [allResults addObjectsFromArray:results];
         NSLog(@"getJoinedQuest");
-        [[NSNotificationCenter defaultCenter] postNotificationName:GXQuestFetchedNotification object:nil];
-        
+        [[NSNotificationCenter defaultCenter] postNotificationName:GXQuestFetchedQuestWithJoinedNotification object:nil userInfo:nil];
     }];
     
     return allResults;
@@ -232,7 +231,7 @@
             [allResult addObjectsFromArray:results];
             
             //notification
-            [[NSNotificationCenter defaultCenter] postNotificationName:GXQuestFetchedNotification object:nil userInfo:nil];
+            [[NSNotificationCenter defaultCenter] postNotificationName:GXFetchQuestNotComplitedNotification object:nil userInfo:nil];
         }
     }];
     return allResult;
