@@ -2,74 +2,117 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
+	<key>SchemeUserState</key>
+	<dict>
+		<key>Pods-AFNetworking.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
+		<key>Pods-BlocksKit.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
+		<key>Pods-Bolts.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
+		<key>Pods-Canvas.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
+		<key>Pods-ChameleonFramework.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
+		<key>Pods-Facebook-iOS-SDK.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
+		<key>Pods-FlatUIKit.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
+		<key>Pods-HexColors.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
+		<key>Pods-SVProgressHUD.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
+		<key>Pods-TSMessages.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
+		<key>Pods.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
+	</dict>
 	<key>SuppressBuildableAutocreation</key>
 	<dict>
-		<key>164FE262870448599317E363</key>
+		<key>1106662BD0874DB7886727E1</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>1992527707F5455891C67D4A</key>
+		<key>15CB0D49F55047DB88F73DD2</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>2DF1E5DCDAC14966842941F4</key>
+		<key>384E04E6BE7A4E5AA61D581B</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>38AA2F529DBF4412A8E4C8EE</key>
+		<key>3B7116AC093F467D9C100CC7</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>72945A0BAEF8487785413A18</key>
+		<key>3DF48AD44AC34B448B357130</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>8B374D3EBDFC4361B7AF81E7</key>
+		<key>4DA02AD1FEA842108A65F2B3</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>8C8D45D6BD7A42518788BB12</key>
+		<key>4DDD724C05DA4A43BDA6825A</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>967AB2EB43A1474483E2D969</key>
+		<key>6551208DE99E4666A0EF01DC</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>A12ED95974714400A069F543</key>
+		<key>DBEC52ABF7904A029DBAE214</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>AA34C8B1F61B4AD4AF4C43E9</key>
+		<key>F7F93A28A6D94A968EB63C94</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>AE379EEA997D499296169A0D</key>
-		<dict>
-			<key>primary</key>
-			<true/>
-		</dict>
-		<key>B89C06403CAC487783697E1A</key>
-		<dict>
-			<key>primary</key>
-			<true/>
-		</dict>
-		<key>C3A5604D4943460CA7D757C0</key>
-		<dict>
-			<key>primary</key>
-			<true/>
-		</dict>
-		<key>FFB4F0B613414BF99F42D726</key>
+		<key>FE0EBEDB4376487D834AAF97</key>
 		<dict>
 			<key>primary</key>
 			<true/>

@@ -88,13 +88,19 @@
 #define COCOAPODS_POD_AVAILABLE_Bolts
 #define COCOAPODS_VERSION_MAJOR_Bolts 1
 #define COCOAPODS_VERSION_MINOR_Bolts 1
-#define COCOAPODS_VERSION_PATCH_Bolts 1
+#define COCOAPODS_VERSION_PATCH_Bolts 2
 
 // Canvas
 #define COCOAPODS_POD_AVAILABLE_Canvas
 #define COCOAPODS_VERSION_MAJOR_Canvas 0
 #define COCOAPODS_VERSION_MINOR_Canvas 1
 #define COCOAPODS_VERSION_PATCH_Canvas 1
+
+// ChameleonFramework
+#define COCOAPODS_POD_AVAILABLE_ChameleonFramework
+#define COCOAPODS_VERSION_MAJOR_ChameleonFramework 1
+#define COCOAPODS_VERSION_MINOR_ChameleonFramework 1
+#define COCOAPODS_VERSION_PATCH_ChameleonFramework 1
 
 // Facebook-iOS-SDK
 #define COCOAPODS_POD_AVAILABLE_Facebook_iOS_SDK

@@ -35,8 +35,9 @@ PODS:
   - BlocksKit/UIKit (2.2.3):
     - BlocksKit/Core
     - BlocksKit/DynamicDelegate
-  - Bolts (1.1.1)
+  - Bolts (1.1.2)
   - Canvas (0.1.1)
+  - ChameleonFramework (1.1.1)
   - Facebook-iOS-SDK (3.15.1):
     - Bolts
   - FlatUIKit (1.4)
@@ -49,6 +50,7 @@ DEPENDENCIES:
   - AFNetworking (~> 2.0)
   - BlocksKit
   - Canvas
+  - ChameleonFramework
   - Facebook-iOS-SDK
   - FlatUIKit
   - SVProgressHUD
@@ -57,8 +59,9 @@ DEPENDENCIES:
 SPEC CHECKSUMS:
   AFNetworking: 6d7b76aa5d04c8c37daad3eef4b7e3f2a7620da3
   BlocksKit: 07c8a80f04275efac6a5f8b973782489c083a182
-  Bolts: 0ca796081c3e7c139bd86d6903c27f1b83036a5d
+  Bolts: 2635e8698a630774689441047f3465d78c48d485
   Canvas: 45356a2e61087a776bfde5090676d290cf67f7f2
+  ChameleonFramework: c60096686e3771f5d78f26cfbfd08955a8a88cbd
   Facebook-iOS-SDK: 56214af8e0ef16e751eb2804250326b709e571b8
   FlatUIKit: edc1ed0c130687dc64a10e45851cc58925f6893d
   HexColors: 01384d2bbe8dc4ffa43c3b4135db6e976952d153

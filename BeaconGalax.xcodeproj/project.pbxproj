@@ -212,8 +212,8 @@
 		0F821F5619724EF70002664D /* CHTCollectionViewWaterfallLayout.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CHTCollectionViewWaterfallLayout.m; sourceTree = "<group>"; };
 		0F821F58197258C50002664D /* GXCollectionViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GXCollectionViewCell.h; sourceTree = "<group>"; };
 		0F821F59197258C50002664D /* GXCollectionViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GXCollectionViewCell.m; sourceTree = "<group>"; };
-		0F82302A1982334A0081C9BE /* GTScrollViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GTScrollViewController.h; sourceTree = "<group>"; };
-		0F82302B1982334A0081C9BE /* GTScrollViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GTScrollViewController.m; sourceTree = "<group>"; };
+		0F82302A1982334A0081C9BE /* GTScrollViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GTScrollViewController.h; path = BeaconGalax/GTScrollViewController.h; sourceTree = "<group>"; };
+		0F82302B1982334A0081C9BE /* GTScrollViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = GTScrollViewController.m; path = BeaconGalax/GTScrollViewController.m; sourceTree = "<group>"; };
 		0F82302E198245CA0081C9BE /* home.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = home.png; sourceTree = "<group>"; };
 		0F823030198245D30081C9BE /* bell.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = bell.png; sourceTree = "<group>"; };
 		0F823032198245DB0081C9BE /* menu.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = menu.png; sourceTree = "<group>"; };
@@ -305,6 +305,7 @@
 				0F1987DF19811EE4003FD92A /* GXFriendsNowViewController.m */,
 			);
 			name = FriendsNowViewController;
+			path = BeaconGalax;
 			sourceTree = "<group>";
 		};
 		0F1987E119811EE9003FD92A /* FriendsProfileViewController */ = {
@@ -314,6 +315,7 @@
 				0F1987E319811EFF003FD92A /* GXFriendsProfileViewController.m */,
 			);
 			name = FriendsProfileViewController;
+			path = BeaconGalax;
 			sourceTree = "<group>";
 		};
 		0F1987E519811F04003FD92A /* UserProfileViewController */ = {
@@ -323,6 +325,26 @@
 				0F1987E719811F14003FD92A /* GXUserProfileViewController.m */,
 			);
 			name = UserProfileViewController;
+			sourceTree = "<group>";
+		};
+		0F42365919BC45C20001E204 /* 多分使わない */ = {
+			isa = PBXGroup;
+			children = (
+				0F8420A01988C953003241D1 /* collecitonViewLayout */,
+				0F5FA5FA198DCFD200F41B05 /* GXFriendsProfileView */,
+				0F8420A11988C96B003241D1 /* CollectionViewCell */,
+				0F5FA5FB198DCFEE00F41B05 /* CustomNavigation */,
+				0F82302A1982334A0081C9BE /* GTScrollViewController.h */,
+				0F82302B1982334A0081C9BE /* GTScrollViewController.m */,
+				0F1987DD19811EC5003FD92A /* FriendsNowViewController */,
+				0F1987E119811EE9003FD92A /* FriendsProfileViewController */,
+				0F5FA5FC198DCFFD00F41B05 /* RootContainer */,
+				0FF16CE4197F7B9800B02702 /* QuestCreateViewController */,
+				0FF16CE1197F7B7500B02702 /* RootViewController */,
+				0FF16CE5197F7BC400B02702 /* QuestBoardViewController */,
+				0FF16CE6197F7BE300B02702 /* QuestDetailViewContoller */,
+			);
+			name = "多分使わない";
 			sourceTree = "<group>";
 		};
 		0F5FA5F7198DCF6700F41B05 /* Facebook */ = {
@@ -356,6 +378,7 @@
 				0F7881FB1988D0AB002783D6 /* userProfile.xib */,
 			);
 			name = GXFriendsProfileView;
+			path = BeaconGalax;
 			sourceTree = "<group>";
 		};
 		0F5FA5FB198DCFEE00F41B05 /* CustomNavigation */ = {
@@ -365,6 +388,7 @@
 				0FF16CDB197F742A00B02702 /* GXCustomNavViewController.m */,
 			);
 			name = CustomNavigation;
+			path = BeaconGalax;
 			sourceTree = "<group>";
 		};
 		0F5FA5FC198DCFFD00F41B05 /* RootContainer */ = {
@@ -374,11 +398,13 @@
 				0F8BB0AC1980D15600D5499F /* GXContinerViewController.m */,
 			);
 			name = RootContainer;
+			path = BeaconGalax;
 			sourceTree = "<group>";
 		};
 		0F7A258719587ADE001B7839 = {
 			isa = PBXGroup;
 			children = (
+				0F42365919BC45C20001E204 /* 多分使わない */,
 				0F7F4129195B203900A796AD /* Resources */,
 				0F7A259919587ADE001B7839 /* BeaconGalax */,
 				0F7A25B819587ADE001B7839 /* BeaconGalaxTests */,
@@ -480,21 +506,11 @@
 			isa = PBXGroup;
 			children = (
 				0F1060BE199217FC004509B6 /* ActionViewController */,
-				0F5FA5FC198DCFFD00F41B05 /* RootContainer */,
-				0F5FA5FB198DCFEE00F41B05 /* CustomNavigation */,
 				0F1987E519811F04003FD92A /* UserProfileViewController */,
-				0F1987E119811EE9003FD92A /* FriendsProfileViewController */,
-				0F1987DD19811EC5003FD92A /* FriendsNowViewController */,
-				0FF16CE6197F7BE300B02702 /* QuestDetailViewContoller */,
-				0FF16CE5197F7BC400B02702 /* QuestBoardViewController */,
-				0FF16CE4197F7B9800B02702 /* QuestCreateViewController */,
 				0FF16CE3197F7B8D00B02702 /* BeaconViewController */,
 				0FF16CE2197F7B8100B02702 /* LoginViewController */,
-				0FF16CE1197F7B7500B02702 /* RootViewController */,
 				0FF16CE0197F7B6900B02702 /* HomeViewController */,
 				0F7A25CA19587E1E001B7839 /* AppDelegate */,
-				0F82302A1982334A0081C9BE /* GTScrollViewController.h */,
-				0F82302B1982334A0081C9BE /* GTScrollViewController.m */,
 			);
 			name = Controller;
 			sourceTree = "<group>";
@@ -584,6 +600,7 @@
 				0F821F5619724EF70002664D /* CHTCollectionViewWaterfallLayout.m */,
 			);
 			name = collecitonViewLayout;
+			path = BeaconGalax;
 			sourceTree = "<group>";
 		};
 		0F8420A11988C96B003241D1 /* CollectionViewCell */ = {
@@ -597,6 +614,7 @@
 				0FF16CD8197F73EB00B02702 /* GXCustomNavViewCell.m */,
 			);
 			name = CollectionViewCell;
+			path = BeaconGalax;
 			sourceTree = "<group>";
 		};
 		0FA17E3119619EB600158421 /* Model */ = {
@@ -619,10 +637,7 @@
 		0FD26D7C1959F32C005E2B95 /* View */ = {
 			isa = PBXGroup;
 			children = (
-				0F5FA5FA198DCFD200F41B05 /* GXFriendsProfileView */,
 				0F5FA5F9198DCFA300F41B05 /* BeaconTableView */,
-				0F8420A11988C96B003241D1 /* CollectionViewCell */,
-				0F8420A01988C953003241D1 /* collecitonViewLayout */,
 				0F84209E1988C924003241D1 /* home */,
 			);
 			name = View;
@@ -685,6 +700,7 @@
 				0F7A25A919587ADE001B7839 /* GXViewController.m */,
 			);
 			name = RootViewController;
+			path = BeaconGalax;
 			sourceTree = "<group>";
 		};
 		0FF16CE2197F7B8100B02702 /* LoginViewController */ = {
@@ -712,6 +728,7 @@
 				0F821F3B196E91E50002664D /* GXQuestCreateViewController.m */,
 			);
 			name = QuestCreateViewController;
+			path = BeaconGalax;
 			sourceTree = "<group>";
 		};
 		0FF16CE5197F7BC400B02702 /* QuestBoardViewController */ = {
@@ -721,6 +738,7 @@
 				0F821F30196E32F50002664D /* GXQuestBoardViewController.m */,
 			);
 			name = QuestBoardViewController;
+			path = BeaconGalax;
 			sourceTree = "<group>";
 		};
 		0FF16CE6197F7BE300B02702 /* QuestDetailViewContoller */ = {
@@ -730,6 +748,7 @@
 				0FF9753D1973C2C500C1C66C /* GXQuestDetialViewController.m */,
 			);
 			name = QuestDetailViewContoller;
+			path = BeaconGalax;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
