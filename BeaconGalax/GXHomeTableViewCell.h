@@ -10,7 +10,9 @@
 #import <FacebookSDK/Facebook.h>
 
 @interface GXHomeTableViewCell : UITableViewCell
-@property (weak, nonatomic) IBOutlet UILabel *contentsLabel;
-@property (weak, nonatomic) IBOutlet FBProfilePictureView *iconView;
+@property (weak, nonatomic) IBOutlet FBProfilePictureView *fbUserIcon;
+@property (weak, nonatomic) IBOutlet UILabel *mainLabel;
+@property (weak, nonatomic) IBOutlet UILabel *subLabel;
+
 
 @end

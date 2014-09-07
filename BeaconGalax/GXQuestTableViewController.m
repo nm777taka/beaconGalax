@@ -1,40 +1,27 @@
 //
-//  GXHomeViewController.m
+//  GXQuestTableViewController.m
 //  BeaconGalax
 //
-//  Created by 古田貴久 on 2014/07/23.
+//  Created by 古田貴久 on 2014/09/07.
 //  Copyright (c) 2014年 古田貴久. All rights reserved.
 //
 
-#import "GXHomeViewController.h"
-#import "GXNotification.h"
-#import "GXQuestBoardViewController.h"
+#import "GXQuestTableViewController.h"
 #import "GXHomeTableViewCell.h"
-#import "GXHomeTableViewHeader.h"
-#import "GXBucketManager.h"
-#import "GXDictonaryKeys.h"
 
+@interface GXQuestTableViewController ()
 
-#define PADDING_TOP_BUTTOM 15
-#define PADDING_LEFT_RIGHT 10
-#define CORNER_RADIUS 2
-#define SHADOW_RADIUS 3
-#define SHADOW_OPACITY 0.5
-
-
-@interface GXHomeViewController ()
-
-@property NSMutableArray *dataSource;
+@property GXHomeTableViewCell *stubCell;
 @property NSArray *textArray;
-@property GXHomeTableViewCell *customCell;
+@property NSMutableArray *objects;
 
 @end
 
-@implementation GXHomeViewController
+@implementation GXQuestTableViewController
 
-- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
+- (id)initWithStyle:(UITableViewStyle)style
 {
-    self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
+    self = [super initWithStyle:style];
     if (self) {
         // Custom initialization
     }
@@ -45,15 +32,12 @@
 {
     [super viewDidLoad];
 	// Do any additional setup after loading the view, typically from a nib.
-    self.questTableView.dataSource = self;
-    self.questTableView.delegate = self;
-    
     self.navigationItem.leftBarButtonItem = self.editButtonItem;
     
     UIBarButtonItem *addButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAdd target:self action:@selector(insertNewObject:)];
     self.navigationItem.rightBarButtonItem = addButton;
     
-    _customCell = [self.questTableView dequeueReusableCellWithIdentifier:@"Cell"]; // 追加
+    _stubCell = [self.tableView dequeueReusableCellWithIdentifier:@"Cell"]; // 追加
     
     // 追加
     // 文字列の配列の作成
@@ -77,8 +61,8 @@
 
 - (void)insertNewObject:(id)sender
 {
-    if (!_dataSource) {
-        _dataSource = [[NSMutableArray alloc] init];
+    if (!_objects) {
+        _objects = [[NSMutableArray alloc] init];
     }
     
     // 追加
@@ -89,9 +73,9 @@
     NSDictionary *dataDictionary = @{@"string": string, @"date":date};
     
     // データ挿入
-    [_dataSource insertObject:dataDictionary atIndex:0];   // 修正
+    [_objects insertObject:dataDictionary atIndex:0];   // 修正
     NSIndexPath *indexPath = [NSIndexPath indexPathForRow:0 inSection:0];
-    [self.questTableView insertRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationAutomatic];
+    [self.tableView insertRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationAutomatic];
 }
 
 - (void)configureCell:(UITableViewCell *)cell atIndexPath:(NSIndexPath *)indexPath
@@ -99,7 +83,7 @@
     GXHomeTableViewCell *customCell = (GXHomeTableViewCell *)cell;
     
     // メインラベルに文字列を設定
-    NSDictionary *dataDictionary = _dataSource[indexPath.row];
+    NSDictionary *dataDictionary = _objects[indexPath.row];
     customCell.mainLabel.text = dataDictionary[@"string"];
     
     // サブラベルに文字列を設定
@@ -114,9 +98,9 @@
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     // 計測用のプロパティ"_stubCell"を使って高さを計算する
-    [self configureCell:_customCell atIndexPath:indexPath];
-    [_customCell layoutSubviews];
-    CGFloat height = [_customCell.contentView systemLayoutSizeFittingSize:UILayoutFittingCompressedSize].height;
+    [self configureCell:_stubCell atIndexPath:indexPath];
+    [_stubCell layoutSubviews];
+    CGFloat height = [_stubCell.contentView systemLayoutSizeFittingSize:UILayoutFittingCompressedSize].height;
     
     return height + 1;
 }
@@ -133,7 +117,7 @@
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return _dataSource.count;
+    return _objects.count;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -154,32 +138,13 @@
 - (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath
 {
     if (editingStyle == UITableViewCellEditingStyleDelete) {
-        [_dataSource removeObjectAtIndex:indexPath.row];
+        [_objects removeObjectAtIndex:indexPath.row];
         [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
     } else if (editingStyle == UITableViewCellEditingStyleInsert) {
         // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view.
     }
 }
 
-/*
- // Override to support rearranging the table view.
- - (void)tableView:(UITableView *)tableView moveRowAtIndexPath:(NSIndexPath *)fromIndexPath toIndexPath:(NSIndexPath *)toIndexPath
- {
- }
- */
 
-/*
- // Override to support conditional rearranging of the table view.
- - (BOOL)tableView:(UITableView *)tableView canMoveRowAtIndexPath:(NSIndexPath *)indexPath
- {
- // Return NO if you do not want the item to be re-orderable.
- return YES;
- }
- */
-#pragma  mark - ノーティフィケーション
-- (void)fetchQuestHandler:(NSNotification *)info
-{
-    
-}
 
 @end

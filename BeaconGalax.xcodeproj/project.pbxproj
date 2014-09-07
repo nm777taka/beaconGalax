@@ -20,11 +20,11 @@
 		0F27DAFF198766AC0000E0D0 /* questCreateButton.png in Resources */ = {isa = PBXBuildFile; fileRef = 0F27DAFE198766AC0000E0D0 /* questCreateButton.png */; };
 		0F27DB0119876A750000E0D0 /* menu-white.png in Resources */ = {isa = PBXBuildFile; fileRef = 0F27DB0019876A750000E0D0 /* menu-white.png */; };
 		0F27DB0319876A780000E0D0 /* bell-white.png in Resources */ = {isa = PBXBuildFile; fileRef = 0F27DB0219876A780000E0D0 /* bell-white.png */; };
+		0F42365C19BC997D0001E204 /* GXQuestTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0F42365B19BC997D0001E204 /* GXQuestTableViewController.m */; };
 		0F4AEA971998D086009879C6 /* GXDictonaryKeys.m in Sources */ = {isa = PBXBuildFile; fileRef = 0F4AEA961998D086009879C6 /* GXDictonaryKeys.m */; };
 		0F5FA5ED198A31D900F41B05 /* GXHomeTableViewHeader.m in Sources */ = {isa = PBXBuildFile; fileRef = 0F5FA5EB198A31D900F41B05 /* GXHomeTableViewHeader.m */; };
 		0F5FA5EE198A31D900F41B05 /* GXHomeTableViewHeader.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0F5FA5EC198A31D900F41B05 /* GXHomeTableViewHeader.xib */; };
 		0F5FA5F2198A324600F41B05 /* GXHomeTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 0F5FA5F0198A324600F41B05 /* GXHomeTableViewCell.m */; };
-		0F5FA5F3198A324600F41B05 /* GXHomeTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0F5FA5F1198A324600F41B05 /* GXHomeTableViewCell.xib */; };
 		0F5FA5F6198DCF5300F41B05 /* GXFacebook.m in Sources */ = {isa = PBXBuildFile; fileRef = 0F5FA5F5198DCF5300F41B05 /* GXFacebook.m */; };
 		0F7881F71988CDAD002783D6 /* GXFriendsProfileCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 0F7881F51988CDAD002783D6 /* GXFriendsProfileCell.m */; };
 		0F7881F81988CDAD002783D6 /* GXFriendsProfileCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0F7881F61988CDAD002783D6 /* GXFriendsProfileCell.xib */; };
@@ -133,6 +133,8 @@
 		0F27DAFE198766AC0000E0D0 /* questCreateButton.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = questCreateButton.png; sourceTree = "<group>"; };
 		0F27DB0019876A750000E0D0 /* menu-white.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "menu-white.png"; sourceTree = "<group>"; };
 		0F27DB0219876A780000E0D0 /* bell-white.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "bell-white.png"; sourceTree = "<group>"; };
+		0F42365A19BC997D0001E204 /* GXQuestTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GXQuestTableViewController.h; sourceTree = "<group>"; };
+		0F42365B19BC997D0001E204 /* GXQuestTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GXQuestTableViewController.m; sourceTree = "<group>"; };
 		0F4AEA951998D086009879C6 /* GXDictonaryKeys.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GXDictonaryKeys.h; sourceTree = "<group>"; };
 		0F4AEA961998D086009879C6 /* GXDictonaryKeys.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GXDictonaryKeys.m; sourceTree = "<group>"; };
 		0F597A99B7864A4393B072E4 /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -141,7 +143,6 @@
 		0F5FA5EC198A31D900F41B05 /* GXHomeTableViewHeader.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = GXHomeTableViewHeader.xib; sourceTree = "<group>"; };
 		0F5FA5EF198A324600F41B05 /* GXHomeTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GXHomeTableViewCell.h; sourceTree = "<group>"; };
 		0F5FA5F0198A324600F41B05 /* GXHomeTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GXHomeTableViewCell.m; sourceTree = "<group>"; };
-		0F5FA5F1198A324600F41B05 /* GXHomeTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = GXHomeTableViewCell.xib; sourceTree = "<group>"; };
 		0F5FA5F4198DCF5300F41B05 /* GXFacebook.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GXFacebook.h; sourceTree = "<group>"; };
 		0F5FA5F5198DCF5300F41B05 /* GXFacebook.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GXFacebook.m; sourceTree = "<group>"; };
 		0F7881F41988CDAD002783D6 /* GXFriendsProfileCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GXFriendsProfileCell.h; sourceTree = "<group>"; };
@@ -511,6 +512,8 @@
 				0FF16CE2197F7B8100B02702 /* LoginViewController */,
 				0FF16CE0197F7B6900B02702 /* HomeViewController */,
 				0F7A25CA19587E1E001B7839 /* AppDelegate */,
+				0F42365A19BC997D0001E204 /* GXQuestTableViewController.h */,
+				0F42365B19BC997D0001E204 /* GXQuestTableViewController.m */,
 			);
 			name = Controller;
 			sourceTree = "<group>";
@@ -588,7 +591,6 @@
 				0F5FA5EC198A31D900F41B05 /* GXHomeTableViewHeader.xib */,
 				0F5FA5EF198A324600F41B05 /* GXHomeTableViewCell.h */,
 				0F5FA5F0198A324600F41B05 /* GXHomeTableViewCell.m */,
-				0F5FA5F1198A324600F41B05 /* GXHomeTableViewCell.xib */,
 			);
 			name = home;
 			sourceTree = "<group>";
@@ -855,7 +857,6 @@
 				0F7F4149195E9F7700A796AD /* GLAX-U-homeI.png in Resources */,
 				0F27DB0119876A750000E0D0 /* menu-white.png in Resources */,
 				0F7F412B195B206100A796AD /* me.png in Resources */,
-				0F5FA5F3198A324600F41B05 /* GXHomeTableViewCell.xib in Resources */,
 				0F27DB0319876A780000E0D0 /* bell-white.png in Resources */,
 				0F823031198245D30081C9BE /* bell.png in Resources */,
 				0F823037198245EC0081C9BE /* friend.png in Resources */,
@@ -929,6 +930,7 @@
 				0FF97538197398A100C1C66C /* FUIButton+GXTheme.m in Sources */,
 				0FA17E3A1961A7A400158421 /* GXBucketNameConst.m in Sources */,
 				0F821F4C196FCA5D0002664D /* GXQuest.m in Sources */,
+				0F42365C19BC997D0001E204 /* GXQuestTableViewController.m in Sources */,
 				0F7881F71988CDAD002783D6 /* GXFriendsProfileCell.m in Sources */,
 				0F1B0A81196D5BFD00E43499 /* FUIAlertView+GXAlertView.m in Sources */,
 				0F5FA5F2198A324600F41B05 /* GXHomeTableViewCell.m in Sources */,
