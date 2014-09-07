@@ -21,6 +21,7 @@
 		0F27DB0119876A750000E0D0 /* menu-white.png in Resources */ = {isa = PBXBuildFile; fileRef = 0F27DB0019876A750000E0D0 /* menu-white.png */; };
 		0F27DB0319876A780000E0D0 /* bell-white.png in Resources */ = {isa = PBXBuildFile; fileRef = 0F27DB0219876A780000E0D0 /* bell-white.png */; };
 		0F42365C19BC997D0001E204 /* GXQuestTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0F42365B19BC997D0001E204 /* GXQuestTableViewController.m */; };
+		0F42366019BCBEB80001E204 /* GXQuestViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0F42365F19BCBEB80001E204 /* GXQuestViewController.m */; };
 		0F4AEA971998D086009879C6 /* GXDictonaryKeys.m in Sources */ = {isa = PBXBuildFile; fileRef = 0F4AEA961998D086009879C6 /* GXDictonaryKeys.m */; };
 		0F5FA5ED198A31D900F41B05 /* GXHomeTableViewHeader.m in Sources */ = {isa = PBXBuildFile; fileRef = 0F5FA5EB198A31D900F41B05 /* GXHomeTableViewHeader.m */; };
 		0F5FA5EE198A31D900F41B05 /* GXHomeTableViewHeader.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0F5FA5EC198A31D900F41B05 /* GXHomeTableViewHeader.xib */; };
@@ -135,6 +136,8 @@
 		0F27DB0219876A780000E0D0 /* bell-white.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "bell-white.png"; sourceTree = "<group>"; };
 		0F42365A19BC997D0001E204 /* GXQuestTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GXQuestTableViewController.h; sourceTree = "<group>"; };
 		0F42365B19BC997D0001E204 /* GXQuestTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GXQuestTableViewController.m; sourceTree = "<group>"; };
+		0F42365E19BCBEB80001E204 /* GXQuestViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GXQuestViewController.h; sourceTree = "<group>"; };
+		0F42365F19BCBEB80001E204 /* GXQuestViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GXQuestViewController.m; sourceTree = "<group>"; };
 		0F4AEA951998D086009879C6 /* GXDictonaryKeys.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GXDictonaryKeys.h; sourceTree = "<group>"; };
 		0F4AEA961998D086009879C6 /* GXDictonaryKeys.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GXDictonaryKeys.m; sourceTree = "<group>"; };
 		0F597A99B7864A4393B072E4 /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -331,6 +334,7 @@
 		0F42365919BC45C20001E204 /* 多分使わない */ = {
 			isa = PBXGroup;
 			children = (
+				0FF16CE0197F7B6900B02702 /* HomeViewController */,
 				0F8420A01988C953003241D1 /* collecitonViewLayout */,
 				0F5FA5FA198DCFD200F41B05 /* GXFriendsProfileView */,
 				0F8420A11988C96B003241D1 /* CollectionViewCell */,
@@ -346,6 +350,17 @@
 				0FF16CE6197F7BE300B02702 /* QuestDetailViewContoller */,
 			);
 			name = "多分使わない";
+			sourceTree = "<group>";
+		};
+		0F42365D19BCA2220001E204 /* Home */ = {
+			isa = PBXGroup;
+			children = (
+				0F42365A19BC997D0001E204 /* GXQuestTableViewController.h */,
+				0F42365B19BC997D0001E204 /* GXQuestTableViewController.m */,
+				0F42365E19BCBEB80001E204 /* GXQuestViewController.h */,
+				0F42365F19BCBEB80001E204 /* GXQuestViewController.m */,
+			);
+			name = Home;
 			sourceTree = "<group>";
 		};
 		0F5FA5F7198DCF6700F41B05 /* Facebook */ = {
@@ -506,14 +521,12 @@
 		0F7A25C919587E0C001B7839 /* Controller */ = {
 			isa = PBXGroup;
 			children = (
+				0F42365D19BCA2220001E204 /* Home */,
 				0F1060BE199217FC004509B6 /* ActionViewController */,
 				0F1987E519811F04003FD92A /* UserProfileViewController */,
 				0FF16CE3197F7B8D00B02702 /* BeaconViewController */,
 				0FF16CE2197F7B8100B02702 /* LoginViewController */,
-				0FF16CE0197F7B6900B02702 /* HomeViewController */,
 				0F7A25CA19587E1E001B7839 /* AppDelegate */,
-				0F42365A19BC997D0001E204 /* GXQuestTableViewController.h */,
-				0F42365B19BC997D0001E204 /* GXQuestTableViewController.m */,
 			);
 			name = Controller;
 			sourceTree = "<group>";
@@ -583,7 +596,7 @@
 			name = images;
 			sourceTree = "<group>";
 		};
-		0F84209E1988C924003241D1 /* home */ = {
+		0F84209E1988C924003241D1 /* Home */ = {
 			isa = PBXGroup;
 			children = (
 				0F5FA5EA198A31D900F41B05 /* GXHomeTableViewHeader.h */,
@@ -592,7 +605,7 @@
 				0F5FA5EF198A324600F41B05 /* GXHomeTableViewCell.h */,
 				0F5FA5F0198A324600F41B05 /* GXHomeTableViewCell.m */,
 			);
-			name = home;
+			name = Home;
 			sourceTree = "<group>";
 		};
 		0F8420A01988C953003241D1 /* collecitonViewLayout */ = {
@@ -640,7 +653,7 @@
 			isa = PBXGroup;
 			children = (
 				0F5FA5F9198DCFA300F41B05 /* BeaconTableView */,
-				0F84209E1988C924003241D1 /* home */,
+				0F84209E1988C924003241D1 /* Home */,
 			);
 			name = View;
 			sourceTree = "<group>";
@@ -693,6 +706,7 @@
 				0FF16CDE197F7B5D00B02702 /* GXHomeViewController.m */,
 			);
 			name = HomeViewController;
+			path = BeaconGalax;
 			sourceTree = "<group>";
 		};
 		0FF16CE1197F7B7500B02702 /* RootViewController */ = {
@@ -922,6 +936,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				0FD26D811959F689005E2B95 /* GXCustomSectionHeader.m in Sources */,
+				0F42366019BCBEB80001E204 /* GXQuestViewController.m in Sources */,
 				0F7A25DD1959E4AF001B7839 /* GXCustomCell.m in Sources */,
 				0FF16CDF197F7B5D00B02702 /* GXHomeViewController.m in Sources */,
 				0FF16CDC197F742A00B02702 /* GXCustomNavViewController.m in Sources */,

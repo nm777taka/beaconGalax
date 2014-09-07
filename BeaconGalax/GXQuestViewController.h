@@ -8,6 +8,6 @@
 
 #import <UIKit/UIKit.h>
 
-@interface GXQuestViewController : UIViewController
+@interface GXQuestViewController : UIViewController<UITableViewDataSource,UITableViewDelegate>
 
 @end
