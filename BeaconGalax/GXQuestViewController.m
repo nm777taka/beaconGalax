@@ -8,6 +8,7 @@
 
 #import "GXQuestViewController.h"
 #import "GXHomeTableViewCell.h"
+#import "GXBucketManager.h"
 
 @interface GXQuestViewController ()
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
@@ -52,6 +53,16 @@
                    @"あのイーハトーヴォの\nすきとおった風、\n夏でも底に冷たさをもつ青いそら、\nうつくしい森で飾られたモーリオ市、\n郊外のぎらぎらひかる草の波。",
                    ];
 }
+
+- (void)viewWillAppear:(BOOL)animated
+{
+    if (![KiiUser loggedIn]) {
+        
+        //ログイン画面へ遷移
+        [self performSegueWithIdentifier:@"gotoLoginView" sender:self];
+    }
+}
+
 
 - (void)didReceiveMemoryWarning
 {
