@@ -81,6 +81,8 @@
     [object setObject:quest.group_uri forKey:@"group_uri"];
     [object setObject:quest.isStarted forKey:@"isStarted"];
     [object setObject:quest.isCompleted forKey:@"isCompleted"];
+    [object setObject:quest.createdDate forKey:quest_createdDate];
+    [object setObject:quest.createdUserName forKey:quest_createdUserName];
     
     NSError *error  = nil;
     [object saveSynchronous:&error];

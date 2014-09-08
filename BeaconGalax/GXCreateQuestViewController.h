@@ -1,5 +1,5 @@
 //
-//  GXQuestViewController.h
+//  GXCreateQuestViewController.h
 //  BeaconGalax
 //
 //  Created by 古田貴久 on 2014/09/08.
@@ -7,8 +7,10 @@
 //
 
 #import <UIKit/UIKit.h>
-#import <SVProgressHUD/SVProgressHUD.h>
+#import <KiiSDK/Kii.h>
 #import <TSMessages/TSMessage.h>
-@interface GXQuestViewController : UIViewController<UITableViewDataSource,UITableViewDelegate>
+#import <TSMessages/TSMessageView.h>
+
+@interface GXCreateQuestViewController : UIViewController<UITextViewDelegate>
 
 @end

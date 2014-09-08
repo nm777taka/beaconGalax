@@ -17,6 +17,8 @@
 @property (nonatomic,retain) NSString *group_uri;
 @property (nonatomic,assign) NSNumber *isStarted;
 @property (nonatomic,assign) NSNumber *isCompleted;
+@property (nonatomic,assign) NSString *createdDate;
+@property (nonatomic,retain) NSString *createdUserName;
 
 
 @end

@@ -16,6 +16,8 @@ static NSString * const quest_createdUser_fbid = @"facebook_id";
 static NSString * const quest_groupURI = @"group_uri";
 static NSString * const quest_isStarted = @"isStarted";
 static NSString * const quest_isCompleted = @"isCompleted";
+static NSString * const quest_createdDate = @"createdDate";
+static NSString * const quest_createdUserName = @"user_name";
 
 //ユーザ
 static NSString * const user_uri = @"uri";

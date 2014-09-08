@@ -148,7 +148,7 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Hbv-Ve-4PE" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <exit id="Ngn-J0-9JT" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
-            <point key="canvasLocation" x="1042" y="23"/>
+            <point key="canvasLocation" x="524" y="-1199"/>
         </scene>
         <!--Quest Create View Controller - クエスト-->
         <scene sceneID="scZ-cN-Wn1">
@@ -186,7 +186,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Lxj-Gj-V1f" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3974" y="-164"/>
+            <point key="canvasLocation" x="4500" y="-164"/>
         </scene>
         <!--Quest Board View Controller-->
         <scene sceneID="M8T-lk-hsf">
@@ -309,7 +309,7 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="kh0-ze-1ba" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3406" y="-131"/>
+            <point key="canvasLocation" x="3932" y="-131"/>
         </scene>
         <!--Friends Profile View Controller-->
         <scene sceneID="jD5-Zq-Jja">
@@ -357,7 +357,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="xWA-8k-D1v" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2375" y="-697"/>
+            <point key="canvasLocation" x="2901" y="-697"/>
         </scene>
         <!--Friends Now View Controller-->
         <scene sceneID="H5g-C9-EOC">
@@ -430,7 +430,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="js4-Ys-nce" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1487" y="-632"/>
+            <point key="canvasLocation" x="2013" y="-632"/>
         </scene>
         <!--User Profile View Controller-->
         <scene sceneID="zLm-LW-Ho8">
@@ -460,7 +460,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ANh-Oy-dGY" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2021" y="-578"/>
+            <point key="canvasLocation" x="2547" y="-578"/>
         </scene>
         <!--Quest Detial View Controller-->
         <scene sceneID="pcL-ft-lAX">
@@ -539,7 +539,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="hPW-25-H0W" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1724" y="38"/>
+            <point key="canvasLocation" x="2250" y="38"/>
         </scene>
         <!--Action View Controller-->
         <scene sceneID="luP-vL-7nU">
@@ -681,7 +681,9 @@
                                             </constraints>
                                         </tableViewCellContentView>
                                         <connections>
+                                            <outlet property="fbUserIcon" destination="zeI-lN-7T0" id="9GA-YP-MQj"/>
                                             <outlet property="mainLabel" destination="KDa-pl-cen" id="mO7-7K-ff0"/>
+                                            <outlet property="nameLabel" destination="ZjM-Hy-kHt" id="jfJ-S5-Caa"/>
                                             <outlet property="subLabel" destination="IAV-ys-9fM" id="vWa-U9-ouo"/>
                                         </connections>
                                     </tableViewCell>
@@ -700,7 +702,14 @@
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
                     <toolbarItems/>
-                    <navigationItem key="navigationItem" title="ホーム" id="YiJ-ZY-8S3"/>
+                    <navigationItem key="navigationItem" title="ホーム" id="YiJ-ZY-8S3">
+                        <barButtonItem key="rightBarButtonItem" systemItem="add" id="kVV-R8-wsl">
+                            <connections>
+                                <action selector="createNewQuest:" destination="0wR-c0-tUS" id="7Fo-Tv-iLh"/>
+                                <segue destination="kE8-C6-YYK" kind="modal" id="Cb6-eq-5cJ"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
                     <nil key="simulatedBottomBarMetrics"/>
                     <simulatedOrientationMetrics key="simulatedOrientationMetrics"/>
                     <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina4"/>
@@ -711,7 +720,68 @@
                     </connections>
                 </viewController>
             </objects>
-            <point key="canvasLocation" x="642" y="-645"/>
+            <point key="canvasLocation" x="524" y="-514"/>
+        </scene>
+        <!--Create Quest View Controller - 新しいクエスト-->
+        <scene sceneID="IhJ-9t-Xx3">
+            <objects>
+                <viewController id="b5v-ba-4UO" customClass="GXCreateQuestViewController" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="29x-y3-6WS"/>
+                        <viewControllerLayoutGuide type="bottom" id="dcf-pI-7Ww"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="5hf-8A-Uf6">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        <subviews>
+                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Qlx-7z-29H" customClass="UIPlaceHolderTextView">
+                                <rect key="frame" x="0.0" y="64" width="320" height="244"/>
+                                <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="320" id="GGz-Og-HbN"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                            </textView>
+                            <view contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="5IZ-ld-Zmp">
+                                <rect key="frame" x="0.0" y="308" width="320" height="44"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" red="0.52106726169586182" green="0.24050712585449219" blue="0.68248951435089111" alpha="1" colorSpace="calibratedRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="44" id="3Uc-e6-7tI"/>
+                                    <constraint firstAttribute="width" constant="320" id="82j-Bv-luX"/>
+                                </constraints>
+                            </view>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="Qlx-7z-29H" firstAttribute="top" secondItem="29x-y3-6WS" secondAttribute="bottom" id="gKi-sS-Lom"/>
+                            <constraint firstItem="5IZ-ld-Zmp" firstAttribute="top" secondItem="Qlx-7z-29H" secondAttribute="bottom" id="lMK-8w-Ew7"/>
+                            <constraint firstItem="dcf-pI-7Ww" firstAttribute="top" secondItem="5IZ-ld-Zmp" secondAttribute="bottom" constant="216" id="sLj-Ya-g5M"/>
+                        </constraints>
+                    </view>
+                    <navigationItem key="navigationItem" title="新しいクエスト" id="jq3-Hw-Wod">
+                        <barButtonItem key="leftBarButtonItem" title="閉じる" id="feK-L5-SYv">
+                            <connections>
+                                <action selector="closeView:" destination="b5v-ba-4UO" id="XMa-aC-hDp"/>
+                            </connections>
+                        </barButtonItem>
+                        <barButtonItem key="rightBarButtonItem" title="作る" id="aji-yb-ylY">
+                            <connections>
+                                <action selector="addQuest:" destination="b5v-ba-4UO" id="qB2-R0-lDn"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
+                    <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina4"/>
+                    <connections>
+                        <outlet property="textView" destination="Qlx-7z-29H" id="uYP-LR-bpQ"/>
+                        <outlet property="toolBarView" destination="5IZ-ld-Zmp" id="lvz-3U-XE4"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="im3-g8-0Dm" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1491" y="-514"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="vJh-yW-CFH">
@@ -730,6 +800,24 @@
                 </navigationController>
             </objects>
             <point key="canvasLocation" x="109" y="-514"/>
+        </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="pkc-4p-zdi">
+            <objects>
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="kE8-C6-YYK" sceneMemberID="viewController">
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="FCP-H0-XlU">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="b5v-ba-4UO" kind="relationship" relationship="rootViewController" id="lPh-q7-fLf"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="iy9-bk-fhP" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1088" y="-514"/>
         </scene>
     </scenes>
     <resources>

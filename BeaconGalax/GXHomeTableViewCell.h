@@ -13,6 +13,7 @@
 @property (weak, nonatomic) IBOutlet FBProfilePictureView *fbUserIcon;
 @property (weak, nonatomic) IBOutlet UILabel *mainLabel;
 @property (weak, nonatomic) IBOutlet UILabel *subLabel;
+@property (weak, nonatomic) IBOutlet UILabel *nameLabel;
 
 
 @end

@@ -9,9 +9,12 @@
 #import "GXQuestViewController.h"
 #import "GXHomeTableViewCell.h"
 #import "GXBucketManager.h"
+#import "GXNotification.h"
+#import "GXDictonaryKeys.h"
 
 @interface GXQuestViewController ()
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
+- (IBAction)createNewQuest:(id)sender;
 @property GXHomeTableViewCell *stubCell;
 @property NSArray *textArray;
 @property NSMutableArray *objects;
@@ -35,23 +38,18 @@
     self.tableView.delegate = self;
     self.tableView.dataSource = self;
     
+    _objects = [NSMutableArray new];
+    
     self.navigationItem.leftBarButtonItem = self.editButtonItem;
     
-    UIBarButtonItem *addButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAdd target:self action:@selector(insertNewObject:)];
-    self.navigationItem.rightBarButtonItem = addButton;
+//    UIBarButtonItem *addButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAdd target:self action:@selector(insertNewObject:)];
+//    self.navigationItem.rightBarButtonItem = addButton;
     
     _stubCell = [self.tableView dequeueReusableCellWithIdentifier:@"Cell"]; // 追加
     
-    // 追加
-    // 文字列の配列の作成
-    _textArray = @[
-                   @"Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras sodales diam sed turpis mattis dictum. In laoreet porta eleifend. Ut eu nibh sit amet est iaculis faucibus.",
-                   @"initWithBitmapDataPlanes:pixelsWide:pixelsHigh:bitsPerSample:samplesPerPixel:hasAlpha:isPlanar:colorSpaceName:bitmapFormat:bytesPerRow:bitsPerPixel:",
-                   @"祇辻飴葛蛸鯖鰯噌庖箸",
-                   @"Nam in vehicula mi.",
-                   @"Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo.",
-                   @"あのイーハトーヴォの\nすきとおった風、\n夏でも底に冷たさをもつ青いそら、\nうつくしい森で飾られたモーリオ市、\n郊外のぎらぎらひかる草の波。",
-                   ];
+    //Notification
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(questFetched:) name:GXFetchQuestNotComplitedNotification object:nil];
+    
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -60,6 +58,10 @@
         
         //ログイン画面へ遷移
         [self performSegueWithIdentifier:@"gotoLoginView" sender:self];
+    } else {
+        //DBからフェッチ(非同期)
+        //最終的に変更があった場合のみにしたい
+        _objects = [[GXBucketManager sharedManager] fetchQuestWithNotComplited];
     }
 }
 
@@ -72,38 +74,33 @@
 
 #pragma mark - private methods
 
-- (void)insertNewObject:(id)sender
+- (void)insertNewObject:(KiiObject *)fetchObject
 {
-    if (!_objects) {
-        _objects = [[NSMutableArray alloc] init];
-    }
-    
-    // 追加
-    // データ作成
-    int dataIndex = arc4random() % _textArray.count;
-    NSString *string = _textArray[dataIndex];
-    NSDate *date = [NSDate date];
-    NSDictionary *dataDictionary = @{@"string": string, @"date":date};
-    
-    // データ挿入
-    [_objects insertObject:dataDictionary atIndex:0];   // 修正
-    NSIndexPath *indexPath = [NSIndexPath indexPathForRow:0 inSection:0];
-    [self.tableView insertRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationAutomatic];
+//    // 追加
+//    // データ作成
+//    
+//    //NSString *string = _textArray[dataIndex];
+//    NSDate *date = [NSDate date];
+//    //NSDictionary *dataDictionary = @{@"string": string, @"date":date};
+//    
+//    // データ挿入
+//    [_objects insertObject:dataDictionary atIndex:0];   // 修正
+//    NSIndexPath *indexPath = [NSIndexPath indexPathForRow:0 inSection:0];
+//    [self.tableView insertRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationAutomatic];
 }
 
 - (void)configureCell:(UITableViewCell *)cell atIndexPath:(NSIndexPath *)indexPath
 {
     GXHomeTableViewCell *customCell = (GXHomeTableViewCell *)cell;
+    KiiObject *object = _objects[indexPath.row];
     
     // メインラベルに文字列を設定
-    NSDictionary *dataDictionary = _objects[indexPath.row];
-    customCell.mainLabel.text = dataDictionary[@"string"];
-    
+    customCell.mainLabel.text = [object getObjectForKey:quest_title];
     // サブラベルに文字列を設定
-    NSDate *date = dataDictionary[@"date"];
-    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
-    dateFormatter.dateFormat = @"yyyy年MM月dd日 HH時mm分ss秒";
-    customCell.subLabel.text = [dateFormatter stringFromDate:date];
+    customCell.subLabel.text = [object getObjectForKey:quest_createdDate];
+    
+    //アイコンを更新
+    customCell.fbUserIcon.profileID = [object getObjectForKey:quest_createdUser_fbid];
 }
 
 #pragma mark - Table View
@@ -158,4 +155,17 @@
     }
 }
 
+#pragma mark Notification
+- (void)questFetched:(NSNotification *)info
+{
+    NSLog(@"objects.cout : %d",_objects.count);
+    [self.tableView reloadData];
+
+}
+
+
+#pragma mark Button_Action
+- (IBAction)createNewQuest:(id)sender
+{
+}
 @end
