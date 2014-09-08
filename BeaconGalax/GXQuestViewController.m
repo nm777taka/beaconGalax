@@ -8,6 +8,7 @@
 
 #import "GXQuestViewController.h"
 #import "GXHomeTableViewCell.h"
+#import "GXDescriptionViewController.h"
 #import "GXBucketManager.h"
 #import "GXNotification.h"
 #import "GXDictonaryKeys.h"
@@ -16,8 +17,10 @@
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 - (IBAction)createNewQuest:(id)sender;
 @property GXHomeTableViewCell *stubCell;
+@property GXDescriptionViewController *descriptionViewContoller;
 @property NSArray *textArray;
 @property NSMutableArray *objects;
+@property KiiObject *selectedObject;
 @end
 
 @implementation GXQuestViewController
@@ -38,14 +41,18 @@
     self.tableView.delegate = self;
     self.tableView.dataSource = self;
     
+    //セパレータを左端まで伸ばす
+    if ([self.tableView respondsToSelector:@selector(setSeparatorInset:)]) {
+        [self.tableView setSeparatorInset:UIEdgeInsetsZero];
+    }
+    
     _objects = [NSMutableArray new];
     
     self.navigationItem.leftBarButtonItem = self.editButtonItem;
     
-//    UIBarButtonItem *addButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAdd target:self action:@selector(insertNewObject:)];
-//    self.navigationItem.rightBarButtonItem = addButton;
     
-    _stubCell = [self.tableView dequeueReusableCellWithIdentifier:@"Cell"]; // 追加
+    _stubCell = [self.tableView dequeueReusableCellWithIdentifier:@"Cell"];
+    _descriptionViewContoller = [[self storyboard] instantiateViewControllerWithIdentifier:@"DescriptionView"];
     
     //Notification
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(questFetched:) name:GXFetchQuestNotComplitedNotification object:nil];
@@ -72,23 +79,6 @@
     // Dispose of any resources that can be recreated.
 }
 
-#pragma mark - private methods
-
-- (void)insertNewObject:(KiiObject *)fetchObject
-{
-//    // 追加
-//    // データ作成
-//    
-//    //NSString *string = _textArray[dataIndex];
-//    NSDate *date = [NSDate date];
-//    //NSDictionary *dataDictionary = @{@"string": string, @"date":date};
-//    
-//    // データ挿入
-//    [_objects insertObject:dataDictionary atIndex:0];   // 修正
-//    NSIndexPath *indexPath = [NSIndexPath indexPathForRow:0 inSection:0];
-//    [self.tableView insertRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationAutomatic];
-}
-
 - (void)configureCell:(UITableViewCell *)cell atIndexPath:(NSIndexPath *)indexPath
 {
     GXHomeTableViewCell *customCell = (GXHomeTableViewCell *)cell;
@@ -101,6 +91,8 @@
     dateFormatter.dateFormat = @"yyyy年MM月dd日 HH時mm分ss秒";
     NSString *dateText = [dateFormatter stringFromDate:object.created];
     customCell.subLabel.text = dateText;
+    
+    customCell.nameLabel.text = [object getObjectForKey:quest_createdUserName];
     
     //アイコンを更新
     customCell.fbUserIcon.profileID = [object getObjectForKey:quest_createdUser_fbid];
@@ -158,6 +150,12 @@
     }
 }
 
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    _selectedObject = _objects[indexPath.row];
+    [self performSegueWithIdentifier:@"gotoDescriptionView" sender:self];
+}
+
 #pragma mark Notification
 - (void)questFetched:(NSNotification *)info
 {
@@ -170,5 +168,15 @@
 #pragma mark Button_Action
 - (IBAction)createNewQuest:(id)sender
 {
+    //segue
+}
+
+#pragma mark segue
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
+{
+    if ([[segue identifier] isEqualToString:@"gotoDescriptionView"]) {
+        GXDescriptionViewController *vc = segue.destinationViewController;
+        vc.object = _selectedObject;
+    }
 }
 @end
