@@ -18,6 +18,7 @@
 @property (nonatomic,assign) NSNumber *isStarted;
 @property (nonatomic,assign) NSNumber *isCompleted;
 @property (nonatomic,assign) NSString *createdDate;
+@property (nonatomic,retain) NSDate *date;
 @property (nonatomic,retain) NSString *createdUserName;
 
 

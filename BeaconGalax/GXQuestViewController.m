@@ -97,7 +97,10 @@
     // メインラベルに文字列を設定
     customCell.mainLabel.text = [object getObjectForKey:quest_title];
     // サブラベルに文字列を設定
-    customCell.subLabel.text = [object getObjectForKey:quest_createdDate];
+    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+    dateFormatter.dateFormat = @"yyyy年MM月dd日 HH時mm分ss秒";
+    NSString *dateText = [dateFormatter stringFromDate:object.created];
+    customCell.subLabel.text = dateText;
     
     //アイコンを更新
     customCell.fbUserIcon.profileID = [object getObjectForKey:quest_createdUser_fbid];

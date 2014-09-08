@@ -110,11 +110,6 @@
         NSString *fbID = [user getObjectForKey:user_fb_id];
         NSString *userUri = [user getObjectForKey:user_uri];
         
-        NSDate *date = [NSDate date];
-        NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
-        dateFormatter.dateFormat = @"yyyy年MM月dd日 HH時mm分ss秒";
-        NSString *dateText = [dateFormatter stringFromDate:date];
-        
         //クエスト参加時のためのグループを作る
         NSError *error = nil;
         NSString *groupName = @"myGroup";
@@ -129,7 +124,6 @@
         //クエスト作成
         GXQuest *quest = [GXQuest new];
         quest.title = self.textView.text;
-        quest.createdDate = dateText;
         quest.fb_id = fbID;
         quest.createUserURI = userUri;
         quest.isStarted = @NO;

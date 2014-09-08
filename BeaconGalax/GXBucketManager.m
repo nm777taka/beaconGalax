@@ -81,8 +81,8 @@
     [object setObject:quest.group_uri forKey:@"group_uri"];
     [object setObject:quest.isStarted forKey:@"isStarted"];
     [object setObject:quest.isCompleted forKey:@"isCompleted"];
-    [object setObject:quest.createdDate forKey:quest_createdDate];
     [object setObject:quest.createdUserName forKey:quest_createdUserName];
+
     
     NSError *error  = nil;
     [object saveSynchronous:&error];
@@ -216,20 +216,14 @@
     NSMutableArray *allResult = [NSMutableArray new];
     KiiClause *clause = [KiiClause equals:@"isCompleted" value:@NO];
     KiiQuery *query = [KiiQuery queryWithClause:clause];
+    [query sortByDesc:@"_created"];
     KiiQuery *nextQuery;
-    
-//   NSArray *results = [self.questBoard executeQuerySynchronous:query withError:&error andNext:&nextQuery];
-//    
-//    if (error == nil) {
-//        [allResult addObjectsFromArray:results];
-//    }
     
     [self.questBoard executeQuery:query withBlock:^(KiiQuery *query, KiiBucket *bucket, NSArray *results, KiiQuery *nextQuery, NSError *error) {
         if (error) {
             NSLog(@"error :%@",error);
         } else {
-            NSLog(@"resutls-count %u",results.count
-                  );
+           
             [allResult addObjectsFromArray:results];
             
             //notification
@@ -238,6 +232,8 @@
     }];
     return allResult;
 }
+
+
 
 #pragma mark - データ操作用
 
