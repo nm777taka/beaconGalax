@@ -63,6 +63,9 @@
 		0F7F4142195C823000A796AD /* GXLoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0F7F4141195C823000A796AD /* GXLoginViewController.m */; };
 		0F7F4147195E77F200A796AD /* GXKiiCloud.m in Sources */ = {isa = PBXBuildFile; fileRef = 0F7F4146195E77F200A796AD /* GXKiiCloud.m */; };
 		0F7F4149195E9F7700A796AD /* GLAX-U-homeI.png in Resources */ = {isa = PBXBuildFile; fileRef = 0F7F4148195E9F7700A796AD /* GLAX-U-homeI.png */; };
+		0F80277219BF370800453653 /* GXBeaconViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0F80277119BF370800453653 /* GXBeaconViewController.m */; };
+		0F80277419BF6B8300453653 /* CoreBluetooth.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0F80277319BF6B8200453653 /* CoreBluetooth.framework */; };
+		0F80277619BF6E9200453653 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0F80277519BF6E9200453653 /* SystemConfiguration.framework */; };
 		0F821F44196EE6820002664D /* Common_ButtonNavigationDone@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 0F821F43196EE6820002664D /* Common_ButtonNavigationDone@2x.png */; };
 		0F821F46196EE68A0002664D /* Common_ButtonNavigationClose@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 0F821F45196EE68A0002664D /* Common_ButtonNavigationClose@2x.png */; };
 		0F821F4C196FCA5D0002664D /* GXQuest.m in Sources */ = {isa = PBXBuildFile; fileRef = 0F821F4B196FCA5D0002664D /* GXQuest.m */; };
@@ -177,6 +180,10 @@
 		0F7F4145195E77F200A796AD /* GXKiiCloud.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GXKiiCloud.h; sourceTree = "<group>"; };
 		0F7F4146195E77F200A796AD /* GXKiiCloud.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GXKiiCloud.m; sourceTree = "<group>"; };
 		0F7F4148195E9F7700A796AD /* GLAX-U-homeI.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "GLAX-U-homeI.png"; sourceTree = "<group>"; };
+		0F80277019BF370800453653 /* GXBeaconViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GXBeaconViewController.h; sourceTree = "<group>"; };
+		0F80277119BF370800453653 /* GXBeaconViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GXBeaconViewController.m; sourceTree = "<group>"; };
+		0F80277319BF6B8200453653 /* CoreBluetooth.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreBluetooth.framework; path = System/Library/Frameworks/CoreBluetooth.framework; sourceTree = SDKROOT; };
+		0F80277519BF6E9200453653 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
 		0F821F43196EE6820002664D /* Common_ButtonNavigationDone@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Common_ButtonNavigationDone@2x.png"; sourceTree = "<group>"; };
 		0F821F45196EE68A0002664D /* Common_ButtonNavigationClose@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Common_ButtonNavigationClose@2x.png"; sourceTree = "<group>"; };
 		0F821F4A196FCA5D0002664D /* GXQuest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GXQuest.h; sourceTree = "<group>"; };
@@ -216,6 +223,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				0F80277619BF6E9200453653 /* SystemConfiguration.framework in Frameworks */,
+				0F80277419BF6B8300453653 /* CoreBluetooth.framework in Frameworks */,
 				0F7F413F195C754800A796AD /* libsqlite3.dylib in Frameworks */,
 				0F7F413D195C753B00A796AD /* ImageIO.framework in Frameworks */,
 				0F7F413B195C753300A796AD /* Security.framework in Frameworks */,
@@ -330,6 +339,8 @@
 		0F7A259219587ADE001B7839 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				0F80277519BF6E9200453653 /* SystemConfiguration.framework */,
+				0F80277319BF6B8200453653 /* CoreBluetooth.framework */,
 				0F7F413E195C754800A796AD /* libsqlite3.dylib */,
 				0F7F413C195C753B00A796AD /* ImageIO.framework */,
 				0F7F413A195C753300A796AD /* Security.framework */,
@@ -574,6 +585,8 @@
 			children = (
 				0F7A25D41959B56E001B7839 /* GXBeaconTableViewController.m */,
 				0F7A25D31959B56E001B7839 /* GXBeaconTableViewController.h */,
+				0F80277019BF370800453653 /* GXBeaconViewController.h */,
+				0F80277119BF370800453653 /* GXBeaconViewController.m */,
 			);
 			name = BeaconViewController;
 			sourceTree = "<group>";
@@ -773,6 +786,7 @@
 				0FD26D7B1959F0E7005E2B95 /* GXTableViewConst.m in Sources */,
 				0F42366E19BDD3510001E204 /* GXDescriptionTableViewCell.m in Sources */,
 				0FF16CE9197F86DB00B02702 /* NSMutableArray+Extended.m in Sources */,
+				0F80277219BF370800453653 /* GXBeaconViewController.m in Sources */,
 				0F42366419BD54420001E204 /* GXCreateQuestViewController.m in Sources */,
 				0F7A25A419587ADE001B7839 /* GXAppDelegate.m in Sources */,
 				0F8BB0AA1980CEED00D5499F /* GXEmptySegue.m in Sources */,

@@ -35,6 +35,10 @@
 	<string>1.0</string>
 	<key>FacebookAppID</key>
 	<string>559613677480642</string>
+	<key>NSLocationWhenInUseUsageDescription</key>
+	<string>アプリが起動している間位置情報を取得します</string>
+	<key>NSLocationAlwaysUsageDescription</key>
+	<string>常に位置情報を取得します</string>
 	<key>FacebookDisplayName</key>
 	<string>beaconGalax</string>
 	<key>LSRequiresIPhoneOS</key>

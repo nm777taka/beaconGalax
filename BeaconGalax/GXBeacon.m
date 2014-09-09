@@ -127,18 +127,37 @@
 //位置情報設定状況の通知先
 - (void)locationManager:(CLLocationManager *)manager didChangeAuthorizationStatus:(CLAuthorizationStatus)status
 {
-    if ([self isMonitoringCapable]) {
-        [self startMonitoringAllRegion];
-    } else {
-        //モニタリングストップ
-        [self stopMonitoringAllRegion];
+    
+    switch (status) {
+        case kCLAuthorizationStatusNotDetermined:
+            if ([_locationManager respondsToSelector:@selector(requestAlwaysAuthorization)]) {
+                
+                [_locationManager requestAlwaysAuthorization];
+            }
+            break;
+            
+        case kCLAuthorizationStatusAuthorizedAlways:
+            [self startMonitoring];
+            break;
+            
+        default:
+            break;
     }
     
-    if ([self.delegate respondsToSelector:@selector(didUpdateLocationStatus:)]) {
-        [self.delegate didUpdateLocationStatus:[self locationAuthorizationStateString:status]];
-    }
     
-    [self updateMonitoringStatus];
+    
+//    if ([self isMonitoringCapable]) {
+//        [self startMonitoringAllRegion];
+//    } else {
+//        //モニタリングストップ
+//        [self stopMonitoringAllRegion];
+//    }
+//    
+//    if ([self.delegate respondsToSelector:@selector(didUpdateLocationStatus:)]) {
+//        [self.delegate didUpdateLocationStatus:[self locationAuthorizationStateString:status]];
+//    }
+//    
+//    [self updateMonitoringStatus];
 }
 
 - (NSString *)locationAuthorizationStateString:(CLAuthorizationStatus)status
@@ -362,6 +381,11 @@
     
     gxRegion.hasEntered = YES;
     //デリゲート処理
+    
+    UILocalNotification *notification = [UILocalNotification new];
+    notification.alertBody = @"研究室にログインしました";
+    notification.soundName = UILocalNotificationDefaultSoundName;
+    [[UIApplication sharedApplication] presentLocalNotificationNow:notification];
     
     NSLog(@"enter");
 }

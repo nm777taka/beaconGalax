@@ -6,3 +6,5 @@ pod "AFNetworking", "~> 2.0"
 pod 'TSMessages'
 pod 'SVProgressHUD'
 pod 'ChameleonFramework'
+pod 'EstimoteSDK'
+

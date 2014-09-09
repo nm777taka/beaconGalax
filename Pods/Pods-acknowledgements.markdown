@@ -113,6 +113,11 @@ THE SOFTWARE.
 > SOFTWARE.
 
 
+## EstimoteSDK
+
+Copyright 2014 Estimote, Inc. All rights reserved.
+
+
 ## Facebook-iOS-SDK
 
                                  Apache License
