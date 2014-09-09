@@ -12,4 +12,22 @@
 
 UIKIT_EXTERN  NSString *const GXapplicationDidBecomeActibve;
 
+//ログイン関連
+UIKIT_EXTERN  NSString *const GXLoginSuccessedNotification;
+
+//クエスト関連
+UIKIT_EXTERN NSString *const GXQuestCreatedNotification;
+
+UIKIT_EXTERN NSString *const GXQuestFetchedQuestWithJoinedNotification;
+
+UIKIT_EXTERN NSString *const GXFetchQuestNotComplitedNotification;
+
+
+UIKIT_EXTERN NSString *const GXQuestCellTouchedNotification;
+
+UIKIT_EXTERN NSString *const GXQuestDeletedNotification;
+
+//navigation
+UIKIT_EXTERN NSString *const GXViewSegueNotification;
+
 @end
