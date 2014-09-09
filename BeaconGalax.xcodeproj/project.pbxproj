@@ -8,9 +8,6 @@
 
 /* Begin PBXBuildFile section */
 		0F060C90199394060052402F /* card.png in Resources */ = {isa = PBXBuildFile; fileRef = 0F060C8F199394060052402F /* card.png */; };
-		0F1060C119921822004509B6 /* GXActionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0F1060C019921822004509B6 /* GXActionViewController.m */; };
-		0F1987E819811F14003FD92A /* GXUserProfileViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0F1987E719811F14003FD92A /* GXUserProfileViewController.m */; };
-		0F1B0A81196D5BFD00E43499 /* FUIAlertView+GXAlertView.m in Sources */ = {isa = PBXBuildFile; fileRef = 0F1B0A80196D5BFD00E43499 /* FUIAlertView+GXAlertView.m */; };
 		0F27DAF119824BC20000E0D0 /* GXNavigationItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 0F27DAF019824BC20000E0D0 /* GXNavigationItem.m */; };
 		0F27DAF919875B2B0000E0D0 /* homeViewJoinedQuestTable.png in Resources */ = {isa = PBXBuildFile; fileRef = 0F27DAF819875B2B0000E0D0 /* homeViewJoinedQuestTable.png */; };
 		0F27DAFB19875B310000E0D0 /* homeViewQuestJoinButton.png in Resources */ = {isa = PBXBuildFile; fileRef = 0F27DAFA19875B310000E0D0 /* homeViewQuestJoinButton.png */; };
@@ -86,7 +83,6 @@
 		0FD26D89195A0A11005E2B95 /* UIColor+GXtheme.m in Sources */ = {isa = PBXBuildFile; fileRef = 0FD26D88195A0A11005E2B95 /* UIColor+GXtheme.m */; };
 		0FD26D8D195A9820005E2B95 /* GXNotification.m in Sources */ = {isa = PBXBuildFile; fileRef = 0FD26D8C195A9820005E2B95 /* GXNotification.m */; };
 		0FF16CE9197F86DB00B02702 /* NSMutableArray+Extended.m in Sources */ = {isa = PBXBuildFile; fileRef = 0FF16CE8197F86DB00B02702 /* NSMutableArray+Extended.m */; };
-		0FF97538197398A100C1C66C /* FUIButton+GXTheme.m in Sources */ = {isa = PBXBuildFile; fileRef = 0FF97537197398A100C1C66C /* FUIButton+GXTheme.m */; };
 		CEEFFA2740D749D0AE5B5B2D /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 0F597A99B7864A4393B072E4 /* libPods.a */; };
 /* End PBXBuildFile section */
 
@@ -102,12 +98,6 @@
 
 /* Begin PBXFileReference section */
 		0F060C8F199394060052402F /* card.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = card.png; sourceTree = "<group>"; };
-		0F1060BF19921822004509B6 /* GXActionViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GXActionViewController.h; sourceTree = "<group>"; };
-		0F1060C019921822004509B6 /* GXActionViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GXActionViewController.m; sourceTree = "<group>"; };
-		0F1987E619811F14003FD92A /* GXUserProfileViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GXUserProfileViewController.h; sourceTree = "<group>"; };
-		0F1987E719811F14003FD92A /* GXUserProfileViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GXUserProfileViewController.m; sourceTree = "<group>"; };
-		0F1B0A7F196D5BFD00E43499 /* FUIAlertView+GXAlertView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "FUIAlertView+GXAlertView.h"; sourceTree = "<group>"; };
-		0F1B0A80196D5BFD00E43499 /* FUIAlertView+GXAlertView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "FUIAlertView+GXAlertView.m"; sourceTree = "<group>"; };
 		0F27DAEF19824BC20000E0D0 /* GXNavigationItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GXNavigationItem.h; sourceTree = "<group>"; };
 		0F27DAF019824BC20000E0D0 /* GXNavigationItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GXNavigationItem.m; sourceTree = "<group>"; };
 		0F27DAF819875B2B0000E0D0 /* homeViewJoinedQuestTable.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = homeViewJoinedQuestTable.png; sourceTree = "<group>"; };
@@ -218,8 +208,6 @@
 		0FD26D8C195A9820005E2B95 /* GXNotification.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GXNotification.m; sourceTree = "<group>"; };
 		0FF16CE7197F86DB00B02702 /* NSMutableArray+Extended.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSMutableArray+Extended.h"; sourceTree = "<group>"; };
 		0FF16CE8197F86DB00B02702 /* NSMutableArray+Extended.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSMutableArray+Extended.m"; sourceTree = "<group>"; };
-		0FF97536197398A100C1C66C /* FUIButton+GXTheme.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "FUIButton+GXTheme.h"; sourceTree = "<group>"; };
-		0FF97537197398A100C1C66C /* FUIButton+GXTheme.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "FUIButton+GXTheme.m"; sourceTree = "<group>"; };
 		E359C94E1AFB4D60B499DEE6 /* Pods.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.xcconfig; path = Pods/Pods.xcconfig; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -256,24 +244,6 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		0F1060BE199217FC004509B6 /* ActionViewController */ = {
-			isa = PBXGroup;
-			children = (
-				0F1060BF19921822004509B6 /* GXActionViewController.h */,
-				0F1060C019921822004509B6 /* GXActionViewController.m */,
-			);
-			name = ActionViewController;
-			sourceTree = "<group>";
-		};
-		0F1987E519811F04003FD92A /* UserProfileViewController */ = {
-			isa = PBXGroup;
-			children = (
-				0F1987E619811F14003FD92A /* GXUserProfileViewController.h */,
-				0F1987E719811F14003FD92A /* GXUserProfileViewController.m */,
-			);
-			name = UserProfileViewController;
-			sourceTree = "<group>";
-		};
 		0F42365D19BCA2220001E204 /* Home */ = {
 			isa = PBXGroup;
 			children = (
@@ -442,8 +412,6 @@
 				0F42367219BDD3FE0001E204 /* Description */,
 				0F42366119BD54130001E204 /* CreateQuest */,
 				0F42365D19BCA2220001E204 /* Home */,
-				0F1060BE199217FC004509B6 /* ActionViewController */,
-				0F1987E519811F04003FD92A /* UserProfileViewController */,
 				0FF16CE3197F7B8D00B02702 /* BeaconViewController */,
 				0FF16CE2197F7B8100B02702 /* LoginViewController */,
 				0F7A25CA19587E1E001B7839 /* AppDelegate */,
@@ -575,10 +543,6 @@
 			children = (
 				0FD26D87195A0A11005E2B95 /* UIColor+GXtheme.h */,
 				0FD26D88195A0A11005E2B95 /* UIColor+GXtheme.m */,
-				0F1B0A7F196D5BFD00E43499 /* FUIAlertView+GXAlertView.h */,
-				0F1B0A80196D5BFD00E43499 /* FUIAlertView+GXAlertView.m */,
-				0FF97536197398A100C1C66C /* FUIButton+GXTheme.h */,
-				0FF97537197398A100C1C66C /* FUIButton+GXTheme.m */,
 				0FF16CE7197F86DB00B02702 /* NSMutableArray+Extended.h */,
 				0FF16CE8197F86DB00B02702 /* NSMutableArray+Extended.m */,
 			);
@@ -785,11 +749,9 @@
 				0F7A25DD1959E4AF001B7839 /* GXCustomCell.m in Sources */,
 				0F7F4147195E77F200A796AD /* GXKiiCloud.m in Sources */,
 				0FA17E4019623FB700158421 /* GXUserManager.m in Sources */,
-				0FF97538197398A100C1C66C /* FUIButton+GXTheme.m in Sources */,
 				0FA17E3A1961A7A400158421 /* GXBucketNameConst.m in Sources */,
 				0F821F4C196FCA5D0002664D /* GXQuest.m in Sources */,
 				0F42365C19BC997D0001E204 /* GXQuestTableViewController.m in Sources */,
-				0F1B0A81196D5BFD00E43499 /* FUIAlertView+GXAlertView.m in Sources */,
 				0F5FA5F2198A324600F41B05 /* GXHomeTableViewCell.m in Sources */,
 				0F7A25D219588264001B7839 /* GXBeaconRegion.m in Sources */,
 				0FA17E371961A09700158421 /* GXBucketManager.m in Sources */,
@@ -802,7 +764,6 @@
 				0FD26D89195A0A11005E2B95 /* UIColor+GXtheme.m in Sources */,
 				0F42367119BDD3980001E204 /* GXParticipantsCell.m in Sources */,
 				0F5FA5F6198DCF5300F41B05 /* GXFacebook.m in Sources */,
-				0F1060C119921822004509B6 /* GXActionViewController.m in Sources */,
 				0F7F4142195C823000A796AD /* GXLoginViewController.m in Sources */,
 				0F7A25D51959B56E001B7839 /* GXBeaconTableViewController.m in Sources */,
 				0FD26D8D195A9820005E2B95 /* GXNotification.m in Sources */,
@@ -810,7 +771,6 @@
 				0F4AEA971998D086009879C6 /* GXDictonaryKeys.m in Sources */,
 				0FA17E3D1961B00100158421 /* GXTopicManager.m in Sources */,
 				0FD26D7B1959F0E7005E2B95 /* GXTableViewConst.m in Sources */,
-				0F1987E819811F14003FD92A /* GXUserProfileViewController.m in Sources */,
 				0F42366E19BDD3510001E204 /* GXDescriptionTableViewCell.m in Sources */,
 				0FF16CE9197F86DB00B02702 /* NSMutableArray+Extended.m in Sources */,
 				0F42366419BD54420001E204 /* GXCreateQuestViewController.m in Sources */,

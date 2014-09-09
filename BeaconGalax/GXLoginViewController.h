@@ -7,12 +7,12 @@
 //
 
 #import <UIKit/UIKit.h>
-#import <FlatUIKit/FlatUIKit.h>
 #import <Facebook-iOS-SDK/FacebookSDK/FacebookSDK.h>
 #import <SVProgressHUD/SVProgressHUD.h>
+#import "ChameleonFramework/Chameleon.h"
 
 
 
-@interface GXLoginViewController : UIViewController<FUIAlertViewDelegate>
+@interface GXLoginViewController : UIViewController
 
 @end

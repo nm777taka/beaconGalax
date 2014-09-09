@@ -12,14 +12,13 @@
 #import "GXTopicManager.h"
 #import "GXBucketManager.h"
 #import "GXUserManager.h"
-#import "FUIAlertView+GXAlertView.h"
 @interface GXLoginViewController ()
 @property (weak, nonatomic) IBOutlet UILabel *statusLabel;
 @property (weak, nonatomic) IBOutlet UILabel *nameLabel;
 @property (nonatomic,retain) FBProfilePictureView *profilePictureView;
 
-@property FUIButton *loginButton;
-@property FUIButton *startButton;
+@property UIButton *loginButton;
+@property UIButton *startButton;
 
 @end
 
@@ -46,36 +45,39 @@ static NSInteger  const logOutAlertViewTag = 2;
 {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
+    self.view.backgroundColor = [UIColor colorWithGradientStyle:UIGradientStyleTopToBottom withFrame:self.view.bounds andColors:@[FlatGreen,FlatGreenDark]];
+    
     
     //init UI
     //LoginButton
-    self.loginButton = [[FUIButton alloc]initWithFrame:CGRectMake(self.view.center.x - 100 ,
+    self.loginButton = [[UIButton alloc]initWithFrame:CGRectMake(self.view.center.x - 100 ,
                                                                   self.view.center.y + LOGIN_BUTTON_OFFSET_Y,
                                                                   200, 50)];
-    self.loginButton.buttonColor = [UIColor turquoiseColor];
-    self.loginButton.shadowColor = [UIColor greenSeaColor];
-    self.loginButton.shadowHeight = 3.0f;
-    self.loginButton.cornerRadius = 6.0f;
-    self.loginButton.titleLabel.font = [UIFont boldFlatFontOfSize:16];
-    [self.loginButton setTitleColor:[UIColor cloudsColor] forState:UIControlStateNormal];
-    [self.loginButton setTitleColor:[UIColor cloudsColor] forState:UIControlStateHighlighted];
-    [self.loginButton setTitle:@"LOGIN" forState:UIControlStateNormal];
+    [self.loginButton.layer setCornerRadius:5];
+    [self.loginButton setTitle:@"Login" forState:UIControlStateNormal];
+    [self.loginButton setTitleColor:FlatWhite forState:UIControlStateNormal];
+    [self.loginButton setTitleColor:FlatWhiteDark forState:UIControlStateHighlighted];
+    self.loginButton.backgroundColor = [UIColor clearColor];
+    self.loginButton.layer.borderWidth = 1.0;
+    [self.loginButton.layer setBorderColor:FlatWhite.CGColor];
+    
     [self.loginButton addTarget:self action:@selector(loginButtonAction) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:self.loginButton];
     
     //startボタン
-    self.startButton = [[FUIButton alloc] initWithFrame:CGRectMake(self.view.center.x-100,
+    self.startButton = [[UIButton alloc] initWithFrame:CGRectMake(self.view.center.x-100,
                                                                    self.view.center.y+LOGIN_BUTTON_OFFSET_Y,
                                                                    200, 50)];
     
-    self.startButton.buttonColor = [UIColor turquoiseColor];
-    self.startButton.shadowColor = [UIColor greenSeaColor];
-    self.startButton.shadowHeight = 3.0f;
-    self.startButton.cornerRadius = 6.0f;
-    self.startButton.titleLabel.font = [UIFont boldFlatFontOfSize:16];
-    [self.startButton setTitleColor:[UIColor cloudsColor] forState:UIControlStateNormal];
-    [self.startButton setTitleColor:[UIColor cloudsColor] forState:UIControlStateHighlighted];
+    
     [self.startButton setTitle:@"GetStarted" forState:UIControlStateNormal];
+    self.startButton.backgroundColor = [UIColor clearColor];
+    [self.startButton.layer setBorderColor:FlatWhite.CGColor];
+    [self.startButton.layer setBorderWidth:1.0];
+    [self.startButton.layer setCornerRadius:5];
+    [self.startButton setTitleColor:FlatWhite forState:UIControlStateNormal];
+    [self.startButton setTitleColor:FlatWhiteDark forState:UIControlStateHighlighted];
+    
     [self.startButton bk_addEventHandler:^(id sender) {
         //home画面に遷移
         [self dismissViewControllerAnimated:YES completion:nil];
@@ -119,11 +121,6 @@ static NSInteger  const logOutAlertViewTag = 2;
 {
     if ([KiiUser loggedIn]) {
         [KiiUser logOut];
-        FUIAlertView *logOutAlertView = [[FUIAlertView alloc] initWithTitle:@"LOGOUT" message:@"GALAXをログアウトしました。" delegate:self cancelButtonTitle:nil otherButtonTitles:@"OK", nil];
-        [FUIAlertView gxLoginTheme:logOutAlertView];
-        logOutAlertView.tag = logOutAlertViewTag;
-        
-        [logOutAlertView show];
         
         self.profilePictureView.hidden = YES;
         [self fadeOut];
@@ -216,16 +213,6 @@ static NSInteger  const logOutAlertViewTag = 2;
     
 }
 
-#pragma mark - FUIAlertViewDelegate
-- (void)alertView:(FUIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
-{
-    if (alertView.tag == 1) {
-        NSLog(@"login");
-        [self dismissViewControllerAnimated:YES completion:nil];
-    } else if (alertView.tag == 2) {
-        NSLog(@"logout");
-    }
-}
 
 #pragma mark - Exit
 - (IBAction)goBack:(UIStoryboardSegue *)sender

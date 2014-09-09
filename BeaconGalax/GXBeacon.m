@@ -158,6 +158,7 @@
             break;
             
         default:
+            return nil;
             break;
     }
 }

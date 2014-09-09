@@ -8,7 +8,6 @@
 
 #import <UIKit/UIKit.h>
 #import <KiiSDK/Kii.h>
-#import <FlatUIKit/FlatUIKit.h>
 #import "FBConnect.h"
 #import "GXFacebook.h"
 
