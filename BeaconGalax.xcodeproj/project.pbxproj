@@ -80,6 +80,7 @@
 		0FA17E3A1961A7A400158421 /* GXBucketNameConst.m in Sources */ = {isa = PBXBuildFile; fileRef = 0FA17E391961A7A400158421 /* GXBucketNameConst.m */; };
 		0FA17E3D1961B00100158421 /* GXTopicManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 0FA17E3C1961B00100158421 /* GXTopicManager.m */; };
 		0FA17E4019623FB700158421 /* GXUserManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 0FA17E3F19623FB700158421 /* GXUserManager.m */; };
+		0FA1E9EF19C06FD8003D7CDE /* GXTestBeaconViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0FA1E9EE19C06FD8003D7CDE /* GXTestBeaconViewController.m */; };
 		0FD26D7B1959F0E7005E2B95 /* GXTableViewConst.m in Sources */ = {isa = PBXBuildFile; fileRef = 0FD26D7A1959F0E7005E2B95 /* GXTableViewConst.m */; };
 		0FD26D811959F689005E2B95 /* GXCustomSectionHeader.m in Sources */ = {isa = PBXBuildFile; fileRef = 0FD26D7F1959F689005E2B95 /* GXCustomSectionHeader.m */; };
 		0FD26D821959F689005E2B95 /* GXCustomSectionHeader.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0FD26D801959F689005E2B95 /* GXCustomSectionHeader.xib */; };
@@ -204,6 +205,8 @@
 		0FA17E3C1961B00100158421 /* GXTopicManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GXTopicManager.m; sourceTree = "<group>"; };
 		0FA17E3E19623FB700158421 /* GXUserManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GXUserManager.h; sourceTree = "<group>"; };
 		0FA17E3F19623FB700158421 /* GXUserManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GXUserManager.m; sourceTree = "<group>"; };
+		0FA1E9ED19C06FD8003D7CDE /* GXTestBeaconViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GXTestBeaconViewController.h; sourceTree = "<group>"; };
+		0FA1E9EE19C06FD8003D7CDE /* GXTestBeaconViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GXTestBeaconViewController.m; sourceTree = "<group>"; };
 		0FD26D791959F0E7005E2B95 /* GXTableViewConst.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GXTableViewConst.h; sourceTree = "<group>"; };
 		0FD26D7A1959F0E7005E2B95 /* GXTableViewConst.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GXTableViewConst.m; sourceTree = "<group>"; };
 		0FD26D7E1959F689005E2B95 /* GXCustomSectionHeader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GXCustomSectionHeader.h; sourceTree = "<group>"; };
@@ -587,6 +590,8 @@
 				0F7A25D31959B56E001B7839 /* GXBeaconTableViewController.h */,
 				0F80277019BF370800453653 /* GXBeaconViewController.h */,
 				0F80277119BF370800453653 /* GXBeaconViewController.m */,
+				0FA1E9ED19C06FD8003D7CDE /* GXTestBeaconViewController.h */,
+				0FA1E9EE19C06FD8003D7CDE /* GXTestBeaconViewController.m */,
 			);
 			name = BeaconViewController;
 			sourceTree = "<group>";
@@ -784,6 +789,7 @@
 				0F4AEA971998D086009879C6 /* GXDictonaryKeys.m in Sources */,
 				0FA17E3D1961B00100158421 /* GXTopicManager.m in Sources */,
 				0FD26D7B1959F0E7005E2B95 /* GXTableViewConst.m in Sources */,
+				0FA1E9EF19C06FD8003D7CDE /* GXTestBeaconViewController.m in Sources */,
 				0F42366E19BDD3510001E204 /* GXDescriptionTableViewCell.m in Sources */,
 				0FF16CE9197F86DB00B02702 /* NSMutableArray+Extended.m in Sources */,
 				0F80277219BF370800453653 /* GXBeaconViewController.m in Sources */,

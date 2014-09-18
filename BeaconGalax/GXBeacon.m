@@ -15,6 +15,8 @@
 @property CBPeripheralManager *peripheralManager;
 @property CLLocationManager *locationManager;
 
+@property NSDictionary *beaconDict;
+
 @property BOOL monitoringEnabled;
 @property BOOL isMonitoring;
 
@@ -45,6 +47,10 @@
         self.locationManager.delegate = self;
         
         self.regions = [NSMutableArray new];
+        
+        //BeaconDict
+        //Major値をkeyに場所にひもづけ
+        self.beaconDict = @{@55213:@"研究室の自分の机",@31751:@"ゼミ室"};
         
         [[NSNotificationCenter defaultCenter]addObserver:self
                                                 selector:@selector(applicationDidBecomeActive)
@@ -233,6 +239,8 @@
     }
     
     NSLog(@"monitoring : %@",region.identifier);
+    NSLog(@"region-major:%d",[region.major intValue]);
+    NSLog(@"region-minor:%d",[region.minor intValue]);
     
     [self.locationManager startMonitoringForRegion:region];
     
@@ -299,6 +307,8 @@
         [self.locationManager startRangingBeaconsInRegion:region];
         region.isRanging = YES;
     }
+    
+    
 }
 
 - (void)stopRanging:(GXBeaconRegion *)region
@@ -346,6 +356,7 @@
 
 - (GXBeaconRegion *)registerRegion:(NSString *)UUIDString major:(CLBeaconMajorValue)major minor:(CLBeaconMinorValue)minor identifier:(NSString *)identifier
 {
+    NSLog(@"%d",major);
     if (self.regions.count >= kGXBeaconRegionMax) {
         return nil;
     }
@@ -355,6 +366,7 @@
     
     [region clearFlags];
     [self.regions addObject:region];
+    NSLog(@"regionscount:%d",self.regions.count);
     
     return region;
 }
@@ -364,6 +376,8 @@
 {
     //GXBeaconRegionを探す
     GXBeaconRegion *gxRegion = [self lookupRegion:region];
+    
+    //NSLog(@"major : %d",[gxRegion.major intValue]);
     if (!gxRegion) {
         NSLog(@"no region");
         return;
@@ -371,6 +385,7 @@
     
     //既に領域内にいた
     if (gxRegion.hasEntered) {
+        NSLog(@"hasEntered");
         return;
     }
     
@@ -379,15 +394,12 @@
         [self startRanging:gxRegion];
     }
     
+    
+    NSLog(@"enterRegion");
+    
     gxRegion.hasEntered = YES;
     //デリゲート処理
     
-    UILocalNotification *notification = [UILocalNotification new];
-    notification.alertBody = @"研究室にログインしました";
-    notification.soundName = UILocalNotificationDefaultSoundName;
-    [[UIApplication sharedApplication] presentLocalNotificationNow:notification];
-    
-    NSLog(@"enter");
 }
 
 //レンジング停止
@@ -420,6 +432,8 @@
             
             return gxRegion;
                 
+        }else{
+            
         }
     }
     
@@ -460,6 +474,8 @@
         }
     }
     
+    NSLog(@"didStartMonitring");
+    
     [self.locationManager requestStateForRegion:region];
 }
 
@@ -470,6 +486,7 @@
         
         [self enterRegion:(CLBeaconRegion *)region];
     }
+    
 }
 
 //領域をでたイベントをキャッチ
