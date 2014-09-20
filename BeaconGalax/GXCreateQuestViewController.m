@@ -112,7 +112,7 @@
         
         //クエスト参加時のためのグループを作る
         NSError *error = nil;
-        NSString *groupName = @"myGroup";
+        NSString *groupName = @"quest_group"; //同じグループ名があっても大丈夫っぽい（一意性は保証してない)
         KiiGroup *group = [KiiGroup groupWithName:groupName];
         [group saveSynchronous:&error];
         if (error != nil) {
@@ -132,6 +132,9 @@
         quest.createdUserName = [user getObjectForKey:user_name];
         
         [[GXBucketManager sharedManager] registerQuest:quest];
+        
+        //このクエストへの参加者をいれるバケットを作成
+        
         
         
     }

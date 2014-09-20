@@ -42,6 +42,7 @@
         
         //Userスコープ
         self.joinedQuest = [[KiiUser currentUser] bucketWithName:@"joined_quest"];
+        self.myQuestParticipants = [[KiiUser currentUser] bucketWithName:@"myQuest_participants"];
     }
     
     return self;
@@ -169,6 +170,8 @@
     return allResults;
     
 }
+
+
 
 - (KiiObject *)getMeFromGalaxUserBucket;
 {

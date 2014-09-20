@@ -7,8 +7,12 @@
 //
 
 #import "GXAppDelegate.h"
+#import "GXDictonaryKeys.h"
 
-@implementation GXAppDelegate
+@implementation GXAppDelegate{
+    NSString *groupURI;
+}
+
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
@@ -21,7 +25,6 @@
                            withKey:@"559613677480642"
                          andSecret:nil
                         andOptions:nil];
-    
     
     
     //Todo:クラス化
@@ -65,9 +68,8 @@
     UIUserNotificationTypeSound;
     UIUserNotificationSettings *mySetting = [UIUserNotificationSettings settingsForTypes:types categories:categories];
     [application registerUserNotificationSettings:mySetting];
-    
-    
-    
+    [[UIApplication sharedApplication] registerForRemoteNotifications]; //通常のRemote通知登録(アクションなし)
+
    
     return YES;
 }
@@ -103,19 +105,42 @@
     // "KiiMessage_TOPIC" is enum that is defined in KiiMessageField.
     NSString *topicName = [message getValueOfKiiMessageField:KiiMessage_TOPIC];
     
-    // Show alert message
+    NSDictionary *dict = [NSDictionary dictionary];
+    dict = userInfo;
+    groupURI = dict[@"group"];
+    
     
     //アプリがフォアグランドで起動している時にPush通知を受信した場合
     if (application.applicationState == UIApplicationStateActive) {
         NSLog(@"push通知受信@フォアグランド");
-        [message showMessageAlertWithTitle:topicName];
+        
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"test" message:@"test2" delegate:self cancelButtonTitle:nil otherButtonTitles:@"ok", nil];
+        [alert show];
+        
+        
     }
-    
+                                    
+                                    
     //バックグランドからPUSH通知でアクティブになったとき
     if (application.applicationState == UIApplicationStateInactive) {
         NSLog(@"プッシュ通知からアクティブ");
     }
     
+}
+
+- (void)application:(UIApplication *)application handleActionWithIdentifier:(NSString *)identifier forRemoteNotification:(NSDictionary *)userInfo completionHandler:(void (^)())completionHandler {
+    
+    if ([identifier isEqualToString:@"FIRST_ACTION"]) {
+        // "Accept"した時の処理
+    }
+    if ([identifier isEqualToString:@"SECOND_ACTION"]) {
+        // Declineした時の処理
+    }
+    
+    
+    
+    // 終了時に呼ばれなければならない
+    completionHandler();
 }
 
 
@@ -208,6 +233,26 @@
     
 }
 
+#pragma mark - AlertView
 
+- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
+{
+    switch (buttonIndex) {
+        case 0:
+            NSLog(@"click 0 ");
+            NSError *error;
+            
+            KiiGroup *group = [KiiGroup groupWithURI:groupURI];
+            NSLog(@"参加グループ:%@",group);
+            
+            [group refreshSynchronous:&error];
+            
+            if (error != NULL) {
+            }
+            
+            break;
+            
+    }
+}
 
 @end

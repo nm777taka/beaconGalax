@@ -13,6 +13,7 @@
 
 @interface GXDescriptionViewController ()
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
+- (IBAction)joinAction:(id)sender;
 @property NSMutableArray *selectQuestArray;
 @property NSMutableArray *participantsArray;
 @property GXDescriptionTableViewCell *stubDesctiptionCell;
@@ -173,4 +174,44 @@
     else return 50.0;
 }
 
+- (IBAction)joinAction:(id)sender {
+    
+    //作成者に参加申請pushをおくる
+    NSString *ownerUserURI = [self.object getObjectForKey:quest_createUserURI];
+    KiiUser *ownerUser = [KiiUser userWithURI:ownerUserURI];
+    NSString *joinQuestGroup = [self.object getObjectForKey:quest_groupURI];
+    NSLog(@"-------> group : %@",joinQuestGroup);
+    
+    
+    KiiTopic *topic = [ownerUser topicWithName:topic_invite];
+    KiiAPNSFields *apnsFields = [KiiAPNSFields createFields];
+    
+    
+    NSDictionary *dictionary = @{@"join_user":[KiiUser currentUser].objectURI,
+                                 @"group":joinQuestGroup};
+    
+    [apnsFields setSpecificData:dictionary];
+    
+    KiiPushMessage *message = [KiiPushMessage composeMessageWithAPNSFields:apnsFields
+                                                              andGCMFields:nil];
+    
+    [message setSendSender:[NSNumber numberWithBool:NO]];
+    // Disable "w" field
+    [message setSendWhen:[NSNumber numberWithBool:NO]];
+    // Disable "to" field
+    [message setSendTopicID:[NSNumber numberWithBool:NO]];
+    // Disable "sa", "st" and "su" field
+    [message setSendObjectScope:[NSNumber numberWithBool:NO]];
+    
+    NSError *error = nil;
+    
+    [topic sendMessageSynchronous:message
+                        withError:&error];
+    if (error != nil) {
+        // There was a problem.
+        NSLog(@"参加処理でエラー");
+        NSLog(@"error:%@",error);
+    }
+    
+}
 @end
