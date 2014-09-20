@@ -26,6 +26,8 @@
 		0F5FA5EE198A31D900F41B05 /* GXHomeTableViewHeader.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0F5FA5EC198A31D900F41B05 /* GXHomeTableViewHeader.xib */; };
 		0F5FA5F2198A324600F41B05 /* GXHomeTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 0F5FA5F0198A324600F41B05 /* GXHomeTableViewCell.m */; };
 		0F5FA5F6198DCF5300F41B05 /* GXFacebook.m in Sources */ = {isa = PBXBuildFile; fileRef = 0F5FA5F5198DCF5300F41B05 /* GXFacebook.m */; };
+		0F649FDA19CD223900D48074 /* home-32.png in Resources */ = {isa = PBXBuildFile; fileRef = 0F649FD919CD223900D48074 /* home-32.png */; };
+		0F649FDD19CD272200D48074 /* GXTabBarViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0F649FDC19CD272200D48074 /* GXTabBarViewController.m */; };
 		0F7881FF1988D1C3002783D6 /* GXViewConst.m in Sources */ = {isa = PBXBuildFile; fileRef = 0F7881FE1988D1C3002783D6 /* GXViewConst.m */; };
 		0F7882011988DEF3002783D6 /* user.png in Resources */ = {isa = PBXBuildFile; fileRef = 0F7882001988DEF3002783D6 /* user.png */; };
 		0F7A259419587ADE001B7839 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0F7A259319587ADE001B7839 /* Foundation.framework */; };
@@ -133,6 +135,9 @@
 		0F5FA5F0198A324600F41B05 /* GXHomeTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GXHomeTableViewCell.m; sourceTree = "<group>"; };
 		0F5FA5F4198DCF5300F41B05 /* GXFacebook.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GXFacebook.h; sourceTree = "<group>"; };
 		0F5FA5F5198DCF5300F41B05 /* GXFacebook.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GXFacebook.m; sourceTree = "<group>"; };
+		0F649FD919CD223900D48074 /* home-32.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "home-32.png"; sourceTree = "<group>"; };
+		0F649FDB19CD272200D48074 /* GXTabBarViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GXTabBarViewController.h; sourceTree = "<group>"; };
+		0F649FDC19CD272200D48074 /* GXTabBarViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GXTabBarViewController.m; sourceTree = "<group>"; };
 		0F7881FD1988D1C3002783D6 /* GXViewConst.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GXViewConst.h; sourceTree = "<group>"; };
 		0F7881FE1988D1C3002783D6 /* GXViewConst.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GXViewConst.m; sourceTree = "<group>"; };
 		0F7882001988DEF3002783D6 /* user.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = user.png; sourceTree = "<group>"; };
@@ -429,6 +434,8 @@
 				0FF16CE3197F7B8D00B02702 /* BeaconViewController */,
 				0FF16CE2197F7B8100B02702 /* LoginViewController */,
 				0F7A25CA19587E1E001B7839 /* AppDelegate */,
+				0F649FDB19CD272200D48074 /* GXTabBarViewController.h */,
+				0F649FDC19CD272200D48074 /* GXTabBarViewController.m */,
 			);
 			name = Controller;
 			sourceTree = "<group>";
@@ -481,6 +488,7 @@
 		0F82302D198245B10081C9BE /* images */ = {
 			isa = PBXGroup;
 			children = (
+				0F649FD919CD223900D48074 /* home-32.png */,
 				0F060C8F199394060052402F /* card.png */,
 				0F823036198245EC0081C9BE /* friend.png */,
 				0F27DAF819875B2B0000E0D0 /* homeViewJoinedQuestTable.png */,
@@ -692,6 +700,7 @@
 				0F823033198245DB0081C9BE /* menu.png in Resources */,
 				0F7A25AC19587ADE001B7839 /* Images.xcassets in Resources */,
 				0F823035198245E30081C9BE /* friendNow.png in Resources */,
+				0F649FDA19CD223900D48074 /* home-32.png in Resources */,
 				0F7882011988DEF3002783D6 /* user.png in Resources */,
 				0F7A25D81959C014001B7839 /* green.png in Resources */,
 				0F7F412F195B206C00A796AD /* GXBeaconTable.png in Resources */,
@@ -773,6 +782,7 @@
 				0F5FA5F2198A324600F41B05 /* GXHomeTableViewCell.m in Sources */,
 				0F7A25D219588264001B7839 /* GXBeaconRegion.m in Sources */,
 				0FA17E371961A09700158421 /* GXBucketManager.m in Sources */,
+				0F649FDD19CD272200D48074 /* GXTabBarViewController.m in Sources */,
 				0F42366A19BDAC6D0001E204 /* GXDescriptionViewController.m in Sources */,
 				0F5FA5ED198A31D900F41B05 /* GXHomeTableViewHeader.m in Sources */,
 				0F42366719BD58530001E204 /* UIPlaceHolderTextView.m in Sources */,
