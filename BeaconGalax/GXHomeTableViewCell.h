@@ -8,12 +8,14 @@
 
 #import <UIKit/UIKit.h>
 #import <FacebookSDK/Facebook.h>
+#import <BlocksKit/BlocksKit+UIKit.h>
 
-@interface GXHomeTableViewCell : UITableViewCell
+@interface GXHomeTableViewCell : UITableViewCell<UIAlertViewDelegate>
 @property (weak, nonatomic) IBOutlet FBProfilePictureView *fbUserIcon;
 @property (weak, nonatomic) IBOutlet UILabel *mainLabel;
 @property (weak, nonatomic) IBOutlet UILabel *subLabel;
 @property (weak, nonatomic) IBOutlet UILabel *nameLabel;
+@property (weak, nonatomic) IBOutlet UIButton *joinButton;
 
 
 @end

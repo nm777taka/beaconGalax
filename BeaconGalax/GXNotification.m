@@ -11,14 +11,21 @@
 @implementation GXNotification
 
 NSString *const GXapplicationDidBecomeActibve = @"GXapplicationDidBecomeActibve";
+
 NSString *const GXLoginSuccessedNotification = @"GXLoginSuccessedNotification";
 
 NSString *const GXQuestCreatedNotification = @"GXQuestCreatedNotification";
+
 NSString *const GXFetchQuestNotComplitedNotification = @"GXFetchQuestNotComplitedNotification";
+
 NSString *const GXQuestFetchedQuestWithJoinedNotification = @"GXQuestFetchedQuestWithJoinedNotification";
 
 NSString *const GXQuestCellTouchedNotification = @"GXQuestCellTouchedNotification";
+
 NSString *const GXQuestDeletedNotification = @"GXQuestDeletedNotification";
+
+NSString *const GXQuestJoinNotification = @"GXQuestJoinNotification";
+
 
 NSString *const GXViewSegueNotification = @"GXViewSegueNotification";
 

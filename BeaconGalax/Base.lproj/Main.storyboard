@@ -215,6 +215,7 @@
                                         </tableViewCellContentView>
                                         <connections>
                                             <outlet property="fbUserIcon" destination="zeI-lN-7T0" id="9GA-YP-MQj"/>
+                                            <outlet property="joinButton" destination="Hv4-Tn-HYD" id="RVn-P2-ygV"/>
                                             <outlet property="mainLabel" destination="KDa-pl-cen" id="mO7-7K-ff0"/>
                                             <outlet property="nameLabel" destination="ZjM-Hy-kHt" id="jfJ-S5-Caa"/>
                                             <outlet property="subLabel" destination="IAV-ys-9fM" id="vWa-U9-ouo"/>

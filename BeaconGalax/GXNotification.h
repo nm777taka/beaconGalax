@@ -22,12 +22,14 @@ UIKIT_EXTERN NSString *const GXQuestFetchedQuestWithJoinedNotification;
 
 UIKIT_EXTERN NSString *const GXFetchQuestNotComplitedNotification;
 
-
 UIKIT_EXTERN NSString *const GXQuestCellTouchedNotification;
 
 UIKIT_EXTERN NSString *const GXQuestDeletedNotification;
 
+UIKIT_EXTERN NSString *const GXQuestJoinNotification;
+
 //navigation
 UIKIT_EXTERN NSString *const GXViewSegueNotification;
+
 
 @end
