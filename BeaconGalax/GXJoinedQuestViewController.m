@@ -10,6 +10,7 @@
 #import "GXJoinedQuestTableViewCell.h"
 #import "GXNotification.h"
 #import "GXBucketManager.h"
+#import "GXDictonaryKeys.h"
 
 @interface GXJoinedQuestViewController ()<UITableViewDataSource,UITableViewDelegate>
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
@@ -44,7 +45,8 @@
 {
     //自分が参加しているクエストをフェッチ
     self.joinedQuestArray = [[GXBucketManager sharedManager] getJoinedQuest];
-    NSLog(@"----> joinedQuestCound:%d",self.joinedQuestArray.count);
+    [self.tableView reloadData];
+
 }
 
 - (void)didReceiveMemoryWarning {
@@ -71,7 +73,7 @@
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return 1;
+    return self.joinedQuestArray.count;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -80,7 +82,26 @@
     
     GXJoinedQuestTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:cellIdentifier forIndexPath:indexPath];
     
+    [self configureCell:cell atIndexPath:indexPath];
+    
     return cell;
+}
+
+- (void)configureCell:(GXJoinedQuestTableViewCell *)cell atIndexPath:(NSIndexPath *)indexPath
+{
+    KiiObject *obj = self.joinedQuestArray[indexPath.row];
+    
+    cell.mainLabel.text = [obj getObjectForKey:quest_title];
+    cell.nameLabel.text = [obj getObjectForKey:quest_createdUserName];
+    cell.userIconView.profileID = [obj getObjectForKey:quest_createdUser_fbid];
+    
+    NSDate *date = obj.created;
+    NSDateFormatter *formatter = [NSDateFormatter new];
+    formatter.dateFormat = @"yyyy/MM/dd HH:mm:ss";
+    NSString *dateText = [formatter stringFromDate:date];
+    
+    cell.subLabel.text = dateText;
+    
 }
 
 #pragma mark - NotificationHandler

@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6206.9" systemVersion="13E28" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" initialViewController="smR-o8-zHI">
     <dependencies>
-        <deployment defaultVersion="1808" identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7026.1"/>
         <capability name="Constraints with attributes relative to the layout margin" minToolsVersion="6.0"/>
     </dependencies>
@@ -353,14 +352,54 @@
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="lRQ-0D-505" id="Exx-NZ-MbX">
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="mainLabel" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Mwn-qQ-KHp">
-                                                    <rect key="frame" x="19" y="16" width="80" height="21"/>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" misplaced="YES" text="mainLabel" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Mwn-qQ-KHp">
+                                                    <rect key="frame" x="66" y="30" width="80" height="21"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <view contentMode="scaleToFill" ambiguous="YES" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ND4-Ms-pxm" customClass="FBProfilePictureView">
+                                                    <rect key="frame" x="8" y="8" width="50" height="50"/>
+                                                    <color key="backgroundColor" red="0.1725741029" green="0.21834245320000001" blue="0.44677489999999997" alpha="1" colorSpace="calibratedRGB"/>
+                                                </view>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" misplaced="YES" text="name" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="9wI-61-3XS">
+                                                    <rect key="frame" x="66" y="8" width="43" height="21"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="sublabel" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="JdA-6P-HIv">
+                                                    <rect key="frame" x="66" y="80" width="65" height="21"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="height" constant="21" id="TbF-O2-kFq"/>
+                                                    </constraints>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                             </subviews>
+                                            <constraints>
+                                                <constraint firstAttribute="trailingMargin" secondItem="JdA-6P-HIv" secondAttribute="trailing" id="6zY-y0-Phb"/>
+                                                <constraint firstItem="JdA-6P-HIv" firstAttribute="leading" secondItem="Exx-NZ-MbX" secondAttribute="leadingMargin" constant="58" id="76E-rN-iMD"/>
+                                                <constraint firstAttribute="trailingMargin" secondItem="Mwn-qQ-KHp" secondAttribute="trailing" id="8pO-ga-yMr"/>
+                                                <constraint firstItem="JdA-6P-HIv" firstAttribute="top" secondItem="Mwn-qQ-KHp" secondAttribute="bottom" constant="10" id="LnK-l3-c7i"/>
+                                                <constraint firstItem="JdA-6P-HIv" firstAttribute="top" secondItem="Mwn-qQ-KHp" secondAttribute="bottom" constant="10" id="Moq-6m-TrB"/>
+                                                <constraint firstAttribute="trailingMargin" secondItem="9wI-61-3XS" secondAttribute="trailing" id="Phq-Av-Ss9"/>
+                                                <constraint firstItem="ND4-Ms-pxm" firstAttribute="leading" secondItem="Exx-NZ-MbX" secondAttribute="leadingMargin" id="RMt-Tt-jzx"/>
+                                                <constraint firstItem="9wI-61-3XS" firstAttribute="leading" secondItem="Exx-NZ-MbX" secondAttribute="leadingMargin" constant="58" id="S18-WF-TEp"/>
+                                                <constraint firstItem="ND4-Ms-pxm" firstAttribute="top" secondItem="Exx-NZ-MbX" secondAttribute="topMargin" id="Y7Y-wg-Yac"/>
+                                                <constraint firstItem="9wI-61-3XS" firstAttribute="top" secondItem="Exx-NZ-MbX" secondAttribute="topMargin" id="rRu-hX-mbG"/>
+                                                <constraint firstItem="Mwn-qQ-KHp" firstAttribute="leading" secondItem="ND4-Ms-pxm" secondAttribute="trailing" constant="8" id="rvL-DT-zm6"/>
+                                                <constraint firstAttribute="bottomMargin" secondItem="JdA-6P-HIv" secondAttribute="bottom" constant="8" id="sGd-me-bXJ"/>
+                                                <constraint firstItem="Mwn-qQ-KHp" firstAttribute="top" secondItem="9wI-61-3XS" secondAttribute="bottom" constant="1" id="zAv-A7-aOQ"/>
+                                            </constraints>
                                         </tableViewCellContentView>
+                                        <connections>
+                                            <outlet property="mainLabel" destination="Mwn-qQ-KHp" id="ahN-aN-prl"/>
+                                            <outlet property="nameLabel" destination="9wI-61-3XS" id="xe8-5E-pux"/>
+                                            <outlet property="subLabel" destination="JdA-6P-HIv" id="sYu-lg-nQo"/>
+                                            <outlet property="userIconView" destination="ND4-Ms-pxm" id="8dv-bF-N0q"/>
+                                        </connections>
                                     </tableViewCell>
                                 </prototypes>
                             </tableView>
