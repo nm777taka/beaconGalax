@@ -183,16 +183,21 @@
 //joinしたクエストを取得
 - (NSMutableArray *)getJoinedQuest
 {
-    KiiQuery *allQuery = [KiiQuery queryWithClause:nil];
-    NSMutableArray *allResutls = [NSMutableArray new];
     NSError *error = nil;
+    
+    KiiQuery *all_query = [KiiQuery queryWithClause:nil];
+    
+    NSMutableArray *allResults = [NSMutableArray array];
+    
     KiiQuery *nextQuery;
     
-    [self.joinedQuest executeQuerySynchronous:allQuery withError:&error andNext:&nextQuery];
+    NSArray *results = [self.joinedQuest executeQuerySynchronous:all_query
+                                             withError:&error
+                                               andNext:&nextQuery];
     
-    if(error != nil) NSLog(@"----->error:%@",error);
+    [allResults addObjectsFromArray:results];
     
-    return allResutls;
+    return allResults;
 }
 
 

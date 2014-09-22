@@ -87,9 +87,7 @@
 
 - (void)fetchedHandler:(NSNotification *)notis
 {
-    NSMutableArray *array  =  [notis.object mutableCopy];
-    NSLog(@"------> array:%@",array);
-    NSLog(@"------> joinedQuestArrayCount:%d",self.joinedQuestArray.count);
+    
 }
 
 @end
