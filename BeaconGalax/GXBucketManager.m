@@ -122,25 +122,10 @@
     return ret;
 }
 
-- (NSMutableArray *)getJoinedQuest
-{
-    NSMutableArray *allResults = [NSMutableArray new];
-    KiiQuery *query = [KiiQuery queryWithClause:nil];
-    
-    [self.joinedQuest executeQuery:query withBlock:^(KiiQuery *query, KiiBucket *bucket, NSArray *results, KiiQuery *nextQuery, NSError *error) {
-        
-        [allResults addObjectsFromArray:results];
-        NSLog(@"getJoinedQuest");
-        [[NSNotificationCenter defaultCenter] postNotificationName:GXQuestFetchedQuestWithJoinedNotification object:nil userInfo:nil];
-    }];
-    
-    return allResults;
-}
 
 #pragma mark - GroupScope
 - (void)registerQuestMember:(KiiUser *)user
 {
-    KiiObject *object = [self.questMember createObject];
     
 }
 
@@ -171,6 +156,44 @@
     
 }
 
+//参加したクエストを自分スコープのバケットに保存
+- (void)registerJoinedQuest:(KiiObject *)obj
+{
+    NSString *title = [obj getObjectForKey:quest_title];
+    NSString *groupURI = [obj getObjectForKey:quest_groupURI];
+    NSString *ownerFBID = [obj getObjectForKey:quest_createdUser_fbid];
+    NSString *owner = [obj getObjectForKey:quest_createdUserName];
+    NSNumber *isStarted = [obj getObjectForKey:quest_isStarted];
+    NSNumber *isCompleted = [obj getObjectForKey:quest_isCompleted];
+    
+    KiiObject *newObj = [self.joinedQuest createObject];
+    [newObj setObject:title forKey:quest_title];
+    [newObj setObject:groupURI forKey:quest_groupURI];
+    [newObj setObject:ownerFBID forKey:quest_createdUser_fbid];
+    [newObj setObject:owner forKey:quest_createdUserName];
+    [newObj setObject:isStarted forKey:quest_isStarted];
+    [newObj setObject:isCompleted forKey:quest_isCompleted];
+    
+    [newObj saveWithBlock:^(KiiObject *object, NSError *error) {
+        if (error) NSLog(@"---->eeror:%@",error);
+        else NSLog(@"---->自分のバケットに参加クエストを登録");
+    }];
+}
+
+//joinしたクエストを取得
+- (NSMutableArray *)getJoinedQuest
+{
+    KiiQuery *allQuery = [KiiQuery queryWithClause:nil];
+    NSMutableArray *allResutls = [NSMutableArray new];
+    NSError *error = nil;
+    KiiQuery *nextQuery;
+    
+    [self.joinedQuest executeQuerySynchronous:allQuery withError:&error andNext:&nextQuery];
+    
+    if(error != nil) NSLog(@"----->error:%@",error);
+    
+    return allResutls;
+}
 
 
 - (KiiObject *)getMeFromGalaxUserBucket;

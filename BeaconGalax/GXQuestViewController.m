@@ -171,16 +171,18 @@
     NSIndexPath *indexPath = [self.tableView indexPathForCell:cell];
     KiiObject *object = self.objects[indexPath.row];
     
+    //自分のバケットに保存する
+    [[GXBucketManager sharedManager] registerJoinedQuest:object];
+    
+    
     //作成者に参加申請pushをおくる
     NSString *ownerUserURI = [object getObjectForKey:quest_createUserURI];
     KiiUser *ownerUser = [KiiUser userWithURI:ownerUserURI];
     NSString *joinQuestGroup = [object getObjectForKey:quest_groupURI];
     NSLog(@"-------> group : %@",joinQuestGroup);
     
-    
     KiiTopic *topic = [ownerUser topicWithName:topic_invite];
     KiiAPNSFields *apnsFields = [KiiAPNSFields createFields];
-    
     
     NSDictionary *dictionary = @{@"join_user":[KiiUser currentUser].objectURI,
                                  @"group":joinQuestGroup};
@@ -190,6 +192,7 @@
     KiiPushMessage *message = [KiiPushMessage composeMessageWithAPNSFields:apnsFields
                                                               andGCMFields:nil];
     
+    //ペイロードを削る
     [message setSendSender:[NSNumber numberWithBool:NO]];
     // Disable "w" field
     [message setSendWhen:[NSNumber numberWithBool:NO]];

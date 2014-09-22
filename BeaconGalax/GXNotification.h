@@ -28,6 +28,8 @@ UIKIT_EXTERN NSString *const GXQuestDeletedNotification;
 
 UIKIT_EXTERN NSString *const GXQuestJoinNotification;
 
+UIKIT_EXTERN NSString *const GXJoindQuestFetchedNotification;
+
 //navigation
 UIKIT_EXTERN NSString *const GXViewSegueNotification;
 

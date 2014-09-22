@@ -31,8 +31,8 @@
 - (BOOL)isJoinedQuest:(NSString *)questTitile;
 - (BOOL)isExitedQuest:(NSString *)questTitle;
 - (NSMutableArray *)getJoinedQuest;
-
 - (NSMutableArray *)getNearUser:(KiiUser *)user;
+- (void)registerJoinedQuest:(KiiObject *)obj;
 
 
 //データ操作用

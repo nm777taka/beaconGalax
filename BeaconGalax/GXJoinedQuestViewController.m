@@ -8,6 +8,8 @@
 
 #import "GXJoinedQuestViewController.h"
 #import "GXJoinedQuestTableViewCell.h"
+#import "GXNotification.h"
+#import "GXBucketManager.h"
 
 @interface GXJoinedQuestViewController ()<UITableViewDataSource,UITableViewDelegate>
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
@@ -18,17 +20,38 @@
 
 @implementation GXJoinedQuestViewController
 
+#pragma mark - ViewLifeCycle
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     self.tableView.delegate = self;
     self.tableView.dataSource = self;
+    
+    
+    //Notification
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(fetchedHandler:) name:GXJoindQuestFetchedNotification object:nil];
+    
+}
+
+- (void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+    [self fetch];
+}
+
+- (void)fetch
+{
+    //自分が参加しているクエストをフェッチ
+    self.joinedQuestArray = [[GXBucketManager sharedManager] getJoinedQuest];
+    NSLog(@"----> joinedQuestCound:%d",self.joinedQuestArray.count);
 }
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
+
 
 /*
 #pragma mark - Navigation
@@ -59,4 +82,14 @@
     
     return cell;
 }
+
+#pragma mark - NotificationHandler
+
+- (void)fetchedHandler:(NSNotification *)notis
+{
+    NSMutableArray *array  =  [notis.object mutableCopy];
+    NSLog(@"------> array:%@",array);
+    NSLog(@"------> joinedQuestArrayCount:%d",self.joinedQuestArray.count);
+}
+
 @end
