@@ -8,6 +8,7 @@
 
 #import "GXJoinedQuestViewController.h"
 #import "GXJoinedQuestTableViewCell.h"
+#import "GXFooterCell.h"
 #import "GXNotification.h"
 #import "GXBucketManager.h"
 #import "GXDictonaryKeys.h"
@@ -86,6 +87,8 @@
     
     return cell;
 }
+
+
 
 - (void)configureCell:(GXJoinedQuestTableViewCell *)cell atIndexPath:(NSIndexPath *)indexPath
 {

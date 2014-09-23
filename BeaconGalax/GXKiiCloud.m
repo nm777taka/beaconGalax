@@ -98,8 +98,6 @@
             }
         }
         
-        //push通知
-//        [[UIApplication sharedApplication] registerForRemoteNotificationTypes:UIRemoteNotificationTypeAlert | UIRemoteNotificationTypeBadge | UIRemoteNotificationTypeSound];
         
         [[NSNotificationCenter defaultCenter] postNotificationName:GXLoginSuccessedNotification object:nil];
         

@@ -108,7 +108,7 @@
         //基本的な情報
         KiiObject *user = [[GXBucketManager sharedManager] getMeFromGalaxUserBucket];
         NSString *fbID = [user getObjectForKey:user_fb_id];
-        NSString *userUri = [user getObjectForKey:user_uri];
+        NSString *userURI = [user getObjectForKey:@"uri"];
         
         //クエスト参加時のためのグループを作る
         NSError *error = nil;
@@ -125,7 +125,7 @@
         GXQuest *quest = [GXQuest new];
         quest.title = self.textView.text;
         quest.fb_id = fbID;
-        quest.createUserURI = userUri;
+        quest.createUserURI = userURI;
         quest.isStarted = @NO;
         quest.isCompleted = @NO;
         quest.group_uri = groupUri;

@@ -26,6 +26,8 @@
                          andSecret:nil
                         andOptions:nil];
     
+     [Kii enableAPNSWithDevelopmentMode:YES andNotificationTypes:UIRemoteNotificationTypeAlert|UIRemoteNotificationTypeSound|UIRemoteNotificationTypeBadge];
+    
     
     //Todo:クラス化
     //フォラグラウンド時
@@ -68,8 +70,7 @@
     UIUserNotificationTypeSound;
     UIUserNotificationSettings *mySetting = [UIUserNotificationSettings settingsForTypes:types categories:categories];
     [application registerUserNotificationSettings:mySetting];
-    [[UIApplication sharedApplication] registerForRemoteNotifications]; //通常のRemote通知登録(アクションなし)
-
+    
    
     return YES;
 }
@@ -83,18 +84,33 @@
     return [KiiSocialConnect handleOpenURL:url];
 }
 
+- (void)application:(UIApplication *)application didRegisterUserNotificationSettings:(UIUserNotificationSettings *)notificationSettings
+{
+    NSLog(@"%s",__PRETTY_FUNCTION__);
+    [application registerForRemoteNotifications];
+}
+
 - (void)application:(UIApplication *)application didRegisterForRemoteNotificationsWithDeviceToken:(NSData *)deviceToken
 {
     NSLog(@"%s",__PRETTY_FUNCTION__);
     NSLog(@"device token :%@",deviceToken);
     [Kii setAPNSDeviceToken:deviceToken];
-    [KiiPushInstallation installWithBlock:^(KiiPushInstallation *installation, NSError *error) {
-        if (error == nil) {
-            NSLog(@"push installed!");
-        } else {
-            NSLog(@"Error installing: %@",error);
-        }
-    }];
+    NSError *error = nil;
+    
+    [KiiPushInstallation installSynchronous:&error];
+    
+    if (error != nil) {
+        NSLog(@"push install error:%@",error);
+    } else {
+        NSLog(@"push install!!");
+    }
+    
+}
+
+- (void)application:(UIApplication *)application didFailToRegisterForRemoteNotificationsWithError:(NSError *)error
+{
+    NSLog(@"%s",__PRETTY_FUNCTION__);
+    NSLog(@"register errror:%@",error);
 }
 
 - (void)application:(UIApplication *)application didReceiveRemoteNotification:(NSDictionary *)userInfo
@@ -116,7 +132,6 @@
         
         UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"test" message:@"test2" delegate:self cancelButtonTitle:nil otherButtonTitles:@"ok", nil];
         [alert show];
-        
         
     }
                                     

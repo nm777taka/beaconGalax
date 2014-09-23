@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6206.9" systemVersion="13E28" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" initialViewController="smR-o8-zHI">
     <dependencies>
+        <deployment defaultVersion="1808" identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7026.1"/>
         <capability name="Constraints with attributes relative to the layout margin" minToolsVersion="6.0"/>
     </dependencies>
@@ -324,8 +325,8 @@
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="118" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="BeV-d6-jbY">
-                                <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="158" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="BeV-d6-jbY">
+                                <rect key="frame" x="0.0" y="0.0" width="320" height="519"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <view key="tableHeaderView" contentMode="scaleToFill" id="Gao-Yn-oEu">
                                     <rect key="frame" x="0.0" y="0.0" width="320" height="100"/>
@@ -338,61 +339,44 @@
                                             <nil key="highlightedColor"/>
                                         </label>
                                     </subviews>
-                                    <color key="backgroundColor" red="0.27836513519287109" green="0.18530510365962982" blue="0.59323644638061523" alpha="1" colorSpace="calibratedRGB"/>
-                                </view>
-                                <view key="tableFooterView" contentMode="scaleToFill" id="hdR-dQ-MX2">
-                                    <rect key="frame" x="0.0" y="240" width="320" height="77"/>
-                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                    <color key="backgroundColor" red="0.76089900732040405" green="0.25649610161781311" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                    <color key="backgroundColor" red="0.23018704354763031" green="0.77713233232498169" blue="0.3158949613571167" alpha="1" colorSpace="calibratedRGB"/>
                                 </view>
                                 <prototypes>
-                                    <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="Cell" rowHeight="118" id="lRQ-0D-505" customClass="GXJoinedQuestTableViewCell">
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="Cell" rowHeight="158" id="lRQ-0D-505" customClass="GXJoinedQuestTableViewCell">
                                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="lRQ-0D-505" id="Exx-NZ-MbX">
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" misplaced="YES" text="mainLabel" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Mwn-qQ-KHp">
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="mainLabel" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Mwn-qQ-KHp">
                                                     <rect key="frame" x="66" y="30" width="80" height="21"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <view contentMode="scaleToFill" ambiguous="YES" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ND4-Ms-pxm" customClass="FBProfilePictureView">
-                                                    <rect key="frame" x="8" y="8" width="50" height="50"/>
+                                                <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ND4-Ms-pxm" customClass="FBProfilePictureView">
+                                                    <rect key="frame" x="8" y="9" width="50" height="50"/>
                                                     <color key="backgroundColor" red="0.1725741029" green="0.21834245320000001" blue="0.44677489999999997" alpha="1" colorSpace="calibratedRGB"/>
                                                 </view>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" misplaced="YES" text="name" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="9wI-61-3XS">
-                                                    <rect key="frame" x="66" y="8" width="43" height="21"/>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="name" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="9wI-61-3XS">
+                                                    <rect key="frame" x="66" y="9" width="43" height="21"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="sublabel" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="JdA-6P-HIv">
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="sublabel" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="JdA-6P-HIv">
                                                     <rect key="frame" x="66" y="80" width="65" height="21"/>
-                                                    <constraints>
-                                                        <constraint firstAttribute="height" constant="21" id="TbF-O2-kFq"/>
-                                                    </constraints>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
+                                                <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="AUw-GH-lah">
+                                                    <rect key="frame" x="108" y="120" width="105" height="30"/>
+                                                    <state key="normal" title="クエスト開始">
+                                                        <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                                    </state>
+                                                </button>
                                             </subviews>
-                                            <constraints>
-                                                <constraint firstAttribute="trailingMargin" secondItem="JdA-6P-HIv" secondAttribute="trailing" id="6zY-y0-Phb"/>
-                                                <constraint firstItem="JdA-6P-HIv" firstAttribute="leading" secondItem="Exx-NZ-MbX" secondAttribute="leadingMargin" constant="58" id="76E-rN-iMD"/>
-                                                <constraint firstAttribute="trailingMargin" secondItem="Mwn-qQ-KHp" secondAttribute="trailing" id="8pO-ga-yMr"/>
-                                                <constraint firstItem="JdA-6P-HIv" firstAttribute="top" secondItem="Mwn-qQ-KHp" secondAttribute="bottom" constant="10" id="LnK-l3-c7i"/>
-                                                <constraint firstItem="JdA-6P-HIv" firstAttribute="top" secondItem="Mwn-qQ-KHp" secondAttribute="bottom" constant="10" id="Moq-6m-TrB"/>
-                                                <constraint firstAttribute="trailingMargin" secondItem="9wI-61-3XS" secondAttribute="trailing" id="Phq-Av-Ss9"/>
-                                                <constraint firstItem="ND4-Ms-pxm" firstAttribute="leading" secondItem="Exx-NZ-MbX" secondAttribute="leadingMargin" id="RMt-Tt-jzx"/>
-                                                <constraint firstItem="9wI-61-3XS" firstAttribute="leading" secondItem="Exx-NZ-MbX" secondAttribute="leadingMargin" constant="58" id="S18-WF-TEp"/>
-                                                <constraint firstItem="ND4-Ms-pxm" firstAttribute="top" secondItem="Exx-NZ-MbX" secondAttribute="topMargin" id="Y7Y-wg-Yac"/>
-                                                <constraint firstItem="9wI-61-3XS" firstAttribute="top" secondItem="Exx-NZ-MbX" secondAttribute="topMargin" id="rRu-hX-mbG"/>
-                                                <constraint firstItem="Mwn-qQ-KHp" firstAttribute="leading" secondItem="ND4-Ms-pxm" secondAttribute="trailing" constant="8" id="rvL-DT-zm6"/>
-                                                <constraint firstAttribute="bottomMargin" secondItem="JdA-6P-HIv" secondAttribute="bottom" constant="8" id="sGd-me-bXJ"/>
-                                                <constraint firstItem="Mwn-qQ-KHp" firstAttribute="top" secondItem="9wI-61-3XS" secondAttribute="bottom" constant="1" id="zAv-A7-aOQ"/>
-                                            </constraints>
                                         </tableViewCellContentView>
                                         <connections>
                                             <outlet property="mainLabel" destination="Mwn-qQ-KHp" id="ahN-aN-prl"/>
@@ -413,7 +397,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="HoD-uz-grb" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1249" y="89"/>
+            <point key="canvasLocation" x="1249" y="88"/>
         </scene>
         <!--クエスト詳細-->
         <scene sceneID="5s6-F7-Wa7">
@@ -662,6 +646,7 @@
         <!--home-->
         <scene sceneID="n5B-Z0-Mov">
             <objects>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="ubZ-81-JVW" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="dvL-ND-Tg6" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" title="home" id="7UZ-L1-hh8"/>
                     <toolbarItems/>
@@ -674,7 +659,6 @@
                         <segue destination="0wR-c0-tUS" kind="relationship" relationship="rootViewController" id="Gvp-LW-ZxJ"/>
                     </connections>
                 </navigationController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="ubZ-81-JVW" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1253" y="-587"/>
         </scene>

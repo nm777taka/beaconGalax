@@ -75,13 +75,12 @@
 - (void)registerQuest:(GXQuest *)quest
 {
     KiiObject *object = [self.questBoard createObject];
-    [object setObject:quest.title forKey:@"title"];
-    [object setObject:quest.description forKey:@"description"];
-    [object setObject:quest.createUserURI forKey:@"created_user_uri"];
-    [object setObject:quest.fb_id forKey:@"facebook_id"];
-    [object setObject:quest.group_uri forKey:@"group_uri"];
-    [object setObject:quest.isStarted forKey:@"isStarted"];
-    [object setObject:quest.isCompleted forKey:@"isCompleted"];
+    [object setObject:quest.title forKey:quest_title];
+    [object setObject:quest.createUserURI forKey:quest_createUserURI];
+    [object setObject:quest.fb_id forKey:quest_createdUser_fbid];
+    [object setObject:quest.group_uri forKey:quest_groupURI];
+    [object setObject:quest.isStarted forKey:quest_isStarted];
+    [object setObject:quest.isCompleted forKey:quest_isCompleted];
     [object setObject:quest.createdUserName forKey:quest_createdUserName];
 
     
