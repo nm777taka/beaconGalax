@@ -20,4 +20,8 @@
     // Configure the view for the selected state
 }
 
+- (IBAction)gotoQuestExe:(id)sender {
+    
+    [[NSNotificationCenter defaultCenter ] postNotificationName:GXSegueToQuestExeViewNotification object:self];
+}
 @end

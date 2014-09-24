@@ -8,6 +8,8 @@
 
 #import "GXJoinedQuestViewController.h"
 #import "GXJoinedQuestTableViewCell.h"
+#import "GXQuestExeViewController.h"
+#import "GXQuestPrepareViewController.h"
 #import "GXFooterCell.h"
 #import "GXNotification.h"
 #import "GXBucketManager.h"
@@ -18,6 +20,7 @@
 @property (weak, nonatomic) IBOutlet GXJoinedQuestTableViewCell *stabCell;
 
 @property (nonatomic,retain) NSMutableArray *joinedQuestArray;
+@property (nonatomic,retain) KiiObject *selectedQuest;
 @end
 
 @implementation GXJoinedQuestViewController
@@ -33,6 +36,9 @@
     
     //Notification
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(fetchedHandler:) name:GXJoindQuestFetchedNotification object:nil];
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(segueNotisHandler:) name:GXSegueToQuestExeViewNotification object:nil];
+
     
 }
 
@@ -110,6 +116,52 @@
 #pragma mark - NotificationHandler
 
 - (void)fetchedHandler:(NSNotification *)notis
+{
+    
+}
+
+- (void)segueNotisHandler:(NSNotification *)notis
+{
+    GXJoinedQuestTableViewCell *cell = notis.object;
+    NSIndexPath *indexPath = [self.tableView indexPathForCell:cell];
+    self.selectedQuest = self.joinedQuestArray[indexPath.row];
+    NSLog(@"seleceteQuest:%@",self.selectedQuest);
+    
+    //クエスト作成者 or 受注者で画面をかえる
+    NSString *currentUserURI = [KiiUser currentUser].objectURI;
+    NSString *questOwnerURI = [self.selectedQuest getObjectForKey:quest_createUserURI];
+    NSString *userFBID= [self.selectedQuest getObjectForKey:quest_createdUser_fbid];
+    NSLog(@"currentUserURI = %@",currentUserURI);
+    NSLog(@"questOwnerURI = %@",questOwnerURI);
+    NSLog(@"userFBID:%@",userFBID);
+    
+    if ([currentUserURI isEqualToString:questOwnerURI]) {
+        //クエスト作成者 = クエスト実行viewへ
+        [self performSegueWithIdentifier:@"goto_questExe" sender:self];
+
+    } else {
+        //クエスト参加者
+        [self performSegueWithIdentifier:@"goto_questPrepare" sender:self];
+    }
+    
+}
+
+#pragma mark segue
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
+{
+    if ([segue.identifier isEqualToString:@"goto_questExe"]) {
+        
+        //クエスト実行ビューに選択されたクエストを渡す
+        GXQuestExeViewController *vc = segue.destinationViewController;
+        vc.exeQuest = self.selectedQuest;
+    }
+    
+    if ([segue.identifier isEqualToString:@"goto_questPrepare"]) {
+        //なんかする
+    }
+}
+
+- (IBAction)goBack:(UIStoryboardSegue *)sender
 {
     
 }

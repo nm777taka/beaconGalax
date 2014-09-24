@@ -33,5 +33,8 @@ UIKIT_EXTERN NSString *const GXJoindQuestFetchedNotification;
 //navigation
 UIKIT_EXTERN NSString *const GXViewSegueNotification;
 
+//画面遷移
+UIKIT_EXTERN NSString *const GXSegueToQuestExeViewNotification;
+
 
 @end

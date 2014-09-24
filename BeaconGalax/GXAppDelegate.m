@@ -79,6 +79,8 @@
         //silent
     }
     
+    NSLog(@"userinfo :%@",userInfo);
+    
     //pushのtypeで分類
     NSString *pushType = userInfo[push_type];
     NSLog(@"pushtype - %@",pushType);
@@ -113,6 +115,13 @@
                 else {
                     for (KiiUser *user in members) {
                         [user describe];
+                        
+                        UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"お知らせ" message:@"○○があなたのクエストに参加しました" preferredStyle:UIAlertControllerStyleAlert];
+                        [alertController addAction:[UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
+                            
+                        }]];
+                        
+                        [self.window.rootViewController presentViewController:alertController animated:YES completion:nil];
                     }
                 }
             }
@@ -148,9 +157,6 @@
     if ([identifier isEqualToString:@"SECOND_ACTION"]) {
         // Declineした時の処理
     }
-    
-    NSLog(@"call");
-    
     
     
     // 終了時に呼ばれなければならない

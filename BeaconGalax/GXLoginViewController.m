@@ -239,6 +239,7 @@ static NSInteger  const logOutAlertViewTag = 2;
         UIUserNotificationTypeSound;
         UIUserNotificationSettings *mySetting = [UIUserNotificationSettings settingsForTypes:types categories:categories];
         [[UIApplication sharedApplication] registerUserNotificationSettings:mySetting];
+        
         [Kii enableAPNSWithDevelopmentMode:YES andNotificationTypes:UIRemoteNotificationTypeAlert|UIRemoteNotificationTypeSound|UIRemoteNotificationTypeBadge];
     }
     

@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6245" systemVersion="13F34" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" initialViewController="smR-o8-zHI">
     <dependencies>
+        <deployment defaultVersion="1808" identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6238"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
@@ -364,10 +365,13 @@
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="AUw-GH-lah">
-                                                    <rect key="frame" x="108" y="120" width="105" height="30"/>
+                                                    <rect key="frame" x="108" y="119" width="105" height="30"/>
                                                     <state key="normal" title="クエスト開始">
                                                         <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                                     </state>
+                                                    <connections>
+                                                        <action selector="gotoQuestExe:" destination="lRQ-0D-505" eventType="touchUpInside" id="Kje-QM-xEu"/>
+                                                    </connections>
                                                 </button>
                                             </subviews>
                                         </tableViewCellContentView>
@@ -386,11 +390,88 @@
                     <tabBarItem key="tabBarItem" title="join" id="1sh-Uz-2wS"/>
                     <connections>
                         <outlet property="tableView" destination="BeV-d6-jbY" id="Lwe-Q3-nes"/>
+                        <segue destination="2KE-J0-tPr" kind="modal" identifier="goto_questExe" id="i48-IZ-Hlw"/>
+                        <segue destination="pCh-LA-aaI" kind="modal" identifier="goto_questPrepare" id="2k7-cw-TJm"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="HoD-uz-grb" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1249" y="88"/>
+        </scene>
+        <!--Quest Exe View Controller-->
+        <scene sceneID="bvE-KX-rpo">
+            <objects>
+                <viewController id="2KE-J0-tPr" customClass="GXQuestExeViewController" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="pJB-Rd-lZY"/>
+                        <viewControllerLayoutGuide type="bottom" id="6nQ-a6-13Z"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="Kh2-gh-H1d">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="クエスト募集者" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="odQ-l8-wAp">
+                                <rect key="frame" x="54" y="85" width="212" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="参加者" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="tBw-Z1-fXb">
+                                <rect key="frame" x="54" y="147" width="151" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="pcv-1V-inr">
+                                <rect key="frame" x="258" y="20" width="37" height="30"/>
+                                <state key="normal" title="close">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="goback:" destination="2KE-J0-tPr" eventType="touchUpInside" id="W86-Pq-xuP"/>
+                                </connections>
+                            </button>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                    <connections>
+                        <outlet property="ownerLabel" destination="odQ-l8-wAp" id="2e2-8q-1tC"/>
+                        <outlet property="participantLabel" destination="tBw-Z1-fXb" id="y7y-PG-JAs"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="1nY-2Z-ElD" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="685" y="673"/>
+        </scene>
+        <!--Quest Prepare View Controller-->
+        <scene sceneID="PXm-vL-W4o">
+            <objects>
+                <viewController id="pCh-LA-aaI" customClass="GXQuestPrepareViewController" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="IEw-4K-w5l"/>
+                        <viewControllerLayoutGuide type="bottom" id="f0Z-wf-kYC"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="fvA-uP-YLP">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="OjK-L8-Mzw">
+                                <rect key="frame" x="258" y="20" width="37" height="30"/>
+                                <state key="normal" title="close">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="closeView:" destination="pCh-LA-aaI" eventType="touchUpInside" id="gnh-iz-iXT"/>
+                                </connections>
+                            </button>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                    <navigationItem key="navigationItem" id="0Vi-xp-Kid"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Aht-wQ-cHS" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="313" y="497"/>
         </scene>
         <!--クエスト詳細-->
         <scene sceneID="5s6-F7-Wa7">

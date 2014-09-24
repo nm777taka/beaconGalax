@@ -162,6 +162,7 @@
     NSString *groupURI = [obj getObjectForKey:quest_groupURI];
     NSString *ownerFBID = [obj getObjectForKey:quest_createdUser_fbid];
     NSString *owner = [obj getObjectForKey:quest_createdUserName];
+    NSString *ownerURI = [obj getObjectForKey:quest_createUserURI];
     NSNumber *isStarted = [obj getObjectForKey:quest_isStarted];
     NSNumber *isCompleted = [obj getObjectForKey:quest_isCompleted];
     
@@ -170,6 +171,7 @@
     [newObj setObject:groupURI forKey:quest_groupURI];
     [newObj setObject:ownerFBID forKey:quest_createdUser_fbid];
     [newObj setObject:owner forKey:quest_createdUserName];
+    [newObj setObject:ownerURI forKey:quest_createUserURI];
     [newObj setObject:isStarted forKey:quest_isStarted];
     [newObj setObject:isCompleted forKey:quest_isCompleted];
     

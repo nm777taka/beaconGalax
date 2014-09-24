@@ -31,4 +31,6 @@ NSString *const GXJoindQuestFetchedNotification = @"GXJoindQuestFetchedNotificat
 
 NSString *const GXViewSegueNotification = @"GXViewSegueNotification";
 
+NSString *const GXSegueToQuestExeViewNotification = @"GXSegueToQuestExeViewNotification ";
+
 @end
