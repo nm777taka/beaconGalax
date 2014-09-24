@@ -7,7 +7,12 @@
 //
 
 #import <UIKit/UIKit.h>
+#import <KiiSDK/Kii.h>
+#import <Canvas/CSAnimationView.h>
+#import <FacebookSDK/Facebook.h>
 
 @interface GXQuestPrepareViewController : UIViewController
+
+@property (nonatomic,retain) KiiObject *questObject;
 
 @end

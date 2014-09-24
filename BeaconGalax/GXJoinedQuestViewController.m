@@ -158,6 +158,8 @@
     
     if ([segue.identifier isEqualToString:@"goto_questPrepare"]) {
         //なんかする
+        GXQuestPrepareViewController *vc = segue.destinationViewController;
+        vc.questObject = self.selectedQuest;
     }
 }
 
