@@ -29,47 +29,47 @@
      [Kii enableAPNSWithDevelopmentMode:YES andNotificationTypes:UIRemoteNotificationTypeAlert|UIRemoteNotificationTypeSound|UIRemoteNotificationTypeBadge];
     
     
-    //Todo:クラス化
-    //フォラグラウンド時
-    UIMutableUserNotificationAction *firstAction = [UIMutableUserNotificationAction new];
-    firstAction.identifier = @"FIRST_ACTION";
-    firstAction.title = @"ActionA";
-    //ボタンを押した時にアプリを起動するかしないか
-    firstAction.activationMode = UIUserNotificationActivationModeForeground;
-    firstAction.destructive = false;
-    firstAction.authenticationRequired = false;
-    
-    UIMutableUserNotificationAction *secondAction = [UIMutableUserNotificationAction new];
-    secondAction.identifier = @"SECOND_ACTION";
-    secondAction.title = @"Action B";
-    secondAction.activationMode = UIUserNotificationActivationModeForeground;
-    secondAction.destructive = false;
-    secondAction.authenticationRequired = false;
-    
-    //バックグラウンド
-    UIMutableUserNotificationAction *thirdAction = [UIMutableUserNotificationAction new];
-    thirdAction.identifier = @"THIRD_ACTION";
-    thirdAction.title = @"Action C";
-    thirdAction.activationMode = UIUserNotificationActivationModeBackground;
-    thirdAction.destructive = false;
-    thirdAction.authenticationRequired = false;
-    
-    UIMutableUserNotificationCategory *firstCategory = [UIMutableUserNotificationCategory new];
-    firstCategory.identifier = @"FIRST_CATEGORY";
-    
-    NSArray *defaultActions = @[firstAction,secondAction,thirdAction];
-    NSArray *minimalActions = @[firstAction,secondAction];
-    
-    [firstCategory setActions:defaultActions forContext:UIUserNotificationActionContextDefault];
-    [firstCategory setActions:minimalActions forContext:UIUserNotificationActionContextMinimal];
-    
-    NSSet *categories = [NSSet setWithObject:firstCategory];
-    
-    //UserNotificationの設定
-    UIUserNotificationType types = UIUserNotificationTypeAlert | UIUserNotificationTypeBadge |
-    UIUserNotificationTypeSound;
-    UIUserNotificationSettings *mySetting = [UIUserNotificationSettings settingsForTypes:types categories:categories];
-    [application registerUserNotificationSettings:mySetting];
+//    //Todo:クラス化
+//    //フォラグラウンド時
+//    UIMutableUserNotificationAction *firstAction = [UIMutableUserNotificationAction new];
+//    firstAction.identifier = @"FIRST_ACTION";
+//    firstAction.title = @"ActionA";
+//    //ボタンを押した時にアプリを起動するかしないか
+//    firstAction.activationMode = UIUserNotificationActivationModeForeground;
+//    firstAction.destructive = false;
+//    firstAction.authenticationRequired = false;
+//    
+//    UIMutableUserNotificationAction *secondAction = [UIMutableUserNotificationAction new];
+//    secondAction.identifier = @"SECOND_ACTION";
+//    secondAction.title = @"Action B";
+//    secondAction.activationMode = UIUserNotificationActivationModeForeground;
+//    secondAction.destructive = false;
+//    secondAction.authenticationRequired = false;
+//    
+//    //バックグラウンド
+//    UIMutableUserNotificationAction *thirdAction = [UIMutableUserNotificationAction new];
+//    thirdAction.identifier = @"THIRD_ACTION";
+//    thirdAction.title = @"Action C";
+//    thirdAction.activationMode = UIUserNotificationActivationModeBackground;
+//    thirdAction.destructive = false;
+//    thirdAction.authenticationRequired = false;
+//    
+//    UIMutableUserNotificationCategory *firstCategory = [UIMutableUserNotificationCategory new];
+//    firstCategory.identifier = @"FIRST_CATEGORY";
+//    
+//    NSArray *defaultActions = @[firstAction,secondAction,thirdAction];
+//    NSArray *minimalActions = @[firstAction,secondAction];
+//    
+//    [firstCategory setActions:defaultActions forContext:UIUserNotificationActionContextDefault];
+//    [firstCategory setActions:minimalActions forContext:UIUserNotificationActionContextMinimal];
+//    
+//    NSSet *categories = [NSSet setWithObject:firstCategory];
+//    
+//    //UserNotificationの設定
+//    UIUserNotificationType types = UIUserNotificationTypeAlert | UIUserNotificationTypeBadge |
+//    UIUserNotificationTypeSound;
+//    UIUserNotificationSettings *mySetting = [UIUserNotificationSettings settingsForTypes:types categories:categories];
+//    [application registerUserNotificationSettings:mySetting];
     
    
     return YES;
