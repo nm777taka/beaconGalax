@@ -181,11 +181,11 @@
     NSString *joinQuestGroup = [object getObjectForKey:quest_groupURI];
     NSLog(@"-------> group : %@",joinQuestGroup);
     
-    KiiTopic *topic = [[KiiUser currentUser] topicWithName:topic_invite];
+    KiiTopic *topic = [ownerUser topicWithName:topic_invite];
     KiiAPNSFields *apnsFields = [KiiAPNSFields createFields];
     
     NSDictionary *dictionary = @{@"join_user":[KiiUser currentUser].objectURI,
-                                 @"group":joinQuestGroup};
+                                 @"group":joinQuestGroup,push_type:push_invite};
     
     [apnsFields setSpecificData:dictionary];
     

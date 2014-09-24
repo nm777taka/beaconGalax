@@ -82,7 +82,7 @@
             NSLog(@"login");
             
             //バケット購読処理
-            //購読の確認
+            //購読の確認f
             KiiBucket *bucket = [Kii bucketWithName:@"quest_board"];
             BOOL isSubscribed = [KiiPushSubscription checkSubscriptionSynchronous:bucket withError:&error];
             if (isSubscribed) {

@@ -9,6 +9,7 @@
 #import "GXAppDelegate.h"
 #import "GXDictonaryKeys.h"
 
+
 @implementation GXAppDelegate{
     NSString *groupURI;
 }
@@ -28,48 +29,6 @@
     
      [Kii enableAPNSWithDevelopmentMode:YES andNotificationTypes:UIRemoteNotificationTypeAlert|UIRemoteNotificationTypeSound|UIRemoteNotificationTypeBadge];
     
-    
-//    //Todo:クラス化
-//    //フォラグラウンド時
-//    UIMutableUserNotificationAction *firstAction = [UIMutableUserNotificationAction new];
-//    firstAction.identifier = @"FIRST_ACTION";
-//    firstAction.title = @"ActionA";
-//    //ボタンを押した時にアプリを起動するかしないか
-//    firstAction.activationMode = UIUserNotificationActivationModeForeground;
-//    firstAction.destructive = false;
-//    firstAction.authenticationRequired = false;
-//    
-//    UIMutableUserNotificationAction *secondAction = [UIMutableUserNotificationAction new];
-//    secondAction.identifier = @"SECOND_ACTION";
-//    secondAction.title = @"Action B";
-//    secondAction.activationMode = UIUserNotificationActivationModeForeground;
-//    secondAction.destructive = false;
-//    secondAction.authenticationRequired = false;
-//    
-//    //バックグラウンド
-//    UIMutableUserNotificationAction *thirdAction = [UIMutableUserNotificationAction new];
-//    thirdAction.identifier = @"THIRD_ACTION";
-//    thirdAction.title = @"Action C";
-//    thirdAction.activationMode = UIUserNotificationActivationModeBackground;
-//    thirdAction.destructive = false;
-//    thirdAction.authenticationRequired = false;
-//    
-//    UIMutableUserNotificationCategory *firstCategory = [UIMutableUserNotificationCategory new];
-//    firstCategory.identifier = @"FIRST_CATEGORY";
-//    
-//    NSArray *defaultActions = @[firstAction,secondAction,thirdAction];
-//    NSArray *minimalActions = @[firstAction,secondAction];
-//    
-//    [firstCategory setActions:defaultActions forContext:UIUserNotificationActionContextDefault];
-//    [firstCategory setActions:minimalActions forContext:UIUserNotificationActionContextMinimal];
-//    
-//    NSSet *categories = [NSSet setWithObject:firstCategory];
-//    
-//    //UserNotificationの設定
-//    UIUserNotificationType types = UIUserNotificationTypeAlert | UIUserNotificationTypeBadge |
-//    UIUserNotificationTypeSound;
-//    UIUserNotificationSettings *mySetting = [UIUserNotificationSettings settingsForTypes:types categories:categories];
-//    [application registerUserNotificationSettings:mySetting];
     
    
     return YES;
@@ -115,23 +74,56 @@
 
 - (void)application:(UIApplication *)application didReceiveRemoteNotification:(NSDictionary *)userInfo
 {
-    KiiPushMessage *message = [KiiPushMessage messageFromAPNS:userInfo];
     
-    // Get Topic string using getValueOfKiiMessageField.
-    // "KiiMessage_TOPIC" is enum that is defined in KiiMessageField.
-    NSString *topicName = [message getValueOfKiiMessageField:KiiMessage_TOPIC];
+    if ([userInfo[@"aps"][@"content-available"] intValue] == 1) {
+        //silent
+    }
     
-    NSDictionary *dict = [NSDictionary dictionary];
-    dict = userInfo;
-    groupURI = dict[@"group"];
+    //pushのtypeで分類
+    NSString *pushType = userInfo[push_type];
+    NSLog(@"pushtype - %@",pushType);
+    
+    if ([pushType isEqualToString:push_invite]) {
+        NSLog(@"call");
+        NSError *error;
+        KiiUser *joinUser = [KiiUser userWithURI:userInfo[@"join_user"]];
+        KiiGroup *joinGroup = [KiiGroup groupWithURI:userInfo[@"group"]];
+        
+        //groupを再インスタンス
+        [joinGroup refreshSynchronous:&error];
+        
+        if (error != nil) {
+            NSLog(@"group refresh errror:%@",error);
+        }
+        else {
+            //メンバーを追加
+            [joinGroup addUser:joinUser];
+            [joinGroup saveSynchronous:&error];
+            
+            if (error != nil) {
+                NSLog(@"menber add error : %@",error);
+            }
+            else {
+                //debug
+                NSArray *members = [joinGroup getMemberListSynchronous:&error];
+                
+                if (error != nil) {
+                    
+                }
+                else {
+                    for (KiiUser *user in members) {
+                        [user describe];
+                    }
+                }
+            }
+        }
+        
+    }
     
     
     //アプリがフォアグランドで起動している時にPush通知を受信した場合
     if (application.applicationState == UIApplicationStateActive) {
         NSLog(@"push通知受信@フォアグランド");
-        
-        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"test" message:@"test2" delegate:self cancelButtonTitle:nil otherButtonTitles:@"ok", nil];
-        [alert show];
         
     }
                                     
@@ -139,6 +131,11 @@
     //バックグランドからPUSH通知でアクティブになったとき
     if (application.applicationState == UIApplicationStateInactive) {
         NSLog(@"プッシュ通知からアクティブ");
+    }
+    
+    if (application.applicationState == UIApplicationStateBackground) {
+        NSLog(@"バックグランドでpushを受信" );
+        
     }
     
 }
@@ -151,6 +148,8 @@
     if ([identifier isEqualToString:@"SECOND_ACTION"]) {
         // Declineした時の処理
     }
+    
+    NSLog(@"call");
     
     
     

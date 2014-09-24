@@ -30,6 +30,10 @@ static NSString * const user_fb_id = @"facebook_id";
 //トピック
 static NSString * const topic_invite = @"invite_notify";
 
+//push通知
+static NSString * const push_type = @"push_type";
+static NSString * const push_invite = @"push_invite";
+
 
 @interface GXDictonaryKeys : NSObject
 
