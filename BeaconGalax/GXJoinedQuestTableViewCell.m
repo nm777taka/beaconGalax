@@ -12,6 +12,10 @@
 
 - (void)awakeFromNib {
     // Initialization code
+    self.userIconView.layer.cornerRadius = 25.0;
+    self.userIconView.layer.borderColor = [UIColor whiteColor].CGColor;
+    self.userIconView.layer.borderWidth = 1.0f;
+    
 }
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {

@@ -214,6 +214,8 @@
 {
     GXQuestMemberCell *cell = [self.tableView dequeueReusableCellWithIdentifier:@"Cell" forIndexPath:indexPath];
     cell.backgroundColor = [UIColor clearColor];
+    cell.selectionStyle = UITableViewCellSelectionStyleNone;
+
     
     [self configureCell:cell atIndexPath:indexPath];
     

@@ -91,6 +91,9 @@
     
     GXJoinedQuestTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:cellIdentifier forIndexPath:indexPath];
     
+    cell.selectionStyle = UITableViewCellSelectionStyleNone;
+
+    
     [self configureCell:cell atIndexPath:indexPath];
     
     return cell;

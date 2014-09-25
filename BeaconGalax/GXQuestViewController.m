@@ -131,6 +131,9 @@
 {
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"Cell" forIndexPath:indexPath];
     
+    cell.selectionStyle = UITableViewCellSelectionStyleNone;
+
+    
     [self configureCell:cell atIndexPath:indexPath];    // 追加
     
     return cell;
@@ -154,6 +157,7 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
+    
     _selectedObject = _objects[indexPath.row];
     [self performSegueWithIdentifier:@"gotoDescriptionView" sender:self];
 }
