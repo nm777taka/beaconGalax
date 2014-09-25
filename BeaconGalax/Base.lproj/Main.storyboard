@@ -342,30 +342,33 @@
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="lRQ-0D-505" id="Exx-NZ-MbX">
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="mainLabel" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Mwn-qQ-KHp">
-                                                    <rect key="frame" x="66" y="30" width="80" height="21"/>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="mainLabel" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Mwn-qQ-KHp">
+                                                    <rect key="frame" x="66" y="35" width="223" height="21"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ND4-Ms-pxm" customClass="FBProfilePictureView">
-                                                    <rect key="frame" x="8" y="9" width="50" height="50"/>
+                                                    <rect key="frame" x="8" y="10" width="50" height="50"/>
                                                     <color key="backgroundColor" red="0.1725741029" green="0.21834245320000001" blue="0.44677489999999997" alpha="1" colorSpace="calibratedRGB"/>
                                                 </view>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="name" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="9wI-61-3XS">
-                                                    <rect key="frame" x="66" y="9" width="43" height="21"/>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="name" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="9wI-61-3XS">
+                                                    <rect key="frame" x="66" y="10" width="223" height="21"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="sublabel" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="JdA-6P-HIv">
-                                                    <rect key="frame" x="66" y="80" width="65" height="21"/>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="sublabel" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="JdA-6P-HIv">
+                                                    <rect key="frame" x="66" y="81" width="223" height="21"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="height" constant="21" id="RQ6-9P-Hze"/>
+                                                    </constraints>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="AUw-GH-lah">
-                                                    <rect key="frame" x="108" y="119" width="105" height="30"/>
+                                                <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="AUw-GH-lah">
+                                                    <rect key="frame" x="108" y="113" width="105" height="30"/>
                                                     <state key="normal" title="クエスト開始">
                                                         <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                                     </state>
@@ -374,6 +377,22 @@
                                                     </connections>
                                                 </button>
                                             </subviews>
+                                            <constraints>
+                                                <constraint firstAttribute="trailingMargin" secondItem="9wI-61-3XS" secondAttribute="trailing" id="4OG-Yn-JTa"/>
+                                                <constraint firstAttribute="bottomMargin" secondItem="AUw-GH-lah" secondAttribute="bottom" constant="5" id="6KS-WX-bwj"/>
+                                                <constraint firstItem="9wI-61-3XS" firstAttribute="top" secondItem="Exx-NZ-MbX" secondAttribute="topMargin" constant="2" id="Kfn-GQ-BfC"/>
+                                                <constraint firstItem="Mwn-qQ-KHp" firstAttribute="leading" secondItem="Exx-NZ-MbX" secondAttribute="leadingMargin" constant="58" id="LPu-xA-OGl"/>
+                                                <constraint firstItem="9wI-61-3XS" firstAttribute="leading" secondItem="Exx-NZ-MbX" secondAttribute="leadingMargin" constant="58" id="Ptv-NP-NU5"/>
+                                                <constraint firstItem="Mwn-qQ-KHp" firstAttribute="top" secondItem="9wI-61-3XS" secondAttribute="bottom" constant="4" id="RHR-ae-VAJ"/>
+                                                <constraint firstAttribute="trailingMargin" secondItem="Mwn-qQ-KHp" secondAttribute="trailing" id="UVl-Td-WKX"/>
+                                                <constraint firstAttribute="trailingMargin" secondItem="JdA-6P-HIv" secondAttribute="trailing" constant="23" id="bNQ-hI-gqN"/>
+                                                <constraint firstItem="JdA-6P-HIv" firstAttribute="top" secondItem="Mwn-qQ-KHp" secondAttribute="bottom" constant="10" id="kAK-pr-KhB"/>
+                                                <constraint firstAttribute="trailingMargin" secondItem="AUw-GH-lah" secondAttribute="trailing" constant="99" id="mwT-Nh-5bC"/>
+                                                <constraint firstItem="AUw-GH-lah" firstAttribute="leading" secondItem="Exx-NZ-MbX" secondAttribute="leadingMargin" constant="100" id="n4U-Ca-tU0"/>
+                                                <constraint firstItem="JdA-6P-HIv" firstAttribute="leading" secondItem="Exx-NZ-MbX" secondAttribute="leadingMargin" constant="58" id="pds-b4-o4s"/>
+                                                <constraint firstItem="Mwn-qQ-KHp" firstAttribute="top" secondItem="9wI-61-3XS" secondAttribute="bottom" constant="4" id="rWm-IV-JB5"/>
+                                                <constraint firstItem="AUw-GH-lah" firstAttribute="top" secondItem="JdA-6P-HIv" secondAttribute="bottom" constant="17" id="vFU-WO-4Q1"/>
+                                            </constraints>
                                         </tableViewCellContentView>
                                         <connections>
                                             <outlet property="mainLabel" destination="Mwn-qQ-KHp" id="ahN-aN-prl"/>
@@ -396,7 +415,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="HoD-uz-grb" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1249" y="88"/>
+            <point key="canvasLocation" x="1249" y="84"/>
         </scene>
         <!--Quest Exe View Controller-->
         <scene sceneID="bvE-KX-rpo">
@@ -441,7 +460,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="1nY-2Z-ElD" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="685" y="673"/>
+            <point key="canvasLocation" x="947" y="875"/>
         </scene>
         <!--Quest Prepare View Controller-->
         <scene sceneID="PXm-vL-W4o">
@@ -533,7 +552,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Aht-wQ-cHS" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="313" y="497"/>
+            <point key="canvasLocation" x="567" y="875"/>
         </scene>
         <!--クエスト詳細-->
         <scene sceneID="5s6-F7-Wa7">

@@ -17,7 +17,7 @@
 
 @interface GXJoinedQuestViewController ()<UITableViewDataSource,UITableViewDelegate>
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
-@property (weak, nonatomic) IBOutlet GXJoinedQuestTableViewCell *stabCell;
+@property GXJoinedQuestTableViewCell *stubCell;
 
 @property (nonatomic,retain) NSMutableArray *joinedQuestArray;
 @property (nonatomic,retain) KiiObject *selectedQuest;
@@ -33,6 +33,8 @@
     self.tableView.delegate = self;
     self.tableView.dataSource = self;
     
+    _stubCell = [self.tableView dequeueReusableCellWithIdentifier:@"Cell"];
+
     
     //Notification
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(fetchedHandler:) name:GXJoindQuestFetchedNotification object:nil];
@@ -92,6 +94,17 @@
     [self configureCell:cell atIndexPath:indexPath];
     
     return cell;
+}
+
+
+//cellの高さを可変に
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    [self configureCell:_stubCell atIndexPath:indexPath];
+    [_stubCell layoutSubviews];
+    CGFloat height = [_stubCell.contentView systemLayoutSizeFittingSize:UILayoutFittingCompressedSize].height;
+    
+    return height + 1;
 }
 
 
