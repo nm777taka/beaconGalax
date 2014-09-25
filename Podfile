@@ -7,4 +7,6 @@ pod 'TSMessages'
 pod 'SVProgressHUD'
 pod 'ChameleonFramework'
 pod 'EstimoteSDK'
+pod "PulsingHalo"
+
 

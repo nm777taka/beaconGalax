@@ -8,6 +8,9 @@
 
 #import <UIKit/UIKit.h>
 #import <KiiSDK/Kii.h>
+#import <Facebook-iOS-SDK/FacebookSDK/FacebookSDK.h>
+#import <PulsingHalo/PulsingHaloLayer.h>
+
 
 @interface GXQuestExeViewController : UIViewController
 

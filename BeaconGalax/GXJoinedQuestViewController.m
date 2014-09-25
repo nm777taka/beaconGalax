@@ -96,6 +96,12 @@
     return cell;
 }
 
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    self.selectedQuest = self.joinedQuestArray[indexPath.row];
+    [self performSegueWithIdentifier:@"goto_questExe" sender:self];
+}
+
 
 //cellの高さを可変に
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -167,12 +173,6 @@
         //クエスト実行ビューに選択されたクエストを渡す
         GXQuestExeViewController *vc = segue.destinationViewController;
         vc.exeQuest = self.selectedQuest;
-    }
-    
-    if ([segue.identifier isEqualToString:@"goto_questPrepare"]) {
-        //なんかする
-        GXQuestPrepareViewController *vc = segue.destinationViewController;
-        vc.questObject = self.selectedQuest;
     }
 }
 

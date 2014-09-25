@@ -25,6 +25,10 @@
         [alert show];
         
     } forControlEvents:UIControlEventTouchUpInside];
+    
+    self.fbUserIcon.layer.cornerRadius = 25.0;
+    self.fbUserIcon.layer.borderWidth = 1.0;
+    self.fbUserIcon.layer.borderColor = [UIColor whiteColor].CGColor;
 }
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated
