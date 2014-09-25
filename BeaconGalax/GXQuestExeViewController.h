@@ -10,6 +10,7 @@
 #import <KiiSDK/Kii.h>
 #import <Facebook-iOS-SDK/FacebookSDK/FacebookSDK.h>
 #import <PulsingHalo/PulsingHaloLayer.h>
+#import "ChameleonFramework/Chameleon.h"
 
 
 @interface GXQuestExeViewController : UIViewController

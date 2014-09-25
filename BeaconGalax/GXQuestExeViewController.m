@@ -7,20 +7,24 @@
 //
 
 #import "GXQuestExeViewController.h"
+#import "GXQuestMemberCell.h"
 #import "GXBeacon.h"
 #import "GXBeaconRegion.h"
 #import "GXNotification.h"
 #import "GXDictonaryKeys.h"
+#import "GXGroupManager.h"
 
 #define kBeaconUUID @"B9407F30-F5F8-466E-AFF9-25556B57FE6D"
 #define kIdentifier @"Estimote"
 
-@interface GXQuestExeViewController ()<GXBeaconDelegate>
+@interface GXQuestExeViewController ()<GXBeaconDelegate,UITableViewDataSource,UITableViewDelegate>
 @property (weak, nonatomic) IBOutlet FBProfilePictureView *ownerIcon;
 @property (weak, nonatomic) IBOutlet UIView *joinedUserIcon;
 @property (weak, nonatomic) IBOutlet UIButton *startButton;
 @property (weak, nonatomic) IBOutlet UILabel *messageLabel;
 @property (weak, nonatomic) IBOutlet UILabel *statusLabel;
+@property (weak, nonatomic) IBOutlet UIButton *readyButton;
+@property (weak, nonatomic) IBOutlet UITableView *tableView;
 
 //クエスト要素
 @property NSString *ownerName;
@@ -38,6 +42,8 @@
 @property GXBeaconMonitoringStatus monitoringStatus;
 @property (nonatomic) NSUUID *proximityUUID;
 
+//tabelView
+@property NSMutableArray *memberArray;
 
 @end
 
@@ -46,7 +52,11 @@
 #pragma mark ViewLifeCycle
 - (void)viewDidLoad {
     [super viewDidLoad];
-    // Do any additional setup after loading the view.
+    
+    self.view.backgroundColor = [UIColor colorWithGradientStyle:UIGradientStyleTopToBottom withFrame:self.view.frame andColors:@[FlatWatermelon,FlatWatermelonDark]];
+    
+    self.navigationController.navigationBar.tintColor = [UIColor colorWithComplementaryFlatColorOf:FlatWatermelon];
+    
     //UI init
     self.ownerIcon.layer.cornerRadius = 50.f;
     self.ownerIcon.layer.borderColor = [UIColor whiteColor].CGColor;
@@ -54,6 +64,16 @@
     self.joinedUserIcon.layer.cornerRadius = 50.f;
     self.joinedUserIcon.layer.borderWidth = 1.f;
     self.joinedUserIcon.layer.borderColor = [UIColor whiteColor].CGColor;
+    
+    self.readyButton.backgroundColor = [UIColor clearColor];
+    self.readyButton.layer.cornerRadius = 5.0f;
+    self.readyButton.layer.borderColor = [UIColor colorWithComplementaryFlatColorOf:FlatWatermelon].CGColor;
+    self.readyButton.layer.borderWidth = 1.0f;
+    [self.readyButton setTitleColor:[UIColor colorWithComplementaryFlatColorOf:FlatWatermelon] forState:UIControlStateNormal];
+    self.readyButton.alpha = 0.0f;
+    
+    self.statusLabel.textColor = [UIColor colorWithComplementaryFlatColorOf:FlatWatermelon];
+    self.statusLabel.text = @"beacon検出中...";
     
     //beacon
     self.beacon = [GXBeacon sharedManager];
@@ -69,13 +89,20 @@
     haloLayer.radius = 240.f;
     [self.view.layer insertSublayer:haloLayer below:self.ownerIcon.layer];
     
+    //tableView
+    self.tableView.delegate = self;
+    self.tableView.dataSource = self;
+    self.tableView.backgroundColor = [UIColor clearColor];
+    
+    //Notification
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(memberFetchedHandler:) name:GXGroupMemberFetchedNotification object:nil];
 
 }
 
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
-    [self.beacon startMonitoring];
+    //[self.beacon startMonitoring];
     [self parseObject:self.exeQuest];
     
     self.isOwner = false;
@@ -92,6 +119,10 @@
     }
     
     [self configureLabel:self.isOwner];
+    
+    //GroupMemberFetch
+    [[GXGroupManager sharedManager] getQuestMember:self.exeQuest];
+    
 }
 
 - (void)viewDidDisappear:(BOOL)animated
@@ -115,9 +146,9 @@
 - (void)configureLabel:(BOOL)isOwner
 {
     if (isOwner) {
-        self.messageLabel.text = @"あなたがクエストリーダーです\nクエスト参加者が全員集まったらクエスト開始ボタンを押してクエストを開始しましょう";
+        self.messageLabel.text = @"クエストリーダー";
     }else {
-        self.messageLabel.text = @"リーダの近くに集まりましょう";
+        self.messageLabel.text = @"リーダの近くに集まれ";
     }
 }
 
@@ -152,11 +183,13 @@
             
             switch (beacon.proximity) {
                 case CLProximityFar:
-                    self.statusLabel.text = @"遠いよ!もっと近くまでいこう";
+                    self.statusLabel.text = @"遠い";
                     break;
                 case CLProximityNear:
                 case CLProximityImmediate:
-                    self.statusLabel.text = @"準備完了ボタンを押そう";
+                    self.statusLabel.text = @"準備完了!";
+                    [self fadeIn];
+                    [self.beacon stopMonitoring];
                     break;
                     
                 default:
@@ -164,6 +197,51 @@
             }
         }
     }
+}
+
+#pragma makr - TableView
+- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
+{
+    return 1;
+}
+
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
+{
+    return 1;
+}
+
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    GXQuestMemberCell *cell = [self.tableView dequeueReusableCellWithIdentifier:@"Cell" forIndexPath:indexPath];
+    cell.backgroundColor = [UIColor clearColor];
+    
+    [self configureCell:cell atIndexPath:indexPath];
+    
+    return cell;
+}
+
+- (void)configureCell:(GXQuestMemberCell *)cell atIndexPath:(NSIndexPath *)indexPath
+{
+    
+}
+
+
+#pragma mark Animation
+- (void)fadeIn
+{
+    [UIView animateWithDuration:1.0f animations:^{
+        self.readyButton.alpha = 1.0f;
+    }];
+}
+- (IBAction)readyAction:(id)sender {
+    
+    
+}
+
+#pragma mark Notification Handler
+- (void)memberFetchedHandler:(NSNotification *)notis
+{
+    NSLog(@"member Fetched : %@",notis.object);
 }
 
 

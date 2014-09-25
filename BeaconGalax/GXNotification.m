@@ -28,6 +28,9 @@ NSString *const GXQuestJoinNotification = @"GXQuestJoinNotification";
 
 NSString *const GXJoindQuestFetchedNotification = @"GXJoindQuestFetchedNotification";
 
+NSString *const GXGroupMemberFetchedNotification = @"GXGroupMemberFetchedNotification";
+
+
 
 NSString *const GXViewSegueNotification = @"GXViewSegueNotification";
 

@@ -34,6 +34,9 @@
 - (NSMutableArray *)getNearUser:(KiiUser *)user;
 - (void)registerJoinedQuest:(KiiObject *)obj;
 
+- (NSMutableArray *)getQuestMembers:(NSArray *)members;
+
+
 
 //データ操作用
 - (void)deleteAllObject:(KiiBucket *)bucket;

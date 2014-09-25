@@ -30,6 +30,9 @@ UIKIT_EXTERN NSString *const GXQuestJoinNotification;
 
 UIKIT_EXTERN NSString *const GXJoindQuestFetchedNotification;
 
+//Group関連
+UIKIT_EXTERN NSString *const GXGroupMemberFetchedNotification;
+
 //navigation
 UIKIT_EXTERN NSString *const GXViewSegueNotification;
 

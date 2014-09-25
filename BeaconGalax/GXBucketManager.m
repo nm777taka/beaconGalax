@@ -72,6 +72,21 @@
 
 }
 
+- (KiiObject *)getGalaxUser:(NSString *)userURI
+{
+    NSError *error;
+    KiiClause *clause = [KiiClause equals:@"uri" value:userURI];
+    KiiQuery *query = [KiiQuery queryWithClause:clause];
+    KiiQuery *nextQuery;
+  NSArray *result  = [self.galaxUser executeQuerySynchronous:query withError:&error andNext:&nextQuery];
+    
+    if (result.count == 1) {
+        return result.firstObject;
+    }
+    
+    return nil;
+}
+
 - (void)registerQuest:(GXQuest *)quest
 {
     KiiObject *object = [self.questBoard createObject];
@@ -126,6 +141,18 @@
 - (void)registerQuestMember:(KiiUser *)user
 {
     
+}
+
+- (NSMutableArray *)getQuestMembers:(NSArray *)members
+{
+    NSMutableArray *resutls = [NSMutableArray new];
+    for (KiiUser *user in members) {
+       KiiObject *obj =  [[GXBucketManager sharedManager] getGalaxUser:user.objectURI];
+        
+        [resutls addObject:obj];
+    }
+    
+    return resutls;
 }
 
 #pragma mark - UserScope
