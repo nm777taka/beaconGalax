@@ -15,6 +15,9 @@
     self.userIconView.layer.cornerRadius = 20.0f;
     self.userIconView.layer.borderColor = [UIColor whiteColor].CGColor;
     self.userIconView.layer.borderWidth = 2.0f;
+    
+    self.userNameLabel.textColor = [UIColor whiteColor];
+    self.userReadySignLabel.hidden = YES;
 }
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {

@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6245" systemVersion="13F34" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" initialViewController="smR-o8-zHI">
     <dependencies>
+        <deployment defaultVersion="1808" identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6238"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
@@ -481,6 +482,7 @@
                     </view>
                     <nil key="simulatedBottomBarMetrics"/>
                     <connections>
+                        <outlet property="messageLabel" destination="be1-2G-oBf" id="kw2-DD-Mze"/>
                         <outlet property="ownerIcon" destination="JHt-I9-niR" id="ZZu-Rb-rrr"/>
                         <outlet property="readyButton" destination="3gr-xc-EeY" id="4SP-ZE-bTx"/>
                         <outlet property="startButton" destination="3gr-xc-EeY" id="4zi-DM-i9e"/>

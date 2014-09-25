@@ -43,7 +43,7 @@
 @property (nonatomic) NSUUID *proximityUUID;
 
 //tabelView
-@property NSMutableArray *memberArray;
+@property (nonatomic,retain) NSMutableArray *memberArray;
 
 @end
 
@@ -146,9 +146,11 @@
 - (void)configureLabel:(BOOL)isOwner
 {
     if (isOwner) {
-        self.messageLabel.text = @"クエストリーダー";
+        self.messageLabel.text = @"メンバーを揃えよう";
+        [self.readyButton setTitle:@"Start" forState:UIControlStateNormal];
     }else {
         self.messageLabel.text = @"リーダの近くに集まれ";
+        [self.readyButton setTitle:@"Ready" forState:UIControlStateNormal];
     }
 }
 
@@ -195,7 +197,7 @@
                 default:
                     break;
             }
-        }
+        } 
     }
 }
 
@@ -207,7 +209,7 @@
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return 1;
+    return self.memberArray.count;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -215,7 +217,6 @@
     GXQuestMemberCell *cell = [self.tableView dequeueReusableCellWithIdentifier:@"Cell" forIndexPath:indexPath];
     cell.backgroundColor = [UIColor clearColor];
     cell.selectionStyle = UITableViewCellSelectionStyleNone;
-
     
     [self configureCell:cell atIndexPath:indexPath];
     
@@ -224,6 +225,11 @@
 
 - (void)configureCell:(GXQuestMemberCell *)cell atIndexPath:(NSIndexPath *)indexPath
 {
+    KiiObject *member = self.memberArray[indexPath.row];
+    NSString *fbURI = [member getObjectForKey:user_fb_id];
+    NSString *name = [member getObjectForKey:user_name];
+    cell.userIconView.profileID = fbURI;
+    cell.userNameLabel.text = name;
     
 }
 
@@ -237,13 +243,18 @@
 }
 - (IBAction)readyAction:(id)sender {
     
+    //
     
 }
 
 #pragma mark Notification Handler
 - (void)memberFetchedHandler:(NSNotification *)notis
 {
-    NSLog(@"member Fetched : %@",notis.object);
+    NSMutableArray *array = notis.object;
+    
+    self.memberArray = [NSMutableArray arrayWithArray:array];
+    
+    [self.tableView reloadData];
 }
 
 
