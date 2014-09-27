@@ -121,7 +121,7 @@
     [self configureLabel:self.isOwner];
     
     //GroupMemberFetch
-    [[GXGroupManager sharedManager] getQuestMember:self.exeQuest];
+    [[GXGroupManager sharedManager] getGroup:self.exeQuest];
     
 }
 
@@ -250,11 +250,17 @@
 #pragma mark Notification Handler
 - (void)memberFetchedHandler:(NSNotification *)notis
 {
-    NSMutableArray *array = notis.object;
+    KiiGroup *group = notis.object;
+    KiiBucket *bucket = [group bucketWithName:@"member"];
+    //このバケットから全メンバーを取り出す
+    KiiQuery *query = [KiiQuery queryWithClause:nil];
+    [bucket executeQuery:query withBlock:^(KiiQuery *query, KiiBucket *bucket, NSArray *results, KiiQuery *nextQuery, NSError *error) {
+        NSLog(@"results:%@",results);
+        self.memberArray = [NSMutableArray arrayWithArray:results];
+        [self.tableView reloadData];
+
+    }];
     
-    self.memberArray = [NSMutableArray arrayWithArray:array];
-    
-    [self.tableView reloadData];
 }
 
 

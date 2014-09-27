@@ -13,7 +13,8 @@
 
 + (GXGroupManager *)sharedManager;
 
-- (void)getQuestMember:(KiiObject *)quest;
+- (void)getGroup:(KiiObject *)quest;
+
 
 
 @end

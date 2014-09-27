@@ -34,6 +34,9 @@
 - (NSMutableArray *)getNearUser:(KiiUser *)user;
 - (void)registerJoinedQuest:(KiiObject *)obj;
 
+- (KiiObject *)getGalaxUser:(NSString *)userURI;
+
+
 - (NSMutableArray *)getQuestMembers:(NSArray *)members;
 
 

@@ -7,6 +7,7 @@
 //
 
 #import "GXAppDelegate.h"
+#import "GXBucketManager.h"
 #import "GXDictonaryKeys.h"
 
 
@@ -90,7 +91,6 @@
         NSError *error;
         KiiUser *joinUser = [KiiUser userWithURI:userInfo[@"join_user"]];
         KiiGroup *joinGroup = [KiiGroup groupWithURI:userInfo[@"group"]];
-        
         //groupを再インスタンス
         [joinGroup refreshSynchronous:&error];
         
@@ -99,32 +99,53 @@
         }
         else {
             //メンバーを追加
-            [joinGroup addUser:joinUser];
-            [joinGroup saveSynchronous:&error];
+            //グループスコープのバケットに保存
+            NSLog(@"参加したグループ名:%@",joinGroup.name);
+
+            KiiBucket *bucket = [joinGroup bucketWithName:@"member"];
+            NSLog(@"appdelegate-bucket:%@",bucket);
+            KiiObject *newMember = [bucket createObject];
+            KiiObject *gxUser = [[GXBucketManager sharedManager] getGalaxUser:joinUser.objectURI];
             
-            if (error != nil) {
-                NSLog(@"menber add error : %@",error);
-            }
-            else {
-                //debug
-                NSArray *members = [joinGroup getMemberListSynchronous:&error];
-                
-                if (error != nil) {
+            [newMember setObject:[gxUser getObjectForKey:user_fb_id] forKey:user_fb_id];
+            [newMember setObject:[gxUser getObjectForKey:user_name] forKey:user_name];
+            [newMember setObject:[gxUser getObjectForKey:user_uri] forKey:user_uri];
+            
+            [newMember saveWithBlock:^(KiiObject *object, NSError *error) {
+                if (error) {
+                    NSLog(@"error : %@",error);
+                } else {
+                    NSLog(@"グループメンバーを追加");
                     
                 }
-                else {
-                    for (KiiUser *user in members) {
-                        [user describe];
-                        
-                        UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"お知らせ" message:@"○○があなたのクエストに参加しました" preferredStyle:UIAlertControllerStyleAlert];
-                        [alertController addAction:[UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
-                            
-                        }]];
-                        
-                        [self.window.rootViewController presentViewController:alertController animated:YES completion:nil];
-                    }
-                }
-            }
+            }];
+            
+//            [joinGroup addUser:joinUser];
+//            [joinGroup saveSynchronous:&error];
+            
+//            if (error != nil) {
+//                NSLog(@"menber add error : %@",error);
+//            }
+//            else {
+//                //debug
+//                NSArray *members = [joinGroup getMemberListSynchronous:&error];
+//                
+//                if (error != nil) {
+//                    
+//                }
+//                else {
+//                    for (KiiUser *user in members) {
+//                        [user describe];
+//                        
+//                        UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"お知らせ" message:@"○○があなたのクエストに参加しました" preferredStyle:UIAlertControllerStyleAlert];
+//                        [alertController addAction:[UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
+//                            
+//                        }]];
+//                        
+//                        [self.window.rootViewController presentViewController:alertController animated:YES completion:nil];
+//                    }
+//                }
+//            }
         }
         
     }

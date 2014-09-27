@@ -45,17 +45,31 @@
     KiiGroup *group = [KiiGroup groupWithURI:groupURI];
     [group refreshSynchronous:&error];
     
+//    if (error == nil) {
+//        [group getMemberListWithBlock:^(KiiGroup *group, NSArray *members, NSError *error) {
+//            if (error == nil) {
+//                
+//                //さらにbucketからobjcetを取得
+//                NSMutableArray *memberObjects = [[GXBucketManager sharedManager] getQuestMembers:members];
+//                
+//                [[NSNotificationCenter defaultCenter] postNotificationName:GXGroupMemberFetchedNotification object:memberObjects];
+//            }
+//        }];
+//    }
+    
     if (error == nil) {
-        [group getMemberListWithBlock:^(KiiGroup *group, NSArray *members, NSError *error) {
-            if (error == nil) {
-                
-                //さらにbucketからobjcetを取得
-                NSMutableArray *memberObjects = [[GXBucketManager sharedManager] getQuestMembers:members];
-                
-                [[NSNotificationCenter defaultCenter] postNotificationName:GXGroupMemberFetchedNotification object:memberObjects];
-            }
-        }];
+        KiiBucket *bucket = [group bucketWithName:@"member"];
+        
     }
+}
+
+- (void)getGroup:(KiiObject *)quest
+{
+    NSString *groupURI = [quest getObjectForKey:quest_groupURI];
+    KiiGroup *group = [KiiGroup groupWithURI:groupURI];
+    [group refreshWithBlock:^(KiiGroup *group, NSError *error) {
+        [[NSNotificationCenter defaultCenter] postNotificationName:GXGroupMemberFetchedNotification object:group];
+    }];
 }
 
 @end

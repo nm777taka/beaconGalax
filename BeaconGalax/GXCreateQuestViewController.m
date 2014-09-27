@@ -112,7 +112,7 @@
         
         //クエスト参加時のためのグループを作る
         NSError *error = nil;
-        NSString *groupName = @"quest_group"; //同じグループ名があっても大丈夫っぽい（一意性は保証してない)
+        NSString *groupName = @"quest_group1"; //同じグループ名があっても大丈夫っぽい（一意性は保証してない)
         KiiGroup *group = [KiiGroup groupWithName:groupName];
         [group saveSynchronous:&error];
         if (error != nil) {
