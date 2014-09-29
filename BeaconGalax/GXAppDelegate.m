@@ -78,76 +78,15 @@
     
     if ([userInfo[@"aps"][@"content-available"] intValue] == 1) {
         //silent
-    }
-    
-    NSLog(@"userinfo :%@",userInfo);
-    
-    //pushのtypeで分類
-    NSString *pushType = userInfo[push_type];
-    NSLog(@"pushtype - %@",pushType);
-    
-    if ([pushType isEqualToString:push_invite]) {
-        NSLog(@"call");
-        NSError *error;
-        KiiUser *joinUser = [KiiUser userWithURI:userInfo[@"join_user"]];
-        KiiGroup *joinGroup = [KiiGroup groupWithURI:userInfo[@"group"]];
-        //groupを再インスタンス
-        [joinGroup refreshSynchronous:&error];
+        NSLog(@"サイレント");
+        NSString *pushType = userInfo[push_type];
+        NSLog(@"pushtype - %@",pushType);
         
-        if (error != nil) {
-            NSLog(@"group refresh errror:%@",error);
+        if ([pushType isEqualToString:push_invite]) {
+            
+            [self addGroupMember:userInfo];
         }
-        else {
-            //メンバーを追加
-            //グループスコープのバケットに保存
-            NSLog(@"参加したグループ名:%@",joinGroup.name);
 
-            KiiBucket *bucket = [joinGroup bucketWithName:@"member"];
-            NSLog(@"appdelegate-bucket:%@",bucket);
-            KiiObject *newMember = [bucket createObject];
-            KiiObject *gxUser = [[GXBucketManager sharedManager] getGalaxUser:joinUser.objectURI];
-            
-            [newMember setObject:[gxUser getObjectForKey:user_fb_id] forKey:user_fb_id];
-            [newMember setObject:[gxUser getObjectForKey:user_name] forKey:user_name];
-            [newMember setObject:[gxUser getObjectForKey:user_uri] forKey:user_uri];
-            
-            [newMember saveWithBlock:^(KiiObject *object, NSError *error) {
-                if (error) {
-                    NSLog(@"error : %@",error);
-                } else {
-                    NSLog(@"グループメンバーを追加");
-                    
-                }
-            }];
-            
-//            [joinGroup addUser:joinUser];
-//            [joinGroup saveSynchronous:&error];
-            
-//            if (error != nil) {
-//                NSLog(@"menber add error : %@",error);
-//            }
-//            else {
-//                //debug
-//                NSArray *members = [joinGroup getMemberListSynchronous:&error];
-//                
-//                if (error != nil) {
-//                    
-//                }
-//                else {
-//                    for (KiiUser *user in members) {
-//                        [user describe];
-//                        
-//                        UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"お知らせ" message:@"○○があなたのクエストに参加しました" preferredStyle:UIAlertControllerStyleAlert];
-//                        [alertController addAction:[UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
-//                            
-//                        }]];
-//                        
-//                        [self.window.rootViewController presentViewController:alertController animated:YES completion:nil];
-//                    }
-//                }
-//            }
-        }
-        
     }
     
     
@@ -169,6 +108,7 @@
     }
     
 }
+
 
 - (void)application:(UIApplication *)application handleActionWithIdentifier:(NSString *)identifier forRemoteNotification:(NSDictionary *)userInfo completionHandler:(void (^)())completionHandler {
     
@@ -294,6 +234,56 @@
             break;
             
     }
+}
+
+#pragma mark - グループ追加処理
+- (void)addGroupMember:(NSDictionary *)userInfo
+{
+    NSError *error;
+    KiiUser *joinUser = [KiiUser userWithURI:userInfo[@"join_user"]];
+    KiiGroup *joinGroup = [KiiGroup groupWithURI:userInfo[@"group"]];
+    //groupを再インスタンス
+    [joinGroup refreshSynchronous:&error];
+    
+    if (error != nil) {
+        NSLog(@"group refresh errror:%@",error);
+    }
+    else {
+        //メンバーを追加
+        //グループスコープのバケットに保存
+        NSLog(@"参加したグループ名:%@",joinGroup.name);
+        
+        [joinGroup addUser:joinUser];
+        [joinGroup saveWithBlock:^(KiiGroup *group, NSError *error) {
+            
+            KiiBucket *bucket = [joinGroup bucketWithName:@"member"];
+            KiiObject *newMember = [bucket createObject];
+            KiiObject *gxUser = [[GXBucketManager sharedManager] getGalaxUser:joinUser.objectURI];
+            
+            [newMember setObject:[gxUser getObjectForKey:user_fb_id] forKey:user_fb_id];
+            [newMember setObject:[gxUser getObjectForKey:user_name] forKey:user_name];
+            [newMember setObject:[gxUser getObjectForKey:user_uri] forKey:user_uri];
+            
+            [newMember saveWithBlock:^(KiiObject *object, NSError *error) {
+                if (error) {
+                    NSLog(@"error : %@",error);
+                } else {
+                    NSLog(@"グループメンバーを追加");
+                    
+                    //localNotification
+                    UILocalNotification *notification = [UILocalNotification new];
+                    notification.category = @"FIRST_CATEGORY";
+                    notification.alertBody = @"新しいメンバーを追加しました";
+                    notification.fireDate = [NSDate date];
+                    notification.soundName = UILocalNotificationDefaultSoundName;
+                    [[UIApplication sharedApplication] scheduleLocalNotification:notification];
+                }
+            }];
+
+        }];
+        
+    }
+
 }
 
 @end

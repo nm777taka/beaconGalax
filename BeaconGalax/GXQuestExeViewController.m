@@ -34,6 +34,8 @@
 @property NSNumber *isStarted;
 @property NSNumber *isCompleted;
 @property KiiGroup *questGroupURI;
+@property KiiGroup *questGroup;
+@property KiiBucket *questMemberBucket;
 
 @property BOOL isOwner;
 
@@ -75,19 +77,13 @@
     self.statusLabel.textColor = [UIColor colorWithComplementaryFlatColorOf:FlatWatermelon];
     self.statusLabel.text = @"beacon検出中...";
     
-    //beacon
-    self.beacon = [GXBeacon sharedManager];
-    self.beacon.delegate = self;
-    GXBeaconRegion *region = [self.beacon registerRegion:kBeaconUUID identifier:kIdentifier];
-    if (region) {
-        region.rangingEnabled = YES;
-    }
-    
-    //ibeacon的演出
-    PulsingHaloLayer *haloLayer = [PulsingHaloLayer layer];
-    haloLayer.position = self.ownerIcon.center;
-    haloLayer.radius = 240.f;
-    [self.view.layer insertSublayer:haloLayer below:self.ownerIcon.layer];
+//    //beacon
+//    self.beacon = [GXBeacon sharedManager];
+//    self.beacon.delegate = self;
+//    GXBeaconRegion *region = [self.beacon registerRegion:kBeaconUUID identifier:kIdentifier];
+//    if (region) {
+//        region.rangingEnabled = YES;
+//    }
     
     //tableView
     self.tableView.delegate = self;
@@ -150,6 +146,7 @@
         [self.readyButton setTitle:@"Start" forState:UIControlStateNormal];
     }else {
         self.messageLabel.text = @"リーダの近くに集まれ";
+        [self fadeIn];
         [self.readyButton setTitle:@"Ready" forState:UIControlStateNormal];
     }
 }
@@ -201,6 +198,16 @@
     }
 }
 
+- (void)beaconAnimation
+{
+    //ibeacon的演出
+    PulsingHaloLayer *haloLayer = [PulsingHaloLayer layer];
+    haloLayer.position = self.ownerIcon.center;
+    haloLayer.radius = 240.f;
+    [self.view.layer insertSublayer:haloLayer below:self.ownerIcon.layer];
+
+}
+
 #pragma makr - TableView
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
@@ -241,20 +248,46 @@
         self.readyButton.alpha = 1.0f;
     }];
 }
-- (IBAction)readyAction:(id)sender {
-    
-    //
+
+#pragma mark - 参加者
+- (IBAction)readyAction:(id)sender
+{
+    NSLog(@"call");
+    //バケットにある自分の情報に準備OKフラグを書き込む
+    NSMutableArray *results = [NSMutableArray new];
+    NSString *currentUserURI  = [KiiUser currentUser].objectURI;
+    KiiClause *clause = [KiiClause equals:user_uri value:currentUserURI];
+    KiiQuery *query = [KiiQuery queryWithClause:clause];
+    KiiQuery *nextQuery;
+    NSError *error;
+    NSArray *result = [self.questMemberBucket executeQuerySynchronous:query withError:&error andNext:&nextQuery];
+    if (!error) {
+        [results addObjectsFromArray:result];
+    } else{
+        NSLog(@"eeror:%@",error);
+    }
+    if (results.count == 1) {
+        NSLog(@"自分の情報を更新");
+        KiiObject *me = results.firstObject;
+        [me refreshSynchronous:&error];
+        [me setObject:@YES forKey:@"isReady"];
+        [me saveSynchronous:&error];
+        
+        if (!error) {
+            NSLog(@"情報を更新完了");
+        }
+    }
     
 }
 
 #pragma mark Notification Handler
 - (void)memberFetchedHandler:(NSNotification *)notis
 {
-    KiiGroup *group = notis.object;
-    KiiBucket *bucket = [group bucketWithName:@"member"];
+    self.questGroup = notis.object;
+    self.questMemberBucket = [self.questGroup bucketWithName:@"member"];
     //このバケットから全メンバーを取り出す
     KiiQuery *query = [KiiQuery queryWithClause:nil];
-    [bucket executeQuery:query withBlock:^(KiiQuery *query, KiiBucket *bucket, NSArray *results, KiiQuery *nextQuery, NSError *error) {
+    [self.questMemberBucket executeQuery:query withBlock:^(KiiQuery *query, KiiBucket *bucket, NSArray *results, KiiQuery *nextQuery, NSError *error) {
         NSLog(@"results:%@",results);
         self.memberArray = [NSMutableArray arrayWithArray:results];
         [self.tableView reloadData];

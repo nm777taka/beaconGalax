@@ -191,6 +191,8 @@
     
     NSDictionary *dictionary = @{@"join_user":[KiiUser currentUser].objectURI,
                                  @"group":joinQuestGroup,push_type:push_invite};
+    //slient
+    [apnsFields setContentAvailable:@1];
     
     [apnsFields setSpecificData:dictionary];
     
