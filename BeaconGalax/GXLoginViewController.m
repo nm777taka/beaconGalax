@@ -202,7 +202,7 @@ static NSInteger  const logOutAlertViewTag = 2;
         //フォラグラウンド時
         UIMutableUserNotificationAction *firstAction = [UIMutableUserNotificationAction new];
         firstAction.identifier = @"FIRST_ACTION";
-        firstAction.title = @"ActionA";
+        firstAction.title = @"Accept";
         //ボタンを押した時にアプリを起動するかしないか
         firstAction.activationMode = UIUserNotificationActivationModeForeground;
         firstAction.destructive = false;
@@ -210,7 +210,7 @@ static NSInteger  const logOutAlertViewTag = 2;
         
         UIMutableUserNotificationAction *secondAction = [UIMutableUserNotificationAction new];
         secondAction.identifier = @"SECOND_ACTION";
-        secondAction.title = @"Action B";
+        secondAction.title = @"Denied";
         secondAction.activationMode = UIUserNotificationActivationModeForeground;
         secondAction.destructive = false;
         secondAction.authenticationRequired = false;
@@ -224,7 +224,7 @@ static NSInteger  const logOutAlertViewTag = 2;
         thirdAction.authenticationRequired = false;
         
         UIMutableUserNotificationCategory *firstCategory = [UIMutableUserNotificationCategory new];
-        firstCategory.identifier = @"FIRST_CATEGORY";
+        firstCategory.identifier = @"INVITE_CATEGORY";
         
         NSArray *defaultActions = @[firstAction,secondAction,thirdAction];
         NSArray *minimalActions = @[firstAction,secondAction];

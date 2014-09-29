@@ -10,6 +10,12 @@
 #import "GXBucketManager.h"
 #import "GXDictonaryKeys.h"
 
+@interface GXAppDelegate()
+
+@property KiiUser *joinUser;
+@property KiiGroup *joinedGroup;
+
+@end
 
 @implementation GXAppDelegate{
     NSString *groupURI;
@@ -76,27 +82,40 @@
 - (void)application:(UIApplication *)application didReceiveRemoteNotification:(NSDictionary *)userInfo
 {
     
+    NSString *pushType = userInfo[push_type];
+    
+    self.joinUser = [KiiUser userWithURI:userInfo[@"join_user"]];
+    self.joinedGroup = [KiiGroup groupWithURI:userInfo[@"group"]];
+    
     if ([userInfo[@"aps"][@"content-available"] intValue] == 1) {
         //silent
-        NSLog(@"サイレント");
-        NSString *pushType = userInfo[push_type];
-        NSLog(@"pushtype - %@",pushType);
         
         if ([pushType isEqualToString:push_invite]) {
             
-            [self addGroupMember:userInfo];
+            //[self addGroupMember:userInfo];
+            [self pushTest];
         }
 
+        
     }
     
     
     //アプリがフォアグランドで起動している時にPush通知を受信した場合
     if (application.applicationState == UIApplicationStateActive) {
         NSLog(@"push通知受信@フォアグランド");
+        UIAlertController *alertConroller = [UIAlertController alertControllerWithTitle:@"info" message:@"○○をクエストメンバーに追加します" preferredStyle:UIAlertControllerStyleAlert];
+        [alertConroller addAction:[UIAlertAction actionWithTitle:@"ok" style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
+            
+            [self addGroupMember];
+            
+        }]];
         
+        [self.window.rootViewController presentViewController:alertConroller animated:YES completion:nil];
+
+
     }
-                                    
-                                    
+    
+    
     //バックグランドからPUSH通知でアクティブになったとき
     if (application.applicationState == UIApplicationStateInactive) {
         NSLog(@"プッシュ通知からアクティブ");
@@ -104,6 +123,7 @@
     
     if (application.applicationState == UIApplicationStateBackground) {
         NSLog(@"バックグランドでpushを受信" );
+        
         
     }
     
@@ -129,7 +149,8 @@
 {
     if ([identifier isEqualToString:@"FIRST_ACTION"]) {
         
-        NSLog(@"notification!!");
+        [self addGroupMember];
+        
     }
     if ([identifier isEqualToString:@"SECOND_ACTION"]) {
         
@@ -237,13 +258,12 @@
 }
 
 #pragma mark - グループ追加処理
-- (void)addGroupMember:(NSDictionary *)userInfo
+- (void)addGroupMember
 {
+ 
     NSError *error;
-    KiiUser *joinUser = [KiiUser userWithURI:userInfo[@"join_user"]];
-    KiiGroup *joinGroup = [KiiGroup groupWithURI:userInfo[@"group"]];
-    //groupを再インスタンス
-    [joinGroup refreshSynchronous:&error];
+    //アプリを起動せずにグループに追加してみる
+    [self.joinedGroup refreshSynchronous:&error];
     
     if (error != nil) {
         NSLog(@"group refresh errror:%@",error);
@@ -251,14 +271,12 @@
     else {
         //メンバーを追加
         //グループスコープのバケットに保存
-        NSLog(@"参加したグループ名:%@",joinGroup.name);
-        
-        [joinGroup addUser:joinUser];
-        [joinGroup saveWithBlock:^(KiiGroup *group, NSError *error) {
+        [self.joinedGroup addUser:self.joinUser];
+        [self.joinedGroup saveWithBlock:^(KiiGroup *group, NSError *error) {
             
-            KiiBucket *bucket = [joinGroup bucketWithName:@"member"];
+            KiiBucket *bucket = [self.joinedGroup bucketWithName:@"member"];
             KiiObject *newMember = [bucket createObject];
-            KiiObject *gxUser = [[GXBucketManager sharedManager] getGalaxUser:joinUser.objectURI];
+            KiiObject *gxUser = [[GXBucketManager sharedManager] getGalaxUser:self.joinUser.objectURI];
             
             [newMember setObject:[gxUser getObjectForKey:user_fb_id] forKey:user_fb_id];
             [newMember setObject:[gxUser getObjectForKey:user_name] forKey:user_name];
@@ -269,20 +287,33 @@
                     NSLog(@"error : %@",error);
                 } else {
                     NSLog(@"グループメンバーを追加");
+                    UIAlertController *alertConroller = [UIAlertController alertControllerWithTitle:@"info" message:@"○○をクエストメンバーに追加しました" preferredStyle:UIAlertControllerStyleAlert];
+                    [alertConroller addAction:[UIAlertAction actionWithTitle:@"ok" style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
+                        //なにもしない
+                    }]];
                     
-                    //localNotification
-                    UILocalNotification *notification = [UILocalNotification new];
-                    notification.category = @"FIRST_CATEGORY";
-                    notification.alertBody = @"新しいメンバーを追加しました";
-                    notification.fireDate = [NSDate date];
-                    notification.soundName = UILocalNotificationDefaultSoundName;
-                    [[UIApplication sharedApplication] scheduleLocalNotification:notification];
+                    [self.window.rootViewController presentViewController:alertConroller animated:YES completion:nil];
+                    
                 }
             }];
-
+            
         }];
         
     }
+
+    
+
+}
+
+- (void)pushTest
+{
+    //localNotification
+    UILocalNotification *notification = [UILocalNotification new];
+    notification.category = @"INVITE_CATEGORY";
+    notification.alertBody = @"クエストの参加者が現れました";
+    notification.fireDate = [NSDate date];
+    notification.soundName = UILocalNotificationDefaultSoundName;
+    [[UIApplication sharedApplication] scheduleLocalNotification:notification];
 
 }
 
