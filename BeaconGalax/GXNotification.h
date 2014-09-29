@@ -28,7 +28,9 @@ UIKIT_EXTERN NSString *const GXQuestDeletedNotification;
 
 UIKIT_EXTERN NSString *const GXQuestJoinNotification;
 
-UIKIT_EXTERN NSString *const GXJoindQuestFetchedNotification;
+UIKIT_EXTERN NSString *const GXFetchQuestWithParticipantNotification;
+
+UIKIT_EXTERN NSString *const GXFetchQuestWithOwnerNotification;
 
 //Group関連
 UIKIT_EXTERN NSString *const GXGroupMemberFetchedNotification;

@@ -322,6 +322,17 @@
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="158" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="BeV-d6-jbY">
                                 <rect key="frame" x="0.0" y="0.0" width="320" height="519"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <segmentedControl key="tableHeaderView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" id="fey-7H-pq7">
+                                    <rect key="frame" x="0.0" y="64" width="320" height="30"/>
+                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                    <segments>
+                                        <segment title="受注"/>
+                                        <segment title="発行"/>
+                                    </segments>
+                                    <connections>
+                                        <action selector="indexChanged:" destination="o88-MI-UTX" eventType="valueChanged" id="dTK-sU-jMB"/>
+                                    </connections>
+                                </segmentedControl>
                                 <prototypes>
                                     <tableViewCell contentMode="scaleToFill" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" reuseIdentifier="Cell" rowHeight="158" id="lRQ-0D-505" customClass="GXJoinedQuestTableViewCell">
                                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
@@ -387,6 +398,7 @@
                     </view>
                     <navigationItem key="navigationItem" title="参加中のクエスト" id="goE-mP-9Mx"/>
                     <connections>
+                        <outlet property="segumentedControl" destination="fey-7H-pq7" id="5kE-fr-kEI"/>
                         <outlet property="tableView" destination="BeV-d6-jbY" id="Lwe-Q3-nes"/>
                         <segue destination="2KE-J0-tPr" kind="modal" identifier="goto_questExe" id="tMr-ab-WIl"/>
                     </connections>

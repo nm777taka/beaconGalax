@@ -30,9 +30,10 @@
 - (KiiObject *)getMeFromGalaxUserBucket;
 - (BOOL)isJoinedQuest:(NSString *)questTitile;
 - (BOOL)isExitedQuest:(NSString *)questTitle;
-- (NSMutableArray *)getJoinedQuest;
+- (void)getJoinedQuest;
 - (NSMutableArray *)getNearUser:(KiiUser *)user;
 - (void)registerJoinedQuest:(KiiObject *)obj;
+- (void)getOwnerQuest;
 
 - (KiiObject *)getGalaxUser:(NSString *)userURI;
 

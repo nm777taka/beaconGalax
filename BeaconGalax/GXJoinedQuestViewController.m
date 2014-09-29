@@ -19,6 +19,7 @@
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 @property GXJoinedQuestTableViewCell *stubCell;
 
+@property (weak, nonatomic) IBOutlet UISegmentedControl *segumentedControl;
 @property (nonatomic,retain) NSMutableArray *joinedQuestArray;
 @property (nonatomic,retain) KiiObject *selectedQuest;
 @end
@@ -37,26 +38,33 @@
 
     
     //Notification
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(fetchedHandler:) name:GXJoindQuestFetchedNotification object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(fetchQuestWithParticipantHandler:) name:GXFetchQuestWithParticipantNotification object:nil];
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(segueNotisHandler:) name:GXSegueToQuestExeViewNotification object:nil];
-
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(fetchQuestWithOwnerHandler:) name:GXFetchQuestWithOwnerNotification object:nil];
     
 }
 
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
-    [self fetch];
+    switch (self.segumentedControl.selectedSegmentIndex) {
+        case 0:
+            [self fetchParticipantQuest];
+            break;
+            
+        case 1:
+            [self fetchOwnerQuest];
+            break;
+            
+        default:
+            break;
+    }
+    
 }
 
-- (void)fetch
-{
-    //自分が参加しているクエストをフェッチ
-    self.joinedQuestArray = [[GXBucketManager sharedManager] getJoinedQuest];
-    [self.tableView reloadData];
 
-}
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
@@ -137,9 +145,11 @@
 
 #pragma mark - NotificationHandler
 
-- (void)fetchedHandler:(NSNotification *)notis
+- (void)fetchQuestWithParticipantHandler:(NSNotification *)notis
 {
-    
+    NSArray *array = notis.object;
+    self.joinedQuestArray = [NSMutableArray arrayWithArray:array];
+    [self.tableView reloadData];
 }
 
 - (void)segueNotisHandler:(NSNotification *)notis
@@ -168,6 +178,13 @@
     
 }
 
+- (void)fetchQuestWithOwnerHandler:(NSNotification *)notis
+{
+    NSArray *array = notis.object;
+    self.joinedQuestArray = [NSMutableArray arrayWithArray:array];
+    [self.tableView reloadData];
+}
+
 #pragma mark segue
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
 {
@@ -184,4 +201,32 @@
     
 }
 
+- (IBAction)indexChanged:(UISegmentedControl *)sender {
+    switch (sender.selectedSegmentIndex) {
+        case 0:
+            self.title = @"参加中";
+            [self fetchParticipantQuest];
+            break;
+            
+        case 1:
+            
+            self.title = @"発行中";
+            [self fetchOwnerQuest];
+            
+        default:
+            break;
+    }
+}
+
+- (void)fetchOwnerQuest
+{
+    [[GXBucketManager sharedManager] getOwnerQuest];
+}
+
+- (void)fetchParticipantQuest
+{
+    //自分が参加しているクエストをフェッチ
+    [[GXBucketManager sharedManager] getJoinedQuest];
+
+}
 @end

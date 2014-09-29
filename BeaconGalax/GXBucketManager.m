@@ -136,6 +136,19 @@
     return ret;
 }
 
+//自分がオーナーのクエストを返す
+- (void)getOwnerQuest
+{
+    NSString *ownerURI = [KiiUser currentUser].objectURI;
+    KiiClause *clause = [KiiClause equals:quest_createUserURI value:ownerURI];
+    KiiQuery *query = [KiiQuery queryWithClause:clause];
+    [self.questBoard executeQuery:query withBlock:^(KiiQuery *query, KiiBucket *bucket, NSArray *results, KiiQuery *nextQuery, NSError *error) {
+        
+        [[NSNotificationCenter defaultCenter] postNotificationName:GXFetchQuestWithOwnerNotification object:results];
+        
+    }];
+}
+
 
 #pragma mark - GroupScope
 - (void)registerQuestMember:(KiiUser *)user
@@ -209,23 +222,21 @@
 }
 
 //joinしたクエストを取得
-- (NSMutableArray *)getJoinedQuest
+- (void)getJoinedQuest
 {
-    NSError *error = nil;
     
     KiiQuery *all_query = [KiiQuery queryWithClause:nil];
     
     NSMutableArray *allResults = [NSMutableArray array];
     
-    KiiQuery *nextQuery;
+    [self.joinedQuest executeQuery:all_query withBlock:^(KiiQuery *query, KiiBucket *bucket, NSArray *results, KiiQuery *nextQuery, NSError *error) {
+        
+        [[NSNotificationCenter defaultCenter] postNotificationName:GXFetchQuestWithParticipantNotification object:results];
+        
+    }];
+   
     
-    NSArray *results = [self.joinedQuest executeQuerySynchronous:all_query
-                                             withError:&error
-                                               andNext:&nextQuery];
     
-    [allResults addObjectsFromArray:results];
-    
-    return allResults;
 }
 
 
