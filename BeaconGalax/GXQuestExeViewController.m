@@ -256,16 +256,22 @@
     //バケットにある自分の情報に準備OKフラグを書き込む
     NSMutableArray *results = [NSMutableArray new];
     NSString *currentUserURI  = [KiiUser currentUser].objectURI;
+    
     KiiClause *clause = [KiiClause equals:user_uri value:currentUserURI];
     KiiQuery *query = [KiiQuery queryWithClause:clause];
     KiiQuery *nextQuery;
     NSError *error;
+    
     NSArray *result = [self.questMemberBucket executeQuerySynchronous:query withError:&error andNext:&nextQuery];
+    
     if (!error) {
+        NSLog(@"フェッチ完了なりいいい");
         [results addObjectsFromArray:result];
+        NSLog(@"resultsカウント %d",results.count);
     } else{
         NSLog(@"eeror:%@",error);
     }
+    
     if (results.count == 1) {
         NSLog(@"自分の情報を更新");
         KiiObject *me = results.firstObject;
