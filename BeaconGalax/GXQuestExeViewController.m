@@ -235,8 +235,17 @@
     KiiObject *member = self.memberArray[indexPath.row];
     NSString *fbURI = [member getObjectForKey:user_fb_id];
     NSString *name = [member getObjectForKey:user_name];
+    NSNumber *number = [member getObjectForKey:user_isReady];
+    NSLog(@"number:%@",number);
+    BOOL isReady = [number boolValue];
     cell.userIconView.profileID = fbURI;
     cell.userNameLabel.text = name;
+    
+    if (isReady) {
+        cell.userReadySignLabel.text = @"OK";
+    } else {
+        cell.userReadySignLabel.text = @"NO";
+    }
     
 }
 
@@ -252,7 +261,6 @@
 #pragma mark - 参加者
 - (IBAction)readyAction:(id)sender
 {
-    NSLog(@"call");
     //バケットにある自分の情報に準備OKフラグを書き込む
     NSMutableArray *results = [NSMutableArray new];
     NSString *currentUserURI  = [KiiUser currentUser].objectURI;
@@ -265,7 +273,6 @@
     NSArray *result = [self.questMemberBucket executeQuerySynchronous:query withError:&error andNext:&nextQuery];
     
     if (!error) {
-        NSLog(@"フェッチ完了なりいいい");
         [results addObjectsFromArray:result];
         NSLog(@"resultsカウント %d",results.count);
     } else{
@@ -281,6 +288,9 @@
         
         if (!error) {
             NSLog(@"情報を更新完了");
+            
+            [[GXGroupManager sharedManager] getGroup:self.exeQuest];
+
         }
     }
     

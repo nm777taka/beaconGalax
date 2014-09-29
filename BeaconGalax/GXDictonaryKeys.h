@@ -26,6 +26,7 @@ static NSString * const user_isMember = @"isMember";
 static NSString * const user_name = @"name";
 static NSString * const user_email = @"email";
 static NSString * const user_fb_id = @"facebook_id";
+static NSString * const user_isReady = @"isReady";
 
 //トピック
 static NSString * const topic_invite = @"invite_notify";

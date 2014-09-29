@@ -281,6 +281,8 @@
             [newMember setObject:[gxUser getObjectForKey:user_fb_id] forKey:user_fb_id];
             [newMember setObject:[gxUser getObjectForKey:user_name] forKey:user_name];
             [newMember setObject:[gxUser getObjectForKey:user_uri] forKey:user_uri];
+            [newMember setObject:@NO forKey:user_isReady];
+            
             
             [newMember saveWithBlock:^(KiiObject *object, NSError *error) {
                 if (error) {
