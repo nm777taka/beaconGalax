@@ -23,7 +23,9 @@
 @property KiiObject *selectedObject;
 @end
 
-@implementation GXQuestViewController
+@implementation GXQuestViewController{
+    UIRefreshControl *_refreshControl;
+}
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -48,8 +50,9 @@
     
     _objects = [NSMutableArray new];
     
-    self.navigationItem.leftBarButtonItem = self.editButtonItem;
-    
+    _refreshControl = [UIRefreshControl new];
+    [_refreshControl addTarget:self action:@selector(refresh) forControlEvents:UIControlEventValueChanged];
+    [self.tableView addSubview:_refreshControl];
     
     _stubCell = [self.tableView dequeueReusableCellWithIdentifier:@"Cell"];
     _descriptionViewContoller = [[self storyboard] instantiateViewControllerWithIdentifier:@"DescriptionView"];
@@ -70,7 +73,7 @@
     } else {
         //DBからフェッチ(非同期)
         //最終的に変更があった場合のみにしたい
-        _objects = [[GXBucketManager sharedManager] fetchQuestWithNotComplited];
+        [[GXBucketManager sharedManager] fetchQuestWithNotComplited];
     }
 }
 
@@ -162,10 +165,26 @@
     [self performSegueWithIdentifier:@"gotoDescriptionView" sender:self];
 }
 
+#pragma  mark - refresh
+- (void)refresh
+{
+    NSLog(@"refresh");
+    
+    
+    [NSTimer scheduledTimerWithTimeInterval:1.f target:self selector:@selector(endRefresh) userInfo:nil repeats:NO];
+}
+
+- (void)endRefresh
+{
+    [_refreshControl endRefreshing];
+}
+
 #pragma mark Notification
 - (void)questFetched:(NSNotification *)info
 {
     NSLog(@"objects.cout : %d",_objects.count);
+    NSArray *array = info.object;
+    self.objects = [NSMutableArray arrayWithArray:array];
     [self.tableView reloadData];
 
 }
@@ -226,6 +245,7 @@
     //segue
 }
 
+
 #pragma mark segue
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
 {
@@ -234,5 +254,6 @@
         vc.object = _selectedObject;
     }
 }
+
 
 @end

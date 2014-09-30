@@ -11,6 +11,7 @@
 #import <Facebook-iOS-SDK/FacebookSDK/FacebookSDK.h>
 #import <PulsingHalo/PulsingHaloLayer.h>
 #import "ChameleonFramework/Chameleon.h"
+#import <BlocksKit/BlocksKit+UIKit.h>
 
 
 @interface GXQuestExeViewController : UIViewController

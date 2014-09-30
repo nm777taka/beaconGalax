@@ -26,7 +26,7 @@
 + (GXBucketManager *)sharedManager;
 - (void)registerGalaxUser:(KiiUser *)user;
 - (void)registerQuest:(GXQuest *)quest;
-- (NSMutableArray *)fetchQuestWithNotComplited;
+- (void)fetchQuestWithNotComplited;
 - (KiiObject *)getMeFromGalaxUserBucket;
 - (BOOL)isJoinedQuest:(NSString *)questTitile;
 - (BOOL)isExitedQuest:(NSString *)questTitle;

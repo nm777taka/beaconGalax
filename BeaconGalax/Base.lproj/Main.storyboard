@@ -443,9 +443,6 @@
                                 <state key="normal" title="Ready">
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
-                                <connections>
-                                    <action selector="readyAction:" destination="2KE-J0-tPr" eventType="touchUpInside" id="bCS-nx-zUX"/>
-                                </connections>
                             </button>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="60" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="0jx-by-v5D">
                                 <rect key="frame" x="16" y="237" width="288" height="265"/>
@@ -497,7 +494,6 @@
                         <outlet property="messageLabel" destination="be1-2G-oBf" id="kw2-DD-Mze"/>
                         <outlet property="ownerIcon" destination="JHt-I9-niR" id="ZZu-Rb-rrr"/>
                         <outlet property="readyButton" destination="3gr-xc-EeY" id="4SP-ZE-bTx"/>
-                        <outlet property="startButton" destination="3gr-xc-EeY" id="4zi-DM-i9e"/>
                         <outlet property="statusLabel" destination="h6e-yd-CyK" id="7hJ-rT-1Sx"/>
                         <outlet property="tableView" destination="0jx-by-v5D" id="Mq7-VC-i0T"/>
                     </connections>

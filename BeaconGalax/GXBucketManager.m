@@ -136,6 +136,26 @@
     return ret;
 }
 
+- (void)questStart:(KiiGroup *)groupURI
+{
+    KiiClause *clause = [KiiClause equals:quest_groupURI value:groupURI];
+    KiiQuery *query = [KiiQuery queryWithClause:clause];
+    [self.questBoard executeQuery:query withBlock:^(KiiQuery *query, KiiBucket *bucket, NSArray *results, KiiQuery *nextQuery, NSError *error) {
+        KiiObject *object = results.firstObject;
+        [object refreshWithBlock:^(KiiObject *object, NSError *error) {
+            
+            [object setObject:@YES forKey:quest_isStarted];
+            
+            [object saveWithBlock:^(KiiObject *object, NSError *error) {
+                if (!error) {
+                    //クエスト開始に更新
+                    NSLog(@"クエスト開始処理に更新");
+                }
+            }];
+        }];
+    }];
+}
+
 //自分がオーナーのクエストを返す
 - (void)getOwnerQuest
 {
@@ -224,7 +244,6 @@
 //joinしたクエストを取得
 - (void)getJoinedQuest
 {
-    
     KiiQuery *all_query = [KiiQuery queryWithClause:nil];
     
     NSMutableArray *allResults = [NSMutableArray array];
@@ -280,27 +299,21 @@
 }
 
 #pragma mark Quest Method
-- (NSMutableArray *)fetchQuestWithNotComplited
+- (void)fetchQuestWithNotComplited
 {
-    NSError *error = nil;
-    NSMutableArray *allResult = [NSMutableArray new];
-    KiiClause *clause = [KiiClause equals:@"isCompleted" value:@NO];
+    KiiClause *clause = [KiiClause equals:@"isStarted" value:@NO];
     KiiQuery *query = [KiiQuery queryWithClause:clause];
     [query sortByDesc:@"_created"];
-    KiiQuery *nextQuery;
     
     [self.questBoard executeQuery:query withBlock:^(KiiQuery *query, KiiBucket *bucket, NSArray *results, KiiQuery *nextQuery, NSError *error) {
         if (error) {
             NSLog(@"error :%@",error);
         } else {
-           
-            [allResult addObjectsFromArray:results];
             
             //notification
-            [[NSNotificationCenter defaultCenter] postNotificationName:GXFetchQuestNotComplitedNotification object:nil userInfo:nil];
+            [[NSNotificationCenter defaultCenter] postNotificationName:GXFetchQuestNotComplitedNotification object:results userInfo:nil];
         }
     }];
-    return allResult;
 }
 
 

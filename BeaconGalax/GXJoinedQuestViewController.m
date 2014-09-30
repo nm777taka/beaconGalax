@@ -22,9 +22,13 @@
 @property (weak, nonatomic) IBOutlet UISegmentedControl *segumentedControl;
 @property (nonatomic,retain) NSMutableArray *joinedQuestArray;
 @property (nonatomic,retain) KiiObject *selectedQuest;
+
+
 @end
 
-@implementation GXJoinedQuestViewController
+@implementation GXJoinedQuestViewController{
+    UIRefreshControl *_refreshControl;
+}
 
 #pragma mark - ViewLifeCycle
 
@@ -35,6 +39,10 @@
     self.tableView.dataSource = self;
     
     _stubCell = [self.tableView dequeueReusableCellWithIdentifier:@"Cell"];
+    
+    _refreshControl = [UIRefreshControl new];
+    [_refreshControl addTarget:self action:@selector(refresh) forControlEvents:UIControlEventValueChanged];
+    [self.tableView addSubview:_refreshControl];
 
     
     //Notification
@@ -218,6 +226,7 @@
     }
 }
 
+#pragma mark - fetch
 - (void)fetchOwnerQuest
 {
     [[GXBucketManager sharedManager] getOwnerQuest];
@@ -228,5 +237,18 @@
     //自分が参加しているクエストをフェッチ
     [[GXBucketManager sharedManager] getJoinedQuest];
 
+}
+
+#pragma mark - refresh handler
+- (void)refresh
+{
+    NSLog(@"refresh");
+    
+    [NSTimer scheduledTimerWithTimeInterval:1.f target:self selector:@selector(endRefresh) userInfo:nil repeats:NO];
+}
+
+- (void)endRefresh
+{
+    [_refreshControl endRefreshing];
 }
 @end

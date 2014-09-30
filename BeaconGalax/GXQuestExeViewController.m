@@ -19,8 +19,6 @@
 
 @interface GXQuestExeViewController ()<GXBeaconDelegate,UITableViewDataSource,UITableViewDelegate>
 @property (weak, nonatomic) IBOutlet FBProfilePictureView *ownerIcon;
-@property (weak, nonatomic) IBOutlet UIView *joinedUserIcon;
-@property (weak, nonatomic) IBOutlet UIButton *startButton;
 @property (weak, nonatomic) IBOutlet UILabel *messageLabel;
 @property (weak, nonatomic) IBOutlet UILabel *statusLabel;
 @property (weak, nonatomic) IBOutlet UIButton *readyButton;
@@ -63,10 +61,7 @@
     self.ownerIcon.layer.cornerRadius = 50.f;
     self.ownerIcon.layer.borderColor = [UIColor whiteColor].CGColor;
     self.ownerIcon.layer.borderWidth = 1.f;
-    self.joinedUserIcon.layer.cornerRadius = 50.f;
-    self.joinedUserIcon.layer.borderWidth = 1.f;
-    self.joinedUserIcon.layer.borderColor = [UIColor whiteColor].CGColor;
-    
+
     self.readyButton.backgroundColor = [UIColor clearColor];
     self.readyButton.layer.cornerRadius = 5.0f;
     self.readyButton.layer.borderColor = [UIColor colorWithComplementaryFlatColorOf:FlatWatermelon].CGColor;
@@ -104,17 +99,15 @@
     self.isOwner = false;
     //クエスト作成者か受注者でUIを変える
     if ([self.ownerURI isEqualToString:[KiiUser currentUser].objectURI]) {
-        //作成者
-        NSLog(@"作成者");
+
         self.isOwner = true;
         
     } else {
-        //受注者
-        NSLog(@"受注者");
+     
         self.isOwner = false;
     }
     
-    [self configureLabel:self.isOwner];
+    [self configureUI:self.isOwner];
     
     //GroupMemberFetch
     [[GXGroupManager sharedManager] getGroup:self.exeQuest];
@@ -139,15 +132,22 @@
     
 }
 
-- (void)configureLabel:(BOOL)isOwner
+- (void)configureUI:(BOOL)isOwner
 {
     if (isOwner) {
         self.messageLabel.text = @"メンバーを揃えよう";
         [self.readyButton setTitle:@"Start" forState:UIControlStateNormal];
+        [self.readyButton bk_addEventHandler:^(id sender) {
+            
+        } forControlEvents:UIControlEventTouchUpInside];
+        
     }else {
         self.messageLabel.text = @"リーダの近くに集まれ";
         [self fadeIn];
         [self.readyButton setTitle:@"Ready" forState:UIControlStateNormal];
+        [self.readyButton bk_addEventHandler:^(id sender) {
+            [self readyAction];
+        } forControlEvents:UIControlEventTouchUpInside];
     }
 }
 
@@ -259,7 +259,7 @@
 }
 
 #pragma mark - 参加者
-- (IBAction)readyAction:(id)sender
+- (void)readyAction
 {
     //バケットにある自分の情報に準備OKフラグを書き込む
     NSMutableArray *results = [NSMutableArray new];
@@ -288,12 +288,32 @@
         
         if (!error) {
             NSLog(@"情報を更新完了");
-            
             [[GXGroupManager sharedManager] getGroup:self.exeQuest];
-
         }
     }
+}
+
+- (void)startAction
+{
+    int cnt = 0;
     
+    for (KiiObject *obj in self.memberArray) {
+        NSNumber *num = [obj getObjectForKey:user_isReady];
+        bool isready = [num boolValue];
+        
+        if (isready) cnt++;
+    }
+    
+    if (cnt == self.memberArray.count) {
+        
+        //クエストスタート処理
+        UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"確認" message:@"クエストを開始します" preferredStyle:UIAlertControllerStyleAlert];
+        UIAlertAction *action  = [UIAlertAction actionWithTitle:@"ok" style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
+            //なんかする
+        }];
+        
+        [self presentViewController:alertController animated:YES completion:nil];
+    }
 }
 
 #pragma mark Notification Handler
