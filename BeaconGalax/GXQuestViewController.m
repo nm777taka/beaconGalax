@@ -91,29 +91,29 @@
     
     // メインラベルに文字列を設定
     customCell.mainLabel.text = [object getObjectForKey:quest_title];
-    // サブラベルに文字列を設定
+    // サブラベルに文字列を設you
     NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
     dateFormatter.dateFormat = @"yyyy年MM月dd日 HH時mm分ss秒";
     NSString *dateText = [dateFormatter stringFromDate:object.created];
-    customCell.subLabel.text = dateText;
+    //customCell.subLabel.text = dateText;
     
     customCell.nameLabel.text = [object getObjectForKey:quest_createdUserName];
     
     //アイコンを更新
-    customCell.fbUserIcon.profileID = [object getObjectForKey:quest_createdUser_fbid];
+    //customCell.fbUserIcon.profileID = [object getObjectForKey:quest_createdUser_fbid];
 }
 
 #pragma mark - Table View
-
-- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    // 計測用のプロパティ"_stubCell"を使って高さを計算する
-    [self configureCell:_stubCell atIndexPath:indexPath];
-    [_stubCell layoutSubviews];
-    CGFloat height = [_stubCell.contentView systemLayoutSizeFittingSize:UILayoutFittingCompressedSize].height;
-    
-    return height + 1;
-}
+#pragma mark - アジャスタブル用
+//- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
+//{
+//    // 計測用のプロパティ"_stubCell"を使って高さを計算する
+//    [self configureCell:_stubCell atIndexPath:indexPath];
+//    [_stubCell layoutSubviews];
+//    CGFloat height = [_stubCell.contentView systemLayoutSizeFittingSize:UILayoutFittingCompressedSize].height;
+//    
+//    return height + 1;
+//}
 
 - (CGFloat)tableView:(UITableView *)tableView estimatedHeightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
@@ -240,9 +240,29 @@
 }
 
 #pragma mark Button_Action
+#pragma mark -- サーバーコードのテスト
 - (IBAction)createNewQuest:(id)sender
 {
-    //segue
+    
+    NSLog(@"call");
+    KiiServerCodeEntry* entry =[Kii serverCodeEntry:@"createMission"];
+    
+    //実行時パラメータ
+    KiiUser *currUser = [KiiUser currentUser];
+    NSDictionary *argDict = @{currUser.objectURI:@"user_uri"};
+    KiiServerCodeEntryArgument *argument = [KiiServerCodeEntryArgument argumentWithDictionary:argDict];
+    NSError* error = nil;
+    
+    
+    KiiServerCodeExecResult* result = [entry executeSynchronous:argument
+                                                      withError:&error];
+    
+    // Parse the result.
+    NSDictionary *returnedDict = [result returnedValue];
+    NSString *timestamp = [returnedDict objectForKey:@"returnedValue"];
+    
+    NSLog(@"%@",timestamp);
+        
 }
 
 
