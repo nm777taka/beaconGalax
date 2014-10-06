@@ -161,6 +161,8 @@ static NSInteger  const logOutAlertViewTag = 2;
     NSString *fb_id = [userObject getObjectForKey:@"facebook_id"];
     self.profilePictureView.profileID = fb_id;
     
+    [[NSNotificationCenter defaultCenter] postNotificationName:GXFBProfilePictNotification object:fb_id];
+    
     if (self.profilePictureView.hidden == YES) {
         self.profilePictureView.hidden = NO;
     }

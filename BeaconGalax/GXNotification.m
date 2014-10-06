@@ -32,6 +32,8 @@ NSString *const GXGroupMemberFetchedNotification = @"GXGroupMemberFetchedNotific
 
 NSString *const GXFetchQuestWithOwnerNotification = @"GXFetchQuestWithOwnerNotification";
 
+NSString *const GXFBProfilePictNotification = @"GXFBProfilePictNotification";
+
 
 
 

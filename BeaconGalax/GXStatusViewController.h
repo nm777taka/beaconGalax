@@ -7,6 +7,8 @@
 //
 
 #import <UIKit/UIKit.h>
+#import <Facebook-iOS-SDK/FacebookSDK/Facebook.h>
+#import <Chameleon.h>
 
 @interface GXStatusViewController : UIViewController
 
