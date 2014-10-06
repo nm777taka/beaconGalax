@@ -43,6 +43,7 @@ PODS:
     - Bolts
   - HexColors (2.2.1)
   - PulsingHalo (0.0.1)
+  - REFrostedViewController (2.4.7)
   - SVProgressHUD (1.0)
   - TSMessages (0.9.9):
     - HexColors
@@ -55,6 +56,7 @@ DEPENDENCIES:
   - EstimoteSDK
   - Facebook-iOS-SDK
   - PulsingHalo
+  - REFrostedViewController (~> 2.4.7)
   - SVProgressHUD
   - TSMessages
 
@@ -68,6 +70,7 @@ SPEC CHECKSUMS:
   Facebook-iOS-SDK: 56214af8e0ef16e751eb2804250326b709e571b8
   HexColors: 01384d2bbe8dc4ffa43c3b4135db6e976952d153
   PulsingHalo: 4f5fbc25f9efb9f949e4ddad05ca885a11667aa0
+  REFrostedViewController: 08870a24788191339608b80b2bd4fce549858f0d
   SVProgressHUD: 5034c6e22b8c2ca3e09402e48d41ed0340aa1c50
   TSMessages: 2999ef55e532378692e9d14d32da2bb60e285129
 

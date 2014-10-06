@@ -92,6 +92,9 @@
 		0FA17E4019623FB700158421 /* GXUserManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 0FA17E3F19623FB700158421 /* GXUserManager.m */; };
 		0FA1E9EF19C06FD8003D7CDE /* GXTestBeaconViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0FA1E9EE19C06FD8003D7CDE /* GXTestBeaconViewController.m */; };
 		0FC0095419E13CB70026A7DC /* GXHomeCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 0FC0095319E13CB70026A7DC /* GXHomeCollectionViewCell.m */; };
+		0FC0095819E259DD0026A7DC /* GXFrostedViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0FC0095719E259DD0026A7DC /* GXFrostedViewController.m */; };
+		0FD200A219E2608D0034E52A /* GXStatusViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0FD200A119E2608D0034E52A /* GXStatusViewController.m */; };
+		0FD200A619E263CE0034E52A /* GXNavViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0FD200A519E263CE0034E52A /* GXNavViewController.m */; };
 		0FD26D7B1959F0E7005E2B95 /* GXTableViewConst.m in Sources */ = {isa = PBXBuildFile; fileRef = 0FD26D7A1959F0E7005E2B95 /* GXTableViewConst.m */; };
 		0FD26D811959F689005E2B95 /* GXCustomSectionHeader.m in Sources */ = {isa = PBXBuildFile; fileRef = 0FD26D7F1959F689005E2B95 /* GXCustomSectionHeader.m */; };
 		0FD26D821959F689005E2B95 /* GXCustomSectionHeader.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0FD26D801959F689005E2B95 /* GXCustomSectionHeader.xib */; };
@@ -239,6 +242,12 @@
 		0FA1E9EE19C06FD8003D7CDE /* GXTestBeaconViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GXTestBeaconViewController.m; sourceTree = "<group>"; };
 		0FC0095219E13CB70026A7DC /* GXHomeCollectionViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GXHomeCollectionViewCell.h; sourceTree = "<group>"; };
 		0FC0095319E13CB70026A7DC /* GXHomeCollectionViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GXHomeCollectionViewCell.m; sourceTree = "<group>"; };
+		0FC0095619E259DD0026A7DC /* GXFrostedViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GXFrostedViewController.h; sourceTree = "<group>"; };
+		0FC0095719E259DD0026A7DC /* GXFrostedViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GXFrostedViewController.m; sourceTree = "<group>"; };
+		0FD200A019E2608D0034E52A /* GXStatusViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GXStatusViewController.h; sourceTree = "<group>"; };
+		0FD200A119E2608D0034E52A /* GXStatusViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GXStatusViewController.m; sourceTree = "<group>"; };
+		0FD200A419E263CE0034E52A /* GXNavViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GXNavViewController.h; sourceTree = "<group>"; };
+		0FD200A519E263CE0034E52A /* GXNavViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GXNavViewController.m; sourceTree = "<group>"; };
 		0FD26D791959F0E7005E2B95 /* GXTableViewConst.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GXTableViewConst.h; sourceTree = "<group>"; };
 		0FD26D7A1959F0E7005E2B95 /* GXTableViewConst.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GXTableViewConst.m; sourceTree = "<group>"; };
 		0FD26D7E1959F689005E2B95 /* GXCustomSectionHeader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GXCustomSectionHeader.h; sourceTree = "<group>"; };
@@ -511,6 +520,9 @@
 		0F7A25C919587E0C001B7839 /* Controller */ = {
 			isa = PBXGroup;
 			children = (
+				0FD200A319E263B50034E52A /* GXNavigation */,
+				0FD2009F19E2605C0034E52A /* GXUserStatus */,
+				0FC0095519E2597A0026A7DC /* GXFrostedViewController */,
 				0F16511219D2A3E000918F8D /* QuestPrepare */,
 				0F16510E19D287B700918F8D /* QuestExe */,
 				0F649FDE19CD541300D48074 /* JoinedQuest */,
@@ -624,6 +636,33 @@
 				0F16512419D4435A00918F8D /* GXGroupManager.m */,
 			);
 			name = Model;
+			sourceTree = "<group>";
+		};
+		0FC0095519E2597A0026A7DC /* GXFrostedViewController */ = {
+			isa = PBXGroup;
+			children = (
+				0FC0095619E259DD0026A7DC /* GXFrostedViewController.h */,
+				0FC0095719E259DD0026A7DC /* GXFrostedViewController.m */,
+			);
+			name = GXFrostedViewController;
+			sourceTree = "<group>";
+		};
+		0FD2009F19E2605C0034E52A /* GXUserStatus */ = {
+			isa = PBXGroup;
+			children = (
+				0FD200A019E2608D0034E52A /* GXStatusViewController.h */,
+				0FD200A119E2608D0034E52A /* GXStatusViewController.m */,
+			);
+			name = GXUserStatus;
+			sourceTree = "<group>";
+		};
+		0FD200A319E263B50034E52A /* GXNavigation */ = {
+			isa = PBXGroup;
+			children = (
+				0FD200A419E263CE0034E52A /* GXNavViewController.h */,
+				0FD200A519E263CE0034E52A /* GXNavViewController.m */,
+			);
+			name = GXNavigation;
 			sourceTree = "<group>";
 		};
 		0FD26D7C1959F32C005E2B95 /* View */ = {
@@ -879,9 +918,11 @@
 				0F5FA5F2198A324600F41B05 /* GXHomeTableViewCell.m in Sources */,
 				0F7A25D219588264001B7839 /* GXBeaconRegion.m in Sources */,
 				0FA17E371961A09700158421 /* GXBucketManager.m in Sources */,
+				0FD200A219E2608D0034E52A /* GXStatusViewController.m in Sources */,
 				0F649FDD19CD272200D48074 /* GXTabBarViewController.m in Sources */,
 				0F16512819D443A800918F8D /* GXQuestMemberCell.m in Sources */,
 				0F42366A19BDAC6D0001E204 /* GXDescriptionViewController.m in Sources */,
+				0FC0095819E259DD0026A7DC /* GXFrostedViewController.m in Sources */,
 				0F5FA5ED198A31D900F41B05 /* GXHomeTableViewHeader.m in Sources */,
 				0F16512519D4435A00918F8D /* GXGroupManager.m in Sources */,
 				0F42366719BD58530001E204 /* UIPlaceHolderTextView.m in Sources */,
@@ -904,6 +945,7 @@
 				0FF16CE9197F86DB00B02702 /* NSMutableArray+Extended.m in Sources */,
 				0F16511119D287E200918F8D /* GXQuestExeViewController.m in Sources */,
 				0F80277219BF370800453653 /* GXBeaconViewController.m in Sources */,
+				0FD200A619E263CE0034E52A /* GXNavViewController.m in Sources */,
 				0F42366419BD54420001E204 /* GXCreateQuestViewController.m in Sources */,
 				0F7A25A419587ADE001B7839 /* GXAppDelegate.m in Sources */,
 				0FC0095419E13CB70026A7DC /* GXHomeCollectionViewCell.m in Sources */,
