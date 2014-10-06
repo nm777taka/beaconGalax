@@ -32,6 +32,9 @@ UIKIT_EXTERN NSString *const GXFetchQuestWithParticipantNotification;
 
 UIKIT_EXTERN NSString *const GXFetchQuestWithOwnerNotification;
 
+//ミッション関連
+UIKIT_EXTERN NSString *const GXFetchMissionWithNotCompletedNotification;
+
 //Group関連
 UIKIT_EXTERN NSString *const GXGroupMemberFetchedNotification;
 

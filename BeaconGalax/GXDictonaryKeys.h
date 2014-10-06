@@ -11,6 +11,12 @@
 //クエスト
 static NSString * const quest_title = @"title";
 static NSString * const quest_description = @"description";
+static NSString * const quest_level = @"level";
+static NSString * const quest_type = @"type";
+static NSString * const quest_reward = @"reward";
+
+
+
 static NSString * const quest_createUserURI = @"created_user_uri";
 static NSString * const quest_createdUser_fbid = @"facebook_id";
 static NSString * const quest_groupURI = @"group_uri";

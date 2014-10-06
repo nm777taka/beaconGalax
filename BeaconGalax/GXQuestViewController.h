@@ -9,6 +9,6 @@
 #import <UIKit/UIKit.h>
 #import <SVProgressHUD/SVProgressHUD.h>
 #import <TSMessages/TSMessage.h>
-@interface GXQuestViewController : UIViewController<UITableViewDataSource,UITableViewDelegate>
+@interface GXQuestViewController : UIViewController
 
 @end

@@ -19,6 +19,7 @@
 @property (nonatomic) KiiBucket *questMember;
 
 //UserScope
+@property (nonatomic) KiiBucket *missionBoard;
 @property (nonatomic) KiiBucket *nearUser;
 @property (nonatomic) KiiBucket *joinedQuest;
 @property (nonatomic) KiiBucket *myQuestParticipants;
@@ -27,6 +28,7 @@
 - (void)registerGalaxUser:(KiiUser *)user;
 - (void)registerQuest:(GXQuest *)quest;
 - (void)fetchQuestWithNotComplited;
+- (void)fetchMissionWithNotCompleted;
 - (KiiObject *)getMeFromGalaxUserBucket;
 - (BOOL)isJoinedQuest:(NSString *)questTitile;
 - (BOOL)isExitedQuest:(NSString *)questTitle;

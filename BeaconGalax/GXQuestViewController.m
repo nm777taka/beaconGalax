@@ -7,17 +7,17 @@
 //
 
 #import "GXQuestViewController.h"
-#import "GXHomeTableViewCell.h"
+#import "GXHomeCollectionViewCell.h"
 #import "GXDescriptionViewController.h"
 #import "GXBucketManager.h"
 #import "GXNotification.h"
 #import "GXDictonaryKeys.h"
 
-@interface GXQuestViewController ()
-@property (weak, nonatomic) IBOutlet UITableView *tableView;
+@interface GXQuestViewController ()<UICollectionViewDataSource,UICollectionViewDelegate>
+
 - (IBAction)createNewQuest:(id)sender;
-@property GXHomeTableViewCell *stubCell;
 @property GXDescriptionViewController *descriptionViewContoller;
+@property (weak, nonatomic) IBOutlet UICollectionView *collectionView;
 @property NSArray *textArray;
 @property NSMutableArray *objects;
 @property KiiObject *selectedObject;
@@ -40,27 +40,22 @@
 {
     [super viewDidLoad];
 	// Do any additional setup after loading the view, typically from a nib.
-    self.tableView.delegate = self;
-    self.tableView.dataSource = self;
-    
-    //セパレータを左端まで伸ばす
-    if ([self.tableView respondsToSelector:@selector(setSeparatorInset:)]) {
-        [self.tableView setSeparatorInset:UIEdgeInsetsZero];
-    }
+    self.collectionView.delegate = self;
+    self.collectionView.dataSource = self;
     
     _objects = [NSMutableArray new];
     
     _refreshControl = [UIRefreshControl new];
     [_refreshControl addTarget:self action:@selector(refresh) forControlEvents:UIControlEventValueChanged];
-    [self.tableView addSubview:_refreshControl];
+    [self.collectionView addSubview:_refreshControl];
     
-    _stubCell = [self.tableView dequeueReusableCellWithIdentifier:@"Cell"];
     _descriptionViewContoller = [[self storyboard] instantiateViewControllerWithIdentifier:@"DescriptionView"];
     
     
     //Notification
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(questFetched:) name:GXFetchQuestNotComplitedNotification object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(joinQuestHandler:) name:GXQuestJoinNotification object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(missionFetched:) name:GXFetchMissionWithNotCompletedNotification object:nil];
     
 }
 
@@ -84,25 +79,6 @@
     // Dispose of any resources that can be recreated.
 }
 
-- (void)configureCell:(UITableViewCell *)cell atIndexPath:(NSIndexPath *)indexPath
-{
-    GXHomeTableViewCell *customCell = (GXHomeTableViewCell *)cell;
-    KiiObject *object = _objects[indexPath.row];
-    
-    // メインラベルに文字列を設定
-    customCell.mainLabel.text = [object getObjectForKey:quest_title];
-    // サブラベルに文字列を設you
-    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
-    dateFormatter.dateFormat = @"yyyy年MM月dd日 HH時mm分ss秒";
-    NSString *dateText = [dateFormatter stringFromDate:object.created];
-    //customCell.subLabel.text = dateText;
-    
-    customCell.nameLabel.text = [object getObjectForKey:quest_createdUserName];
-    
-    //アイコンを更新
-    //customCell.fbUserIcon.profileID = [object getObjectForKey:quest_createdUser_fbid];
-}
-
 #pragma mark - Table View
 #pragma mark - アジャスタブル用
 //- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -114,39 +90,6 @@
 //    
 //    return height + 1;
 //}
-
-- (CGFloat)tableView:(UITableView *)tableView estimatedHeightForRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    return 40.0;
-}
-
-- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
-{
-    return 1;
-}
-
-- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
-{
-    return _objects.count;
-}
-
-- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"Cell" forIndexPath:indexPath];
-    
-    cell.selectionStyle = UITableViewCellSelectionStyleNone;
-
-    
-    [self configureCell:cell atIndexPath:indexPath];    // 追加
-    
-    return cell;
-}
-
-- (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    // Return NO if you do not want the specified item to be editable.
-    return YES;
-}
 
 //- (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath
 //{
@@ -165,12 +108,46 @@
     [self performSegueWithIdentifier:@"gotoDescriptionView" sender:self];
 }
 
+#pragma mark - CollectionView
+- (NSInteger)numberOfSectionsInCollectionView:(UICollectionView *)collectionView
+{
+    return 1;
+}
+
+- (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section
+{
+    return self.objects.count;
+}
+
+- (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath
+{
+    GXHomeCollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"Cell" forIndexPath:indexPath];
+    
+    [self configureCell:cell atIndexPath:indexPath];
+    
+    return cell;
+    
+}
+
+- (void)configureCell:(GXHomeCollectionViewCell *)cell atIndexPath:(NSIndexPath *)indexPath
+{
+    KiiObject *quest = self.objects[indexPath.row];
+    
+    cell.titleLable.text = [quest getObjectForKey:quest_title];
+    cell.desLabel.text = [quest getObjectForKey:quest_description];
+    NSNumber *num = [quest getObjectForKey:quest_reward];
+    cell.rewardLabel.text = [NSString stringWithFormat:@"%d",[num intValue]];
+    
+}
+
+
 #pragma  mark - refresh
 - (void)refresh
 {
     NSLog(@"refresh");
     
-    
+    [self.collectionView reloadData];
+
     [NSTimer scheduledTimerWithTimeInterval:1.f target:self selector:@selector(endRefresh) userInfo:nil repeats:NO];
 }
 
@@ -182,24 +159,33 @@
 #pragma mark Notification
 - (void)questFetched:(NSNotification *)info
 {
-    NSLog(@"objects.cout : %d",_objects.count);
     NSArray *array = info.object;
     self.objects = [NSMutableArray arrayWithArray:array];
-    [self.tableView reloadData];
+    [self.collectionView reloadData];
 
+}
+
+- (void)missionFetched:(NSNotification *)info
+{
+    NSArray *array = info.object;
+    self.objects = [NSMutableArray arrayWithArray:array];
+    [self.collectionView reloadData];
 }
 
 - (void)joinQuestHandler:(NSNotification *)notification
 {
-    GXHomeTableViewCell *cell = notification.object;
-    NSIndexPath *indexPath = [self.tableView indexPathForCell:cell];
+    GXHomeCollectionViewCell *cell = notification.object;
+    NSIndexPath *indexPath = [self.collectionView indexPathForCell:cell];
     KiiObject *object = self.objects[indexPath.row];
     
     //自分のバケットに保存する
     [[GXBucketManager sharedManager] registerJoinedQuest:object];
     
-    
+    //--------------------------->
+    //ユーザがつくる場合
+    //--------------------------->
     //作成者に参加申請pushをおくる
+    /*
     NSString *ownerUserURI = [object getObjectForKey:quest_createUserURI];
     KiiUser *ownerUser = [KiiUser userWithURI:ownerUserURI];
     NSString *joinQuestGroup = [object getObjectForKey:quest_groupURI];
@@ -235,7 +221,7 @@
         // There was a problem.
         NSLog(@"参加処理でエラー");
         NSLog(@"error:%@",error);
-    }
+    }*/
     
 }
 
@@ -275,5 +261,25 @@
     }
 }
 
+- (IBAction)dataSourceChange:(UISegmentedControl *)sender {
+    
+    switch (sender.selectedSegmentIndex) {
+        case 0: // quest
+            
+            [[GXBucketManager sharedManager] fetchQuestWithNotComplited];
+            
+            break;
+            
+        case 1: //mission
+            
+            [[GXBucketManager sharedManager] fetchMissionWithNotCompleted];
+            
+            
+            break;
+            
+        default:
+            break;
+    }
+}
 
 @end

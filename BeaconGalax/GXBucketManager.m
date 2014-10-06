@@ -41,6 +41,7 @@
         self.nearUser = [Kii bucketWithName:@"near_user"];
         
         //Userスコープ
+        self.missionBoard = [[KiiUser currentUser] bucketWithName:@"mission_board"];
         self.joinedQuest = [[KiiUser currentUser] bucketWithName:@"joined_quest"];
         self.myQuestParticipants = [[KiiUser currentUser] bucketWithName:@"myQuest_participants"];
     }
@@ -87,10 +88,19 @@
     return nil;
 }
 
+/*クエストに含める要素
+ タイトル:
+ 詳細:
+ 報酬:
+ 制約:
+ タイプ:
+ lv:
+ */
 - (void)registerQuest:(GXQuest *)quest
 {
     KiiObject *object = [self.questBoard createObject];
     [object setObject:quest.title forKey:quest_title];
+    [object setObject:quest.description forKey:quest_description];
     [object setObject:quest.createUserURI forKey:quest_createUserURI];
     [object setObject:quest.fb_id forKey:quest_createdUser_fbid];
     [object setObject:quest.group_uri forKey:quest_groupURI];
@@ -301,7 +311,7 @@
 #pragma mark Quest Method
 - (void)fetchQuestWithNotComplited
 {
-    KiiClause *clause = [KiiClause equals:@"isStarted" value:@NO];
+    KiiClause *clause = [KiiClause equals:@"isCompleted" value:@NO];
     KiiQuery *query = [KiiQuery queryWithClause:clause];
     [query sortByDesc:@"_created"];
     
@@ -312,6 +322,25 @@
             
             //notification
             [[NSNotificationCenter defaultCenter] postNotificationName:GXFetchQuestNotComplitedNotification object:results userInfo:nil];
+        }
+    }];
+}
+
+#pragma mark - Mission Method
+- (void)fetchMissionWithNotCompleted
+{
+    NSLog(@"call---fetchmission");
+    KiiClause *clause = [KiiClause equals:@"isCompleted" value:@NO];
+    KiiQuery *query = [KiiQuery queryWithClause:clause];
+    [query sortByDesc:@"_created"];
+    
+    [self.missionBoard executeQuery:query withBlock:^(KiiQuery *query, KiiBucket *bucket, NSArray *results, KiiQuery *nextQuery, NSError *error) {
+        if (error) {
+            NSLog(@"error:%@",error);
+        } else {
+            //notis
+            NSLog(@"misson-count:%d",results.count);
+            [[NSNotificationCenter defaultCenter] postNotificationName:GXFetchMissionWithNotCompletedNotification object:results];
         }
     }];
 }
