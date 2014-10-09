@@ -5,6 +5,13 @@
 //  Created by 古田貴久 on 2014/09/08.
 //  Copyright (c) 2014年 古田貴久. All rights reserved.
 //
+/*
+ クエストに関するメモ
+ クエストタイプ
+ type:1 (beaconで○○に近づけ系)
+ type:2 (beaconに○○時間滞在系)
+ 
+ */
 
 #import "GXQuestViewController.h"
 #import "GXHomeCollectionViewCell.h"
@@ -79,34 +86,6 @@
     // Dispose of any resources that can be recreated.
 }
 
-#pragma mark - Table View
-#pragma mark - アジャスタブル用
-//- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
-//{
-//    // 計測用のプロパティ"_stubCell"を使って高さを計算する
-//    [self configureCell:_stubCell atIndexPath:indexPath];
-//    [_stubCell layoutSubviews];
-//    CGFloat height = [_stubCell.contentView systemLayoutSizeFittingSize:UILayoutFittingCompressedSize].height;
-//    
-//    return height + 1;
-//}
-
-//- (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath
-//{
-//    if (editingStyle == UITableViewCellEditingStyleDelete) {
-//        [_objects removeObjectAtIndex:indexPath.row];
-//        [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
-//    } else if (editingStyle == UITableViewCellEditingStyleInsert) {
-//        // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view.
-//    }
-//}
-
-- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    
-    _selectedObject = _objects[indexPath.row];
-    [self performSegueWithIdentifier:@"gotoDescriptionView" sender:self];
-}
 
 #pragma mark - CollectionView
 - (NSInteger)numberOfSectionsInCollectionView:(UICollectionView *)collectionView
@@ -172,6 +151,7 @@
     [self.collectionView reloadData];
 }
 
+//カスタムcellクラスでタッチイベントを処理してる
 - (void)joinQuestHandler:(NSNotification *)notification
 {
     GXHomeCollectionViewCell *cell = notification.object;

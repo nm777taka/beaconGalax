@@ -35,6 +35,8 @@
     return self;
 }
 
+//AppScopeに
+
 //サインアップ時に作られる
 //アクセスはだれでも可能な招待用トピック
 - (void)createDefaultUserTopic

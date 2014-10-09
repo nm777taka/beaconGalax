@@ -7,16 +7,11 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		0F060C90199394060052402F /* card.png in Resources */ = {isa = PBXBuildFile; fileRef = 0F060C8F199394060052402F /* card.png */; };
 		0F16511119D287E200918F8D /* GXQuestExeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0F16511019D287E200918F8D /* GXQuestExeViewController.m */; };
 		0F16511519D2A4C000918F8D /* GXQuestPrepareViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0F16511419D2A4C000918F8D /* GXQuestPrepareViewController.m */; };
-		0F16511E19D4168E00918F8D /* arrow.png in Resources */ = {isa = PBXBuildFile; fileRef = 0F16511D19D4168E00918F8D /* arrow.png */; };
 		0F16512519D4435A00918F8D /* GXGroupManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 0F16512419D4435A00918F8D /* GXGroupManager.m */; };
 		0F16512819D443A800918F8D /* GXQuestMemberCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 0F16512719D443A800918F8D /* GXQuestMemberCell.m */; };
 		0F27DAF119824BC20000E0D0 /* GXNavigationItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 0F27DAF019824BC20000E0D0 /* GXNavigationItem.m */; };
-		0F27DAF919875B2B0000E0D0 /* homeViewJoinedQuestTable.png in Resources */ = {isa = PBXBuildFile; fileRef = 0F27DAF819875B2B0000E0D0 /* homeViewJoinedQuestTable.png */; };
-		0F27DAFB19875B310000E0D0 /* homeViewQuestJoinButton.png in Resources */ = {isa = PBXBuildFile; fileRef = 0F27DAFA19875B310000E0D0 /* homeViewQuestJoinButton.png */; };
-		0F27DAFF198766AC0000E0D0 /* questCreateButton.png in Resources */ = {isa = PBXBuildFile; fileRef = 0F27DAFE198766AC0000E0D0 /* questCreateButton.png */; };
 		0F27DB0119876A750000E0D0 /* menu-white.png in Resources */ = {isa = PBXBuildFile; fileRef = 0F27DB0019876A750000E0D0 /* menu-white.png */; };
 		0F27DB0319876A780000E0D0 /* bell-white.png in Resources */ = {isa = PBXBuildFile; fileRef = 0F27DB0219876A780000E0D0 /* bell-white.png */; };
 		0F42365C19BC997D0001E204 /* GXQuestTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0F42365B19BC997D0001E204 /* GXQuestTableViewController.m */; };
@@ -31,13 +26,17 @@
 		0F5FA5EE198A31D900F41B05 /* GXHomeTableViewHeader.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0F5FA5EC198A31D900F41B05 /* GXHomeTableViewHeader.xib */; };
 		0F5FA5F2198A324600F41B05 /* GXHomeTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 0F5FA5F0198A324600F41B05 /* GXHomeTableViewCell.m */; };
 		0F5FA5F6198DCF5300F41B05 /* GXFacebook.m in Sources */ = {isa = PBXBuildFile; fileRef = 0F5FA5F5198DCF5300F41B05 /* GXFacebook.m */; };
+		0F629BEE19E41748009757DF /* GXQuestB1ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0F629BED19E41748009757DF /* GXQuestB1ViewController.m */; };
+		0F629BF219E41B28009757DF /* beacon.png in Resources */ = {isa = PBXBuildFile; fileRef = 0F629BF119E41B28009757DF /* beacon.png */; };
+		0F629BF419E41B2D009757DF /* vec_left.png in Resources */ = {isa = PBXBuildFile; fileRef = 0F629BF319E41B2D009757DF /* vec_left.png */; };
+		0F629BF619E41B31009757DF /* iPhone.png in Resources */ = {isa = PBXBuildFile; fileRef = 0F629BF519E41B31009757DF /* iPhone.png */; };
+		0F629BF819E41B35009757DF /* location.png in Resources */ = {isa = PBXBuildFile; fileRef = 0F629BF719E41B35009757DF /* location.png */; };
 		0F649FDA19CD223900D48074 /* home-32.png in Resources */ = {isa = PBXBuildFile; fileRef = 0F649FD919CD223900D48074 /* home-32.png */; };
 		0F649FDD19CD272200D48074 /* GXTabBarViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0F649FDC19CD272200D48074 /* GXTabBarViewController.m */; };
 		0F649FE119CD543300D48074 /* GXJoinedQuestViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0F649FE019CD543300D48074 /* GXJoinedQuestViewController.m */; };
 		0F649FE719CD5A1C00D48074 /* GXJoinedQuestTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 0F649FE619CD5A1C00D48074 /* GXJoinedQuestTableViewCell.m */; };
 		0F649FED19D1543200D48074 /* GXFooterCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 0F649FEC19D1543200D48074 /* GXFooterCell.m */; };
 		0F7881FF1988D1C3002783D6 /* GXViewConst.m in Sources */ = {isa = PBXBuildFile; fileRef = 0F7881FE1988D1C3002783D6 /* GXViewConst.m */; };
-		0F7882011988DEF3002783D6 /* user.png in Resources */ = {isa = PBXBuildFile; fileRef = 0F7882001988DEF3002783D6 /* user.png */; };
 		0F7A259419587ADE001B7839 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0F7A259319587ADE001B7839 /* Foundation.framework */; };
 		0F7A259619587ADE001B7839 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0F7A259519587ADE001B7839 /* CoreGraphics.framework */; };
 		0F7A259819587ADE001B7839 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0F7A259719587ADE001B7839 /* UIKit.framework */; };
@@ -81,9 +80,6 @@
 		0F821F4C196FCA5D0002664D /* GXQuest.m in Sources */ = {isa = PBXBuildFile; fileRef = 0F821F4B196FCA5D0002664D /* GXQuest.m */; };
 		0F82302F198245CA0081C9BE /* home.png in Resources */ = {isa = PBXBuildFile; fileRef = 0F82302E198245CA0081C9BE /* home.png */; };
 		0F823031198245D30081C9BE /* bell.png in Resources */ = {isa = PBXBuildFile; fileRef = 0F823030198245D30081C9BE /* bell.png */; };
-		0F823033198245DB0081C9BE /* menu.png in Resources */ = {isa = PBXBuildFile; fileRef = 0F823032198245DB0081C9BE /* menu.png */; };
-		0F823035198245E30081C9BE /* friendNow.png in Resources */ = {isa = PBXBuildFile; fileRef = 0F823034198245E30081C9BE /* friendNow.png */; };
-		0F823037198245EC0081C9BE /* friend.png in Resources */ = {isa = PBXBuildFile; fileRef = 0F823036198245EC0081C9BE /* friend.png */; };
 		0F823039198245F40081C9BE /* quest.png in Resources */ = {isa = PBXBuildFile; fileRef = 0F823038198245F40081C9BE /* quest.png */; };
 		0F8BB0AA1980CEED00D5499F /* GXEmptySegue.m in Sources */ = {isa = PBXBuildFile; fileRef = 0F8BB0A91980CEED00D5499F /* GXEmptySegue.m */; };
 		0FA17E371961A09700158421 /* GXBucketManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 0FA17E361961A09700158421 /* GXBucketManager.m */; };
@@ -115,21 +111,16 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		0F060C8F199394060052402F /* card.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = card.png; sourceTree = "<group>"; };
 		0F16510F19D287E200918F8D /* GXQuestExeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GXQuestExeViewController.h; sourceTree = "<group>"; };
 		0F16511019D287E200918F8D /* GXQuestExeViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GXQuestExeViewController.m; sourceTree = "<group>"; };
 		0F16511319D2A4C000918F8D /* GXQuestPrepareViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GXQuestPrepareViewController.h; sourceTree = "<group>"; };
 		0F16511419D2A4C000918F8D /* GXQuestPrepareViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GXQuestPrepareViewController.m; sourceTree = "<group>"; };
-		0F16511D19D4168E00918F8D /* arrow.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = arrow.png; sourceTree = "<group>"; };
 		0F16512319D4435A00918F8D /* GXGroupManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GXGroupManager.h; sourceTree = "<group>"; };
 		0F16512419D4435A00918F8D /* GXGroupManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GXGroupManager.m; sourceTree = "<group>"; };
 		0F16512619D443A800918F8D /* GXQuestMemberCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GXQuestMemberCell.h; sourceTree = "<group>"; };
 		0F16512719D443A800918F8D /* GXQuestMemberCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GXQuestMemberCell.m; sourceTree = "<group>"; };
 		0F27DAEF19824BC20000E0D0 /* GXNavigationItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GXNavigationItem.h; sourceTree = "<group>"; };
 		0F27DAF019824BC20000E0D0 /* GXNavigationItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GXNavigationItem.m; sourceTree = "<group>"; };
-		0F27DAF819875B2B0000E0D0 /* homeViewJoinedQuestTable.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = homeViewJoinedQuestTable.png; sourceTree = "<group>"; };
-		0F27DAFA19875B310000E0D0 /* homeViewQuestJoinButton.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = homeViewQuestJoinButton.png; sourceTree = "<group>"; };
-		0F27DAFE198766AC0000E0D0 /* questCreateButton.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = questCreateButton.png; sourceTree = "<group>"; };
 		0F27DB0019876A750000E0D0 /* menu-white.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "menu-white.png"; sourceTree = "<group>"; };
 		0F27DB0219876A780000E0D0 /* bell-white.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "bell-white.png"; sourceTree = "<group>"; };
 		0F42365A19BC997D0001E204 /* GXQuestTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GXQuestTableViewController.h; sourceTree = "<group>"; };
@@ -156,6 +147,12 @@
 		0F5FA5F0198A324600F41B05 /* GXHomeTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GXHomeTableViewCell.m; sourceTree = "<group>"; };
 		0F5FA5F4198DCF5300F41B05 /* GXFacebook.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GXFacebook.h; sourceTree = "<group>"; };
 		0F5FA5F5198DCF5300F41B05 /* GXFacebook.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GXFacebook.m; sourceTree = "<group>"; };
+		0F629BEC19E41748009757DF /* GXQuestB1ViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GXQuestB1ViewController.h; sourceTree = "<group>"; };
+		0F629BED19E41748009757DF /* GXQuestB1ViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GXQuestB1ViewController.m; sourceTree = "<group>"; };
+		0F629BF119E41B28009757DF /* beacon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = beacon.png; sourceTree = "<group>"; };
+		0F629BF319E41B2D009757DF /* vec_left.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = vec_left.png; sourceTree = "<group>"; };
+		0F629BF519E41B31009757DF /* iPhone.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = iPhone.png; sourceTree = "<group>"; };
+		0F629BF719E41B35009757DF /* location.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = location.png; sourceTree = "<group>"; };
 		0F649FD919CD223900D48074 /* home-32.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "home-32.png"; sourceTree = "<group>"; };
 		0F649FDB19CD272200D48074 /* GXTabBarViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GXTabBarViewController.h; sourceTree = "<group>"; };
 		0F649FDC19CD272200D48074 /* GXTabBarViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GXTabBarViewController.m; sourceTree = "<group>"; };
@@ -168,7 +165,6 @@
 		0F649FEC19D1543200D48074 /* GXFooterCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GXFooterCell.m; sourceTree = "<group>"; };
 		0F7881FD1988D1C3002783D6 /* GXViewConst.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GXViewConst.h; sourceTree = "<group>"; };
 		0F7881FE1988D1C3002783D6 /* GXViewConst.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GXViewConst.m; sourceTree = "<group>"; };
-		0F7882001988DEF3002783D6 /* user.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = user.png; sourceTree = "<group>"; };
 		0F7A259019587ADE001B7839 /* BeaconGalax.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = BeaconGalax.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		0F7A259319587ADE001B7839 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		0F7A259519587ADE001B7839 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -224,9 +220,6 @@
 		0F821F4B196FCA5D0002664D /* GXQuest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GXQuest.m; sourceTree = "<group>"; };
 		0F82302E198245CA0081C9BE /* home.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = home.png; sourceTree = "<group>"; };
 		0F823030198245D30081C9BE /* bell.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = bell.png; sourceTree = "<group>"; };
-		0F823032198245DB0081C9BE /* menu.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = menu.png; sourceTree = "<group>"; };
-		0F823034198245E30081C9BE /* friendNow.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = friendNow.png; sourceTree = "<group>"; };
-		0F823036198245EC0081C9BE /* friend.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = friend.png; sourceTree = "<group>"; };
 		0F823038198245F40081C9BE /* quest.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = quest.png; sourceTree = "<group>"; };
 		0F8BB0A81980CEED00D5499F /* GXEmptySegue.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GXEmptySegue.h; sourceTree = "<group>"; };
 		0F8BB0A91980CEED00D5499F /* GXEmptySegue.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GXEmptySegue.m; sourceTree = "<group>"; };
@@ -386,6 +379,50 @@
 			name = BeaconTableView;
 			sourceTree = "<group>";
 		};
+		0F629BE919E416D9009757DF /* Quest_type */ = {
+			isa = PBXGroup;
+			children = (
+				0F629BEA19E416E8009757DF /* beacon_1 */,
+				0F629BEB19E416F8009757DF /* beacon_2 */,
+			);
+			name = Quest_type;
+			sourceTree = "<group>";
+		};
+		0F629BEA19E416E8009757DF /* beacon_1 */ = {
+			isa = PBXGroup;
+			children = (
+				0F629BEC19E41748009757DF /* GXQuestB1ViewController.h */,
+				0F629BED19E41748009757DF /* GXQuestB1ViewController.m */,
+			);
+			name = beacon_1;
+			sourceTree = "<group>";
+		};
+		0F629BEB19E416F8009757DF /* beacon_2 */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = beacon_2;
+			sourceTree = "<group>";
+		};
+		0F629BEF19E41B01009757DF /* QuestType */ = {
+			isa = PBXGroup;
+			children = (
+				0F629BF019E41B16009757DF /* type:beacon_1 */,
+			);
+			name = QuestType;
+			sourceTree = "<group>";
+		};
+		0F629BF019E41B16009757DF /* type:beacon_1 */ = {
+			isa = PBXGroup;
+			children = (
+				0F629BF719E41B35009757DF /* location.png */,
+				0F629BF519E41B31009757DF /* iPhone.png */,
+				0F629BF319E41B2D009757DF /* vec_left.png */,
+				0F629BF119E41B28009757DF /* beacon.png */,
+			);
+			name = "type:beacon_1";
+			sourceTree = "<group>";
+		};
 		0F649FDE19CD541300D48074 /* JoinedQuest */ = {
 			isa = PBXGroup;
 			children = (
@@ -462,7 +499,7 @@
 			children = (
 				0F649FE219CD586B00D48074 /* font */,
 				0F5FA5F7198DCF6700F41B05 /* Facebook */,
-				0F82302D198245B10081C9BE /* images */,
+				0F82302D198245B10081C9BE /* Images */,
 				0F7F4143195E77C300A796AD /* Beacon */,
 				0F7F4144195E77D600A796AD /* KiiCloud */,
 				0FD26D8A195A0E54005E2B95 /* Utility */,
@@ -520,6 +557,7 @@
 		0F7A25C919587E0C001B7839 /* Controller */ = {
 			isa = PBXGroup;
 			children = (
+				0F629BE919E416D9009757DF /* Quest_type */,
 				0FD200A319E263B50034E52A /* GXNavigation */,
 				0FD2009F19E2605C0034E52A /* GXUserStatus */,
 				0FC0095519E2597A0026A7DC /* GXFrostedViewController */,
@@ -583,26 +621,18 @@
 			name = KiiCloud;
 			sourceTree = "<group>";
 		};
-		0F82302D198245B10081C9BE /* images */ = {
+		0F82302D198245B10081C9BE /* Images */ = {
 			isa = PBXGroup;
 			children = (
-				0F16511D19D4168E00918F8D /* arrow.png */,
+				0F629BEF19E41B01009757DF /* QuestType */,
 				0F649FD919CD223900D48074 /* home-32.png */,
-				0F060C8F199394060052402F /* card.png */,
-				0F823036198245EC0081C9BE /* friend.png */,
-				0F27DAF819875B2B0000E0D0 /* homeViewJoinedQuestTable.png */,
 				0F823038198245F40081C9BE /* quest.png */,
-				0F27DAFA19875B310000E0D0 /* homeViewQuestJoinButton.png */,
-				0F823034198245E30081C9BE /* friendNow.png */,
 				0F27DB0219876A780000E0D0 /* bell-white.png */,
 				0F27DB0019876A750000E0D0 /* menu-white.png */,
-				0F27DAFE198766AC0000E0D0 /* questCreateButton.png */,
-				0F823032198245DB0081C9BE /* menu.png */,
 				0F823030198245D30081C9BE /* bell.png */,
-				0F7882001988DEF3002783D6 /* user.png */,
 				0F82302E198245CA0081C9BE /* home.png */,
 			);
-			name = images;
+			name = Images;
 			sourceTree = "<group>";
 		};
 		0F84209E1988C924003241D1 /* Home */ = {
@@ -823,35 +853,30 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				0F27DAFB19875B310000E0D0 /* homeViewQuestJoinButton.png in Resources */,
-				0F27DAF919875B2B0000E0D0 /* homeViewJoinedQuestTable.png in Resources */,
-				0F27DAFF198766AC0000E0D0 /* questCreateButton.png in Resources */,
 				0FD26D821959F689005E2B95 /* GXCustomSectionHeader.xib in Resources */,
 				0F821F44196EE6820002664D /* Common_ButtonNavigationDone@2x.png in Resources */,
 				0F82302F198245CA0081C9BE /* home.png in Resources */,
-				0F823033198245DB0081C9BE /* menu.png in Resources */,
 				0F7A25AC19587ADE001B7839 /* Images.xcassets in Resources */,
-				0F823035198245E30081C9BE /* friendNow.png in Resources */,
 				0F649FDA19CD223900D48074 /* home-32.png in Resources */,
-				0F7882011988DEF3002783D6 /* user.png in Resources */,
 				0F7A25D81959C014001B7839 /* green.png in Resources */,
 				0F7F412F195B206C00A796AD /* GXBeaconTable.png in Resources */,
-				0F16511E19D4168E00918F8D /* arrow.png in Resources */,
 				0F7F4149195E9F7700A796AD /* GLAX-U-homeI.png in Resources */,
+				0F629BF619E41B31009757DF /* iPhone.png in Resources */,
 				0F27DB0119876A750000E0D0 /* menu-white.png in Resources */,
+				0F629BF219E41B28009757DF /* beacon.png in Resources */,
 				0F7F412B195B206100A796AD /* me.png in Resources */,
 				0F27DB0319876A780000E0D0 /* bell-white.png in Resources */,
 				0F823031198245D30081C9BE /* bell.png in Resources */,
-				0F823037198245EC0081C9BE /* friend.png in Resources */,
 				0F7A259E19587ADE001B7839 /* InfoPlist.strings in Resources */,
 				0F7A25D91959C014001B7839 /* red.png in Resources */,
 				0F7A25A719587ADE001B7839 /* Main.storyboard in Resources */,
-				0F060C90199394060052402F /* card.png in Resources */,
+				0F629BF819E41B35009757DF /* location.png in Resources */,
 				0F5FA5EE198A31D900F41B05 /* GXHomeTableViewHeader.xib in Resources */,
 				0F7F412D195B206800A796AD /* GXAction.png in Resources */,
 				0F7F4131195B22DC00A796AD /* GXBeaconTable-reverse.png in Resources */,
 				0F7A25DE1959E4AF001B7839 /* GXCustomCell.xib in Resources */,
 				0F821F46196EE68A0002664D /* Common_ButtonNavigationClose@2x.png in Resources */,
+				0F629BF419E41B2D009757DF /* vec_left.png in Resources */,
 				0F823039198245F40081C9BE /* quest.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -908,6 +933,7 @@
 				0F649FE719CD5A1C00D48074 /* GXJoinedQuestTableViewCell.m in Sources */,
 				0FD26D811959F689005E2B95 /* GXCustomSectionHeader.m in Sources */,
 				0F42366019BCBEB80001E204 /* GXQuestViewController.m in Sources */,
+				0F629BEE19E41748009757DF /* GXQuestB1ViewController.m in Sources */,
 				0F7A25DD1959E4AF001B7839 /* GXCustomCell.m in Sources */,
 				0F7F4147195E77F200A796AD /* GXKiiCloud.m in Sources */,
 				0F649FED19D1543200D48074 /* GXFooterCell.m in Sources */,

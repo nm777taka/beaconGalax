@@ -19,6 +19,7 @@
 @property (nonatomic) KiiBucket *questMember;
 
 //UserScope
+@property (nonatomic) KiiBucket *notJoinedQuest;
 @property (nonatomic) KiiBucket *missionBoard;
 @property (nonatomic) KiiBucket *nearUser;
 @property (nonatomic) KiiBucket *joinedQuest;

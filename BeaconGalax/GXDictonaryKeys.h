@@ -14,6 +14,10 @@ static NSString * const quest_description = @"description";
 static NSString * const quest_level = @"level";
 static NSString * const quest_type = @"type";
 static NSString * const quest_reward = @"reward";
+static NSString * const quest_clear_cnt = @"clear_cnt";
+static NSString * const quest_clear_des = @"clear_des";
+static NSString * const quest_success_cnt = @"success_cnt";
+static NSString * const quest_owner = @"owner";
 
 
 
@@ -40,6 +44,10 @@ static NSString * const topic_invite = @"invite_notify";
 //push通知
 static NSString * const push_type = @"push_type";
 static NSString * const push_invite = @"push_invite";
+
+//beacon
+static NSString * const beacon_name = @"beacon_name";
+static NSString * const beacon_major = @"major";
 
 
 @interface GXDictonaryKeys : NSObject

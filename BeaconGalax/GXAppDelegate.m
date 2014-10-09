@@ -15,6 +15,7 @@
 @property KiiUser *joinUser;
 @property KiiGroup *joinedGroup;
 
+
 @end
 
 @implementation GXAppDelegate{
@@ -35,8 +36,6 @@
                         andOptions:nil];
     
      [Kii enableAPNSWithDevelopmentMode:YES andNotificationTypes:UIRemoteNotificationTypeAlert|UIRemoteNotificationTypeSound|UIRemoteNotificationTypeBadge];
-    
-    
    
     return YES;
 }
@@ -318,5 +317,8 @@
     [[UIApplication sharedApplication] scheduleLocalNotification:notification];
 
 }
+
+
+
 
 @end

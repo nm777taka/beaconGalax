@@ -9,7 +9,7 @@
 #import "GXJoinedQuestViewController.h"
 #import "GXJoinedQuestTableViewCell.h"
 #import "GXQuestExeViewController.h"
-#import "GXQuestPrepareViewController.h"
+#import "GXQuestB1ViewController.h"
 #import "GXFooterCell.h"
 #import "GXNotification.h"
 #import "GXBucketManager.h"
@@ -118,7 +118,25 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     self.selectedQuest = self.joinedQuestArray[indexPath.row];
-    [self performSegueWithIdentifier:@"goto_questExe" sender:self];
+    NSNumber *type = [self.selectedQuest getObjectForKey:quest_type];
+    int type_int = [type intValue];
+    NSLog(@"selected_type:%d",type_int);
+    
+    switch (type_int) {
+        case 1: // type_beacon_1
+            [self performSegueWithIdentifier:@"type_1" sender:self];
+            
+            break;
+            
+        case 2: // type_beacon_2
+            //
+            break;
+            
+        default:
+            break;
+    }
+    
+
 }
 
 
@@ -165,24 +183,23 @@
     GXJoinedQuestTableViewCell *cell = notis.object;
     NSIndexPath *indexPath = [self.tableView indexPathForCell:cell];
     self.selectedQuest = self.joinedQuestArray[indexPath.row];
-    NSLog(@"seleceteQuest:%@",self.selectedQuest);
     
-    //クエスト作成者 or 受注者で画面をかえる
-    NSString *currentUserURI = [KiiUser currentUser].objectURI;
-    NSString *questOwnerURI = [self.selectedQuest getObjectForKey:quest_createUserURI];
-    NSString *userFBID= [self.selectedQuest getObjectForKey:quest_createdUser_fbid];
-    NSLog(@"currentUserURI = %@",currentUserURI);
-    NSLog(@"questOwnerURI = %@",questOwnerURI);
-    NSLog(@"userFBID:%@",userFBID);
-    
-    if ([currentUserURI isEqualToString:questOwnerURI]) {
-        //クエスト作成者 = クエスト実行viewへ
-        [self performSegueWithIdentifier:@"goto_questExe" sender:self];
+//    //クエスト作成者 or 受注者で画面をかえる
+//    NSString *currentUserURI = [KiiUser currentUser].objectURI;
+//    NSString *questOwnerURI = [self.selectedQuest getObjectForKey:quest_createUserURI];
+//    NSString *userFBID= [self.selectedQuest getObjectForKey:quest_createdUser_fbid];
+//    
+//    if ([currentUserURI isEqualToString:questOwnerURI]) {
+//        //クエスト作成者 = クエスト実行viewへ
+//        [self performSegueWithIdentifier:@"goto_questExe" sender:self];
+//
+//    } else {
+//        //クエスト参加者
+//        [self performSegueWithIdentifier:@"goto_questPrepare" sender:self];
+//    }
 
-    } else {
-        //クエスト参加者
-        [self performSegueWithIdentifier:@"goto_questPrepare" sender:self];
-    }
+    
+    
     
 }
 
@@ -200,6 +217,11 @@
         
         //クエスト実行ビューに選択されたクエストを渡す
         GXQuestExeViewController *vc = segue.destinationViewController;
+        vc.exeQuest = self.selectedQuest;
+    }
+    
+    if ([segue.identifier isEqualToString:@"type_1"]) {
+        GXQuestB1ViewController *vc = segue.destinationViewController;
         vc.exeQuest = self.selectedQuest;
     }
 }

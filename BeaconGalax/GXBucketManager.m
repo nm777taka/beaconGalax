@@ -41,7 +41,8 @@
         self.nearUser = [Kii bucketWithName:@"near_user"];
         
         //Userスコープ
-        self.missionBoard = [[KiiUser currentUser] bucketWithName:@"mission_board"];
+        self.missionBoard = [[KiiUser currentUser] bucketWithName:@"mission_board"]; //消す
+        self.notJoinedQuest = [[KiiUser currentUser] bucketWithName:@"notJoined_quest"];
         self.joinedQuest = [[KiiUser currentUser] bucketWithName:@"joined_quest"];
         self.myQuestParticipants = [[KiiUser currentUser] bucketWithName:@"myQuest_participants"];
     }
@@ -228,29 +229,84 @@
 //参加したクエストを自分スコープのバケットに保存
 - (void)registerJoinedQuest:(KiiObject *)obj
 {
-    NSString *title = [obj getObjectForKey:quest_title];
-    NSString *groupURI = [obj getObjectForKey:quest_groupURI];
-    NSString *ownerFBID = [obj getObjectForKey:quest_createdUser_fbid];
-    NSString *owner = [obj getObjectForKey:quest_createdUserName];
-    NSString *ownerURI = [obj getObjectForKey:quest_createUserURI];
-    NSNumber *isStarted = [obj getObjectForKey:quest_isStarted];
-    NSNumber *isCompleted = [obj getObjectForKey:quest_isCompleted];
-    
+    NSError *error;
     KiiObject *newObj = [self.joinedQuest createObject];
-    [newObj setObject:title forKey:quest_title];
-    [newObj setObject:groupURI forKey:quest_groupURI];
-    [newObj setObject:ownerFBID forKey:quest_createdUser_fbid];
-    [newObj setObject:owner forKey:quest_createdUserName];
-    [newObj setObject:ownerURI forKey:quest_createUserURI];
-    [newObj setObject:isStarted forKey:quest_isStarted];
-    [newObj setObject:isCompleted forKey:quest_isCompleted];
+    NSDictionary *dict = obj.dictionaryValue;
+    NSArray *allKeys = dict.allKeys;
+    for (NSString *key in allKeys) {
+        NSLog(@"key:%@",key);
+        NSLog(@"value:%@",dict[key]);
+        [newObj setObject:dict[key] forKey:key];
+    }
     
-    [newObj saveWithBlock:^(KiiObject *object, NSError *error) {
-        if (error) NSLog(@"---->eeror:%@",error);
-        else NSLog(@"---->自分のバケットに参加クエストを登録");
-    }];
-}
+    //    for (id key in allKeys) {
+//        [newObj setValue:dict[key] forKey:key];
+//    }
+    /*
+    //タイトル
+    [newObj setObject:[obj getObjectForKey:quest_title] forKey:quest_title];
+    
+    //詳細
+    [newObj setObject:[obj getObjectForKey:quest_description] forKey:quest_description];
+    
+    //type
+    [newObj setObject:[obj getObjectForKey:quest_type] forKey:quest_type];
+    
+    //報酬
+    [newObj setObject:[obj getObjectForKey:quest_reward] forKey:quest_reward];
+    
+    //完了したか
+    [newObj setObject:[obj getObjectForKey:quest_isCompleted] forKey:quest_isCompleted];
+    
+    //クリアに必要なsuccess数
+    [newObj setObject:[obj getObjectForKey:quest_clear_cnt] forKey:quest_clear_cnt];
+    
+    //クリア条件の説明
+    [newObj setObject:[obj getObjectForKey:quest_clear_des] forKey:quest_clear_des];
+    
+    //対象のbeacon(ビーコンタイプであれば)そのmajor値
+    [newObj setObject:[obj getObjectForKey:beacon_major] forKey:beacon_major];
+    
+    //おなじくminor値
+    //あとで
+    
+    //対象beaconの場所(あれば)
+    [newObj setObject:[obj getObjectForKey:beacon_name] forKey:beacon_name];
+     
+     */
+    
+    if (![[obj getObjectForKey:quest_owner] boolValue]) {
+        NSLog(@"オーナーいない");
+        //一番最初の人がオーナーになる(スタートしたら戻す
+        NSError *error;
+        
+        //グループ作成
+        NSString *groupName = obj.uuid;
+        KiiGroup *group = [KiiGroup groupWithName:groupName];
+        [group saveSynchronous:&error];
+        if (error != nil) {
+            NSLog(@"group created error :%@",error);
+        } else {
 
+            //クエストオーナー登録
+            [newObj setObject:[group objectURI] forKey:quest_groupURI];
+
+        }
+        
+    }else {
+        NSLog(@"オーナーいる");
+    }
+    
+    //保存
+    [newObj saveSynchronous:&error];
+    
+    if (!error) {
+        NSLog(@"自分のバケットに保存完了");
+        //参加したお的な通知を飛ばす
+        
+    }
+
+}
 //joinしたクエストを取得
 - (void)getJoinedQuest
 {

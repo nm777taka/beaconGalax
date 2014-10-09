@@ -15,8 +15,6 @@
 @property CBPeripheralManager *peripheralManager;
 @property CLLocationManager *locationManager;
 
-@property NSDictionary *beaconDict;
-
 @property BOOL monitoringEnabled;
 @property BOOL isMonitoring;
 
@@ -47,10 +45,6 @@
         self.locationManager.delegate = self;
         
         self.regions = [NSMutableArray new];
-        
-        //BeaconDict
-        //Major値をkeyに場所にひもづけ
-        self.beaconDict = @{@55213:@"研究室の自分の机",@31751:@"ゼミ室"};
         
         [[NSNotificationCenter defaultCenter]addObserver:self
                                                 selector:@selector(applicationDidBecomeActive)
@@ -326,7 +320,6 @@
 //リージョンを登録
 - (GXBeaconRegion *)registerRegion:(NSString *)UUIDString identifier:(NSString *)identifier
 {
-    NSLog(@"register Region : %@",identifier);
     if (self.regions.count >= kGXBeaconRegionMax) {
         return nil;
     }

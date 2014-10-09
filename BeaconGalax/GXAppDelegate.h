@@ -8,6 +8,7 @@
 
 #import <UIKit/UIKit.h>
 #import <KiiSDK/Kii.h>
+#import <CoreLocation/CoreLocation.h>
 #import "FBConnect.h"
 #import "GXFacebook.h"
 

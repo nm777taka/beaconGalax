@@ -39,12 +39,12 @@
     self.userIcon.layer.borderColor = FlatMint.CGColor;
     self.userIcon.layer.borderWidth = 2.0;
     
-    //ibeacon
-    self.beacon = [GXBeacon sharedManager];
-    self.beacon.delegate = self;
-    GXBeaconRegion *region;
-    region = [self.beacon registerRegion:kBeaconUUID identifier:kIdentifier];
-    if (region) region.rangingEnabled = YES;
+//    //ibeacon
+//    self.beacon = [GXBeacon sharedManager];
+//    self.beacon.delegate = self;
+//    GXBeaconRegion *region;
+//    region = [self.beacon registerRegion:kBeaconUUID identifier:kIdentifier];
+//    if (region) region.rangingEnabled = YES;
     
     //Notification
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(fbIconHandler:) name:GXFBProfilePictNotification object:nil];
