@@ -154,8 +154,25 @@
     NSIndexPath *indexPath = [self.collectionView indexPathForCell:cell];
     KiiObject *object = self.objects[indexPath.row];
     
-    //自分のバケットに保存する
+    if ([[object getObjectForKey:quest_player] intValue] > 1) {
+        //invite_boardへ
+        NSLog(@"みんな用です");
+        //すでに募集済みかどうか
+        BOOL ret = [[GXBucketManager sharedManager] isInvitedQuest:object];
+        if (ret) {
+            NSLog(@"募集済みです");
+        } else {
+            NSLog(@"募集されてません");
+            [[GXBucketManager sharedManager] registerInviteBoard:object];
+        }
+
+    } else {
+     
+        NSLog(@"ひとりようです");
+    }
+    
     [[GXBucketManager sharedManager] registerJoinedQuest:object];
+    
     
     //--------------------------->
     //ユーザがつくる場合

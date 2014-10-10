@@ -32,13 +32,10 @@
     self = [super init];
     
     if (self) {
-        //init
+        //Appスコープ
         self.galaxUser = [Kii bucketWithName:@"galax_user"];
         self.questBoard = [Kii bucketWithName:@"quest_board"];
-        
-        self.questMember = [Kii bucketWithName:@"quest_member"];
-        
-        self.nearUser = [Kii bucketWithName:@"near_user"];
+        self.inviteBoard = [Kii bucketWithName:@"invite_board"];
         
         //Userスコープ
         self.missionBoard = [[KiiUser currentUser] bucketWithName:@"mission_board"]; //消す
@@ -120,6 +117,22 @@
     }
 }
 
+- (void)registerInviteBoard:(KiiObject *)obj
+{
+    NSDictionary *dict = obj.dictionaryValue;
+    NSArray *allKeys = dict.allKeys;
+    KiiObject *newObj = [self.inviteBoard createObject];
+    for (NSString *key in allKeys) {
+        [newObj setObject:dict[key] forKey:key];
+    }
+    
+    [newObj saveWithBlock:^(KiiObject *object, NSError *error) {
+        //通知とか飛ばす
+        NSLog(@"招待完了");
+    }];
+
+}
+
 - (BOOL)isExitedQuest:(NSString *)questTitle
 {
     BOOL ret = false;
@@ -145,6 +158,22 @@
     }
     
     return ret;
+}
+
+//クエストがすでに募集済みかどうかチェック
+- (BOOL)isInvitedQuest:(KiiObject *)obj
+{
+    BOOL ret = false;
+    KiiClause *clause = [KiiClause equals:@"_id" value:obj.objectURI];
+    KiiQuery *query = [KiiQuery queryWithClause:clause];
+    KiiQuery *nextQuery;
+    NSError *error;
+    NSArray *result = [self.inviteBoard executeQuerySynchronous:query withError:&error andNext:&nextQuery];
+    if (result.count != 0) ret = true;
+    else ret = false;
+    
+    return ret;
+    
 }
 
 - (void)questStart:(KiiGroup *)groupURI
@@ -275,41 +304,6 @@
         [newObj setObject:dict[key] forKey:key];
     }
     
-    //    for (id key in allKeys) {
-//        [newObj setValue:dict[key] forKey:key];
-//    }
-    /*
-    //タイトル
-    [newObj setObject:[obj getObjectForKey:quest_title] forKey:quest_title];
-    
-    //詳細
-    [newObj setObject:[obj getObjectForKey:quest_description] forKey:quest_description];
-    
-    //type
-    [newObj setObject:[obj getObjectForKey:quest_type] forKey:quest_type];
-    
-    //報酬
-    [newObj setObject:[obj getObjectForKey:quest_reward] forKey:quest_reward];
-    
-    //完了したか
-    [newObj setObject:[obj getObjectForKey:quest_isCompleted] forKey:quest_isCompleted];
-    
-    //クリアに必要なsuccess数
-    [newObj setObject:[obj getObjectForKey:quest_clear_cnt] forKey:quest_clear_cnt];
-    
-    //クリア条件の説明
-    [newObj setObject:[obj getObjectForKey:quest_clear_des] forKey:quest_clear_des];
-    
-    //対象のbeacon(ビーコンタイプであれば)そのmajor値
-    [newObj setObject:[obj getObjectForKey:beacon_major] forKey:beacon_major];
-    
-    //おなじくminor値
-    //あとで
-    
-    //対象beaconの場所(あれば)
-    [newObj setObject:[obj getObjectForKey:beacon_name] forKey:beacon_name];
-     
-     */
     
     if (![[obj getObjectForKey:quest_owner] boolValue]) {
         NSLog(@"オーナーいない");
@@ -355,8 +349,6 @@
         [[NSNotificationCenter defaultCenter] postNotificationName:GXFetchQuestWithParticipantNotification object:results];
         
     }];
-   
-    
     
 }
 
@@ -440,6 +432,30 @@
 
 
 #pragma mark - データ操作用
+
+- (BOOL)copyObject:(KiiBucket *)toBucket object:(KiiObject *)obj
+{
+    NSError *error;
+    BOOL ret = false;
+    NSDictionary *dict = obj.dictionaryValue;
+    NSArray *allKeys = dict.allKeys;
+    
+    KiiObject *newObj = [toBucket createObject];
+    for (NSString *key in allKeys) {
+        [newObj setObject:dict[key] forKey:key];
+    }
+    
+    [newObj saveSynchronous:&error];
+    
+    if (!error) {
+        ret = true;
+    }else {
+        ret = false;
+    }
+    
+    return ret;
+
+}
 
 //指定バケットのすべてのデータを取得
 - (NSMutableArray *)getAllObject:(KiiBucket *)bucket

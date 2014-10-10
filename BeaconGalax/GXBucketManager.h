@@ -14,6 +14,7 @@
 //AppScope
 @property (nonatomic) KiiBucket *galaxUser;
 @property (nonatomic) KiiBucket *questBoard;
+@property (nonatomic) KiiBucket *inviteBoard;
 
 //GroupScope
 @property (nonatomic) KiiBucket *questMember;
@@ -26,13 +27,20 @@
 @property (nonatomic) KiiBucket *myQuestParticipants;
 
 + (GXBucketManager *)sharedManager;
+
 - (void)registerGalaxUser:(KiiUser *)user;
 - (void)registerQuest:(GXQuest *)quest;
+- (void)registerInviteBoard:(KiiObject *)obj;
+
 - (void)fetchQuestWithNotComplited;
 - (void)fetchMissionWithNotCompleted;
+
 - (KiiObject *)getMeFromGalaxUserBucket;
+
 - (BOOL)isJoinedQuest:(NSString *)questTitile;
 - (BOOL)isExitedQuest:(NSString *)questTitle;
+- (BOOL)isInvitedQuest:(KiiObject *)obj;
+
 - (void)getJoinedQuest;
 - (NSMutableArray *)getNearUser:(KiiUser *)user;
 - (void)registerJoinedQuest:(KiiObject *)obj;

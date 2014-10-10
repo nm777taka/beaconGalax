@@ -18,6 +18,7 @@ static NSString * const quest_clear_cnt = @"clear_cnt";
 static NSString * const quest_clear_des = @"clear_des";
 static NSString * const quest_success_cnt = @"success_cnt";
 static NSString * const quest_owner = @"owner";
+static NSString * const quest_player = @"player";
 
 
 
