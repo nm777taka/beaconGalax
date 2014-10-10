@@ -164,7 +164,7 @@
 - (BOOL)isInvitedQuest:(KiiObject *)obj
 {
     BOOL ret = false;
-    KiiClause *clause = [KiiClause equals:@"_id" value:obj.objectURI];
+    KiiClause *clause = [KiiClause equals:@"uri" value:[obj getObjectForKey:@"uri"]];
     KiiQuery *query = [KiiQuery queryWithClause:clause];
     KiiQuery *nextQuery;
     NSError *error;
@@ -262,6 +262,7 @@
     //全件取得
     NSLog(@"call");
     KiiQuery *query = [KiiQuery queryWithClause:nil];
+    
     [self.questBoard executeQuery:query withBlock:^(KiiQuery *query, KiiBucket *bucket, NSArray *results, KiiQuery *nextQuery, NSError *error) {
         if (!error) {
             NSLog(@"フェッチ完了");
@@ -275,6 +276,9 @@
                 for (NSString *key in allKeys) {
                     [newObj setObject:dict[key] forKey:key];
                 }
+                
+                //object特定用にidを追加
+                [newObj setObject:obj.objectURI forKey:@"uri"];
                 
                 [newObj saveWithBlock:^(KiiObject *object, NSError *error) {
                     

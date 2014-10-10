@@ -75,8 +75,7 @@
     } else {
         //DBからフェッチ(非同期)
         //最終的に変更があった場合のみにしたい
-        //[[GXBucketManager sharedManager] fetchQuestWithNotComplited];
-        [[GXBucketManager sharedManager] getQuestForQuestBoard];
+        [[GXBucketManager sharedManager] fetchQuestWithNotComplited];
 
     }
 }
@@ -222,6 +221,7 @@
 #pragma mark -- サーバーコードのテスト
 - (IBAction)createNewQuest:(id)sender
 {
+    [[GXBucketManager sharedManager] getQuestForQuestBoard];
     
 //    NSLog(@"call");
 //    KiiServerCodeEntry* entry =[Kii serverCodeEntry:@"main"];
