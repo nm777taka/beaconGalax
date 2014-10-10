@@ -9,6 +9,7 @@
 #import "GXQuestB1ViewController.h"
 #import "GXClearViewController.h"
 #import "GXBucketManager.h"
+#import "GXNotification.h"
 #import "GXDictonaryKeys.h"
 #import "GXBeacon.h"
 
@@ -151,17 +152,18 @@
 }
 
 - (IBAction)clearAction:(id)sender {
+    
     [SVProgressHUD showWithStatus:@"クリア判定中"];
     BOOL isClear = [[GXBucketManager sharedManager] isClear:self.exeQuest];
     if (isClear) {
         [NSTimer bk_scheduledTimerWithTimeInterval:3.0f block:^(NSTimer *timer) {
             //
             [SVProgressHUD dismiss];
-            //clear画面he
-            GXClearViewController *vc = [self.storyboard instantiateViewControllerWithIdentifier:@"clearView"];
-            [self presentViewController:vc animated:YES completion:nil];
+            [self performSegueWithIdentifier:@"gotoClearView" sender:self];
             
         } repeats:NO];
+        
+
     }
     else {
         [NSTimer bk_scheduledTimerWithTimeInterval:3.0f block:^(NSTimer *timer) {
@@ -185,6 +187,15 @@
 {
     [self.beaconManager startRangingBeaconsInRegion:self.beaconRegion];
     self.beaconRegion = [[ESTBeaconRegion alloc] initWithProximityUUID:self.uuid major:55213 minor:51135 identifier:@"estimote"];
+}
+
+#pragma mark - segue
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
+{
+    if ([segue.identifier isEqual:@"gotoClearView"]) {
+        GXClearViewController *vc = segue.destinationViewController;
+        vc.point = [[self.exeQuest getObjectForKey:quest_reward] intValue];
+    }
 }
 
 

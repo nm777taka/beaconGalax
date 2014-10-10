@@ -7,8 +7,12 @@
 //
 
 #import "GXClearViewController.h"
+#import "GXBucketManager.h"
+#import "GXDictonaryKeys.h"
+#import "GXNotification.h"
 
 @interface GXClearViewController ()
+
 
 @end
 
@@ -17,7 +21,15 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
+    
 }
+
+- (void)viewDidAppear:(BOOL)animated
+{
+    [super viewDidAppear:animated];
+    NSLog(@"point:%d",self.point);
+}
+
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];

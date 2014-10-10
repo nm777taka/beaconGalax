@@ -7,7 +7,10 @@
 //
 
 #import <UIKit/UIKit.h>
+#import <KiiSDK/Kii.h>
 
 @interface GXClearViewController : UIViewController
+
+@property int point;
 
 @end

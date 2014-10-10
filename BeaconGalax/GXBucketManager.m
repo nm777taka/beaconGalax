@@ -42,6 +42,7 @@
         self.notJoinedQuest = [[KiiUser currentUser] bucketWithName:@"notJoined_quest"];
         self.joinedQuest = [[KiiUser currentUser] bucketWithName:@"joined_quest"];
         self.myQuestParticipants = [[KiiUser currentUser] bucketWithName:@"myQuest_participants"];
+        self.pointBucket = [[KiiUser currentUser] bucketWithName:@"point"];
     }
     
     return self;
@@ -463,12 +464,12 @@
         ret = true;
         [obj setObject:[NSNumber numberWithBool:YES] forKey:quest_isCompleted];
         [obj setObject:[NSNumber numberWithInt:successCnt] forKey:quest_success_cnt];
-
         [obj saveSynchronous:&error];
         
         if (error) {
             NSLog(@"error:%@",error);
         }
+        
         
     } else {
         ret = false;

@@ -25,6 +25,7 @@
 @property (nonatomic) KiiBucket *nearUser;
 @property (nonatomic) KiiBucket *joinedQuest;
 @property (nonatomic) KiiBucket *myQuestParticipants;
+@property (nonatomic) KiiBucket *pointBucket;
 
 + (GXBucketManager *)sharedManager;
 

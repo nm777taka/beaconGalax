@@ -36,10 +36,10 @@ NSString *const GXFetchQuestWithOwnerNotification = @"GXFetchQuestWithOwnerNotif
 NSString *const GXFBProfilePictNotification = @"GXFBProfilePictNotification";
 
 
-
-
 NSString *const GXViewSegueNotification = @"GXViewSegueNotification";
 
 NSString *const GXSegueToQuestExeViewNotification = @"GXSegueToQuestExeViewNotification ";
+
+NSString *const GXPointGetNotification = @"GXPointGetNotification";
 
 @end

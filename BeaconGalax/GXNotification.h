@@ -46,4 +46,7 @@ UIKIT_EXTERN NSString *const GXViewSegueNotification;
 UIKIT_EXTERN NSString *const GXSegueToQuestExeViewNotification;
 
 
+//ポイントゲット
+UIKIT_EXTERN NSString *const GXPointGetNotification;
+
 @end
