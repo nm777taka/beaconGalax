@@ -450,6 +450,32 @@
     }];
 }
 
+#pragma mark - クリア判定
+- (BOOL)isClear:(KiiObject *)obj
+{
+    NSError *error;
+    BOOL ret = false;
+    int successCnt = [[obj getObjectForKey:quest_success_cnt] intValue];
+    successCnt ++;
+    
+    if ([[obj getObjectForKey:quest_clear_cnt]intValue] == successCnt) {
+        //clear
+        ret = true;
+        [obj setObject:[NSNumber numberWithBool:YES] forKey:quest_isCompleted];
+        [obj setObject:[NSNumber numberWithInt:successCnt] forKey:quest_success_cnt];
+
+        [obj saveSynchronous:&error];
+        
+        if (error) {
+            NSLog(@"error:%@",error);
+        }
+        
+    } else {
+        ret = false;
+    }
+    
+    return ret;
+}
 
 
 #pragma mark - データ操作用

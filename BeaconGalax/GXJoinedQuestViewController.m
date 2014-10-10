@@ -24,10 +24,12 @@
 @property (nonatomic,retain) KiiObject *selectedQuest;
 
 
+
 @end
 
 @implementation GXJoinedQuestViewController{
     UIRefreshControl *_refreshControl;
+    UIAlertController *_type1Alert;
 }
 
 #pragma mark - ViewLifeCycle
@@ -43,6 +45,15 @@
     _refreshControl = [UIRefreshControl new];
     [_refreshControl addTarget:self action:@selector(refresh) forControlEvents:UIControlEventValueChanged];
     [self.tableView addSubview:_refreshControl];
+    
+    _type1Alert = [UIAlertController alertControllerWithTitle:@"ビーコンクエスト" message:@"クエストを開始しますか？" preferredStyle:UIAlertControllerStyleAlert];
+    [_type1Alert addAction:[UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
+        //start
+        [self startQuest];
+    }]];
+    
+    [_type1Alert addAction:[UIAlertAction actionWithTitle:@"NO" style:UIAlertActionStyleCancel handler:nil]];
+    
 
     
     //Notification
@@ -124,8 +135,8 @@
     
     switch (type_int) {
         case 1: // type_beacon_1
-            [self performSegueWithIdentifier:@"type_1" sender:self];
-            
+            //alertshow
+            [self presentViewController:_type1Alert animated:YES completion:nil];
             break;
             
         case 2: // type_beacon_2
@@ -272,5 +283,11 @@
 - (void)endRefresh
 {
     [_refreshControl endRefreshing];
+}
+
+- (void)startQuest
+{
+    [self performSegueWithIdentifier:@"type_1" sender:self];
+
 }
 @end

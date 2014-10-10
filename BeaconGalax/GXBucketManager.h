@@ -57,6 +57,8 @@
 //その内サーバー側で処理できるようにする
 - (void)getQuestForQuestBoard;
 
+//クリア判定
+- (BOOL)isClear:(KiiObject *)obj;
 
 //データ操作用
 - (void)deleteAllObject:(KiiBucket *)bucket;

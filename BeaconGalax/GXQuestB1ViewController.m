@@ -7,6 +7,8 @@
 //
 
 #import "GXQuestB1ViewController.h"
+#import "GXClearViewController.h"
+#import "GXBucketManager.h"
 #import "GXDictonaryKeys.h"
 #import "GXBeacon.h"
 
@@ -56,14 +58,15 @@
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
-    [self questParse];
     
 }
 
 - (void)viewDidAppear:(BOOL)animated
 {
-    [self.beaconManager startRangingBeaconsInRegion:self.beaconRegion];
-    self.beaconRegion = [[ESTBeaconRegion alloc] initWithProximityUUID:self.uuid major:55213 minor:51135 identifier:@"estimote"];
+    //アラート表示
+    [self questParse];
+    [self beaconStart];
+    
 }
 
 - (void)viewDidDisappear:(BOOL)animated
@@ -122,8 +125,6 @@
             case CLProximityImmediate:
                 
                 self.proxLabel.text = @"グレート";
-                [self.beaconManager stopRangingBeaconsInRegion:self.beaconRegion];
-                [self.beaconManager stopMonitoringForRegion:self.beaconRegion];
                 [self fadeInButton];
                 
                 break;
@@ -150,8 +151,41 @@
 }
 
 - (IBAction)clearAction:(id)sender {
-    
+    [SVProgressHUD showWithStatus:@"クリア判定中"];
+    BOOL isClear = [[GXBucketManager sharedManager] isClear:self.exeQuest];
+    if (isClear) {
+        [NSTimer bk_scheduledTimerWithTimeInterval:3.0f block:^(NSTimer *timer) {
+            //
+            [SVProgressHUD dismiss];
+            //clear画面he
+            GXClearViewController *vc = [self.storyboard instantiateViewControllerWithIdentifier:@"clearView"];
+            [self presentViewController:vc animated:YES completion:nil];
+            
+        } repeats:NO];
+    }
+    else {
+        [NSTimer bk_scheduledTimerWithTimeInterval:3.0f block:^(NSTimer *timer) {
+            //
+            [SVProgressHUD dismiss];
+            //alert
+            UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"failure" message:@"クエスト失敗" preferredStyle:UIAlertControllerStyleAlert];
+            [alertController addAction:[UIAlertAction actionWithTitle:@"failure" style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
+                [self dismissViewControllerAnimated:YES completion:nil];
+            }]];
+            
+            [self presentViewController:alertController animated:YES completion:nil];
+            
+        } repeats:NO];
+    }
+
     
 }
+
+- (void)beaconStart
+{
+    [self.beaconManager startRangingBeaconsInRegion:self.beaconRegion];
+    self.beaconRegion = [[ESTBeaconRegion alloc] initWithProximityUUID:self.uuid major:55213 minor:51135 identifier:@"estimote"];
+}
+
 
 @end

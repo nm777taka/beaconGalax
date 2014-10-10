@@ -89,6 +89,8 @@
 		0FA1E9EF19C06FD8003D7CDE /* GXTestBeaconViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0FA1E9EE19C06FD8003D7CDE /* GXTestBeaconViewController.m */; };
 		0FC0095419E13CB70026A7DC /* GXHomeCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 0FC0095319E13CB70026A7DC /* GXHomeCollectionViewCell.m */; };
 		0FC0095819E259DD0026A7DC /* GXFrostedViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0FC0095719E259DD0026A7DC /* GXFrostedViewController.m */; };
+		0FC9FF1319E81C2800E78B39 /* GALAX-update-.png in Resources */ = {isa = PBXBuildFile; fileRef = 0FC9FF1219E81C2800E78B39 /* GALAX-update-.png */; };
+		0FC9FF1719E81FF100E78B39 /* GXClearViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0FC9FF1619E81FF100E78B39 /* GXClearViewController.m */; };
 		0FD200A219E2608D0034E52A /* GXStatusViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0FD200A119E2608D0034E52A /* GXStatusViewController.m */; };
 		0FD200A619E263CE0034E52A /* GXNavViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0FD200A519E263CE0034E52A /* GXNavViewController.m */; };
 		0FD26D7B1959F0E7005E2B95 /* GXTableViewConst.m in Sources */ = {isa = PBXBuildFile; fileRef = 0FD26D7A1959F0E7005E2B95 /* GXTableViewConst.m */; };
@@ -237,6 +239,9 @@
 		0FC0095319E13CB70026A7DC /* GXHomeCollectionViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GXHomeCollectionViewCell.m; sourceTree = "<group>"; };
 		0FC0095619E259DD0026A7DC /* GXFrostedViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GXFrostedViewController.h; sourceTree = "<group>"; };
 		0FC0095719E259DD0026A7DC /* GXFrostedViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GXFrostedViewController.m; sourceTree = "<group>"; };
+		0FC9FF1219E81C2800E78B39 /* GALAX-update-.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "GALAX-update-.png"; sourceTree = "<group>"; };
+		0FC9FF1519E81FF100E78B39 /* GXClearViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GXClearViewController.h; sourceTree = "<group>"; };
+		0FC9FF1619E81FF100E78B39 /* GXClearViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GXClearViewController.m; sourceTree = "<group>"; };
 		0FD200A019E2608D0034E52A /* GXStatusViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GXStatusViewController.h; sourceTree = "<group>"; };
 		0FD200A119E2608D0034E52A /* GXStatusViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GXStatusViewController.m; sourceTree = "<group>"; };
 		0FD200A419E263CE0034E52A /* GXNavViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GXNavViewController.h; sourceTree = "<group>"; };
@@ -557,6 +562,7 @@
 		0F7A25C919587E0C001B7839 /* Controller */ = {
 			isa = PBXGroup;
 			children = (
+				0FC9FF1419E81F8A00E78B39 /* Clear */,
 				0F629BE919E416D9009757DF /* Quest_type */,
 				0FD200A319E263B50034E52A /* GXNavigation */,
 				0FD2009F19E2605C0034E52A /* GXUserStatus */,
@@ -624,6 +630,7 @@
 		0F82302D198245B10081C9BE /* Images */ = {
 			isa = PBXGroup;
 			children = (
+				0FC9FF1119E81C1300E78B39 /* ClearResult */,
 				0F629BEF19E41B01009757DF /* QuestType */,
 				0F649FD919CD223900D48074 /* home-32.png */,
 				0F823038198245F40081C9BE /* quest.png */,
@@ -675,6 +682,23 @@
 				0FC0095719E259DD0026A7DC /* GXFrostedViewController.m */,
 			);
 			name = GXFrostedViewController;
+			sourceTree = "<group>";
+		};
+		0FC9FF1119E81C1300E78B39 /* ClearResult */ = {
+			isa = PBXGroup;
+			children = (
+				0FC9FF1219E81C2800E78B39 /* GALAX-update-.png */,
+			);
+			name = ClearResult;
+			sourceTree = "<group>";
+		};
+		0FC9FF1419E81F8A00E78B39 /* Clear */ = {
+			isa = PBXGroup;
+			children = (
+				0FC9FF1519E81FF100E78B39 /* GXClearViewController.h */,
+				0FC9FF1619E81FF100E78B39 /* GXClearViewController.m */,
+			);
+			name = Clear;
 			sourceTree = "<group>";
 		};
 		0FD2009F19E2605C0034E52A /* GXUserStatus */ = {
@@ -869,6 +893,7 @@
 				0F823031198245D30081C9BE /* bell.png in Resources */,
 				0F7A259E19587ADE001B7839 /* InfoPlist.strings in Resources */,
 				0F7A25D91959C014001B7839 /* red.png in Resources */,
+				0FC9FF1319E81C2800E78B39 /* GALAX-update-.png in Resources */,
 				0F7A25A719587ADE001B7839 /* Main.storyboard in Resources */,
 				0F629BF819E41B35009757DF /* location.png in Resources */,
 				0F5FA5EE198A31D900F41B05 /* GXHomeTableViewHeader.xib in Resources */,
@@ -952,6 +977,7 @@
 				0F5FA5ED198A31D900F41B05 /* GXHomeTableViewHeader.m in Sources */,
 				0F16512519D4435A00918F8D /* GXGroupManager.m in Sources */,
 				0F42366719BD58530001E204 /* UIPlaceHolderTextView.m in Sources */,
+				0FC9FF1719E81FF100E78B39 /* GXClearViewController.m in Sources */,
 				0F27DAF119824BC20000E0D0 /* GXNavigationItem.m in Sources */,
 				0F7A25CD19587E3B001B7839 /* GXBeacon.m in Sources */,
 				0F649FE119CD543300D48074 /* GXJoinedQuestViewController.m in Sources */,

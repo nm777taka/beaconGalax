@@ -9,6 +9,7 @@
 #import <UIKit/UIKit.h>
 #import <KiiSDK/Kii.h>
 #import <EstimoteSDK/ESTBeaconManager.h>
+#import <SVProgressHUD/SVProgressHUD.h>
 
 @interface GXQuestB1ViewController : UIViewController
 
