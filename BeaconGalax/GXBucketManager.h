@@ -43,6 +43,8 @@
 
 - (NSMutableArray *)getQuestMembers:(NSArray *)members;
 
+//その内サーバー側で処理できるようにする
+- (void)getQuestForQuestBoard;
 
 
 //データ操作用

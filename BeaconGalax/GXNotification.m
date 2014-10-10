@@ -16,6 +16,7 @@ NSString *const GXLoginSuccessedNotification = @"GXLoginSuccessedNotification";
 
 NSString *const GXQuestCreatedNotification = @"GXQuestCreatedNotification";
 
+//フェッチ
 NSString *const GXFetchQuestNotComplitedNotification = @"GXFetchQuestNotComplitedNotification";
 NSString *const GXFetchMissionWithNotCompletedNotification = @"GXFetchMissionWithNotCompletedNotification";
 

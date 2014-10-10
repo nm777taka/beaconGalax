@@ -53,7 +53,7 @@
     _objects = [NSMutableArray new];
     
     _refreshControl = [UIRefreshControl new];
-    [_refreshControl addTarget:self action:@selector(refresh) forControlEvents:UIControlEventValueChanged];
+    [_refreshControl addTarget:self action:@selector(refresh:) forControlEvents:UIControlEventValueChanged];
     [self.collectionView addSubview:_refreshControl];
     
     _descriptionViewContoller = [[self storyboard] instantiateViewControllerWithIdentifier:@"DescriptionView"];
@@ -75,7 +75,9 @@
     } else {
         //DBからフェッチ(非同期)
         //最終的に変更があった場合のみにしたい
-        [[GXBucketManager sharedManager] fetchQuestWithNotComplited];
+        //[[GXBucketManager sharedManager] fetchQuestWithNotComplited];
+        [[GXBucketManager sharedManager] getQuestForQuestBoard];
+
     }
 }
 
@@ -121,20 +123,14 @@
 
 
 #pragma  mark - refresh
-- (void)refresh
+- (void)refresh:(id)sender
 {
-    NSLog(@"refresh");
+    [_refreshControl beginRefreshing];
     
     [self.collectionView reloadData];
-
-    [NSTimer scheduledTimerWithTimeInterval:1.f target:self selector:@selector(endRefresh) userInfo:nil repeats:NO];
-}
-
-- (void)endRefresh
-{
+    
     [_refreshControl endRefreshing];
 }
-
 #pragma mark Notification
 - (void)questFetched:(NSNotification *)info
 {
@@ -210,25 +206,24 @@
 - (IBAction)createNewQuest:(id)sender
 {
     
-    NSLog(@"call");
-    KiiServerCodeEntry* entry =[Kii serverCodeEntry:@"createMission"];
-    
-    //実行時パラメータ
-    KiiUser *currUser = [KiiUser currentUser];
-    NSDictionary *argDict = @{currUser.objectURI:@"user_uri"};
-    KiiServerCodeEntryArgument *argument = [KiiServerCodeEntryArgument argumentWithDictionary:argDict];
-    NSError* error = nil;
-    
-    
-    KiiServerCodeExecResult* result = [entry executeSynchronous:argument
-                                                      withError:&error];
-    
-    // Parse the result.
-    NSDictionary *returnedDict = [result returnedValue];
-    NSString *timestamp = [returnedDict objectForKey:@"returnedValue"];
-    
-    NSLog(@"%@",timestamp);
-        
+//    NSLog(@"call");
+//    KiiServerCodeEntry* entry =[Kii serverCodeEntry:@"main"];
+//    
+//    //実行時パラメータ
+//    KiiUser *currUser = [KiiUser currentUser];
+//    NSDictionary *argDict = @{@"aaa":@"username",@"bbb":@"password"};
+//    KiiServerCodeEntryArgument *argument = [KiiServerCodeEntryArgument argumentWithDictionary:argDict];
+//    NSError* error = nil;
+//    
+//    
+//    KiiServerCodeExecResult* result = [entry executeSynchronous:argument
+//                                                      withError:&error];
+//    
+//    // Parse the result.
+//    NSDictionary *returnedDict = [result returnedValue];
+//    NSString *returnString = [returnedDict objectForKey:@"returnedValue"];
+//    
+//    NSLog(@"%@",returnString);
 }
 
 

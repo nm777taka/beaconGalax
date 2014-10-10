@@ -226,6 +226,42 @@
     
 }
 
+//Quest_boardからnot_joinedにフェッチ
+//そのうちサーバーコードで実現する
+- (void)getQuestForQuestBoard
+{
+    //全件取得
+    NSLog(@"call");
+    KiiQuery *query = [KiiQuery queryWithClause:nil];
+    [self.questBoard executeQuery:query withBlock:^(KiiQuery *query, KiiBucket *bucket, NSArray *results, KiiQuery *nextQuery, NSError *error) {
+        if (!error) {
+            NSLog(@"フェッチ完了");
+            //resultsからnotJoinedBucketにいれる
+            for (KiiObject *obj in results) {
+                
+                NSDictionary *dict = obj.dictionaryValue;
+                NSArray *allKeys = dict.allKeys;
+                
+                KiiObject *newObj = [self.notJoinedQuest createObject];
+                for (NSString *key in allKeys) {
+                    [newObj setObject:dict[key] forKey:key];
+                }
+                
+                [newObj saveWithBlock:^(KiiObject *object, NSError *error) {
+                    
+                    if (!error) {
+                        NSLog(@"quest_board→not_joinedBoard");
+                    }
+                }];
+            }
+            
+            [self fetchQuestWithNotComplited];
+
+        }
+    }];
+}
+
+
 //参加したクエストを自分スコープのバケットに保存
 - (void)registerJoinedQuest:(KiiObject *)obj
 {
@@ -371,7 +407,7 @@
     KiiQuery *query = [KiiQuery queryWithClause:clause];
     [query sortByDesc:@"_created"];
     
-    [self.questBoard executeQuery:query withBlock:^(KiiQuery *query, KiiBucket *bucket, NSArray *results, KiiQuery *nextQuery, NSError *error) {
+    [self.notJoinedQuest executeQuery:query withBlock:^(KiiQuery *query, KiiBucket *bucket, NSArray *results, KiiQuery *nextQuery, NSError *error) {
         if (error) {
             NSLog(@"error :%@",error);
         } else {
