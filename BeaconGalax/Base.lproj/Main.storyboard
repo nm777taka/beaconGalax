@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6245" systemVersion="13F34" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" initialViewController="8fl-Pj-LvM">
     <dependencies>
-        <deployment defaultVersion="1808" identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6238"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
@@ -110,7 +109,7 @@
         <!--Frosted View Controller-->
         <scene sceneID="RpO-tx-cBE">
             <objects>
-                <viewController id="8fl-Pj-LvM" customClass="GXFrostedViewController" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="frostedView" id="8fl-Pj-LvM" customClass="GXFrostedViewController" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="NgH-TR-igL"/>
                         <viewControllerLayoutGuide type="bottom" id="xtb-ml-PKc"/>
@@ -123,7 +122,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="jCK-KX-PQ3" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="105" y="408"/>
+            <point key="canvasLocation" x="301" y="504"/>
         </scene>
         <!--Status View Controller-->
         <scene sceneID="xwt-bl-Lo2">
@@ -172,7 +171,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="nFq-a3-EjY" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="549" y="408"/>
+            <point key="canvasLocation" x="-587" y="48"/>
         </scene>
         <!--Login View Controller-->
         <scene sceneID="pVw-jq-tED">
@@ -509,7 +508,7 @@
                         <outlet property="segumentedControl" destination="fey-7H-pq7" id="5kE-fr-kEI"/>
                         <outlet property="tableView" destination="BeV-d6-jbY" id="Lwe-Q3-nes"/>
                         <segue destination="2KE-J0-tPr" kind="modal" identifier="goto_questExe" id="tMr-ab-WIl"/>
-                        <segue destination="7uq-0K-BDk" kind="modal" identifier="type_1" id="HRc-hY-3th"/>
+                        <segue destination="7uq-0K-BDk" kind="push" identifier="type_1" id="HRc-hY-3th"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="HoD-uz-grb" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -619,10 +618,15 @@
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                     </imageView>
+                    <navigationItem key="navigationItem" id="cRR-lC-tvi"/>
+                    <nil key="simulatedStatusBarMetrics"/>
+                    <nil key="simulatedTopBarMetrics"/>
+                    <nil key="simulatedBottomBarMetrics"/>
+                    <simulatedOrientationMetrics key="simulatedOrientationMetrics"/>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="xUT-CW-AQs" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2673" y="895"/>
+            <point key="canvasLocation" x="2683" y="1127"/>
         </scene>
         <!--QuestB1 View Controller-->
         <scene sceneID="Scx-Af-DdM">
@@ -739,6 +743,11 @@
                         </subviews>
                         <color key="backgroundColor" red="0.11800781250000003" green="0.11800781250000003" blue="0.11800781250000003" alpha="1" colorSpace="calibratedRGB"/>
                     </view>
+                    <navigationItem key="navigationItem" id="ep0-sj-E7D"/>
+                    <nil key="simulatedStatusBarMetrics"/>
+                    <nil key="simulatedTopBarMetrics"/>
+                    <nil key="simulatedBottomBarMetrics"/>
+                    <simulatedOrientationMetrics key="simulatedOrientationMetrics"/>
                     <connections>
                         <outlet property="clearButton" destination="sEb-ZD-Leg" id="M4Y-fj-aVO"/>
                         <outlet property="clearCntLabel" destination="4bA-Ht-OX3" id="pU5-rC-bo1"/>
@@ -747,7 +756,7 @@
                         <outlet property="proxLabel" destination="bmb-FR-mSs" id="ZOj-8v-CFl"/>
                         <outlet property="sucCntLabel" destination="gOv-5d-uZO" id="U3N-fG-uO2"/>
                         <outlet property="titleLabel" destination="CDe-i4-C4R" id="cx8-Xy-4Pd"/>
-                        <segue destination="vuQ-LW-sdU" kind="modal" identifier="gotoClearView" id="UlP-lg-RDR"/>
+                        <segue destination="vuQ-LW-sdU" kind="push" identifier="gotoClearView" id="UlP-lg-RDR"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="T4q-Oj-vM7" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -866,7 +875,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="2bn-En-2Vd" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2340" y="96"/>
+            <point key="canvasLocation" x="2868" y="32"/>
         </scene>
         <!--Tab Bar View Controller-->
         <scene sceneID="8hC-nt-GPc">
@@ -921,7 +930,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="H2x-on-aTC" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-945" y="-263"/>
+            <point key="canvasLocation" x="-561" y="-631"/>
         </scene>
         <!--Beacon View Controller-->
         <scene sceneID="1pd-tF-xbX">
@@ -1001,7 +1010,7 @@
         <!--home-->
         <scene sceneID="n5B-Z0-Mov">
             <objects>
-                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="dvL-ND-Tg6" customClass="GXNavViewController" sceneMemberID="viewController">
+                <navigationController storyboardIdentifier="navHome" automaticallyAdjustsScrollViewInsets="NO" id="dvL-ND-Tg6" customClass="GXNavViewController" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" title="home" image="home-32.png" id="7UZ-L1-hh8"/>
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="Rhc-Xt-Oon">

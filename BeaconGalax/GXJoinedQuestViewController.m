@@ -37,6 +37,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
+    
     self.tableView.delegate = self;
     self.tableView.dataSource = self;
     
@@ -68,6 +69,10 @@
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
+    self.navigationController.navigationBarHidden = NO;
+    self.tabBarController.tabBar.hidden = NO;
+
+    
     switch (self.segumentedControl.selectedSegmentIndex) {
         case 0:
             [self fetchParticipantQuest];

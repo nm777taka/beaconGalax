@@ -38,6 +38,9 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
+    self.navigationController.navigationBarHidden = YES;
+    self.tabBarController.tabBar.hidden = YES;
+    
     self.clearButton.layer.cornerRadius = 5.0;
     self.clearButton.layer.borderColor = [UIColor cyanColor].CGColor;
     self.clearButton.layer.borderWidth = 1.0;
@@ -78,7 +81,7 @@
 
 - (void)questParse
 {
-    self.titleLabel.text = [self.exeQuest getObjectForKey:quest_title];
+    self.titleLabel.text = [self.exeQuest getObjectForKey:quest_description];
     self.locationLabel.text = [self.exeQuest getObjectForKey:beacon_name];
     self.clearCntLabel.text = [NSString stringWithFormat:@"%d",[[self.exeQuest getObjectForKey:quest_clear_cnt] integerValue]];
     
@@ -125,16 +128,16 @@
         switch (closetBeacon.proximity) {
             case CLProximityImmediate:
                 
-                self.proxLabel.text = @"グレート";
+                self.proxLabel.text = @"完璧！！";
                 [self fadeInButton];
                 
                 break;
             case CLProximityNear:
-                self.proxLabel.text = @"いいっすね〜";
+                self.proxLabel.text = @"もっと近づいて";
                 break;
                 
             case CLProximityFar:
-                self.proxLabel.text = @"遠いっすね〜";
+                self.proxLabel.text = @"遠いよ！";
                 break;
                 
             default:
@@ -152,6 +155,10 @@
 }
 
 - (IBAction)clearAction:(id)sender {
+    
+    [self performSegueWithIdentifier:@"gotoClearView" sender:self];
+    
+    /*
     
     [SVProgressHUD showWithStatus:@"クリア判定中"];
     BOOL isClear = [[GXBucketManager sharedManager] isClear:self.exeQuest];
@@ -179,6 +186,8 @@
             
         } repeats:NO];
     }
+     
+     */
 
     
 }

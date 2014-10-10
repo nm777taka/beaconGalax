@@ -10,6 +10,7 @@
 #import "GXBucketManager.h"
 #import "GXDictonaryKeys.h"
 #import "GXNotification.h"
+#import "GXQuestViewController.h"
 
 @interface GXClearViewController ()
 
@@ -24,10 +25,28 @@
     
 }
 
+- (void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+    self.navigationController.navigationBarHidden = YES;
+    self.tabBarController.tabBar.hidden = YES;
+
+}
 - (void)viewDidAppear:(BOOL)animated
 {
     [super viewDidAppear:animated];
     NSLog(@"point:%d",self.point);
+    [NSTimer bk_scheduledTimerWithTimeInterval:3.0 block:^(NSTimer *timer) {
+        
+        UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"Congratulation" message:@"クエストクリアおめでとうございます" preferredStyle:UIAlertControllerStyleAlert];
+        [alertController addAction:[UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
+            [self.navigationController popToRootViewControllerAnimated:YES];
+
+        }]];
+        
+        [self presentViewController:alertController animated:YES completion:nil];
+
+    } repeats:NO];
 }
 
 
