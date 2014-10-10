@@ -255,6 +255,23 @@
     
 }
 
+//参加したクエストをnotJoinから消す
+- (void)deleteJoinedQuest:(KiiObject *)obj
+{
+    KiiClause *clause = [KiiClause equals:@"uri" value:[obj getObjectForKey:@"uri"]];
+    KiiQuery *query = [KiiQuery queryWithClause:clause];
+    [self.notJoinedQuest executeQuery:query withBlock:^(KiiQuery *query, KiiBucket *bucket, NSArray *results, KiiQuery *nextQuery, NSError *error) {
+        KiiObject *deleteObjt = results.firstObject;
+        [deleteObjt deleteWithBlock:^(KiiObject *object, NSError *error) {
+            if (error) {
+                NSLog(@"error:%@",error);
+            } else {
+                NSLog(@"delete完了");
+            }
+        }];
+    }];
+}
+
 //Quest_boardからnot_joinedにフェッチ
 //そのうちサーバーコードで実現する
 - (void)getQuestForQuestBoard

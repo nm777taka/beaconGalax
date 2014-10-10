@@ -171,6 +171,7 @@
     }
     
     [[GXBucketManager sharedManager] registerJoinedQuest:object];
+    [[GXBucketManager sharedManager] deleteJoinedQuest:object];
     
     
     //--------------------------->
