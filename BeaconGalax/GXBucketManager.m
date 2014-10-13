@@ -230,31 +230,6 @@
 }
 
 #pragma mark - UserScope
-- (NSMutableArray *)getNearUser:(KiiUser *)user
-{
-    //ApplicatiaonBucketからparam=nearのやつをひっぱってくる
-
-    NSError *error = nil;
-    KiiClause *clause1 = [KiiClause equals:@"isNear" value:@YES];
-    KiiClause *clause2 = [KiiClause notEquals:@"uri" value:user.objectURI];
-    KiiClause *totalClause = [KiiClause and:clause1,clause2,nil];
-
-    KiiQuery *query = [KiiQuery queryWithClause:totalClause];
-    NSMutableArray *allResults = [NSMutableArray new];
-    KiiQuery *nextQuery;
-    
-    NSArray *results = [self.galaxUser executeQuerySynchronous:query withError:&error andNext:&nextQuery];
-    
-    [allResults addObjectsFromArray:results];
-    
-    NSLog(@"registerdUser : %lu",(unsigned long)allResults.count);
-    
-    KiiObject *obj = allResults.firstObject;
-    NSLog(@"near user uri : %@",[obj getObjectForKey:@"uri"]);
-    
-    return allResults;
-    
-}
 
 //参加したクエストをnotJoinから消す
 - (void)deleteJoinedQuest:(KiiObject *)obj
@@ -359,6 +334,8 @@
     }
 
 }
+
+
 //joinしたクエストを取得
 - (void)getJoinedQuest
 {

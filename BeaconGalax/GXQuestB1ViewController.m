@@ -156,9 +156,7 @@
 
 - (IBAction)clearAction:(id)sender {
     
-    [self performSegueWithIdentifier:@"gotoClearView" sender:self];
-    
-    /*
+    //[self performSegueWithIdentifier:@"gotoClearView" sender:self];
     
     [SVProgressHUD showWithStatus:@"クリア判定中"];
     BOOL isClear = [[GXBucketManager sharedManager] isClear:self.exeQuest];
@@ -169,7 +167,6 @@
             [self performSegueWithIdentifier:@"gotoClearView" sender:self];
             
         } repeats:NO];
-        
 
     }
     else {
@@ -186,8 +183,6 @@
             
         } repeats:NO];
     }
-     
-     */
 
     
 }

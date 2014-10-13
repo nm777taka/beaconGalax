@@ -171,7 +171,7 @@
     }
     
     [[GXBucketManager sharedManager] registerJoinedQuest:object];
-    [[GXBucketManager sharedManager] deleteJoinedQuest:object];
+    [[GXBucketManager sharedManager] deleteJoinedQuest:object]; //notJoindBucketから消す
     
     
     //--------------------------->
