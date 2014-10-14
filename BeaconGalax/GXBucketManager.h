@@ -22,8 +22,10 @@
 //UserScope
 @property (nonatomic) KiiBucket *notJoinedQuest;
 @property (nonatomic) KiiBucket *missionBoard;
-@property (nonatomic) KiiBucket *nearUser;
-@property (nonatomic) KiiBucket *joinedQuest;
+@property (nonatomic) KiiBucket *nearUser; //消す
+@property (nonatomic) KiiBucket *joinedQuest; //消す
+@property (nonatomic) KiiBucket *joinedOnePersonQuest; //一人用
+@property (nonatomic) KiiBucket *joinedMultiPersonQuest; //複数用
 @property (nonatomic) KiiBucket *myQuestParticipants;
 @property (nonatomic) KiiBucket *pointBucket;
 
@@ -35,6 +37,13 @@
 
 - (void)fetchQuestWithNotComplited;
 - (void)fetchMissionWithNotCompleted;
+
+//参加した一人用クエストフェッチ
+- (void)getJoinedOnePersonQuest;
+
+//マルチ用クエストフェッチ
+- (void)getJoinedMultiPersonQuest;
+
 
 - (KiiObject *)getMeFromGalaxUserBucket;
 

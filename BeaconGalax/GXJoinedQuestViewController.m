@@ -55,14 +55,9 @@
     
     [_type1Alert addAction:[UIAlertAction actionWithTitle:@"NO" style:UIAlertActionStyleCancel handler:nil]];
     
-
     
-    //Notification
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(fetchQuestWithParticipantHandler:) name:GXFetchQuestWithParticipantNotification object:nil];
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(segueNotisHandler:) name:GXSegueToQuestExeViewNotification object:nil];
-    
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(fetchQuestWithOwnerHandler:) name:GXFetchQuestWithOwnerNotification object:nil];
     
 }
 
@@ -187,13 +182,6 @@
 
 #pragma mark - NotificationHandler
 
-- (void)fetchQuestWithParticipantHandler:(NSNotification *)notis
-{
-    NSArray *array = notis.object;
-    self.joinedQuestArray = [NSMutableArray arrayWithArray:array];
-    [self.tableView reloadData];
-}
-
 - (void)segueNotisHandler:(NSNotification *)notis
 {
     GXJoinedQuestTableViewCell *cell = notis.object;
@@ -213,17 +201,7 @@
 //        //クエスト参加者
 //        [self performSegueWithIdentifier:@"goto_questPrepare" sender:self];
 //    }
-
     
-    
-    
-}
-
-- (void)fetchQuestWithOwnerHandler:(NSNotification *)notis
-{
-    NSArray *array = notis.object;
-    self.joinedQuestArray = [NSMutableArray arrayWithArray:array];
-    [self.tableView reloadData];
 }
 
 #pragma mark segue

@@ -12,6 +12,7 @@
 #import "GXBeaconRegion.h"
 #import "GXNotification.h"
 #import "GXBucketManager.h"
+#import "GXDictonaryKeys.h"
 
 #define kBeaconUUID @"B9407F30-F5F8-466E-AFF9-25556B57FE6D"
 #define kIdentifier @"Estimote"
@@ -23,12 +24,13 @@
 @property (weak, nonatomic) IBOutlet UILabel *bluetoothStatusLabel;
 @property (weak, nonatomic) IBOutlet UILabel *monitoringStatusLabel;
 
-@property NSMutableArray *jonedQuestArray;
+@property NSMutableArray *joinedQuestArray;
 
 @property GXBeacon *beacon;
 @property GXBeaconMonitoringStatus monitoringStatus;
 @property (nonatomic) NSUUID *proximityUUID;
 @property (weak, nonatomic) IBOutlet FBProfilePictureView *userIcon;
+@property (weak, nonatomic) IBOutlet UISegmentedControl *segmentControl;
 
 @end
 
@@ -56,12 +58,26 @@
     //Notification
     //viewの読み込まれるタイミング的な問題で必要
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(fbIconHandler:) name:GXFBProfilePictNotification object:nil];
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(joinedQuestFetched:) name:GXJoinedQuestFetchedNotification object:nil];
 }
 
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
-    [[GXBucketManager sharedManager] getJoinedQuest];
+    
+    switch (self.segmentControl.selectedSegmentIndex) {
+        case 0:
+            [self fetchOnePersonQuest];
+            break;
+            
+        case 1:
+            [self fetchMultiPersonQuest];
+            break;
+            
+        default:
+            break;
+    }
 }
 
 - (void)didReceiveMemoryWarning {
@@ -87,16 +103,24 @@
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return 5;
+    return self.joinedQuestArray.count;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     GXStatusViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"Cell" forIndexPath:indexPath];
     cell.backgroundColor = [UIColor clearColor];
-    cell.textLabel.text = @"aa";
+    cell.selectionStyle = UITableViewCellSelectionStyleNone;
+
+    [self configureCell:cell atIndexPath:indexPath];
     
     return cell;
+}
+
+- (void)configureCell:(GXStatusViewCell *)cell atIndexPath:(NSIndexPath *)indexPath
+{
+    KiiObject *obj = self.joinedQuestArray[indexPath.row];
+    cell.title = [obj getObjectForKey:quest_title];
 }
 
 #pragma mark - Gxbeacon Delegate
@@ -144,12 +168,44 @@
             break;
     }
 }
+- (IBAction)dataSouceChange:(UISegmentedControl *)sender {
+    switch (sender.selectedSegmentIndex) {
+        case 0:
+            [self fetchOnePersonQuest];
+            break;
+            
+        case 1:
+            [self fetchMultiPersonQuest];
+            break;
+            
+        default:
+            break;
+    }
+}
+
+#pragma mark - データフェッチ
+- (void)fetchOnePersonQuest
+{
+    [[GXBucketManager sharedManager] getJoinedOnePersonQuest];
+}
+
+- (void)fetchMultiPersonQuest
+{
+    [[GXBucketManager sharedManager] getJoinedMultiPersonQuest];
+}
 
 #pragma mark - Notification
 - (void)fbIconHandler:(NSNotification *)info
 {
     NSString *userID = info.object;
     self.userIcon.profileID = userID;
+}
+
+- (void)joinedQuestFetched:(NSNotification *)info
+{
+    NSArray *array = info.object;
+    self.joinedQuestArray = [NSMutableArray arrayWithArray:array];
+    [self.tableView reloadData];
 }
 
 @end

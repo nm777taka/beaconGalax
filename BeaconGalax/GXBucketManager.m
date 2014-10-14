@@ -13,6 +13,9 @@
 #import "GXFacebook.h"
 #import "GXDictonaryKeys.h"
 
+#define GXQUEST_TYPE_ONE 1
+#define GXQUEST_TYPE_MULTI 2
+
 @implementation GXBucketManager
 
 + (GXBucketManager *)sharedManager
@@ -40,7 +43,9 @@
         //Userスコープ
         self.missionBoard = [[KiiUser currentUser] bucketWithName:@"mission_board"]; //消す
         self.notJoinedQuest = [[KiiUser currentUser] bucketWithName:@"notJoined_quest"];
-        self.joinedQuest = [[KiiUser currentUser] bucketWithName:@"joined_quest"];
+        self.joinedQuest = [[KiiUser currentUser] bucketWithName:@"joined_quest"];//消す
+        self.joinedOnePersonQuest = [[KiiUser currentUser] bucketWithName:@"joined_onePersonQuest"];
+        self.joinedMultiPersonQuest = [[KiiUser currentUser] bucketWithName:@"joined_multiPersonQuest"];
         self.myQuestParticipants = [[KiiUser currentUser] bucketWithName:@"myQuest_participants"];
         self.pointBucket = [[KiiUser currentUser] bucketWithName:@"point"];
     }
@@ -291,66 +296,72 @@
 //参加したクエストを自分スコープのバケットに保存
 - (void)registerJoinedQuest:(KiiObject *)obj
 {
+    KiiObject *newQuest = obj;
+    int playerNum = [[newQuest getObjectForKey:quest_player_num] intValue];
+    if (playerNum > 1) {
+        //マルチ
+        NSLog(@"マルチ");
+        [self copyObject:self.joinedMultiPersonQuest object:newQuest];
+        //tsmessageとかだす
+    } else {
+        if (playerNum != 0) {
+            //一人用
+            NSLog(@"ひとり");
+            [self copyObject:self.joinedOnePersonQuest object:newQuest];
+            //tsmessageとかだす
+        }
+    }
+        
+
+}
+
+//一人用クエストを取得
+- (void)getJoinedOnePersonQuest
+{
+    KiiQuery *query = [KiiQuery queryWithClause:nil];
+    [self.joinedOnePersonQuest executeQuery:query withBlock:^(KiiQuery *query, KiiBucket *bucket, NSArray *results, KiiQuery *nextQuery, NSError *error) {
+        if (error) {
+            NSLog(@"error:%@",error);
+        } else {
+            NSLog(@"一人用クエストフェッチ完了");
+            [[NSNotificationCenter defaultCenter] postNotificationName:GXJoinedQuestFetchedNotification object:results];
+            
+        }
+        
+    }];
+}
+
+//マルチ用クエストを取得
+- (void)getJoinedMultiPersonQuest
+{
+    KiiQuery *query = [KiiQuery queryWithClause:nil];
+    [self.joinedMultiPersonQuest executeQuery:query withBlock:^(KiiQuery *query, KiiBucket *bucket, NSArray *results, KiiQuery *nextQuery, NSError *error) {
+        if (error) {
+            NSLog(@"error:%@",error);
+        } else {
+            NSLog(@"マルチ用クエストフェッチ");
+            [[NSNotificationCenter defaultCenter] postNotificationName:GXJoinedQuestFetchedNotification object:results];
+        }
+    }];
+}
+
+//objを別バケットのobjに変更
+- (void)changeObjectTo:(KiiBucket *)toBucket andOriginObject:(KiiObject *) obj
+{
     NSError *error;
-    KiiObject *newObj = [self.joinedQuest createObject];
+    KiiObject *newObj = [toBucket createObject];
+    
     NSDictionary *dict = obj.dictionaryValue;
     NSArray *allKeys = dict.allKeys;
     for (NSString *key in allKeys) {
-        NSLog(@"key:%@",key);
-        NSLog(@"value:%@",dict[key]);
-        [newObj setObject:dict[key] forKey:key];
+        
+        [newObj setObject:[obj getObjectForKey:key] forKey:key];
     }
     
-    
-    if (![[obj getObjectForKey:quest_owner] boolValue]) {
-        NSLog(@"オーナーいない");
-        //一番最初の人がオーナーになる(スタートしたら戻す
-        NSError *error;
-        
-        //グループ作成
-        NSString *groupName = obj.uuid;
-        KiiGroup *group = [KiiGroup groupWithName:groupName];
-        [group saveSynchronous:&error];
-        if (error != nil) {
-            NSLog(@"group created error :%@",error);
-        } else {
-
-            //クエストオーナー登録
-            [newObj setObject:[group objectURI] forKey:quest_groupURI];
-
-        }
-        
-    }else {
-        NSLog(@"オーナーいる");
-    }
-    
-    //保存
     [newObj saveSynchronous:&error];
-    
-    if (!error) {
-        NSLog(@"自分のバケットに保存完了");
-        //参加したお的な通知を飛ばす
-        
-    }
-
+    if (error) NSLog(@"error:%@",error);
+    else NSLog(@"コピー完了");
 }
-
-
-//joinしたクエストを取得
-- (void)getJoinedQuest
-{
-    KiiQuery *all_query = [KiiQuery queryWithClause:nil];
-    
-    NSMutableArray *allResults = [NSMutableArray array];
-    
-    [self.joinedQuest executeQuery:all_query withBlock:^(KiiQuery *query, KiiBucket *bucket, NSArray *results, KiiQuery *nextQuery, NSError *error) {
-        
-        [[NSNotificationCenter defaultCenter] postNotificationName:GXFetchQuestWithParticipantNotification object:results];
-        
-    }];
-    
-}
-
 
 - (KiiObject *)getMeFromGalaxUserBucket;
 {

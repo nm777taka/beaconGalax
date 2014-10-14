@@ -153,9 +153,8 @@
     NSIndexPath *indexPath = [self.collectionView indexPathForCell:cell];
     KiiObject *object = self.objects[indexPath.row];
     
-    if ([[object getObjectForKey:quest_player] intValue] > 1) {
+    if ([[object getObjectForKey:quest_player_num] intValue] > 1) {
         //invite_boardへ
-        NSLog(@"みんな用です");
         //すでに募集済みかどうか
         BOOL ret = [[GXBucketManager sharedManager] isInvitedQuest:object];
         if (ret) {
@@ -167,9 +166,8 @@
 
     } else {
      
-        NSLog(@"ひとりようです");
     }
-    
+
     [[GXBucketManager sharedManager] registerJoinedQuest:object];
     [[GXBucketManager sharedManager] deleteJoinedQuest:object]; //notJoindBucketから消す
     

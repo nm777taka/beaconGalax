@@ -19,7 +19,7 @@ UIKIT_EXTERN NSString *const GXFBProfilePictNotification; //ログインした�
 //クエスト関連
 UIKIT_EXTERN NSString *const GXQuestCreatedNotification;
 
-UIKIT_EXTERN NSString *const GXQuestFetchedQuestWithJoinedNotification;
+UIKIT_EXTERN NSString *const GXJoinedQuestFetchedNotification;
 
 UIKIT_EXTERN NSString *const GXFetchQuestNotComplitedNotification;
 
@@ -32,6 +32,12 @@ UIKIT_EXTERN NSString *const GXQuestJoinNotification;
 UIKIT_EXTERN NSString *const GXFetchQuestWithParticipantNotification;
 
 UIKIT_EXTERN NSString *const GXFetchQuestWithOwnerNotification;
+
+//参加した一人用クエストをフェッチ
+UIKIT_EXTERN NSString *const GXFetchJoinedOnePersonQuestNotification;
+
+//参加したマルチ用クエストをフェッチ
+UIKIT_EXTERN NSString *const GXFetchJoinedMultiPersonQuestNotification;
 
 //ミッション関連
 UIKIT_EXTERN NSString *const GXFetchMissionWithNotCompletedNotification;

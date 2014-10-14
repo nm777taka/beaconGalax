@@ -20,7 +20,14 @@ NSString *const GXQuestCreatedNotification = @"GXQuestCreatedNotification";
 NSString *const GXFetchQuestNotComplitedNotification = @"GXFetchQuestNotComplitedNotification";
 NSString *const GXFetchMissionWithNotCompletedNotification = @"GXFetchMissionWithNotCompletedNotification";
 
-NSString *const GXQuestFetchedQuestWithJoinedNotification = @"GXQuestFetchedQuestWithJoinedNotification";
+NSString *const GXJoinedQuestFetchedNotification = @"GXJoinedQuestFetchedNotification"
+;
+
+//参加した一人用クエストをフェッチ
+NSString *const GXFetchJoinedOnePersonQuestNotification = @"GXFetchJoinedOnePersonQuestNotification";
+
+//参加したマルチ用クエストをフェッチ
+NSString *const GXFetchJoinedMultiPersonQuestNotification = @"GXFetchJoinedMultiPersonQuestNotification";
 
 NSString *const GXQuestCellTouchedNotification = @"GXQuestCellTouchedNotification";
 
