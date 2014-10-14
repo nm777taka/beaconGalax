@@ -33,9 +33,10 @@
 		0F629BF819E41B35009757DF /* location.png in Resources */ = {isa = PBXBuildFile; fileRef = 0F629BF719E41B35009757DF /* location.png */; };
 		0F649FDA19CD223900D48074 /* home-32.png in Resources */ = {isa = PBXBuildFile; fileRef = 0F649FD919CD223900D48074 /* home-32.png */; };
 		0F649FDD19CD272200D48074 /* GXTabBarViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0F649FDC19CD272200D48074 /* GXTabBarViewController.m */; };
-		0F649FE119CD543300D48074 /* GXJoinedQuestViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0F649FE019CD543300D48074 /* GXJoinedQuestViewController.m */; };
 		0F649FE719CD5A1C00D48074 /* GXJoinedQuestTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 0F649FE619CD5A1C00D48074 /* GXJoinedQuestTableViewCell.m */; };
 		0F649FED19D1543200D48074 /* GXFooterCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 0F649FEC19D1543200D48074 /* GXFooterCell.m */; };
+		0F6E291519ED40CF005BE433 /* GXInviteQuestViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0F6E291419ED40CF005BE433 /* GXInviteQuestViewController.m */; };
+		0F6E291919ED5015005BE433 /* GXInvitedViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 0F6E291819ED5015005BE433 /* GXInvitedViewCell.m */; };
 		0F7881FF1988D1C3002783D6 /* GXViewConst.m in Sources */ = {isa = PBXBuildFile; fileRef = 0F7881FE1988D1C3002783D6 /* GXViewConst.m */; };
 		0F7A259419587ADE001B7839 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0F7A259319587ADE001B7839 /* Foundation.framework */; };
 		0F7A259619587ADE001B7839 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0F7A259519587ADE001B7839 /* CoreGraphics.framework */; };
@@ -159,13 +160,15 @@
 		0F649FD919CD223900D48074 /* home-32.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "home-32.png"; sourceTree = "<group>"; };
 		0F649FDB19CD272200D48074 /* GXTabBarViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GXTabBarViewController.h; sourceTree = "<group>"; };
 		0F649FDC19CD272200D48074 /* GXTabBarViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GXTabBarViewController.m; sourceTree = "<group>"; };
-		0F649FDF19CD543300D48074 /* GXJoinedQuestViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GXJoinedQuestViewController.h; sourceTree = "<group>"; };
-		0F649FE019CD543300D48074 /* GXJoinedQuestViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GXJoinedQuestViewController.m; sourceTree = "<group>"; };
 		0F649FE319CD58A200D48074 /* FlopDesignFONT.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = FlopDesignFONT.otf; sourceTree = "<group>"; };
 		0F649FE519CD5A1C00D48074 /* GXJoinedQuestTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GXJoinedQuestTableViewCell.h; sourceTree = "<group>"; };
 		0F649FE619CD5A1C00D48074 /* GXJoinedQuestTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GXJoinedQuestTableViewCell.m; sourceTree = "<group>"; };
 		0F649FEB19D1543200D48074 /* GXFooterCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GXFooterCell.h; sourceTree = "<group>"; };
 		0F649FEC19D1543200D48074 /* GXFooterCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GXFooterCell.m; sourceTree = "<group>"; };
+		0F6E291319ED40CF005BE433 /* GXInviteQuestViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GXInviteQuestViewController.h; sourceTree = "<group>"; };
+		0F6E291419ED40CF005BE433 /* GXInviteQuestViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GXInviteQuestViewController.m; sourceTree = "<group>"; };
+		0F6E291719ED5015005BE433 /* GXInvitedViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GXInvitedViewCell.h; sourceTree = "<group>"; };
+		0F6E291819ED5015005BE433 /* GXInvitedViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GXInvitedViewCell.m; sourceTree = "<group>"; };
 		0F7881FD1988D1C3002783D6 /* GXViewConst.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GXViewConst.h; sourceTree = "<group>"; };
 		0F7881FE1988D1C3002783D6 /* GXViewConst.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GXViewConst.m; sourceTree = "<group>"; };
 		0F7A259019587ADE001B7839 /* BeaconGalax.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = BeaconGalax.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -431,13 +434,13 @@
 			name = "type:beacon_1";
 			sourceTree = "<group>";
 		};
-		0F649FDE19CD541300D48074 /* JoinedQuest */ = {
+		0F649FDE19CD541300D48074 /* InviteQuest */ = {
 			isa = PBXGroup;
 			children = (
-				0F649FDF19CD543300D48074 /* GXJoinedQuestViewController.h */,
-				0F649FE019CD543300D48074 /* GXJoinedQuestViewController.m */,
+				0F6E291319ED40CF005BE433 /* GXInviteQuestViewController.h */,
+				0F6E291419ED40CF005BE433 /* GXInviteQuestViewController.m */,
 			);
-			name = JoinedQuest;
+			name = InviteQuest;
 			sourceTree = "<group>";
 		};
 		0F649FE219CD586B00D48074 /* font */ = {
@@ -457,6 +460,15 @@
 				0F649FEC19D1543200D48074 /* GXFooterCell.m */,
 			);
 			name = JoinedQuest;
+			sourceTree = "<group>";
+		};
+		0F6E291619ED4FEE005BE433 /* InvitedView */ = {
+			isa = PBXGroup;
+			children = (
+				0F6E291719ED5015005BE433 /* GXInvitedViewCell.h */,
+				0F6E291819ED5015005BE433 /* GXInvitedViewCell.m */,
+			);
+			name = InvitedView;
 			sourceTree = "<group>";
 		};
 		0F7A258719587ADE001B7839 = {
@@ -572,7 +584,7 @@
 				0FC0095519E2597A0026A7DC /* GXFrostedViewController */,
 				0F16511219D2A3E000918F8D /* QuestPrepare */,
 				0F16510E19D287B700918F8D /* QuestExe */,
-				0F649FDE19CD541300D48074 /* JoinedQuest */,
+				0F649FDE19CD541300D48074 /* InviteQuest */,
 				0F42367219BDD3FE0001E204 /* Description */,
 				0F42366119BD54130001E204 /* CreateQuest */,
 				0F42365D19BCA2220001E204 /* Home */,
@@ -734,6 +746,7 @@
 		0FD26D7C1959F32C005E2B95 /* View */ = {
 			isa = PBXGroup;
 			children = (
+				0F6E291619ED4FEE005BE433 /* InvitedView */,
 				0FC9FF1819E8C4F600E78B39 /* Status(SlideMenu) */,
 				0F16511F19D4387300918F8D /* QuestExeView */,
 				0F649FE419CD5A0400D48074 /* JoinedQuest */,
@@ -968,12 +981,14 @@
 			buildActionMask = 2147483647;
 			files = (
 				0F16511519D2A4C000918F8D /* GXQuestPrepareViewController.m in Sources */,
+				0F6E291919ED5015005BE433 /* GXInvitedViewCell.m in Sources */,
 				0F649FE719CD5A1C00D48074 /* GXJoinedQuestTableViewCell.m in Sources */,
 				0FD26D811959F689005E2B95 /* GXCustomSectionHeader.m in Sources */,
 				0F42366019BCBEB80001E204 /* GXQuestViewController.m in Sources */,
 				0F629BEE19E41748009757DF /* GXQuestB1ViewController.m in Sources */,
 				0F7A25DD1959E4AF001B7839 /* GXCustomCell.m in Sources */,
 				0FC9FF1B19EBC6CD00E78B39 /* GXStatusViewCell.m in Sources */,
+				0F6E291519ED40CF005BE433 /* GXInviteQuestViewController.m in Sources */,
 				0F7F4147195E77F200A796AD /* GXKiiCloud.m in Sources */,
 				0F649FED19D1543200D48074 /* GXFooterCell.m in Sources */,
 				0FA17E4019623FB700158421 /* GXUserManager.m in Sources */,
@@ -994,7 +1009,6 @@
 				0FC9FF1719E81FF100E78B39 /* GXClearViewController.m in Sources */,
 				0F27DAF119824BC20000E0D0 /* GXNavigationItem.m in Sources */,
 				0F7A25CD19587E3B001B7839 /* GXBeacon.m in Sources */,
-				0F649FE119CD543300D48074 /* GXJoinedQuestViewController.m in Sources */,
 				0F7A25A019587ADE001B7839 /* main.m in Sources */,
 				0FD26D89195A0A11005E2B95 /* UIColor+GXtheme.m in Sources */,
 				0F42367119BDD3980001E204 /* GXParticipantsCell.m in Sources */,

@@ -125,18 +125,39 @@
 
 - (void)registerInviteBoard:(KiiObject *)obj
 {
+    //group作成
+    NSError *error;
+    NSString *groupName = obj.uuid;
+    KiiGroup *group = [KiiGroup groupWithName:groupName];
+    [group saveSynchronous:&error];
+    
     NSDictionary *dict = obj.dictionaryValue;
     NSArray *allKeys = dict.allKeys;
     KiiObject *newObj = [self.inviteBoard createObject];
     for (NSString *key in allKeys) {
         [newObj setObject:dict[key] forKey:key];
     }
+    [newObj setObject:group.objectURI forKey:quest_groupURI];
     
     [newObj saveWithBlock:^(KiiObject *object, NSError *error) {
         //通知とか飛ばす
         NSLog(@"招待完了");
     }];
 
+}
+
+- (void)getInvitedQuest
+{
+    KiiQuery *query = [KiiQuery queryWithClause:nil];
+    [self.inviteBoard executeQuery:query withBlock:^(KiiQuery *query, KiiBucket *bucket, NSArray *results, KiiQuery *nextQuery, NSError *error) {
+        if (error) {
+            NSLog(@"error:%@",error);
+        } else {
+            
+            [[NSNotificationCenter defaultCenter] postNotificationName:GXInvitedQuestFetchedNotification object:results];
+        }
+        
+    }];
 }
 
 - (BOOL)isExitedQuest:(NSString *)questTitle

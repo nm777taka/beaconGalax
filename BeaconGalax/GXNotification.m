@@ -29,6 +29,10 @@ NSString *const GXFetchJoinedOnePersonQuestNotification = @"GXFetchJoinedOnePers
 //参加したマルチ用クエストをフェッチ
 NSString *const GXFetchJoinedMultiPersonQuestNotification = @"GXFetchJoinedMultiPersonQuestNotification";
 
+//招待ボードにあるクエストをフェッチ
+NSString *const GXInvitedQuestFetchedNotification = @"GXInvitedQuestFetchedNotification";
+
+
 NSString *const GXQuestCellTouchedNotification = @"GXQuestCellTouchedNotification";
 
 NSString *const GXQuestDeletedNotification = @"GXQuestDeletedNotification";

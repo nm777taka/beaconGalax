@@ -31,6 +31,7 @@
 
 + (GXBucketManager *)sharedManager;
 
+//登録
 - (void)registerGalaxUser:(KiiUser *)user;
 - (void)registerQuest:(GXQuest *)quest;
 - (void)registerInviteBoard:(KiiObject *)obj;
@@ -43,6 +44,9 @@
 
 //マルチ用クエストフェッチ
 - (void)getJoinedMultiPersonQuest;
+
+//招待されたクエストをフェッチ
+- (void)getInvitedQuest;
 
 
 - (KiiObject *)getMeFromGalaxUserBucket;
