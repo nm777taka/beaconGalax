@@ -81,26 +81,65 @@
     //自分がオーナかどうか
     if ([self isOwner:group]) {
         NSLog(@"オーナーです");
+        [cell.cellButton setTitle:@"START!" forState:UIControlStateNormal];
+        [cell.cellButton bk_addEventHandler:^(id sender) {
+            NSLog(@"オーナーによるアクション");
+        } forControlEvents:UIControlEventTouchUpInside];
     } else {
         NSLog(@"ノットオーナー");
+        [cell.cellButton setTitle:@"JOIN" forState:UIControlStateNormal];
+        [cell.cellButton bk_addEventHandler:^(id sender) {
+            NSLog(@"参加者によるアクション");
+            //オーナーにpush送って参加申請
+            
+        } forControlEvents:UIControlEventTouchUpInside];
     }
     
     cell.title.text = [obj getObjectForKey:quest_title];
 }
 
+- (void)sendPushtoOwner:(KiiGroup *)group
+{
+    NSError *error;
+    KiiUser *ownerUser = [group getOwnerSynchronous:&error];
+    KiiTopic *topic = [ownerUser topicWithName:topic_invite];
+    KiiAPNSFields *apnsFields = [KiiAPNSFields createFields];
+    NSDictionary *dict = @{@"join_user":[KiiUser currentUser].objectURI,@"group":group,push_type:push_invite};
+    
+    //サイレント
+    [apnsFields setContentAvailable:@1];
+    
+    [apnsFields setSpecificData:dict];
+    
+    KiiPushMessage *message = [KiiPushMessage composeMessageWithAPNSFields:apnsFields andGCMFields:nil];
+    
+    //ペイロードを削る
+    [message setSendSender:[NSNumber numberWithBool:NO]];
+    // Disable "w" field
+    [message setSendWhen:[NSNumber numberWithBool:NO]];
+    // Disable "to" field
+    [message setSendTopicID:[NSNumber numberWithBool:NO]];
+    // Disable "sa", "st" and "su" field
+    [message setSendObjectScope:[NSNumber numberWithBool:NO]];
+    
+    [topic sendMessageSynchronous:message withError:&error];
+
+}
+
 - (BOOL)isOwner:(KiiGroup *)group
 {
-    BOOL __block ret;
-    [group getOwnerWithBlock:^(KiiGroup *group, KiiUser *owner, NSError *error) {
-        KiiUser *currentUser = [KiiUser currentUser];
-        if ([currentUser.objectURI isEqual:owner.objectURI]) {
-            
+    BOOL ret = false;
+    NSError *error;
+   KiiUser *owner =  [group getOwnerSynchronous:&error];
+    if (error) {
+        NSLog(@"eeror:%@",error);
+    } else {
+        if ([owner.objectURI isEqual:[KiiUser currentUser].objectURI]) {
             ret = true;
-            
         } else {
             ret = false;
         }
-    }];
+    }
     
     return ret;
 }

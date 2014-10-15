@@ -10,5 +10,6 @@
 
 @interface GXInvitedViewCell : UICollectionViewCell
 @property (weak, nonatomic) IBOutlet UILabel *title;
+@property (weak, nonatomic) IBOutlet UIButton *cellButton;
 
 @end

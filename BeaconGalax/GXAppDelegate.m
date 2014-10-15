@@ -84,7 +84,7 @@
     NSString *pushType = userInfo[push_type];
     
     self.joinUser = [KiiUser userWithURI:userInfo[@"join_user"]];
-    self.joinedGroup = [KiiGroup groupWithURI:userInfo[@"group"]];
+    self.joinedGroup = userInfo[@"group"];
     
     if ([userInfo[@"aps"][@"content-available"] intValue] == 1) {
         //silent
@@ -125,6 +125,12 @@
         
         
     }
+    
+}
+
+//slient push からの backgroundFetch
+- (void)application:(UIApplication *)application didReceiveRemoteNotification:(NSDictionary *)userInfo fetchCompletionHandler:(void (^)(UIBackgroundFetchResult))completionHandler
+{
     
 }
 
@@ -275,13 +281,14 @@
             
             KiiBucket *bucket = [self.joinedGroup bucketWithName:@"member"];
             KiiObject *newMember = [bucket createObject];
+            
+            //kiiuser情報からgxUserを取得
             KiiObject *gxUser = [[GXBucketManager sharedManager] getGalaxUser:self.joinUser.objectURI];
             
             [newMember setObject:[gxUser getObjectForKey:user_fb_id] forKey:user_fb_id];
             [newMember setObject:[gxUser getObjectForKey:user_name] forKey:user_name];
             [newMember setObject:[gxUser getObjectForKey:user_uri] forKey:user_uri];
             [newMember setObject:@NO forKey:user_isReady];
-            
             
             [newMember saveWithBlock:^(KiiObject *object, NSError *error) {
                 if (error) {
@@ -301,8 +308,6 @@
         }];
         
     }
-
-    
 
 }
 
