@@ -91,6 +91,7 @@
         [cell.cellButton bk_addEventHandler:^(id sender) {
             NSLog(@"参加者によるアクション");
             //オーナーにpush送って参加申請
+            [self sendPushtoOwner:group];
             
         } forControlEvents:UIControlEventTouchUpInside];
     }
@@ -104,7 +105,7 @@
     KiiUser *ownerUser = [group getOwnerSynchronous:&error];
     KiiTopic *topic = [ownerUser topicWithName:topic_invite];
     KiiAPNSFields *apnsFields = [KiiAPNSFields createFields];
-    NSDictionary *dict = @{@"join_user":[KiiUser currentUser].objectURI,@"group":group,push_type:push_invite};
+    NSDictionary *dict = @{@"join_user":[KiiUser currentUser].objectURI,@"group":group.objectURI,push_type:push_invite};
     
     //サイレント
     [apnsFields setContentAvailable:@1];
@@ -123,7 +124,12 @@
     [message setSendObjectScope:[NSNumber numberWithBool:NO]];
     
     [topic sendMessageSynchronous:message withError:&error];
-
+    
+    if (error) {
+        NSLog(@"error:%@",error);
+    } else {
+        NSLog(@"送信完了");
+    }
 }
 
 - (BOOL)isOwner:(KiiGroup *)group

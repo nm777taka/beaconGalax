@@ -131,7 +131,68 @@
 //slient push からの backgroundFetch
 - (void)application:(UIApplication *)application didReceiveRemoteNotification:(NSDictionary *)userInfo fetchCompletionHandler:(void (^)(UIBackgroundFetchResult))completionHandler
 {
+    if(![userInfo[@"aps"][@"content-available"] intValue])
+    {
+        completionHandler(UIBackgroundFetchResultNoData);
+        return;
+    }
     
+    
+    //ユーザをグループに追加
+    NSError *error;
+    KiiUser *joinUser = [KiiUser userWithURI:userInfo[@"join_user"]];
+    KiiGroup *questGroup = [KiiGroup groupWithURI:userInfo[@"group"]];
+    [questGroup refreshSynchronous:&error];
+    
+    if (error) {
+        NSLog(@"error:%@",error);
+    } else {
+        NSLog(@"グループリフレッシュ");
+        NSLog(@"group:%@",questGroup);
+    }
+    
+    [questGroup addUser:joinUser];
+    [questGroup saveSynchronous:&error];
+    
+    if (error) {
+        NSLog(@"error:%@",error);
+    } else {
+        NSLog(@"ユーザ追加");
+        //追加されたのを知らせる
+        KiiBucket *bucket = [questGroup bucketWithName:@"member"];
+        KiiObject *newMember = [bucket createObject];
+        
+        //kiiuser情報からgxUserを取得
+        KiiObject *gxUser = [[GXBucketManager sharedManager] getGalaxUser:joinUser.objectURI];
+        
+        [newMember setObject:[gxUser getObjectForKey:user_fb_id] forKey:user_fb_id];
+        [newMember setObject:[gxUser getObjectForKey:user_name] forKey:user_name];
+        [newMember setObject:[gxUser getObjectForKey:user_uri] forKey:user_uri];
+        [newMember setObject:@NO forKey:user_isReady];
+        
+        [newMember saveSynchronous:&error];
+        
+        if (error) {
+            NSLog(@"error:%@",error);
+        } else {
+            NSLog(@"保存できたよ");
+        }
+        
+        NSArray *member = [questGroup getMemberListSynchronous:&error];
+        NSLog(@"member-count:%d",member.count);
+        
+    }
+    
+    completionHandler(UIBackgroundFetchResultNewData);
+    
+//
+//    [questGroup saveSynchronous:&error];
+//    if (error) {
+//        NSLog(@"error:%@",error);
+//    } else {
+//        NSLog(@"ユーザ追加完了");
+//        completionHandler(UIBackgroundFetchResultNewData);
+//    }
 }
 
 

@@ -127,9 +127,14 @@
 {
     //group作成
     NSError *error;
-    NSString *groupName = obj.uuid;
+    NSString *groupName = @"テストグループ";
     KiiGroup *group = [KiiGroup groupWithName:groupName];
     [group saveSynchronous:&error];
+    if (error) {
+        NSLog(@"error:%@",error);
+    } else {
+        NSLog(@"グループ作成");
+    }
     
     NSDictionary *dict = obj.dictionaryValue;
     NSArray *allKeys = dict.allKeys;
