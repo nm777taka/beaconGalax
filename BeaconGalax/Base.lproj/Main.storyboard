@@ -517,16 +517,17 @@
                     <connections>
                         <outlet property="collectionView" destination="d1R-PH-Xz9" id="YfX-qS-4a6"/>
                         <segue destination="7uq-0K-BDk" kind="push" identifier="type_1" id="HRc-hY-3th"/>
+                        <segue destination="2KE-J0-tPr" kind="push" identifier="goto_QuestMemberView" id="s24-k0-jdN"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="HoD-uz-grb" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="2096" y="786"/>
         </scene>
-        <!--Quest Exe View Controller-->
+        <!--Quest Group View Controller-->
         <scene sceneID="bvE-KX-rpo">
             <objects>
-                <viewController hidesBottomBarWhenPushed="YES" id="2KE-J0-tPr" customClass="GXQuestExeViewController" sceneMemberID="viewController">
+                <viewController hidesBottomBarWhenPushed="YES" id="2KE-J0-tPr" customClass="GXQuestGroupViewController" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="pJB-Rd-lZY"/>
                         <viewControllerLayoutGuide type="bottom" id="6nQ-a6-13Z"/>
@@ -541,77 +542,65 @@
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                                 <connections>
-                                    <action selector="goback:" destination="2KE-J0-tPr" eventType="touchUpInside" id="W86-Pq-xuP"/>
+                                    <action selector="backView:" destination="2KE-J0-tPr" eventType="touchUpInside" id="KKa-RN-h4O"/>
                                 </connections>
                             </button>
-                            <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="JHt-I9-niR" customClass="FBProfilePictureView">
-                                <rect key="frame" x="110" y="82" width="100" height="100"/>
-                                <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
-                            </view>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="クエストリーダーの近くに集まれ" textAlignment="center" lineBreakMode="wordWrap" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="be1-2G-oBf">
-                                <rect key="frame" x="23" y="53" width="275" height="21"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="3gr-xc-EeY">
-                                <rect key="frame" x="60" y="510" width="200" height="50"/>
-                                <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="21"/>
-                                <state key="normal" title="Ready">
-                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                </state>
-                            </button>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="60" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="0jx-by-v5D">
-                                <rect key="frame" x="16" y="237" width="288" height="265"/>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                <prototypes>
-                                    <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="Cell" rowHeight="60" id="2ag-kA-r6m" customClass="GXQuestMemberCell">
-                                        <rect key="frame" x="0.0" y="0.0" width="288" height="44"/>
+                            <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="Cy8-ED-PQ4">
+                                <rect key="frame" x="0.0" y="61" width="320" height="440"/>
+                                <color key="backgroundColor" red="0.1411764771" green="0.12549020350000001" blue="0.1215686351" alpha="1" colorSpace="deviceRGB"/>
+                                <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="H2w-AN-Prc">
+                                    <size key="itemSize" width="135" height="153"/>
+                                    <size key="headerReferenceSize" width="0.0" height="0.0"/>
+                                    <size key="footerReferenceSize" width="0.0" height="0.0"/>
+                                    <inset key="sectionInset" minX="10" minY="10" maxX="10" maxY="0.0"/>
+                                </collectionViewFlowLayout>
+                                <cells>
+                                    <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="Cell" id="0FS-ts-FDB" customClass="GXQuestGroupViewCell">
+                                        <rect key="frame" x="0.0" y="0.0" width="50" height="50"/>
                                         <autoresizingMask key="autoresizingMask"/>
-                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="2ag-kA-r6m" id="eF4-h2-IkP">
+                                        <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
+                                            <rect key="frame" x="0.0" y="0.0" width="140" height="160"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="RXf-6s-AwX" customClass="FBProfilePictureView">
-                                                    <rect key="frame" x="8" y="8" width="40" height="40"/>
-                                                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="bEi-cn-JAm" customClass="FBProfilePictureView">
+                                                    <rect key="frame" x="30" y="8" width="80" height="80"/>
+                                                    <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                                                 </view>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="name" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="D2B-yb-TL4">
-                                                    <rect key="frame" x="64" y="19" width="147" height="21"/>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="name" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="QOV-2V-k23">
+                                                    <rect key="frame" x="8" y="94" width="124" height="21"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="OK" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="DM7-Dr-Taa">
-                                                    <rect key="frame" x="225" y="19" width="50" height="21"/>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="ready" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="3Xb-gj-ZpP">
+                                                    <rect key="frame" x="40" y="126" width="61" height="21"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                             </subviews>
-                                        </tableViewCellContentView>
+                                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                        </view>
+                                        <color key="backgroundColor" red="0.90823972225189209" green="0.92638683319091797" blue="0.9317171573638916" alpha="1" colorSpace="calibratedRGB"/>
+                                        <size key="customSize" width="140" height="160"/>
                                         <connections>
-                                            <outlet property="userIconView" destination="RXf-6s-AwX" id="sYL-b2-hG9"/>
-                                            <outlet property="userNameLabel" destination="D2B-yb-TL4" id="lFC-xm-k0X"/>
-                                            <outlet property="userReadySignLabel" destination="DM7-Dr-Taa" id="aa1-tP-ie3"/>
+                                            <outlet property="isReadySignLabel" destination="3Xb-gj-ZpP" id="bX4-7E-MjB"/>
+                                            <outlet property="userIcon" destination="bEi-cn-JAm" id="TGk-GX-tT9"/>
+                                            <outlet property="userName" destination="QOV-2V-k23" id="AdS-Rf-6Vn"/>
                                         </connections>
-                                    </tableViewCell>
-                                </prototypes>
-                            </tableView>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="statusLabel" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="h6e-yd-CyK">
-                                <rect key="frame" x="16" y="195" width="288" height="34"/>
-                                <fontDescription key="fontDescription" name="HelveticaNeue-Bold" family="Helvetica Neue" pointSize="25"/>
-                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
+                                    </collectionViewCell>
+                                </cells>
+                            </collectionView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
+                    <navigationItem key="navigationItem" id="Kax-fG-E5K"/>
+                    <nil key="simulatedStatusBarMetrics"/>
+                    <nil key="simulatedTopBarMetrics"/>
                     <nil key="simulatedBottomBarMetrics"/>
+                    <simulatedOrientationMetrics key="simulatedOrientationMetrics"/>
                     <connections>
-                        <outlet property="messageLabel" destination="be1-2G-oBf" id="kw2-DD-Mze"/>
-                        <outlet property="ownerIcon" destination="JHt-I9-niR" id="ZZu-Rb-rrr"/>
-                        <outlet property="readyButton" destination="3gr-xc-EeY" id="4SP-ZE-bTx"/>
-                        <outlet property="statusLabel" destination="h6e-yd-CyK" id="7hJ-rT-1Sx"/>
-                        <outlet property="tableView" destination="0jx-by-v5D" id="Mq7-VC-i0T"/>
+                        <outlet property="collectionView" destination="Cy8-ED-PQ4" id="hcU-GJ-H2p"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="1nY-2Z-ElD" userLabel="First Responder" sceneMemberID="firstResponder"/>

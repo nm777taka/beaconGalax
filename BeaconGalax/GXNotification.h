@@ -53,6 +53,8 @@ UIKIT_EXTERN NSString *const GXViewSegueNotification;
 //画面遷移
 UIKIT_EXTERN NSString *const GXSegueToQuestExeViewNotification;
 
+//TSMessage
+UIKIT_EXTERN NSString *const GXAddGroupSuccessedNotification;
 
 //ポイントゲット
 UIKIT_EXTERN NSString *const GXPointGetNotification;

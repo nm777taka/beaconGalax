@@ -8,6 +8,8 @@
 
 #import <UIKit/UIKit.h>
 #import <KiiSDK/Kii.h>
+#import <SVProgressHUD/SVProgressHUD.h>
+#import "Chameleon.h"
 
 @interface GXInviteQuestViewController : UIViewController
 

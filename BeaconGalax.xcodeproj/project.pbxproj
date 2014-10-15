@@ -37,6 +37,8 @@
 		0F649FED19D1543200D48074 /* GXFooterCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 0F649FEC19D1543200D48074 /* GXFooterCell.m */; };
 		0F6E291519ED40CF005BE433 /* GXInviteQuestViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0F6E291419ED40CF005BE433 /* GXInviteQuestViewController.m */; };
 		0F6E291919ED5015005BE433 /* GXInvitedViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 0F6E291819ED5015005BE433 /* GXInvitedViewCell.m */; };
+		0F6E291D19EEF06D005BE433 /* GXQuestGroupViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0F6E291C19EEF06D005BE433 /* GXQuestGroupViewController.m */; };
+		0F6E292119EEF17C005BE433 /* GXQuestGroupViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 0F6E292019EEF17C005BE433 /* GXQuestGroupViewCell.m */; };
 		0F7881FF1988D1C3002783D6 /* GXViewConst.m in Sources */ = {isa = PBXBuildFile; fileRef = 0F7881FE1988D1C3002783D6 /* GXViewConst.m */; };
 		0F7A259419587ADE001B7839 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0F7A259319587ADE001B7839 /* Foundation.framework */; };
 		0F7A259619587ADE001B7839 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0F7A259519587ADE001B7839 /* CoreGraphics.framework */; };
@@ -169,6 +171,10 @@
 		0F6E291419ED40CF005BE433 /* GXInviteQuestViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GXInviteQuestViewController.m; sourceTree = "<group>"; };
 		0F6E291719ED5015005BE433 /* GXInvitedViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GXInvitedViewCell.h; sourceTree = "<group>"; };
 		0F6E291819ED5015005BE433 /* GXInvitedViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GXInvitedViewCell.m; sourceTree = "<group>"; };
+		0F6E291B19EEF06D005BE433 /* GXQuestGroupViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GXQuestGroupViewController.h; sourceTree = "<group>"; };
+		0F6E291C19EEF06D005BE433 /* GXQuestGroupViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GXQuestGroupViewController.m; sourceTree = "<group>"; };
+		0F6E291F19EEF17C005BE433 /* GXQuestGroupViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GXQuestGroupViewCell.h; sourceTree = "<group>"; };
+		0F6E292019EEF17C005BE433 /* GXQuestGroupViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GXQuestGroupViewCell.m; sourceTree = "<group>"; };
 		0F7881FD1988D1C3002783D6 /* GXViewConst.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GXViewConst.h; sourceTree = "<group>"; };
 		0F7881FE1988D1C3002783D6 /* GXViewConst.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GXViewConst.m; sourceTree = "<group>"; };
 		0F7A259019587ADE001B7839 /* BeaconGalax.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = BeaconGalax.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -471,6 +477,24 @@
 			name = InvitedView;
 			sourceTree = "<group>";
 		};
+		0F6E291A19EEEFFA005BE433 /* QuestGroupView */ = {
+			isa = PBXGroup;
+			children = (
+				0F6E291B19EEF06D005BE433 /* GXQuestGroupViewController.h */,
+				0F6E291C19EEF06D005BE433 /* GXQuestGroupViewController.m */,
+			);
+			name = QuestGroupView;
+			sourceTree = "<group>";
+		};
+		0F6E291E19EEF14F005BE433 /* QuestGroupView */ = {
+			isa = PBXGroup;
+			children = (
+				0F6E291F19EEF17C005BE433 /* GXQuestGroupViewCell.h */,
+				0F6E292019EEF17C005BE433 /* GXQuestGroupViewCell.m */,
+			);
+			name = QuestGroupView;
+			sourceTree = "<group>";
+		};
 		0F7A258719587ADE001B7839 = {
 			isa = PBXGroup;
 			children = (
@@ -577,6 +601,7 @@
 		0F7A25C919587E0C001B7839 /* Controller */ = {
 			isa = PBXGroup;
 			children = (
+				0F6E291A19EEEFFA005BE433 /* QuestGroupView */,
 				0FC9FF1419E81F8A00E78B39 /* Clear */,
 				0F629BE919E416D9009757DF /* Quest_type */,
 				0FD200A319E263B50034E52A /* GXNavigation */,
@@ -746,6 +771,7 @@
 		0FD26D7C1959F32C005E2B95 /* View */ = {
 			isa = PBXGroup;
 			children = (
+				0F6E291E19EEF14F005BE433 /* QuestGroupView */,
 				0F6E291619ED4FEE005BE433 /* InvitedView */,
 				0FC9FF1819E8C4F600E78B39 /* Status(SlideMenu) */,
 				0F16511F19D4387300918F8D /* QuestExeView */,
@@ -1008,7 +1034,9 @@
 				0F42366719BD58530001E204 /* UIPlaceHolderTextView.m in Sources */,
 				0FC9FF1719E81FF100E78B39 /* GXClearViewController.m in Sources */,
 				0F27DAF119824BC20000E0D0 /* GXNavigationItem.m in Sources */,
+				0F6E291D19EEF06D005BE433 /* GXQuestGroupViewController.m in Sources */,
 				0F7A25CD19587E3B001B7839 /* GXBeacon.m in Sources */,
+				0F6E292119EEF17C005BE433 /* GXQuestGroupViewCell.m in Sources */,
 				0F7A25A019587ADE001B7839 /* main.m in Sources */,
 				0FD26D89195A0A11005E2B95 /* UIColor+GXtheme.m in Sources */,
 				0F42367119BDD3980001E204 /* GXParticipantsCell.m in Sources */,

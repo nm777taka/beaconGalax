@@ -45,6 +45,7 @@ static NSString * const topic_invite = @"invite_notify";
 //push通知
 static NSString * const push_type = @"push_type";
 static NSString * const push_invite = @"push_invite";
+static NSString * const push_add_group = @"push_add_group";
 
 //beacon
 static NSString * const beacon_name = @"beacon_name";

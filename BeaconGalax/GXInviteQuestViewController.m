@@ -7,6 +7,7 @@
 //
 
 #import "GXInviteQuestViewController.h"
+#import "GXQuestB1ViewController.h"
 #import "GXInvitedViewCell.h"
 #import "GXDictonaryKeys.h"
 #import "GXNotification.h"
@@ -15,6 +16,7 @@
 @interface GXInviteQuestViewController ()<UICollectionViewDataSource,UICollectionViewDelegate>
 @property (weak, nonatomic) IBOutlet UICollectionView *collectionView;
 @property NSMutableArray *invitedQuestArray;
+@property KiiObject *selectedObject;
 
 @end
 
@@ -27,6 +29,7 @@
     self.collectionView.dataSource = self;
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(invitedQuestFetched:) name:GXInvitedQuestFetchedNotification object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(addedGroup:) name:GXAddGroupSuccessedNotification object:nil];
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -71,32 +74,57 @@
     return cell;
 }
 
+- (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath
+{
+    self.selectedObject = self.invitedQuestArray[indexPath.row];
+    KiiGroup *group = [self getGroup:indexPath.row];
+    
+    if ([self isJoined:group])
+        [self performSegueWithIdentifier:@"goto_QuestMemberView" sender:self];
+
+    
+}
+
 - (void)configureCell:(GXInvitedViewCell *)cell atIndexPath:(NSIndexPath *)indexPath
 {
     NSError *error;
     KiiObject *obj = self.invitedQuestArray[indexPath.row];
-    KiiGroup *group = [KiiGroup groupWithURI:[obj getObjectForKey:quest_groupURI]];
-    [group refreshSynchronous:&error];
-    
+    KiiGroup *group = [self getGroup:indexPath.row];
     //自分がオーナかどうか
     if ([self isOwner:group]) {
-        NSLog(@"オーナーです");
         [cell.cellButton setTitle:@"START!" forState:UIControlStateNormal];
+        [cell.cellButton setBackgroundColor:FlatYellow];
         [cell.cellButton bk_addEventHandler:^(id sender) {
-            NSLog(@"オーナーによるアクション");
         } forControlEvents:UIControlEventTouchUpInside];
+        
+    }
+    
+    //参加済みかどうか
+    if ([self isJoined:group]) {
+        NSLog(@"enter");
+        [cell.cellButton setTitle:@"参加済み" forState:UIControlStateNormal];
+        [cell.cellButton setBackgroundColor:FlatGreen];
     } else {
-        NSLog(@"ノットオーナー");
+        NSLog(@"enter-not");
         [cell.cellButton setTitle:@"JOIN" forState:UIControlStateNormal];
         [cell.cellButton bk_addEventHandler:^(id sender) {
-            NSLog(@"参加者によるアクション");
-            //オーナーにpush送って参加申請
+            [SVProgressHUD showWithStatus:@"参加申請中"];
             [self sendPushtoOwner:group];
             
         } forControlEvents:UIControlEventTouchUpInside];
     }
     
     cell.title.text = [obj getObjectForKey:quest_title];
+}
+
+- (KiiGroup *)getGroup:(int)row
+{
+    NSError *error;
+    KiiObject *obj = self.invitedQuestArray[row];
+    KiiGroup *group = [KiiGroup groupWithURI:[obj getObjectForKey:quest_groupURI]];
+    [group refreshSynchronous:&error];
+    
+    return group;
 }
 
 - (void)sendPushtoOwner:(KiiGroup *)group
@@ -150,12 +178,48 @@
     return ret;
 }
 
+- (BOOL)isJoined:(KiiGroup *)group
+{
+    NSError *error;
+    BOOL ret = false;
+    NSArray *members = [group getMemberListSynchronous:&error];
+    if (error) NSLog(@"error:%@",error);
+    else NSLog(@"membercount:%d",members.count);
+    for (KiiUser *user in members) {
+        NSLog(@"%@",user.objectURI);
+        NSLog(@"current:%@",[KiiUser currentUser].objectURI);
+        if ([user.objectURI isEqualToString:[KiiUser currentUser].objectURI]) {
+            ret = true;
+            break;
+        } else {
+            ret = false;
+        }
+    }
+    
+    return ret;
+}
+
 #pragma mark - GXNotification
 - (void)invitedQuestFetched:(NSNotification *)info
 {
     NSArray *array = info.object;
     self.invitedQuestArray = [NSMutableArray arrayWithArray:array];
     [self.collectionView reloadData];
+}
+
+- (void)addedGroup:(NSNotification *)info
+{
+    [SVProgressHUD showSuccessWithStatus:@"参加完了!"];
+    [self.collectionView reloadData];
+    
+}
+
+#pragma mark - segue
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
+{
+    if ([segue.identifier isEqualToString:@"goto_QuestMemberView"]) {
+        GXQuestB1ViewController *vc = segue.destinationViewController;
+    }
 }
 
 

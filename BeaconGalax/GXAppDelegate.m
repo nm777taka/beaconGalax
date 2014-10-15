@@ -9,6 +9,7 @@
 #import "GXAppDelegate.h"
 #import "GXBucketManager.h"
 #import "GXDictonaryKeys.h"
+#import "GXNotification.h"
 
 @interface GXAppDelegate()
 
@@ -81,24 +82,6 @@
 - (void)application:(UIApplication *)application didReceiveRemoteNotification:(NSDictionary *)userInfo
 {
     
-    NSString *pushType = userInfo[push_type];
-    
-    self.joinUser = [KiiUser userWithURI:userInfo[@"join_user"]];
-    self.joinedGroup = userInfo[@"group"];
-    
-    if ([userInfo[@"aps"][@"content-available"] intValue] == 1) {
-        //silent
-        
-        if ([pushType isEqualToString:push_invite]) {
-            
-            //[self addGroupMember:userInfo];
-            [self pushTest];
-        }
-
-        
-    }
-    
-    
     //アプリがフォアグランドで起動している時にPush通知を受信した場合
     if (application.applicationState == UIApplicationStateActive) {
         NSLog(@"push通知受信@フォアグランド");
@@ -133,10 +116,23 @@
 {
     if(![userInfo[@"aps"][@"content-available"] intValue])
     {
-        completionHandler(UIBackgroundFetchResultNoData);
+        if ([userInfo[push_type] isEqualToString:push_add_group]) {
+            NSLog(@"きたよ☆");
+            if (application.applicationState == UIApplicationStateActive) {
+                NSLog(@"アクティブで受けっとたよ☆");
+                //TSMessage表示用
+                [[NSNotificationCenter defaultCenter] postNotificationName:GXAddGroupSuccessedNotification object:nil];
+                
+            }
+            if (application.applicationState == UIApplicationStateBackground) {
+                NSLog(@"後ろで受け取ったよ♪");
+                
+                [self pushTest];
+            }
+        }
+        completionHandler(UIBackgroundFetchResultNewData);
         return;
     }
-    
     
     //ユーザをグループに追加
     NSError *error;
@@ -156,6 +152,7 @@
     
     if (error) {
         NSLog(@"error:%@",error);
+        completionHandler(UIBackgroundFetchResultFailed);
     } else {
         NSLog(@"ユーザ追加");
         //追加されたのを知らせる
@@ -175,24 +172,28 @@
         if (error) {
             NSLog(@"error:%@",error);
         } else {
-            NSLog(@"保存できたよ");
+            
+            //push通知を送る
+            KiiTopic *topic = [joinUser topicWithName:topic_invite];
+            KiiAPNSFields *apnsFields = [KiiAPNSFields createFields];
+            NSDictionary *dict = @{
+                                   @"message":@"メンバーに追加されました",
+                                   push_type:push_add_group
+                                   };
+            
+            [apnsFields setSpecificData:dict];
+            
+            KiiPushMessage *message = [KiiPushMessage composeMessageWithAPNSFields:apnsFields andGCMFields:nil];
+            
+            [topic sendMessageSynchronous:message withError:&error  ];
+            if (error) NSLog(@"error:%@",error);
+            else NSLog(@"参加者にpush通知送信完了");
+            
         }
-        
-        NSArray *member = [questGroup getMemberListSynchronous:&error];
-        NSLog(@"member-count:%d",member.count);
-        
     }
     
     completionHandler(UIBackgroundFetchResultNewData);
     
-//
-//    [questGroup saveSynchronous:&error];
-//    if (error) {
-//        NSLog(@"error:%@",error);
-//    } else {
-//        NSLog(@"ユーザ追加完了");
-//        completionHandler(UIBackgroundFetchResultNewData);
-//    }
 }
 
 
@@ -327,49 +328,6 @@
 - (void)addGroupMember
 {
  
-    NSError *error;
-    //アプリを起動せずにグループに追加してみる
-    [self.joinedGroup refreshSynchronous:&error];
-    
-    if (error != nil) {
-        NSLog(@"group refresh errror:%@",error);
-    }
-    else {
-        //メンバーを追加
-        //グループスコープのバケットに保存
-        [self.joinedGroup addUser:self.joinUser];
-        [self.joinedGroup saveWithBlock:^(KiiGroup *group, NSError *error) {
-            
-            KiiBucket *bucket = [self.joinedGroup bucketWithName:@"member"];
-            KiiObject *newMember = [bucket createObject];
-            
-            //kiiuser情報からgxUserを取得
-            KiiObject *gxUser = [[GXBucketManager sharedManager] getGalaxUser:self.joinUser.objectURI];
-            
-            [newMember setObject:[gxUser getObjectForKey:user_fb_id] forKey:user_fb_id];
-            [newMember setObject:[gxUser getObjectForKey:user_name] forKey:user_name];
-            [newMember setObject:[gxUser getObjectForKey:user_uri] forKey:user_uri];
-            [newMember setObject:@NO forKey:user_isReady];
-            
-            [newMember saveWithBlock:^(KiiObject *object, NSError *error) {
-                if (error) {
-                    NSLog(@"error : %@",error);
-                } else {
-                    NSLog(@"グループメンバーを追加");
-                    UIAlertController *alertConroller = [UIAlertController alertControllerWithTitle:@"info" message:@"○○をクエストメンバーに追加しました" preferredStyle:UIAlertControllerStyleAlert];
-                    [alertConroller addAction:[UIAlertAction actionWithTitle:@"ok" style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
-                        //なにもしない
-                    }]];
-                    
-                    [self.window.rootViewController presentViewController:alertConroller animated:YES completion:nil];
-                    
-                }
-            }];
-            
-        }];
-        
-    }
-
 }
 
 - (void)pushTest

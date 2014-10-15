@@ -9,6 +9,8 @@
 #import <UIKit/UIKit.h>
 #import <KiiSDK/Kii.h>
 #import <CoreLocation/CoreLocation.h>
+#import <TSMessages/TSBlurView.h>
+#import <TSMessages/TSMessageView.h>
 #import "FBConnect.h"
 #import "GXFacebook.h"
 

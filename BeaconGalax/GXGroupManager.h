@@ -15,6 +15,4 @@
 
 - (void)getGroup:(KiiObject *)quest;
 
-
-
 @end
