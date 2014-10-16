@@ -16,6 +16,8 @@
 @property (weak, nonatomic) IBOutlet UICollectionView *collectionView;
 @property NSMutableArray *questMemberArray;
 
+@property KiiGroup *questGroup;
+
 @end
 
 @implementation GXQuestGroupViewController
@@ -35,9 +37,8 @@
     
     //メンバーフェッチ
     NSString *groupURI = [self.selectedObj getObjectForKey:quest_groupURI];
-    KiiGroup *group = [KiiGroup groupWithURI:groupURI];
-    NSLog(@"selected groupURI:%@",group);
-    [group refreshWithBlock:^(KiiGroup *group, NSError *error) {
+    self.questGroup = [KiiGroup groupWithURI:groupURI];
+    [self.questGroup refreshWithBlock:^(KiiGroup *group, NSError *error) {
         if (error) NSLog(@"error:%@",error);
         else [group getMemberListWithBlock:^(KiiGroup *group, NSArray *members, NSError *error) {
             if (error) NSLog(@"error:%@",error);
@@ -97,7 +98,33 @@
     if (gxUser) {
         cell.userName.text = [gxUser getObjectForKey:user_name];
         cell.userIcon.profileID = [gxUser getObjectForKey:user_fb_id];
+        
+        if ([self isOwer:(int)indexPath.row]) {
+            NSLog(@"オーナーでした");
+            cell.backgroundColor = FlatWatermelon;
+        } else NSLog(@"オーナーじゃないです");
+        
     }
+
+}
+
+- (BOOL)isOwer:(int)index
+{
+    NSError *error;
+    BOOL ret = false;
+    
+    KiiUser *owner =  [self.questGroup getOwnerSynchronous:&error];
+    
+    if (error) {
+        NSLog(@"error:%@",error);
+    } else {
+        NSLog(@"ownerURI:%@",owner.objectURI);
+        NSLog(@"current:%@",[KiiUser currentUser].objectURI);
+        if ([owner.objectURI isEqual:[self.questMemberArray[index] getObjectForKey:@"uri"]]) {
+            ret = true;
+        }
+    }
+    return ret;
 
 }
 

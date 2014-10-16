@@ -10,6 +10,7 @@
 #import <KiiSDK/Kii.h>
 #import <FacebookSDK/Facebook.h>
 #import <SVProgressHUD/SVProgressHUD.h>
+#import <ChameleonFramework/Chameleon.h>
 
 @interface GXQuestGroupViewController : UIViewController
 
