@@ -7,7 +7,7 @@
 //
 
 #import "GXInviteQuestViewController.h"
-#import "GXQuestB1ViewController.h"
+#import "GXQuestGroupViewController.h"
 #import "GXInvitedViewCell.h"
 #import "GXDictonaryKeys.h"
 #import "GXNotification.h"
@@ -36,6 +36,7 @@
 {
     [super viewWillAppear:animated];
     [[GXBucketManager sharedManager] getInvitedQuest];
+    [SVProgressHUD showWithStatus:@"クエストを取得しています"];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -87,6 +88,12 @@
 
 - (void)configureCell:(GXInvitedViewCell *)cell atIndexPath:(NSIndexPath *)indexPath
 {
+    //影
+    cell.layer.masksToBounds = NO;
+    cell.layer.shadowOffset = CGSizeMake(0.0f, 0.0f);
+    cell.layer.shadowOpacity = 0.1f;
+    cell.layer.shadowRadius = 2.0f;
+    
     NSError *error;
     KiiObject *obj = self.invitedQuestArray[indexPath.row];
     KiiGroup *group = [self getGroup:indexPath.row];
@@ -205,6 +212,8 @@
     NSArray *array = info.object;
     self.invitedQuestArray = [NSMutableArray arrayWithArray:array];
     [self.collectionView reloadData];
+    
+    [SVProgressHUD dismiss];
 }
 
 - (void)addedGroup:(NSNotification *)info
@@ -218,7 +227,9 @@
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
 {
     if ([segue.identifier isEqualToString:@"goto_QuestMemberView"]) {
-        GXQuestB1ViewController *vc = segue.destinationViewController;
+        GXQuestGroupViewController *vc = segue.destinationViewController;
+        vc.selectedObj = self.selectedObject;
+        
     }
 }
 

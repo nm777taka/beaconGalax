@@ -10,4 +10,11 @@
 
 @implementation GXQuestGroupViewCell
 
+- (void)awakeFromNib
+{
+    self.userIcon.layer.cornerRadius = 40.0;
+    self.userIcon.layer.borderColor = [UIColor whiteColor].CGColor;
+    self.userIcon.layer.borderWidth = 1.0;
+}
+
 @end

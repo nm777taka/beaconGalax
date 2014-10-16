@@ -8,6 +8,8 @@
 
 #import <UIKit/UIKit.h>
 #import <KiiSDK/Kii.h>
+#import <FacebookSDK/Facebook.h>
+#import <SVProgressHUD/SVProgressHUD.h>
 
 @interface GXQuestGroupViewController : UIViewController
 

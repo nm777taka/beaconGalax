@@ -47,6 +47,7 @@
 {
     [super viewDidLoad];
 	// Do any additional setup after loading the view, typically from a nib.
+    [UINavigationBar appearance].barTintColor = FlatLime;
     self.collectionView.delegate = self;
     self.collectionView.dataSource = self;
     
@@ -111,6 +112,11 @@
 
 - (void)configureCell:(GXHomeCollectionViewCell *)cell atIndexPath:(NSIndexPath *)indexPath
 {
+    cell.layer.masksToBounds = NO;
+    cell.layer.shadowOffset = CGSizeMake(0.0f, 0.0f);
+    cell.layer.shadowOpacity = 0.1f;
+    cell.layer.shadowRadius = 2.0f;
+    
     KiiObject *quest = self.objects[indexPath.row];
     
     cell.titleLable.text = [quest getObjectForKey:quest_title];
@@ -272,5 +278,11 @@
             break;
     }
 }
+
+- (UIStatusBarStyle)preferredStatusBarStyle {
+    return StatusBarContrastColorOf((UIColor *)FlatLime);
+}
+
+
 
 @end
