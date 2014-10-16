@@ -119,8 +119,8 @@
         NSLog(@"error:%@",error);
     } else {
         NSLog(@"ownerURI:%@",owner.objectURI);
-        NSLog(@"current:%@",[KiiUser currentUser].objectURI);
-        if ([owner.objectURI isEqual:[self.questMemberArray[index] getObjectForKey:@"uri"]]) {
+        NSLog(@"current:%@",self.questMemberArray[index]);
+        if ([owner isEqual:self.questMemberArray[index]]) {
             ret = true;
         }
     }
