@@ -9,5 +9,6 @@ pod 'ChameleonFramework'
 pod 'EstimoteSDK'
 pod "PulsingHalo"
 pod 'REFrostedViewController', '~> 2.4.7'
+pod 'FlatUIKit'
 
 

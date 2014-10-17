@@ -400,7 +400,7 @@
 			isa = PBXGroup;
 			children = (
 				0F629BEA19E416E8009757DF /* beacon_1(１人用) */,
-				0F629BEB19E416F8009757DF /* beacon_2 */,
+				0F629BEB19E416F8009757DF /* beacon_Multi */,
 			);
 			name = Quest_type;
 			sourceTree = "<group>";
@@ -414,11 +414,11 @@
 			name = "beacon_1(１人用)";
 			sourceTree = "<group>";
 		};
-		0F629BEB19E416F8009757DF /* beacon_2 */ = {
+		0F629BEB19E416F8009757DF /* beacon_Multi */ = {
 			isa = PBXGroup;
 			children = (
 			);
-			name = beacon_2;
+			name = beacon_Multi;
 			sourceTree = "<group>";
 		};
 		0F629BEF19E41B01009757DF /* QuestType */ = {

@@ -19,7 +19,7 @@ static NSString * const quest_clear_des = @"clear_des";
 static NSString * const quest_success_cnt = @"success_cnt";
 static NSString * const quest_owner = @"owner";
 static NSString * const quest_player_num = @"player_num";
-
+static NSString * const quest_isReady_num = @"isReady_num";
 
 
 static NSString * const quest_createUserURI = @"created_user_uri";
@@ -38,9 +38,11 @@ static NSString * const user_name = @"name";
 static NSString * const user_email = @"email";
 static NSString * const user_fb_id = @"facebook_id";
 static NSString * const user_isReady = @"isReady";
+static NSString * const user_isOwner = @"isOwner";
 
 //トピック
 static NSString * const topic_invite = @"invite_notify";
+static NSString * const topic_group_uri = @"topic_group_uri";
 
 //push通知
 static NSString * const push_type = @"push_type";

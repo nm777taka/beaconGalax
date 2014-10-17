@@ -515,7 +515,6 @@
                     <navigationItem key="navigationItem" title="募集中" id="goE-mP-9Mx"/>
                     <connections>
                         <outlet property="collectionView" destination="d1R-PH-Xz9" id="YfX-qS-4a6"/>
-                        <segue destination="7uq-0K-BDk" kind="push" identifier="type_1" id="HRc-hY-3th"/>
                         <segue destination="2KE-J0-tPr" kind="push" identifier="goto_QuestMemberView" id="s24-k0-jdN"/>
                     </connections>
                 </viewController>
@@ -535,8 +534,14 @@
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="zoI-XV-bbT">
+                                <rect key="frame" x="104" y="525" width="113" height="30"/>
+                                <state key="normal" title="Button">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                            </button>
                             <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="Cy8-ED-PQ4">
-                                <rect key="frame" x="0.0" y="0.0" width="320" height="501"/>
+                                <rect key="frame" x="0.0" y="64" width="320" height="437"/>
                                 <color key="backgroundColor" red="0.1411764771" green="0.12549020350000001" blue="0.1215686351" alpha="1" colorSpace="deviceRGB"/>
                                 <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="H2w-AN-Prc">
                                     <size key="itemSize" width="135" height="153"/>
@@ -588,7 +593,10 @@
                     <nil key="simulatedBottomBarMetrics"/>
                     <simulatedOrientationMetrics key="simulatedOrientationMetrics"/>
                     <connections>
+                        <outlet property="actionButton" destination="zoI-XV-bbT" id="6zJ-zq-pBn"/>
                         <outlet property="collectionView" destination="Cy8-ED-PQ4" id="hcU-GJ-H2p"/>
+                        <segue destination="7uq-0K-BDk" kind="push" id="WQa-av-YkB"/>
+                        <segue destination="p4e-2n-6z3" kind="push" identifier="test" id="BsF-D2-R0Q"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="1nY-2Z-ElD" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -611,7 +619,26 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="xUT-CW-AQs" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3427" y="819"/>
+            <point key="canvasLocation" x="3919" y="659"/>
+        </scene>
+        <!--View Controller-->
+        <scene sceneID="Q42-rw-VWA">
+            <objects>
+                <viewController id="p4e-2n-6z3" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="Zzp-1G-EfD"/>
+                        <viewControllerLayoutGuide type="bottom" id="bgp-V9-LBQ"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="VEP-ka-E5x">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                    <navigationItem key="navigationItem" id="oXd-g1-Ced"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="fTf-PY-d6U" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="3291" y="476"/>
         </scene>
         <!--QuestB1 View Controller-->
         <scene sceneID="Scx-Af-DdM">
@@ -746,7 +773,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="T4q-Oj-vM7" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2661" y="1187"/>
+            <point key="canvasLocation" x="3291" y="1099"/>
         </scene>
         <!--クエスト詳細-->
         <scene sceneID="5s6-F7-Wa7">

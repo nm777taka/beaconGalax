@@ -100,7 +100,6 @@
     cell.title.text = [obj getObjectForKey:quest_title];
 
     //自分がオーナかどうか
-    
     if ([self isOwner:group]) {
         [cell.cellButton setTitle:@"START!" forState:UIControlStateNormal];
         [cell.cellButton setBackgroundColor:FlatYellow];
@@ -108,7 +107,6 @@
         } forControlEvents:UIControlEventTouchUpInside];
         
         return;
-        
     }
     
     //参加済みかどうか
@@ -116,9 +114,20 @@
         NSLog(@"enter");
         [cell.cellButton setTitle:@"参加済み" forState:UIControlStateNormal];
         [cell.cellButton setBackgroundColor:FlatGreen];
+        //Debug用 ------------------>
+        [cell.cellButton bk_addEventHandler:^(id sender) {
+            [SVProgressHUD showWithStatus:@"参加申請中"];
+            [self sendPushtoOwner:group];
+            
+        } forControlEvents:UIControlEventTouchUpInside];
+        
+        //-------------------------->
+        return;
+        
     } else {
         NSLog(@"enter-not");
         [cell.cellButton setTitle:@"JOIN" forState:UIControlStateNormal];
+        
         [cell.cellButton bk_addEventHandler:^(id sender) {
             [SVProgressHUD showWithStatus:@"参加申請中"];
             [self sendPushtoOwner:group];
@@ -222,7 +231,25 @@
 
 - (void)addedGroup:(NSNotification *)info
 {
+    NSError *error;
+    NSString *groupURI = info.object;
+    KiiGroup *joinedGroup = [KiiGroup groupWithURI:groupURI];
+    [joinedGroup refreshSynchronous:&error];
+    
+    //トピック購読
+    KiiTopic *topic = [joinedGroup topicWithName:@"quest_start"];
+    KiiPushSubscription *subscription = [KiiPushSubscription subscribeSynchronous:topic withError:&error];
+    
+    if (error) NSLog(@"error:%@",error);
+    else {
+        BOOL isSubscribe = [KiiPushSubscription checkSubscriptionSynchronous:topic withError:&error];
+        if (isSubscribe) {
+            NSLog(@"購読済み");
+        }
+    }
+    
     [SVProgressHUD showSuccessWithStatus:@"参加完了!"];
+
     [self.collectionView reloadData];
     
 }

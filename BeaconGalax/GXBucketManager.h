@@ -48,6 +48,9 @@
 //招待されたクエストをフェッチ
 - (void)getInvitedQuest;
 
+//クエストメンバーをフェッチ
+- (void)getQuestMember:(KiiGroup *)group;
+
 
 - (KiiObject *)getMeFromGalaxUserBucket;
 
@@ -61,7 +64,6 @@
 - (void)getOwnerQuest;
 
 - (void)deleteJoinedQuest:(KiiObject *)obj;
-
 
 - (KiiObject *)getGalaxUser:(NSString *)userURI;
 

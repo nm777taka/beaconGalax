@@ -35,12 +35,13 @@ PODS:
   - BlocksKit/UIKit (2.2.3):
     - BlocksKit/Core
     - BlocksKit/DynamicDelegate
-  - Bolts (1.1.2)
+  - Bolts (1.1.3)
   - Canvas (0.1.1)
   - ChameleonFramework (1.1.1)
   - EstimoteSDK (2.1.0)
   - Facebook-iOS-SDK (3.15.1):
     - Bolts
+  - FlatUIKit (1.5)
   - HexColors (2.2.1)
   - PulsingHalo (0.0.1)
   - REFrostedViewController (2.4.7)
@@ -55,6 +56,7 @@ DEPENDENCIES:
   - ChameleonFramework
   - EstimoteSDK
   - Facebook-iOS-SDK
+  - FlatUIKit
   - PulsingHalo
   - REFrostedViewController (~> 2.4.7)
   - SVProgressHUD
@@ -63,11 +65,12 @@ DEPENDENCIES:
 SPEC CHECKSUMS:
   AFNetworking: 6d7b76aa5d04c8c37daad3eef4b7e3f2a7620da3
   BlocksKit: 07c8a80f04275efac6a5f8b973782489c083a182
-  Bolts: 2635e8698a630774689441047f3465d78c48d485
+  Bolts: 3db0a875235e0c9042b013af13af0f00f79b102c
   Canvas: 45356a2e61087a776bfde5090676d290cf67f7f2
   ChameleonFramework: c60096686e3771f5d78f26cfbfd08955a8a88cbd
   EstimoteSDK: e20b38d6f5692ae14fc2347a86dd4d64adc6a71c
   Facebook-iOS-SDK: 56214af8e0ef16e751eb2804250326b709e571b8
+  FlatUIKit: 5452fa3fca41e6f04014cca6e81b4c2f961f623c
   HexColors: 01384d2bbe8dc4ffa43c3b4135db6e976952d153
   PulsingHalo: 4f5fbc25f9efb9f949e4ddad05ca885a11667aa0
   REFrostedViewController: 08870a24788191339608b80b2bd4fce549858f0d

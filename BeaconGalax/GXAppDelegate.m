@@ -116,25 +116,37 @@
 {
     if(![userInfo[@"aps"][@"content-available"] intValue])
     {
-        if ([userInfo[push_type] isEqualToString:push_add_group]) {
+        NSLog(@"push受信");
+        KiiPushMessage *msg = [KiiPushMessage messageFromAPNS:userInfo];
+        NSString *topicName = [msg getValueOfKiiMessageField:KiiMessage_TOPIC];
+        
+        if ([topicName isEqualToString:@"invite_notify"]) {
             NSLog(@"きたよ☆");
             if (application.applicationState == UIApplicationStateActive) {
                 NSLog(@"アクティブで受けっとたよ☆");
                 //TSMessage表示用
-                [[NSNotificationCenter defaultCenter] postNotificationName:GXAddGroupSuccessedNotification object:nil];
+                [[NSNotificationCenter defaultCenter] postNotificationName:GXAddGroupSuccessedNotification object:userInfo[@"group_uri"]];
                 
             }
             if (application.applicationState == UIApplicationStateBackground) {
                 NSLog(@"後ろで受け取ったよ♪");
-                
                 [self pushTest];
             }
         }
+        
+        if ([topicName isEqualToString:@"quest_start"]) {
+            if (application.applicationState == UIApplicationStateActive) {
+                NSLog(@"きちゃった☆");
+                [[NSNotificationCenter defaultCenter] postNotificationName:GXStartQuestNotification object:nil];
+            }
+            
+        }
+        
         completionHandler(UIBackgroundFetchResultNewData);
         return;
     }
     
-    //ユーザをグループに追加
+    //グループ再インスタンス化
     NSError *error;
     KiiUser *joinUser = [KiiUser userWithURI:userInfo[@"join_user"]];
     KiiGroup *questGroup = [KiiGroup groupWithURI:userInfo[@"group"]];
@@ -146,7 +158,6 @@
         NSLog(@"グループリフレッシュ");
         NSLog(@"group:%@",questGroup);
     }
-    
     [questGroup addUser:joinUser];
     [questGroup saveSynchronous:&error];
     
@@ -158,15 +169,12 @@
         //追加されたのを知らせる
         KiiBucket *bucket = [questGroup bucketWithName:@"member"];
         KiiObject *newMember = [bucket createObject];
-        
         //kiiuser情報からgxUserを取得
         KiiObject *gxUser = [[GXBucketManager sharedManager] getGalaxUser:joinUser.objectURI];
-        
         [newMember setObject:[gxUser getObjectForKey:user_fb_id] forKey:user_fb_id];
         [newMember setObject:[gxUser getObjectForKey:user_name] forKey:user_name];
         [newMember setObject:[gxUser getObjectForKey:user_uri] forKey:user_uri];
         [newMember setObject:@NO forKey:user_isReady];
-        
         [newMember saveSynchronous:&error];
         
         if (error) {
@@ -177,8 +185,7 @@
             KiiTopic *topic = [joinUser topicWithName:topic_invite];
             KiiAPNSFields *apnsFields = [KiiAPNSFields createFields];
             NSDictionary *dict = @{
-                                   @"message":@"メンバーに追加されました",
-                                   push_type:push_add_group
+                                   @"group_uri":questGroup.objectURI
                                    };
             
             [apnsFields setSpecificData:dict];
@@ -188,10 +195,8 @@
             [topic sendMessageSynchronous:message withError:&error  ];
             if (error) NSLog(@"error:%@",error);
             else NSLog(@"参加者にpush通知送信完了");
-            
         }
     }
-    
     completionHandler(UIBackgroundFetchResultNewData);
     
 }

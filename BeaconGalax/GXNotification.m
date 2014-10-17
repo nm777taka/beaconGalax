@@ -48,6 +48,7 @@ NSString *const GXFBProfilePictNotification = @"GXFBProfilePictNotification";
 
 NSString *const GXAddGroupSuccessedNotification = @"GXAddGroupSuccessedNotification";
 
+NSString *const GXStartQuestNotification = @"GXStartQuestNotification";
 
 NSString *const GXViewSegueNotification = @"GXViewSegueNotification";
 

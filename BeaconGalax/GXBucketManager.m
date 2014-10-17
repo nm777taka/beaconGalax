@@ -127,7 +127,7 @@
 {
     //group作成
     NSError *error;
-    NSString *groupName = @"テストグループ";
+    NSString *groupName = obj.uuid;
     KiiGroup *group = [KiiGroup groupWithName:groupName];
     [group saveSynchronous:&error];
     if (error) {
@@ -136,6 +136,24 @@
         NSLog(@"グループ作成");
     }
     
+    //Groupのmemberバケットに自分を登録
+    KiiObject *ownerUser =  [self getGalaxUser:[KiiUser currentUser].objectURI];
+    KiiBucket *bucket = [group bucketWithName:@"member"];
+    KiiObject *newMember = [bucket createObject];
+    [newMember setObject:[ownerUser getObjectForKey:user_fb_id] forKey:user_fb_id];
+    [newMember setObject:[ownerUser getObjectForKey:user_name] forKey:user_name];
+    [newMember setObject:[ownerUser getObjectForKey:user_uri] forKey:user_uri];
+    [newMember setObject:@YES forKey:user_isOwner];
+    [newMember saveSynchronous:&error];
+    
+    //グループtopicを作成(みんなで購読する)
+    KiiTopic *groupTopic = [group topicWithName:@"quest_start"];
+    [groupTopic saveSynchronous:&error];
+    if (!error) {
+        NSLog(@"トピック作成完了");
+    }
+    
+    //クエスト
     NSDictionary *dict = obj.dictionaryValue;
     NSArray *allKeys = dict.allKeys;
     KiiObject *newObj = [self.inviteBoard createObject];
@@ -143,10 +161,9 @@
         [newObj setObject:dict[key] forKey:key];
     }
     [newObj setObject:group.objectURI forKey:quest_groupURI];
-    
     [newObj saveWithBlock:^(KiiObject *object, NSError *error) {
         //通知とか飛ばす
-        NSLog(@"招待完了");
+        NSLog(@"投稿完了");
     }];
 
 }
@@ -243,21 +260,15 @@
 
 
 #pragma mark - GroupScope
-- (void)registerQuestMember:(KiiUser *)user
+- (void)getQuestMember:(KiiGroup *)group
 {
-    
-}
-
-- (NSMutableArray *)getQuestMembers:(NSArray *)members
-{
-    NSMutableArray *resutls = [NSMutableArray new];
-    for (KiiUser *user in members) {
-       KiiObject *obj =  [[GXBucketManager sharedManager] getGalaxUser:user.objectURI];
-        
-        [resutls addObject:obj];
-    }
-    
-    return resutls;
+    KiiQuery *query = [KiiQuery queryWithClause:nil];
+    KiiBucket *groupBucket = [group bucketWithName:@"member"];
+    [groupBucket executeQuery:query withBlock:^(KiiQuery *query, KiiBucket *bucket, NSArray *results, KiiQuery *nextQuery, NSError *error) {
+        if (error) NSLog(@"error:%@",error);
+        else
+            [[NSNotificationCenter defaultCenter] postNotificationName:GXGroupMemberFetchedNotification object:results];
+    }];
 }
 
 #pragma mark - UserScope
