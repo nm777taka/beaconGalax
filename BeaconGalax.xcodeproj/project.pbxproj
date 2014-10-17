@@ -7,8 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		0F16511119D287E200918F8D /* GXQuestExeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0F16511019D287E200918F8D /* GXQuestExeViewController.m */; };
-		0F16511519D2A4C000918F8D /* GXQuestPrepareViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0F16511419D2A4C000918F8D /* GXQuestPrepareViewController.m */; };
 		0F16512519D4435A00918F8D /* GXGroupManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 0F16512419D4435A00918F8D /* GXGroupManager.m */; };
 		0F16512819D443A800918F8D /* GXQuestMemberCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 0F16512719D443A800918F8D /* GXQuestMemberCell.m */; };
 		0F27DAF119824BC20000E0D0 /* GXNavigationItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 0F27DAF019824BC20000E0D0 /* GXNavigationItem.m */; };
@@ -90,6 +88,7 @@
 		0FA17E3D1961B00100158421 /* GXTopicManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 0FA17E3C1961B00100158421 /* GXTopicManager.m */; };
 		0FA17E4019623FB700158421 /* GXUserManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 0FA17E3F19623FB700158421 /* GXUserManager.m */; };
 		0FA1E9EF19C06FD8003D7CDE /* GXTestBeaconViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0FA1E9EE19C06FD8003D7CDE /* GXTestBeaconViewController.m */; };
+		0FB4406619F18745006F857D /* GXQuestExeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0FB4406519F18745006F857D /* GXQuestExeViewController.m */; };
 		0FC0095419E13CB70026A7DC /* GXHomeCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 0FC0095319E13CB70026A7DC /* GXHomeCollectionViewCell.m */; };
 		0FC0095819E259DD0026A7DC /* GXFrostedViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0FC0095719E259DD0026A7DC /* GXFrostedViewController.m */; };
 		0FC9FF1319E81C2800E78B39 /* GALAX-update-.png in Resources */ = {isa = PBXBuildFile; fileRef = 0FC9FF1219E81C2800E78B39 /* GALAX-update-.png */; };
@@ -117,10 +116,6 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		0F16510F19D287E200918F8D /* GXQuestExeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GXQuestExeViewController.h; sourceTree = "<group>"; };
-		0F16511019D287E200918F8D /* GXQuestExeViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GXQuestExeViewController.m; sourceTree = "<group>"; };
-		0F16511319D2A4C000918F8D /* GXQuestPrepareViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GXQuestPrepareViewController.h; sourceTree = "<group>"; };
-		0F16511419D2A4C000918F8D /* GXQuestPrepareViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GXQuestPrepareViewController.m; sourceTree = "<group>"; };
 		0F16512319D4435A00918F8D /* GXGroupManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GXGroupManager.h; sourceTree = "<group>"; };
 		0F16512419D4435A00918F8D /* GXGroupManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GXGroupManager.m; sourceTree = "<group>"; };
 		0F16512619D443A800918F8D /* GXQuestMemberCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GXQuestMemberCell.h; sourceTree = "<group>"; };
@@ -245,6 +240,8 @@
 		0FA17E3F19623FB700158421 /* GXUserManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GXUserManager.m; sourceTree = "<group>"; };
 		0FA1E9ED19C06FD8003D7CDE /* GXTestBeaconViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GXTestBeaconViewController.h; sourceTree = "<group>"; };
 		0FA1E9EE19C06FD8003D7CDE /* GXTestBeaconViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GXTestBeaconViewController.m; sourceTree = "<group>"; };
+		0FB4406419F18745006F857D /* GXQuestExeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GXQuestExeViewController.h; sourceTree = "<group>"; };
+		0FB4406519F18745006F857D /* GXQuestExeViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GXQuestExeViewController.m; sourceTree = "<group>"; };
 		0FC0095219E13CB70026A7DC /* GXHomeCollectionViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GXHomeCollectionViewCell.h; sourceTree = "<group>"; };
 		0FC0095319E13CB70026A7DC /* GXHomeCollectionViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GXHomeCollectionViewCell.m; sourceTree = "<group>"; };
 		0FC0095619E259DD0026A7DC /* GXFrostedViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GXFrostedViewController.h; sourceTree = "<group>"; };
@@ -307,24 +304,6 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		0F16510E19D287B700918F8D /* QuestExe */ = {
-			isa = PBXGroup;
-			children = (
-				0F16510F19D287E200918F8D /* GXQuestExeViewController.h */,
-				0F16511019D287E200918F8D /* GXQuestExeViewController.m */,
-			);
-			name = QuestExe;
-			sourceTree = "<group>";
-		};
-		0F16511219D2A3E000918F8D /* QuestPrepare */ = {
-			isa = PBXGroup;
-			children = (
-				0F16511319D2A4C000918F8D /* GXQuestPrepareViewController.h */,
-				0F16511419D2A4C000918F8D /* GXQuestPrepareViewController.m */,
-			);
-			name = QuestPrepare;
-			sourceTree = "<group>";
-		};
 		0F16511F19D4387300918F8D /* QuestExeView */ = {
 			isa = PBXGroup;
 			children = (
@@ -601,14 +580,13 @@
 		0F7A25C919587E0C001B7839 /* Controller */ = {
 			isa = PBXGroup;
 			children = (
+				0FB4406319F18713006F857D /* QuestExeView */,
 				0F6E291A19EEEFFA005BE433 /* QuestGroupView */,
 				0FC9FF1419E81F8A00E78B39 /* Clear */,
 				0F629BE919E416D9009757DF /* Quest_type */,
 				0FD200A319E263B50034E52A /* GXNavigation */,
 				0FD2009F19E2605C0034E52A /* GXUserStatus */,
 				0FC0095519E2597A0026A7DC /* GXFrostedViewController */,
-				0F16511219D2A3E000918F8D /* QuestPrepare */,
-				0F16510E19D287B700918F8D /* QuestExe */,
 				0F649FDE19CD541300D48074 /* InviteQuest */,
 				0F42367219BDD3FE0001E204 /* Description */,
 				0F42366119BD54130001E204 /* CreateQuest */,
@@ -713,6 +691,15 @@
 				0F16512419D4435A00918F8D /* GXGroupManager.m */,
 			);
 			name = Model;
+			sourceTree = "<group>";
+		};
+		0FB4406319F18713006F857D /* QuestExeView */ = {
+			isa = PBXGroup;
+			children = (
+				0FB4406419F18745006F857D /* GXQuestExeViewController.h */,
+				0FB4406519F18745006F857D /* GXQuestExeViewController.m */,
+			);
+			name = QuestExeView;
 			sourceTree = "<group>";
 		};
 		0FC0095519E2597A0026A7DC /* GXFrostedViewController */ = {
@@ -1006,7 +993,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				0F16511519D2A4C000918F8D /* GXQuestPrepareViewController.m in Sources */,
 				0F6E291919ED5015005BE433 /* GXInvitedViewCell.m in Sources */,
 				0F649FE719CD5A1C00D48074 /* GXJoinedQuestTableViewCell.m in Sources */,
 				0FD26D811959F689005E2B95 /* GXCustomSectionHeader.m in Sources */,
@@ -1041,6 +1027,7 @@
 				0FD26D89195A0A11005E2B95 /* UIColor+GXtheme.m in Sources */,
 				0F42367119BDD3980001E204 /* GXParticipantsCell.m in Sources */,
 				0F5FA5F6198DCF5300F41B05 /* GXFacebook.m in Sources */,
+				0FB4406619F18745006F857D /* GXQuestExeViewController.m in Sources */,
 				0F7F4142195C823000A796AD /* GXLoginViewController.m in Sources */,
 				0F7A25D51959B56E001B7839 /* GXBeaconTableViewController.m in Sources */,
 				0FD26D8D195A9820005E2B95 /* GXNotification.m in Sources */,
@@ -1051,7 +1038,6 @@
 				0FA1E9EF19C06FD8003D7CDE /* GXTestBeaconViewController.m in Sources */,
 				0F42366E19BDD3510001E204 /* GXDescriptionTableViewCell.m in Sources */,
 				0FF16CE9197F86DB00B02702 /* NSMutableArray+Extended.m in Sources */,
-				0F16511119D287E200918F8D /* GXQuestExeViewController.m in Sources */,
 				0F80277219BF370800453653 /* GXBeaconViewController.m in Sources */,
 				0FD200A619E263CE0034E52A /* GXNavViewController.m in Sources */,
 				0F42366419BD54420001E204 /* GXCreateQuestViewController.m in Sources */,

@@ -15,7 +15,7 @@
 
 @property KiiUser *joinUser;
 @property KiiGroup *joinedGroup;
-
+@property CLLocationManager *locationManager;
 
 @end
 
@@ -37,6 +37,9 @@
                         andOptions:nil];
     
      [Kii enableAPNSWithDevelopmentMode:YES andNotificationTypes:UIRemoteNotificationTypeAlert|UIRemoteNotificationTypeSound|UIRemoteNotificationTypeBadge];
+    
+    self.locationManager = [CLLocationManager new];
+    self.locationManager.delegate = self;
    
     return YES;
 }
@@ -233,6 +236,26 @@
     
     //終了時に絶対呼ぶ
     completionHandler();
+}
+
+- (void)locationManager:(CLLocationManager *)manager didChangeAuthorizationStatus:(CLAuthorizationStatus)status
+{
+    
+    switch (status) {
+        case kCLAuthorizationStatusNotDetermined:
+            if ([_locationManager respondsToSelector:@selector(requestAlwaysAuthorization)]) {
+                
+                [_locationManager requestAlwaysAuthorization];
+            }
+            break;
+            
+        case kCLAuthorizationStatusAuthorizedAlways:
+            break;
+            
+        default:
+            break;
+    }
+    
 }
 
 - (void)applicationWillResignActive:(UIApplication *)application

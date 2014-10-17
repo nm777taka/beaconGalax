@@ -7,6 +7,7 @@
 //
 
 #import "GXQuestGroupViewController.h"
+#import "GXQuestExeViewController.h"
 #import "GXQuestGroupViewCell.h"
 #import "GXDictonaryKeys.h"
 #import "GXNotification.h"
@@ -163,15 +164,20 @@
         cell.userName.text = [member getObjectForKey:user_name];
         cell.userIcon.profileID = [member getObjectForKey:user_fb_id];
         
-        if ([[member getObjectForKey:user_isReady] isEqualToNumber:@YES]) {
-            cell.backgroundColor = FlatSkyBlue;
-        }
         
         if ([self isOwer:(int)indexPath.row]) {
             
             cell.backgroundColor = FlatWatermelon;
+            cell.isReadySignLabel.text = @"リーダー";
 
         }else {
+            
+            cell.isReadySignLabel.text = @"準備中";
+            
+            if ([[member getObjectForKey:user_isReady] isEqualToNumber:@YES]) {
+                cell.backgroundColor = FlatSkyBlue;
+                cell.isReadySignLabel.text = @"準備完了";
+            }
             
         }
             
@@ -232,6 +238,15 @@
         [self performSegueWithIdentifier:@"test" sender:self];
         [SVProgressHUD dismiss];
     } repeats:NO];
+}
+
+#pragma mark - segue
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
+{
+    if ([segue.identifier isEqualToString:@"test"]) {
+        GXQuestExeViewController *vc = segue.destinationViewController;
+        vc.exeQuest = self.selectedObj;
+    }
 }
 
 @end

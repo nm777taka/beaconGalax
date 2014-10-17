@@ -14,7 +14,7 @@
 #import "FBConnect.h"
 #import "GXFacebook.h"
 
-@interface GXAppDelegate : UIResponder <UIApplicationDelegate,FBSessionDelegate,FBRequestDelegate,UIAlertViewDelegate>
+@interface GXAppDelegate : UIResponder <UIApplicationDelegate,FBSessionDelegate,FBRequestDelegate,UIAlertViewDelegate,CLLocationManagerDelegate>
 
 @property (strong, nonatomic) UIWindow *window;
 @property GXFacebook *gxFbManager;

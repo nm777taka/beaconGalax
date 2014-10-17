@@ -101,7 +101,7 @@
 
     //自分がオーナかどうか
     if ([self isOwner:group]) {
-        [cell.cellButton setTitle:@"START!" forState:UIControlStateNormal];
+        [cell.cellButton setTitle:@"オーナー" forState:UIControlStateNormal];
         [cell.cellButton setBackgroundColor:FlatYellow];
         [cell.cellButton bk_addEventHandler:^(id sender) {
         } forControlEvents:UIControlEventTouchUpInside];

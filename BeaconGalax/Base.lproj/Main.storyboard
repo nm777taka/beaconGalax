@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6245" systemVersion="13F34" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" initialViewController="8fl-Pj-LvM">
     <dependencies>
+        <deployment defaultVersion="1808" identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6238"/>
     </dependencies>
     <scenes>
@@ -542,7 +543,7 @@
                             </button>
                             <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="Cy8-ED-PQ4">
                                 <rect key="frame" x="0.0" y="64" width="320" height="437"/>
-                                <color key="backgroundColor" red="0.1411764771" green="0.12549020350000001" blue="0.1215686351" alpha="1" colorSpace="deviceRGB"/>
+                                <color key="backgroundColor" red="0.90823972225189209" green="0.92638683319091797" blue="0.9317171573638916" alpha="1" colorSpace="calibratedRGB"/>
                                 <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="H2w-AN-Prc">
                                     <size key="itemSize" width="135" height="153"/>
                                     <size key="headerReferenceSize" width="0.0" height="0.0"/>
@@ -576,7 +577,7 @@
                                             </subviews>
                                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                         </view>
-                                        <color key="backgroundColor" red="0.90823972225189209" green="0.92638683319091797" blue="0.9317171573638916" alpha="1" colorSpace="calibratedRGB"/>
+                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         <size key="customSize" width="140" height="160"/>
                                         <connections>
                                             <outlet property="isReadySignLabel" destination="3Xb-gj-ZpP" id="bX4-7E-MjB"/>
@@ -587,9 +588,15 @@
                                 </cells>
                             </collectionView>
                         </subviews>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <color key="backgroundColor" red="0.90823972225189209" green="0.92638683319091797" blue="0.9317171573638916" alpha="1" colorSpace="calibratedRGB"/>
                     </view>
-                    <navigationItem key="navigationItem" id="Kax-fG-E5K"/>
+                    <navigationItem key="navigationItem" id="Kax-fG-E5K">
+                        <barButtonItem key="rightBarButtonItem" title="Item" id="tX9-cH-mA3">
+                            <connections>
+                                <segue destination="p4e-2n-6z3" kind="push" identifier="test" id="gw7-T6-58I"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
                     <nil key="simulatedBottomBarMetrics"/>
                     <simulatedOrientationMetrics key="simulatedOrientationMetrics"/>
                     <connections>
@@ -621,10 +628,10 @@
             </objects>
             <point key="canvasLocation" x="3919" y="659"/>
         </scene>
-        <!--View Controller-->
+        <!--GALAX-->
         <scene sceneID="Q42-rw-VWA">
             <objects>
-                <viewController id="p4e-2n-6z3" sceneMemberID="viewController">
+                <viewController id="p4e-2n-6z3" customClass="GXQuestExeViewController" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="Zzp-1G-EfD"/>
                         <viewControllerLayoutGuide type="bottom" id="bgp-V9-LBQ"/>
@@ -632,13 +639,46 @@
                     <view key="view" contentMode="scaleToFill" id="VEP-ka-E5x">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <subviews>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="beacon.png" translatesAutoresizingMaskIntoConstraints="NO" id="jFD-1g-IBy">
+                                <rect key="frame" x="111" y="234" width="99" height="99"/>
+                            </imageView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="iiY-CT-hez">
+                                <rect key="frame" x="93" y="341" width="134" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="19"/>
+                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="quest.png" translatesAutoresizingMaskIntoConstraints="NO" id="5b1-mV-bzU">
+                                <rect key="frame" x="28" y="80" width="39" height="35"/>
+                            </imageView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="6xt-2A-SgR">
+                                <rect key="frame" x="16" y="486" width="288" height="38"/>
+                                <fontDescription key="fontDescription" type="boldSystem" pointSize="40"/>
+                                <color key="textColor" red="0.89126098155975342" green="0.3545563817024231" blue="0.39968371391296387" alpha="1" colorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="クエストタイトル" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="xdg-xK-ieP">
+                                <rect key="frame" x="64" y="92" width="219" height="23"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="22"/>
+                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
+                        <color key="backgroundColor" red="0.96933593750000002" green="0.96933593750000002" blue="0.96933593750000002" alpha="1" colorSpace="calibratedRGB"/>
                     </view>
-                    <navigationItem key="navigationItem" id="oXd-g1-Ced"/>
+                    <navigationItem key="navigationItem" title="GALAX" id="oXd-g1-Ced"/>
+                    <simulatedOrientationMetrics key="simulatedOrientationMetrics"/>
+                    <connections>
+                        <outlet property="accLabel" destination="iiY-CT-hez" id="kuT-hj-pQO"/>
+                        <outlet property="beaconImage" destination="jFD-1g-IBy" id="2Hc-xB-AGH"/>
+                        <outlet property="proxLabel" destination="6xt-2A-SgR" id="ezD-0I-KWG"/>
+                        <outlet property="questTitle" destination="xdg-xK-ieP" id="y7v-cU-cPV"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="fTf-PY-d6U" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3291" y="476"/>
+            <point key="canvasLocation" x="3291" y="466"/>
         </scene>
         <!--QuestB1 View Controller-->
         <scene sceneID="Scx-Af-DdM">
@@ -1025,6 +1065,7 @@
         <image name="home-32.png" width="32" height="32"/>
         <image name="iPhone.png" width="300" height="300"/>
         <image name="location.png" width="100" height="100"/>
+        <image name="quest.png" width="1200" height="1200"/>
         <image name="vec_left.png" width="100" height="100"/>
     </resources>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">
@@ -1032,4 +1073,7 @@
         <simulatedOrientationMetrics key="orientation"/>
         <simulatedScreenMetrics key="destination" type="retina4"/>
     </simulatedMetricsContainer>
+    <inferredMetricsTieBreakers>
+        <segue reference="gw7-T6-58I"/>
+    </inferredMetricsTieBreakers>
 </document>

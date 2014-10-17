@@ -18,6 +18,7 @@
     
     self.userNameLabel.textColor = [UIColor whiteColor];
     self.userReadySignLabel.textColor = [UIColor whiteColor];
+    self.userReadySignLabel.text = @"準備中";
 }
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {
