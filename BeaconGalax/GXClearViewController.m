@@ -37,13 +37,13 @@
 {
     [super viewDidAppear:animated];
     NSLog(@"point:%d",self.point);
+    [self registerPoint];
     [NSTimer bk_scheduledTimerWithTimeInterval:3.0 block:^(NSTimer *timer) {
         
         UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"Congratulation" message:@"クエストクリアおめでとうございます" preferredStyle:UIAlertControllerStyleAlert];
         [alertController addAction:[UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
             
             [self.navigationController popToRootViewControllerAnimated:YES];
-            
             
         }]];
         
@@ -67,5 +67,20 @@
     // Pass the selected object to the new view controller.
 }
 */
+
+- (void)registerPoint
+{
+    NSError *error;
+    KiiBucket *pointBucket = [[KiiUser currentUser] bucketWithName:@"point"];
+    KiiObject *point = [pointBucket createObject];
+    [point setObject:[NSNumber numberWithInt:self.point] forKey:@"point"];
+    [point saveSynchronous:&error];
+    if (error) {
+        NSLog(@"ポイントゲットエラー:%@",error);
+    } else {
+        NSLog(@"ポイントゲット");
+    }
+    
+}
 
 @end
