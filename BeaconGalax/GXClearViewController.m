@@ -12,6 +12,7 @@
 #import "GXNotification.h"
 #import "GXQuestViewController.h"
 #import "GXInviteQuestViewController.h"
+#import "GXFrostedViewController.h"
 
 @interface GXClearViewController ()
 
@@ -41,7 +42,8 @@
         UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"Congratulation" message:@"クエストクリアおめでとうございます" preferredStyle:UIAlertControllerStyleAlert];
         [alertController addAction:[UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
             
-            [self dismissViewControllerAnimated:YES completion:nil];
+            [self.navigationController popToRootViewControllerAnimated:YES];
+            
             
         }]];
         

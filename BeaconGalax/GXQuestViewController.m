@@ -50,6 +50,7 @@
     [UINavigationBar appearance].barTintColor = FlatLime;
     self.collectionView.delegate = self;
     self.collectionView.dataSource = self;
+    self.collectionView.alwaysBounceVertical = YES;
     
     _objects = [NSMutableArray new];
     
