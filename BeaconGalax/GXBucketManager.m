@@ -307,6 +307,19 @@
     }];
 }
 
+- (void)registerJoinedMultiQuest:(KiiObject *)obj
+{
+    NSError *error;
+    NSDictionary *dict = obj.dictionaryValue;
+    NSArray *allKeys = dict.allKeys;
+    KiiObject *newObj = [self.joinedMultiPersonQuest createObject];
+    for (NSString *key in allKeys) {
+        [newObj setObject:dict[key] forKey:key];
+    }
+    
+    [newObj saveSynchronous:&error];
+}
+
 //Quest_boardからnot_joinedにフェッチ
 //そのうちサーバーコードで実現する
 - (void)getQuestForQuestBoard

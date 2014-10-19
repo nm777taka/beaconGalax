@@ -115,14 +115,6 @@
         NSLog(@"enter");
         [cell.cellButton setTitle:@"参加済み" forState:UIControlStateNormal];
         [cell.cellButton setBackgroundColor:FlatGreen];
-        //Debug用 ------------------>
-        [cell.cellButton bk_addEventHandler:^(id sender) {
-            [SVProgressHUD showWithStatus:@"参加申請中"];
-            [self sendPushtoOwner:group];
-            
-        } forControlEvents:UIControlEventTouchUpInside];
-        
-        //-------------------------->
         return;
         
     } else {
@@ -260,6 +252,18 @@
         NSLog(@"push購読エラー:%@",error);
     }
     
+    //参加したクエストを取得
+    KiiBucket *bucket = [joinedGroup bucketWithName:@"quest"];
+    KiiQuery *query = [KiiQuery queryWithClause:nil];
+    KiiQuery *nextQuery;
+    NSArray *results = [bucket executeQuerySynchronous:query withError:&error andNext:&nextQuery];
+    KiiObject *obj = results.firstObject;
+    
+    //自分の参加済み協力クエに登録
+    [[GXBucketManager sharedManager] registerJoinedMultiQuest:obj];
+
+    //notjoinから消す
+    [[GXBucketManager sharedManager] deleteJoinedQuest:obj];
     
     [SVProgressHUD showSuccessWithStatus:@"参加完了!"];
 

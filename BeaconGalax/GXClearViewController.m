@@ -43,6 +43,8 @@
         UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"Congratulation" message:@"クエストクリアおめでとうございます" preferredStyle:UIAlertControllerStyleAlert];
         [alertController addAction:[UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
             
+            [self deleteMultiQuest];
+            
             [self.navigationController popToRootViewControllerAnimated:YES];
             
         }]];
@@ -82,5 +84,69 @@
     }
     
 }
+
+- (void)deleteMultiQuest
+{
+    [SVProgressHUD showWithStatus:@"完了したクエストを処理しています"];
+
+    //オーナーがやる
+    //isOwner?
+    NSError *error;
+    KiiUser *owner = [self.group getOwnerSynchronous:&error];
+    KiiUser *currUser = [KiiUser currentUser];
+    if ([owner isEqual:currUser]) {
+        //募集ボードから消す（オーナー）
+        KiiClause *clause = [KiiClause equals:@"uri" value:[self.quest getObjectForKey:@"uri"]];
+        KiiQuery *query = [KiiQuery queryWithClause:clause];
+        KiiQuery *nextQuery;
+        KiiBucket *inviteBucket = [Kii bucketWithName:@"invite_board"];
+        NSArray *result_inviteBoard = [inviteBucket executeQuerySynchronous:query withError:&error andNext:&nextQuery];
+        if (error) {
+            NSLog(@"fetchError:%@",error);
+        } else {
+            if (result_inviteBoard.count == 1) {
+                KiiObject *deleteObj = result_inviteBoard.firstObject;
+                [deleteObj deleteSynchronous:&error];
+                if (error) {
+                    NSLog(@"deleteError:%@",error);
+                } else {
+                    NSLog(@"完了したクエストを削除完了");
+                }
+            }
+        }
+        
+        [self completeJoinedMultiQuest];
+        
+        //参加者
+        
+    } else {
+        [self completeJoinedMultiQuest];
+    }
+}
+
+- (void)completeJoinedMultiQuest
+{
+    NSError *error;
+    KiiUser *currUser = [KiiUser currentUser];
+    KiiBucket *joinedMultiBucket = [[KiiUser currentUser] bucketWithName:@"joined_multiPersonQuest"];
+    KiiClause *clause = [KiiClause equals:@"uri" value:[self.quest getObjectForKey:@"uri"]];
+    KiiQuery *query = [KiiQuery queryWithClause:clause];
+    KiiQuery *nextQuery;
+    NSArray *results = [joinedMultiBucket executeQuerySynchronous:query withError:&error andNext:&nextQuery];
+    if (error) {
+        NSLog(@"fetchError:%@",error);
+    } else {
+        if (results.count == 1) {
+            KiiObject *obj = results.firstObject;
+            [obj setObject:@YES forKey:quest_isCompleted];
+            [obj saveSynchronous:&error];
+            if (!error) {
+                [SVProgressHUD dismiss];
+            }
+        }
+    }
+
+}
+
 
 @end

@@ -67,6 +67,8 @@ static const char kAssocKey_Window;
     
 }
 
+#pragma makr - ユーザプログレス
+
 - (void)configureUserProgress
 {
     self.paused = YES;
@@ -101,6 +103,7 @@ static const char kAssocKey_Window;
             [self.userTimer invalidate];
             [(UILabel *)progressView.centralView setText:@"OK"];
             [self commitQuest];
+            [SVProgressHUD showWithStatus:@"コミット中"];
         }
         
     };
@@ -153,7 +156,7 @@ static const char kAssocKey_Window;
         if (progress * 100 == 100) {
             [(UILabel *)progressView.centralView setText:@"Clear"];
             [SVProgressHUD showSuccessWithStatus:@"クリア処理中"];
-            [NSTimer bk_scheduledTimerWithTimeInterval:3.0 block:^(NSTimer *timer) {
+            [NSTimer bk_scheduledTimerWithTimeInterval:2.0 block:^(NSTimer *timer) {
                 [self gotoClearView];
             } repeats:NO];
         }
@@ -272,11 +275,14 @@ static const char kAssocKey_Window;
         //無理やり100%に(奇数とかのために)
         NSLog(@"clear");
         [self.progressView setProgress:1.0f animated:YES];
+        [SVProgressHUD dismiss];
         return ;
     }
     
     _localQuestProgress = (float)progressValue / 100.0f;
     [self.progressView setProgress:_localQuestProgress animated:YES];
+    
+    [SVProgressHUD dismiss];
 
 }
 
@@ -362,6 +368,8 @@ static const char kAssocKey_Window;
         
         GXClearViewController *vc = segue.destinationViewController;
         vc.point = 100;
+        vc.group = self.exeGroup;
+        vc.quest = self.exeQuest;
     }
 }
 

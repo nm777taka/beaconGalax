@@ -13,4 +13,6 @@
 
 @property int point;
 
+@property KiiGroup *group;
+@property KiiObject *quest;
 @end
