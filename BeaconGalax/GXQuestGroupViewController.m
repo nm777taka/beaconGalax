@@ -246,6 +246,7 @@
     if ([segue.identifier isEqualToString:@"test"]) {
         GXQuestExeViewController *vc = segue.destinationViewController;
         vc.exeQuest = self.selectedObj;
+        vc.exeGroup = self.questGroup;
     }
 }
 

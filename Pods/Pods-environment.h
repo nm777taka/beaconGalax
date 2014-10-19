@@ -150,3 +150,9 @@
 #define COCOAPODS_VERSION_MINOR_TSMessages 9
 #define COCOAPODS_VERSION_PATCH_TSMessages 9
 
+// UAProgressView
+#define COCOAPODS_POD_AVAILABLE_UAProgressView
+#define COCOAPODS_VERSION_MAJOR_UAProgressView 0
+#define COCOAPODS_VERSION_MINOR_UAProgressView 1
+#define COCOAPODS_VERSION_PATCH_UAProgressView 1
+

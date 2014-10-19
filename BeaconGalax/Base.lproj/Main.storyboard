@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6245" systemVersion="13F34" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" initialViewController="8fl-Pj-LvM">
     <dependencies>
-        <deployment defaultVersion="1808" identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6238"/>
     </dependencies>
     <scenes>
@@ -239,7 +238,7 @@
             </objects>
             <point key="canvasLocation" x="1659" y="-1299"/>
         </scene>
-        <!--ホーム-->
+        <!--クエストボード-->
         <scene sceneID="IUh-rZ-Cto">
             <objects>
                 <viewController storyboardIdentifier="home" automaticallyAdjustsScrollViewInsets="NO" id="0wR-c0-tUS" customClass="GXQuestViewController" sceneMemberID="viewController">
@@ -274,7 +273,7 @@
                                                         <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="NwY-GF-q3Z">
                                                             <rect key="frame" x="0.0" y="135" width="96" height="43"/>
                                                             <color key="backgroundColor" red="0.8912609816" green="0.35455638169999998" blue="0.39968371390000001" alpha="1" colorSpace="calibratedRGB"/>
-                                                            <state key="normal" title="Button">
+                                                            <state key="normal" title="Accept">
                                                                 <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                                             </state>
                                                             <connections>
@@ -354,8 +353,8 @@
                                         <rect key="frame" x="8" y="8" width="304" height="29"/>
                                         <color key="backgroundColor" red="0.90823972225189209" green="0.92638683319091797" blue="0.9317171573638916" alpha="1" colorSpace="calibratedRGB"/>
                                         <segments>
-                                            <segment title="QUEST"/>
-                                            <segment title="MISSION"/>
+                                            <segment title="みんなで"/>
+                                            <segment title="ひとりで"/>
                                         </segments>
                                         <color key="tintColor" red="0.89126098155975342" green="0.3545563817024231" blue="0.39968371391296387" alpha="1" colorSpace="calibratedRGB"/>
                                         <connections>
@@ -369,7 +368,7 @@
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
                     <toolbarItems/>
-                    <navigationItem key="navigationItem" title="ホーム" id="YiJ-ZY-8S3">
+                    <navigationItem key="navigationItem" title="クエストボード" id="YiJ-ZY-8S3">
                         <barButtonItem key="rightBarButtonItem" systemItem="add" id="kVV-R8-wsl">
                             <connections>
                                 <action selector="createNewQuest:" destination="0wR-c0-tUS" id="R0S-gl-NcU"/>
@@ -451,7 +450,7 @@
         <!--募集中-->
         <scene sceneID="MEL-eI-kew">
             <objects>
-                <viewController id="o88-MI-UTX" customClass="GXInviteQuestViewController" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="invitedBoard" id="o88-MI-UTX" customClass="GXInviteQuestViewController" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="ICg-US-zXI"/>
                         <viewControllerLayoutGuide type="bottom" id="bMu-uf-bcG"/>
@@ -485,8 +484,8 @@
                                                     <rect key="frame" x="69" y="15" width="70" height="70"/>
                                                     <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                                                 </view>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="クエストタイトル" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="42i-tX-oD2">
-                                                    <rect key="frame" x="49" y="94" width="115" height="24"/>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="クエストタイトル" lineBreakMode="wordWrap" numberOfLines="5" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="42i-tX-oD2">
+                                                    <rect key="frame" x="25" y="94" width="160" height="70"/>
                                                     <fontDescription key="fontDescription" name="HelveticaNeue-Bold" family="Helvetica Neue" pointSize="13"/>
                                                     <color key="textColor" red="0.33333334329999997" green="0.33333334329999997" blue="0.33333334329999997" alpha="1" colorSpace="deviceRGB"/>
                                                     <nil key="highlightedColor"/>
@@ -521,7 +520,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="HoD-uz-grb" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2096" y="786"/>
+            <point key="canvasLocation" x="1818" y="733"/>
         </scene>
         <!--Quest Group View Controller-->
         <scene sceneID="bvE-KX-rpo">
@@ -569,7 +568,7 @@
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="ready" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="3Xb-gj-ZpP">
-                                                    <rect key="frame" x="40" y="126" width="61" height="21"/>
+                                                    <rect key="frame" x="8" y="126" width="124" height="21"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                                     <nil key="highlightedColor"/>
@@ -602,33 +601,80 @@
                     <connections>
                         <outlet property="actionButton" destination="zoI-XV-bbT" id="6zJ-zq-pBn"/>
                         <outlet property="collectionView" destination="Cy8-ED-PQ4" id="hcU-GJ-H2p"/>
-                        <segue destination="7uq-0K-BDk" kind="push" id="WQa-av-YkB"/>
-                        <segue destination="p4e-2n-6z3" kind="push" identifier="test" id="BsF-D2-R0Q"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="1nY-2Z-ElD" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="2661" y="560"/>
         </scene>
-        <!--Clear View Controller-->
-        <scene sceneID="Rp6-ih-azZ">
+        <!--Quest Complete View Controller-->
+        <scene sceneID="162-5w-95B">
             <objects>
-                <viewController storyboardIdentifier="clearView" id="vuQ-LW-sdU" customClass="GXClearViewController" sceneMemberID="viewController">
-                    <imageView key="view" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="GALAX-update-.png" id="UPr-Zp-SqG">
+                <viewController storyboardIdentifier="quest_complete" id="OUy-6N-yEZ" customClass="GXQuestCompleteViewController" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="sSR-XK-hol"/>
+                        <viewControllerLayoutGuide type="bottom" id="X2v-Bq-OpT"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="mCl-df-xye">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
-                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                    </imageView>
-                    <navigationItem key="navigationItem" id="cRR-lC-tvi"/>
-                    <nil key="simulatedStatusBarMetrics"/>
-                    <nil key="simulatedTopBarMetrics"/>
-                    <nil key="simulatedBottomBarMetrics"/>
-                    <simulatedOrientationMetrics key="simulatedOrientationMetrics"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="7ni-Oo-fJ2" customClass="CSAnimationView">
+                                <rect key="frame" x="-4" y="89" width="328" height="403"/>
+                                <subviews>
+                                    <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="TJW-6R-sr7">
+                                        <rect key="frame" x="20" y="20" width="288" height="363"/>
+                                        <subviews>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Quest" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bt1-2T-F0n">
+                                                <rect key="frame" x="74" y="21" width="140" height="36"/>
+                                                <fontDescription key="fontDescription" type="boldSystem" pointSize="30"/>
+                                                <color key="textColor" red="0.97042968750000003" green="0.16751024043854257" blue="0.20904376753013715" alpha="1" colorSpace="calibratedRGB"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="quest.png" translatesAutoresizingMaskIntoConstraints="NO" id="dc6-yE-F98">
+                                                <rect key="frame" x="8" y="13" width="51" height="51"/>
+                                            </imageView>
+                                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="430-iJ-dDt" customClass="FUIButton">
+                                                <rect key="frame" x="62" y="296" width="164" height="46"/>
+                                                <state key="normal" title="クリア！">
+                                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                                </state>
+                                            </button>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" lineBreakMode="wordWrap" numberOfLines="5" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="JY2-6B-cuO">
+                                                <rect key="frame" x="18" y="77" width="242" height="91"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="20"/>
+                                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                        </subviews>
+                                        <color key="backgroundColor" red="0.95523437499999997" green="0.95523437499999997" blue="0.95523437499999997" alpha="1" colorSpace="calibratedRGB"/>
+                                    </view>
+                                </subviews>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="string" keyPath="type" value="slideUp"/>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="duration">
+                                        <integer key="value" value="1"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="delay">
+                                        <integer key="value" value="0"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
+                            </view>
+                        </subviews>
+                        <color key="backgroundColor" white="0.0" alpha="0.87" colorSpace="calibratedWhite"/>
+                    </view>
+                    <connections>
+                        <outlet property="animationView" destination="7ni-Oo-fJ2" id="jv2-sJ-S33"/>
+                        <outlet property="clearButton" destination="430-iJ-dDt" id="Qmw-z6-C8D"/>
+                        <outlet property="descriptionLabel" destination="JY2-6B-cuO" id="R6z-su-Nka"/>
+                    </connections>
                 </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="xUT-CW-AQs" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="4WS-ee-V1q" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3919" y="659"/>
+            <point key="canvasLocation" x="3299" y="-183"/>
         </scene>
-        <!--GALAX-->
+        <!--QUEST-->
         <scene sceneID="Q42-rw-VWA">
             <objects>
                 <viewController id="p4e-2n-6z3" customClass="GXQuestExeViewController" sceneMemberID="viewController">
@@ -641,44 +687,74 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="beacon.png" translatesAutoresizingMaskIntoConstraints="NO" id="jFD-1g-IBy">
-                                <rect key="frame" x="111" y="234" width="99" height="99"/>
+                                <rect key="frame" x="111" y="176" width="99" height="99"/>
                             </imageView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="iiY-CT-hez">
-                                <rect key="frame" x="93" y="341" width="134" height="21"/>
+                                <rect key="frame" x="93" y="288" width="134" height="21"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="19"/>
                                 <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="quest.png" translatesAutoresizingMaskIntoConstraints="NO" id="5b1-mV-bzU">
-                                <rect key="frame" x="28" y="80" width="39" height="35"/>
+                                <rect key="frame" x="16" y="92" width="39" height="35"/>
                             </imageView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="6xt-2A-SgR">
-                                <rect key="frame" x="16" y="486" width="288" height="38"/>
+                                <rect key="frame" x="16" y="317" width="288" height="38"/>
                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="40"/>
                                 <color key="textColor" red="0.89126098155975342" green="0.3545563817024231" blue="0.39968371391296387" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="クエストタイトル" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="xdg-xK-ieP">
-                                <rect key="frame" x="64" y="92" width="219" height="23"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="22"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="クエストタイトル" lineBreakMode="tailTruncation" numberOfLines="7" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="xdg-xK-ieP">
+                                <rect key="frame" x="58" y="87" width="219" height="45"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="20"/>
                                 <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="0Kq-3E-45E" customClass="UAProgressView">
+                                <rect key="frame" x="58" y="383" width="100" height="100"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                            </view>
+                            <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="uDA-3w-lkq" customClass="UAProgressView">
+                                <rect key="frame" x="177" y="383" width="100" height="100"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                            </view>
                         </subviews>
                         <color key="backgroundColor" red="0.96933593750000002" green="0.96933593750000002" blue="0.96933593750000002" alpha="1" colorSpace="calibratedRGB"/>
                     </view>
-                    <navigationItem key="navigationItem" title="GALAX" id="oXd-g1-Ced"/>
+                    <navigationItem key="navigationItem" title="QUEST" id="oXd-g1-Ced"/>
                     <simulatedOrientationMetrics key="simulatedOrientationMetrics"/>
                     <connections>
                         <outlet property="accLabel" destination="iiY-CT-hez" id="kuT-hj-pQO"/>
                         <outlet property="beaconImage" destination="jFD-1g-IBy" id="2Hc-xB-AGH"/>
+                        <outlet property="progressView" destination="0Kq-3E-45E" id="rZK-ft-e8R"/>
                         <outlet property="proxLabel" destination="6xt-2A-SgR" id="ezD-0I-KWG"/>
                         <outlet property="questTitle" destination="xdg-xK-ieP" id="y7v-cU-cPV"/>
+                        <outlet property="userProgressView" destination="uDA-3w-lkq" id="FeS-gD-Cgs"/>
+                        <segue destination="K7W-OA-vM4" kind="modal" identifier="gotoClearView" id="uN7-rC-EHY"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="fTf-PY-d6U" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="3291" y="466"/>
+        </scene>
+        <!--Clear View Controller-->
+        <scene sceneID="ybN-fx-XHk">
+            <objects>
+                <viewController id="K7W-OA-vM4" customClass="GXClearViewController" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="5mb-dr-he1"/>
+                        <viewControllerLayoutGuide type="bottom" id="3qH-zQ-ABU"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="hIG-Gv-h8i">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                    <navigationItem key="navigationItem" id="5ra-2l-TvS"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="VBu-MB-ZJI" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="3683" y="466"/>
         </scene>
         <!--QuestB1 View Controller-->
         <scene sceneID="Scx-Af-DdM">
@@ -808,7 +884,6 @@
                         <outlet property="proxLabel" destination="bmb-FR-mSs" id="ZOj-8v-CFl"/>
                         <outlet property="sucCntLabel" destination="gOv-5d-uZO" id="U3N-fG-uO2"/>
                         <outlet property="titleLabel" destination="CDe-i4-C4R" id="cx8-Xy-4Pd"/>
-                        <segue destination="vuQ-LW-sdU" kind="push" identifier="gotoClearView" id="UlP-lg-RDR"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="T4q-Oj-vM7" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -1024,7 +1099,7 @@
         <!--Nav View Controller-->
         <scene sceneID="L4Q-Ed-cc7">
             <objects>
-                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="m8h-ll-Fdp" customClass="GXNavViewController" sceneMemberID="viewController">
+                <navigationController storyboardIdentifier="invite_nav" automaticallyAdjustsScrollViewInsets="NO" id="m8h-ll-Fdp" customClass="GXNavViewController" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" systemItem="mostViewed" id="1sh-Uz-2wS"/>
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="PhY-rZ-eib">
@@ -1038,7 +1113,7 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="iYm-x4-Zoc" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1122" y="483"/>
+            <point key="canvasLocation" x="1253" y="733"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="boH-JA-TQ2">
@@ -1060,7 +1135,6 @@
         </scene>
     </scenes>
     <resources>
-        <image name="GALAX-update-.png" width="640" height="1136"/>
         <image name="beacon.png" width="200" height="200"/>
         <image name="home-32.png" width="32" height="32"/>
         <image name="iPhone.png" width="300" height="300"/>
@@ -1073,7 +1147,4 @@
         <simulatedOrientationMetrics key="orientation"/>
         <simulatedScreenMetrics key="destination" type="retina4"/>
     </simulatedMetricsContainer>
-    <inferredMetricsTieBreakers>
-        <segue reference="gw7-T6-58I"/>
-    </inferredMetricsTieBreakers>
 </document>

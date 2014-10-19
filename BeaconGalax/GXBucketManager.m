@@ -127,7 +127,7 @@
 {
     //group作成
     NSError *error;
-    NSString *groupName = obj.uuid;
+    NSString *groupName = @"clearTest";
     KiiGroup *group = [KiiGroup groupWithName:groupName];
     [group saveSynchronous:&error];
     if (error) {
@@ -152,20 +152,37 @@
     if (!error) {
         NSLog(@"トピック作成完了");
     }
+    KiiTopic *clearTopic = [group topicWithName:@"quest_end"];
+    [clearTopic saveSynchronous:&error];
+    KiiPushSubscription *sub_clearTopic = [KiiPushSubscription subscribeSynchronous:clearTopic withError:&error];
+    
+    
+    KiiTopic *commitTopic = [group topicWithName:@"quest_commit"];
+    [commitTopic saveSynchronous:&error];
+    KiiPushSubscription *sub_commitTopicv = [KiiPushSubscription subscribeSynchronous:commitTopic withError:&error];
     
     //クエスト
     NSDictionary *dict = obj.dictionaryValue;
     NSArray *allKeys = dict.allKeys;
     KiiObject *newObj = [self.inviteBoard createObject];
+    
+    //グループに入れとく
+    KiiBucket *groupBucket = [group bucketWithName:@"quest"];
+    KiiObject *groupQuest = [groupBucket createObject];
+    for (NSString *key in allKeys) {
+        [groupQuest setObject:dict[key] forKey:key];
+    }
+    
+    [groupQuest saveSynchronous:&error];
+    
     for (NSString *key in allKeys) {
         [newObj setObject:dict[key] forKey:key];
     }
     [newObj setObject:group.objectURI forKey:quest_groupURI];
-    [newObj saveWithBlock:^(KiiObject *object, NSError *error) {
-        //通知とか飛ばす
-        NSLog(@"投稿完了");
-    }];
-
+    
+    [newObj saveSynchronous:&error];
+    
+    [[NSNotificationCenter defaultCenter ] postNotificationName:GXRegisteredInvitedBoardNotification object:nil];
 }
 
 - (void)getInvitedQuest

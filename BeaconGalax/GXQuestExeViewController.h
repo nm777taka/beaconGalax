@@ -11,9 +11,11 @@
 #import <ChameleonFramework/Chameleon.h>
 #import <EstimoteSDK/ESTBeaconManager.h>
 #import <KiiSDK/Kii.h>
+#import <UAProgressView/UAProgressView.h>
 
 @interface GXQuestExeViewController : UIViewController
 
 @property (nonatomic,retain) KiiObject *exeQuest;
+@property (nonatomic,retain) KiiGroup *exeGroup;
 
 @end

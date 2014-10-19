@@ -11,6 +11,7 @@
 #import "GXDictonaryKeys.h"
 #import "GXNotification.h"
 #import "GXQuestViewController.h"
+#import "GXInviteQuestViewController.h"
 
 @interface GXClearViewController ()
 
@@ -28,7 +29,6 @@
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
-    self.navigationController.navigationBarHidden = YES;
     self.tabBarController.tabBar.hidden = YES;
 
 }
@@ -40,8 +40,9 @@
         
         UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"Congratulation" message:@"クエストクリアおめでとうございます" preferredStyle:UIAlertControllerStyleAlert];
         [alertController addAction:[UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
-            [self.navigationController popToRootViewControllerAnimated:YES];
-
+            
+            [self dismissViewControllerAnimated:YES completion:nil];
+            
         }]];
         
         [self presentViewController:alertController animated:YES completion:nil];

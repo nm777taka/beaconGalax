@@ -35,6 +35,7 @@
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
+    self.navigationController.navigationBarHidden = NO;
     [[GXBucketManager sharedManager] getInvitedQuest];
     [SVProgressHUD showWithStatus:@"クエストを取得しています"];
 }
@@ -79,7 +80,6 @@
 {
     self.selectedObject = self.invitedQuestArray[indexPath.row];
     KiiGroup *group = [self getGroup:indexPath.row];
-    
     if ([self isJoined:group])
         [self performSegueWithIdentifier:@"goto_QuestMemberView" sender:self];
 
@@ -97,7 +97,7 @@
     NSError *error;
     KiiObject *obj = self.invitedQuestArray[indexPath.row];
     KiiGroup *group = [self getGroup:indexPath.row];
-    cell.title.text = [obj getObjectForKey:quest_title];
+    cell.title.text = [obj getObjectForKey:quest_description];
 
     //自分がオーナかどうか
     if ([self isOwner:group]) {
@@ -238,8 +238,9 @@
     
     //トピック購読
     KiiTopic *topic = [joinedGroup topicWithName:@"quest_start"];
+    KiiTopic *topic_2 = [joinedGroup topicWithName:@"quest_end"];
+    KiiTopic *topic_3 = [joinedGroup topicWithName:@"quest_commit"];
     KiiPushSubscription *subscription = [KiiPushSubscription subscribeSynchronous:topic withError:&error];
-    
     if (error) NSLog(@"error:%@",error);
     else {
         BOOL isSubscribe = [KiiPushSubscription checkSubscriptionSynchronous:topic withError:&error];
@@ -247,6 +248,17 @@
             NSLog(@"購読済み");
         }
     }
+    
+     KiiPushSubscription *subscription_2 = [KiiPushSubscription subscribeSynchronous:topic_2 withError:&error];
+    if (error) {
+        NSLog(@"push購読エラー:%@",error);
+    }
+    
+    KiiPushSubscription *subscription_3 = [KiiPushSubscription subscribeSynchronous:topic_3 withError:&error];
+    if (error) {
+        NSLog(@"push購読エラー:%@",error);
+    }
+    
     
     [SVProgressHUD showSuccessWithStatus:@"参加完了!"];
 

@@ -64,6 +64,7 @@
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(questFetched:) name:GXFetchQuestNotComplitedNotification object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(joinQuestHandler:) name:GXQuestJoinNotification object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(missionFetched:) name:GXFetchMissionWithNotCompletedNotification object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(registeredInvitedBoard:) name:GXRegisteredInvitedBoardNotification object:nil];
     
 }
 
@@ -277,6 +278,12 @@
         default:
             break;
     }
+}
+
+#pragma mark - Notification
+- (void)registeredInvitedBoard:(NSNotification *)notis
+{
+    [SVProgressHUD showSuccessWithStatus:@"クエストに参加しました"];
 }
 
 - (UIStatusBarStyle)preferredStatusBarStyle {

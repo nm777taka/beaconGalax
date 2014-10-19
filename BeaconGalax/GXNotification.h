@@ -35,6 +35,8 @@ UIKIT_EXTERN NSString *const GXFetchQuestWithParticipantNotification;
 
 UIKIT_EXTERN NSString *const GXFetchQuestWithOwnerNotification;
 
+UIKIT_EXTERN NSString *const GXRegisteredInvitedBoardNotification;
+
 //参加した一人用クエストをフェッチ
 UIKIT_EXTERN NSString *const GXFetchJoinedOnePersonQuestNotification;
 
@@ -56,6 +58,8 @@ UIKIT_EXTERN NSString *const GXSegueToQuestExeViewNotification;
 //push
 UIKIT_EXTERN NSString *const GXAddGroupSuccessedNotification;
 UIKIT_EXTERN NSString *const GXStartQuestNotification;
+UIKIT_EXTERN NSString *const GXEndQuestNotification;
+UIKIT_EXTERN NSString *const GXCommitQuestNotification;
 
 //ポイントゲット
 UIKIT_EXTERN NSString *const GXPointGetNotification;

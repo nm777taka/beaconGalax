@@ -145,6 +145,20 @@
             
         }
         
+        if ([topicName isEqualToString:@"quest_end"]) {
+            if (application.applicationState == UIApplicationStateActive) {
+                NSLog(@"クエスト終わったみたいよ♪");
+                [[NSNotificationCenter defaultCenter ]postNotificationName:GXEndQuestNotification object:nil];
+            }
+        }
+        
+        if ([topicName isEqualToString:@"quest_commit"]) {
+            if (application.applicationState == UIApplicationStateActive) {
+                NSLog(@"いくよバルディッシュ");
+                [[NSNotificationCenter defaultCenter] postNotificationName:GXCommitQuestNotification object:nil];
+            }
+        }
+        
         completionHandler(UIBackgroundFetchResultNewData);
         return;
     }
@@ -173,6 +187,7 @@
         KiiBucket *bucket = [questGroup bucketWithName:@"member"];
         KiiObject *newMember = [bucket createObject];
         //kiiuser情報からgxUserを取得
+        //---> ここは参加者ができそう
         KiiObject *gxUser = [[GXBucketManager sharedManager] getGalaxUser:joinUser.objectURI];
         [newMember setObject:[gxUser getObjectForKey:user_fb_id] forKey:user_fb_id];
         [newMember setObject:[gxUser getObjectForKey:user_name] forKey:user_name];

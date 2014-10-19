@@ -89,6 +89,7 @@
 		0FA17E4019623FB700158421 /* GXUserManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 0FA17E3F19623FB700158421 /* GXUserManager.m */; };
 		0FA1E9EF19C06FD8003D7CDE /* GXTestBeaconViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0FA1E9EE19C06FD8003D7CDE /* GXTestBeaconViewController.m */; };
 		0FB4406619F18745006F857D /* GXQuestExeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0FB4406519F18745006F857D /* GXQuestExeViewController.m */; };
+		0FB4406919F1B3A9006F857D /* GXQuestCompleteViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0FB4406819F1B3A9006F857D /* GXQuestCompleteViewController.m */; };
 		0FC0095419E13CB70026A7DC /* GXHomeCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 0FC0095319E13CB70026A7DC /* GXHomeCollectionViewCell.m */; };
 		0FC0095819E259DD0026A7DC /* GXFrostedViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0FC0095719E259DD0026A7DC /* GXFrostedViewController.m */; };
 		0FC9FF1319E81C2800E78B39 /* GALAX-update-.png in Resources */ = {isa = PBXBuildFile; fileRef = 0FC9FF1219E81C2800E78B39 /* GALAX-update-.png */; };
@@ -242,6 +243,8 @@
 		0FA1E9EE19C06FD8003D7CDE /* GXTestBeaconViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GXTestBeaconViewController.m; sourceTree = "<group>"; };
 		0FB4406419F18745006F857D /* GXQuestExeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GXQuestExeViewController.h; sourceTree = "<group>"; };
 		0FB4406519F18745006F857D /* GXQuestExeViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GXQuestExeViewController.m; sourceTree = "<group>"; };
+		0FB4406719F1B3A9006F857D /* GXQuestCompleteViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GXQuestCompleteViewController.h; sourceTree = "<group>"; };
+		0FB4406819F1B3A9006F857D /* GXQuestCompleteViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GXQuestCompleteViewController.m; sourceTree = "<group>"; };
 		0FC0095219E13CB70026A7DC /* GXHomeCollectionViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GXHomeCollectionViewCell.h; sourceTree = "<group>"; };
 		0FC0095319E13CB70026A7DC /* GXHomeCollectionViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GXHomeCollectionViewCell.m; sourceTree = "<group>"; };
 		0FC0095619E259DD0026A7DC /* GXFrostedViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GXFrostedViewController.h; sourceTree = "<group>"; };
@@ -698,6 +701,8 @@
 			children = (
 				0FB4406419F18745006F857D /* GXQuestExeViewController.h */,
 				0FB4406519F18745006F857D /* GXQuestExeViewController.m */,
+				0FB4406719F1B3A9006F857D /* GXQuestCompleteViewController.h */,
+				0FB4406819F1B3A9006F857D /* GXQuestCompleteViewController.m */,
 			);
 			name = QuestExeView;
 			sourceTree = "<group>";
@@ -1036,6 +1041,7 @@
 				0FA17E3D1961B00100158421 /* GXTopicManager.m in Sources */,
 				0FD26D7B1959F0E7005E2B95 /* GXTableViewConst.m in Sources */,
 				0FA1E9EF19C06FD8003D7CDE /* GXTestBeaconViewController.m in Sources */,
+				0FB4406919F1B3A9006F857D /* GXQuestCompleteViewController.m in Sources */,
 				0F42366E19BDD3510001E204 /* GXDescriptionTableViewCell.m in Sources */,
 				0FF16CE9197F86DB00B02702 /* NSMutableArray+Extended.m in Sources */,
 				0F80277219BF370800453653 /* GXBeaconViewController.m in Sources */,

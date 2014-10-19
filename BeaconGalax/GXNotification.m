@@ -23,6 +23,8 @@ NSString *const GXFetchMissionWithNotCompletedNotification = @"GXFetchMissionWit
 NSString *const GXJoinedQuestFetchedNotification = @"GXJoinedQuestFetchedNotification"
 ;
 
+NSString *const GXRegisteredInvitedBoardNotification = @"GXRegisteredInvitedBoardNotification";
+
 //参加した一人用クエストをフェッチ
 NSString *const GXFetchJoinedOnePersonQuestNotification = @"GXFetchJoinedOnePersonQuestNotification";
 
@@ -49,6 +51,10 @@ NSString *const GXFBProfilePictNotification = @"GXFBProfilePictNotification";
 NSString *const GXAddGroupSuccessedNotification = @"GXAddGroupSuccessedNotification";
 
 NSString *const GXStartQuestNotification = @"GXStartQuestNotification";
+
+NSString *const GXEndQuestNotification = @"GXEndQuestNotification";
+
+NSString *const GXCommitQuestNotification = @"GXCommitQuestNotification";
 
 NSString *const GXViewSegueNotification = @"GXViewSegueNotification";
 
