@@ -8,7 +8,13 @@
 //
 
 #import "GXInvitedViewCell.h"
+#import "GXNotification.h"
 
 @implementation GXInvitedViewCell
+
+- (IBAction)joinAction:(id)sender {
+    
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"inviteViewCellTopped" object:self];
+}
 
 @end

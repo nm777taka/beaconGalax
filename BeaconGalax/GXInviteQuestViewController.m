@@ -31,6 +31,7 @@
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(invitedQuestFetched:) name:GXInvitedQuestFetchedNotification object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(addedGroup:) name:GXAddGroupSuccessedNotification object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(joinButtonTopped:) name:@"inviteViewCellTopped" object:nil];
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -81,6 +82,7 @@
 {
     self.selectedObject = self.invitedQuestArray[indexPath.row];
     KiiGroup *group = [self getGroup:indexPath.row];
+    
     if ([self isJoined:group])
         [self performSegueWithIdentifier:@"goto_QuestMemberView" sender:self];
 
@@ -104,28 +106,19 @@
     if ([self isOwner:group]) {
         [cell.cellButton setTitle:@"オーナー" forState:UIControlStateNormal];
         [cell.cellButton setBackgroundColor:FlatYellow];
-        [cell.cellButton bk_addEventHandler:^(id sender) {
-        } forControlEvents:UIControlEventTouchUpInside];
         
         return;
     }
     
     //参加済みかどうか
     if ([self isJoined:group]) {
-        NSLog(@"enter");
         [cell.cellButton setTitle:@"参加済み" forState:UIControlStateNormal];
         [cell.cellButton setBackgroundColor:FlatGreen];
         return;
         
     } else {
-        NSLog(@"enter-not");
         [cell.cellButton setTitle:@"JOIN" forState:UIControlStateNormal];
-        
-        [cell.cellButton bk_addEventHandler:^(id sender) {
-            [SVProgressHUD showWithStatus:@"参加申請中"];
-            [self sendPushtoOwner:group];
-            
-        } forControlEvents:UIControlEventTouchUpInside];
+        [cell.cellButton setBackgroundColor:FlatWatermelon];
     }
     
 }
@@ -142,6 +135,7 @@
 
 - (void)sendPushtoOwner:(KiiGroup *)group
 {
+    NSLog(@"sendPushtoOwner--->");
     NSError *error;
     KiiUser *ownerUser = [group getOwnerSynchronous:&error];
     KiiTopic *topic = [ownerUser topicWithName:topic_invite];
@@ -199,8 +193,6 @@
     if (error) NSLog(@"error:%@",error);
     else NSLog(@"membercount:%d",members.count);
     for (KiiUser *user in members) {
-        NSLog(@"%@",user.objectURI);
-        NSLog(@"current:%@",[KiiUser currentUser].objectURI);
         if ([user.objectURI isEqualToString:[KiiUser currentUser].objectURI]) {
             ret = true;
             break;
@@ -231,8 +223,6 @@
     
     //トピック購読
     KiiTopic *topic = [joinedGroup topicWithName:@"quest_start"];
-    KiiTopic *topic_2 = [joinedGroup topicWithName:@"quest_end"];
-    KiiTopic *topic_3 = [joinedGroup topicWithName:@"quest_commit"];
     KiiPushSubscription *subscription = [KiiPushSubscription subscribeSynchronous:topic withError:&error];
     if (error) NSLog(@"error:%@",error);
     else {
@@ -242,15 +232,6 @@
         }
     }
     
-     KiiPushSubscription *subscription_2 = [KiiPushSubscription subscribeSynchronous:topic_2 withError:&error];
-    if (error) {
-        NSLog(@"push購読エラー:%@",error);
-    }
-    
-    KiiPushSubscription *subscription_3 = [KiiPushSubscription subscribeSynchronous:topic_3 withError:&error];
-    if (error) {
-        NSLog(@"push購読エラー:%@",error);
-    }
     
     //参加したクエストを取得
     KiiBucket *bucket = [joinedGroup bucketWithName:@"quest"];
@@ -265,9 +246,38 @@
     //notjoinから消す
     [[GXBucketManager sharedManager] deleteJoinedQuest:obj];
     
+    [KiiPushSubscription subscribeSynchronous:bucket withError:&error];
+    if (!error) NSLog(@"参加者によるグループバケットの購読完了");
+    
     [SVProgressHUD showSuccessWithStatus:@"参加完了!"];
 
     [self.collectionView reloadData];
+    
+}
+
+- (void)joinButtonTopped:(NSNotification *)notis
+{
+    GXInvitedViewCell *cell = notis.object;
+    NSIndexPath *indexPath = [self.collectionView indexPathForCell:cell];
+    KiiObject *obj = self.invitedQuestArray[indexPath.row];
+    
+    //色々判定する
+    //タップしたクエストのグループを取得
+    KiiGroup *group = [self getGroup:indexPath.row];
+    
+    //自分がオーナかどうか
+    if ([self isOwner:group]) {
+        return;
+    }
+    
+    //既にグループに参加しているか
+    if ([self isJoined:group]) {
+        return;
+    }
+    
+    //参加アクション
+    [self configureCell:cell atIndexPath:indexPath];
+    [self sendPushtoOwner:group];
     
 }
 

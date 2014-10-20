@@ -47,7 +47,7 @@
 {
     [super viewDidLoad];
 	// Do any additional setup after loading the view, typically from a nib.
-    [UINavigationBar appearance].barTintColor = FlatLime;
+    
     self.collectionView.delegate = self;
     self.collectionView.dataSource = self;
     self.collectionView.alwaysBounceVertical = YES;
@@ -55,7 +55,7 @@
     _objects = [NSMutableArray new];
     
     _refreshControl = [UIRefreshControl new];
-    [_refreshControl addTarget:self action:@selector(refresh:) forControlEvents:UIControlEventValueChanged];
+    [_refreshControl addTarget:self action:@selector(refresh) forControlEvents:UIControlEventValueChanged];
     [self.collectionView addSubview:_refreshControl];
     
     _descriptionViewContoller = [[self storyboard] instantiateViewControllerWithIdentifier:@"DescriptionView"];
@@ -79,7 +79,6 @@
         //DBからフェッチ(非同期)
         //最終的に変更があった場合のみにしたい
         [[GXBucketManager sharedManager] fetchQuestWithNotComplited];
-
     }
 }
 
@@ -120,22 +119,21 @@
     cell.layer.shadowRadius = 2.0f;
     
     KiiObject *quest = self.objects[indexPath.row];
-    
     cell.titleLable.text = [quest getObjectForKey:quest_title];
-    cell.desLabel.text = [quest getObjectForKey:quest_description];
-    NSNumber *num = [quest getObjectForKey:quest_reward];
-    cell.rewardLabel.text = [NSString stringWithFormat:@"%d",[num intValue]];
     
 }
 
 
 #pragma  mark - refresh
-- (void)refresh:(id)sender
+- (void)refresh
 {
-    [_refreshControl beginRefreshing];
-    
-    [self.collectionView reloadData];
-    
+    NSLog(@"refresh");
+    [[GXBucketManager sharedManager] fetchQuestWithNotComplited];
+    [NSTimer scheduledTimerWithTimeInterval:1.f target:self selector:@selector(endRefresh) userInfo:nil repeats:NO];
+}
+
+- (void)endRefresh
+{
     [_refreshControl endRefreshing];
 }
 #pragma mark Notification
@@ -263,13 +261,13 @@
 - (IBAction)dataSourceChange:(UISegmentedControl *)sender {
     
     switch (sender.selectedSegmentIndex) {
-        case 0: // quest
+        case 0: // 一人用
             
             [[GXBucketManager sharedManager] fetchQuestWithNotComplited];
             
             break;
             
-        case 1: //mission
+        case 1: //みんな用
             
             [[GXBucketManager sharedManager] fetchMissionWithNotCompleted];
             

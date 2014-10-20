@@ -11,7 +11,27 @@
 
 @implementation GXHomeCollectionViewCell
 
-
+- (void)awakeFromNib
+{
+    self.acceptButton.buttonColor = [UIColor turquoiseColor];
+    self.acceptButton.shadowColor = [UIColor greenSeaColor];
+    self.acceptButton.shadowHeight = 3.0f;
+    self.acceptButton.cornerRadius = 6.0f;
+    self.acceptButton.titleLabel.font = [UIFont boldFlatFontOfSize:16];
+    [self.acceptButton setTitleColor:[UIColor cloudsColor] forState:UIControlStateNormal];
+    [self.acceptButton setTitleColor:[UIColor cloudsColor] forState:UIControlStateHighlighted];
+    [self.acceptButton setTitle:@"Accept" forState:UIControlStateNormal];
+    
+    self.upButton.buttonColor = [UIColor alizarinColor];
+    self.upButton.shadowColor = [UIColor pomegranateColor];
+    self.upButton.shadowHeight = 3.0f;
+    self.upButton.cornerRadius = 6.0f;
+    self.upButton.titleLabel.font = [UIFont boldFlatFontOfSize:16];
+    [self.upButton setTitleColor:[UIColor cloudsColor] forState:UIControlStateNormal];
+    [self.upButton setTitleColor:[UIColor cloudsColor] forState:UIControlStateHighlighted];
+    [self.upButton setTitle:@"UP↑" forState:UIControlStateNormal];
+    
+}
 
 - (IBAction)joinAction:(id)sender {
     

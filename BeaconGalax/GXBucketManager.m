@@ -127,7 +127,8 @@
 {
     //group作成
     NSError *error;
-    NSString *groupName = @"clearTest";
+    NSString *uuid = [[NSUUID UUID] UUIDString];
+    NSString *groupName = uuid;
     KiiGroup *group = [KiiGroup groupWithName:groupName];
     [group saveSynchronous:&error];
     if (error) {
@@ -157,30 +158,33 @@
     KiiPushSubscription *sub_clearTopic = [KiiPushSubscription subscribeSynchronous:clearTopic withError:&error];
     
     
-    KiiTopic *commitTopic = [group topicWithName:@"quest_commit"];
-    [commitTopic saveSynchronous:&error];
-    KiiPushSubscription *sub_commitTopicv = [KiiPushSubscription subscribeSynchronous:commitTopic withError:&error];
-    
     //クエスト
     NSDictionary *dict = obj.dictionaryValue;
     NSArray *allKeys = dict.allKeys;
-    KiiObject *newObj = [self.inviteBoard createObject];
+    KiiObject *newObj = [self.inviteBoard createObject]; //募集掲示板のやつ
     
     //グループに入れとく
-    KiiBucket *groupBucket = [group bucketWithName:@"quest"];
-    KiiObject *groupQuest = [groupBucket createObject];
+    KiiBucket *groupBucket = [group bucketWithName:@"quest"]; //<---購読
+    KiiObject *groupQuest = [groupBucket createObject]; //groupにいれる
     for (NSString *key in allKeys) {
         [groupQuest setObject:dict[key] forKey:key];
     }
-    
     [groupQuest saveSynchronous:&error];
     
     for (NSString *key in allKeys) {
         [newObj setObject:dict[key] forKey:key];
     }
     [newObj setObject:group.objectURI forKey:quest_groupURI];
+   // [newObj setObject:newObj.objectURI forKey:@"uri"];
     
     [newObj saveSynchronous:&error];
+    
+    //bucketを購読
+    [KiiPushSubscription subscribe:groupBucket withBlock:^(KiiPushSubscription *subscription, NSError *error) {
+        if (error == nil) {
+            NSLog(@"グループバケットの購読完了");
+        }
+    }];
     
     [[NSNotificationCenter defaultCenter ] postNotificationName:GXRegisteredInvitedBoardNotification object:nil];
 }
@@ -188,6 +192,7 @@
 - (void)getInvitedQuest
 {
     KiiQuery *query = [KiiQuery queryWithClause:nil];
+    
     [self.inviteBoard executeQuery:query withBlock:^(KiiQuery *query, KiiBucket *bucket, NSArray *results, KiiQuery *nextQuery, NSError *error) {
         if (error) {
             NSLog(@"error:%@",error);

@@ -61,8 +61,6 @@ static const char kAssocKey_Window;
 
     
     //notification
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(questEndHandler:) name:GXEndQuestNotification object:nil];
-    
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(questCommitHandler:) name:GXCommitQuestNotification object:nil];
     
 }
@@ -103,7 +101,7 @@ static const char kAssocKey_Window;
             [self.userTimer invalidate];
             [(UILabel *)progressView.centralView setText:@"OK"];
             [self commitQuest];
-            [SVProgressHUD showWithStatus:@"コミット中"];
+            //[SVProgressHUD showWithStatus:@"コミット中"];
         }
         
     };
@@ -195,7 +193,6 @@ static const char kAssocKey_Window;
 
 - (void)questParse
 {
-    NSLog(@"title:%@",[self.exeQuest getObjectForKey:quest_title]);
     self.questTitle.text = [self.exeQuest getObjectForKey:quest_title];
 }
 - (void)startBeacon
@@ -262,7 +259,7 @@ static const char kAssocKey_Window;
 - (void)questCommitHandler:(NSNotification *)notis
 {
     NSError *error;
-    [self fetchGroupQuest]; //更新をフェッチ
+    //[self fetchGroupQuest]; //更新をフェッチ(最新の状態にする)
     
     int success_cnt = [[self.exeQuest getObjectForKey:quest_success_cnt] intValue];
     NSArray *members = [self.exeGroup getMemberListSynchronous:&error];
@@ -270,46 +267,56 @@ static const char kAssocKey_Window;
     int commitValue = 100 / member_cnt;
     int progressValue = commitValue *success_cnt;
     
+    NSLog(@"mem_cnt:%d",member_cnt);
+    NSLog(@"suc_cnt:%d",success_cnt);
+    
     if (member_cnt == success_cnt) { //クリア
         //クリア処理
         //無理やり100%に(奇数とかのために)
         NSLog(@"clear");
         [self.progressView setProgress:1.0f animated:YES];
-        [SVProgressHUD dismiss];
         return ;
     }
     
-    _localQuestProgress = (float)progressValue / 100.0f;
-    [self.progressView setProgress:_localQuestProgress animated:YES];
+    //_localQuestProgress = (float)progressValue / 100.0f;
     
-    [SVProgressHUD dismiss];
-
+   // [self.progressView setProgress:_localQuestProgress animated:YES];
+    
 }
 
 - (void)questEndHandler:(NSNotification *)notis
 {
-    [SVProgressHUD dismiss];
     [self gotoClearView];
 }
 
 - (void)commitQuest
 {
+    //送るだけにしたい
+    //クエストの取得
     NSError *error;
     KiiBucket *bucket = [self.exeGroup bucketWithName:@"quest"];
     KiiQuery *query = [KiiQuery queryWithClause:nil];
+    
+    
+    
     KiiQuery *nextQuery;
     NSArray *result = [bucket executeQuerySynchronous:query withError:&error andNext:&nextQuery];
     KiiObject *quest = result.firstObject;
+    
+    //successcntを増やす
     int succCnt = [[quest getObjectForKey:quest_success_cnt] intValue];
-    succCnt++;
-    NSNumber *newValue  = [NSNumber numberWithInt:succCnt];
-    [quest setObject:newValue forKey:quest_success_cnt];
-    [quest saveSynchronous:&error];
-    if (!error) {
-        
-        [self sendCommitPush];
-    }
 
+    [quest setObject:[NSNumber numberWithInt:++succCnt] forKey:quest_success_cnt];
+    [quest saveWithBlock:^(KiiObject *object, NSError *error) {
+        
+        if (error) {
+            NSLog(@"objectSaveError:%@",error);
+        } else {
+            NSLog(@"refresh-object");
+        }
+
+    }];
+    
 }
 
 - (void)fetchGroupQuest
@@ -318,13 +325,14 @@ static const char kAssocKey_Window;
     KiiBucket *bucket = [self.exeGroup bucketWithName:@"quest"];
     KiiQuery *query = [KiiQuery queryWithClause:nil];
     KiiQuery *nextQuery;
-    NSArray *result = [bucket executeQuerySynchronous:query withError:&error andNext:&nextQuery];
-    self.exeQuest = result.firstObject;
-
+    [bucket executeQuery:query withBlock:^(KiiQuery *query, KiiBucket *bucket, NSArray *results, KiiQuery *nextQuery, NSError *error) {
+        self.exeQuest = results.firstObject;
+    }];
 }
 
 - (void)sendCommitPush
 {
+    NSLog(@"sendCommitPush");
     NSError *error;
     KiiTopic *commitTopic = [self.exeGroup topicWithName:@"quest_commit"];
     KiiAPNSFields *apnesFields = [KiiAPNSFields createFields];
@@ -350,9 +358,6 @@ static const char kAssocKey_Window;
         [SVProgressHUD showErrorWithStatus:@"push通知送信エラー"];
     } else {
         NSLog(@"クリアpush送信完了");
-        [NSTimer bk_scheduledTimerWithTimeInterval:3.0 block:^(NSTimer *timer) {
-            [SVProgressHUD dismiss];
-        } repeats:NO];
     }
 }
 

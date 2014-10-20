@@ -7,11 +7,14 @@
 //
 
 #import <UIKit/UIKit.h>
+#import <FlatUIKit/FlatUIKit.h>
 
 @interface GXHomeCollectionViewCell : UICollectionViewCell<UIAlertViewDelegate>
 @property (weak, nonatomic) IBOutlet UILabel *titleLable;
 @property (weak, nonatomic) IBOutlet UILabel *desLabel;
 @property (weak, nonatomic) IBOutlet UILabel *rewardLabel;
 - (IBAction)joinAction:(id)sender;
+@property (weak, nonatomic) IBOutlet FUIButton *acceptButton;
+@property (weak, nonatomic) IBOutlet FUIButton *upButton;
 
 @end

@@ -48,21 +48,17 @@
 //シングルサインオンの有効
 - (BOOL)application:(UIApplication *)application openURL:(NSURL *)url sourceApplication:(NSString *)sourceApplication annotation:(id)annotation
 {
-    NSLog(@"%s",__PRETTY_FUNCTION__);
     
     return [KiiSocialConnect handleOpenURL:url];
 }
 
 - (void)application:(UIApplication *)application didRegisterUserNotificationSettings:(UIUserNotificationSettings *)notificationSettings
 {
-    NSLog(@"%s",__PRETTY_FUNCTION__);
     [application registerForRemoteNotifications];
 }
 
 - (void)application:(UIApplication *)application didRegisterForRemoteNotificationsWithDeviceToken:(NSData *)deviceToken
 {
-    NSLog(@"%s",__PRETTY_FUNCTION__);
-    NSLog(@"device token :%@",deviceToken);
     [Kii setAPNSDeviceToken:deviceToken];
     NSError *error = nil;
     
@@ -78,7 +74,6 @@
 
 - (void)application:(UIApplication *)application didFailToRegisterForRemoteNotificationsWithError:(NSError *)error
 {
-    NSLog(@"%s",__PRETTY_FUNCTION__);
     NSLog(@"register errror:%@",error);
 }
 
@@ -122,6 +117,7 @@
         NSLog(@"push受信");
         KiiPushMessage *msg = [KiiPushMessage messageFromAPNS:userInfo];
         NSString *topicName = [msg getValueOfKiiMessageField:KiiMessage_TOPIC];
+        NSString *bucketName = [msg getValueOfKiiMessageField:KiiMessage_BUCKET_ID];
         
         if ([topicName isEqualToString:@"invite_notify"]) {
             NSLog(@"きたよ☆");
@@ -145,19 +141,14 @@
             
         }
         
-        if ([topicName isEqualToString:@"quest_end"]) {
+        //グループのバケット購読によるpushハンドリング
+        if ([bucketName isEqualToString:@"quest"]) {
             if (application.applicationState == UIApplicationStateActive) {
-                NSLog(@"クエスト終わったみたいよ♪");
-                [[NSNotificationCenter defaultCenter ]postNotificationName:GXEndQuestNotification object:nil];
-            }
-        }
-        
-        if ([topicName isEqualToString:@"quest_commit"]) {
-            if (application.applicationState == UIApplicationStateActive) {
-                NSLog(@"いくよバルディッシュ");
+                NSLog(@"stand by ready,setup");
                 [[NSNotificationCenter defaultCenter] postNotificationName:GXCommitQuestNotification object:nil];
             }
         }
+        
         
         completionHandler(UIBackgroundFetchResultNewData);
         return;
@@ -177,6 +168,9 @@
     }
     [questGroup addUser:joinUser];
     [questGroup saveSynchronous:&error];
+    if (error) {
+        NSLog(@"----------->error:%@",error);
+    }
     
     if (error) {
         NSLog(@"error:%@",error);
