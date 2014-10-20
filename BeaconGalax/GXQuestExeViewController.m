@@ -35,6 +35,8 @@ static const char kAssocKey_Window;
 @property CLBeaconMajorValue subjectBeaconMajor;
 @property NSUUID *uuid;
 
+@property int groupMemberNum;
+
 @property BOOL isShowCompleteView;
 
 @end
@@ -180,7 +182,7 @@ static const char kAssocKey_Window;
 
 - (void)viewWillAppear:(BOOL)animated
 {
-    [self questParse];
+    [self fetchGroupQuest];
     [self startBeacon];
 }
 
@@ -258,29 +260,43 @@ static const char kAssocKey_Window;
 
 - (void)questCommitHandler:(NSNotification *)notis
 {
-    NSError *error;
-    //[self fetchGroupQuest]; //更新をフェッチ(最新の状態にする)
+//    NSError *error;
+//    //[self fetchGroupQuest]; //更新をフェッチ(最新の状態にする)
+//    
+//    int success_cnt = [[self.exeQuest getObjectForKey:quest_success_cnt] intValue];
+//    NSArray *members = [self.exeGroup getMemberListSynchronous:&error];
+//    int member_cnt = (int)members.count;
+//    int commitValue = 100 / member_cnt;
+//    int progressValue = commitValue *success_cnt;
+//    
+//    NSLog(@"mem_cnt:%d",member_cnt);
+//    NSLog(@"suc_cnt:%d",success_cnt);
+//    
+//    if (member_cnt == success_cnt) { //クリア
+//        //クリア処理
+//        //無理やり100%に(奇数とかのために)
+//        NSLog(@"clear");
+//        [self.progressView setProgress:1.0f animated:YES];
+//        return ;
+//    }
+//    
+//    //_localQuestProgress = (float)progressValue / 100.0f;
+//    
+//   // [self.progressView setProgress:_localQuestProgress animated:YES];
     
-    int success_cnt = [[self.exeQuest getObjectForKey:quest_success_cnt] intValue];
-    NSArray *members = [self.exeGroup getMemberListSynchronous:&error];
-    int member_cnt = (int)members.count;
-    int commitValue = 100 / member_cnt;
-    int progressValue = commitValue *success_cnt;
-    
-    NSLog(@"mem_cnt:%d",member_cnt);
-    NSLog(@"suc_cnt:%d",success_cnt);
-    
-    if (member_cnt == success_cnt) { //クリア
-        //クリア処理
-        //無理やり100%に(奇数とかのために)
-        NSLog(@"clear");
-        [self.progressView setProgress:1.0f animated:YES];
-        return ;
-    }
-    
-    //_localQuestProgress = (float)progressValue / 100.0f;
-    
-   // [self.progressView setProgress:_localQuestProgress animated:YES];
+    [self.exeQuest refreshWithBlock:^(KiiObject *object, NSError *error) {
+        if(error) NSLog(@"error");
+        else {
+            NSLog(@"suc_cnt:%@",[object getObjectForKey:quest_success_cnt]);
+            NSString *suc_cnt = [[object getObjectForKey:quest_success_cnt] stringValue];
+            NSString *member_cnt = [NSString stringWithFormat:@"%d",self.groupMemberNum];
+            
+            if ([suc_cnt isEqualToString:member_cnt]){
+                NSLog(@"クリア");
+                [self.progressView setProgress:1.0f animated:YES];
+            }
+        }
+    }];
     
 }
 
@@ -291,32 +307,42 @@ static const char kAssocKey_Window;
 
 - (void)commitQuest
 {
-    //送るだけにしたい
-    //クエストの取得
-    NSError *error;
-    KiiBucket *bucket = [self.exeGroup bucketWithName:@"quest"];
-    KiiQuery *query = [KiiQuery queryWithClause:nil];
+//    //送るだけにしたい
+//    //クエストの取得
+//    NSError *error;
+//    KiiBucket *bucket = [self.exeGroup bucketWithName:@"quest"];
+//    KiiQuery *query = [KiiQuery queryWithClause:nil];
+//    
+//    KiiQuery *nextQuery;
+//    NSArray *result = [bucket executeQuerySynchronous:query withError:&error andNext:&nextQuery];
+//    KiiObject *quest = result.firstObject;
+//    
+//    //successcntを増やす
+//    int succCnt = [[quest getObjectForKey:quest_success_cnt] intValue];
+//
+//    [quest setObject:[NSNumber numberWithInt:++succCnt] forKey:quest_success_cnt];
+//    [quest saveWithBlock:^(KiiObject *object, NSError *error) {
+//        
+//        if (error) {
+//            NSLog(@"objectSaveError:%@",error);
+//        } else {
+//            NSLog(@"refresh-object");
+//        }
+//
+//    }];
     
+    KiiServerCodeEntry *entry = [Kii serverCodeEntry:@"commitQuest"];
     
+    NSDictionary* argDict= [NSDictionary dictionaryWithObjectsAndKeys:
+                            self.exeGroup.objectURI, @"groupURI",self.exeQuest.objectURI,@"questURI", [NSNumber numberWithInt:self.groupMemberNum], @"memberNum",nil];
     
-    KiiQuery *nextQuery;
-    NSArray *result = [bucket executeQuerySynchronous:query withError:&error andNext:&nextQuery];
-    KiiObject *quest = result.firstObject;
+    KiiServerCodeEntryArgument *argument = [KiiServerCodeEntryArgument argumentWithDictionary:argDict];
     
-    //successcntを増やす
-    int succCnt = [[quest getObjectForKey:quest_success_cnt] intValue];
-
-    [quest setObject:[NSNumber numberWithInt:++succCnt] forKey:quest_success_cnt];
-    [quest saveWithBlock:^(KiiObject *object, NSError *error) {
-        
-        if (error) {
-            NSLog(@"objectSaveError:%@",error);
-        } else {
-            NSLog(@"refresh-object");
-        }
-
-    }];
+    NSError *error = nil;
+    KiiServerCodeExecResult *result = [entry executeSynchronous:argument withError:&error];
     
+    NSDictionary *returendDict = [result returnedValue];
+    NSLog(@"returnd:%@",returendDict);
 }
 
 - (void)fetchGroupQuest
@@ -326,7 +352,15 @@ static const char kAssocKey_Window;
     KiiQuery *query = [KiiQuery queryWithClause:nil];
     KiiQuery *nextQuery;
     [bucket executeQuery:query withBlock:^(KiiQuery *query, KiiBucket *bucket, NSArray *results, KiiQuery *nextQuery, NSError *error) {
-        self.exeQuest = results.firstObject;
+        
+        [self.exeGroup getMemberListWithBlock:^(KiiGroup *group, NSArray *members, NSError *error) {
+            self.groupMemberNum = (int)members.count;
+            NSLog(@"memer-cont:%d",self.groupMemberNum);
+            
+            self.exeQuest = results.firstObject;
+            [self questParse];
+
+        }];
     }];
 }
 
