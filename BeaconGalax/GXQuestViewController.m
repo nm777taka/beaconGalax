@@ -119,8 +119,41 @@
     cell.layer.shadowRadius = 2.0f;
     
     KiiObject *quest = self.objects[indexPath.row];
-    cell.titleLable.text = [quest getObjectForKey:quest_title];
+    cell.titleLable.text = [quest getObjectForKey:quest_description];
+    BOOL isMulti = [self isMultiQuest:indexPath];
+    if (isMulti) {
+        
+        cell.createrName.text = @"システム";
+        cell.questTypeIcon.image = [UIImage imageNamed:@"homeCellMulti.png"];
+        cell.questTypeLabel.text = @"協力型クエスト";
+        cell.questTypeColorView.backgroundColor = [UIColor amethystColor];
+        
+        
+    } else {
+        
+        cell.createrName.text = @"システム";
+        cell.questTypeLabel.text = @"一人クエスト";
+        cell.questTypeIcon.image = [UIImage imageNamed:@"homeCellOne.png"];
+        cell.questTypeColorView.backgroundColor = [UIColor turquoiseColor];
+    }
     
+}
+
+//協力型なのか個人でやるやつなのか判断
+- (BOOL)isMultiQuest:(NSIndexPath *)indexPath
+{
+    BOOL ret = false;
+    KiiObject *obj = self.objects[indexPath.row];
+    int playerNum = [[obj getObjectForKey:quest_player_num] intValue];
+    
+    if (playerNum == 1) {
+        //一人用
+        ret = false;
+    } else {
+        ret = true;
+    }
+    
+    return ret;
 }
 
 

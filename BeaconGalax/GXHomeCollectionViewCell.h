@@ -8,13 +8,18 @@
 
 #import <UIKit/UIKit.h>
 #import <FlatUIKit/FlatUIKit.h>
+#import <FacebookSDK/Facebook.h>
+#import <FlatUIKit/FlatUIKit.h>
 
 @interface GXHomeCollectionViewCell : UICollectionViewCell<UIAlertViewDelegate>
 @property (weak, nonatomic) IBOutlet UILabel *titleLable;
-@property (weak, nonatomic) IBOutlet UILabel *desLabel;
-@property (weak, nonatomic) IBOutlet UILabel *rewardLabel;
+@property (weak, nonatomic) IBOutlet FBProfilePictureView *createrIcon;
+@property (weak, nonatomic) IBOutlet UILabel *createrName;
+@property (weak, nonatomic) IBOutlet UILabel *questTypeLabel;
+@property (weak, nonatomic) IBOutlet UIImageView *questTypeIcon;
+@property (weak, nonatomic) IBOutlet UIView *questTypeColorView;
+
 - (IBAction)joinAction:(id)sender;
 @property (weak, nonatomic) IBOutlet FUIButton *acceptButton;
-@property (weak, nonatomic) IBOutlet FUIButton *upButton;
 
 @end

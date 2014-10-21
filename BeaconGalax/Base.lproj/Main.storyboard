@@ -1,9 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6245" systemVersion="13F34" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" initialViewController="8fl-Pj-LvM">
     <dependencies>
-        <deployment defaultVersion="1808" identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6238"/>
-        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
     <scenes>
         <!--Beacon Table View Controller-->
@@ -256,7 +254,7 @@
                                 <rect key="frame" x="0.0" y="64" width="320" height="460"/>
                                 <color key="backgroundColor" red="0.90823972230000005" green="0.92638683320000004" blue="0.93171715740000005" alpha="1" colorSpace="calibratedRGB"/>
                                 <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="flK-Fd-H5C">
-                                    <size key="itemSize" width="285" height="174"/>
+                                    <size key="itemSize" width="285" height="192"/>
                                     <size key="headerReferenceSize" width="0.0" height="0.0"/>
                                     <size key="footerReferenceSize" width="0.0" height="0.0"/>
                                     <inset key="sectionInset" minX="0.0" minY="5" maxX="0.0" maxY="5"/>
@@ -266,45 +264,60 @@
                                         <rect key="frame" x="0.0" y="0.0" width="50" height="50"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
-                                            <rect key="frame" x="0.0" y="0.0" width="285" height="174"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="285" height="192"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Bhb-vX-34z" customClass="FUIButton">
-                                                    <rect key="frame" x="23" y="121" width="100" height="40"/>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="クエストタイトル" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="qpv-c9-9IA">
+                                                    <rect key="frame" x="8" y="75" width="194" height="24"/>
+                                                    <fontDescription key="fontDescription" name="HelveticaNeue-Bold" family="Helvetica Neue" pointSize="17"/>
+                                                    <color key="textColor" red="0.3333333432674408" green="0.3333333432674408" blue="0.3333333432674408" alpha="1" colorSpace="deviceRGB"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Lm8-BO-gvn" customClass="FBProfilePictureView">
+                                                    <rect key="frame" x="8" y="8" width="50" height="50"/>
+                                                    <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                                                </view>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="username" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="xXt-Ec-sHu">
+                                                    <rect key="frame" x="68" y="8" width="100" height="21"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="○○クエスト" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="RMe-Qd-Bwb">
+                                                    <rect key="frame" x="69" y="37" width="112" height="21"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ljL-Qg-07G">
+                                                    <rect key="frame" x="227" y="8" width="50" height="50"/>
+                                                </imageView>
+                                                <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Qx6-Ov-qk1">
+                                                    <rect key="frame" x="0.0" y="182" width="285" height="10"/>
+                                                    <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                                                </view>
+                                                <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="oXe-y1-I9V" customClass="FUIButton">
+                                                    <rect key="frame" x="200" y="142" width="77" height="32"/>
                                                     <state key="normal">
-                                                        <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                                    </state>
-                                                </button>
-                                                <button opaque="NO" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="oXe-y1-I9V" customClass="FUIButton">
-                                                    <rect key="frame" x="158" y="120" width="100" height="40"/>
-                                                    <state key="normal">
-                                                        <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                                        <color key="titleColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                                                     </state>
                                                     <connections>
                                                         <action selector="joinAction:" destination="IW9-2s-zbe" eventType="touchUpInside" id="rth-TF-zGq"/>
                                                     </connections>
                                                 </button>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="クエストタイトル" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="qpv-c9-9IA">
-                                                    <rect key="frame" x="16" y="17" width="160" height="24"/>
-                                                    <fontDescription key="fontDescription" name="HelveticaNeue-Bold" family="Helvetica Neue" pointSize="17"/>
-                                                    <color key="textColor" red="0.3333333432674408" green="0.3333333432674408" blue="0.3333333432674408" alpha="1" colorSpace="deviceRGB"/>
-                                                    <nil key="highlightedColor"/>
-                                                </label>
                                             </subviews>
                                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                         </view>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                        <constraints>
-                                            <constraint firstItem="qpv-c9-9IA" firstAttribute="leading" secondItem="IW9-2s-zbe" secondAttribute="leadingMargin" constant="8" id="GeN-kp-ama"/>
-                                            <constraint firstItem="qpv-c9-9IA" firstAttribute="top" secondItem="IW9-2s-zbe" secondAttribute="topMargin" constant="9" id="QQ1-xb-BXK"/>
-                                            <constraint firstItem="oXe-y1-I9V" firstAttribute="top" secondItem="qpv-c9-9IA" secondAttribute="bottom" constant="50" id="frY-GW-bab"/>
-                                            <constraint firstAttribute="trailingMargin" secondItem="qpv-c9-9IA" secondAttribute="trailing" id="zzh-Bh-iA6"/>
-                                        </constraints>
-                                        <size key="customSize" width="285" height="174"/>
+                                        <size key="customSize" width="285" height="192"/>
                                         <connections>
                                             <outlet property="acceptButton" destination="oXe-y1-I9V" id="Yl9-e7-NtF"/>
+                                            <outlet property="createrIcon" destination="Lm8-BO-gvn" id="kKh-kK-doe"/>
+                                            <outlet property="createrName" destination="xXt-Ec-sHu" id="1hS-zw-iLV"/>
+                                            <outlet property="questTypeColorView" destination="Qx6-Ov-qk1" id="cra-2K-dWV"/>
+                                            <outlet property="questTypeIcon" destination="ljL-Qg-07G" id="wax-kp-rd8"/>
+                                            <outlet property="questTypeLabel" destination="RMe-Qd-Bwb" id="eYG-ZX-uub"/>
                                             <outlet property="titleLable" destination="qpv-c9-9IA" id="lrg-TW-GHg"/>
-                                            <outlet property="upButton" destination="Bhb-vX-34z" id="YKf-yS-JHN"/>
                                         </connections>
                                     </collectionViewCell>
                                 </cells>
