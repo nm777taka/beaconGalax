@@ -10,6 +10,7 @@
 #import "GXNavViewController.h"
 #import "GXQuestViewController.h"
 #import "GXInviteQuestViewController.h"
+#import "GXJoinedQuestViewController.h"
 #import "UIViewController+REFrostedViewController.h"
 #import "GXStatusViewCell.h"
 #import "GXBeacon.h"
@@ -155,9 +156,12 @@
     if (indexPath.section == 0 && indexPath.row == 0) {
         GXQuestViewController *questViewController = [self.storyboard instantiateViewControllerWithIdentifier:@"home"];
         navController.viewControllers = @[questViewController];
-    } else {
+    } else if (indexPath.section == 0 && indexPath.row == 1) {
         GXInviteQuestViewController *inviteViewController = [self.storyboard instantiateViewControllerWithIdentifier:@"invite"];
         navController.viewControllers = @[inviteViewController];
+    } else if (indexPath.section == 0 && indexPath.row == 2) {
+        GXJoinedQuestViewController *joinedView = [self.storyboard instantiateViewControllerWithIdentifier:@"joined"];
+        navController.viewControllers = @[joinedView];
     }
     
     self.frostedViewController.contentViewController = navController;

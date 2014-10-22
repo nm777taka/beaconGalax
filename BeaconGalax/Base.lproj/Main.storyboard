@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6245" systemVersion="13F34" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" initialViewController="8fl-Pj-LvM">
     <dependencies>
-        <deployment defaultVersion="1808" identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6238"/>
     </dependencies>
     <scenes>
@@ -464,7 +463,55 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="HoD-uz-grb" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1253" y="76"/>
+            <point key="canvasLocation" x="1366" y="76"/>
+        </scene>
+        <!--Joined Quest View Controller-->
+        <scene sceneID="r4B-Nq-pVi">
+            <objects>
+                <viewController storyboardIdentifier="joined" id="YQ2-56-qcR" customClass="GXJoinedQuestViewController" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="hGq-X8-iap"/>
+                        <viewControllerLayoutGuide type="bottom" id="fEE-WU-cMJ"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="A0Z-48-uQ1">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="Lfx-Lj-w1q">
+                                <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <prototypes>
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="Cell" id="rFE-5K-twW">
+                                        <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="rFE-5K-twW" id="Y7J-ZR-1ZH">
+                                            <autoresizingMask key="autoresizingMask"/>
+                                        </tableViewCellContentView>
+                                    </tableViewCell>
+                                </prototypes>
+                            </tableView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                    <navigationItem key="navigationItem" id="ow9-Ec-5xU">
+                        <nil key="title"/>
+                        <segmentedControl key="titleView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="bar" selectedSegmentIndex="0" id="cL6-ZC-4Ry">
+                            <rect key="frame" x="57" y="7" width="206" height="30"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <segments>
+                                <segment title="ひとりで"/>
+                                <segment title="みんなで"/>
+                            </segments>
+                        </segmentedControl>
+                    </navigationItem>
+                    <connections>
+                        <outlet property="segmentControl" destination="cL6-ZC-4Ry" id="dUp-BW-Efd"/>
+                        <outlet property="tableView" destination="Lfx-Lj-w1q" id="HCh-y3-9bB"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="hQ1-Oj-27I" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1098" y="735"/>
         </scene>
         <!--Perty-->
         <scene sceneID="bvE-KX-rpo">
@@ -479,7 +526,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="Cy8-ED-PQ4">
-                                <rect key="frame" x="0.0" y="164" width="320" height="322"/>
+                                <rect key="frame" x="0.0" y="164" width="320" height="301"/>
                                 <color key="backgroundColor" red="0.90823972225189209" green="0.92638683319091797" blue="0.9317171573638916" alpha="1" colorSpace="calibratedRGB"/>
                                 <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="H2w-AN-Prc">
                                     <size key="itemSize" width="300" height="80"/>
@@ -557,7 +604,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="1nY-2Z-ElD" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1659" y="76"/>
+            <point key="canvasLocation" x="1727" y="76"/>
         </scene>
         <!--Quest Complete View Controller-->
         <scene sceneID="162-5w-95B">
@@ -877,6 +924,7 @@
                     <connections>
                         <segue destination="0wR-c0-tUS" kind="relationship" relationship="rootViewController" id="Gvp-LW-ZxJ"/>
                         <segue destination="o88-MI-UTX" kind="push" id="zFF-ce-fWC"/>
+                        <segue destination="YQ2-56-qcR" kind="push" id="BYF-H0-7K2"/>
                     </connections>
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ubZ-81-JVW" userLabel="First Responder" sceneMemberID="firstResponder"/>

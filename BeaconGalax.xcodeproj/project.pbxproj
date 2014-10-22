@@ -101,6 +101,7 @@
 		0FCFA47119F699360087011A /* ready.png in Resources */ = {isa = PBXBuildFile; fileRef = 0FCFA47019F699360087011A /* ready.png */; };
 		0FCFA47619F78E080087011A /* subStoryboard.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0FCFA47519F78E080087011A /* subStoryboard.storyboard */; };
 		0FCFA47919F78FC10087011A /* GXStatusViewQuestInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 0FCFA47819F78FC10087011A /* GXStatusViewQuestInfo.m */; };
+		0FCFA47D19F7A9F00087011A /* GXJoinedQuestViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0FCFA47C19F7A9F00087011A /* GXJoinedQuestViewController.m */; };
 		0FD200A219E2608D0034E52A /* GXStatusViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0FD200A119E2608D0034E52A /* GXStatusViewController.m */; };
 		0FD200A619E263CE0034E52A /* GXNavViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0FD200A519E263CE0034E52A /* GXNavViewController.m */; };
 		0FD26D7B1959F0E7005E2B95 /* GXTableViewConst.m in Sources */ = {isa = PBXBuildFile; fileRef = 0FD26D7A1959F0E7005E2B95 /* GXTableViewConst.m */; };
@@ -267,6 +268,8 @@
 		0FCFA47519F78E080087011A /* subStoryboard.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = subStoryboard.storyboard; sourceTree = "<group>"; };
 		0FCFA47719F78FC10087011A /* GXStatusViewQuestInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GXStatusViewQuestInfo.h; sourceTree = "<group>"; };
 		0FCFA47819F78FC10087011A /* GXStatusViewQuestInfo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GXStatusViewQuestInfo.m; sourceTree = "<group>"; };
+		0FCFA47B19F7A9F00087011A /* GXJoinedQuestViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GXJoinedQuestViewController.h; sourceTree = "<group>"; };
+		0FCFA47C19F7A9F00087011A /* GXJoinedQuestViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GXJoinedQuestViewController.m; sourceTree = "<group>"; };
 		0FD200A019E2608D0034E52A /* GXStatusViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GXStatusViewController.h; sourceTree = "<group>"; };
 		0FD200A119E2608D0034E52A /* GXStatusViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GXStatusViewController.m; sourceTree = "<group>"; };
 		0FD200A419E263CE0034E52A /* GXNavViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GXNavViewController.h; sourceTree = "<group>"; };
@@ -597,6 +600,7 @@
 		0F7A25C919587E0C001B7839 /* Controller */ = {
 			isa = PBXGroup;
 			children = (
+				0FCFA47A19F7A9CF0087011A /* JoinedQuest */,
 				0FB4406319F18713006F857D /* QuestExeView */,
 				0F6E291A19EEEFFA005BE433 /* QuestGroupView */,
 				0FC9FF1419E81F8A00E78B39 /* Clear */,
@@ -782,6 +786,15 @@
 				0FCFA47019F699360087011A /* ready.png */,
 			);
 			name = QuestGroup;
+			sourceTree = "<group>";
+		};
+		0FCFA47A19F7A9CF0087011A /* JoinedQuest */ = {
+			isa = PBXGroup;
+			children = (
+				0FCFA47B19F7A9F00087011A /* GXJoinedQuestViewController.h */,
+				0FCFA47C19F7A9F00087011A /* GXJoinedQuestViewController.m */,
+			);
+			name = JoinedQuest;
 			sourceTree = "<group>";
 		};
 		0FD2009F19E2605C0034E52A /* GXUserStatus&menu */ = {
@@ -1100,6 +1113,7 @@
 				0F7A25A419587ADE001B7839 /* GXAppDelegate.m in Sources */,
 				0FC0095419E13CB70026A7DC /* GXHomeCollectionViewCell.m in Sources */,
 				0F8BB0AA1980CEED00D5499F /* GXEmptySegue.m in Sources */,
+				0FCFA47D19F7A9F00087011A /* GXJoinedQuestViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
