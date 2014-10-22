@@ -9,6 +9,7 @@
 #import <UIKit/UIKit.h>
 #import <Facebook-iOS-SDK/FacebookSDK/Facebook.h>
 #import <Chameleon.h>
+#import "REFrostedViewController.h"
 
 @interface GXStatusViewController : UIViewController
 

@@ -602,8 +602,8 @@
 				0FC9FF1419E81F8A00E78B39 /* Clear */,
 				0F629BE919E416D9009757DF /* Quest_type */,
 				0FD200A319E263B50034E52A /* GXNavigation */,
-				0FD2009F19E2605C0034E52A /* GXUserStatus */,
-				0FC0095519E2597A0026A7DC /* GXFrostedViewController */,
+				0FD2009F19E2605C0034E52A /* GXUserStatus&menu */,
+				0FC0095519E2597A0026A7DC /* RootViewController */,
 				0F649FDE19CD541300D48074 /* InviteQuest */,
 				0F42367219BDD3FE0001E204 /* Description */,
 				0F42366119BD54130001E204 /* CreateQuest */,
@@ -724,13 +724,13 @@
 			name = QuestExeView;
 			sourceTree = "<group>";
 		};
-		0FC0095519E2597A0026A7DC /* GXFrostedViewController */ = {
+		0FC0095519E2597A0026A7DC /* RootViewController */ = {
 			isa = PBXGroup;
 			children = (
 				0FC0095619E259DD0026A7DC /* GXFrostedViewController.h */,
 				0FC0095719E259DD0026A7DC /* GXFrostedViewController.m */,
 			);
-			name = GXFrostedViewController;
+			name = RootViewController;
 			sourceTree = "<group>";
 		};
 		0FC9FF1119E81C1300E78B39 /* ClearResult */ = {
@@ -784,7 +784,7 @@
 			name = QuestGroup;
 			sourceTree = "<group>";
 		};
-		0FD2009F19E2605C0034E52A /* GXUserStatus */ = {
+		0FD2009F19E2605C0034E52A /* GXUserStatus&menu */ = {
 			isa = PBXGroup;
 			children = (
 				0FD200A019E2608D0034E52A /* GXStatusViewController.h */,
@@ -792,7 +792,7 @@
 				0FCFA47719F78FC10087011A /* GXStatusViewQuestInfo.h */,
 				0FCFA47819F78FC10087011A /* GXStatusViewQuestInfo.m */,
 			);
-			name = GXUserStatus;
+			name = "GXUserStatus&menu";
 			sourceTree = "<group>";
 		};
 		0FD200A319E263B50034E52A /* GXNavigation */ = {

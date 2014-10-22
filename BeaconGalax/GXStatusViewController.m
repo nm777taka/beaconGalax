@@ -7,6 +7,10 @@
 //
 
 #import "GXStatusViewController.h"
+#import "GXNavViewController.h"
+#import "GXQuestViewController.h"
+#import "GXInviteQuestViewController.h"
+#import "UIViewController+REFrostedViewController.h"
 #import "GXStatusViewCell.h"
 #import "GXBeacon.h"
 #import "GXBeaconRegion.h"
@@ -29,8 +33,7 @@
 @property GXBeacon *beacon;
 @property GXBeaconMonitoringStatus monitoringStatus;
 @property (nonatomic) NSUUID *proximityUUID;
-@property (weak, nonatomic) IBOutlet FBProfilePictureView *userIcon;
-@property (weak, nonatomic) IBOutlet UISegmentedControl *segmentControl;
+
 
 @end
 
@@ -43,12 +46,35 @@
     // Do any additional setup after loading the view.
     self.tableView.delegate = self;
     self.tableView.dataSource = self;
+    self.tableView.opaque = NO;
+    self.tableView.separatorColor = [UIColor colorWithRed:150/255.0f green:161/255.0f blue:177/255.0f alpha:1.0f];
     self.tableView.backgroundColor = [UIColor clearColor];
-    self.userIcon.layer.cornerRadius = 50.0;
-    self.userIcon.layer.borderColor = FlatMint.CGColor;
-    self.userIcon.layer.borderWidth = 2.0;
-    
-    self.navigationController.navigationBarHidden = NO;
+    self.tableView.tableHeaderView = ({
+        UIView *view = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 0, 184.0f)];
+        UIImageView *imageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 40, 100, 100)];
+        imageView.autoresizingMask = UIViewAutoresizingFlexibleLeftMargin | UIViewAutoresizingFlexibleRightMargin;
+        imageView.image = [UIImage imageNamed:@"home-32.png"];
+        imageView.layer.masksToBounds = YES;
+        imageView.layer.cornerRadius = 50.0;
+        imageView.layer.borderColor = [UIColor whiteColor].CGColor;
+        imageView.layer.borderWidth = 3.0f;
+        imageView.layer.rasterizationScale = [UIScreen mainScreen].scale;
+        imageView.layer.shouldRasterize = YES;
+        imageView.clipsToBounds = YES;
+        
+        UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(0, 150, 0, 24)];
+        label.text = @"Roman Efimov";
+        label.font = [UIFont fontWithName:@"HelveticaNeue" size:21];
+        label.backgroundColor = [UIColor clearColor];
+        label.textColor = [UIColor colorWithRed:62/255.0f green:68/255.0f blue:75/255.0f alpha:1.0f];
+        [label sizeToFit];
+        label.autoresizingMask = UIViewAutoresizingFlexibleLeftMargin | UIViewAutoresizingFlexibleRightMargin;
+        
+        [view addSubview:imageView];
+        [view addSubview:label];
+        view;
+    });
+
     
 //    //ibeacon
 //    self.beacon = [GXBeacon sharedManager];
@@ -68,18 +94,6 @@
 {
     [super viewWillAppear:animated];
     
-    switch (self.segmentControl.selectedSegmentIndex) {
-        case 0:
-            [self fetchOnePersonQuest];
-            break;
-            
-        case 1:
-            [self fetchMultiPersonQuest];
-            break;
-            
-        default:
-            break;
-    }
 }
 
 - (void)didReceiveMemoryWarning {
@@ -97,24 +111,88 @@
 }
 */
 
-#pragma makr - tableView
+#pragma makr - tableViewDelegate
+- (void)tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    cell.backgroundColor = [UIColor clearColor];
+    cell.textLabel.textColor = [UIColor colorWithRed:62/255.0f green:68/255.0f blue:75/255.0f alpha:1.0f];
+    cell.textLabel.font = [UIFont fontWithName:@"HelveticaNeue" size:17];
+}
+
+- (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section
+{
+    if (section == 0)
+        return nil;
+    
+    UIView *view = [[UIView alloc] initWithFrame:CGRectMake(0, 0, tableView.frame.size.width, 34)];
+    view.backgroundColor = [UIColor colorWithRed:167/255.0f green:167/255.0f blue:167/255.0f alpha:0.6f];
+    
+    UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(10, 8, 0, 0)];
+    label.text = @"FriendsOnline";
+    label.font = [UIFont boldFlatFontOfSize:15];
+    label.textColor = [UIColor whiteColor];
+    label.backgroundColor = [UIColor clearColor];
+    [label sizeToFit];
+    [view addSubview:label];
+    
+    return view;
+
+}
+
+- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
+{
+    if (section == 0)
+        return 0;
+    
+    return 34;
+}
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    [tableView deselectRowAtIndexPath:indexPath animated:YES];
+    GXNavViewController *navController = [self.storyboard instantiateViewControllerWithIdentifier:@"contentController"];
+    
+    if (indexPath.section == 0 && indexPath.row == 0) {
+        GXQuestViewController *questViewController = [self.storyboard instantiateViewControllerWithIdentifier:@"home"];
+        navController.viewControllers = @[questViewController];
+    } else {
+        GXInviteQuestViewController *inviteViewController = [self.storyboard instantiateViewControllerWithIdentifier:@"invite"];
+        navController.viewControllers = @[inviteViewController];
+    }
+    
+    self.frostedViewController.contentViewController = navController;
+    [self.frostedViewController hideMenuViewController];
+}
+
+#pragma mark -
+#pragma mark UITableView DataSouce
+
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    return 54;
+}
+
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
-    return 1;
+    return 2;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return self.joinedQuestArray.count;
+    return 3;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     GXStatusViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"Cell" forIndexPath:indexPath];
-    cell.backgroundColor = [UIColor clearColor];
-    cell.selectionStyle = UITableViewCellSelectionStyleNone;
-
-    [self configureCell:cell atIndexPath:indexPath];
+    
+    if (indexPath.section == 0) {
+        NSArray *titles = @[@"ホーム",@"募集中のクエスト",@"参加中のクエスト"];
+        cell.textLabel.text = titles[indexPath.row];
+    } else {
+        NSArray *titles = @[@"userA",@"userB",@"userC"];
+        cell.textLabel.text = titles[indexPath.row];
+    }
     
     return cell;
 }
@@ -125,10 +203,6 @@
     cell.title = [obj getObjectForKey:quest_title];
 }
 
-- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    [self performSegueWithIdentifier:@"questInfo" sender:self];
-}
 
 #pragma mark - Gxbeacon Delegate
 //レンジングが開始されると呼ばれる
@@ -175,20 +249,6 @@
             break;
     }
 }
-- (IBAction)dataSouceChange:(UISegmentedControl *)sender {
-    switch (sender.selectedSegmentIndex) {
-        case 0:
-            [self fetchOnePersonQuest];
-            break;
-            
-        case 1:
-            [self fetchMultiPersonQuest];
-            break;
-            
-        default:
-            break;
-    }
-}
 
 #pragma mark - データフェッチ
 - (void)fetchOnePersonQuest
@@ -205,7 +265,6 @@
 - (void)fbIconHandler:(NSNotification *)info
 {
     NSString *userID = info.object;
-    self.userIcon.profileID = userID;
 }
 
 - (void)joinedQuestFetched:(NSNotification *)info
@@ -215,12 +274,5 @@
     [self.tableView reloadData];
 }
 
-#pragma mark - 遷移
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
-{
-    if ([segue.identifier isEqualToString:@"questInfo"]) {
-        
-    }
-}
 
 @end
