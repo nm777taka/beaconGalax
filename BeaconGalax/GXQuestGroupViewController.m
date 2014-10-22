@@ -19,11 +19,15 @@
 @property NSMutableArray *questMemberArray;
 
 @property KiiGroup *questGroup;
-@property (weak, nonatomic) IBOutlet UIButton *actionButton;
+@property (weak, nonatomic) IBOutlet UIView *headerView;
+@property (weak, nonatomic) IBOutlet UILabel *headerLable;
+@property (weak, nonatomic) IBOutlet FUIButton *actionButton;
 
 @end
 
-@implementation GXQuestGroupViewController
+@implementation GXQuestGroupViewController{
+    UIRefreshControl *_refreshControl;
+}
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -34,13 +38,32 @@
     //Notificaiton
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(memberFetched:) name:GXGroupMemberFetchedNotification object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(questStart:) name:GXStartQuestNotification object:nil];
+    
+    _refreshControl = [UIRefreshControl new];
+    [_refreshControl addTarget:self action:@selector(refresh) forControlEvents:UIControlEventValueChanged];
+    [self.collectionView addSubview:_refreshControl];
+    
+    self.headerView.layer.masksToBounds = NO;
+    self.headerView.layer.shadowOffset = CGSizeMake(0.0, 0.0);
+    self.headerView.layer.shadowOpacity = 0.1;
+    self.headerView.layer.shadowRadius = 2.0f;
+    self.headerLable.font = [UIFont boldFlatFontOfSize:17];
+    
+    self.actionButton.buttonColor = [UIColor turquoiseColor];
+    self.actionButton.shadowColor = [UIColor greenSeaColor];
+    self.actionButton.shadowHeight = 3.0f;
+    self.actionButton.cornerRadius = 6.0f;
+    self.actionButton.titleLabel.font = [UIFont boldFlatFontOfSize:16];
+
+    
+    
 }
 
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
     
-    [SVProgressHUD showWithStatus:@"メンバーを取得中"];
+    //[SVProgressHUD showWithStatus:@"メンバーを取得中"];
 }
 
 - (void)viewDidAppear:(BOOL)animated
@@ -74,8 +97,8 @@
                     } else {
                         NSLog(@"送信完了");
                         [NSTimer bk_scheduledTimerWithTimeInterval:3.0 block:^(NSTimer *timer) {
-                            [self performSegueWithIdentifier:@"test" sender:self];
                             [SVProgressHUD dismiss];
+                            [self performSegueWithIdentifier:@"test" sender:self];
                         } repeats:NO];
                         
                     }
@@ -167,16 +190,13 @@
         
         if ([self isOwer:(int)indexPath.row]) {
             
-            cell.backgroundColor = FlatWatermelon;
-            cell.isReadySignLabel.text = @"リーダー";
+            cell.readyIcon.hidden = YES;
+            cell.backgroundColor = [UIColor alizarinColor];
 
         }else {
             
-            cell.isReadySignLabel.text = @"準備中";
-            
             if ([[member getObjectForKey:user_isReady] isEqualToNumber:@YES]) {
-                cell.backgroundColor = FlatSkyBlue;
-                cell.isReadySignLabel.text = @"準備完了";
+                cell.readyIcon.hidden = NO;
             }
             
         }
@@ -227,7 +247,7 @@
     NSArray *array = notis.object;
     self.questMemberArray = [NSMutableArray arrayWithArray:array];
     [self.collectionView reloadData];
-    [SVProgressHUD showSuccessWithStatus:@"取得完了"];
+    //[SVProgressHUD showSuccessWithStatus:@"取得完了"];
 }
 
 - (void)questStart:(NSNotification *)notis
@@ -240,6 +260,20 @@
     } repeats:NO];
 }
 
+#pragma  mark - refresh
+- (void)refresh
+{
+    NSLog(@"refresh");
+    [[GXBucketManager sharedManager] getQuestMember:self.questGroup];
+    [NSTimer scheduledTimerWithTimeInterval:1.f target:self selector:@selector(endRefresh) userInfo:nil repeats:NO];
+}
+
+- (void)endRefresh
+{
+    [_refreshControl endRefreshing];
+}
+
+
 #pragma mark - segue
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
 {
@@ -248,6 +282,9 @@
         vc.exeQuest = self.selectedObj;
         vc.exeGroup = self.questGroup;
     }
+}
+- (IBAction)reload:(id)sender {
+    
 }
 
 @end

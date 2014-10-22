@@ -7,9 +7,15 @@
 //
 
 #import <UIKit/UIKit.h>
+#import <FlatUIKit/FlatUIKit.h>
+#import <FacebookSDK/Facebook.h>
 
 @interface GXInvitedViewCell : UICollectionViewCell
 @property (weak, nonatomic) IBOutlet UILabel *title;
-@property (weak, nonatomic) IBOutlet UIButton *cellButton;
+@property (weak, nonatomic) IBOutlet FUIButton *button;
+- (IBAction)updateAction:(id)sender;
+@property (weak, nonatomic) IBOutlet UILabel *ownerName;
+@property (weak, nonatomic) IBOutlet FBProfilePictureView *ownerIcon;
+@property (weak, nonatomic) IBOutlet UILabel *updateCntLabel;
 
 @end

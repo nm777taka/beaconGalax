@@ -7,10 +7,12 @@
 //
 
 #import <UIKit/UIKit.h>
+#import <FlatUIKit.h>
+#import <Facebook.h>
 
 @interface GXStatusViewCell : UITableViewCell
 @property (weak, nonatomic) IBOutlet UILabel *title;
+@property (weak, nonatomic) IBOutlet FBProfilePictureView *createrIcon;
 @property (weak, nonatomic) IBOutlet UILabel *createdDate;
-@property (weak, nonatomic) IBOutlet UIImageView *isClearIcon;
 
 @end

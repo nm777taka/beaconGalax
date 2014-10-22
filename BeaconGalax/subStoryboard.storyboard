@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6245" systemVersion="13F34" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="Ddm-uN-WF8">
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6238"/>
+    </dependencies>
+    <scenes>
+        <!--QUEST-->
+        <scene sceneID="UA9-O9-2e6">
+            <objects>
+                <viewController id="MGA-9e-gcu" customClass="GXQuestExeViewController" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="yw5-nW-bWf"/>
+                        <viewControllerLayoutGuide type="bottom" id="Mmu-pW-B9t"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="pzD-8r-rTA">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="beacon.png" translatesAutoresizingMaskIntoConstraints="NO" id="513-eG-7jv">
+                                <rect key="frame" x="111" y="176" width="99" height="99"/>
+                            </imageView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Ocw-2x-3or">
+                                <rect key="frame" x="93" y="288" width="134" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="19"/>
+                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="quest.png" translatesAutoresizingMaskIntoConstraints="NO" id="w9g-Qg-DgM">
+                                <rect key="frame" x="16" y="92" width="39" height="35"/>
+                            </imageView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dVj-u7-TCs">
+                                <rect key="frame" x="16" y="317" width="288" height="38"/>
+                                <fontDescription key="fontDescription" type="boldSystem" pointSize="40"/>
+                                <color key="textColor" red="0.8912609816" green="0.35455638169999998" blue="0.39968371390000001" alpha="1" colorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="srD-VQ-8dq" customClass="UAProgressView">
+                                <rect key="frame" x="58" y="383" width="100" height="100"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                            </view>
+                            <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Bgy-ms-45V" customClass="UAProgressView">
+                                <rect key="frame" x="177" y="383" width="100" height="100"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                            </view>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="クエストタイトル" lineBreakMode="tailTruncation" numberOfLines="7" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="960-fD-jqh">
+                                <rect key="frame" x="63" y="92" width="219" height="45"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="20"/>
+                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
+                        <color key="backgroundColor" red="0.96933593750000002" green="0.96933593750000002" blue="0.96933593750000002" alpha="1" colorSpace="calibratedRGB"/>
+                    </view>
+                    <navigationItem key="navigationItem" title="QUEST" id="ljL-3n-K1Z"/>
+                    <simulatedOrientationMetrics key="simulatedOrientationMetrics"/>
+                    <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina4"/>
+                    <connections>
+                        <outlet property="accLabel" destination="Ocw-2x-3or" id="Cdp-dj-qOF"/>
+                        <outlet property="beaconImage" destination="513-eG-7jv" id="pVM-Pe-3wp"/>
+                        <outlet property="progressView" destination="srD-VQ-8dq" id="eCb-wG-JLI"/>
+                        <outlet property="proxLabel" destination="dVj-u7-TCs" id="jWC-qv-u8b"/>
+                        <outlet property="questTitle" destination="960-fD-jqh" id="Pm3-0n-f5L"/>
+                        <outlet property="userProgressView" destination="Bgy-ms-45V" id="I1m-jz-RVo"/>
+                        <segue destination="T90-QZ-KLs" kind="push" identifier="gotoClearView" id="Juo-hy-iYO"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="1c1-K4-gFK" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2715" y="956"/>
+        </scene>
+        <!--Clear View Controller-->
+        <scene sceneID="eUc-iB-auF">
+            <objects>
+                <viewController id="T90-QZ-KLs" customClass="GXClearViewController" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="a8o-cI-J7Q"/>
+                        <viewControllerLayoutGuide type="bottom" id="1v8-8g-Ovs"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="QBd-8J-NbE">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="GALAX-update-.png" translatesAutoresizingMaskIntoConstraints="NO" id="goo-Fd-Dv6">
+                                <rect key="frame" x="0.0" y="64" width="320" height="504"/>
+                            </imageView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                    <navigationItem key="navigationItem" id="bAe-eN-99M"/>
+                    <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina4"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="cfh-wF-18E" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="3104" y="956"/>
+        </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="6TU-0C-Pcc">
+            <objects>
+                <navigationController storyboardIdentifier="questExe" automaticallyAdjustsScrollViewInsets="NO" id="Ddm-uN-WF8" sceneMemberID="viewController">
+                    <toolbarItems/>
+                    <navigationItem key="navigationItem" id="Gqm-Un-j6e"/>
+                    <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina4"/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="gx1-JT-Kct">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="MGA-9e-gcu" kind="relationship" relationship="rootViewController" id="EOD-bq-g2B"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="5FE-BP-Yqq" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2314" y="956"/>
+        </scene>
+    </scenes>
+    <resources>
+        <image name="GALAX-update-.png" width="640" height="1136"/>
+        <image name="beacon.png" width="200" height="200"/>
+        <image name="quest.png" width="1200" height="1200"/>
+    </resources>
+</document>

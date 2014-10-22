@@ -8,12 +8,13 @@
 
 #import <UIKit/UIKit.h>
 #import <FacebookSDK/Facebook.h>
+#import <FlatUIKit/FlatUIKit.h>
 
 @interface GXQuestGroupViewCell : UICollectionViewCell
 
 @property (weak, nonatomic) IBOutlet FBProfilePictureView *userIcon;
 @property (weak, nonatomic) IBOutlet UILabel *userName;
-@property (weak, nonatomic) IBOutlet UILabel *isReadySignLabel;
+@property (weak, nonatomic) IBOutlet UIImageView *readyIcon;
 
 
 @end

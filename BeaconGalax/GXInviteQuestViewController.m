@@ -20,7 +20,9 @@
 
 @end
 
-@implementation GXInviteQuestViewController
+@implementation GXInviteQuestViewController{
+    UIRefreshControl *_refreshControl;
+}
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -32,6 +34,10 @@
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(invitedQuestFetched:) name:GXInvitedQuestFetchedNotification object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(addedGroup:) name:GXAddGroupSuccessedNotification object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(joinButtonTopped:) name:@"inviteViewCellTopped" object:nil];
+    
+    _refreshControl = [UIRefreshControl new];
+    [_refreshControl addTarget:self action:@selector(refresh) forControlEvents:UIControlEventValueChanged];
+    [self.collectionView addSubview:_refreshControl];
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -80,12 +86,6 @@
 
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath
 {
-    self.selectedObject = self.invitedQuestArray[indexPath.row];
-    KiiGroup *group = [self getGroup:indexPath.row];
-    
-    if ([self isJoined:group])
-        [self performSegueWithIdentifier:@"goto_QuestMemberView" sender:self];
-
     
 }
 
@@ -104,21 +104,39 @@
 
     //自分がオーナかどうか
     if ([self isOwner:group]) {
-        [cell.cellButton setTitle:@"オーナー" forState:UIControlStateNormal];
-        [cell.cellButton setBackgroundColor:FlatYellow];
+        cell.button.buttonColor = [UIColor alizarinColor];
+        cell.button.shadowColor = [UIColor pomegranateColor];
+        cell.button.shadowHeight = 2.0f;
+        cell.button.cornerRadius = 6.0;
+        cell.button.titleLabel.font = [UIFont boldFlatFontOfSize:16];
+        [cell.button setTitle:@"スタート" forState:UIControlStateNormal];
+        [cell.button setTitle:@"スタート" forState:UIControlStateHighlighted];
         
         return;
     }
     
     //参加済みかどうか
     if ([self isJoined:group]) {
-        [cell.cellButton setTitle:@"参加済み" forState:UIControlStateNormal];
-        [cell.cellButton setBackgroundColor:FlatGreen];
+        
+        cell.button.buttonColor = [UIColor peterRiverColor];
+        cell.button.shadowColor = [UIColor belizeHoleColor];
+        cell.button.shadowHeight = 2.0f;
+        cell.button.cornerRadius = 6.0;
+        cell.button.titleLabel.font = [UIFont boldFlatFontOfSize:16];
+        [cell.button setTitle:@"スタート" forState:UIControlStateNormal];
+        [cell.button setTitle:@"スタート" forState:UIControlStateHighlighted];
+        
         return;
         
     } else {
-        [cell.cellButton setTitle:@"JOIN" forState:UIControlStateNormal];
-        [cell.cellButton setBackgroundColor:FlatWatermelon];
+        cell.button.buttonColor = [UIColor turquoiseColor];
+        cell.button.shadowColor = [UIColor greenSeaColor];
+        cell.button.shadowHeight = 2.0f;
+        cell.button.cornerRadius = 6.0;
+        cell.button.titleLabel.font = [UIFont boldFlatFontOfSize:16];
+        [cell.button setTitle:@"参加" forState:UIControlStateNormal];
+        [cell.button setTitle:@"参加" forState:UIControlStateHighlighted];
+        
     }
     
 }
@@ -263,15 +281,17 @@
     
     //色々判定する
     //タップしたクエストのグループを取得
-    KiiGroup *group = [self getGroup:indexPath.row];
+    KiiGroup *group = [self getGroup:(int)indexPath.row];
     
     //自分がオーナかどうか
     if ([self isOwner:group]) {
+        [self gotoQuestPartyView:indexPath];
         return;
     }
     
     //既にグループに参加しているか
     if ([self isJoined:group]) {
+        [self gotoQuestPartyView:indexPath];
         return;
     }
     
@@ -279,6 +299,16 @@
     [self configureCell:cell atIndexPath:indexPath];
     [self sendPushtoOwner:group];
     
+}
+
+- (void)gotoQuestPartyView:(NSIndexPath *)indexPath
+{
+    self.selectedObject = self.invitedQuestArray[indexPath.row];
+    KiiGroup *group = [self getGroup:(int)indexPath.row];
+    
+    if ([self isJoined:group])
+        [self performSegueWithIdentifier:@"goto_QuestMemberView" sender:self];
+
 }
 
 #pragma mark - segue
@@ -290,6 +320,24 @@
         
     }
 }
+
+
+#pragma  mark - refresh
+- (void)refresh
+{
+    NSLog(@"refresh");
+    [SVProgressHUD showWithStatus:@"クエストを取得しています"];
+    [[GXBucketManager sharedManager] getInvitedQuest];
+    [NSTimer bk_scheduledTimerWithTimeInterval:1.0f block:^(NSTimer *timer) {
+        [self endRefresh];
+    } repeats:NO];
+}
+
+- (void)endRefresh
+{
+    [_refreshControl endRefreshing];
+}
+
 
 
 

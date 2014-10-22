@@ -48,6 +48,8 @@
     self.userIcon.layer.borderColor = FlatMint.CGColor;
     self.userIcon.layer.borderWidth = 2.0;
     
+    self.navigationController.navigationBarHidden = NO;
+    
 //    //ibeacon
 //    self.beacon = [GXBeacon sharedManager];
 //    self.beacon.delegate = self;
@@ -121,6 +123,11 @@
 {
     KiiObject *obj = self.joinedQuestArray[indexPath.row];
     cell.title = [obj getObjectForKey:quest_title];
+}
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    [self performSegueWithIdentifier:@"questInfo" sender:self];
 }
 
 #pragma mark - Gxbeacon Delegate
@@ -206,6 +213,14 @@
     NSArray *array = info.object;
     self.joinedQuestArray = [NSMutableArray arrayWithArray:array];
     [self.tableView reloadData];
+}
+
+#pragma mark - 遷移
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
+{
+    if ([segue.identifier isEqualToString:@"questInfo"]) {
+        
+    }
 }
 
 @end
