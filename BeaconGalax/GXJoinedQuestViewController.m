@@ -7,8 +7,12 @@
 //
 
 #import "GXJoinedQuestViewController.h"
+#import "GXInviteQuestViewController.h"
 #import "UITableViewCell+FlatUI.h"
 #import "GXQuestExeViewController.h"
+#import "GXNavViewController.h"
+#import "UIViewController+REFrostedViewController.h"
+#import "REFrostedViewController.h"
 #import "GXBucketManager.h"
 #import "GXNotification.h"
 #import "GXDictonaryKeys.h"
@@ -75,26 +79,50 @@ static NSString * const FUITableViewControllerCellReuseIdentifier = @"FUITableVi
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
-    KiiObject *obj = self.questArray[indexPath.row];
-    NSString *title = [obj getObjectForKey:quest_title];
-    NSString *description = [obj getObjectForKey:quest_description];
     self.selectedQuest = self.questArray[indexPath.row];
-    FUIAlertView *alertView = [[FUIAlertView alloc] initWithTitle:title
-                                                          message:description
-                                                         delegate:nil cancelButtonTitle:@"Dismiss"
-                                                otherButtonTitles:@"Start", nil];
-    alertView.titleLabel.textColor = [UIColor cloudsColor];
-    alertView.titleLabel.font = [UIFont boldFlatFontOfSize:16];
-    alertView.messageLabel.textColor = [UIColor cloudsColor];
-    alertView.messageLabel.font = [UIFont flatFontOfSize:14];
-    alertView.backgroundOverlay.backgroundColor = [[UIColor cloudsColor] colorWithAlphaComponent:0.8];
-    alertView.alertContainer.backgroundColor = [UIColor midnightBlueColor];
-    alertView.defaultButtonColor = [UIColor cloudsColor];
-    alertView.defaultButtonShadowColor = [UIColor asbestosColor];
-    alertView.defaultButtonFont = [UIFont boldFlatFontOfSize:16];
-    alertView.defaultButtonTitleColor = [UIColor asbestosColor];
-    alertView.delegate = self;
-    [alertView show];
+    NSString *title = [self.selectedQuest getObjectForKey:quest_title];
+    NSString *description = [self.selectedQuest getObjectForKey:quest_description];
+    if ([[self.selectedQuest getObjectForKey:quest_player_num] intValue] > 1) {
+        //協力型
+        FUIAlertView *alertView = [[FUIAlertView alloc] initWithTitle:title
+                                                              message:description
+                                                             delegate:nil cancelButtonTitle:@"Dismiss"
+                                                    otherButtonTitles:@"募集画面へ", nil];
+        alertView.titleLabel.textColor = [UIColor cloudsColor];
+        alertView.titleLabel.font = [UIFont boldFlatFontOfSize:16];
+        alertView.messageLabel.textColor = [UIColor cloudsColor];
+        alertView.messageLabel.font = [UIFont flatFontOfSize:14];
+        alertView.backgroundOverlay.backgroundColor = [[UIColor cloudsColor] colorWithAlphaComponent:0.8];
+        alertView.alertContainer.backgroundColor = [UIColor midnightBlueColor];
+        alertView.defaultButtonColor = [UIColor cloudsColor];
+        alertView.defaultButtonShadowColor = [UIColor asbestosColor];
+        alertView.defaultButtonFont = [UIFont boldFlatFontOfSize:16];
+        alertView.defaultButtonTitleColor = [UIColor asbestosColor];
+        alertView.delegate = self;
+        alertView.tag = 1;
+        [alertView show];
+
+    } else {
+        
+        FUIAlertView *alertView = [[FUIAlertView alloc] initWithTitle:title
+                                                              message:description
+                                                             delegate:nil cancelButtonTitle:@"Dismiss"
+                                                    otherButtonTitles:@"Start", nil];
+        alertView.titleLabel.textColor = [UIColor cloudsColor];
+        alertView.titleLabel.font = [UIFont boldFlatFontOfSize:16];
+        alertView.messageLabel.textColor = [UIColor cloudsColor];
+        alertView.messageLabel.font = [UIFont flatFontOfSize:14];
+        alertView.backgroundOverlay.backgroundColor = [[UIColor cloudsColor] colorWithAlphaComponent:0.8];
+        alertView.alertContainer.backgroundColor = [UIColor midnightBlueColor];
+        alertView.defaultButtonColor = [UIColor cloudsColor];
+        alertView.defaultButtonShadowColor = [UIColor asbestosColor];
+        alertView.defaultButtonFont = [UIFont boldFlatFontOfSize:16];
+        alertView.defaultButtonTitleColor = [UIColor asbestosColor];
+        alertView.delegate = self;
+        alertView.tag = 0;
+        [alertView show];
+
+    }
     
     
 }
@@ -178,19 +206,24 @@ static NSString * const FUITableViewControllerCellReuseIdentifier = @"FUITableVi
 #pragma mark - AlertView
 - (void)alertView:(FUIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
 {
-    switch (buttonIndex) {
-        case 0:
-            NSLog(@"0"); //キャンセル
+    switch (alertView.tag) {
+        case 0://ひとり
+            if (buttonIndex == 1) {
+                [self gotoQuestExeView];
+            }
             break;
             
-        case 1:
-            NSLog(@"1"); //スタート
-            [self gotoQuestExeView];
-            break;
+        case 1: //協力
+            if (buttonIndex == 1) {
+                [NSTimer bk_scheduledTimerWithTimeInterval:0.5 block:^(NSTimer *timer) {
+                    [self gotoInviteView];
+                } repeats:NO];
+            }
             
         default:
             break;
     }
+    
 }
 
 - (void)gotoQuestExeView
@@ -200,6 +233,15 @@ static NSString * const FUITableViewControllerCellReuseIdentifier = @"FUITableVi
     [self presentViewController:initialViewController animated:YES completion:^{
         [[NSNotificationCenter defaultCenter] postNotificationName:@"dismissed" object:self.selectedQuest];
     }];
+}
+
+- (void)gotoInviteView
+{
+    GXNavViewController *navController = [self.storyboard instantiateViewControllerWithIdentifier:@"contentController"];
+    GXInviteQuestViewController *invitedVC = [self.storyboard instantiateViewControllerWithIdentifier:@"invite"];
+    navController.viewControllers = @[invitedVC];
+    self.frostedViewController.contentViewController = navController;
+
 }
 
 @end
