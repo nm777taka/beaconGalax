@@ -76,6 +76,7 @@
 {
     NSError *error;
     KiiBucket *pointBucket = [[KiiUser currentUser] bucketWithName:@"point"];
+    //最初は作るけどあとは更新にする
     KiiObject *point = [pointBucket createObject];
     [point setObject:[NSNumber numberWithInt:self.point] forKey:@"point"];
     [point saveSynchronous:&error];

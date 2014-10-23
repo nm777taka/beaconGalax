@@ -19,5 +19,6 @@
 @property (strong, nonatomic) UIWindow *window;
 @property GXFacebook *gxFbManager;
 @property (nonatomic,retain) Facebook *facebook;
+@property KiiObject *gxUser;
 
 @end

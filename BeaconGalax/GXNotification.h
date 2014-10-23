@@ -14,7 +14,6 @@ UIKIT_EXTERN  NSString *const GXapplicationDidBecomeActibve;
 
 //ログイン関連
 UIKIT_EXTERN  NSString *const GXLoginSuccessedNotification;
-UIKIT_EXTERN NSString *const GXFBProfilePictNotification; //ログインした際にstatusViewでfbusericonを表示できるように
 
 //クエスト関連
 UIKIT_EXTERN NSString *const GXQuestCreatedNotification;

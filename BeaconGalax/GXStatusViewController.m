@@ -7,6 +7,7 @@
 //
 
 #import "GXStatusViewController.h"
+#import "GXAppDelegate.h"
 #import "GXNavViewController.h"
 #import "GXQuestViewController.h"
 #import "GXInviteQuestViewController.h"
@@ -28,13 +29,15 @@
 @property (weak, nonatomic) IBOutlet UILabel *locationStatusLable;
 @property (weak, nonatomic) IBOutlet UILabel *bluetoothStatusLabel;
 @property (weak, nonatomic) IBOutlet UILabel *monitoringStatusLabel;
-
+@property  FBProfilePictureView *pictureView;
+@property UILabel *userName;
 @property NSMutableArray *joinedQuestArray;
 
 @property GXBeacon *beacon;
 @property GXBeaconMonitoringStatus monitoringStatus;
 @property (nonatomic) NSUUID *proximityUUID;
 
+@property KiiObject *gxUser;
 
 @end
 
@@ -52,30 +55,31 @@
     self.tableView.backgroundColor = [UIColor clearColor];
     self.tableView.tableHeaderView = ({
         UIView *view = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 0, 184.0f)];
-        UIImageView *imageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 40, 100, 100)];
-        imageView.autoresizingMask = UIViewAutoresizingFlexibleLeftMargin | UIViewAutoresizingFlexibleRightMargin;
-        imageView.image = [UIImage imageNamed:@"home-32.png"];
-        imageView.layer.masksToBounds = YES;
-        imageView.layer.cornerRadius = 50.0;
-        imageView.layer.borderColor = [UIColor whiteColor].CGColor;
-        imageView.layer.borderWidth = 3.0f;
-        imageView.layer.rasterizationScale = [UIScreen mainScreen].scale;
-        imageView.layer.shouldRasterize = YES;
-        imageView.clipsToBounds = YES;
+        self.pictureView = [[FBProfilePictureView alloc] initWithFrame:CGRectMake(0, 40, 100, 100)];
+        self.pictureView.autoresizingMask = UIViewAutoresizingFlexibleLeftMargin | UIViewAutoresizingFlexibleRightMargin;
+        self.pictureView.profileID = [self.gxUser getObjectForKey:user_fb_id];
+        self.pictureView.layer.masksToBounds = YES;
+        self.pictureView.layer.cornerRadius = 50.0;
+        self.pictureView.layer.borderColor = [UIColor whiteColor].CGColor;
+        self.pictureView.layer.borderWidth = 3.0f;
+        self.pictureView.layer.rasterizationScale = [UIScreen mainScreen].scale;
+        self.pictureView.layer.shouldRasterize = YES;
+        self.pictureView.clipsToBounds = YES;
         
-        UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(0, 150, 0, 24)];
-        label.text = @"Roman Efimov";
-        label.font = [UIFont fontWithName:@"HelveticaNeue" size:21];
-        label.backgroundColor = [UIColor clearColor];
-        label.textColor = [UIColor colorWithRed:62/255.0f green:68/255.0f blue:75/255.0f alpha:1.0f];
-        [label sizeToFit];
-        label.autoresizingMask = UIViewAutoresizingFlexibleLeftMargin | UIViewAutoresizingFlexibleRightMargin;
+        self.userName = [[UILabel alloc] initWithFrame:CGRectMake(0, 150, 0, 24)];
+        self.userName.text = @"Roman Efimov";
+        self.userName.font = [UIFont fontWithName:@"HelveticaNeue" size:17];
+        self.userName.backgroundColor = [UIColor clearColor];
+        self.userName.textColor = [UIColor colorWithRed:62/255.0f green:68/255.0f blue:75/255.0f alpha:1.0f];
+        [self.userName sizeToFit];
+        self.userName.autoresizingMask = UIViewAutoresizingFlexibleLeftMargin | UIViewAutoresizingFlexibleRightMargin;
         
-        [view addSubview:imageView];
-        [view addSubview:label];
+        [view addSubview:self.pictureView];
+        [view addSubview:self.userName];
         view;
     });
-
+    
+    
     
 //    //ibeacon
 //    self.beacon = [GXBeacon sharedManager];
@@ -84,17 +88,19 @@
 //    region = [self.beacon registerRegion:kBeaconUUID identifier:kIdentifier];
 //    if (region) region.rangingEnabled = YES;
     
-    //Notification
-    //viewの読み込まれるタイミング的な問題で必要
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(fbIconHandler:) name:GXFBProfilePictNotification object:nil];
-    
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(joinedQuestFetched:) name:GXJoinedQuestFetchedNotification object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(loginSuccess:) name:GXLoginSuccessedNotification object:nil];
 }
 
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
     
+}
+
+- (void)viewDidAppear:(BOOL)animated
+{
+    [super viewDidAppear:animated];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -266,16 +272,20 @@
 }
 
 #pragma mark - Notification
-- (void)fbIconHandler:(NSNotification *)info
-{
-    NSString *userID = info.object;
-}
 
 - (void)joinedQuestFetched:(NSNotification *)info
 {
     NSArray *array = info.object;
     self.joinedQuestArray = [NSMutableArray arrayWithArray:array];
     [self.tableView reloadData];
+}
+
+- (void)loginSuccess:(NSNotification *)info
+{
+    NSString *userURI = [KiiUser currentUser].objectURI;
+    KiiObject *gxUser = [[GXBucketManager sharedManager] getGalaxUser:userURI];
+    self.pictureView.profileID = [gxUser getObjectForKey:user_fb_id];
+    self.userName.text = [gxUser getObjectForKey:user_name];
 }
 
 

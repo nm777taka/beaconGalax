@@ -20,7 +20,6 @@
 @end
 
 @implementation GXAppDelegate{
-    NSString *groupURI;
 }
 
 
@@ -43,6 +42,9 @@
     NSLog(@"access_token:%@",access_token);
     NSError *error;
     [KiiUser authenticateWithTokenSynchronous:access_token andError:&error];
+    if (!error) {
+        [[NSNotificationCenter defaultCenter] postNotificationName:GXLoginSuccessedNotification object:nil];
+    }
     self.locationManager = [CLLocationManager new];
     self.locationManager.delegate = self;
    
@@ -88,15 +90,7 @@
     //アプリがフォアグランドで起動している時にPush通知を受信した場合
     if (application.applicationState == UIApplicationStateActive) {
         NSLog(@"push通知受信@フォアグランド");
-        UIAlertController *alertConroller = [UIAlertController alertControllerWithTitle:@"info" message:@"○○をクエストメンバーに追加します" preferredStyle:UIAlertControllerStyleAlert];
-        [alertConroller addAction:[UIAlertAction actionWithTitle:@"ok" style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
-            
-            [self addGroupMember];
-            
-        }]];
         
-        [self.window.rootViewController presentViewController:alertConroller animated:YES completion:nil];
-
 
     }
     
@@ -238,8 +232,6 @@
 {
     if ([identifier isEqualToString:@"FIRST_ACTION"]) {
         
-        [self addGroupMember];
-        
     }
     if ([identifier isEqualToString:@"SECOND_ACTION"]) {
         
@@ -344,33 +336,6 @@
     
 }
 
-#pragma mark - AlertView
-
-- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
-{
-    switch (buttonIndex) {
-        case 0:
-            NSLog(@"click 0 ");
-            NSError *error;
-            
-            KiiGroup *group = [KiiGroup groupWithURI:groupURI];
-            NSLog(@"参加グループ:%@",group);
-            
-            [group refreshSynchronous:&error];
-            
-            if (error != NULL) {
-            }
-            
-            break;
-            
-    }
-}
-
-#pragma mark - グループ追加処理
-- (void)addGroupMember
-{
- 
-}
 
 - (void)pushTest
 {
