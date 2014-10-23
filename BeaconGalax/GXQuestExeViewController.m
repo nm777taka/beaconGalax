@@ -322,7 +322,8 @@
     NSDictionary *returnedDict = [result returnedValue];
     NSLog(@"returnd:%@",returnedDict);
     if ([[returnedDict[@"returnedValue"] stringValue] isEqualToString:@"0"]) {
-        NSLog(@"clear");
+        //クリア！
+        [self gotoClearView];
     }
 }
 

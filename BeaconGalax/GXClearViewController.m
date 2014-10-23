@@ -38,20 +38,22 @@
     [super viewDidAppear:animated];
     NSLog(@"point:%d",self.point);
     [self registerPoint];
-//    [NSTimer bk_scheduledTimerWithTimeInterval:3.0 block:^(NSTimer *timer) {
-//        
-//        UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"Congratulation" message:@"クエストクリアおめでとうございます" preferredStyle:UIAlertControllerStyleAlert];
-//        [alertController addAction:[UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
-//            
-//        //[self deleteMultiQuest];
-//            
-//            [self.navigationController popToRootViewControllerAnimated:YES];
-//            
-//        }]];
-//        
-//        [self presentViewController:alertController animated:YES completion:nil];
-//
-//    } repeats:NO];
+    [NSTimer bk_scheduledTimerWithTimeInterval:3.0 block:^(NSTimer *timer) {
+        
+        UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"Congratulation" message:@"クエストクリアおめでとうございます" preferredStyle:UIAlertControllerStyleAlert];
+        [alertController addAction:[UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
+            
+        //[self deleteMultiQuest];
+            
+            UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:[NSBundle mainBundle]];
+            UIViewController *initViewController = [storyboard instantiateInitialViewController];
+            [self presentViewController:initViewController animated:NO completion:nil];
+            
+        }]];
+        
+        [self presentViewController:alertController animated:YES completion:nil];
+
+    } repeats:NO];
 }
 
 
