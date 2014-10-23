@@ -77,25 +77,36 @@
             //ユーザ領域にトピックを作成
             [[GXTopicManager sharedManager] createDefaultUserTopic];
             
+            //access_tokenの保持
+            NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+            NSString *token = [[KiiUser currentUser] accessToken];
+            NSLog(@"token:%@",token);
+            [defaults setObject:token forKey:@"access_token"];
+            
+            BOOL sucessful = [defaults synchronize];
+            if (sucessful) {
+                NSLog(@"access_token保存完了");
+            }
+            
             
         } else {
             NSLog(@"login");
             
             //バケット購読処理
             //購読の確認f
-            KiiBucket *bucket = [Kii bucketWithName:@"quest_board"];
-            BOOL isSubscribed = [KiiPushSubscription checkSubscriptionSynchronous:bucket withError:&error];
-            if (isSubscribed) {
-                NSLog(@"quest_boardバケット購読済み");
-            } else {
-                //購読処理
-                [KiiPushSubscription subscribeSynchronous:bucket withError:&error];
-                if (error != nil) {
-                    NSLog(@"error:%@",error);
-                } else {
-                    NSLog(@"quest_boardバケット購読完了");
-                }
-            }
+//            KiiBucket *bucket = [Kii bucketWithName:@"quest_board"];
+//            BOOL isSubscribed = [KiiPushSubscription checkSubscriptionSynchronous:bucket withError:&error];
+//            if (isSubscribed) {
+//                NSLog(@"quest_boardバケット購読済み");
+//            } else {
+//                //購読処理
+//                [KiiPushSubscription subscribeSynchronous:bucket withError:&error];
+//                if (error != nil) {
+//                    NSLog(@"error:%@",error);
+//                } else {
+//                    NSLog(@"quest_boardバケット購読完了");
+//                }
+//            }
         }
         
         

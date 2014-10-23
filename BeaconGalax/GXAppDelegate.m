@@ -38,6 +38,11 @@
     
      [Kii enableAPNSWithDevelopmentMode:YES andNotificationTypes:UIRemoteNotificationTypeAlert|UIRemoteNotificationTypeSound|UIRemoteNotificationTypeBadge];
     
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    NSString *access_token = [defaults stringForKey:@"access_token"];
+    NSLog(@"access_token:%@",access_token);
+    NSError *error;
+    [KiiUser authenticateWithTokenSynchronous:access_token andError:&error];
     self.locationManager = [CLLocationManager new];
     self.locationManager.delegate = self;
    

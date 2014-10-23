@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6245" systemVersion="13F34" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" initialViewController="8fl-Pj-LvM">
     <dependencies>
-        <deployment defaultVersion="1808" identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6238"/>
     </dependencies>
     <scenes>
@@ -513,7 +512,7 @@
             </objects>
             <point key="canvasLocation" x="1098" y="735"/>
         </scene>
-        <!--Perty-->
+        <!--クエストパーティー-->
         <scene sceneID="bvE-KX-rpo">
             <objects>
                 <viewController hidesBottomBarWhenPushed="YES" id="2KE-J0-tPr" customClass="GXQuestGroupViewController" sceneMemberID="viewController">
@@ -577,7 +576,7 @@
                         </subviews>
                         <color key="backgroundColor" red="0.90823972225189209" green="0.92638683319091797" blue="0.9317171573638916" alpha="1" colorSpace="calibratedRGB"/>
                     </view>
-                    <navigationItem key="navigationItem" title="Perty" id="Kax-fG-E5K"/>
+                    <navigationItem key="navigationItem" title="クエストパーティー" id="Kax-fG-E5K"/>
                     <nil key="simulatedBottomBarMetrics"/>
                     <simulatedOrientationMetrics key="simulatedOrientationMetrics"/>
                     <connections>
@@ -855,7 +854,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="2bn-En-2Vd" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2205" y="116"/>
+            <point key="canvasLocation" x="2207" y="76"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="pkc-4p-zdi">
