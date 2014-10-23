@@ -298,17 +298,12 @@
 //参加したクエストをnotJoinから消す
 - (void)deleteJoinedQuest:(KiiObject *)obj
 {
-    KiiClause *clause = [KiiClause equals:@"uri" value:[obj getObjectForKey:@"uri"]];
-    KiiQuery *query = [KiiQuery queryWithClause:clause];
-    [self.notJoinedQuest executeQuery:query withBlock:^(KiiQuery *query, KiiBucket *bucket, NSArray *results, KiiQuery *nextQuery, NSError *error) {
-        KiiObject *deleteObjt = results.firstObject;
-        [deleteObjt deleteWithBlock:^(KiiObject *object, NSError *error) {
-            if (error) {
-                NSLog(@"error:%@",error);
-            } else {
-                NSLog(@"delete完了");
-            }
-        }];
+    [obj deleteWithBlock:^(KiiObject *object, NSError *error) {
+        if (error) {
+            NSLog(@"error:%@",error);
+        } else {
+            [[NSNotificationCenter defaultCenter] postNotificationName:@"deleteQuest" object:nil];
+        }
     }];
 }
 
@@ -370,12 +365,14 @@
         NSLog(@"マルチ");
         [self copyObject:self.joinedMultiPersonQuest object:newQuest];
         //tsmessageとかだす
+        [TSMessage showNotificationWithTitle:@"募集完了" type:TSMessageNotificationTypeSuccess];
+        
     } else {
         if (playerNum != 0) {
             //一人用
             NSLog(@"ひとり");
             [self copyObject:self.joinedOnePersonQuest object:newQuest];
-            //tsmessageとかだす
+            [TSMessage showNotificationWithTitle:@"受注完了" type:TSMessageNotificationTypeSuccess];
         }
     }
         

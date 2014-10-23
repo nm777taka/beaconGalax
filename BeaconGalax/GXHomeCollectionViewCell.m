@@ -38,25 +38,7 @@
 
 - (IBAction)joinAction:(id)sender {
     
-    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"確認" message:@"このクエストに参加しますか" delegate:self cancelButtonTitle:@"やめる" otherButtonTitles:@"参加", nil];
-    
-    [alert show];
+    [[NSNotificationCenter defaultCenter] postNotificationName:GXQuestJoinNotification object:self];
 }
 
-#pragma mark AlertDelegate
-- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
-{
-    switch (buttonIndex) {
-        case 0:
-            break;
-            
-        case 1:
-            NSLog(@"^--->");
-            [[NSNotificationCenter defaultCenter] postNotificationName:GXQuestJoinNotification object:self];
-            break;
-            
-        default:
-            break;
-    }
-}
 @end
