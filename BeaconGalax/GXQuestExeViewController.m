@@ -14,8 +14,9 @@
 #import "GXDictonaryKeys.h"
 #import "GXNotification.h"
 #define kBeaconUUID @"B9407F30-F5F8-466E-AFF9-25556B57FE6D"
+#define kQuestTypeOne 0
+#define kQuestTypeMulti 1
 
-static const char kAssocKey_Window;
 
 @interface GXQuestExeViewController ()<ESTBeaconDelegate,ESTBeaconManagerDelegate>
 @property (weak, nonatomic) IBOutlet UILabel *questTitle;
@@ -29,6 +30,7 @@ static const char kAssocKey_Window;
 @property (nonatomic,assign) float localUserProgress;
 @property NSTimer *userTimer;
 @property BOOL isCommited;
+@property BOOL isMulti;
 
 @property ESTBeaconManager *beaconManager;
 @property ESTBeaconRegion *beaconRegion;
@@ -64,6 +66,7 @@ static const char kAssocKey_Window;
     
     //notification
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(questCommitHandler:) name:GXCommitQuestNotification object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(dismissed:) name:@"dismissed" object:nil];
     
 }
 
@@ -102,7 +105,10 @@ static const char kAssocKey_Window;
             NSLog(@"完了");
             [self.userTimer invalidate];
             [(UILabel *)progressView.centralView setText:@"OK"];
-            [self commitQuest];
+            if (self.isMulti)
+                [self commitQuest];
+            else
+                [self commitOnePersonQuest];
             //[SVProgressHUD showWithStatus:@"コミット中"];
         }
         
@@ -305,36 +311,27 @@ static const char kAssocKey_Window;
     [self gotoClearView];
 }
 
+//一人用
+- (void)commitOnePersonQuest
+{
+    KiiServerCodeEntry *entry = [Kii serverCodeEntry:@"commitOnePersonQuest"];
+    NSDictionary *argDict = [NSDictionary dictionaryWithObjectsAndKeys:self.exeQuest.objectURI,@"questURI", nil];
+    KiiServerCodeEntryArgument *argument = [KiiServerCodeEntryArgument argumentWithDictionary:argDict];
+    NSError *error;
+    KiiServerCodeExecResult *result = [entry executeSynchronous:argument withError:&error];
+    NSDictionary *returnedDict = [result returnedValue];
+    NSLog(@"returnd:%@",returnedDict);
+    if ([[returnedDict[@"returnedValue"] stringValue] isEqualToString:@"0"]) {
+        NSLog(@"clear");
+    }
+}
+
+//協力型のクエスト
 - (void)commitQuest
 {
-//    //送るだけにしたい
-//    //クエストの取得
-//    NSError *error;
-//    KiiBucket *bucket = [self.exeGroup bucketWithName:@"quest"];
-//    KiiQuery *query = [KiiQuery queryWithClause:nil];
-//    
-//    KiiQuery *nextQuery;
-//    NSArray *result = [bucket executeQuerySynchronous:query withError:&error andNext:&nextQuery];
-//    KiiObject *quest = result.firstObject;
-//    
-//    //successcntを増やす
-//    int succCnt = [[quest getObjectForKey:quest_success_cnt] intValue];
-//
-//    [quest setObject:[NSNumber numberWithInt:++succCnt] forKey:quest_success_cnt];
-//    [quest saveWithBlock:^(KiiObject *object, NSError *error) {
-//        
-//        if (error) {
-//            NSLog(@"objectSaveError:%@",error);
-//        } else {
-//            NSLog(@"refresh-object");
-//        }
-//
-//    }];
-    
     KiiServerCodeEntry *entry = [Kii serverCodeEntry:@"commitQuest"];
-    
     NSDictionary* argDict= [NSDictionary dictionaryWithObjectsAndKeys:
-                            self.exeGroup.objectURI, @"groupURI",self.exeQuest.objectURI,@"questURI", [NSNumber numberWithInt:self.groupMemberNum], @"memberNum",nil];
+                            self.exeGroup.objectURI, @"groupURI",self.exeQuest.objectURI,@"questURI", [NSNumber numberWithInt:self.groupMemberNum], @"memberNum",[NSNumber numberWithBool:self.isMulti],@"isMulti",nil];
     
     KiiServerCodeEntryArgument *argument = [KiiServerCodeEntryArgument argumentWithDictionary:argDict];
     
@@ -395,6 +392,17 @@ static const char kAssocKey_Window;
     }
 }
 
+//画面遷移後(mainStoryBoardから)
+- (void)dismissed:(NSNotification *)notis
+{
+    self.exeQuest = notis.object;
+    int playerNum = [[self.exeQuest getObjectForKey:quest_player_num] intValue];
+    if (playerNum > 1) {
+        self.isMulti = YES;
+    } else {
+        self.isMulti = NO;
+    }
+}
 
 - (void)gotoClearView
 {

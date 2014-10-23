@@ -327,15 +327,15 @@
 
 //Quest_boardからnot_joinedにフェッチ
 //そのうちサーバーコードで実現する
+#pragma  mark- ここ修正する!
+
 - (void)getQuestForQuestBoard
 {
     //全件取得
-    NSLog(@"call");
     KiiQuery *query = [KiiQuery queryWithClause:nil];
     
     [self.questBoard executeQuery:query withBlock:^(KiiQuery *query, KiiBucket *bucket, NSArray *results, KiiQuery *nextQuery, NSError *error) {
         if (!error) {
-            NSLog(@"フェッチ完了");
             //resultsからnotJoinedBucketにいれる
             for (KiiObject *obj in results) {
                 
@@ -346,10 +346,7 @@
                 for (NSString *key in allKeys) {
                     [newObj setObject:dict[key] forKey:key];
                 }
-                
-                //object特定用にidを追加
-                [newObj setObject:obj.objectURI forKey:@"uri"];
-                
+                [newObj setObject:newObj.objectURI forKey:@"uri"];
                 [newObj saveWithBlock:^(KiiObject *object, NSError *error) {
                     
                     if (!error) {
@@ -357,9 +354,7 @@
                     }
                 }];
             }
-            
             [self fetchQuestWithNotComplited];
-
         }
     }];
 }
@@ -390,7 +385,9 @@
 //一人用クエストを取得
 - (void)getJoinedOnePersonQuest
 {
-    KiiQuery *query = [KiiQuery queryWithClause:nil];
+    KiiClause *clause = [KiiClause equals:@"isCompleted" value:@NO];
+    KiiQuery *query = [KiiQuery queryWithClause:clause];
+    [query sortByDesc:@"_created"];
     [self.joinedOnePersonQuest executeQuery:query withBlock:^(KiiQuery *query, KiiBucket *bucket, NSArray *results, KiiQuery *nextQuery, NSError *error) {
         if (error) {
             NSLog(@"error:%@",error);
@@ -552,7 +549,6 @@
     for (NSString *key in allKeys) {
         [newObj setObject:dict[key] forKey:key];
     }
-    
     [newObj saveSynchronous:&error];
     
     if (!error) {
