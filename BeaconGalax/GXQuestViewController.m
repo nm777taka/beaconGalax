@@ -124,7 +124,7 @@
     cell.layer.shadowRadius = 2.0f;
     
     KiiObject *quest = self.objects[indexPath.row];
-    cell.titleLable.text = [quest getObjectForKey:quest_description];
+    cell.titleLable.text = [quest getObjectForKey:quest_title];
     BOOL isMulti = [self isMultiQuest:indexPath];
     if (isMulti) {
         

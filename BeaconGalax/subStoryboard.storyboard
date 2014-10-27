@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6245" systemVersion="13F34" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="Ddm-uN-WF8">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6245" systemVersion="13F34" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="MGA-9e-gcu">
     <dependencies>
+        <deployment defaultVersion="1808" identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6238"/>
     </dependencies>
     <scenes>
@@ -61,7 +62,7 @@
                         <outlet property="proxLabel" destination="dVj-u7-TCs" id="jWC-qv-u8b"/>
                         <outlet property="questTitle" destination="960-fD-jqh" id="Pm3-0n-f5L"/>
                         <outlet property="userProgressView" destination="Bgy-ms-45V" id="I1m-jz-RVo"/>
-                        <segue destination="T90-QZ-KLs" kind="push" identifier="gotoClearView" id="Juo-hy-iYO"/>
+                        <segue destination="T90-QZ-KLs" kind="modal" identifier="gotoClearView" id="Juo-hy-iYO"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="1c1-K4-gFK" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -92,26 +93,6 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="cfh-wF-18E" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="3104" y="956"/>
-        </scene>
-        <!--Navigation Controller-->
-        <scene sceneID="6TU-0C-Pcc">
-            <objects>
-                <navigationController storyboardIdentifier="questExe" automaticallyAdjustsScrollViewInsets="NO" id="Ddm-uN-WF8" sceneMemberID="viewController">
-                    <toolbarItems/>
-                    <navigationItem key="navigationItem" id="Gqm-Un-j6e"/>
-                    <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina4"/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="gx1-JT-Kct">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
-                        <autoresizingMask key="autoresizingMask"/>
-                    </navigationBar>
-                    <nil name="viewControllers"/>
-                    <connections>
-                        <segue destination="MGA-9e-gcu" kind="relationship" relationship="rootViewController" id="EOD-bq-g2B"/>
-                    </connections>
-                </navigationController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="5FE-BP-Yqq" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="2314" y="956"/>
         </scene>
     </scenes>
     <resources>

@@ -67,6 +67,7 @@
     //notification
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(questCommitHandler:) name:GXCommitQuestNotification object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(dismissed:) name:@"dismissed" object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(dismissedMulti:) name:@"dismissedWithMulti" object:nil];
     
 }
 
@@ -109,7 +110,6 @@
                 [self commitQuest];
             else
                 [self commitOnePersonQuest];
-            //[SVProgressHUD showWithStatus:@"コミット中"];
         }
         
     };
@@ -188,8 +188,14 @@
 
 - (void)viewWillAppear:(BOOL)animated
 {
-    [self fetchGroupQuest];
+    //[self fetchGroupQuest];
     [self startBeacon];
+}
+
+- (void)viewDidAppear:(BOOL)animated
+{
+    [super viewDidAppear:YES];
+    NSLog(@"exeQuest:%@",self.exeQuest);
 }
 
 - (void)viewDidDisappear:(BOOL)animated
@@ -323,13 +329,14 @@
     NSLog(@"returnd:%@",returnedDict);
     if ([[returnedDict[@"returnedValue"] stringValue] isEqualToString:@"0"]) {
         //クリア！
-        [self gotoClearView];
+        [self.progressView setProgress:1.0f animated:YES];
     }
 }
 
 //協力型のクエスト
 - (void)commitQuest
 {
+    NSLog(@"exeQuest:%@",self.exeQuest);
     KiiServerCodeEntry *entry = [Kii serverCodeEntry:@"commitQuest"];
     NSDictionary* argDict= [NSDictionary dictionaryWithObjectsAndKeys:
                             self.exeGroup.objectURI, @"groupURI",self.exeQuest.objectURI,@"questURI", [NSNumber numberWithInt:self.groupMemberNum], @"memberNum",[NSNumber numberWithBool:self.isMulti],@"isMulti",nil];
@@ -351,13 +358,25 @@
     KiiQuery *nextQuery;
     [bucket executeQuery:query withBlock:^(KiiQuery *query, KiiBucket *bucket, NSArray *results, KiiQuery *nextQuery, NSError *error) {
         
+        if (error) {
+            NSLog(@"error:%@",error);
+        }
+        
+        self.exeQuest = results.firstObject;
+        NSLog(@"self.exeQuest:%@",results.firstObject);
+        
+        [self questParse];
+
+        
         [self.exeGroup getMemberListWithBlock:^(KiiGroup *group, NSArray *members, NSError *error) {
+            
+            if (error) {
+                NSLog(@"error : %@",error);
+            }
+            
             self.groupMemberNum = (int)members.count;
             NSLog(@"memer-cont:%d",self.groupMemberNum);
             
-            self.exeQuest = results.firstObject;
-            [self questParse];
-
         }];
     }];
 }
@@ -393,7 +412,7 @@
     }
 }
 
-//画面遷移後(mainStoryBoardから)
+//画面遷移後(mainStoryBoardから)(一人用)
 - (void)dismissed:(NSNotification *)notis
 {
     self.exeQuest = notis.object;
@@ -403,6 +422,14 @@
     } else {
         self.isMulti = NO;
     }
+}
+
+- (void)dismissedMulti:(NSNotification *)notis
+{
+    self.exeQuest = notis.object;
+    NSLog(@"exeQuest:%@",self.exeQuest);
+    self.groupMemberNum = 2;
+    self.isMulti = YES;
 }
 
 - (void)gotoClearView

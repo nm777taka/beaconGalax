@@ -95,11 +95,7 @@
                         NSLog(@"error:%@",error);
                         [SVProgressHUD showErrorWithStatus:@"クエストを開始できません"];
                     } else {
-                        NSLog(@"送信完了");
-                        [NSTimer bk_scheduledTimerWithTimeInterval:3.0 block:^(NSTimer *timer) {
-                            [SVProgressHUD dismiss];
-                            [self performSegueWithIdentifier:@"test" sender:self];
-                        } repeats:NO];
+                        
                         
                     }
                 }
@@ -254,8 +250,8 @@
 {
     NSLog(@"クエストスタート!!");
     [SVProgressHUD showWithStatus:@"クエストを開始します"];
-    [NSTimer bk_scheduledTimerWithTimeInterval:3.0f block:^(NSTimer *timer) {
-        [self performSegueWithIdentifier:@"test" sender:self];
+    [NSTimer bk_scheduledTimerWithTimeInterval:2.0f block:^(NSTimer *timer) {
+        [self gotoQuestExeView];
         [SVProgressHUD dismiss];
     } repeats:NO];
 }
@@ -283,8 +279,18 @@
         vc.exeGroup = self.questGroup;
     }
 }
-- (IBAction)reload:(id)sender {
-    
+
+- (void)gotoQuestExeView
+{
+    UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"subStoryboard" bundle:nil];
+    GXQuestExeViewController *initialViewController = [storyboard instantiateInitialViewController];
+    initialViewController.exeQuest = self.selectedObj;
+    initialViewController.exeGroup = self.questGroup;
+    [self presentViewController:initialViewController animated:YES completion:^{
+        //NSDictionary *dict = @{self.selectedObj.objectURI:@"selectedObj",self.questGroup.objectURI:@"questGroupURI"};
+        //[[NSNotificationCenter defaultCenter] postNotificationName:@"dismissedWithMulti" object:self.selectedObj];
+    }];
 }
+
 
 @end

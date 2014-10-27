@@ -67,7 +67,7 @@
         self.pictureView.clipsToBounds = YES;
         
         self.userName = [[UILabel alloc] initWithFrame:CGRectMake(0, 150, 0, 24)];
-        self.userName.text = @"Roman Efimov";
+        self.userName.text = @"name";
         self.userName.font = [UIFont fontWithName:@"HelveticaNeue" size:17];
         self.userName.backgroundColor = [UIColor clearColor];
         self.userName.textColor = [UIColor colorWithRed:62/255.0f green:68/255.0f blue:75/255.0f alpha:1.0f];

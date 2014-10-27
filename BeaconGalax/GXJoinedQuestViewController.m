@@ -230,8 +230,9 @@ static NSString * const FUITableViewControllerCellReuseIdentifier = @"FUITableVi
 {
     UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"subStoryboard" bundle:nil];
     GXQuestExeViewController *initialViewController = [storyboard instantiateInitialViewController];
+    initialViewController.exeQuest = self.selectedQuest;
     [self presentViewController:initialViewController animated:YES completion:^{
-        [[NSNotificationCenter defaultCenter] postNotificationName:@"dismissed" object:self.selectedQuest];
+       // [[NSNotificationCenter defaultCenter] postNotificationName:@"dismissed" object:self.selectedQuest];
     }];
 }
 

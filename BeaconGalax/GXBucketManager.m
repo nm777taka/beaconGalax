@@ -156,6 +156,7 @@
     KiiTopic *clearTopic = [group topicWithName:@"quest_end"];
     [clearTopic saveSynchronous:&error];
     KiiPushSubscription *sub_clearTopic = [KiiPushSubscription subscribeSynchronous:clearTopic withError:&error];
+    KiiPushSubscription *sub_startTopic = [KiiPushSubscription subscribeSynchronous:groupTopic withError:&error];
     
     
     //クエスト
