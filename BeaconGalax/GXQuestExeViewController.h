@@ -17,5 +17,7 @@
 
 @property (nonatomic,retain) KiiObject *exeQuest;
 @property (nonatomic,retain) KiiGroup *exeGroup;
+@property (nonatomic,assign) BOOL isMulti;
+@property int groupMemberNum;
 
 @end

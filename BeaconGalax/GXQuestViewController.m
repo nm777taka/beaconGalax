@@ -219,50 +219,6 @@
         [self questAlertShow:[self.selectedObject getObjectForKey:quest_title] description:quest_description];
      
     }
-
-
-    //--------------------------->
-    //ユーザがつくる場合
-    //--------------------------->
-    //作成者に参加申請pushをおくる
-    /*
-    NSString *ownerUserURI = [object getObjectForKey:quest_createUserURI];
-    KiiUser *ownerUser = [KiiUser userWithURI:ownerUserURI];
-    NSString *joinQuestGroup = [object getObjectForKey:quest_groupURI];
-    NSLog(@"-------> group : %@",joinQuestGroup);
-    
-    KiiTopic *topic = [ownerUser topicWithName:topic_invite];
-    KiiAPNSFields *apnsFields = [KiiAPNSFields createFields];
-    
-    NSDictionary *dictionary = @{@"join_user":[KiiUser currentUser].objectURI,
-                                 @"group":joinQuestGroup,push_type:push_invite};
-    //slient
-    [apnsFields setContentAvailable:@1];
-    
-    [apnsFields setSpecificData:dictionary];
-    
-    KiiPushMessage *message = [KiiPushMessage composeMessageWithAPNSFields:apnsFields
-                                                              andGCMFields:nil];
-    
-    //ペイロードを削る
-    [message setSendSender:[NSNumber numberWithBool:NO]];
-    // Disable "w" field
-    [message setSendWhen:[NSNumber numberWithBool:NO]];
-    // Disable "to" field
-    [message setSendTopicID:[NSNumber numberWithBool:NO]];
-    // Disable "sa", "st" and "su" field
-    [message setSendObjectScope:[NSNumber numberWithBool:NO]];
-    
-    NSError *error = nil;
-    
-    [topic sendMessageSynchronous:message
-                        withError:&error];
-    if (error != nil) {
-        // There was a problem.
-        NSLog(@"参加処理でエラー");
-        NSLog(@"error:%@",error);
-    }*/
-    
 }
 
 #pragma mark Button_Action

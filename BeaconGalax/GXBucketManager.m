@@ -152,17 +152,23 @@
     [groupTopic saveSynchronous:&error];
     if (!error) {
         NSLog(@"トピック作成完了");
+        [KiiPushSubscription subscribe:groupTopic withBlock:^(KiiPushSubscription *subscription, NSError *error) {
+            if (error == nil) {
+                NSLog(@"startTopic購読");
+            }
+        }];
     }
-    KiiTopic *clearTopic = [group topicWithName:@"quest_end"];
-    [clearTopic saveSynchronous:&error];
-    KiiPushSubscription *sub_clearTopic = [KiiPushSubscription subscribeSynchronous:clearTopic withError:&error];
-    KiiPushSubscription *sub_startTopic = [KiiPushSubscription subscribeSynchronous:groupTopic withError:&error];
-    
     
     //クエスト
     NSDictionary *dict = obj.dictionaryValue;
     NSArray *allKeys = dict.allKeys;
     KiiObject *newObj = [self.inviteBoard createObject]; //募集掲示板のやつ
+    
+    for (NSString *key in allKeys) {
+        [newObj setObject:dict[key] forKey:key];
+    }
+    [newObj setObject:group.objectURI forKey:quest_groupURI];
+    [newObj saveSynchronous:&error];
     
     //グループに入れとく
     KiiBucket *groupBucket = [group bucketWithName:@"quest"]; //<---購読
@@ -171,14 +177,6 @@
         [groupQuest setObject:dict[key] forKey:key];
     }
     [groupQuest saveSynchronous:&error];
-    
-    for (NSString *key in allKeys) {
-        [newObj setObject:dict[key] forKey:key];
-    }
-    [newObj setObject:group.objectURI forKey:quest_groupURI];
-   // [newObj setObject:newObj.objectURI forKey:@"uri"];
-    
-    [newObj saveSynchronous:&error];
     
     //bucketを購読
     [KiiPushSubscription subscribe:groupBucket withBlock:^(KiiPushSubscription *subscription, NSError *error) {
@@ -292,6 +290,20 @@
         else
             [[NSNotificationCenter defaultCenter] postNotificationName:GXGroupMemberFetchedNotification object:results];
     }];
+}
+
+- (KiiObject *)getGroupQuest:(KiiGroup *)group
+{
+    //参加したクエストを取得
+    NSError *error = nil;
+    KiiBucket *bucket = [group bucketWithName:@"quest"];
+    KiiQuery *query = [KiiQuery queryWithClause:nil];
+    KiiQuery *nextQuery;
+    NSArray *results = [bucket executeQuerySynchronous:query withError:&error andNext:&nextQuery];
+    KiiObject *obj = results.firstObject;
+    
+    return obj;
+
 }
 
 #pragma mark - UserScope

@@ -18,9 +18,8 @@
 @property (weak, nonatomic) IBOutlet UICollectionView *collectionView;
 @property NSMutableArray *questMemberArray;
 
-@property KiiGroup *questGroup;
-@property (weak, nonatomic) IBOutlet UIView *headerView;
-@property (weak, nonatomic) IBOutlet UILabel *headerLable;
+@property KiiObject *quest;
+
 @property (weak, nonatomic) IBOutlet FUIButton *actionButton;
 
 @end
@@ -43,12 +42,6 @@
     [_refreshControl addTarget:self action:@selector(refresh) forControlEvents:UIControlEventValueChanged];
     [self.collectionView addSubview:_refreshControl];
     
-    self.headerView.layer.masksToBounds = NO;
-    self.headerView.layer.shadowOffset = CGSizeMake(0.0, 0.0);
-    self.headerView.layer.shadowOpacity = 0.1;
-    self.headerView.layer.shadowRadius = 2.0f;
-    self.headerLable.font = [UIFont boldFlatFontOfSize:17];
-    
     self.actionButton.buttonColor = [UIColor turquoiseColor];
     self.actionButton.shadowColor = [UIColor greenSeaColor];
     self.actionButton.shadowHeight = 3.0f;
@@ -62,44 +55,24 @@
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
-    
-    //[SVProgressHUD showWithStatus:@"メンバーを取得中"];
+    self.quest = [[GXBucketManager sharedManager] getGroupQuest:self.selectedQuestGroup];
 }
 
 - (void)viewDidAppear:(BOOL)animated
 {
     [super viewDidAppear:animated];
     //メンバーフェッチ
-    NSString *groupURI = [self.selectedObj getObjectForKey:quest_groupURI];
-    self.questGroup = [KiiGroup groupWithURI:groupURI];
-    [self.questGroup refreshWithBlock:^(KiiGroup *group, NSError *error) {
+    [self.selectedQuestGroup refreshWithBlock:^(KiiGroup *group, NSError *error) {
         if (error) NSLog(@"error:%@",error);
         else
             [[GXBucketManager sharedManager] getQuestMember:group];
         
         //現在ログイン中のユーザがオーナーかどうかでUIを変える
-        if ([self isCurrentUserOwner:self.questGroup]) {
+        if ([self isCurrentUserOwner:self.selectedQuestGroup]) {
             //オーナー
             [self.actionButton setTitle:@"Start" forState:UIControlStateNormal];
             [self.actionButton bk_addEventHandler:^(id sender) {
-                
-                if ([[self.selectedObj getObjectForKey:quest_isReady_num] intValue] > 0 ) {
-                    NSLog(@"開始処理できます");
-                    [SVProgressHUD showWithStatus:@"クエストを開始しています"];
-                    NSError *error;
-                    KiiTopic *startTopic = [self.questGroup topicWithName:@"quest_start"];
-                    KiiAPNSFields *apnsFields = [KiiAPNSFields createFields];
-                    KiiPushMessage *message = [KiiPushMessage composeMessageWithAPNSFields:apnsFields andGCMFields:nil];
-                    [startTopic sendMessageSynchronous:message withError:&error];
-                    if (error) {
-                        NSLog(@"error:%@",error);
-                        [SVProgressHUD showErrorWithStatus:@"クエストを開始できません"];
-                    } else {
-                        
-                        
-                    }
-                }
-                
+                [self questStartSequence];
             } forControlEvents:UIControlEventTouchUpInside];
             
         } else {
@@ -107,36 +80,66 @@
             [self.actionButton setTitle:@"準備完了" forState:UIControlStateNormal];
             
             [self.actionButton bk_addEventHandler:^(id sender) {
-                
-                //準備完了処理
-                //クエストにできたよーって書き込む
-                NSError *error;
-                int isReadyNum = [[self.selectedObj getObjectForKey:quest_isReady_num] intValue];
-                isReadyNum++;
-                NSNumber *newValue = [NSNumber numberWithInt:isReadyNum];
-                [self.selectedObj setObject:newValue forKey:quest_isReady_num];
-                [self.selectedObj saveSynchronous:&error];
-                if (error) NSLog(@"error:%@",error);
-                
-                //自分のステータス(cell用)
-                for (KiiObject *obj in self.questMemberArray) {
-                    
-                    if ([[obj getObjectForKey:@"uri"] isEqualToString:[KiiUser currentUser].objectURI]) {
-                        
-                        //準備完了じゃなかったら→完了へ
-                        if ([[obj getObjectForKey:user_isReady] isEqualToNumber:@NO]) {
-                            [obj setObject:@YES forKey:user_isReady];
-                            [obj saveSynchronous:&error];
-                            [self.collectionView reloadData];
-                        }
-                        
-                    }
-                }
-                
+                [self setReadyStatus];
             } forControlEvents:UIControlEventTouchUpInside];
         }
     }];
 
+}
+
+- (void)questStartSequence
+{
+    NSError *error;
+    [self.quest refreshSynchronous:&error];
+    if ([[self.quest getObjectForKey:quest_isReady_num] intValue] > 0 ) {
+        NSError *error;
+        KiiTopic *startTopic = [self.selectedQuestGroup topicWithName:@"quest_start"];
+        KiiAPNSFields *apnsFields = [KiiAPNSFields createFields];
+        KiiPushMessage *message = [KiiPushMessage composeMessageWithAPNSFields:apnsFields andGCMFields:nil];
+        [startTopic sendMessageSynchronous:message withError:&error];
+        
+        if (error) {
+            NSLog(@"error:%@",error);
+            [SVProgressHUD showErrorWithStatus:@"クエストを開始できません"];
+        } else {
+            
+            
+        }
+    }
+}
+
+- (void)setReadyStatus
+{
+    //クエストにできたよーって書き込む
+    NSError *error;
+    int isReadyNum = [[self.quest getObjectForKey:quest_isReady_num] intValue];
+    NSLog(@"readynum:%d",isReadyNum);
+    isReadyNum++;
+    NSNumber *newValue = [NSNumber numberWithInt:isReadyNum];
+    [self.quest setObject:newValue forKey:quest_isReady_num];
+    [self.quest saveSynchronous:&error];
+    if (error) {
+        NSLog(@"error:%@",error);
+    } else {
+        NSLog(@"readyup");
+    }
+    
+    
+    //自分のステータス(cell用)
+    for (KiiObject *obj in self.questMemberArray) {
+        
+        if ([[obj getObjectForKey:@"uri"] isEqualToString:[KiiUser currentUser].objectURI]) {
+            
+            //準備完了じゃなかったら→完了へ
+            if ([[obj getObjectForKey:user_isReady] isEqualToNumber:@NO]) {
+                [obj setObject:@YES forKey:user_isReady];
+                [obj saveSynchronous:&error];
+            }
+            
+        }
+    }
+    
+    [self.collectionView reloadData];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -193,6 +196,7 @@
             
             if ([[member getObjectForKey:user_isReady] isEqualToNumber:@YES]) {
                 cell.readyIcon.hidden = NO;
+                cell.backgroundColor = [UIColor whiteColor];
             }
             
         }
@@ -260,7 +264,7 @@
 - (void)refresh
 {
     NSLog(@"refresh");
-    [[GXBucketManager sharedManager] getQuestMember:self.questGroup];
+    [[GXBucketManager sharedManager] getQuestMember:self.selectedQuestGroup];
     [NSTimer scheduledTimerWithTimeInterval:1.f target:self selector:@selector(endRefresh) userInfo:nil repeats:NO];
 }
 
@@ -275,8 +279,8 @@
 {
     if ([segue.identifier isEqualToString:@"test"]) {
         GXQuestExeViewController *vc = segue.destinationViewController;
-        vc.exeQuest = self.selectedObj;
-        vc.exeGroup = self.questGroup;
+        vc.exeQuest = self.quest;
+        vc.exeGroup = self.selectedQuestGroup;
     }
 }
 
@@ -284,8 +288,10 @@
 {
     UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"subStoryboard" bundle:nil];
     GXQuestExeViewController *initialViewController = [storyboard instantiateInitialViewController];
-    initialViewController.exeQuest = self.selectedObj;
-    initialViewController.exeGroup = self.questGroup;
+    initialViewController.exeQuest = self.quest;
+    initialViewController.exeGroup = self.selectedQuestGroup;
+    initialViewController.isMulti = YES;
+    initialViewController.groupMemberNum = (int)self.questMemberArray.count;
     [self presentViewController:initialViewController animated:YES completion:^{
         //NSDictionary *dict = @{self.selectedObj.objectURI:@"selectedObj",self.questGroup.objectURI:@"questGroupURI"};
         //[[NSNotificationCenter defaultCenter] postNotificationName:@"dismissedWithMulti" object:self.selectedObj];

@@ -16,7 +16,8 @@
 @interface GXInviteQuestViewController ()<UICollectionViewDataSource,UICollectionViewDelegate>
 @property (weak, nonatomic) IBOutlet UICollectionView *collectionView;
 @property NSMutableArray *invitedQuestArray;
-@property KiiObject *selectedObject;
+@property KiiObject *selectedInviteBucketObj; //InviteBucketObject;
+@property KiiGroup *questGroupAtSelected;
 
 @end
 
@@ -232,6 +233,8 @@
     [SVProgressHUD dismiss];
 }
 
+//参加者
+#pragma mark - デバック必要
 - (void)addedGroup:(NSNotification *)info
 {
     NSError *error;
@@ -250,7 +253,6 @@
         }
     }
     
-    
     //参加したクエストを取得
     KiiBucket *bucket = [joinedGroup bucketWithName:@"quest"];
     KiiQuery *query = [KiiQuery queryWithClause:nil];
@@ -261,8 +263,9 @@
     //自分の参加済み協力クエに登録
     [[GXBucketManager sharedManager] registerJoinedMultiQuest:obj];
 
-    //notjoinから消す
-    [[GXBucketManager sharedManager] deleteJoinedQuest:obj];
+    //notjoinから消す --------> Debug
+    //このobjは(Groupスコープのobjと紐付いてるから消すとそっちが消える)
+    //[[GXBucketManager sharedManager] deleteJoinedQuest:obj];
     
     [KiiPushSubscription subscribeSynchronous:bucket withError:&error];
     if (!error) NSLog(@"参加者によるグループバケットの購読完了");
@@ -303,10 +306,10 @@
 
 - (void)gotoQuestPartyView:(NSIndexPath *)indexPath
 {
-    self.selectedObject = self.invitedQuestArray[indexPath.row];
-    KiiGroup *group = [self getGroup:(int)indexPath.row];
+    self.selectedInviteBucketObj = self.invitedQuestArray[indexPath.row];
+    self.questGroupAtSelected = [self getGroup:(int)indexPath.row];
     
-    if ([self isJoined:group])
+    if ([self isJoined:self.questGroupAtSelected])
         [self performSegueWithIdentifier:@"goto_QuestMemberView" sender:self];
 
 }
@@ -316,7 +319,7 @@
 {
     if ([segue.identifier isEqualToString:@"goto_QuestMemberView"]) {
         GXQuestGroupViewController *vc = segue.destinationViewController;
-        vc.selectedObj = self.selectedObject;
+        vc.selectedQuestGroup = self.questGroupAtSelected;
         
     }
 }

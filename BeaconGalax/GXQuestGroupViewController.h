@@ -14,6 +14,6 @@
 
 @interface GXQuestGroupViewController : UIViewController
 
-@property (nonatomic,retain) KiiObject *selectedObj;
+@property (nonatomic,retain) KiiGroup *selectedQuestGroup;
 
 @end

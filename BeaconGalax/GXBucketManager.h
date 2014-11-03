@@ -52,7 +52,8 @@
 
 //クエストメンバーをフェッチ
 - (void)getQuestMember:(KiiGroup *)group;
-
+//グループでやってるクエストをフェッチ
+- (KiiObject *)getGroupQuest:(KiiGroup *)group;
 
 - (KiiObject *)getMeFromGalaxUserBucket;
 

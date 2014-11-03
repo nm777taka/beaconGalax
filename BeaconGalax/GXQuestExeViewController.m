@@ -29,15 +29,12 @@
 @property (nonatomic,assign) float localQuestProgress;
 @property (nonatomic,assign) float localUserProgress;
 @property NSTimer *userTimer;
-@property BOOL isCommited;
-@property BOOL isMulti;
 
 @property ESTBeaconManager *beaconManager;
 @property ESTBeaconRegion *beaconRegion;
 @property CLBeaconMajorValue subjectBeaconMajor;
 @property NSUUID *uuid;
 
-@property int groupMemberNum;
 
 @property BOOL isShowCompleteView;
 
@@ -53,7 +50,6 @@
     self.beaconManager.delegate = self;
     self.beaconManager.avoidUnknownStateBeacons = YES;
     
-    self.isCommited = NO;
     [self configureUserProgress];
     [self configureQuestProgress];
     
@@ -62,12 +58,9 @@
     halo.backgroundColor = FlatWatermelon.CGColor;
     halo.radius = 240.0f;
     [self.view.layer insertSublayer:halo below:self.beaconImage.layer];
-
     
     //notification
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(questCommitHandler:) name:GXCommitQuestNotification object:nil];
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(dismissed:) name:@"dismissed" object:nil];
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(dismissedMulti:) name:@"dismissedWithMulti" object:nil];
     
 }
 
@@ -188,14 +181,12 @@
 
 - (void)viewWillAppear:(BOOL)animated
 {
-    //[self fetchGroupQuest];
     [self startBeacon];
 }
 
 - (void)viewDidAppear:(BOOL)animated
 {
     [super viewDidAppear:YES];
-    NSLog(@"exeQuest:%@",self.exeQuest);
 }
 
 - (void)viewDidDisappear:(BOOL)animated
@@ -214,16 +205,6 @@
     [self.beaconManager startRangingBeaconsInRegion:self.beaconRegion];
     self.beaconRegion = [[ESTBeaconRegion alloc] initWithProximityUUID:self.uuid identifier:@"estimote"];
 }
-
-/*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-*/
 
 #pragma mark - estBeaconDelegate
 - (void)beaconManager:(ESTBeaconManager *)manager didRangeBeacons:(NSArray *)beacons inRegion:(ESTBeaconRegion *)region
@@ -339,7 +320,7 @@
     NSLog(@"exeQuest:%@",self.exeQuest);
     KiiServerCodeEntry *entry = [Kii serverCodeEntry:@"commitQuest"];
     NSDictionary* argDict= [NSDictionary dictionaryWithObjectsAndKeys:
-                            self.exeGroup.objectURI, @"groupURI",self.exeQuest.objectURI,@"questURI", [NSNumber numberWithInt:self.groupMemberNum], @"memberNum",[NSNumber numberWithBool:self.isMulti],@"isMulti",nil];
+                            self.exeQuest.objectURI,@"questURI",nil];
     
     KiiServerCodeEntryArgument *argument = [KiiServerCodeEntryArgument argumentWithDictionary:argDict];
     
@@ -379,57 +360,6 @@
             
         }];
     }];
-}
-
-- (void)sendCommitPush
-{
-    NSLog(@"sendCommitPush");
-    NSError *error;
-    KiiTopic *commitTopic = [self.exeGroup topicWithName:@"quest_commit"];
-    KiiAPNSFields *apnesFields = [KiiAPNSFields createFields];
-    KiiPushMessage *msg = [KiiPushMessage composeMessageWithAPNSFields:apnesFields andGCMFields:nil];
-    [commitTopic sendMessageSynchronous:msg withError:&error];
-    if (error) {
-        NSLog(@"sendPushError:%@",error);
-    } else {
-        NSLog(@"コミットpush送信完了");
-    }
-    
-}
-
-- (void)sendClearPush
-{
-    NSError *error;
-    KiiTopic *clearTopic = [self.exeGroup topicWithName:@"quest_end"];
-    KiiAPNSFields *apnsFields = [KiiAPNSFields createFields];
-    KiiPushMessage *msg = [KiiPushMessage composeMessageWithAPNSFields:apnsFields andGCMFields:nil];
-    [clearTopic sendMessageSynchronous:msg withError:&error];
-    if (error) {
-        NSLog(@"sendPushError:%@",error);
-        [SVProgressHUD showErrorWithStatus:@"push通知送信エラー"];
-    } else {
-        NSLog(@"クリアpush送信完了");
-    }
-}
-
-//画面遷移後(mainStoryBoardから)(一人用)
-- (void)dismissed:(NSNotification *)notis
-{
-    self.exeQuest = notis.object;
-    int playerNum = [[self.exeQuest getObjectForKey:quest_player_num] intValue];
-    if (playerNum > 1) {
-        self.isMulti = YES;
-    } else {
-        self.isMulti = NO;
-    }
-}
-
-- (void)dismissedMulti:(NSNotification *)notis
-{
-    self.exeQuest = notis.object;
-    NSLog(@"exeQuest:%@",self.exeQuest);
-    self.groupMemberNum = 2;
-    self.isMulti = YES;
 }
 
 - (void)gotoClearView
