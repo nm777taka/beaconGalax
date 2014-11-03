@@ -7,6 +7,7 @@
 //
 
 #import "GXExeQuestManager.h"
+#import "GXDictonaryKeys.h"
 
 @implementation GXExeQuestManager
 
@@ -30,6 +31,34 @@
     }
     
     return self;
+}
+
+- (void)startExeQuest
+{
+    [self.exeQuest refreshWithBlock:^(KiiObject *object, NSError *error) {
+        [object setObject:@YES forKey:quest_isStarted];
+        [object saveWithBlock:^(KiiObject *object, NSError *error) {
+            if (error) {
+                NSLog(@"error:%@",error);
+            } else {
+                
+            }
+        }];
+    }];
+}
+
+- (void)completeQuest
+{
+    [self.exeQuest refreshWithBlock:^(KiiObject *object, NSError *error) {
+        [object setObject:@YES forKey:quest_isCompleted];
+        [object saveWithBlock:^(KiiObject *object, NSError *error) {
+            if (error) {
+                NSLog(@"error:%@",error);
+            } else {
+                
+            }
+        }];
+    }];
 }
 
 @end

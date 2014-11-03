@@ -16,5 +16,8 @@
 
 + (GXExeQuestManager *)sharedManager;
 
+- (void)startExeQuest;
+- (void)completeQuest;
+
 
 @end

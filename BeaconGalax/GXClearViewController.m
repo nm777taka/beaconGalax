@@ -8,6 +8,7 @@
 
 #import "GXClearViewController.h"
 #import "GXBucketManager.h"
+#import "GXExeQuestManager.h"
 #import "GXDictonaryKeys.h"
 #import "GXNotification.h"
 #import "GXQuestViewController.h"
@@ -43,7 +44,7 @@
         UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"Congratulation" message:@"クエストクリアおめでとうございます" preferredStyle:UIAlertControllerStyleAlert];
         [alertController addAction:[UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
             
-        //[self deleteMultiQuest];
+            [[GXExeQuestManager sharedManager] completeQuest];
             
             UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:[NSBundle mainBundle]];
             UIViewController *initViewController = [storyboard instantiateInitialViewController];

@@ -12,6 +12,7 @@
 #import "GXDictonaryKeys.h"
 #import "GXNotification.h"
 #import "GXBucketManager.h"
+#import "GXExeQuestManager.h"
 
 @interface GXQuestGroupViewController ()<UICollectionViewDataSource,UICollectionViewDelegate>
 
@@ -34,9 +35,6 @@
     self.collectionView.delegate = self;
     self.collectionView.dataSource = self;
     self.collectionView.alwaysBounceVertical = YES;
-    //Notificaiton
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(memberFetched:) name:GXGroupMemberFetchedNotification object:nil];
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(questStart:) name:GXStartQuestNotification object:nil];
     
     _refreshControl = [UIRefreshControl new];
     [_refreshControl addTarget:self action:@selector(refresh) forControlEvents:UIControlEventValueChanged];
@@ -47,14 +45,16 @@
     self.actionButton.shadowHeight = 3.0f;
     self.actionButton.cornerRadius = 6.0f;
     self.actionButton.titleLabel.font = [UIFont boldFlatFontOfSize:16];
-
-    
     
 }
 
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
+    //Notificaiton
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(memberFetched:) name:GXGroupMemberFetchedNotification object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(questStart:) name:GXStartQuestNotification object:nil];
+
     self.quest = [[GXBucketManager sharedManager] getGroupQuest:self.selectedQuestGroup];
 }
 
@@ -85,6 +85,12 @@
         }
     }];
 
+}
+
+- (void)viewDidDisappear:(BOOL)animated
+{
+    [super viewDidDisappear:animated];
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
 
 - (void)questStartSequence
@@ -293,8 +299,7 @@
     initialViewController.isMulti = YES;
     initialViewController.groupMemberNum = (int)self.questMemberArray.count;
     [self presentViewController:initialViewController animated:YES completion:^{
-        //NSDictionary *dict = @{self.selectedObj.objectURI:@"selectedObj",self.questGroup.objectURI:@"questGroupURI"};
-        //[[NSNotificationCenter defaultCenter] postNotificationName:@"dismissedWithMulti" object:self.selectedObj];
+        [[GXExeQuestManager sharedManager] startExeQuest]; //isStartedをYESに
     }];
 }
 

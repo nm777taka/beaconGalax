@@ -12,6 +12,7 @@
 #import "GXDictonaryKeys.h"
 #import "GXNotification.h"
 #import "GXBucketManager.h"
+#import "GXExeQuestManager.h"
 
 @interface GXInviteQuestViewController ()<UICollectionViewDataSource,UICollectionViewDelegate>
 @property (weak, nonatomic) IBOutlet UICollectionView *collectionView;
@@ -32,10 +33,6 @@
     self.collectionView.dataSource = self;
     self.collectionView.alwaysBounceVertical = YES;
     
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(invitedQuestFetched:) name:GXInvitedQuestFetchedNotification object:nil];
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(addedGroup:) name:GXAddGroupSuccessedNotification object:nil];
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(joinButtonTopped:) name:@"inviteViewCellTopped" object:nil];
-    
     _refreshControl = [UIRefreshControl new];
     [_refreshControl addTarget:self action:@selector(refresh) forControlEvents:UIControlEventValueChanged];
     [self.collectionView addSubview:_refreshControl];
@@ -45,8 +42,17 @@
 {
     [super viewWillAppear:animated];
     self.navigationController.navigationBarHidden = NO;
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(invitedQuestFetched:) name:GXInvitedQuestFetchedNotification object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(addedGroup:) name:GXAddGroupSuccessedNotification object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(joinButtonTopped:) name:@"inviteViewCellTopped" object:nil];
     [[GXBucketManager sharedManager] getInvitedQuest];
     [SVProgressHUD showWithStatus:@"クエストを取得しています"];
+}
+
+- (void)viewDidDisappear:(BOOL)animated
+{
+    [super viewDidDisappear:animated];
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -299,7 +305,6 @@
     }
     
     //参加アクション
-    [self configureCell:cell atIndexPath:indexPath];
     [self sendPushtoOwner:group];
     
 }
@@ -310,6 +315,7 @@
     self.questGroupAtSelected = [self getGroup:(int)indexPath.row];
     
     if ([self isJoined:self.questGroupAtSelected])
+        [GXExeQuestManager sharedManager].exeQuest = self.selectedInviteBucketObj; //マネージャーでこれからやるクエストを管理(InvitedBoardのクエスト)
         [self performSegueWithIdentifier:@"goto_QuestMemberView" sender:self];
 
 }

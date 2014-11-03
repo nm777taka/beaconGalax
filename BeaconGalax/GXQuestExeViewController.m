@@ -59,10 +59,8 @@
     halo.radius = 240.0f;
     [self.view.layer insertSublayer:halo below:self.beaconImage.layer];
     
-    //notification
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(questCommitHandler:) name:GXCommitQuestNotification object:nil];
-    
 }
+
 
 #pragma makr - ユーザプログレス
 
@@ -181,6 +179,7 @@
 
 - (void)viewWillAppear:(BOOL)animated
 {
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(questCommitHandler:) name:GXCommitQuestNotification object:nil];
     [self startBeacon];
 }
 
@@ -192,6 +191,7 @@
 - (void)viewDidDisappear:(BOOL)animated
 {
     [super viewDidDisappear:animated];
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
     [self.beaconManager stopMonitoringForRegion:self.beaconRegion];
     [self.beaconManager stopRangingBeaconsInRegion:self.beaconRegion];
 }
