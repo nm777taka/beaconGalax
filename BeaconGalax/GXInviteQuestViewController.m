@@ -14,7 +14,7 @@
 #import "GXBucketManager.h"
 #import "GXExeQuestManager.h"
 
-@interface GXInviteQuestViewController ()<UICollectionViewDataSource,UICollectionViewDelegate>
+@interface GXInviteQuestViewController ()<UICollectionViewDataSource,UICollectionViewDelegate,FUIAlertViewDelegate>
 @property (weak, nonatomic) IBOutlet UICollectionView *collectionView;
 @property NSMutableArray *invitedQuestArray;
 @property KiiObject *selectedInviteBucketObj; //InviteBucketObject;
@@ -158,9 +158,24 @@
     return group;
 }
 
+- (void)showPushSendAlert
+{
+    FUIAlertView *alert = [[FUIAlertView alloc] initWithTitle:@"確認" message:@"このクエストに参加しますか？" delegate:self cancelButtonTitle:@"NO" otherButtonTitles:@"JOIN", nil];
+    alert.titleLabel.textColor = [UIColor cloudsColor];
+    alert.titleLabel.font = [UIFont boldFlatFontOfSize:16];
+    alert.messageLabel.textColor  = [UIColor cloudsColor];
+    alert.messageLabel.font = [UIFont boldFlatFontOfSize:14];
+    alert.backgroundOverlay.backgroundColor = [[UIColor cloudsColor] colorWithAlphaComponent:0.8];
+    alert.alertContainer.backgroundColor = [UIColor orangeColor];
+    alert.defaultButtonColor = [UIColor cloudsColor];
+    alert.defaultButtonShadowColor = [UIColor asbestosColor];
+    alert.defaultButtonFont = [UIFont boldFlatFontOfSize:16];
+    alert.defaultButtonTitleColor = [UIColor asbestosColor];
+    [alert show];
+}
+
 - (void)sendPushtoOwner:(KiiGroup *)group
 {
-    NSLog(@"sendPushtoOwner--->");
     NSError *error;
     KiiUser *ownerUser = [group getOwnerSynchronous:&error];
     KiiTopic *topic = [ownerUser topicWithName:topic_invite];
@@ -183,13 +198,15 @@
     // Disable "sa", "st" and "su" field
     [message setSendObjectScope:[NSNumber numberWithBool:NO]];
     
-    [topic sendMessageSynchronous:message withError:&error];
+    [topic sendMessage:message withBlock:^(KiiTopic *topic, NSError *error) {
+        
+        if (error) {
+            NSLog(@"error:%@",error);
+        } else {
+            NSLog(@"送信完了");
+        }
+    }];
     
-    if (error) {
-        NSLog(@"error:%@",error);
-    } else {
-        NSLog(@"送信完了");
-    }
 }
 
 - (BOOL)isOwner:(KiiGroup *)group
@@ -250,34 +267,40 @@
     
     //トピック購読
     KiiTopic *topic = [joinedGroup topicWithName:@"quest_start"];
-    KiiPushSubscription *subscription = [KiiPushSubscription subscribeSynchronous:topic withError:&error];
-    if (error) NSLog(@"error:%@",error);
-    else {
-        BOOL isSubscribe = [KiiPushSubscription checkSubscriptionSynchronous:topic withError:&error];
-        if (isSubscribe) {
-            NSLog(@"購読済み");
-        }
-    }
+    [KiiPushSubscription subscribe:topic withBlock:^(KiiPushSubscription *subscription, NSError *error) {
+        if (error) NSLog(@"error:%@",error);
+    }];
     
     //参加したクエストを取得
     KiiBucket *bucket = [joinedGroup bucketWithName:@"quest"];
     KiiQuery *query = [KiiQuery queryWithClause:nil];
-    KiiQuery *nextQuery;
-    NSArray *results = [bucket executeQuerySynchronous:query withError:&error andNext:&nextQuery];
-    KiiObject *obj = results.firstObject;
-    
-    //自分の参加済み協力クエに登録
-    [[GXBucketManager sharedManager] registerJoinedMultiQuest:obj];
+    [bucket executeQuery:query withBlock:^(KiiQuery *query, KiiBucket *bucket, NSArray *results, KiiQuery *nextQuery, NSError *error) {
+        
+        if (!error) {
+            
+            KiiObject *obj = results.firstObject;
+            //自分の参加済み協力クエに登録
+            [[GXBucketManager sharedManager] registerJoinedMultiQuest:obj];
+        }
 
+    }];
+    
+    
     //notjoinから消す --------> Debug
     //このobjは(Groupスコープのobjと紐付いてるから消すとそっちが消える)
     //[[GXBucketManager sharedManager] deleteJoinedQuest:obj];
     
-    [KiiPushSubscription subscribeSynchronous:bucket withError:&error];
-    if (!error) NSLog(@"参加者によるグループバケットの購読完了");
+    KiiBucket *clearJudegeBucket = [joinedGroup bucketWithName:@"clear_judge"];
     
-    [SVProgressHUD showSuccessWithStatus:@"参加完了!"];
-
+    [KiiPushSubscription subscribe:clearJudegeBucket withBlock:^(KiiPushSubscription *subscription, NSError *error) {
+        
+        if (!error) NSLog(@"参加者によるグループバケットの購読完了");
+    }];
+    
+    [SVProgressHUD dismiss];
+    
+    [TSMessage showNotificationWithTitle:@"参加完了" type:TSMessageNotificationTypeSuccess];
+    
     [self.collectionView reloadData];
     
 }
@@ -290,23 +313,22 @@
     
     //色々判定する
     //タップしたクエストのグループを取得
-    KiiGroup *group = [self getGroup:(int)indexPath.row];
+    self.questGroupAtSelected = [self getGroup:(int)indexPath.row];
     
     //自分がオーナかどうか
-    if ([self isOwner:group]) {
+    if ([self isOwner:self.questGroupAtSelected]) {
         [self gotoQuestPartyView:indexPath];
         return;
     }
     
     //既にグループに参加しているか
-    if ([self isJoined:group]) {
+    if ([self isJoined:self.questGroupAtSelected]) {
         [self gotoQuestPartyView:indexPath];
         return;
     }
     
     //参加アクション
-    [self sendPushtoOwner:group];
-    
+    [self showPushSendAlert];
 }
 
 - (void)gotoQuestPartyView:(NSIndexPath *)indexPath
@@ -318,6 +340,22 @@
         [GXExeQuestManager sharedManager].exeQuest = self.selectedInviteBucketObj; //マネージャーでこれからやるクエストを管理(InvitedBoardのクエスト)
         [self performSegueWithIdentifier:@"goto_QuestMemberView" sender:self];
 
+}
+
+#pragma mark - FUIAlertViewDelegate
+- (void)alertView:(FUIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
+{
+    switch (buttonIndex) {
+        case 0: //キャンセル
+            //なにもしない
+            break;
+        case 1:
+            [SVProgressHUD showWithStatus:@"参加申請中"];
+            [self sendPushtoOwner:self.questGroupAtSelected];
+            break;
+        default:
+            break;
+    }
 }
 
 #pragma mark - segue

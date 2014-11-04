@@ -145,21 +145,25 @@
     [newMember setObject:[ownerUser getObjectForKey:user_name] forKey:user_name];
     [newMember setObject:[ownerUser getObjectForKey:user_uri] forKey:user_uri];
     [newMember setObject:@YES forKey:user_isOwner];
-    [newMember saveSynchronous:&error];
+    [newMember saveWithBlock:^(KiiObject *object, NSError *error) {
+        
+    }];
     
     //グループtopicを作成(みんなで購読する)
     KiiTopic *groupTopic = [group topicWithName:@"quest_start"];
-    [groupTopic saveSynchronous:&error];
-    if (!error) {
-        NSLog(@"トピック作成完了");
-        [KiiPushSubscription subscribe:groupTopic withBlock:^(KiiPushSubscription *subscription, NSError *error) {
-            if (error == nil) {
-                NSLog(@"startTopic購読");
-            }
-        }];
-    }
+    [groupTopic saveWithBlock:^(KiiTopic *topic, NSError *error) {
+        if (!error) {
+            NSLog(@"トピック作成完了");
+            [KiiPushSubscription subscribe:groupTopic withBlock:^(KiiPushSubscription *subscription, NSError *error) {
+                if (error == nil) {
+                    NSLog(@"startTopic購読");
+                }
+            }];
+        }
+
+    }];
     
-    //クエスト
+    //募集用クエスト
     NSDictionary *dict = obj.dictionaryValue;
     NSArray *allKeys = dict.allKeys;
     KiiObject *newObj = [self.inviteBoard createObject]; //募集掲示板のやつ
@@ -168,24 +172,34 @@
         [newObj setObject:dict[key] forKey:key];
     }
     [newObj setObject:group.objectURI forKey:quest_groupURI];
-    [newObj saveSynchronous:&error];
+    [newObj saveWithBlock:^(KiiObject *object, NSError *error) {
+        
+        [[NSNotificationCenter defaultCenter ] postNotificationName:GXRegisteredInvitedBoardNotification object:nil];
+
+    }];
     
     //グループに入れとく
-    KiiBucket *groupBucket = [group bucketWithName:@"quest"]; //<---購読
-    KiiObject *groupQuest = [groupBucket createObject]; //groupにいれる
+    KiiBucket *groupQuestBucket = [group bucketWithName:@"quest"];
+    KiiObject *groupQuest = [groupQuestBucket createObject]; //groupにいれる
     for (NSString *key in allKeys) {
         [groupQuest setObject:dict[key] forKey:key];
     }
-    [groupQuest saveSynchronous:&error];
-    
-    //bucketを購読
-    [KiiPushSubscription subscribe:groupBucket withBlock:^(KiiPushSubscription *subscription, NSError *error) {
-        if (error == nil) {
-            NSLog(@"グループバケットの購読完了");
-        }
+    [groupQuest saveWithBlock:^(KiiObject *object, NSError *error) {
+        
     }];
     
-    [[NSNotificationCenter defaultCenter ] postNotificationName:GXRegisteredInvitedBoardNotification object:nil];
+    KiiBucket *clearJudgeBucket = [group bucketWithName:@"clear_judge"];
+    KiiObject *judgment= [clearJudgeBucket createObject];
+    [judgment setObject:@NO forKey:@"isClear"];
+    [judgment saveWithBlock:^(KiiObject *object, NSError *error) {
+        
+        //bucketを購読
+        [KiiPushSubscription subscribe:clearJudgeBucket withBlock:^(KiiPushSubscription *subscription, NSError *error) {
+            if (error == nil) {
+            }
+        }];
+    }];
+    
 }
 
 - (void)getInvitedQuest
