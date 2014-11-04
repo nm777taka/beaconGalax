@@ -253,6 +253,7 @@
 
 - (void)questCommitHandler:(NSNotification *)notis
 {
+    NSLog(@"enterrrrrrrrrrrr");
 //    NSError *error;
 //    //[self fetchGroupQuest]; //更新をフェッチ(最新の状態にする)
 //    
@@ -277,19 +278,22 @@
 //    
 //   // [self.progressView setProgress:_localQuestProgress animated:YES];
     
-    [self.exeQuest refreshWithBlock:^(KiiObject *object, NSError *error) {
-        if(error) NSLog(@"error");
-        else {
-            NSLog(@"suc_cnt:%@",[object getObjectForKey:quest_success_cnt]);
-            NSString *suc_cnt = [[object getObjectForKey:quest_success_cnt] stringValue];
-            NSString *member_cnt = [NSString stringWithFormat:@"%d",self.groupMemberNum];
-            
-            if ([suc_cnt isEqualToString:member_cnt]){
-                NSLog(@"クリア");
-                [self.progressView setProgress:1.0f animated:YES];
-            }
-        }
-    }];
+//    [self.exeQuest refreshWithBlock:^(KiiObject *object, NSError *error) {
+//        if(error) NSLog(@"error");
+//        else {
+//            NSLog(@"suc_cnt:%@",[object getObjectForKey:quest_success_cnt]);
+//            NSString *suc_cnt = [[object getObjectForKey:quest_success_cnt] stringValue];
+//            NSString *member_cnt = [NSString stringWithFormat:@"%d",self.groupMemberNum];
+//            
+//            if ([suc_cnt isEqualToString:member_cnt]){
+//                NSLog(@"クリア");
+//                [self.progressView setProgress:1.0f animated:YES];
+//            }
+//        }
+//    }];
+    
+    //ここにきた時点でクリアなのでクリアシーケンスに入るよ
+    [self.progressView setProgress:1.0f animated:YES];
     
 }
 
@@ -318,17 +322,21 @@
 - (void)commitQuest
 {
     NSLog(@"exeQuest:%@",self.exeQuest);
-    KiiServerCodeEntry *entry = [Kii serverCodeEntry:@"commitQuest"];
+    NSLog(@"exeQuest:%@",self.exeGroup);
+    NSLog(@"exeQuest:%d",self.groupMemberNum);
+    
+    KiiServerCodeEntry *entry = [Kii serverCodeEntry:@"commitGroupQuest"];
     NSDictionary* argDict= [NSDictionary dictionaryWithObjectsAndKeys:
-                            self.exeQuest.objectURI,@"questURI",nil];
+                            self.exeQuest.objectURI,@"questURI",self.exeGroup.objectURI,@"groupURI",[NSNumber numberWithInt:self.groupMemberNum],@"memberNum",nil];
     
     KiiServerCodeEntryArgument *argument = [KiiServerCodeEntryArgument argumentWithDictionary:argDict];
     
     NSError *error = nil;
-    KiiServerCodeExecResult *result = [entry executeSynchronous:argument withError:&error];
+    [entry execute:argument withBlock:^(KiiServerCodeEntry *entry, KiiServerCodeEntryArgument *argument, KiiServerCodeExecResult *result, NSError *error) {
+        NSDictionary *returendDict = [result returnedValue];
+        NSLog(@"returnd:%@",returendDict);
+    }];
     
-    NSDictionary *returendDict = [result returnedValue];
-    NSLog(@"returnd:%@",returendDict);
 }
 
 - (void)fetchGroupQuest

@@ -141,7 +141,7 @@
         }
         
         //グループのバケット購読によるpushハンドリング
-        if ([bucketName isEqualToString:@"quest"]) {
+        if ([bucketName isEqualToString:@"clear_judge"]) {
             if (application.applicationState == UIApplicationStateActive) {
                 NSLog(@"stand by ready,setup");
                 [[NSNotificationCenter defaultCenter] postNotificationName:GXCommitQuestNotification object:nil];
