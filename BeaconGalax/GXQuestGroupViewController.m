@@ -211,15 +211,6 @@
 
 }
 
-- (void)configureOwnerCell:(GXQuestGroupViewCell *)cell atIndexPath:(NSIndexPath *)indexPath
-{
-    
-}
-
-- (void)configureParticipantCell:(GXQuestGroupViewCell *)cell atIndexPath:(NSIndexPath *)indexPath
-{
-    
-}
 
 - (BOOL)isOwer:(int)index
 {
@@ -298,8 +289,20 @@
     initialViewController.exeGroup = self.selectedQuestGroup;
     initialViewController.isMulti = YES;
     initialViewController.groupMemberNum = (int)self.questMemberArray.count;
+    
+    //QMで管理
+    [GXExeQuestManager sharedManager].nowExeQuest = self.willExeQuest;
+    
     [self presentViewController:initialViewController animated:YES completion:^{
-        [[GXExeQuestManager sharedManager] startExeQuest]; //isStartedをYESに
+        
+        //どこのbucketに属しているか
+        //inviteだったらisStartedをtrueへ
+        KiiBucket *willExeQuestBucket = self.willExeQuest.bucket;
+        KiiBucket *inviteBucket = [GXBucketManager sharedManager].inviteBoard;
+        if (willExeQuestBucket == inviteBucket) {
+            [[GXExeQuestManager sharedManager] startQuestAtInvitedBucket:self.willExeQuest]; //isStartedをYESに
+        }
+        
     }];
 }
 

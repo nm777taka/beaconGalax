@@ -12,6 +12,7 @@
 #import "GXNotification.h"
 #import "GXFacebook.h"
 #import "GXDictonaryKeys.h"
+#import "GXExeQuestManager.h"
 
 #define GXQUEST_TYPE_ONE 1
 #define GXQUEST_TYPE_MULTI 2
@@ -41,13 +42,13 @@
         self.inviteBoard = [Kii bucketWithName:@"invite_board"];
         
         //Userスコープ
-        self.missionBoard = [[KiiUser currentUser] bucketWithName:@"mission_board"]; //消す
         self.notJoinedQuest = [[KiiUser currentUser] bucketWithName:@"notJoined_quest"];
         self.joinedQuest = [[KiiUser currentUser] bucketWithName:@"joined_quest"];//消す
         self.joinedOnePersonQuest = [[KiiUser currentUser] bucketWithName:@"joined_onePersonQuest"];
         self.joinedMultiPersonQuest = [[KiiUser currentUser] bucketWithName:@"joined_multiPersonQuest"];
-        self.myQuestParticipants = [[KiiUser currentUser] bucketWithName:@"myQuest_participants"];
+        
         self.pointBucket = [[KiiUser currentUser] bucketWithName:@"point"];
+        self.clearedBucket = [[KiiUser currentUser] bucketWithName:@"cleard"];
     }
     
     return self;
@@ -63,7 +64,7 @@
     [object setObject:user.objectURI forKey:@"uri"];
     [object setObject:@YES forKey:@"isNear"];
     [object setObject:@YES forKey:@"isMember"];
-    
+    [object setObject:[NSNumber numberWithInt:1] forKey:@"rank"];    
     
     NSError *error = nil;
     [object saveSynchronous:&error];
@@ -111,7 +112,6 @@
     [object setObject:quest.isStarted forKey:quest_isStarted];
     [object setObject:quest.isCompleted forKey:quest_isCompleted];
     [object setObject:quest.createdUserName forKey:quest_createdUserName];
-
     
     NSError *error  = nil;
     [object saveSynchronous:&error];
@@ -123,7 +123,7 @@
     }
 }
 
-- (void)registerInviteBoard:(KiiObject *)obj
+- (void)registerInviteBoard:(KiiObject *)obj //obj → not_joinedBucket
 {
     //group作成
     NSError *error;
@@ -172,21 +172,25 @@
         [newObj setObject:dict[key] forKey:key];
     }
     [newObj setObject:group.objectURI forKey:quest_groupURI];
+    
     [newObj saveWithBlock:^(KiiObject *object, NSError *error) {
+        
+        //グループに入れとく
+        KiiBucket *groupQuestBucket = [group bucketWithName:@"quest"];
+        KiiObject *groupQuest = [groupQuestBucket createObject]; //groupにいれる
+        for (NSString *key in allKeys) {
+            [groupQuest setObject:dict[key] forKey:key];
+        }
+        [groupQuest setObject:group.objectURI forKey:quest_groupURI];
+
+        [groupQuest saveWithBlock:^(KiiObject *object, NSError *error) {
+            
+        }];
         
         [[NSNotificationCenter defaultCenter ] postNotificationName:GXRegisteredInvitedBoardNotification object:nil];
 
     }];
     
-    //グループに入れとく
-    KiiBucket *groupQuestBucket = [group bucketWithName:@"quest"];
-    KiiObject *groupQuest = [groupQuestBucket createObject]; //groupにいれる
-    for (NSString *key in allKeys) {
-        [groupQuest setObject:dict[key] forKey:key];
-    }
-    [groupQuest saveWithBlock:^(KiiObject *object, NSError *error) {
-        
-    }];
     
     KiiBucket *clearJudgeBucket = [group bucketWithName:@"clear_judge"];
     KiiObject *judgment= [clearJudgeBucket createObject];
@@ -204,8 +208,8 @@
 
 - (void)getInvitedQuest
 {
-    KiiQuery *query = [KiiQuery queryWithClause:nil];
-    
+    KiiClause *clause = [KiiClause equals:quest_isCompleted value:@NO];
+    KiiQuery *query = [KiiQuery queryWithClause:clause];
     [self.inviteBoard executeQuery:query withBlock:^(KiiQuery *query, KiiBucket *bucket, NSArray *results, KiiQuery *nextQuery, NSError *error) {
         if (error) {
             NSLog(@"error:%@",error);
@@ -248,8 +252,10 @@
 - (BOOL)isInvitedQuest:(KiiObject *)obj
 {
     BOOL ret = false;
-    KiiClause *clause = [KiiClause equals:@"uri" value:[obj getObjectForKey:@"uri"]];
-    KiiQuery *query = [KiiQuery queryWithClause:clause];
+    KiiClause *clause1 = [KiiClause equals:@"id" value:[obj getObjectForKey:@"id"]];
+    KiiClause *clause2 = [KiiClause equals:quest_isCompleted value:@NO];
+    KiiClause *totalClause = [KiiClause andClauses:@[clause1,clause2]];
+    KiiQuery *query = [KiiQuery queryWithClause:totalClause];
     KiiQuery *nextQuery;
     NSError *error;
     NSArray *result = [self.inviteBoard executeQuerySynchronous:query withError:&error andNext:&nextQuery];
@@ -322,7 +328,7 @@
 
 #pragma mark - UserScope
 
-//参加したクエストをnotJoinから消す
+//参加したクエストをnotJoinBucketから消す
 - (void)deleteJoinedQuest:(KiiObject *)obj
 {
     [obj deleteWithBlock:^(KiiObject *object, NSError *error) {
@@ -368,7 +374,6 @@
                 for (NSString *key in allKeys) {
                     [newObj setObject:dict[key] forKey:key];
                 }
-                [newObj setObject:newObj.objectURI forKey:@"uri"];
                 [newObj saveWithBlock:^(KiiObject *object, NSError *error) {
                     
                     if (!error) {
@@ -383,23 +388,39 @@
 
 
 //参加したクエストを自分スコープのバケットに保存
-- (void)registerJoinedQuest:(KiiObject *)obj
+- (void)registerJoinedQuest:(KiiObject *)obj // obj → quest_group
 {
     KiiObject *newQuest = obj;
     int playerNum = [[newQuest getObjectForKey:quest_player_num] intValue];
     if (playerNum > 1) {
         //マルチ
         NSLog(@"マルチ");
-        [self copyObject:self.joinedMultiPersonQuest object:newQuest];
-        //tsmessageとかだす
-        [TSMessage showNotificationWithTitle:@"募集完了" type:TSMessageNotificationTypeSuccess];
+        NSDictionary *dict = obj.dictionaryValue;
+        NSArray *allKeys = dict.allKeys;
+        
+        KiiObject *newObj = [self.joinedMultiPersonQuest createObject];
+        for (NSString *key in allKeys) {
+            [newObj setObject:dict[key] forKey:key];
+        }
+        [newObj saveWithBlock:^(KiiObject *object, NSError *error) {
+            
+        }];
+        
         
     } else {
         if (playerNum != 0) {
             //一人用
             NSLog(@"ひとり");
-            [self copyObject:self.joinedOnePersonQuest object:newQuest];
-            [TSMessage showNotificationWithTitle:@"受注完了" type:TSMessageNotificationTypeSuccess];
+            NSDictionary *dict = obj.dictionaryValue;
+            NSArray *allKeys = dict.allKeys;
+            KiiObject *newObj = [self.joinedOnePersonQuest createObject];
+            for (NSString *key in allKeys) {
+                [newObj setObject:dict[key] forKey:key];
+            }
+            [newObj setObject:obj.objectURI forKey:@"id"];
+            [newObj saveWithBlock:^(KiiObject *object, NSError *error) {
+                [TSMessage showNotificationWithTitle:@"受注完了" type:TSMessageNotificationTypeSuccess];
+            }];
         }
     }
         
@@ -427,7 +448,8 @@
 //マルチ用クエストを取得
 - (void)getJoinedMultiPersonQuest
 {
-    KiiQuery *query = [KiiQuery queryWithClause:nil];
+    KiiClause *clause = [KiiClause equals:quest_isCompleted value:@NO];
+    KiiQuery *query = [KiiQuery queryWithClause:clause];
     [self.joinedMultiPersonQuest executeQuery:query withBlock:^(KiiQuery *query, KiiBucket *bucket, NSArray *results, KiiQuery *nextQuery, NSError *error) {
         if (error) {
             NSLog(@"error:%@",error);
@@ -511,52 +533,6 @@
             [[NSNotificationCenter defaultCenter] postNotificationName:GXFetchQuestNotComplitedNotification object:results userInfo:nil];
         }
     }];
-}
-
-#pragma mark - Mission Method
-- (void)fetchMissionWithNotCompleted
-{
-    NSLog(@"call---fetchmission");
-    KiiClause *clause = [KiiClause equals:@"isCompleted" value:@NO];
-    KiiQuery *query = [KiiQuery queryWithClause:clause];
-    [query sortByDesc:@"_created"];
-    
-    [self.missionBoard executeQuery:query withBlock:^(KiiQuery *query, KiiBucket *bucket, NSArray *results, KiiQuery *nextQuery, NSError *error) {
-        if (error) {
-            NSLog(@"error:%@",error);
-        } else {
-            //notis
-            NSLog(@"misson-count:%d",results.count);
-            [[NSNotificationCenter defaultCenter] postNotificationName:GXFetchMissionWithNotCompletedNotification object:results];
-        }
-    }];
-}
-
-#pragma mark - クリア判定
-- (BOOL)isClear:(KiiObject *)obj
-{
-    NSError *error;
-    BOOL ret = false;
-    int successCnt = [[obj getObjectForKey:quest_success_cnt] intValue];
-    successCnt ++;
-    
-    if ([[obj getObjectForKey:quest_clear_cnt]intValue] == successCnt) {
-        //clear
-        ret = true;
-        [obj setObject:[NSNumber numberWithBool:YES] forKey:quest_isCompleted];
-        [obj setObject:[NSNumber numberWithInt:successCnt] forKey:quest_success_cnt];
-        [obj saveSynchronous:&error];
-        
-        if (error) {
-            NSLog(@"error:%@",error);
-        }
-        
-        
-    } else {
-        ret = false;
-    }
-    
-    return ret;
 }
 
 

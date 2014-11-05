@@ -81,7 +81,6 @@
         
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(questFetched:) name:GXFetchQuestNotComplitedNotification object:nil];
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(joinQuestHandler:) name:GXQuestJoinNotification object:nil];
-        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(missionFetched:) name:GXFetchMissionWithNotCompletedNotification object:nil];
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(registeredInvitedBoard:) name:GXRegisteredInvitedBoardNotification object:nil];
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(deletedQuest:) name:@"deleteQuest" object:nil];
 
@@ -190,13 +189,6 @@
 
 }
 
-- (void)missionFetched:(NSNotification *)info
-{
-    NSArray *array = info.object;
-    self.objects = [NSMutableArray arrayWithArray:array];
-    [self.collectionView reloadData];
-}
-
 //カスタムcellクラスでタッチイベントを処理してる
 - (void)joinQuestHandler:(NSNotification *)notification
 {
@@ -264,30 +256,10 @@
 //    }
 }
 
-- (IBAction)dataSourceChange:(UISegmentedControl *)sender {
-    
-    switch (sender.selectedSegmentIndex) {
-        case 0: // 一人用
-            
-            [[GXBucketManager sharedManager] fetchQuestWithNotComplited];
-            
-            break;
-            
-        case 1: //みんな用
-            
-            [[GXBucketManager sharedManager] fetchMissionWithNotCompleted];
-            
-            
-            break;
-            
-        default:
-            break;
-    }
-}
-
 #pragma mark - Notification
 - (void)registeredInvitedBoard:(NSNotification *)notis
 {
+    [TSMessage showNotificationWithTitle:@"募集完了" type:TSMessageNotificationTypeSuccess];
 }
 
 - (void)deletedQuest:(NSNotification *)notis
@@ -394,7 +366,6 @@
             if (buttonIndex == 1) {
                 
                 [[GXBucketManager sharedManager] registerInviteBoard:self.selectedObject];
-                [[GXBucketManager sharedManager] registerJoinedQuest:self.selectedObject];
                 [[GXBucketManager sharedManager] deleteJoinedQuest:self.selectedObject];
 
             }
@@ -410,6 +381,9 @@
 {
     GXNavViewController *navController = [self.storyboard instantiateViewControllerWithIdentifier:@"contentController"];
     GXInviteQuestViewController *invitedVC = [self.storyboard instantiateViewControllerWithIdentifier:@"invite"];
+    
+    invitedVC.willDeleteObjAtNotJoin = self.selectedObject;
+    
     navController.viewControllers = @[invitedVC];
     self.frostedViewController.contentViewController = navController;
 }

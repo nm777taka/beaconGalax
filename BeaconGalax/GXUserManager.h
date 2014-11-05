@@ -11,9 +11,15 @@
 
 @interface GXUserManager : NSObject
 
+@property (nonatomic,retain) KiiObject *gxUser;
+
 + (GXUserManager *)sharedManager;
 
 - (void)addCalamAtSignup:(KiiUser *)user;
+
+- (int)getUserPoint;
+
+- (int)getUserRank;
 
 
 @end

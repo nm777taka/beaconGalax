@@ -335,6 +335,15 @@
 			name = QuestExeView;
 			sourceTree = "<group>";
 		};
+		0F3558241A0909B30023F2FF /* 実行中のクエスト */ = {
+			isa = PBXGroup;
+			children = (
+				0F71EB7D1A07AB1000E0EDAB /* GXExeQuestManager.h */,
+				0F71EB7E1A07AB1000E0EDAB /* GXExeQuestManager.m */,
+			);
+			name = "実行中のクエスト";
+			sourceTree = "<group>";
+		};
 		0F42365D19BCA2220001E204 /* Home */ = {
 			isa = PBXGroup;
 			children = (
@@ -704,6 +713,7 @@
 		0FA17E3119619EB600158421 /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				0F3558241A0909B30023F2FF /* 実行中のクエスト */,
 				0FA17E351961A09700158421 /* GXBucketManager.h */,
 				0FA17E361961A09700158421 /* GXBucketManager.m */,
 				0FA17E3B1961B00100158421 /* GXTopicManager.h */,
@@ -716,8 +726,6 @@
 				0F27DAF019824BC20000E0D0 /* GXNavigationItem.m */,
 				0F16512319D4435A00918F8D /* GXGroupManager.h */,
 				0F16512419D4435A00918F8D /* GXGroupManager.m */,
-				0F71EB7D1A07AB1000E0EDAB /* GXExeQuestManager.h */,
-				0F71EB7E1A07AB1000E0EDAB /* GXExeQuestManager.m */,
 			);
 			name = Model;
 			sourceTree = "<group>";

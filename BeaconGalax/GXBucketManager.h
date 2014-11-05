@@ -22,13 +22,12 @@
 
 //UserScope
 @property (nonatomic) KiiBucket *notJoinedQuest;
-@property (nonatomic) KiiBucket *missionBoard;
 @property (nonatomic) KiiBucket *nearUser; //消す
 @property (nonatomic) KiiBucket *joinedQuest; //消す
 @property (nonatomic) KiiBucket *joinedOnePersonQuest; //一人用
 @property (nonatomic) KiiBucket *joinedMultiPersonQuest; //複数用
-@property (nonatomic) KiiBucket *myQuestParticipants;
 @property (nonatomic) KiiBucket *pointBucket;
+@property (nonatomic) KiiBucket *clearedBucket;
 
 + (GXBucketManager *)sharedManager;
 

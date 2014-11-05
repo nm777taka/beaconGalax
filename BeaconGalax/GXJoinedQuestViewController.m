@@ -8,12 +8,14 @@
 
 #import "GXJoinedQuestViewController.h"
 #import "GXInviteQuestViewController.h"
+#import "GXQuestGroupViewController.h"
 #import "UITableViewCell+FlatUI.h"
 #import "GXQuestExeViewController.h"
 #import "GXNavViewController.h"
 #import "UIViewController+REFrostedViewController.h"
 #import "REFrostedViewController.h"
 #import "GXBucketManager.h"
+#import "GXExeQuestManager.h"
 #import "GXNotification.h"
 #import "GXDictonaryKeys.h"
 
@@ -26,6 +28,7 @@ static NSString * const FUITableViewControllerCellReuseIdentifier = @"FUITableVi
 @property NSMutableArray *questArray;
 
 @property KiiObject *selectedQuest;
+@property KiiGroup *selectedGroup;
 
 @end
 
@@ -44,15 +47,22 @@ static NSString * const FUITableViewControllerCellReuseIdentifier = @"FUITableVi
     self.segmentControl.selectedSegmentIndex = 0; //defult
     [self.segmentControl addTarget:self action:@selector(segmentValueChanged) forControlEvents:UIControlEventValueChanged];
     
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(questFetched:) name:GXJoinedQuestFetchedNotification object:nil];
+    
 
 }
 
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(questFetched:) name:GXJoinedQuestFetchedNotification object:nil];
     
     [self segmentValueChanged];
+}
+
+- (void)viewDidDisappear:(BOOL)animated
+{
+    [super viewDidDisappear:animated];
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -60,15 +70,6 @@ static NSString * const FUITableViewControllerCellReuseIdentifier = @"FUITableVi
     // Dispose of any resources that can be recreated.
 }
 
-/*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-*/
 
 #pragma mark
 #pragma mark - UITableViewDelegate
@@ -203,20 +204,21 @@ static NSString * const FUITableViewControllerCellReuseIdentifier = @"FUITableVi
     [self.tableView reloadData];
 }
 
-#pragma mark - AlertView
+#pragma mark - AlertView(各Viewへの遷移)
 - (void)alertView:(FUIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
 {
     switch (alertView.tag) {
         case 0://ひとり
-            if (buttonIndex == 1) {
-                [self gotoQuestExeView];
+            if (buttonIndex == 1) { //開始
+                
+                [self startOneQuestSequence];
             }
             break;
             
         case 1: //協力
             if (buttonIndex == 1) {
                 [NSTimer bk_scheduledTimerWithTimeInterval:0.5 block:^(NSTimer *timer) {
-                    [self gotoInviteView];
+                    [self gotoPartyView];
                 } repeats:NO];
             }
             
@@ -226,16 +228,31 @@ static NSString * const FUITableViewControllerCellReuseIdentifier = @"FUITableVi
     
 }
 
-- (void)gotoQuestExeView
+- (void)startOneQuestSequence
 {
     UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"subStoryboard" bundle:nil];
     GXQuestExeViewController *initialViewController = [storyboard instantiateInitialViewController];
     initialViewController.exeQuest = self.selectedQuest;
     [self presentViewController:initialViewController animated:YES completion:^{
-       // [[NSNotificationCenter defaultCenter] postNotificationName:@"dismissed" object:self.selectedQuest];
+        //QMで管理
+        [GXExeQuestManager sharedManager].nowExeQuest = self.selectedQuest;
     }];
 }
 
+- (void)gotoPartyView
+{
+    NSError *error;
+    KiiGroup *group = [KiiGroup groupWithURI:[self.selectedQuest getObjectForKey:quest_groupURI]];
+    [group refreshSynchronous:&error];
+    if (error) {
+        NSLog(@"error:%@",error);
+    } else {
+        self.selectedGroup = group;
+        [self performSegueWithIdentifier:@"gotoPartyView" sender:self];
+
+    }
+
+}
 - (void)gotoInviteView
 {
     GXNavViewController *navController = [self.storyboard instantiateViewControllerWithIdentifier:@"contentController"];
@@ -243,6 +260,15 @@ static NSString * const FUITableViewControllerCellReuseIdentifier = @"FUITableVi
     navController.viewControllers = @[invitedVC];
     self.frostedViewController.contentViewController = navController;
 
+}
+
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
+{
+    if ([segue.identifier isEqualToString:@"gotoPartyView"]) {
+        GXQuestGroupViewController *vc = segue.destinationViewController;
+        vc.willExeQuest = self.selectedQuest;
+        vc.selectedQuestGroup = self.selectedGroup;
+    }
 }
 
 @end

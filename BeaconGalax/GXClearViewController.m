@@ -32,7 +32,7 @@
 {
     [super viewWillAppear:animated];
     self.tabBarController.tabBar.hidden = YES;
-
+    
 }
 - (void)viewDidAppear:(BOOL)animated
 {
@@ -44,7 +44,7 @@
         UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"Congratulation" message:@"クエストクリアおめでとうございます" preferredStyle:UIAlertControllerStyleAlert];
         [alertController addAction:[UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
             
-            [[GXExeQuestManager sharedManager] completeQuest];
+            [self clearQuest];
             
             UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:[NSBundle mainBundle]];
             UIViewController *initViewController = [storyboard instantiateInitialViewController];
@@ -63,96 +63,30 @@
     // Dispose of any resources that can be recreated.
 }
 
-/*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
+- (void)clearQuest
+{
+    [[GXExeQuestManager sharedManager] clearNowExeQuest];
 }
-*/
 
 - (void)registerPoint
 {
     NSError *error;
     KiiBucket *pointBucket = [[KiiUser currentUser] bucketWithName:@"point"];
-    //最初は作るけどあとは更新にする
-    KiiObject *point = [pointBucket createObject];
-    [point setObject:[NSNumber numberWithInt:self.point] forKey:@"point"];
-    [point saveSynchronous:&error];
-    if (error) {
-        NSLog(@"ポイントゲットエラー:%@",error);
+    KiiQuery *query = [KiiQuery queryWithClause:nil];
+    KiiQuery *nxQuery;
+    NSArray *results = [pointBucket executeQuerySynchronous:query withError:&error andNext:&nxQuery];
+    if (results.count == 0) {
+        KiiObject *pointObj = [pointBucket createObject];
+        [pointObj setObject:[NSNumber numberWithInt:self.point] forKey:@"point"];
+        [pointObj saveSynchronous:&error];
     } else {
-        NSLog(@"ポイントゲット");
+        KiiObject *currentPointObj = results.firstObject;
+        [currentPointObj refreshSynchronous:&error];
+        int currPoint = [[currentPointObj getObjectForKey:@"point"] intValue];
+        currPoint += self.point;
+        [currentPointObj setObject:[NSNumber numberWithInt:currPoint] forKey:@"point"];
+        [currentPointObj saveSynchronous:&error];
     }
-    
-}
-
-- (void)deleteMultiQuest
-{
-    [SVProgressHUD showWithStatus:@"完了したクエストを処理しています"];
-
-    //オーナーがやる
-    //isOwner?
-    NSError *error;
-    KiiUser *owner = [self.group getOwnerSynchronous:&error];
-    KiiUser *currUser = [KiiUser currentUser];
-    if ([owner isEqual:currUser]) {
-        //募集ボードから消す（オーナー）
-        KiiClause *clause = [KiiClause equals:@"uri" value:[self.quest getObjectForKey:@"uri"]];
-        KiiQuery *query = [KiiQuery queryWithClause:clause];
-        KiiQuery *nextQuery;
-        KiiBucket *inviteBucket = [Kii bucketWithName:@"invite_board"];
-        NSArray *result_inviteBoard = [inviteBucket executeQuerySynchronous:query withError:&error andNext:&nextQuery];
-        if (error) {
-            NSLog(@"fetchError:%@",error);
-        } else {
-            if (result_inviteBoard.count == 1) {
-                KiiObject *deleteObj = result_inviteBoard.firstObject;
-                [deleteObj deleteSynchronous:&error];
-                if (error) {
-                    NSLog(@"deleteError:%@",error);
-                } else {
-                    NSLog(@"完了したクエストを削除完了");
-                }
-            }
-        }
-        
-        //groupを削除
-        [self.group deleteSynchronous:&error];
-        
-        [self completeJoinedMultiQuest];
-        
-        //参加者
-        
-    } else {
-        [self completeJoinedMultiQuest];
-    }
-}
-
-- (void)completeJoinedMultiQuest
-{
-    NSError *error;
-    KiiUser *currUser = [KiiUser currentUser];
-    KiiBucket *joinedMultiBucket = [[KiiUser currentUser] bucketWithName:@"joined_multiPersonQuest"];
-    KiiClause *clause = [KiiClause equals:@"uri" value:[self.quest getObjectForKey:@"uri"]];
-    KiiQuery *query = [KiiQuery queryWithClause:clause];
-    KiiQuery *nextQuery;
-    NSArray *results = [joinedMultiBucket executeQuerySynchronous:query withError:&error andNext:&nextQuery];
-    if (error) {
-        NSLog(@"fetchError:%@",error);
-    } else {
-        if (results.count == 1) {
-            KiiObject *obj = results.firstObject;
-            [obj setObject:@YES forKey:quest_isCompleted];
-            [obj saveSynchronous:&error];
-            if (!error) {
-                [SVProgressHUD dismiss];
-            }
-        }
-    }
-
 }
 
 

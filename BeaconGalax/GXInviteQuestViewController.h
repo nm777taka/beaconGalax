@@ -13,4 +13,6 @@
 
 @interface GXInviteQuestViewController : UIViewController
 
+@property (nonatomic,retain) KiiObject *willDeleteObjAtNotJoin;
+
 @end

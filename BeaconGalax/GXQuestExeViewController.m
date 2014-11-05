@@ -321,10 +321,6 @@
 //協力型のクエスト
 - (void)commitQuest
 {
-    NSLog(@"exeQuest:%@",self.exeQuest);
-    NSLog(@"exeQuest:%@",self.exeGroup);
-    NSLog(@"exeQuest:%d",self.groupMemberNum);
-    
     KiiServerCodeEntry *entry = [Kii serverCodeEntry:@"commitGroupQuest"];
     NSDictionary* argDict= [NSDictionary dictionaryWithObjectsAndKeys:
                             self.exeQuest.objectURI,@"questURI",self.exeGroup.objectURI,@"groupURI",[NSNumber numberWithInt:self.groupMemberNum],@"memberNum",nil];
@@ -337,37 +333,6 @@
         NSLog(@"returnd:%@",returendDict);
     }];
     
-}
-
-- (void)fetchGroupQuest
-{
-    NSError *error;
-    KiiBucket *bucket = [self.exeGroup bucketWithName:@"quest"];
-    KiiQuery *query = [KiiQuery queryWithClause:nil];
-    KiiQuery *nextQuery;
-    [bucket executeQuery:query withBlock:^(KiiQuery *query, KiiBucket *bucket, NSArray *results, KiiQuery *nextQuery, NSError *error) {
-        
-        if (error) {
-            NSLog(@"error:%@",error);
-        }
-        
-        self.exeQuest = results.firstObject;
-        NSLog(@"self.exeQuest:%@",results.firstObject);
-        
-        [self questParse];
-
-        
-        [self.exeGroup getMemberListWithBlock:^(KiiGroup *group, NSArray *members, NSError *error) {
-            
-            if (error) {
-                NSLog(@"error : %@",error);
-            }
-            
-            self.groupMemberNum = (int)members.count;
-            NSLog(@"memer-cont:%d",self.groupMemberNum);
-            
-        }];
-    }];
 }
 
 - (void)gotoClearView

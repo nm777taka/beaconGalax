@@ -60,15 +60,7 @@
     // Dispose of any resources that can be recreated.
 }
 
-/*
-#pragma mark - Navigation
 
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-*/
 
 
 #pragma mark - CollectionView Delegate
@@ -107,10 +99,23 @@
     NSError *error;
     KiiObject *obj = self.invitedQuestArray[indexPath.row];
     KiiGroup *group = [self getGroup:indexPath.row];
-    cell.title.text = [obj getObjectForKey:quest_description];
+    cell.title.text = [obj getObjectForKey:quest_title];
+    
+    //既にスタートされているか
+    if ([[obj getObjectForKey:quest_isStarted] boolValue]) {
+        cell.button.hidden = NO;
+        cell.button.buttonColor = [UIColor silverColor];
+        cell.button.shadowColor = [UIColor asbestosColor];
+        cell.button.shadowHeight = 2.0f;
+        cell.button.cornerRadius = 6.0f;
+        cell.button.titleLabel.font = [UIFont boldFlatFontOfSize:15];
+        [cell.button setTitle:@"Started" forState:UIControlStateNormal];
+        [cell.button setTitle:@"Started" forState:UIControlStateHighlighted];
+    }
 
     //自分がオーナかどうか
     if ([self isOwner:group]) {
+        cell.button.hidden = NO;
         cell.button.buttonColor = [UIColor alizarinColor];
         cell.button.shadowColor = [UIColor pomegranateColor];
         cell.button.shadowHeight = 2.0f;
@@ -125,17 +130,14 @@
     //参加済みかどうか
     if ([self isJoined:group]) {
         
-        cell.button.buttonColor = [UIColor peterRiverColor];
-        cell.button.shadowColor = [UIColor belizeHoleColor];
-        cell.button.shadowHeight = 2.0f;
-        cell.button.cornerRadius = 6.0;
-        cell.button.titleLabel.font = [UIFont boldFlatFontOfSize:16];
-        [cell.button setTitle:@"スタート" forState:UIControlStateNormal];
-        [cell.button setTitle:@"スタート" forState:UIControlStateHighlighted];
+        cell.userJoinStatus.text = @"参加済み";
+        cell.userJoinStatus.textColor = [UIColor turquoiseColor];
+        cell.button.hidden = YES;
         
         return;
         
     } else {
+        cell.button.hidden = NO;
         cell.button.buttonColor = [UIColor turquoiseColor];
         cell.button.shadowColor = [UIColor greenSeaColor];
         cell.button.shadowHeight = 2.0f;
@@ -256,7 +258,7 @@
     [SVProgressHUD dismiss];
 }
 
-//参加者
+#pragma mark - 参加者
 #pragma mark - デバック必要
 - (void)addedGroup:(NSNotification *)info
 {
@@ -280,15 +282,12 @@
             
             KiiObject *obj = results.firstObject;
             //自分の参加済み協力クエに登録
-            [[GXBucketManager sharedManager] registerJoinedMultiQuest:obj];
+            [[GXBucketManager sharedManager] registerJoinedQuest:obj];
+            //notJoinから消す
+            [[GXBucketManager sharedManager] deleteJoinedQuest:self.willDeleteObjAtNotJoin];
         }
 
     }];
-    
-    
-    //notjoinから消す --------> Debug
-    //このobjは(Groupスコープのobjと紐付いてるから消すとそっちが消える)
-    //[[GXBucketManager sharedManager] deleteJoinedQuest:obj];
     
     KiiBucket *clearJudegeBucket = [joinedGroup bucketWithName:@"clear_judge"];
     
@@ -323,7 +322,7 @@
     
     //既にグループに参加しているか
     if ([self isJoined:self.questGroupAtSelected]) {
-        [self gotoQuestPartyView:indexPath];
+        //[self gotoQuestPartyView:indexPath];
         return;
     }
     
@@ -331,14 +330,17 @@
     [self showPushSendAlert];
 }
 
+#pragma mark - ToDo
+//ここからいくのはリーダーだけにする!
 - (void)gotoQuestPartyView:(NSIndexPath *)indexPath
 {
     self.selectedInviteBucketObj = self.invitedQuestArray[indexPath.row];
     self.questGroupAtSelected = [self getGroup:(int)indexPath.row];
     
-    if ([self isJoined:self.questGroupAtSelected])
-        [GXExeQuestManager sharedManager].exeQuest = self.selectedInviteBucketObj; //マネージャーでこれからやるクエストを管理(InvitedBoardのクエスト)
+    if ([self isJoined:self.questGroupAtSelected]) {
         [self performSegueWithIdentifier:@"goto_QuestMemberView" sender:self];
+
+    }
 
 }
 
@@ -363,8 +365,9 @@
 {
     if ([segue.identifier isEqualToString:@"goto_QuestMemberView"]) {
         GXQuestGroupViewController *vc = segue.destinationViewController;
+        //選択されたクエストのグループとクエスト自体をパーティーViewに渡してあげる
         vc.selectedQuestGroup = self.questGroupAtSelected;
-        
+        vc.willExeQuest = self.selectedInviteBucketObj;
     }
 }
 

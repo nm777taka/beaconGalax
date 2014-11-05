@@ -13,9 +13,8 @@
 @interface GXInvitedViewCell : UICollectionViewCell
 @property (weak, nonatomic) IBOutlet UILabel *title;
 @property (weak, nonatomic) IBOutlet FUIButton *button;
-- (IBAction)updateAction:(id)sender;
 @property (weak, nonatomic) IBOutlet UILabel *ownerName;
 @property (weak, nonatomic) IBOutlet FBProfilePictureView *ownerIcon;
-@property (weak, nonatomic) IBOutlet UILabel *updateCntLabel;
+@property (weak, nonatomic) IBOutlet UILabel *userJoinStatus;
 
 @end

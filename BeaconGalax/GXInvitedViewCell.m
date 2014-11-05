@@ -16,9 +16,7 @@
 - (void)awakeFromNib
 {
     self.ownerName.font = [UIFont boldFlatFontOfSize:15];
-    self.updateCntLabel.font = [UIFont boldFlatFontOfSize:15];
-    self.updateCntLabel.textColor = [UIColor alizarinColor];
-    self.updateCntLabel.text = @"応援：0";
+    
 }
 
 - (IBAction)joinAction:(id)sender {
@@ -26,6 +24,4 @@
     [[NSNotificationCenter defaultCenter] postNotificationName:@"inviteViewCellTopped" object:self];
 }
 
-- (IBAction)updateAction:(id)sender {
-}
 @end
