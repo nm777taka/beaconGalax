@@ -11,6 +11,7 @@
 #import "GXBucketManager.h"
 #import "GXTopicManager.h"
 #import "GXUserManager.h"
+#import "GXDictonaryKeys.h"
 #import "GXFacebook.h"
 
 @implementation GXKiiCloud
@@ -88,6 +89,16 @@
                 NSLog(@"access_token保存完了");
             }
             
+            NSString *userURI = [KiiUser currentUser].objectURI;
+            KiiObject *gxUser = [[GXBucketManager sharedManager] getGalaxUser:userURI];
+            NSUserDefaults *ud = [NSUserDefaults standardUserDefaults];
+            [ud setObject:[gxUser getObjectForKey:user_fb_id] forKey:@"fb_id"];
+            [ud setObject:[gxUser getObjectForKey:user_name] forKey:@"usr_name"];
+            BOOL successful = [ud synchronize];
+            if (successful) {
+                NSLog(@"udに保存");
+            }
+
             
         } else {
             NSLog(@"login");

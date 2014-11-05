@@ -60,31 +60,6 @@
     self.tableView.separatorColor = [UIColor colorWithRed:150/255.0f green:161/255.0f blue:177/255.0f alpha:1.0f];
     self.tableView.backgroundColor = [UIColor clearColor];
     [self.rankProgress configureFlatProgressViewWithTrackColor:[UIColor silverColor] progressColor:[UIColor alizarinColor]];
-//    self.tableView.tableHeaderView = ({
-//        UIView *view = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 0, 184.0f)];
-//        self.pictureView = [[FBProfilePictureView alloc] initWithFrame:CGRectMake(0, 40, 100, 100)];
-//        self.pictureView.autoresizingMask = UIViewAutoresizingFlexibleLeftMargin | UIViewAutoresizingFlexibleRightMargin;
-//        self.pictureView.profileID = [self.gxUser getObjectForKey:user_fb_id];
-//        self.pictureView.layer.masksToBounds = YES;
-//        self.pictureView.layer.cornerRadius = 50.0;
-//        self.pictureView.layer.borderColor = [UIColor whiteColor].CGColor;
-//        self.pictureView.layer.borderWidth = 3.0f;
-//        self.pictureView.layer.rasterizationScale = [UIScreen mainScreen].scale;
-//        self.pictureView.layer.shouldRasterize = YES;
-//        self.pictureView.clipsToBounds = YES;
-//        
-//        self.userName = [[UILabel alloc] initWithFrame:CGRectMake(0, 150, 0, 24)];
-//        self.userName.text = @"name";
-//        self.userName.font = [UIFont fontWithName:@"HelveticaNeue" size:17];
-//        self.userName.backgroundColor = [UIColor clearColor];
-//        self.userName.textColor = [UIColor colorWithRed:62/255.0f green:68/255.0f blue:75/255.0f alpha:1.0f];
-//        [self.userName sizeToFit];
-//        self.userName.autoresizingMask = UIViewAutoresizingFlexibleLeftMargin | UIViewAutoresizingFlexibleRightMargin;
-//        
-//        [view addSubview:self.pictureView];
-//        [view addSubview:self.userName];
-//        view;
-//    });
     self.iconImageView.layer.masksToBounds = YES;
     self.iconImageView.layer.cornerRadius = 40.f;
     self.iconImageView.layer.borderColor = [UIColor turquoiseColor].CGColor;

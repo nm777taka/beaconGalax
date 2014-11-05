@@ -47,7 +47,7 @@
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(questInfo:) name:@"questInfo" object:nil];
     
     [[GXBucketManager sharedManager] getInvitedQuest];
-    [SVProgressHUD showWithStatus:@"クエストを取得しています"];
+    //[SVProgressHUD showWithStatus:@"クエストを取得しています"];
 }
 
 - (void)viewDidDisappear:(BOOL)animated
@@ -139,6 +139,7 @@
     cell.questRankLabel.textColor = [UIColor orangeColor];
     int cur_memberNum = [self getGroupMemberNum:group];
     cell.nowMemberLabel.text = [NSString stringWithFormat:@"パーティーメンバー:%d",cur_memberNum];
+    cell.ownerIcon.profileID = [obj getObjectForKey:quest_owner_fbid];
     
     //既にスタートされているか
     if ([[obj getObjectForKey:quest_isStarted] boolValue]) {
@@ -276,8 +277,9 @@
     NSArray *array = info.object;
     self.invitedQuestArray = [NSMutableArray arrayWithArray:array];
     [self.collectionView reloadData];
-    
     [SVProgressHUD dismiss];
+    [_refreshControl endRefreshing];
+    
 }
 
 - (void)questInfo:(NSNotification *)info
@@ -287,12 +289,10 @@
     KiiObject *infoObj = self.invitedQuestArray[indexPath.row];
     NSString *req = [infoObj getObjectForKey:quest_requirement];
     NSString *des = [infoObj getObjectForKey:quest_description];
-    NSMutableString *strings = [[NSMutableString alloc] initWithFormat:@"クリア条件"];
-    [strings appendString:req];
     
     
     FUIAlertView *alertView = [[FUIAlertView alloc] initWithTitle:des
-                                                          message:strings
+                                                          message:req
                                                          delegate:nil cancelButtonTitle:@"Dismiss"
                                                 otherButtonTitles:nil, nil];
     alertView.titleLabel.textColor = [UIColor cloudsColor];
@@ -406,14 +406,11 @@
     NSLog(@"refresh");
     [SVProgressHUD showWithStatus:@"クエストを取得しています"];
     [[GXBucketManager sharedManager] getInvitedQuest];
-    [NSTimer bk_scheduledTimerWithTimeInterval:1.0f block:^(NSTimer *timer) {
-        [self endRefresh];
-    } repeats:NO];
+
 }
 
 - (void)endRefresh
 {
-    [_refreshControl endRefreshing];
 }
 
 

@@ -15,6 +15,7 @@ static NSString * const quest_type = @"type";
 static NSString * const quest_reward = @"reward";
 static NSString * const quest_success_cnt = @"success_cnt";
 static NSString * const quest_owner = @"owner";
+static NSString * const quest_owner_fbid = @"ownerFBID";
 static NSString * const quest_player_num = @"player_num";
 static NSString * const quest_isReady_num = @"isReady_num";
 static NSString * const quest_requirement = @"requirement";

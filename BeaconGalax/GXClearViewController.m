@@ -39,6 +39,7 @@
     [super viewDidAppear:animated];
     NSLog(@"point:%d",self.point);
     [self registerPoint];
+    
     [NSTimer bk_scheduledTimerWithTimeInterval:3.0 block:^(NSTimer *timer) {
         
         UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"Congratulation" message:@"クエストクリアおめでとうございます" preferredStyle:UIAlertControllerStyleAlert];

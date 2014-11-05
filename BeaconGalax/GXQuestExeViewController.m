@@ -35,6 +35,8 @@
 @property CLBeaconMajorValue subjectBeaconMajor;
 @property NSUUID *uuid;
 
+@property (weak, nonatomic) IBOutlet UILabel *questDesLabel;
+@property (weak, nonatomic) IBOutlet UILabel *questRequireLabel;
 
 @property BOOL isShowCompleteView;
 
@@ -58,6 +60,10 @@
     halo.backgroundColor = FlatWatermelon.CGColor;
     halo.radius = 240.0f;
     [self.view.layer insertSublayer:halo below:self.beaconImage.layer];
+    
+    self.questTitle.font = [UIFont boldFlatFontOfSize:17];
+    self.questDesLabel.font = [UIFont boldFlatFontOfSize:14];
+    self.questRequireLabel.font = [UIFont boldFlatFontOfSize:14];
     
 }
 
@@ -180,6 +186,7 @@
 - (void)viewWillAppear:(BOOL)animated
 {
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(questCommitHandler:) name:GXCommitQuestNotification object:nil];
+    [self questParse];
     [self startBeacon];
 }
 
@@ -194,16 +201,24 @@
     [[NSNotificationCenter defaultCenter] removeObserver:self];
     [self.beaconManager stopMonitoringForRegion:self.beaconRegion];
     [self.beaconManager stopRangingBeaconsInRegion:self.beaconRegion];
+
 }
 
 - (void)questParse
 {
     self.questTitle.text = [self.exeQuest getObjectForKey:quest_title];
+    [self.questTitle sizeToFit];
+    self.questDesLabel.text = [self.exeQuest getObjectForKey:quest_description];
+    [self.questDesLabel sizeToFit];
+    self.questRequireLabel.text = [self.exeQuest getObjectForKey:quest_requirement];
+    [self.questRequireLabel sizeToFit];
+    
 }
 - (void)startBeacon
 {
-    [self.beaconManager startRangingBeaconsInRegion:self.beaconRegion];
     self.beaconRegion = [[ESTBeaconRegion alloc] initWithProximityUUID:self.uuid identifier:@"estimote"];
+    [self.beaconManager startRangingBeaconsInRegion:self.beaconRegion];
+
 }
 
 #pragma mark - estBeaconDelegate

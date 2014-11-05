@@ -172,6 +172,7 @@
         [newObj setObject:dict[key] forKey:key];
     }
     [newObj setObject:group.objectURI forKey:quest_groupURI];
+    [newObj setObject:[ownerUser getObjectForKey:user_fb_id] forKey:quest_owner_fbid];
     
     [newObj saveWithBlock:^(KiiObject *object, NSError *error) {
         
