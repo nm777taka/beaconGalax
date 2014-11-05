@@ -38,20 +38,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
-    self.navigationController.navigationBarHidden = YES;
-    self.tabBarController.tabBar.hidden = YES;
     
-    self.clearButton.layer.cornerRadius = 5.0;
-    self.clearButton.layer.borderColor = [UIColor cyanColor].CGColor;
-    self.clearButton.layer.borderWidth = 1.0;
-    self.clearButton.alpha = 0.0f;
-    
-    self.uuid = [[NSUUID alloc] initWithUUIDString:kBeaconUUID];
-    
-    self.beaconManager = [ESTBeaconManager new];
-    self.beaconManager.delegate = self;
-    self.beaconManager.avoidUnknownStateBeacons = YES;
-
 }
 
 - (void)didReceiveMemoryWarning {
@@ -83,8 +70,6 @@
 {
     self.titleLabel.text = [self.exeQuest getObjectForKey:quest_description];
     self.locationLabel.text = [self.exeQuest getObjectForKey:beacon_name];
-    self.clearCntLabel.text = [NSString stringWithFormat:@"%d",[[self.exeQuest getObjectForKey:quest_clear_cnt] integerValue]];
-    
 }
 
 /*

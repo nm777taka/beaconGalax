@@ -11,23 +11,20 @@
 //クエスト
 static NSString * const quest_title = @"title";
 static NSString * const quest_description = @"description";
-static NSString * const quest_level = @"level";
 static NSString * const quest_type = @"type";
 static NSString * const quest_reward = @"reward";
-static NSString * const quest_clear_cnt = @"clear_cnt";
-static NSString * const quest_clear_des = @"clear_des";
 static NSString * const quest_success_cnt = @"success_cnt";
 static NSString * const quest_owner = @"owner";
 static NSString * const quest_player_num = @"player_num";
 static NSString * const quest_isReady_num = @"isReady_num";
-
+static NSString * const quest_requirement = @"requirement";
+static NSString * const quest_rank = @"rank";
 
 static NSString * const quest_createUserURI = @"created_user_uri";
 static NSString * const quest_createdUser_fbid = @"facebook_id";
 static NSString * const quest_groupURI = @"group_uri";
 static NSString * const quest_isStarted = @"isStarted";
 static NSString * const quest_isCompleted = @"isCompleted";
-static NSString * const quest_createdDate = @"createdDate";
 static NSString * const quest_createdUserName = @"user_name";
 
 //ユーザ

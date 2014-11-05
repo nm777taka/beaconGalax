@@ -18,6 +18,8 @@
 @property (weak, nonatomic) IBOutlet UILabel *questTypeLabel;
 @property (weak, nonatomic) IBOutlet UIImageView *questTypeIcon;
 @property (weak, nonatomic) IBOutlet UIView *questTypeColorView;
+@property (weak, nonatomic) IBOutlet UILabel *requirementLabel;
+@property (weak, nonatomic) IBOutlet UILabel *rankLabel;
 
 - (IBAction)joinAction:(id)sender;
 @property (weak, nonatomic) IBOutlet FUIButton *acceptButton;

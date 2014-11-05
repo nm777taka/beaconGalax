@@ -24,4 +24,8 @@
     [[NSNotificationCenter defaultCenter] postNotificationName:@"inviteViewCellTopped" object:self];
 }
 
+- (IBAction)showInfo:(id)sender {
+    
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"questInfo" object:self];
+}
 @end

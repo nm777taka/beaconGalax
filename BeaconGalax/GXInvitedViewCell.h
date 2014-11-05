@@ -16,5 +16,8 @@
 @property (weak, nonatomic) IBOutlet UILabel *ownerName;
 @property (weak, nonatomic) IBOutlet FBProfilePictureView *ownerIcon;
 @property (weak, nonatomic) IBOutlet UILabel *userJoinStatus;
+@property (weak, nonatomic) IBOutlet UILabel *questRankLabel;
+@property (weak, nonatomic) IBOutlet UILabel *nowMemberLabel;
+- (IBAction)showInfo:(id)sender;
 
 @end

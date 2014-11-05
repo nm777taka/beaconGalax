@@ -44,7 +44,8 @@
     self.navigationController.navigationBarHidden = NO;
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(invitedQuestFetched:) name:GXInvitedQuestFetchedNotification object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(addedGroup:) name:GXAddGroupSuccessedNotification object:nil];
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(joinButtonTopped:) name:@"inviteViewCellTopped" object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(questInfo:) name:@"questInfo" object:nil];
+    
     [[GXBucketManager sharedManager] getInvitedQuest];
     [SVProgressHUD showWithStatus:@"クエストを取得しています"];
 }
@@ -85,7 +86,40 @@
 
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath
 {
+
+    KiiObject *obj = self.invitedQuestArray[indexPath.row];
     
+    //色々判定する
+    //タップしたクエストのグループを取得
+    self.questGroupAtSelected = [self getGroup:(int)indexPath.row];
+    
+    //自分がオーナかどうか
+    if ([self isOwner:self.questGroupAtSelected]) {
+        [self gotoQuestPartyView:indexPath];
+        return;
+    }
+    
+    //既にグループに参加しているか
+    if ([self isJoined:self.questGroupAtSelected]) {
+        //アラート
+        FUIAlertView *alertView = [[FUIAlertView alloc] initWithTitle:@"！" message:@"すでに参加しています。参加済み画面からメンバー一覧を見ることができます。" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
+        alertView.titleLabel.textColor = [UIColor cloudsColor];
+        alertView.titleLabel.font = [UIFont boldFlatFontOfSize:16];
+        alertView.messageLabel.textColor = [UIColor cloudsColor];
+        alertView.messageLabel.font = [UIFont flatFontOfSize:14];
+        alertView.backgroundOverlay.backgroundColor = [[UIColor cloudsColor] colorWithAlphaComponent:0.8];
+        alertView.alertContainer.backgroundColor = [UIColor midnightBlueColor];
+        alertView.defaultButtonColor = [UIColor cloudsColor];
+        alertView.defaultButtonShadowColor = [UIColor asbestosColor];
+        alertView.defaultButtonFont = [UIFont boldFlatFontOfSize:16];
+        alertView.defaultButtonTitleColor = [UIColor asbestosColor];
+        [alertView show];
+        return;
+    }
+    
+    //参加アクション
+    [self showPushSendAlert];
+
 }
 
 - (void)configureCell:(GXInvitedViewCell *)cell atIndexPath:(NSIndexPath *)indexPath
@@ -96,56 +130,37 @@
     cell.layer.shadowOpacity = 0.1f;
     cell.layer.shadowRadius = 2.0f;
     
-    NSError *error;
+    //コンテンツ
     KiiObject *obj = self.invitedQuestArray[indexPath.row];
     KiiGroup *group = [self getGroup:indexPath.row];
     cell.title.text = [obj getObjectForKey:quest_title];
+    int questRank = [[obj getObjectForKey:quest_rank] intValue];
+    cell.questRankLabel.text = [NSString stringWithFormat:@"Rank:☆%d",questRank];
+    cell.questRankLabel.textColor = [UIColor orangeColor];
+    int cur_memberNum = [self getGroupMemberNum:group];
+    cell.nowMemberLabel.text = [NSString stringWithFormat:@"パーティーメンバー:%d",cur_memberNum];
     
     //既にスタートされているか
     if ([[obj getObjectForKey:quest_isStarted] boolValue]) {
-        cell.button.hidden = NO;
-        cell.button.buttonColor = [UIColor silverColor];
-        cell.button.shadowColor = [UIColor asbestosColor];
-        cell.button.shadowHeight = 2.0f;
-        cell.button.cornerRadius = 6.0f;
-        cell.button.titleLabel.font = [UIFont boldFlatFontOfSize:15];
-        [cell.button setTitle:@"Started" forState:UIControlStateNormal];
-        [cell.button setTitle:@"Started" forState:UIControlStateHighlighted];
+        cell.userJoinStatus.text = @"開始済み";
     }
 
     //自分がオーナかどうか
     if ([self isOwner:group]) {
-        cell.button.hidden = NO;
-        cell.button.buttonColor = [UIColor alizarinColor];
-        cell.button.shadowColor = [UIColor pomegranateColor];
-        cell.button.shadowHeight = 2.0f;
-        cell.button.cornerRadius = 6.0;
-        cell.button.titleLabel.font = [UIFont boldFlatFontOfSize:16];
-        [cell.button setTitle:@"スタート" forState:UIControlStateNormal];
-        [cell.button setTitle:@"スタート" forState:UIControlStateHighlighted];
-        
+        cell.userJoinStatus.textColor = [UIColor alizarinColor];
+        cell.userJoinStatus.text = @"オーナー";
         return;
     }
     
     //参加済みかどうか
     if ([self isJoined:group]) {
-        
-        cell.userJoinStatus.text = @"参加済み";
         cell.userJoinStatus.textColor = [UIColor turquoiseColor];
-        cell.button.hidden = YES;
-        
+        cell.userJoinStatus.text = @"参加済み";
         return;
         
     } else {
-        cell.button.hidden = NO;
-        cell.button.buttonColor = [UIColor turquoiseColor];
-        cell.button.shadowColor = [UIColor greenSeaColor];
-        cell.button.shadowHeight = 2.0f;
-        cell.button.cornerRadius = 6.0;
-        cell.button.titleLabel.font = [UIFont boldFlatFontOfSize:16];
-        [cell.button setTitle:@"参加" forState:UIControlStateNormal];
-        [cell.button setTitle:@"参加" forState:UIControlStateHighlighted];
-        
+        cell.userJoinStatus.textColor = [UIColor midnightBlueColor];
+        cell.userJoinStatus.text = @"未参加";
     }
     
 }
@@ -158,6 +173,13 @@
     [group refreshSynchronous:&error];
     
     return group;
+}
+
+- (int)getGroupMemberNum:(KiiGroup *)group
+{
+    NSError *error;
+    NSArray *array = [group getMemberListSynchronous:&error];
+    return array.count;
 }
 
 - (void)showPushSendAlert
@@ -258,6 +280,34 @@
     [SVProgressHUD dismiss];
 }
 
+- (void)questInfo:(NSNotification *)info
+{
+    GXInvitedViewCell *cell = info.object;
+    NSIndexPath *indexPath = [self.collectionView indexPathForCell:cell];
+    KiiObject *infoObj = self.invitedQuestArray[indexPath.row];
+    NSString *req = [infoObj getObjectForKey:quest_requirement];
+    NSString *des = [infoObj getObjectForKey:quest_description];
+    NSMutableString *strings = [[NSMutableString alloc] initWithFormat:@"クリア条件"];
+    [strings appendString:req];
+    
+    
+    FUIAlertView *alertView = [[FUIAlertView alloc] initWithTitle:des
+                                                          message:strings
+                                                         delegate:nil cancelButtonTitle:@"Dismiss"
+                                                otherButtonTitles:nil, nil];
+    alertView.titleLabel.textColor = [UIColor cloudsColor];
+    alertView.titleLabel.font = [UIFont boldFlatFontOfSize:16];
+    alertView.messageLabel.textColor = [UIColor cloudsColor];
+    alertView.messageLabel.font = [UIFont flatFontOfSize:14];
+    alertView.backgroundOverlay.backgroundColor = [[UIColor cloudsColor] colorWithAlphaComponent:0.8];
+    alertView.alertContainer.backgroundColor = [UIColor midnightBlueColor];
+    alertView.defaultButtonColor = [UIColor cloudsColor];
+    alertView.defaultButtonShadowColor = [UIColor asbestosColor];
+    alertView.defaultButtonFont = [UIFont boldFlatFontOfSize:16];
+    alertView.defaultButtonTitleColor = [UIColor asbestosColor];
+    [alertView show];
+}
+
 #pragma mark - 参加者
 #pragma mark - デバック必要
 - (void)addedGroup:(NSNotification *)info
@@ -306,28 +356,6 @@
 
 - (void)joinButtonTopped:(NSNotification *)notis
 {
-    GXInvitedViewCell *cell = notis.object;
-    NSIndexPath *indexPath = [self.collectionView indexPathForCell:cell];
-    KiiObject *obj = self.invitedQuestArray[indexPath.row];
-    
-    //色々判定する
-    //タップしたクエストのグループを取得
-    self.questGroupAtSelected = [self getGroup:(int)indexPath.row];
-    
-    //自分がオーナかどうか
-    if ([self isOwner:self.questGroupAtSelected]) {
-        [self gotoQuestPartyView:indexPath];
-        return;
-    }
-    
-    //既にグループに参加しているか
-    if ([self isJoined:self.questGroupAtSelected]) {
-        //[self gotoQuestPartyView:indexPath];
-        return;
-    }
-    
-    //参加アクション
-    [self showPushSendAlert];
 }
 
 #pragma mark - ToDo

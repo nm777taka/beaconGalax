@@ -65,7 +65,6 @@
     
     _descriptionViewContoller = [[self storyboard] instantiateViewControllerWithIdentifier:@"DescriptionView"];
     
-    
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -122,15 +121,51 @@
     
 }
 
+- (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath
+{
+    self.selectedObject = self.objects[indexPath.row];
+    
+    if ([[self.selectedObject getObjectForKey:quest_player_num] intValue] > 1) {
+        //invite_boardへ
+        //すでに募集済みかどうか
+        BOOL ret = [[GXBucketManager sharedManager] isInvitedQuest:self.selectedObject];
+        
+        if (ret) {
+            NSLog(@"募集済みです");
+            [self invitedMultiQuestAlert];
+            
+            
+        } else {
+            NSLog(@"募集されてません");
+            [self notInviteMultiQuestAlert];
+        }
+        
+    } else {
+        
+        
+        [self questAlertShow:[self.selectedObject getObjectForKey:quest_title] description:quest_description];
+        
+    }
+
+}
+
 - (void)configureCell:(GXHomeCollectionViewCell *)cell atIndexPath:(NSIndexPath *)indexPath
 {
+    //ドロップシャドウ
     cell.layer.masksToBounds = NO;
     cell.layer.shadowOffset = CGSizeMake(0.0f, 0.0f);
     cell.layer.shadowOpacity = 0.1f;
     cell.layer.shadowRadius = 2.0f;
     
+    //コンテンツ
     KiiObject *quest = self.objects[indexPath.row];
     cell.titleLable.text = [quest getObjectForKey:quest_title];
+    cell.requirementLabel.textColor = [UIColor whiteColor];
+    cell.requirementLabel.text = [quest getObjectForKey:quest_requirement];
+    int questRank = [[quest getObjectForKey:quest_rank] intValue];
+    cell.rankLabel.text = [NSString stringWithFormat:@"☆%d",questRank];
+    cell.rankLabel.textColor = [UIColor orangeColor];
+    
     BOOL isMulti = [self isMultiQuest:indexPath];
     if (isMulti) {
         
@@ -138,7 +173,6 @@
         cell.questTypeIcon.image = [UIImage imageNamed:@"homeCellMulti.png"];
         cell.questTypeLabel.text = @"協力型クエスト";
         cell.questTypeColorView.backgroundColor = [UIColor amethystColor];
-        
         
     } else {
         
@@ -195,22 +229,23 @@
     GXHomeCollectionViewCell *cell = notification.object;
     NSIndexPath *indexPath = [self.collectionView indexPathForCell:cell];
     self.selectedObject = self.objects[indexPath.row];
-    NSLog(@"selected:%d",indexPath.row);
     
     if ([[self.selectedObject getObjectForKey:quest_player_num] intValue] > 1) {
-        //invite_boardへ
-        //すでに募集済みかどうか
-        BOOL ret = [[GXBucketManager sharedManager] isInvitedQuest:self.selectedObject];
-        
-        if (ret) {
-            NSLog(@"募集済みです");
-            [self invitedMultiQuestAlert];
-            
-            
-        } else {
-            NSLog(@"募集されてません");
-            [self notInviteMultiQuestAlert];
-        }
+//        //invite_boardへ
+//        //すでに募集済みかどうか
+//        BOOL ret = [[GXBucketManager sharedManager] isInvitedQuest:self.selectedObject];
+//        
+//        if (ret) {
+//            NSLog(@"募集済みです");
+//            [self invitedMultiQuestAlert];
+//            
+//            
+//        } else {
+//            NSLog(@"募集されてません");
+//            [self notInviteMultiQuestAlert];
+//        }
+        [self notInviteMultiQuestAlert];
+
 
     } else {
         
@@ -298,7 +333,7 @@
 
 - (void)invitedMultiQuestAlert{
     FUIAlertView *alertView = [[FUIAlertView alloc] initWithTitle:@"協力クエスト"
-                                                          message:@"既にほかのメンバーによって募集されています"
+                                                          message:[self.selectedObject getObjectForKey:quest_description]
                                                          delegate:nil cancelButtonTitle:@"やめる"
                                                 otherButtonTitles:@"参加画面へ", nil];
     
@@ -320,10 +355,10 @@
 
 - (void)notInviteMultiQuestAlert
 {
-    FUIAlertView *alertView = [[FUIAlertView alloc] initWithTitle:@"協力クエスト"
-                                                         message:@"このクエストの参加者を募集します"
+    FUIAlertView *alertView = [[FUIAlertView alloc] initWithTitle:[self.selectedObject getObjectForKey:quest_title]
+                                                          message:[self.selectedObject getObjectForKey:quest_description]
                                                         delegate:nil cancelButtonTitle:@"やめる"
-                                               otherButtonTitles:@"OK", nil];
+                                               otherButtonTitles:@"募集する", nil];
     
     alertView.titleLabel.textColor = [UIColor cloudsColor];
     alertView.titleLabel.font = [UIFont boldFlatFontOfSize:16];
