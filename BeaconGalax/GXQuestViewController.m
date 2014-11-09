@@ -149,6 +149,8 @@
 
 }
 
+
+
 - (void)configureCell:(GXHomeCollectionViewCell *)cell atIndexPath:(NSIndexPath *)indexPath
 {
     //ドロップシャドウ
