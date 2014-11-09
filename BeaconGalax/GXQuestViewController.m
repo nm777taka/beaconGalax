@@ -314,7 +314,7 @@
 - (void)questAlertShow:(NSString *)title description:(NSString *)description
 {
     FUIAlertView *alertView = [[FUIAlertView alloc] initWithTitle:title
-                                                          message:description
+                                                          message:[self.selectedObject getObjectForKey:quest_description]
                                                          delegate:nil cancelButtonTitle:@"やめる"
                                                 otherButtonTitles:@"受注する", nil];
     alertView.titleLabel.textColor = [UIColor cloudsColor];
@@ -357,7 +357,7 @@
 
 - (void)notInviteMultiQuestAlert
 {
-    FUIAlertView *alertView = [[FUIAlertView alloc] initWithTitle:[self.selectedObject getObjectForKey:quest_title]
+    FUIAlertView *alertView = [[FUIAlertView alloc] initWithTitle:@"リーダーとして参加者を募集"
                                                           message:[self.selectedObject getObjectForKey:quest_description]
                                                         delegate:nil cancelButtonTitle:@"やめる"
                                                otherButtonTitles:@"募集する", nil];
