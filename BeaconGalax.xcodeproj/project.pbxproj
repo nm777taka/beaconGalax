@@ -12,6 +12,7 @@
 		0F27DAF119824BC20000E0D0 /* GXNavigationItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 0F27DAF019824BC20000E0D0 /* GXNavigationItem.m */; };
 		0F27DB0119876A750000E0D0 /* menu-white.png in Resources */ = {isa = PBXBuildFile; fileRef = 0F27DB0019876A750000E0D0 /* menu-white.png */; };
 		0F27DB0319876A780000E0D0 /* bell-white.png in Resources */ = {isa = PBXBuildFile; fileRef = 0F27DB0219876A780000E0D0 /* bell-white.png */; };
+		0F3558291A0F89CC0023F2FF /* Clear.png in Resources */ = {isa = PBXBuildFile; fileRef = 0F3558281A0F89CC0023F2FF /* Clear.png */; };
 		0F42365C19BC997D0001E204 /* GXQuestTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0F42365B19BC997D0001E204 /* GXQuestTableViewController.m */; };
 		0F42366019BCBEB80001E204 /* GXQuestViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0F42365F19BCBEB80001E204 /* GXQuestViewController.m */; };
 		0F42366419BD54420001E204 /* GXCreateQuestViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0F42366319BD54420001E204 /* GXCreateQuestViewController.m */; };
@@ -133,6 +134,7 @@
 		0F27DAF019824BC20000E0D0 /* GXNavigationItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GXNavigationItem.m; sourceTree = "<group>"; };
 		0F27DB0019876A750000E0D0 /* menu-white.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "menu-white.png"; sourceTree = "<group>"; };
 		0F27DB0219876A780000E0D0 /* bell-white.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "bell-white.png"; sourceTree = "<group>"; };
+		0F3558281A0F89CC0023F2FF /* Clear.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Clear.png; sourceTree = "<group>"; };
 		0F42365A19BC997D0001E204 /* GXQuestTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GXQuestTableViewController.h; sourceTree = "<group>"; };
 		0F42365B19BC997D0001E204 /* GXQuestTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GXQuestTableViewController.m; sourceTree = "<group>"; };
 		0F42365E19BCBEB80001E204 /* GXQuestViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GXQuestViewController.h; sourceTree = "<group>"; };
@@ -342,6 +344,14 @@
 				0F71EB7E1A07AB1000E0EDAB /* GXExeQuestManager.m */,
 			);
 			name = "実行中のクエスト";
+			sourceTree = "<group>";
+		};
+		0F3558271A0F89140023F2FF /* clear */ = {
+			isa = PBXGroup;
+			children = (
+				0F3558281A0F89CC0023F2FF /* Clear.png */,
+			);
+			name = clear;
 			sourceTree = "<group>";
 		};
 		0F42365D19BCA2220001E204 /* Home */ = {
@@ -681,6 +691,7 @@
 		0F82302D198245B10081C9BE /* Images */ = {
 			isa = PBXGroup;
 			children = (
+				0F3558271A0F89140023F2FF /* clear */,
 				0FCFA47219F6993F0087011A /* QuestGroup */,
 				0FCFA46F19F67D970087011A /* Invite */,
 				0FCFA46819F629730087011A /* HOME */,
@@ -994,6 +1005,7 @@
 				0FD26D821959F689005E2B95 /* GXCustomSectionHeader.xib in Resources */,
 				0FCFA47119F699360087011A /* ready.png in Resources */,
 				0FCFA46C19F6297E0087011A /* homeCellOne.png in Resources */,
+				0F3558291A0F89CC0023F2FF /* Clear.png in Resources */,
 				0F821F44196EE6820002664D /* Common_ButtonNavigationDone@2x.png in Resources */,
 				0F82302F198245CA0081C9BE /* home.png in Resources */,
 				0F7A25AC19587ADE001B7839 /* Images.xcassets in Resources */,
@@ -1253,7 +1265,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "iPhone Developer: Takahisa Furuta (T697ELEDF9)";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -1262,8 +1274,9 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "BeaconGalax/BeaconGalax-Prefix.pch";
 				INFOPLIST_FILE = "BeaconGalax/BeaconGalax-Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 7.1;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "12D3B437-7F01-4357-A418-546242CE1D18";
+				PROVISIONING_PROFILE = "0e3c9516-60b4-468a-8aca-a23cefcdcce8";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Debug;
@@ -1274,7 +1287,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "iPhone Developer: Takahisa Furuta (T697ELEDF9)";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -1283,8 +1296,9 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "BeaconGalax/BeaconGalax-Prefix.pch";
 				INFOPLIST_FILE = "BeaconGalax/BeaconGalax-Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 7.1;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "12D3B437-7F01-4357-A418-546242CE1D18";
+				PROVISIONING_PROFILE = "0e3c9516-60b4-468a-8aca-a23cefcdcce8";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Release;

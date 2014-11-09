@@ -16,6 +16,7 @@
 #import "GXFrostedViewController.h"
 
 @interface GXClearViewController ()
+@property (weak, nonatomic) IBOutlet UILabel *pointLable;
 
 
 @end
@@ -37,10 +38,11 @@
 - (void)viewDidAppear:(BOOL)animated
 {
     [super viewDidAppear:animated];
-    NSLog(@"point:%d",self.point);
-    [self registerPoint];
     
-    [NSTimer bk_scheduledTimerWithTimeInterval:3.0 block:^(NSTimer *timer) {
+    [self registerPoint];
+    self.pointLable.text = [NSString stringWithFormat:@"%d",self.point];
+    
+    [NSTimer bk_scheduledTimerWithTimeInterval:2.0 block:^(NSTimer *timer) {
         
         UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"Congratulation" message:@"クエストクリアおめでとうございます" preferredStyle:UIAlertControllerStyleAlert];
         [alertController addAction:[UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {

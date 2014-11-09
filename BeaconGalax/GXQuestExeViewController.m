@@ -88,7 +88,7 @@
     self.userProgressView.fillChangedBlock = ^(UAProgressView *progressView,BOOL filled, BOOL animated){
         UIColor *color = (filled ? [UIColor whiteColor] : progressView.tintColor);
         if (animated) {
-            [UIView animateWithDuration:0.3 animations:^{
+            [UIView animateWithDuration:1.0 animations:^{
                 [(UILabel *)progressView.centralView setTextColor:color];
             }];
         } else {
@@ -123,7 +123,7 @@
 {
     if (![self.userTimer isValid]) {
         
-        self.userTimer =  [NSTimer scheduledTimerWithTimeInterval:0.05 target:self selector:@selector(updateUserProgress:) userInfo:nil repeats:YES];
+        self.userTimer =  [NSTimer scheduledTimerWithTimeInterval:0.1 target:self selector:@selector(updateUserProgress:) userInfo:nil repeats:YES];
     }
     
 }
@@ -134,7 +134,7 @@
     self.progressView.tintColor = FlatWatermelon;
     self.progressView.borderWidth = 2.0f;
     self.progressView.lineWidth = 2.0f;
-    self.progressView.fillOnTouch = YES;
+    self.progressView.fillOnTouch = NO;
     
     UILabel *textLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 60.0, 32.0)];
     textLabel.font = [UIFont fontWithName:@"HelveticaNeue-UltraLight" size:27];
@@ -216,7 +216,8 @@
 }
 - (void)startBeacon
 {
-    self.beaconRegion = [[ESTBeaconRegion alloc] initWithProximityUUID:self.uuid identifier:@"estimote"];
+    CLBeaconMajorValue major = [[self.exeQuest getObjectForKey:@"major"] intValue];
+    self.beaconRegion = [[ESTBeaconRegion alloc] initWithProximityUUID:self.uuid major:major identifier:@"estimote"];
     [self.beaconManager startRangingBeaconsInRegion:self.beaconRegion];
 
 }
