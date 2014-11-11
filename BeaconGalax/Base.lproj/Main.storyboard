@@ -352,7 +352,6 @@
                     <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina4"/>
                     <connections>
                         <outlet property="collectionView" destination="hmJ-g2-XYq" id="aJh-Dz-EJ3"/>
-                        <segue destination="XtG-ZC-sRy" kind="push" identifier="gotoDescriptionView" id="hqU-3V-hKC"/>
                         <segue destination="D3g-qf-jYO" kind="modal" identifier="gotoLoginView" id="tPk-Rp-t62"/>
                     </connections>
                 </viewController>
@@ -417,7 +416,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="im3-g8-0Dm" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2449" y="-587"/>
+            <point key="canvasLocation" x="2555" y="-253"/>
         </scene>
         <!--募集中-->
         <scene sceneID="MEL-eI-kew">
@@ -516,7 +515,13 @@
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
-                    <navigationItem key="navigationItem" title="募集中" id="goE-mP-9Mx"/>
+                    <navigationItem key="navigationItem" title="募集中" id="goE-mP-9Mx">
+                        <barButtonItem key="rightBarButtonItem" systemItem="add" id="jDn-Oe-k24">
+                            <connections>
+                                <segue destination="kE8-C6-YYK" kind="modal" id="VY3-ct-u3A"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
                     <connections>
                         <outlet property="collectionView" destination="d1R-PH-Xz9" id="YfX-qS-4a6"/>
                         <segue destination="2KE-J0-tPr" kind="push" identifier="goto_QuestMemberView" id="s24-k0-jdN"/>
@@ -653,7 +658,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="1nY-2Z-ElD" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1869" y="76"/>
+            <point key="canvasLocation" x="1945" y="456"/>
         </scene>
         <!--Quest Complete View Controller-->
         <scene sceneID="162-5w-95B">
@@ -921,11 +926,12 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="2bn-En-2Vd" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2319" y="96"/>
+            <point key="canvasLocation" x="3049" y="-602"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="pkc-4p-zdi">
             <objects>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="iy9-bk-fhP" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="kE8-C6-YYK" sceneMemberID="viewController">
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="FCP-H0-XlU">
@@ -937,9 +943,8 @@
                         <segue destination="b5v-ba-4UO" kind="relationship" relationship="rootViewController" id="lPh-q7-fLf"/>
                     </connections>
                 </navigationController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="iy9-bk-fhP" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2068" y="-587"/>
+            <point key="canvasLocation" x="2187" y="-253"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="Htv-GN-7FL">

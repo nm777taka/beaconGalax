@@ -13,6 +13,9 @@
 		0F27DB0119876A750000E0D0 /* menu-white.png in Resources */ = {isa = PBXBuildFile; fileRef = 0F27DB0019876A750000E0D0 /* menu-white.png */; };
 		0F27DB0319876A780000E0D0 /* bell-white.png in Resources */ = {isa = PBXBuildFile; fileRef = 0F27DB0219876A780000E0D0 /* bell-white.png */; };
 		0F3558291A0F89CC0023F2FF /* Clear.png in Resources */ = {isa = PBXBuildFile; fileRef = 0F3558281A0F89CC0023F2FF /* Clear.png */; };
+		0F3558321A1197470023F2FF /* JVFloatLabeledTextField.m in Sources */ = {isa = PBXBuildFile; fileRef = 0F35582D1A1197470023F2FF /* JVFloatLabeledTextField.m */; };
+		0F3558331A1197470023F2FF /* JVFloatLabeledTextView.m in Sources */ = {isa = PBXBuildFile; fileRef = 0F35582F1A1197470023F2FF /* JVFloatLabeledTextView.m */; };
+		0F3558341A1197470023F2FF /* NSString+TextDirectionality.m in Sources */ = {isa = PBXBuildFile; fileRef = 0F3558311A1197470023F2FF /* NSString+TextDirectionality.m */; };
 		0F42365C19BC997D0001E204 /* GXQuestTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0F42365B19BC997D0001E204 /* GXQuestTableViewController.m */; };
 		0F42366019BCBEB80001E204 /* GXQuestViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0F42365F19BCBEB80001E204 /* GXQuestViewController.m */; };
 		0F42366419BD54420001E204 /* GXCreateQuestViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0F42366319BD54420001E204 /* GXCreateQuestViewController.m */; };
@@ -135,6 +138,12 @@
 		0F27DB0019876A750000E0D0 /* menu-white.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "menu-white.png"; sourceTree = "<group>"; };
 		0F27DB0219876A780000E0D0 /* bell-white.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "bell-white.png"; sourceTree = "<group>"; };
 		0F3558281A0F89CC0023F2FF /* Clear.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Clear.png; sourceTree = "<group>"; };
+		0F35582C1A1197470023F2FF /* JVFloatLabeledTextField.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JVFloatLabeledTextField.h; sourceTree = "<group>"; };
+		0F35582D1A1197470023F2FF /* JVFloatLabeledTextField.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JVFloatLabeledTextField.m; sourceTree = "<group>"; };
+		0F35582E1A1197470023F2FF /* JVFloatLabeledTextView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JVFloatLabeledTextView.h; sourceTree = "<group>"; };
+		0F35582F1A1197470023F2FF /* JVFloatLabeledTextView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JVFloatLabeledTextView.m; sourceTree = "<group>"; };
+		0F3558301A1197470023F2FF /* NSString+TextDirectionality.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+TextDirectionality.h"; sourceTree = "<group>"; };
+		0F3558311A1197470023F2FF /* NSString+TextDirectionality.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+TextDirectionality.m"; sourceTree = "<group>"; };
 		0F42365A19BC997D0001E204 /* GXQuestTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GXQuestTableViewController.h; sourceTree = "<group>"; };
 		0F42365B19BC997D0001E204 /* GXQuestTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GXQuestTableViewController.m; sourceTree = "<group>"; };
 		0F42365E19BCBEB80001E204 /* GXQuestViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GXQuestViewController.h; sourceTree = "<group>"; };
@@ -354,6 +363,29 @@
 			name = clear;
 			sourceTree = "<group>";
 		};
+		0F35582A1A11971E0023F2FF /* MVC */ = {
+			isa = PBXGroup;
+			children = (
+				0FA17E3119619EB600158421 /* Model */,
+				0FD26D7C1959F32C005E2B95 /* View */,
+				0F7A25C919587E0C001B7839 /* Controller */,
+			);
+			name = MVC;
+			sourceTree = "<group>";
+		};
+		0F35582B1A1197470023F2FF /* JVFloatLabeledTextField */ = {
+			isa = PBXGroup;
+			children = (
+				0F35582C1A1197470023F2FF /* JVFloatLabeledTextField.h */,
+				0F35582D1A1197470023F2FF /* JVFloatLabeledTextField.m */,
+				0F35582E1A1197470023F2FF /* JVFloatLabeledTextView.h */,
+				0F35582F1A1197470023F2FF /* JVFloatLabeledTextView.m */,
+				0F3558301A1197470023F2FF /* NSString+TextDirectionality.h */,
+				0F3558311A1197470023F2FF /* NSString+TextDirectionality.m */,
+			);
+			path = JVFloatLabeledTextField;
+			sourceTree = "<group>";
+		};
 		0F42365D19BCA2220001E204 /* Home */ = {
 			isa = PBXGroup;
 			children = (
@@ -561,6 +593,8 @@
 		0F7A259919587ADE001B7839 /* BeaconGalax */ = {
 			isa = PBXGroup;
 			children = (
+				0F7A25C819587DFA001B7839 /* storyboard */,
+				0F35582A1A11971E0023F2FF /* MVC */,
 				0F649FE219CD586B00D48074 /* font */,
 				0F5FA5F7198DCF6700F41B05 /* Facebook */,
 				0F82302D198245B10081C9BE /* Images */,
@@ -569,10 +603,6 @@
 				0FD26D8A195A0E54005E2B95 /* Utility */,
 				0FD26D86195A09DC005E2B95 /* Category */,
 				0FD26D7D1959F343005E2B95 /* Const */,
-				0FA17E3119619EB600158421 /* Model */,
-				0FD26D7C1959F32C005E2B95 /* View */,
-				0F7A25C919587E0C001B7839 /* Controller */,
-				0F7A25C819587DFA001B7839 /* storyboard */,
 				0F7A25AB19587ADE001B7839 /* Images.xcassets */,
 				0F7A259A19587ADE001B7839 /* Supporting Files */,
 			);
@@ -885,6 +915,7 @@
 		0FD26D8A195A0E54005E2B95 /* Utility */ = {
 			isa = PBXGroup;
 			children = (
+				0F35582B1A1197470023F2FF /* JVFloatLabeledTextField */,
 				0FD26D8B195A9820005E2B95 /* GXNotification.h */,
 				0FD26D8C195A9820005E2B95 /* GXNotification.m */,
 				0F42366519BD58530001E204 /* UIPlaceHolderTextView.h */,
@@ -1088,7 +1119,9 @@
 				0F6E291919ED5015005BE433 /* GXInvitedViewCell.m in Sources */,
 				0F649FE719CD5A1C00D48074 /* GXJoinedQuestTableViewCell.m in Sources */,
 				0FD26D811959F689005E2B95 /* GXCustomSectionHeader.m in Sources */,
+				0F3558331A1197470023F2FF /* JVFloatLabeledTextView.m in Sources */,
 				0F42366019BCBEB80001E204 /* GXQuestViewController.m in Sources */,
+				0F3558321A1197470023F2FF /* JVFloatLabeledTextField.m in Sources */,
 				0F629BEE19E41748009757DF /* GXQuestB1ViewController.m in Sources */,
 				0F7A25DD1959E4AF001B7839 /* GXCustomCell.m in Sources */,
 				0FC9FF1B19EBC6CD00E78B39 /* GXStatusViewCell.m in Sources */,
@@ -1107,6 +1140,7 @@
 				0F649FDD19CD272200D48074 /* GXTabBarViewController.m in Sources */,
 				0F16512819D443A800918F8D /* GXQuestMemberCell.m in Sources */,
 				0F42366A19BDAC6D0001E204 /* GXDescriptionViewController.m in Sources */,
+				0F3558341A1197470023F2FF /* NSString+TextDirectionality.m in Sources */,
 				0FC0095819E259DD0026A7DC /* GXFrostedViewController.m in Sources */,
 				0F5FA5ED198A31D900F41B05 /* GXHomeTableViewHeader.m in Sources */,
 				0F16512519D4435A00918F8D /* GXGroupManager.m in Sources */,
