@@ -11,6 +11,8 @@
 #import <ChameleonFramework/Chameleon.h>
 #import <EstimoteSDK/ESTBeaconManager.h>
 #import <KiiSDK/Kii.h>
+#import <FlatUIKit.h>
+#import <SVProgressHUD.h>
 #import <UAProgressView/UAProgressView.h>
 
 @interface GXQuestExeViewController : UIViewController

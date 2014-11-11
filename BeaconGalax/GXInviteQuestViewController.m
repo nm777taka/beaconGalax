@@ -140,6 +140,7 @@
     int cur_memberNum = [self getGroupMemberNum:group];
     cell.nowMemberLabel.text = [NSString stringWithFormat:@"パーティーメンバー:%d",cur_memberNum];
     cell.ownerIcon.profileID = [obj getObjectForKey:quest_owner_fbid];
+    cell.ownerName.text = [obj getObjectForKey:quest_owner];
     
     //既にスタートされているか
     if ([[obj getObjectForKey:quest_isStarted] boolValue]) {
@@ -289,10 +290,15 @@
     KiiObject *infoObj = self.invitedQuestArray[indexPath.row];
     NSString *req = [infoObj getObjectForKey:quest_requirement];
     NSString *des = [infoObj getObjectForKey:quest_description];
+    [self showFUIAlert:des message:req];
     
-    
-    FUIAlertView *alertView = [[FUIAlertView alloc] initWithTitle:des
-                                                          message:req
+}
+
+#pragma mark - FUIAlertView
+- (void)showFUIAlert:(NSString *)title message:(NSString *)message
+{
+    FUIAlertView *alertView = [[FUIAlertView alloc] initWithTitle:title
+                                                          message:message
                                                          delegate:nil cancelButtonTitle:@"Dismiss"
                                                 otherButtonTitles:nil, nil];
     alertView.titleLabel.textColor = [UIColor cloudsColor];
@@ -306,6 +312,7 @@
     alertView.defaultButtonFont = [UIFont boldFlatFontOfSize:16];
     alertView.defaultButtonTitleColor = [UIColor asbestosColor];
     [alertView show];
+
 }
 
 #pragma mark - 参加者
@@ -348,7 +355,8 @@
     
     [SVProgressHUD dismiss];
     
-    [TSMessage showNotificationWithTitle:@"参加完了" type:TSMessageNotificationTypeSuccess];
+    //[TSMessage showNotificationWithTitle:@"参加完了" type:TSMessageNotificationTypeSuccess];
+    [self showFUIAlert:@"参加完了" message:@"リーダのところへ向かいましょう！"];
     
     [self.collectionView reloadData];
     

@@ -8,7 +8,6 @@
 
 #import "GXQuestExeViewController.h"
 #import <objc/runtime.h>
-#import "GXQuestCompleteViewController.h"
 #import "GXClearViewController.h"
 #import "GXBeacon.h"
 #import "GXDictonaryKeys.h"
@@ -317,6 +316,7 @@
 {
     [self gotoClearView];
 }
+
 
 //一人用
 - (void)commitOnePersonQuest

@@ -248,7 +248,7 @@ static NSString * const FUITableViewControllerCellReuseIdentifier = @"FUITableVi
         NSLog(@"error:%@",error);
     } else {
         self.selectedGroup = group;
-        [self performSegueWithIdentifier:@"gotoPartyView" sender:self];
+        [self performSegueWithIdentifier:@"gotoReadyView" sender:self];
 
     }
 
@@ -264,7 +264,7 @@ static NSString * const FUITableViewControllerCellReuseIdentifier = @"FUITableVi
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
 {
-    if ([segue.identifier isEqualToString:@"gotoPartyView"]) {
+    if ([segue.identifier isEqualToString:@"gotoReadyView"]) {
         GXQuestGroupViewController *vc = segue.destinationViewController;
         vc.willExeQuest = self.selectedQuest;
         vc.selectedQuestGroup = self.selectedGroup;

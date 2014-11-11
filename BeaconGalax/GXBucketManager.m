@@ -173,6 +173,7 @@
     }
     [newObj setObject:group.objectURI forKey:quest_groupURI];
     [newObj setObject:[ownerUser getObjectForKey:user_fb_id] forKey:quest_owner_fbid];
+    [newObj setObject:[ownerUser getObjectForKey:user_name] forKey:quest_owner];
     
     [newObj saveWithBlock:^(KiiObject *object, NSError *error) {
         
@@ -183,6 +184,8 @@
             [groupQuest setObject:dict[key] forKey:key];
         }
         [groupQuest setObject:group.objectURI forKey:quest_groupURI];
+        [groupQuest setObject:[ownerUser getObjectForKey:user_fb_id] forKey:quest_owner_fbid];
+        [groupQuest setObject:[ownerUser getObjectForKey:user_name] forKey:quest_owner];
 
         [groupQuest saveWithBlock:^(KiiObject *object, NSError *error) {
             

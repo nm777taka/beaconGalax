@@ -8,6 +8,7 @@
 
 #import "GXQuestGroupViewController.h"
 #import "GXQuestExeViewController.h"
+#import "GXUserQuestExeViewController.h"
 #import "GXQuestGroupViewCell.h"
 #import "GXDictonaryKeys.h"
 #import "GXNotification.h"
@@ -54,6 +55,8 @@
     //Notificaiton
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(memberFetched:) name:GXGroupMemberFetchedNotification object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(questStart:) name:GXStartQuestNotification object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(userReady:) name:@"ready" object:nil];
+
 
     self.quest = [[GXBucketManager sharedManager] getGroupQuest:self.selectedQuestGroup];
 }
@@ -86,7 +89,6 @@
     }];
 
 }
-
 - (void)viewDidDisappear:(BOOL)animated
 {
     [super viewDidDisappear:animated];
@@ -247,6 +249,12 @@
     //[SVProgressHUD showSuccessWithStatus:@"取得完了"];
 }
 
+- (void)userReady:(NSNotification *)notis
+{
+    NSLog(@"call--handler");
+    [self setReadyStatus];
+}
+
 - (void)questStart:(NSNotification *)notis
 {
     NSLog(@"クエストスタート!!");
@@ -284,26 +292,52 @@
 - (void)gotoQuestExeView
 {
     UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"subStoryboard" bundle:nil];
-    GXQuestExeViewController *initialViewController = [storyboard instantiateInitialViewController];
-    initialViewController.exeQuest = self.quest;
-    initialViewController.exeGroup = self.selectedQuestGroup;
-    initialViewController.isMulti = YES;
-    initialViewController.groupMemberNum = (int)self.questMemberArray.count;
-    
+    GXUserQuestExeViewController *vc1;
+    GXQuestExeViewController *vc2;
     //QMで管理
     [GXExeQuestManager sharedManager].nowExeQuest = self.willExeQuest;
-    
-    [self presentViewController:initialViewController animated:YES completion:^{
+
+    NSString *type = [self.quest getObjectForKey:quest_type];
+    if ([type isEqualToString:@"user"]) {
+        //ユーザ判定のクエスト
+        vc1 = [storyboard instantiateViewControllerWithIdentifier:@"userExeQuest"];
+        vc1.exeQuest = self.quest;
+        vc1.exeGroup = self.selectedQuestGroup;
         
-        //どこのbucketに属しているか
-        //inviteだったらisStartedをtrueへ
-        KiiBucket *willExeQuestBucket = self.willExeQuest.bucket;
-        KiiBucket *inviteBucket = [GXBucketManager sharedManager].inviteBoard;
-        if (willExeQuestBucket == inviteBucket) {
-            [[GXExeQuestManager sharedManager] startQuestAtInvitedBucket:self.willExeQuest]; //isStartedをYESに
-        }
+        [self presentViewController:vc1 animated:YES completion:^{
+            
+            //どこのbucketに属しているか
+            //inviteだったらisStartedをtrueへ
+            //現在実行中のユーザがオーナーか参加者かでwillExeQuestの親バケットが違う
+            KiiBucket *willExeQuestBucket = self.willExeQuest.bucket;
+            KiiBucket *inviteBucket = [GXBucketManager sharedManager].inviteBoard;
+            if (willExeQuestBucket == inviteBucket) {
+                [[GXExeQuestManager sharedManager] startQuestAtInvitedBucket:self.willExeQuest]; //isStartedをYESに
+            }
+
+        }];
         
-    }];
+    } else {
+        
+        //ビーコン判定クエスト
+        vc2 = [storyboard instantiateInitialViewController];
+        vc2.exeQuest = self.quest;
+        vc2.exeGroup = self.selectedQuestGroup;
+        vc2.isMulti = YES;
+        vc2.groupMemberNum = (int)self.questMemberArray.count;
+        
+        [self presentViewController:vc2 animated:YES completion:^{
+            
+            //どこのbucketに属しているか
+            //inviteだったらisStartedをtrueへ
+            KiiBucket *willExeQuestBucket = self.willExeQuest.bucket;
+            KiiBucket *inviteBucket = [GXBucketManager sharedManager].inviteBoard;
+            if (willExeQuestBucket == inviteBucket) {
+                [[GXExeQuestManager sharedManager] startQuestAtInvitedBucket:self.willExeQuest]; //isStartedをYESに
+            }
+            
+        }];
+    }
 }
 
 

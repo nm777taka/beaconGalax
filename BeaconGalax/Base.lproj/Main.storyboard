@@ -122,7 +122,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="jCK-KX-PQ3" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="845" y="-587"/>
+            <point key="canvasLocation" x="247" y="-371"/>
         </scene>
         <!--Status View Controller-->
         <scene sceneID="xwt-bl-Lo2">
@@ -212,7 +212,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="nFq-a3-EjY" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="825" y="76"/>
+            <point key="canvasLocation" x="221" y="254"/>
         </scene>
         <!--Login View Controller-->
         <scene sceneID="pVw-jq-tED">
@@ -244,7 +244,7 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Hbv-Ve-4PE" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <exit id="Ngn-J0-9JT" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
-            <point key="canvasLocation" x="1659" y="-1299"/>
+            <point key="canvasLocation" x="1286" y="-1223"/>
         </scene>
         <!--クエストボード-->
         <scene sceneID="IUh-rZ-Cto">
@@ -357,66 +357,37 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="tXN-0u-SKE" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1649" y="-593"/>
+            <point key="canvasLocation" x="1295" y="-591"/>
         </scene>
-        <!--新しいクエスト-->
-        <scene sceneID="IhJ-9t-Xx3">
+        <!--Create View Controller-->
+        <scene sceneID="AqG-Wx-e1p">
             <objects>
-                <viewController id="b5v-ba-4UO" customClass="GXCreateQuestViewController" sceneMemberID="viewController">
+                <viewController id="0sk-fa-YAs" customClass="GXCreateViewController" sceneMemberID="viewController">
                     <layoutGuides>
-                        <viewControllerLayoutGuide type="top" id="29x-y3-6WS"/>
-                        <viewControllerLayoutGuide type="bottom" id="dcf-pI-7Ww"/>
+                        <viewControllerLayoutGuide type="top" id="Vv7-OL-FpN"/>
+                        <viewControllerLayoutGuide type="bottom" id="zOu-f7-Jz5"/>
                     </layoutGuides>
-                    <view key="view" contentMode="scaleToFill" id="5hf-8A-Uf6">
+                    <view key="view" contentMode="scaleToFill" id="fkr-E0-knU">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
-                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                        <subviews>
-                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Qlx-7z-29H" customClass="UIPlaceHolderTextView">
-                                <rect key="frame" x="0.0" y="64" width="320" height="244"/>
-                                <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
-                                <constraints>
-                                    <constraint firstAttribute="width" constant="320" id="GGz-Og-HbN"/>
-                                </constraints>
-                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
-                            </textView>
-                            <view contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="5IZ-ld-Zmp">
-                                <rect key="frame" x="0.0" y="308" width="320" height="44"/>
-                                <color key="backgroundColor" red="0.52106726169586182" green="0.24050712585449219" blue="0.68248951435089111" alpha="1" colorSpace="calibratedRGB"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="44" id="3Uc-e6-7tI"/>
-                                    <constraint firstAttribute="width" constant="320" id="82j-Bv-luX"/>
-                                </constraints>
-                            </view>
-                        </subviews>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
-                        <constraints>
-                            <constraint firstItem="Qlx-7z-29H" firstAttribute="top" secondItem="29x-y3-6WS" secondAttribute="bottom" id="gKi-sS-Lom"/>
-                            <constraint firstItem="5IZ-ld-Zmp" firstAttribute="top" secondItem="Qlx-7z-29H" secondAttribute="bottom" id="lMK-8w-Ew7"/>
-                            <constraint firstItem="dcf-pI-7Ww" firstAttribute="top" secondItem="5IZ-ld-Zmp" secondAttribute="bottom" constant="216" id="sLj-Ya-g5M"/>
-                        </constraints>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
-                    <navigationItem key="navigationItem" title="新しいクエスト" id="jq3-Hw-Wod">
-                        <barButtonItem key="leftBarButtonItem" title="閉じる" id="feK-L5-SYv">
+                    <navigationItem key="navigationItem" id="GA4-rf-rzi">
+                        <barButtonItem key="leftBarButtonItem" title="閉じる" id="rAI-6c-QJo">
                             <connections>
-                                <action selector="closeView:" destination="b5v-ba-4UO" id="XMa-aC-hDp"/>
+                                <action selector="closeView:" destination="0sk-fa-YAs" id="UyR-gO-TF8"/>
                             </connections>
                         </barButtonItem>
-                        <barButtonItem key="rightBarButtonItem" title="作る" id="aji-yb-ylY">
+                        <barButtonItem key="rightBarButtonItem" title="作成" id="jGk-Hh-wM3">
                             <connections>
-                                <action selector="addQuest:" destination="b5v-ba-4UO" id="qB2-R0-lDn"/>
+                                <action selector="create:" destination="0sk-fa-YAs" id="H3L-1L-Hql"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
-                    <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina4"/>
-                    <connections>
-                        <outlet property="textView" destination="Qlx-7z-29H" id="uYP-LR-bpQ"/>
-                        <outlet property="toolBarView" destination="5IZ-ld-Zmp" id="lvz-3U-XE4"/>
-                    </connections>
                 </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="im3-g8-0Dm" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="egZ-1W-BDW" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2555" y="-253"/>
+            <point key="canvasLocation" x="2425" y="-245"/>
         </scene>
         <!--募集中-->
         <scene sceneID="MEL-eI-kew">
@@ -529,7 +500,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="HoD-uz-grb" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1426" y="76"/>
+            <point key="canvasLocation" x="1286" y="68"/>
         </scene>
         <!--参加済みクエスト-->
         <scene sceneID="r4B-Nq-pVi">
@@ -577,12 +548,61 @@
                     <connections>
                         <outlet property="segmentControl" destination="hn1-h1-f8o" id="gly-3h-PTH"/>
                         <outlet property="tableView" destination="CgV-RV-gwH" id="9I8-ij-JHX"/>
-                        <segue destination="2KE-J0-tPr" kind="push" identifier="gotoPartyView" id="rQH-3c-Zmq"/>
+                        <segue destination="ZLd-hL-qSR" kind="push" identifier="gotoReadyView" id="R2V-hH-sWM"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="hQ1-Oj-27I" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1072" y="717"/>
+            <point key="canvasLocation" x="855" y="733"/>
+        </scene>
+        <!--Quest Ready View Controller-->
+        <scene sceneID="irT-HR-mCc">
+            <objects>
+                <viewController id="ZLd-hL-qSR" customClass="GXQuestReadyViewController" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="dlP-JD-HUh"/>
+                        <viewControllerLayoutGuide type="bottom" id="RwE-mj-jhV"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="iET-YF-zlT">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="クエストリーダのところへ集まれ" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="VdP-Yp-eeS">
+                                <rect key="frame" x="33" y="97" width="255" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Prox" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="BQe-UH-Jfl">
+                                <rect key="frame" x="104" y="356" width="112" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="7cp-zc-PtN" customClass="FBProfilePictureView">
+                                <rect key="frame" x="110" y="169" width="100" height="100"/>
+                                <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                            </view>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="1.2m" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="zjE-ai-lXF">
+                                <rect key="frame" x="75" y="303" width="170" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                    <navigationItem key="navigationItem" id="zDF-jS-ljd"/>
+                    <connections>
+                        <outlet property="distanceLabel" destination="zjE-ai-lXF" id="pyQ-Vy-HEb"/>
+                        <outlet property="ownerIconView" destination="7cp-zc-PtN" id="cDE-co-ncn"/>
+                        <outlet property="proxLabel" destination="BQe-UH-Jfl" id="dki-LW-976"/>
+                        <segue destination="2KE-J0-tPr" kind="push" identifier="gotoPartyView" id="HZO-rN-Agp"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Rg5-EO-v8n" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1286" y="733"/>
         </scene>
         <!--クエストパーティー-->
         <scene sceneID="bvE-KX-rpo">
@@ -658,7 +678,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="1nY-2Z-ElD" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1945" y="456"/>
+            <point key="canvasLocation" x="2032" y="476"/>
         </scene>
         <!--Quest Complete View Controller-->
         <scene sceneID="162-5w-95B">
@@ -940,11 +960,11 @@
                     </navigationBar>
                     <nil name="viewControllers"/>
                     <connections>
-                        <segue destination="b5v-ba-4UO" kind="relationship" relationship="rootViewController" id="lPh-q7-fLf"/>
+                        <segue destination="0sk-fa-YAs" kind="relationship" relationship="rootViewController" id="jdV-b2-E8D"/>
                     </connections>
                 </navigationController>
             </objects>
-            <point key="canvasLocation" x="2187" y="-253"/>
+            <point key="canvasLocation" x="2047" y="-245"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="Htv-GN-7FL">
@@ -983,7 +1003,7 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ubZ-81-JVW" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1253" y="-587"/>
+            <point key="canvasLocation" x="855" y="-361"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="RTX-ol-vyg">
@@ -1018,6 +1038,6 @@
         <simulatedScreenMetrics key="destination" type="retina4"/>
     </simulatedMetricsContainer>
     <inferredMetricsTieBreakers>
-        <segue reference="s24-k0-jdN"/>
+        <segue reference="HZO-rN-Agp"/>
     </inferredMetricsTieBreakers>
 </document>

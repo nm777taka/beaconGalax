@@ -16,5 +16,4 @@
 
 @property (nonatomic,retain) KiiGroup *selectedQuestGroup;
 @property (nonatomic,retain) KiiObject *willExeQuest;
-
 @end
