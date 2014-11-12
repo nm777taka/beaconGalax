@@ -147,7 +147,13 @@
     [newMember setObject:@YES forKey:user_isOwner];
     [newMember saveWithBlock:^(KiiObject *object, NSError *error) {
         
+        //member参加を知るためにsubscribe
+        [KiiPushSubscription subscribe:bucket withBlock:^(KiiPushSubscription *subscription, NSError *error) {
+            if (error == nil) {
+            }
+        }];
     }];
+    
     
     //グループtopicを作成(みんなで購読する)
     KiiTopic *groupTopic = [group topicWithName:@"quest_start"];
@@ -190,6 +196,9 @@
         [groupQuest saveWithBlock:^(KiiObject *object, NSError *error) {
             
         }];
+        
+        CWStatusBarNotification *notis = [CWStatusBarNotification new];
+        [notis displayNotificationWithMessage:@"クエスト募集完了" forDuration:2.0f];
         
         [[NSNotificationCenter defaultCenter ] postNotificationName:GXRegisteredInvitedBoardNotification object:nil];
 

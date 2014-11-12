@@ -11,6 +11,8 @@ pod "PulsingHalo"
 pod 'REFrostedViewController', '~> 2.4.7'
 pod 'FlatUIKit'
 pod 'UAProgressView'
+pod 'CWStatusBarNotification', '~> 2.2.2'
+
 
 
 

@@ -9,6 +9,7 @@
 #import <Foundation/Foundation.h>
 #import <KiiSDK/Kii.h>
 #import <TSMessage.h>
+#import <CWStatusBarNotification/CWStatusBarNotification.h>
 #import "GXQuest.h"
 
 @interface GXBucketManager : NSObject

@@ -296,7 +296,10 @@
 #pragma mark - Notification
 - (void)registeredInvitedBoard:(NSNotification *)notis
 {
-    [TSMessage showNotificationWithTitle:@"募集完了" type:TSMessageNotificationTypeSuccess];
+    CWStatusBarNotification *notification = [CWStatusBarNotification new];
+    notification.notificationStyle = CWNotificationStyleNavigationBarNotification;
+    [notification displayNotificationWithMessage:@"募集完了" forDuration:2.0f];
+    
 }
 
 - (void)deletedQuest:(NSNotification *)notis

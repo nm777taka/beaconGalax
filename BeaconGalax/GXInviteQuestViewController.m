@@ -123,6 +123,8 @@
 
 }
 
+#pragma mark - Todo
+//くそ重い
 - (void)configureCell:(GXInvitedViewCell *)cell atIndexPath:(NSIndexPath *)indexPath
 {
     //影
@@ -200,42 +202,6 @@
     alert.defaultButtonTitleColor = [UIColor asbestosColor];
     [alert show];
 }
-
-- (void)sendPushtoOwner:(KiiGroup *)group
-{
-//    NSError *error;
-//    KiiUser *ownerUser = [group getOwnerSynchronous:&error];
-//    KiiTopic *topic = [ownerUser topicWithName:topic_invite];
-//    KiiAPNSFields *apnsFields = [KiiAPNSFields createFields];
-//    NSDictionary *dict = @{@"join_user":[KiiUser currentUser].objectURI,@"group":group.objectURI,push_type:push_invite};
-//    
-//    //サイレント
-//    [apnsFields setContentAvailable:@1];
-//    
-//    [apnsFields setSpecificData:dict];
-//    
-//    KiiPushMessage *message = [KiiPushMessage composeMessageWithAPNSFields:apnsFields andGCMFields:nil];
-//    
-//    //ペイロードを削る
-//    [message setSendSender:[NSNumber numberWithBool:NO]];
-//    // Disable "w" field
-//    [message setSendWhen:[NSNumber numberWithBool:NO]];
-//    // Disable "to" field
-//    [message setSendTopicID:[NSNumber numberWithBool:NO]];
-//    // Disable "sa", "st" and "su" field
-//    [message setSendObjectScope:[NSNumber numberWithBool:NO]];
-//    
-//    [topic sendMessage:message withBlock:^(KiiTopic *topic, NSError *error) {
-//        
-//        if (error) {
-//            NSLog(@"error:%@",error);
-//        } else {
-//            NSLog(@"送信完了");
-//        }
-//    }];
-    
-}
-
 
 - (void)requestAddGroup
 {
@@ -379,7 +345,7 @@
     [SVProgressHUD dismiss];
     
     //[TSMessage showNotificationWithTitle:@"参加完了" type:TSMessageNotificationTypeSuccess];
-    [self showFUIAlert:@"参加完了" message:@"リーダのところへ向かいましょう！"];
+    [self showFUIAlert:@"Success" message:@"パーティーに参加しました"];
     
     [self.collectionView reloadData];
     
@@ -390,7 +356,7 @@
 }
 
 #pragma mark - ToDo
-//ここからいくのはリーダーだけにする!
+//ここからいくのはリーダーだけにする! ..リーダー以外もできるように
 - (void)gotoQuestPartyView:(NSIndexPath *)indexPath
 {
     self.selectedInviteBucketObj = self.invitedQuestArray[indexPath.row];

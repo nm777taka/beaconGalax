@@ -11,6 +11,7 @@
 #import "GXDictonaryKeys.h"
 #import "GXNotification.h"
 
+
 @interface GXAppDelegate()
 
 @property KiiUser *joinUser;
@@ -138,6 +139,19 @@
                 [[NSNotificationCenter defaultCenter] postNotificationName:GXStartQuestNotification object:nil];
             }
             
+        }
+        
+        //パーティーへの参加
+        if ([bucketName isEqualToString:@"member"]) {
+            if (application.applicationState == UIApplicationStateActive) {
+                NSLog(@"newmember");
+                //cwnotis
+                CWStatusBarNotification *notis = [CWStatusBarNotification new];
+                notis.notificationLabelBackgroundColor = [UIColor turquoiseColor];
+                notis.notificationStyle = CWNotificationStyleNavigationBarNotification;
+                [notis displayNotificationWithMessage:@"新しいメンバーが参加しました" forDuration:2.0f];
+                
+            }
         }
         
         //グループのバケット購読によるpushハンドリング
