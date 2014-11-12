@@ -26,7 +26,7 @@
                                 <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="74658FDC-515C-4E20-9E3B-BD3988B1BCD8" translatesAutoresizingMaskIntoConstraints="NO" id="w9g-Qg-DgM">
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="CC7969AB-BD83-4D3A-B8FC-47C610DECFC8" translatesAutoresizingMaskIntoConstraints="NO" id="w9g-Qg-DgM">
                                 <rect key="frame" x="16" y="62" width="39" height="35"/>
                             </imageView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dVj-u7-TCs">
@@ -159,7 +159,7 @@
         </scene>
     </scenes>
     <resources>
-        <image name="74658FDC-515C-4E20-9E3B-BD3988B1BCD8" width="1200" height="1200">
+        <image name="CC7969AB-BD83-4D3A-B8FC-47C610DECFC8" width="1200" height="1200">
             <mutableData key="keyedArchiveRepresentation">
 YnBsaXN0MDDUAQIDBAUGOzxYJHZlcnNpb25YJG9iamVjdHNZJGFyY2hpdmVyVCR0b3ASAAGGoK0HCBEW
 GxwgISksLzU4VSRudWxs1AkKCwwNDg8QViRjbGFzc1xOU0ltYWdlRmxhZ3NWTlNSZXBzV05TQ29sb3KA

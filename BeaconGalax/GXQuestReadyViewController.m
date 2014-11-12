@@ -22,6 +22,7 @@
 @property NSUUID *uuid;
 @property (weak, nonatomic) IBOutlet UILabel *distanceLabel;
 @property (weak, nonatomic) IBOutlet UILabel *proxLabel;
+@property (weak, nonatomic) IBOutlet UILabel *headerLabel;
 
 @end
 
@@ -35,7 +36,7 @@
     self.beaconManager.delegate = self;
     self.beaconManager.avoidUnknownStateBeacons = YES;
     
-    self.ownerIconView.layer.cornerRadius = 50.f;
+    self.ownerIconView.layer.cornerRadius = 100.f;
     self.ownerIconView.layer.borderColor = [UIColor orangeColor].CGColor;
     self.ownerIconView.layer.borderWidth = 2.0f;
     
@@ -44,6 +45,13 @@
     halo.backgroundColor = FlatWatermelon.CGColor;
     halo.radius = 240.f;
     [self.view.layer insertSublayer:halo below:self.ownerIconView.layer];
+    
+    self.distanceLabel.font = [UIFont boldFlatFontOfSize:17];
+    self.distanceLabel.textColor = [UIColor midnightBlueColor];
+    self.proxLabel.font = [UIFont boldFlatFontOfSize:20];
+    self.proxLabel.textColor = [UIColor alizarinColor];
+    
+    self.headerLabel.font = [UIFont boldFlatFontOfSize:17];
     
 }
 

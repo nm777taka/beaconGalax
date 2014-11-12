@@ -502,7 +502,7 @@
             </objects>
             <point key="canvasLocation" x="1286" y="68"/>
         </scene>
-        <!--参加済みクエスト-->
+        <!--参加中のクエスト-->
         <scene sceneID="r4B-Nq-pVi">
             <objects>
                 <viewController storyboardIdentifier="joined" id="YQ2-56-qcR" customClass="GXJoinedQuestViewController" sceneMemberID="viewController">
@@ -544,7 +544,7 @@
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
-                    <navigationItem key="navigationItem" title="参加済みクエスト" id="ow9-Ec-5xU"/>
+                    <navigationItem key="navigationItem" title="参加中のクエスト" id="ow9-Ec-5xU"/>
                     <connections>
                         <outlet property="segmentControl" destination="hn1-h1-f8o" id="gly-3h-PTH"/>
                         <outlet property="tableView" destination="CgV-RV-gwH" id="9I8-ij-JHX"/>
@@ -573,28 +573,29 @@
                                 <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="1.2m" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="zjE-ai-lXF">
+                                <rect key="frame" x="33" y="451" width="255" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Prox" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="BQe-UH-Jfl">
-                                <rect key="frame" x="104" y="356" width="112" height="21"/>
+                                <rect key="frame" x="33" y="507" width="255" height="21"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="7cp-zc-PtN" customClass="FBProfilePictureView">
-                                <rect key="frame" x="110" y="169" width="100" height="100"/>
+                                <rect key="frame" x="60" y="184" width="200" height="200"/>
                                 <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                             </view>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="1.2m" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="zjE-ai-lXF">
-                                <rect key="frame" x="75" y="303" width="170" height="21"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
                     <navigationItem key="navigationItem" id="zDF-jS-ljd"/>
                     <connections>
                         <outlet property="distanceLabel" destination="zjE-ai-lXF" id="pyQ-Vy-HEb"/>
+                        <outlet property="headerLabel" destination="VdP-Yp-eeS" id="864-5I-iZu"/>
                         <outlet property="ownerIconView" destination="7cp-zc-PtN" id="cDE-co-ncn"/>
                         <outlet property="proxLabel" destination="BQe-UH-Jfl" id="dki-LW-976"/>
                         <segue destination="2KE-J0-tPr" kind="push" identifier="gotoPartyView" id="HZO-rN-Agp"/>
@@ -745,94 +746,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="4WS-ee-V1q" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3443" y="-181"/>
-        </scene>
-        <!--QUEST-->
-        <scene sceneID="Q42-rw-VWA">
-            <objects>
-                <viewController id="p4e-2n-6z3" customClass="GXQuestExeViewController" sceneMemberID="viewController">
-                    <layoutGuides>
-                        <viewControllerLayoutGuide type="top" id="Zzp-1G-EfD"/>
-                        <viewControllerLayoutGuide type="bottom" id="bgp-V9-LBQ"/>
-                    </layoutGuides>
-                    <view key="view" contentMode="scaleToFill" id="VEP-ka-E5x">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <subviews>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="beacon.png" translatesAutoresizingMaskIntoConstraints="NO" id="jFD-1g-IBy">
-                                <rect key="frame" x="111" y="176" width="99" height="99"/>
-                            </imageView>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="iiY-CT-hez">
-                                <rect key="frame" x="93" y="288" width="134" height="21"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="19"/>
-                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="quest.png" translatesAutoresizingMaskIntoConstraints="NO" id="5b1-mV-bzU">
-                                <rect key="frame" x="16" y="92" width="39" height="35"/>
-                            </imageView>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="6xt-2A-SgR">
-                                <rect key="frame" x="16" y="317" width="288" height="38"/>
-                                <fontDescription key="fontDescription" type="boldSystem" pointSize="40"/>
-                                <color key="textColor" red="0.89126098155975342" green="0.3545563817024231" blue="0.39968371391296387" alpha="1" colorSpace="calibratedRGB"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="0Kq-3E-45E" customClass="UAProgressView">
-                                <rect key="frame" x="58" y="383" width="100" height="100"/>
-                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                            </view>
-                            <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="uDA-3w-lkq" customClass="UAProgressView">
-                                <rect key="frame" x="177" y="383" width="100" height="100"/>
-                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                            </view>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="クエストタイトル" lineBreakMode="tailTruncation" numberOfLines="7" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="xdg-xK-ieP">
-                                <rect key="frame" x="63" y="92" width="219" height="45"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="20"/>
-                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                        </subviews>
-                        <color key="backgroundColor" red="0.96933593750000002" green="0.96933593750000002" blue="0.96933593750000002" alpha="1" colorSpace="calibratedRGB"/>
-                    </view>
-                    <navigationItem key="navigationItem" title="QUEST" id="oXd-g1-Ced"/>
-                    <simulatedOrientationMetrics key="simulatedOrientationMetrics"/>
-                    <connections>
-                        <outlet property="accLabel" destination="iiY-CT-hez" id="kuT-hj-pQO"/>
-                        <outlet property="beaconImage" destination="jFD-1g-IBy" id="2Hc-xB-AGH"/>
-                        <outlet property="progressView" destination="0Kq-3E-45E" id="rZK-ft-e8R"/>
-                        <outlet property="proxLabel" destination="6xt-2A-SgR" id="ezD-0I-KWG"/>
-                        <outlet property="questTitle" destination="xdg-xK-ieP" id="y7v-cU-cPV"/>
-                        <outlet property="userProgressView" destination="uDA-3w-lkq" id="FeS-gD-Cgs"/>
-                        <segue destination="K7W-OA-vM4" kind="push" identifier="gotoClearView" id="sjs-DJ-5Tp"/>
-                    </connections>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="fTf-PY-d6U" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="2984" y="1030"/>
-        </scene>
-        <!--Clear View Controller-->
-        <scene sceneID="ybN-fx-XHk">
-            <objects>
-                <viewController id="K7W-OA-vM4" customClass="GXClearViewController" sceneMemberID="viewController">
-                    <layoutGuides>
-                        <viewControllerLayoutGuide type="top" id="5mb-dr-he1"/>
-                        <viewControllerLayoutGuide type="bottom" id="3qH-zQ-ABU"/>
-                    </layoutGuides>
-                    <view key="view" contentMode="scaleToFill" id="hIG-Gv-h8i">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <subviews>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="GALAX-update-.png" translatesAutoresizingMaskIntoConstraints="NO" id="byQ-jr-hj5">
-                                <rect key="frame" x="0.0" y="64" width="320" height="504"/>
-                            </imageView>
-                        </subviews>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                    </view>
-                    <navigationItem key="navigationItem" id="5ra-2l-TvS"/>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="VBu-MB-ZJI" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="3374" y="1030"/>
+            <point key="canvasLocation" x="3387" y="-621"/>
         </scene>
         <!--クエスト詳細-->
         <scene sceneID="5s6-F7-Wa7">
@@ -946,7 +860,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="2bn-En-2Vd" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3049" y="-602"/>
+            <point key="canvasLocation" x="3437" y="374"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="pkc-4p-zdi">
@@ -1005,29 +919,8 @@
             </objects>
             <point key="canvasLocation" x="855" y="-361"/>
         </scene>
-        <!--Navigation Controller-->
-        <scene sceneID="RTX-ol-vyg">
-            <objects>
-                <navigationController storyboardIdentifier="questExe" automaticallyAdjustsScrollViewInsets="NO" id="Q3d-mt-a5j" sceneMemberID="viewController">
-                    <toolbarItems/>
-                    <navigationItem key="navigationItem" id="kZi-Fc-Wgk"/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="hx2-5a-h9d">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
-                        <autoresizingMask key="autoresizingMask"/>
-                    </navigationBar>
-                    <nil name="viewControllers"/>
-                    <connections>
-                        <segue destination="p4e-2n-6z3" kind="relationship" relationship="rootViewController" id="wo8-1M-DWd"/>
-                    </connections>
-                </navigationController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="hb0-Sy-vkH" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="2585" y="1030"/>
-        </scene>
     </scenes>
     <resources>
-        <image name="GALAX-update-.png" width="640" height="1136"/>
-        <image name="beacon.png" width="200" height="200"/>
         <image name="home-32.png" width="32" height="32"/>
         <image name="quest.png" width="1200" height="1200"/>
         <image name="ready.png" width="100" height="100"/>

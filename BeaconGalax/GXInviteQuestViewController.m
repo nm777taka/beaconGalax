@@ -12,6 +12,7 @@
 #import "GXDictonaryKeys.h"
 #import "GXNotification.h"
 #import "GXBucketManager.h"
+#import "GXUserManager.h"
 #import "GXExeQuestManager.h"
 
 @interface GXInviteQuestViewController ()<UICollectionViewDataSource,UICollectionViewDelegate,FUIAlertViewDelegate>
@@ -87,7 +88,7 @@
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath
 {
 
-    KiiObject *obj = self.invitedQuestArray[indexPath.row];
+    self.selectedInviteBucketObj = self.invitedQuestArray[indexPath.row];
     
     //色々判定する
     //タップしたクエストのグループを取得
@@ -102,7 +103,7 @@
     //既にグループに参加しているか
     if ([self isJoined:self.questGroupAtSelected]) {
         //アラート
-        FUIAlertView *alertView = [[FUIAlertView alloc] initWithTitle:@"！" message:@"すでに参加しています。参加済み画面からメンバー一覧を見ることができます。" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
+        FUIAlertView *alertView = [[FUIAlertView alloc] initWithTitle:@"！" message:@"すでに参加しています。参加済み画面からクエストを開始できます" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
         alertView.titleLabel.textColor = [UIColor cloudsColor];
         alertView.titleLabel.font = [UIFont boldFlatFontOfSize:16];
         alertView.messageLabel.textColor = [UIColor cloudsColor];
@@ -202,37 +203,58 @@
 
 - (void)sendPushtoOwner:(KiiGroup *)group
 {
-    NSError *error;
-    KiiUser *ownerUser = [group getOwnerSynchronous:&error];
-    KiiTopic *topic = [ownerUser topicWithName:topic_invite];
-    KiiAPNSFields *apnsFields = [KiiAPNSFields createFields];
-    NSDictionary *dict = @{@"join_user":[KiiUser currentUser].objectURI,@"group":group.objectURI,push_type:push_invite};
+//    NSError *error;
+//    KiiUser *ownerUser = [group getOwnerSynchronous:&error];
+//    KiiTopic *topic = [ownerUser topicWithName:topic_invite];
+//    KiiAPNSFields *apnsFields = [KiiAPNSFields createFields];
+//    NSDictionary *dict = @{@"join_user":[KiiUser currentUser].objectURI,@"group":group.objectURI,push_type:push_invite};
+//    
+//    //サイレント
+//    [apnsFields setContentAvailable:@1];
+//    
+//    [apnsFields setSpecificData:dict];
+//    
+//    KiiPushMessage *message = [KiiPushMessage composeMessageWithAPNSFields:apnsFields andGCMFields:nil];
+//    
+//    //ペイロードを削る
+//    [message setSendSender:[NSNumber numberWithBool:NO]];
+//    // Disable "w" field
+//    [message setSendWhen:[NSNumber numberWithBool:NO]];
+//    // Disable "to" field
+//    [message setSendTopicID:[NSNumber numberWithBool:NO]];
+//    // Disable "sa", "st" and "su" field
+//    [message setSendObjectScope:[NSNumber numberWithBool:NO]];
+//    
+//    [topic sendMessage:message withBlock:^(KiiTopic *topic, NSError *error) {
+//        
+//        if (error) {
+//            NSLog(@"error:%@",error);
+//        } else {
+//            NSLog(@"送信完了");
+//        }
+//    }];
     
-    //サイレント
-    [apnsFields setContentAvailable:@1];
+}
+
+
+- (void)requestAddGroup
+{
+    KiiServerCodeEntry *entry = [Kii serverCodeEntry:@"addGroup"];
+    NSString *groupURI = [self.selectedInviteBucketObj getObjectForKey:quest_groupURI];
+    NSLog(@"selected-groupuri:%@",groupURI);
+    NSString *kiiuserURI = [KiiUser currentUser].objectURI;
+    KiiObject *gxUser = [GXUserManager sharedManager].gxUser;
+    NSString *gxUserURI = gxUser.objectURI;
     
-    [apnsFields setSpecificData:dict];
+    NSDictionary *argDict = [NSDictionary dictionaryWithObjectsAndKeys:groupURI,@"groupURI",kiiuserURI,@"userURI",gxUserURI,@"gxURI", nil];
     
-    KiiPushMessage *message = [KiiPushMessage composeMessageWithAPNSFields:apnsFields andGCMFields:nil];
+    KiiServerCodeEntryArgument *argument = [KiiServerCodeEntryArgument argumentWithDictionary:argDict];
     
-    //ペイロードを削る
-    [message setSendSender:[NSNumber numberWithBool:NO]];
-    // Disable "w" field
-    [message setSendWhen:[NSNumber numberWithBool:NO]];
-    // Disable "to" field
-    [message setSendTopicID:[NSNumber numberWithBool:NO]];
-    // Disable "sa", "st" and "su" field
-    [message setSendObjectScope:[NSNumber numberWithBool:NO]];
-    
-    [topic sendMessage:message withBlock:^(KiiTopic *topic, NSError *error) {
-        
-        if (error) {
-            NSLog(@"error:%@",error);
-        } else {
-            NSLog(@"送信完了");
-        }
+    [entry execute:argument withBlock:^(KiiServerCodeEntry *entry, KiiServerCodeEntryArgument *argument, KiiServerCodeExecResult *result, NSError *error) {
+        NSDictionary *retDict = [result returnedValue];
+        NSLog(@"returned:%@",retDict);
+        [self addedGroup];
     }];
-    
 }
 
 - (BOOL)isOwner:(KiiGroup *)group
@@ -317,10 +339,11 @@
 
 #pragma mark - 参加者
 #pragma mark - デバック必要
-- (void)addedGroup:(NSNotification *)info
+- (void)addedGroup
 {
     NSError *error;
-    NSString *groupURI = info.object;
+    //今選択しているobjのグループに参加したから
+    NSString *groupURI = [self.selectedInviteBucketObj getObjectForKey:quest_groupURI];
     KiiGroup *joinedGroup = [KiiGroup groupWithURI:groupURI];
     [joinedGroup refreshSynchronous:&error];
     
@@ -388,8 +411,8 @@
             //なにもしない
             break;
         case 1:
-            [SVProgressHUD showWithStatus:@"参加申請中"];
-            [self sendPushtoOwner:self.questGroupAtSelected];
+           // [SVProgressHUD showWithStatus:@"参加申請中"];
+            [self requestAddGroup];
             break;
         default:
             break;

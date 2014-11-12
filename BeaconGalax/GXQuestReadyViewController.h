@@ -12,6 +12,7 @@
 #import <EstimoteSDK/ESTBeaconManager.h>
 #import <FacebookSDK/Facebook.h>
 #import <KiiSDK/Kii.h>
+#import <FlatUIKit/FlatUIKit.h>
 
 
 @interface GXQuestReadyViewController : UIViewController

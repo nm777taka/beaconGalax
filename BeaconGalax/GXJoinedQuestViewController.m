@@ -87,8 +87,8 @@ static NSString * const FUITableViewControllerCellReuseIdentifier = @"FUITableVi
         //協力型
         FUIAlertView *alertView = [[FUIAlertView alloc] initWithTitle:title
                                                               message:description
-                                                             delegate:nil cancelButtonTitle:@"Dismiss"
-                                                    otherButtonTitles:@"募集画面へ", nil];
+                                                             delegate:nil cancelButtonTitle:@"まだしない"
+                                                    otherButtonTitles:@"開始する", nil];
         alertView.titleLabel.textColor = [UIColor cloudsColor];
         alertView.titleLabel.font = [UIFont boldFlatFontOfSize:16];
         alertView.messageLabel.textColor = [UIColor cloudsColor];
