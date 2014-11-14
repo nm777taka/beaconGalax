@@ -26,7 +26,7 @@
                                 <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="CC7969AB-BD83-4D3A-B8FC-47C610DECFC8" translatesAutoresizingMaskIntoConstraints="NO" id="w9g-Qg-DgM">
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="FAFF90FA-4410-4FC7-9E09-C4ABEE5DF17F" translatesAutoresizingMaskIntoConstraints="NO" id="w9g-Qg-DgM">
                                 <rect key="frame" x="16" y="62" width="39" height="35"/>
                             </imageView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dVj-u7-TCs">
@@ -159,7 +159,9 @@
         </scene>
     </scenes>
     <resources>
-        <image name="CC7969AB-BD83-4D3A-B8FC-47C610DECFC8" width="1200" height="1200">
+        <image name="Clear.png" width="362" height="362"/>
+        <image name="Common_ButtonNavigationClose.png" width="38" height="38"/>
+        <image name="FAFF90FA-4410-4FC7-9E09-C4ABEE5DF17F" width="1200" height="1200">
             <mutableData key="keyedArchiveRepresentation">
 YnBsaXN0MDDUAQIDBAUGOzxYJHZlcnNpb25YJG9iamVjdHNZJGFyY2hpdmVyVCR0b3ASAAGGoK0HCBEW
 GxwgISksLzU4VSRudWxs1AkKCwwNDg8QViRjbGFzc1xOU0ltYWdlRmxhZ3NWTlNSZXBzV05TQ29sb3KA
@@ -48181,8 +48183,6 @@ ACv0lwAr9JwAK/SrACv0rwAr9LYAK/S+ACv0ywAr9NAAK/TSACv01AAr9NkAK/ThACv05AAr9OkAK/Tx
 ACv09AAr9QYAK/UJACv1DgAAAAAAAAQBAAAAAAAAAD8AAAAAAAAAAAAAAAAAK/UQA
 </mutableData>
         </image>
-        <image name="Clear.png" width="362" height="362"/>
-        <image name="Common_ButtonNavigationClose.png" width="38" height="38"/>
         <image name="beacon.png" width="200" height="200"/>
     </resources>
     <inferredMetricsTieBreakers>

@@ -85,6 +85,7 @@
     return cell;
 }
 
+#pragma mark - ToDo
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath
 {
 
@@ -331,6 +332,7 @@
             [[GXBucketManager sharedManager] registerJoinedQuest:obj];
             //notJoinから消す
             [[GXBucketManager sharedManager] deleteJoinedQuest:self.willDeleteObjAtNotJoin];
+            //Activity
         }
 
     }];

@@ -19,6 +19,11 @@
 		0F3558371A1198610023F2FF /* GXCreateViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0F3558361A1198610023F2FF /* GXCreateViewController.m */; };
 		0F35583B1A11FE8F0023F2FF /* GXQuestReadyViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0F35583A1A11FE8F0023F2FF /* GXQuestReadyViewController.m */; };
 		0F35583E1A121D600023F2FF /* GXUserQuestExeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0F35583D1A121D600023F2FF /* GXUserQuestExeViewController.m */; };
+		0F3558421A14C1700023F2FF /* GXActivityViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0F3558411A14C1700023F2FF /* GXActivityViewController.m */; };
+		0F3558461A14C3700023F2FF /* GXActivityTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 0F3558451A14C3700023F2FF /* GXActivityTableViewCell.m */; };
+		0F35584B1A15C4F90023F2FF /* GXAcivityManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 0F35584A1A15C4F90023F2FF /* GXAcivityManager.m */; };
+		0F35585E1A16054F0023F2FF /* GXActivity.m in Sources */ = {isa = PBXBuildFile; fileRef = 0F35585D1A16054F0023F2FF /* GXActivity.m */; };
+		0F3558611A16063F0023F2FF /* GXActivityList.m in Sources */ = {isa = PBXBuildFile; fileRef = 0F3558601A16063F0023F2FF /* GXActivityList.m */; };
 		0F42365C19BC997D0001E204 /* GXQuestTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0F42365B19BC997D0001E204 /* GXQuestTableViewController.m */; };
 		0F42366019BCBEB80001E204 /* GXQuestViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0F42365F19BCBEB80001E204 /* GXQuestViewController.m */; };
 		0F42366419BD54420001E204 /* GXCreateQuestViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0F42366319BD54420001E204 /* GXCreateQuestViewController.m */; };
@@ -151,6 +156,16 @@
 		0F35583A1A11FE8F0023F2FF /* GXQuestReadyViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GXQuestReadyViewController.m; sourceTree = "<group>"; };
 		0F35583C1A121D600023F2FF /* GXUserQuestExeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GXUserQuestExeViewController.h; sourceTree = "<group>"; };
 		0F35583D1A121D600023F2FF /* GXUserQuestExeViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GXUserQuestExeViewController.m; sourceTree = "<group>"; };
+		0F3558401A14C1700023F2FF /* GXActivityViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GXActivityViewController.h; sourceTree = "<group>"; };
+		0F3558411A14C1700023F2FF /* GXActivityViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GXActivityViewController.m; sourceTree = "<group>"; };
+		0F3558441A14C3700023F2FF /* GXActivityTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GXActivityTableViewCell.h; sourceTree = "<group>"; };
+		0F3558451A14C3700023F2FF /* GXActivityTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GXActivityTableViewCell.m; sourceTree = "<group>"; };
+		0F3558491A15C4F90023F2FF /* GXAcivityManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GXAcivityManager.h; sourceTree = "<group>"; };
+		0F35584A1A15C4F90023F2FF /* GXAcivityManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GXAcivityManager.m; sourceTree = "<group>"; };
+		0F35585C1A16054F0023F2FF /* GXActivity.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GXActivity.h; sourceTree = "<group>"; };
+		0F35585D1A16054F0023F2FF /* GXActivity.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GXActivity.m; sourceTree = "<group>"; };
+		0F35585F1A16063F0023F2FF /* GXActivityList.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GXActivityList.h; sourceTree = "<group>"; };
+		0F3558601A16063F0023F2FF /* GXActivityList.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GXActivityList.m; sourceTree = "<group>"; };
 		0F42365A19BC997D0001E204 /* GXQuestTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GXQuestTableViewController.h; sourceTree = "<group>"; };
 		0F42365B19BC997D0001E204 /* GXQuestTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GXQuestTableViewController.m; sourceTree = "<group>"; };
 		0F42365E19BCBEB80001E204 /* GXQuestViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GXQuestViewController.h; sourceTree = "<group>"; };
@@ -398,6 +413,37 @@
 			name = QuestReadyView;
 			sourceTree = "<group>";
 		};
+		0F35583F1A14C15C0023F2FF /* ActivityView */ = {
+			isa = PBXGroup;
+			children = (
+				0F3558401A14C1700023F2FF /* GXActivityViewController.h */,
+				0F3558411A14C1700023F2FF /* GXActivityViewController.m */,
+			);
+			name = ActivityView;
+			sourceTree = "<group>";
+		};
+		0F3558431A14C3520023F2FF /* ActivityView */ = {
+			isa = PBXGroup;
+			children = (
+				0F3558441A14C3700023F2FF /* GXActivityTableViewCell.h */,
+				0F3558451A14C3700023F2FF /* GXActivityTableViewCell.m */,
+			);
+			name = ActivityView;
+			sourceTree = "<group>";
+		};
+		0F3558481A15C4D00023F2FF /* Acivity */ = {
+			isa = PBXGroup;
+			children = (
+				0F3558491A15C4F90023F2FF /* GXAcivityManager.h */,
+				0F35584A1A15C4F90023F2FF /* GXAcivityManager.m */,
+				0F35585C1A16054F0023F2FF /* GXActivity.h */,
+				0F35585D1A16054F0023F2FF /* GXActivity.m */,
+				0F35585F1A16063F0023F2FF /* GXActivityList.h */,
+				0F3558601A16063F0023F2FF /* GXActivityList.m */,
+			);
+			name = Acivity;
+			sourceTree = "<group>";
+		};
 		0F42365D19BCA2220001E204 /* Home */ = {
 			isa = PBXGroup;
 			children = (
@@ -641,6 +687,7 @@
 		0F7A25C919587E0C001B7839 /* Controller */ = {
 			isa = PBXGroup;
 			children = (
+				0F35583F1A14C15C0023F2FF /* ActivityView */,
 				0F3558381A11FE500023F2FF /* QuestReadyView */,
 				0FCFA47A19F7A9CF0087011A /* JoinedQuest */,
 				0FB4406319F18713006F857D /* QuestExeView */,
@@ -743,6 +790,7 @@
 		0FA17E3119619EB600158421 /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				0F3558481A15C4D00023F2FF /* Acivity */,
 				0F3558241A0909B30023F2FF /* 実行中のクエスト */,
 				0FA17E351961A09700158421 /* GXBucketManager.h */,
 				0FA17E361961A09700158421 /* GXBucketManager.m */,
@@ -863,6 +911,7 @@
 		0FD26D7C1959F32C005E2B95 /* View */ = {
 			isa = PBXGroup;
 			children = (
+				0F3558431A14C3520023F2FF /* ActivityView */,
 				0F6E291E19EEF14F005BE433 /* QuestGroupView */,
 				0F6E291619ED4FEE005BE433 /* InvitedView */,
 				0FC9FF1819E8C4F600E78B39 /* Status(SlideMenu) */,
@@ -1105,6 +1154,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				0F3558421A14C1700023F2FF /* GXActivityViewController.m in Sources */,
 				0F6E291919ED5015005BE433 /* GXInvitedViewCell.m in Sources */,
 				0F649FE719CD5A1C00D48074 /* GXJoinedQuestTableViewCell.m in Sources */,
 				0FD26D811959F689005E2B95 /* GXCustomSectionHeader.m in Sources */,
@@ -1117,6 +1167,7 @@
 				0F7F4147195E77F200A796AD /* GXKiiCloud.m in Sources */,
 				0F649FED19D1543200D48074 /* GXFooterCell.m in Sources */,
 				0FCFA47919F78FC10087011A /* GXStatusViewQuestInfo.m in Sources */,
+				0F35585E1A16054F0023F2FF /* GXActivity.m in Sources */,
 				0F35583B1A11FE8F0023F2FF /* GXQuestReadyViewController.m in Sources */,
 				0FA17E4019623FB700158421 /* GXUserManager.m in Sources */,
 				0FA17E3A1961A7A400158421 /* GXBucketNameConst.m in Sources */,
@@ -1150,15 +1201,18 @@
 				0F7A25D51959B56E001B7839 /* GXBeaconTableViewController.m in Sources */,
 				0FD26D8D195A9820005E2B95 /* GXNotification.m in Sources */,
 				0F7881FF1988D1C3002783D6 /* GXViewConst.m in Sources */,
+				0F35584B1A15C4F90023F2FF /* GXAcivityManager.m in Sources */,
 				0F4AEA971998D086009879C6 /* GXDictonaryKeys.m in Sources */,
 				0FA17E3D1961B00100158421 /* GXTopicManager.m in Sources */,
 				0FD26D7B1959F0E7005E2B95 /* GXTableViewConst.m in Sources */,
+				0F3558611A16063F0023F2FF /* GXActivityList.m in Sources */,
 				0FA1E9EF19C06FD8003D7CDE /* GXTestBeaconViewController.m in Sources */,
 				0F71EB7F1A07AB1000E0EDAB /* GXExeQuestManager.m in Sources */,
 				0F42366E19BDD3510001E204 /* GXDescriptionTableViewCell.m in Sources */,
 				0FF16CE9197F86DB00B02702 /* NSMutableArray+Extended.m in Sources */,
 				0F80277219BF370800453653 /* GXBeaconViewController.m in Sources */,
 				0FD200A619E263CE0034E52A /* GXNavViewController.m in Sources */,
+				0F3558461A14C3700023F2FF /* GXActivityTableViewCell.m in Sources */,
 				0F42366419BD54420001E204 /* GXCreateQuestViewController.m in Sources */,
 				0F7A25A419587ADE001B7839 /* GXAppDelegate.m in Sources */,
 				0FC0095419E13CB70026A7DC /* GXHomeCollectionViewCell.m in Sources */,
@@ -1289,7 +1343,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
-				CODE_SIGN_IDENTITY = "iPhone Developer: Takahisa Furuta (T697ELEDF9)";
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -1300,7 +1354,7 @@
 				INFOPLIST_FILE = "BeaconGalax/BeaconGalax-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 7.1;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "0e3c9516-60b4-468a-8aca-a23cefcdcce8";
+				PROVISIONING_PROFILE = "";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Debug;
@@ -1311,7 +1365,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
-				CODE_SIGN_IDENTITY = "iPhone Developer: Takahisa Furuta (T697ELEDF9)";
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -1322,7 +1376,7 @@
 				INFOPLIST_FILE = "BeaconGalax/BeaconGalax-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 7.1;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "0e3c9516-60b4-468a-8aca-a23cefcdcce8";
+				PROVISIONING_PROFILE = "";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Release;

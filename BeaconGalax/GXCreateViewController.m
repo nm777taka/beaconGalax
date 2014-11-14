@@ -103,6 +103,8 @@ const static CGFloat kJVFieldFloatingLabelFontSize = 11.0f;
     [newObj setObject:@"user" forKey:quest_type];
     [newObj setObject:[NSNumber numberWithInt:28319] forKey:@"major"]; //対象
     [[GXBucketManager sharedManager] registerInviteBoard:newObj];
+    //activity
+    
     
     [self dismissViewControllerAnimated:YES completion:nil];
     

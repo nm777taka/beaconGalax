@@ -40,6 +40,7 @@
     [super viewDidAppear:animated];
     
     [self registerPoint];
+    //activity
     self.pointLable.text = [NSString stringWithFormat:@"%d",self.point];
     
     [NSTimer bk_scheduledTimerWithTimeInterval:2.0 block:^(NSTimer *timer) {
