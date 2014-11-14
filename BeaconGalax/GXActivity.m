@@ -15,7 +15,7 @@
     self = [super init];
     if (self) {
         
-        _msg = @"sample Text";
+        _msg = @"iOSからcellの高さを可変にする機能がで標準搭載されているみたい！";
     }
     
     return self;

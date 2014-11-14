@@ -30,7 +30,6 @@ const static CGFloat GXActivityCellBottomPadding = 10.0f;
 {
     //レイアウト関連
     _msgLabel.text = activity.msg;
-    
 }
 
 
