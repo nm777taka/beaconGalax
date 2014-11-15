@@ -17,6 +17,7 @@
 @interface GXActivityViewController ()<UITableViewDataSource,UITableViewDelegate,GXActivityListDelegate>
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 @property (nonatomic,strong) GXActivityList *activityList;
+@property (weak, nonatomic) IBOutlet UIActivityIndicatorView *indicator;
 
 @end
 
@@ -28,9 +29,17 @@
     self.tableView.delegate = self;
     self.tableView.dataSource = self;
     self.tableView.rowHeight = UITableViewAutomaticDimension;
-    
+    self.title = @"みんなの動き";
+        
     _activityList = [[GXActivityList alloc] initWithDelegate:self];
+}
+
+- (void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+    [self.indicator startAnimating];
     [_activityList requestAsynchronous];
+
     
 }
 
@@ -54,7 +63,6 @@
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    NSLog(@"call2");
     GXActivityTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"Cell" forIndexPath:indexPath];
     
     //モデルの設定
@@ -66,13 +74,22 @@
 #pragma mark ScrollViewDelegate
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView
 {
+    CGFloat contentOffsetWidthWindow = self.tableView.contentOffset.y + self.tableView.bounds.size.height;
+    BOOL leachToButtom = contentOffsetWidthWindow >= self.tableView.contentSize.height;
     
-}
+    if (!leachToButtom || _activityList.loading || !_activityList.nextQuery){
+        return;
+    } else {
+        [self.indicator startAnimating];
+        [_activityList requestMoreAsynchronous];
 
+    }
+}
 #pragma AvtivityList Delegate
 - (void)activityListDidLoad
 {
     //indicator stop
+    [self.indicator stopAnimating];
     [self.tableView reloadData];
 }
 

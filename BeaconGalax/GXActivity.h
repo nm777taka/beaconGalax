@@ -10,8 +10,12 @@
 
 @interface GXActivity : NSObject
 
+- (instancetype)initWithName:(NSString *)name text:(NSString *)text iconID:(NSString *)iconID dateText:(NSString *)dateText;
+
 //表示する要素
-@property (nonatomic,readonly) NSString *name;
-@property (nonatomic,readonly) NSString *msg;
+@property (nonatomic,retain) NSString *name;
+@property (nonatomic,retain) NSString *msg;
+@property (nonatomic,retain) NSString *fbID;
+@property (nonatomic,retain) NSString *dateText;
 
 @end

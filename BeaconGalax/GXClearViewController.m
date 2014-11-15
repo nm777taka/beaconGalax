@@ -8,6 +8,8 @@
 
 #import "GXClearViewController.h"
 #import "GXBucketManager.h"
+#import "GXActivityList.h"
+#import "GXUserManager.h"
 #import "GXExeQuestManager.h"
 #import "GXDictonaryKeys.h"
 #import "GXNotification.h"
@@ -41,6 +43,7 @@
     
     [self registerPoint];
     //activity
+    [self setActivity];
     self.pointLable.text = [NSString stringWithFormat:@"%d",self.point];
     
     [NSTimer bk_scheduledTimerWithTimeInterval:2.0 block:^(NSTimer *timer) {
@@ -93,5 +96,15 @@
     }
 }
 
+- (void)setActivity
+{
+    KiiObject *gxUser = [GXUserManager sharedManager].gxUser;
+    NSString *questName = [self.quest getObjectForKey:quest_title];
+    NSString *text = [NSString stringWithFormat:@"%@クエストを達成しました",questName];
+    NSString *fbid = [gxUser getObjectForKey:user_fb_id];
+    [[GXActivityList sharedInstance] registerQuestActivity:[gxUser getObjectForKey:user_name] title:text fbid:fbid];
+    
+    
+}
 
 @end

@@ -13,6 +13,7 @@
 #import "GXDictonaryKeys.h"
 #import "GXBucketManager.h"
 #import "GXUserManager.h"
+#import "GXActivityList.h"
 
 const static CGFloat kJVFieldHeight = 44.0f;
 const static CGFloat kJVFieldMargin = 10.0f;
@@ -103,8 +104,13 @@ const static CGFloat kJVFieldFloatingLabelFontSize = 11.0f;
     [newObj setObject:@"user" forKey:quest_type];
     [newObj setObject:[NSNumber numberWithInt:28319] forKey:@"major"]; //対象
     [[GXBucketManager sharedManager] registerInviteBoard:newObj];
-    //activity
     
+    //activityに登録
+    KiiObject *gxUser = [GXUserManager sharedManager].gxUser;
+    NSString *name = [gxUser getObjectForKey:user_name];
+    NSString *fbid = [gxUser getObjectForKey:user_fb_id];
+    NSString *text = [NSString stringWithFormat:@"%@クエストを作成しました",self.titleField.text];
+    [[GXActivityList sharedInstance] registerQuestActivity:name title:text fbid:fbid];
     
     [self dismissViewControllerAnimated:YES completion:nil];
     

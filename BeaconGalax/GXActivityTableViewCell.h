@@ -20,9 +20,9 @@
 @property (nonatomic,strong) GXActivity *activity;
 
 //View
-@property (weak, nonatomic) IBOutlet UIView *userIconView;
+@property (weak, nonatomic) IBOutlet FBProfilePictureView *userIcon;
 @property (weak, nonatomic) IBOutlet UILabel *msgLabel;
 @property (weak, nonatomic) IBOutlet UILabel *dateLabel;
-@property (nonatomic,readonly)CGFloat height;
+@property (weak, nonatomic) IBOutlet UILabel *name;
 
 @end

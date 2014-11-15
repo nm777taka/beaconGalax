@@ -8,6 +8,7 @@
 
 #import "GXInviteQuestViewController.h"
 #import "GXQuestGroupViewController.h"
+#import "GXActivityList.h"
 #import "GXInvitedViewCell.h"
 #import "GXDictonaryKeys.h"
 #import "GXNotification.h"
@@ -333,6 +334,12 @@
             //notJoinから消す
             [[GXBucketManager sharedManager] deleteJoinedQuest:self.willDeleteObjAtNotJoin];
             //Activity
+            KiiObject *gxUser = [GXUserManager sharedManager].gxUser;
+            NSString *name = [gxUser getObjectForKey:user_name];
+            NSString *questName = [obj getObjectForKey:quest_title];
+            NSString *text = [NSString stringWithFormat:@"%@クエストに参加しました",questName];
+            [[GXActivityList sharedInstance] registerQuestActivity:name title:text fbid:[gxUser getObjectForKey:user_fb_id]];
+            
         }
 
     }];
@@ -353,9 +360,7 @@
     
 }
 
-- (void)joinButtonTopped:(NSNotification *)notis
-{
-}
+
 
 #pragma mark - ToDo
 //ここからいくのはリーダーだけにする! ..リーダー以外もできるように

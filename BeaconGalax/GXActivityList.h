@@ -7,6 +7,7 @@
 //
 
 #import <Foundation/Foundation.h>
+#import <KiiSDK/Kii.h>
 
 @class GXActivity;
 
@@ -21,6 +22,11 @@
 
 @interface GXActivityList : NSObject
 
+@property (nonatomic) BOOL loading;
+@property (nonatomic,strong)KiiQuery *nextQuery;
+
+
++ (GXActivityList *)sharedInstance;
 - (instancetype)initWithDelegate:(id<GXActivityListDelegate>)delegate;
 
 - (NSUInteger)count;
@@ -28,5 +34,14 @@
 
 //通信
 - (void)requestAsynchronous;
+- (void)requestMoreAsynchronous;
+
+//登録(Bucket)
+//クエストアクティブ
+- (void)registerQuestActivity:(NSString *)name
+                        title:(NSString *)text
+                         fbid:(NSString *)fbid;
+
+
 
 @end

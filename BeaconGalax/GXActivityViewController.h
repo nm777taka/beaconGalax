@@ -8,6 +8,7 @@
 
 #import <UIKit/UIKit.h>
 #import <FlatUIKit.h>
+#import <KiiSDK/Kii.h>
 
 @interface GXActivityViewController : UIViewController
 

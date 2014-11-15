@@ -10,12 +10,14 @@
 
 @implementation GXActivity
 
-- (instancetype)init
+- (instancetype)initWithName:(NSString *)name text:(NSString *)text iconID:(NSString *)iconID dateText:(NSString *)dateText
 {
     self = [super init];
     if (self) {
-        
-        _msg = @"iOSからcellの高さを可変にする機能がで標準搭載されているみたい！";
+        _name = name;
+        _msg = text;
+        _fbID = iconID;
+        _dateText = dateText;
     }
     
     return self;

@@ -9,6 +9,7 @@
 #import "GXBucketManager.h"
 #import "GXUserManager.h"
 #import "GXTopicManager.h"
+#import "GXActivityList.h"
 #import "GXNotification.h"
 #import "GXFacebook.h"
 #import "GXDictonaryKeys.h"
@@ -40,6 +41,7 @@
         self.galaxUser = [Kii bucketWithName:@"galax_user"];
         self.questBoard = [Kii bucketWithName:@"quest_board"];
         self.inviteBoard = [Kii bucketWithName:@"invite_board"];
+        self.activityBucket = [Kii bucketWithName:@"activity"];
         
         //Userスコープ
         self.notJoinedQuest = [[KiiUser currentUser] bucketWithName:@"notJoined_quest"];
@@ -200,7 +202,13 @@
         CWStatusBarNotification *notis = [CWStatusBarNotification new];
         [notis displayNotificationWithMessage:@"クエスト募集完了" forDuration:2.0f];
         
-        [[NSNotificationCenter defaultCenter ] postNotificationName:GXRegisteredInvitedBoardNotification object:nil];
+        //activity
+        KiiObject *gxUser = [GXUserManager sharedManager].gxUser;
+        NSString *questName = [newObj getObjectForKey:quest_title];
+        NSString *text = [NSString stringWithFormat:@"%@クエストを募集しました",questName];
+        [[GXActivityList sharedInstance] registerQuestActivity:[gxUser getObjectForKey:user_name] title:text fbid:[gxUser getObjectForKey:user_fb_id]];
+        
+        //[[NSNotificationCenter defaultCenter ] postNotificationName:GXRegisteredInvitedBoardNotification object:nil];
 
     }];
     
@@ -432,7 +440,11 @@
             }
             [newObj setObject:obj.objectURI forKey:@"id"];
             [newObj saveWithBlock:^(KiiObject *object, NSError *error) {
-                [TSMessage showNotificationWithTitle:@"受注完了" type:TSMessageNotificationTypeSuccess];
+                
+                CWStatusBarNotification *notis = [CWStatusBarNotification new];
+                notis.notificationStyle = CWNotificationStyleNavigationBarNotification;
+                [notis displayNotificationWithMessage:@"クエスト受注" forDuration:2.0f];
+                
             }];
         }
     }

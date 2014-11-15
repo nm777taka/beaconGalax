@@ -12,6 +12,7 @@
 #import "GXQuestViewController.h"
 #import "GXInviteQuestViewController.h"
 #import "GXJoinedQuestViewController.h"
+#import "GXActivityViewController.h"
 #import "UIViewController+REFrostedViewController.h"
 #import "GXStatusViewCell.h"
 #import "GXBeacon.h"
@@ -54,6 +55,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
+    self.title = @"みんなの動き";
     self.tableView.delegate = self;
     self.tableView.dataSource = self;
     self.tableView.opaque = NO;
@@ -182,6 +184,9 @@
     } else if (indexPath.section == 0 && indexPath.row == 2) {
         GXJoinedQuestViewController *joinedView = [self.storyboard instantiateViewControllerWithIdentifier:@"joined"];
         navController.viewControllers = @[joinedView];
+    } else if (indexPath.section == 0 && indexPath.row == 3) {
+        GXActivityViewController *activityView = [self.storyboard instantiateViewControllerWithIdentifier:@"activityView"];
+        navController.viewControllers = @[activityView];
     }
     
     self.frostedViewController.contentViewController = navController;
@@ -203,7 +208,11 @@
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return 3;
+    if (section == 0) {
+        return 4;
+    } else {
+        return 3;
+    }
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -211,7 +220,7 @@
     GXStatusViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"Cell" forIndexPath:indexPath];
     
     if (indexPath.section == 0) {
-        NSArray *titles = @[@"ホーム",@"募集中のクエスト",@"参加中のクエスト"];
+        NSArray *titles = @[@"ホーム",@"募集中のクエスト",@"参加中のクエスト",@"みんなの動き"];
         cell.textLabel.text = titles[indexPath.row];
     } else {
         NSArray *titles = @[@"userA",@"userB",@"userC"];

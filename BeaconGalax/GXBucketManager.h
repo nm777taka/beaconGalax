@@ -17,6 +17,7 @@
 @property (nonatomic) KiiBucket *galaxUser;
 @property (nonatomic) KiiBucket *questBoard;
 @property (nonatomic) KiiBucket *inviteBoard;
+@property (nonatomic) KiiBucket *activityBucket;
 
 //GroupScope
 @property (nonatomic) KiiBucket *questMember;
