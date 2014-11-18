@@ -89,6 +89,7 @@
                 NSLog(@"access_token保存完了");
             }
             
+            //udに保存
             NSString *userURI = [KiiUser currentUser].objectURI;
             KiiObject *gxUser = [[GXBucketManager sharedManager] getGalaxUser:userURI];
             NSUserDefaults *ud = [NSUserDefaults standardUserDefaults];

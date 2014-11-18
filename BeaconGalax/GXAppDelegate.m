@@ -128,8 +128,6 @@
                 
             }
             if (application.applicationState == UIApplicationStateBackground) {
-                NSLog(@"後ろで受け取ったよ♪");
-                [self pushTest];
             }
         }
         
@@ -350,18 +348,6 @@
     
 }
 
-
-- (void)pushTest
-{
-    //localNotification
-    UILocalNotification *notification = [UILocalNotification new];
-    notification.category = @"INVITE_CATEGORY";
-    notification.alertBody = @"クエストの参加者が現れました";
-    notification.fireDate = [NSDate date];
-    notification.soundName = UILocalNotificationDefaultSoundName;
-    [[UIApplication sharedApplication] scheduleLocalNotification:notification];
-
-}
 
 
 

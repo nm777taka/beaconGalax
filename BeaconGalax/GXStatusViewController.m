@@ -55,7 +55,6 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
-    self.title = @"みんなの動き";
     self.tableView.delegate = self;
     self.tableView.dataSource = self;
     self.tableView.opaque = NO;
@@ -220,7 +219,7 @@
     GXStatusViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"Cell" forIndexPath:indexPath];
     
     if (indexPath.section == 0) {
-        NSArray *titles = @[@"ホーム",@"募集中のクエスト",@"参加中のクエスト",@"みんなの動き"];
+        NSArray *titles = @[@"クエスト一覧",@"募集中のクエスト",@"参加中のクエスト",@"みんなの動き"];
         cell.textLabel.text = titles[indexPath.row];
     } else {
         NSArray *titles = @[@"userA",@"userB",@"userC"];
@@ -317,6 +316,5 @@
         NSLog(@"udに保存");
     }
 }
-
 
 @end
