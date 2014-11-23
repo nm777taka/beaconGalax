@@ -193,6 +193,7 @@
             
             [[GXBucketManager sharedManager] registerGalaxUser:currentUser];
             [[GXTopicManager sharedManager] createDefaultUserTopic];
+            [[GXTopicManager sharedManager] subscribeTopic];
             [[GXTopicManager sharedManager] setACL];
             
             //accesstokenの保存

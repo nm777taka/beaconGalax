@@ -11,9 +11,14 @@
 
 @interface GXTopicManager : NSObject
 
+@property (nonatomic) KiiTopic *infoTopic; //システムから発行用（お知らせ)
+@property (nonatomic) KiiTopic *questInviteTopic; //クエスト募集した時にみんなに知らせる
+
 + (GXTopicManager *)sharedManager;
 - (void)createUserTopic:(NSString *)title;
 - (void)createDefaultUserTopic;
+- (void)subscribeTopic;
+
 - (void)setACL;
 
 

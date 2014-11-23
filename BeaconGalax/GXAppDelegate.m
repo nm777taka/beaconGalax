@@ -70,6 +70,8 @@
     }
     
      [[UIApplication sharedApplication] setApplicationIconBadgeNumber:0];
+    self.locationManager = [CLLocationManager new];
+    self.locationManager.delegate = self;
     
     
     //アプリがForegrondに無いときにこちらが呼ばれる
