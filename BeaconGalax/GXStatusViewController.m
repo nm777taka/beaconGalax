@@ -15,41 +15,28 @@
 #import "GXActivityViewController.h"
 #import "UIViewController+REFrostedViewController.h"
 #import "GXStatusViewCell.h"
-#import "GXBeacon.h"
-#import "GXBeaconRegion.h"
 #import "GXNotification.h"
 #import "GXBucketManager.h"
 #import "GXUserManager.h"
 #import "GXDictonaryKeys.h"
+#import "GXUserDefaults.h"
 
-#define kBeaconUUID @"B9407F30-F5F8-466E-AFF9-25556B57FE6D"
-#define kIdentifier @"Estimote"
 
-@interface GXStatusViewController ()<GXBeaconDelegate,UITableViewDataSource,UITableViewDelegate>
+@interface GXStatusViewController ()<UITableViewDataSource,UITableViewDelegate>
 
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
-@property (weak, nonatomic) IBOutlet UILabel *locationStatusLable;
-@property (weak, nonatomic) IBOutlet UILabel *bluetoothStatusLabel;
-@property (weak, nonatomic) IBOutlet UILabel *monitoringStatusLabel;
 @property (weak, nonatomic) IBOutlet FBProfilePictureView *iconImageView;
 @property (weak, nonatomic) IBOutlet UILabel *usrNameLabel;
-@property (weak, nonatomic) IBOutlet UILabel *pointLable;
-@property (weak, nonatomic) IBOutlet UILabel *rankLabel;
-@property (weak, nonatomic) IBOutlet UIProgressView *rankProgress;
+
 
 
 @property NSMutableArray *joinedQuestArray;
-
-@property GXBeacon *beacon;
-@property GXBeaconMonitoringStatus monitoringStatus;
-@property (nonatomic) NSUUID *proximityUUID;
 
 @property KiiObject *gxUser;
 
 @end
 
 @implementation GXStatusViewController{
-    CLProximity _privProximity;
 }
 
 - (void)viewDidLoad {
@@ -60,7 +47,6 @@
     self.tableView.opaque = NO;
     self.tableView.separatorColor = [UIColor colorWithRed:150/255.0f green:161/255.0f blue:177/255.0f alpha:1.0f];
     self.tableView.backgroundColor = [UIColor clearColor];
-    [self.rankProgress configureFlatProgressViewWithTrackColor:[UIColor silverColor] progressColor:[UIColor alizarinColor]];
     self.iconImageView.layer.masksToBounds = YES;
     self.iconImageView.layer.cornerRadius = 40.f;
     self.iconImageView.layer.borderColor = [UIColor turquoiseColor].CGColor;
@@ -71,28 +57,26 @@
     self.usrNameLabel.text = @"name";
     self.usrNameLabel.font = [UIFont fontWithName:@"HelveticaNeue" size:15];
     self.usrNameLabel.textColor = [UIColor colorWithRed:62/255.0f green:68/255.0f blue:75/255.0f alpha:1.0f];
-    self.pointLable.font = [UIFont boldFlatFontOfSize:15];
-    self.pointLable.textColor = [UIColor colorWithRed:62/255.0f green:68/255.0f blue:75/255.0f alpha:1.0f];
-    self.rankLabel.font = [UIFont boldFlatFontOfSize:15];
-    self.rankLabel.textColor = [UIColor colorWithRed:62/255.0f green:68/255.0f blue:75/255.0f alpha:1.0f];
-
-    
-    
 }
 
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
     
+    NSDictionary *userInfo = [GXUserDefaults getUserInfomation];
+
+    self.usrNameLabel.text = userInfo[@"GXUserName"];
+    self.iconImageView.profileID = userInfo[@"GXFacebookID"];
+    
 }
 
 - (void)viewDidAppear:(BOOL)animated
 {
     [super viewDidAppear:animated];
-    NSUserDefaults *ud = [NSUserDefaults standardUserDefaults];
-    self.iconImageView.profileID = [ud stringForKey:@"fb_id"];
-    self.usrNameLabel.text = [ud stringForKey:@"usr_name"];
-    
+//    NSUserDefaults *ud = [NSUserDefaults standardUserDefaults];
+//    self.iconImageView.profileID = [ud stringForKey:@"fb_id"];
+//    self.usrNameLabel.text = [ud stringForKey:@"usr_name"];
+//    
 //    int currPoint = [[GXUserManager sharedManager] getUserPoint];
 //    int currRank = [[GXUserManager sharedManager] getUserRank];
 //    self.pointLable.text = [NSString stringWithFormat:@"%dpt",currPoint];
@@ -104,7 +88,6 @@
 - (void)viewDidDisappear:(BOOL)animated
 {
     [super viewDidDisappear:animated];
-    [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -218,71 +201,6 @@
     return cell;
 }
 
-- (void)configureCell:(GXStatusViewCell *)cell atIndexPath:(NSIndexPath *)indexPath
-{
-    KiiObject *obj = self.joinedQuestArray[indexPath.row];
-    cell.title = [obj getObjectForKey:quest_title];
-}
-
-
-#pragma mark - Gxbeacon Delegate
-//レンジングが開始されると呼ばれる
-- (void)didRangeBeacons:(GXBeaconRegion *)region
-{
-    
-}
-
-//location(位置情報関連)の設定状況
-- (void)didUpdateLocationStatus:(NSString *)status
-{
-    NSMutableString *string = [NSMutableString stringWithFormat:@"Location:"];
-    [string appendString:status];
-    self.locationStatusLable.text = string;
-}
-
-//bluetooth設定状況
-- (void)didUpdatePeripheralState:(NSString *)state
-{
-    NSMutableString *string = [NSMutableString stringWithFormat:@"Bluethooth:"];
-    [string appendString:state];
-    self.bluetoothStatusLabel.text = string;
-}
-
-//モニタリングのステータス
-- (void)didUpdateMonitoringStatus:(GXBeaconMonitoringStatus)status
-{
-    self.monitoringStatus = status;
-    
-    switch (status) {
-        case kGXBeaconMonitoringStatusDisabled:
-            self.monitoringStatusLabel.text = @"Disable";
-            break;
-            
-        case kGXBeaconMonitoringStatusStopped:
-            self.monitoringStatusLabel.text = @"Stop";
-            break;
-            
-        case kGXBeaconMonitoringStatusMonitoring:
-            self.monitoringStatusLabel.text = @"Monitoring";
-            break;
-            
-        default:
-            break;
-    }
-}
-
-#pragma mark - データフェッチ
-- (void)fetchOnePersonQuest
-{
-    [[GXBucketManager sharedManager] getJoinedOnePersonQuest];
-}
-
-- (void)fetchMultiPersonQuest
-{
-    [[GXBucketManager sharedManager] getJoinedMultiPersonQuest];
-}
-
-#pragma mark - Notification
 
 
 @end

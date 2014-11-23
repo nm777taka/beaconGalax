@@ -193,7 +193,7 @@
         <!--Login View Controller-->
         <scene sceneID="pVw-jq-tED">
             <objects>
-                <viewController id="D3g-qf-jYO" customClass="GXLoginViewController" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="loginView" id="D3g-qf-jYO" customClass="GXLoginViewController" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="Hqa-G1-GF8"/>
                         <viewControllerLayoutGuide type="bottom" id="ceT-N0-zXb"/>

@@ -56,7 +56,6 @@ NSString * const GXNotificationInfoKindQuestDeliver = @"GXNotificationInfoKindQu
                 
                 //通知を登録
                 [[UIApplication sharedApplication] scheduleLocalNotification:notification];
-                NSLog(@"通知登録完了");
             }
         }
     }

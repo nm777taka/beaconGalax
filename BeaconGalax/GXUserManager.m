@@ -37,25 +37,6 @@
 }
 
 
-#pragma mark UserFiled
-- (void)addCalamAtSignup:(KiiUser *)user
-{
-    //とりあえずログインしたら近くにいることにする
-    //将来的にはbeaconでregionに入った時にyes
-    //でた時にnoにする
-    NSError *error = nil;
-    
-    [user setObject:@YES forKey:@"isNear"];
-    [user setObject:@YES forKey:@"isMember"];
-    [user saveSynchronous:&error];
-    
-    if (error) {
-        NSLog(@"error : %@",error);
-    } else {
-        
-    }
-    
-}
 
 - (int)getUserPoint
 {

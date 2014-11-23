@@ -14,7 +14,6 @@
 #import "NSObject+BlocksWait.h"
 #import "GXUserDefaults.h"
 
-
 @interface GXAppDelegate()
 
 @property KiiUser *joinUser;
@@ -29,6 +28,7 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
+    NSLog(@"didFinishLaunch");
     
     if ([UIApplication instancesRespondToSelector:@selector(registerUserNotificationSettings:)]) {
         [self registerUserNotificationSettings];
@@ -45,26 +45,29 @@
     
      [Kii enableAPNSWithDevelopmentMode:YES andNotificationTypes:UIRemoteNotificationTypeAlert|UIRemoteNotificationTypeSound|UIRemoteNotificationTypeBadge];
     
-    //リファクタリング
-    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-    NSString *access_token = [defaults stringForKey:@"access_token"];
-    NSLog(@"access_token:%@",access_token);
+  
+    //accessTokenを使ったログイン
     NSError *error;
-    [KiiUser authenticateWithTokenSynchronous:access_token andError:&error];
-    if (!error) {
-        [[NSNotificationCenter defaultCenter] postNotificationName:GXLoginSuccessedNotification object:nil];
+    NSString *accessToken = [GXUserDefaults getAccessToken];
+    if (accessToken) {
+        
+        [KiiUser authenticateWithTokenSynchronous:accessToken andError:&error];
+        if (!error) {
+            //[[NSNotificationCenter defaultCenter] postNotificationName:GXLoginSuccessedNotification object:nil];
+        }
     }
-    [GXUserDefaults doneLaunchFirst];
+    
     //初回起動時のInit(一回しか呼ばれない)
-    if ([GXUserDefaults isFirstLaunch]) {
+    if (![GXUserDefaults isFirstLaunch]) {
         NSLog(@"初回起動");
+        
         //questDeliverNotification設定
         [UILocalNotification setQuestDeliverLocalNotification];
         
         //初回起動したよフラグを書き込み
         [GXUserDefaults doneLaunchFirst];
+        
     }
-    
     
      [[UIApplication sharedApplication] setApplicationIconBadgeNumber:0];
     
@@ -108,16 +111,15 @@
 - (void)application:(UIApplication *)application didRegisterForRemoteNotificationsWithDeviceToken:(NSData *)deviceToken
 {
     [Kii setAPNSDeviceToken:deviceToken];
-    NSError *error = nil;
     
-    [KiiPushInstallation installSynchronous:&error];
-    
-    if (error != nil) {
-        NSLog(@"push install error:%@",error);
-    } else {
-        NSLog(@"push install!!");
-    }
-    
+//    [KiiPushInstallation installSynchronous:&error];
+//    
+//    if (error != nil) {
+//        NSLog(@"push install error:%@",error);
+//    } else {
+//        NSLog(@"push install!!");
+//    }
+//    
 }
 
 - (void)application:(UIApplication *)application didFailToRegisterForRemoteNotificationsWithError:(NSError *)error

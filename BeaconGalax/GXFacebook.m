@@ -8,6 +8,7 @@
 
 #import "GXFacebook.h"
 #import "GXBucketManager.h"
+#import "GXUserDefaults.h"
 
 @implementation GXFacebook
 
@@ -36,7 +37,7 @@
     return self;
 }
 
-- (void)getUserFacebookID
+- (void)initGxUserWithFacebook:(KiiUser *)user
 {
     //GraphAPIを叩いて、ユーザのfb_idを取得(プロフィール写真表示のため)
     NSDictionary *dict = [KiiSocialConnect getAccessTokenDictionaryForNetwork:kiiSCNFacebook];
@@ -53,29 +54,39 @@
         NSString *user_id = [responseObject objectForKey:@"id"];
         NSString *user_name = [responseObject objectForKey:@"name"];
         NSString *user_email = [responseObject objectForKey:@"email"];
+        NSError *error;
+        KiiObject *gxuser = [[GXBucketManager sharedManager].galaxUser createObject];
+        [gxuser setObject:user.uuid forKey:@"userID"];
+        [gxuser setObject:user.objectURI forKey:@"uri"];
+        [gxuser setObject:user_name forKey:@"name"];
+        [gxuser setObject:user_email forKey:@"email"];
+        [gxuser setObject:user_id forKey:@"facebook_id"];
+        [gxuser saveSynchronous:&error];
+        if (error != nil) {
+            
+            NSLog(@"gxUser登録OK");
+        }
         
-        //GalaxUserBucketからuserをフェッチして
-        //パラムを追加
-        KiiBucket *bucket = [GXBucketManager sharedManager].galaxUser;
-        NSError *error = nil;
-        KiiClause *clause = [KiiClause equals:@"uri" value:[KiiUser currentUser].objectURI];
-        KiiQuery *query = [KiiQuery queryWithClause:clause];
-        NSMutableArray *allResult = [NSMutableArray new];
-        KiiQuery *nextQuery;
+//        //GalaxUserBucketからuserをフェッチして
+//        //パラムを追加
+//        KiiBucket *bucket = [GXBucketManager sharedManager].galaxUser;
+//        NSError *error = nil;
+//        KiiClause *clause = [KiiClause equals:@"uri" value:[KiiUser currentUser].objectURI];
+//        KiiQuery *query = [KiiQuery queryWithClause:clause];
+//        KiiQuery *nextQuery;
+//        
+//        NSArray *results = [bucket executeQuerySynchronous:query withError:&error andNext:&nextQuery];
         
-        NSArray *results = [bucket executeQuerySynchronous:query withError:&error andNext:&nextQuery];
-        
-        KiiObject *current_userObject = results.firstObject;
-        [current_userObject setObject:user_name forKey:@"name"];
-        [current_userObject setObject:user_email forKey:@"email"];
-        [current_userObject setObject:user_id forKey:@"facebook_id"];
-        [current_userObject saveSynchronous:&error];
+//        KiiObject *current_userObject = gxUser;
+//        [current_userObject setObject:user_name forKey:@"name"];
+//        [current_userObject setObject:user_email forKey:@"email"];
+//        [current_userObject setObject:user_id forKey:@"facebook_id"];
+//        [current_userObject saveSynchronous:&error];
         
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         NSLog(@"error:%@",error);
     }];
     
- 
 }
 
 

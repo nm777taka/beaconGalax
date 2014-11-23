@@ -58,56 +58,17 @@
     
     if (error == nil) {
         
-        //初回ログイン時か調べる（サインアップorサインイン)
+        [KiiPushInstallation installSynchronous:&error];
         
-        KiiBucket *bucket = [GXBucketManager sharedManager].galaxUser;
-        NSError *erorr = nil;
-        KiiClause *clause = [KiiClause equals:@"uri" value:user.objectURI];
-        KiiQuery *query = [KiiQuery queryWithClause:clause];
-        NSMutableArray *allResult = [NSMutableArray new];
-        KiiQuery *nextQuery;
-        
-        NSArray *results = [bucket executeQuerySynchronous:query withError:&erorr andNext:&nextQuery];
-        
-        [allResult addObjectsFromArray:results];
-        
-        if (allResult.count == 0) { //サインアップ
-            NSLog(@"signUp!!");
-            
-            //ユーザ登録
-            [[GXBucketManager sharedManager] registerGalaxUser:user];
-            //ユーザ領域にトピックを作成
-            [[GXTopicManager sharedManager] createDefaultUserTopic];
-            
-            //access_tokenの保持
-            NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-            NSString *token = [[KiiUser currentUser] accessToken];
-            NSLog(@"token:%@",token);
-            [defaults setObject:token forKey:@"access_token"];
-            
-            BOOL sucessful = [defaults synchronize];
-            if (sucessful) {
-                NSLog(@"access_token保存完了");
-            }
-            
-            //udに保存
-            NSString *userURI = [KiiUser currentUser].objectURI;
-            KiiObject *gxUser = [[GXBucketManager sharedManager] getGalaxUser:userURI];
-            NSUserDefaults *ud = [NSUserDefaults standardUserDefaults];
-            [ud setObject:[gxUser getObjectForKey:user_fb_id] forKey:@"fb_id"];
-            [ud setObject:[gxUser getObjectForKey:user_name] forKey:@"usr_name"];
-            BOOL successful = [ud synchronize];
-            if (successful) {
-                NSLog(@"udに保存");
-            }
-            
+        if (error != nil) {
+        NSLog(@"push install error:%@",error);
         } else {
-            
-        }
-        
-        
+        NSLog(@"push install!!");
+                
         [[NSNotificationCenter defaultCenter] postNotificationName:GXLoginSuccessedNotification object:nil];
-        
+                
+        }
+
     } else {
         NSLog(@"error : %@",error);
     }

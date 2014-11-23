@@ -70,9 +70,10 @@
 - (void)viewWillAppear:(BOOL)animated
 {
     if (![KiiUser loggedIn]) {
-        
         //ログイン画面へ遷移
         [self performSegueWithIdentifier:@"gotoLoginView" sender:self];
+        
+        
     } else {
         //DBからフェッチ(非同期)
         //最終的に変更があった場合のみにしたい

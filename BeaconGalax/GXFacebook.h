@@ -13,6 +13,6 @@
 @interface GXFacebook : NSObject
 
 + (GXFacebook *)sharedManager;
-- (void)getUserFacebookID;
+- (void)initGxUserWithFacebook:(KiiUser *)user;
 
 @end

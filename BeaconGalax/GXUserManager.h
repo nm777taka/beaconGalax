@@ -15,7 +15,6 @@
 
 + (GXUserManager *)sharedManager;
 
-- (void)addCalamAtSignup:(KiiUser *)user;
 
 - (int)getUserPoint;
 

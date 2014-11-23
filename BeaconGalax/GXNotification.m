@@ -63,4 +63,7 @@ NSString *const GXPointGetNotification = @"GXPointGetNotification";
 
 NSString *const GXRefreshDataFromLocalNotification = @"GXRefreshDataFromLocalNotification";
 
+NSString *const GXSignUpNotification = @"GXSignUpNotification";
+
+
 @end

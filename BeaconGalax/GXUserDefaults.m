@@ -65,9 +65,10 @@ static NSUserDefaults *ud;
 
 + (NSDictionary *)getUserInfomation
 {
-    NSDictionary *retDict = [NSDictionary dictionary];
-    [retDict setValue:[ud stringForKey:GXFacebookID] forKey:GXFacebookID];
-    [retDict setValue:[ud stringForKey:GXUserName] forKey:GXUserName];
+    NSDictionary *retDict = @{GXFacebookID:[ud stringForKey:GXFacebookID],
+                              GXUserName:[ud stringForKey:GXUserName]};
+    
+    NSLog(@"retDict %@",retDict);
     
     return retDict;
 }

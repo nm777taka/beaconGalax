@@ -12,6 +12,7 @@
 #import "GXTopicManager.h"
 #import "GXBucketManager.h"
 #import "GXUserManager.h"
+#import "GXUserDefaults.h"
 @interface GXLoginViewController ()
 @property (weak, nonatomic) IBOutlet UILabel *statusLabel;
 @property (weak, nonatomic) IBOutlet UILabel *nameLabel;
@@ -26,9 +27,6 @@
 #define LOGIN_BUTTON_OFFSET_Y 150
 
 @implementation GXLoginViewController
-
-static NSInteger  const logInAlertViewTag = 1;
-static NSInteger  const logOutAlertViewTag = 2;
 
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
@@ -93,13 +91,14 @@ static NSInteger  const logOutAlertViewTag = 2;
     [self.view addSubview:self.profilePictureView];
     self.profilePictureView.hidden = YES;
     
-    //Notification
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(loginHandler) name:GXLoginSuccessedNotification object:nil];
-}
+    }
 
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
+    //Notification
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(loginHandler) name:GXLoginSuccessedNotification object:nil];
+
     [self configureButton];
     
 }
@@ -109,6 +108,11 @@ static NSInteger  const logOutAlertViewTag = 2;
 {
     [super viewDidAppear:animated];
     
+}
+
+- (void)viewDidDisappear:(BOOL)animated
+{
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
 
 - (void)didReceiveMemoryWarning
@@ -159,7 +163,11 @@ static NSInteger  const logOutAlertViewTag = 2;
    //現在のユーザのKiiObjectをフェッチする
     KiiObject *userObject = [[GXBucketManager sharedManager] getMeFromGalaxUserBucket];
     NSString *fb_id = [userObject getObjectForKey:@"facebook_id"];
+    NSString *name = [userObject getObjectForKey:@"name"];
     self.profilePictureView.profileID = fb_id;
+    
+    //ついでにudに保存
+    [GXUserDefaults setUserInfomation:fb_id name:name];
     
    
     
@@ -171,82 +179,29 @@ static NSInteger  const logOutAlertViewTag = 2;
 #pragma  mark GXNotification
 - (void)loginHandler
 {
-        
-//    FUIAlertView *loggedInAlertView = [[FUIAlertView alloc] initWithTitle:@"HELLO" message:@"GALAXへようこそ" delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
-//    
-//     [FUIAlertView gxLoginTheme:loggedInAlertView];
-//    
-//    loggedInAlertView.tag = logInAlertViewTag;
-//    
-//    [loggedInAlertView show];
+    
     [SVProgressHUD dismiss];
     
     if ([KiiUser loggedIn]) {
         
-        KiiBucket *bucket = [Kii bucketWithName:@"pushBucket"];
-        NSError *error = nil;
-        BOOL isSubscribed = [KiiPushSubscription checkSubscriptionSynchronous:bucket withError:&error];
-        
-        if (isSubscribed) {
-            //
-        } else {
+        //signUpかどうか
+        //初回起動フラグを見る
+        //初回起動だったらgxUserに登録する
+        if ([GXUserDefaults isFirstLaunch]) {
+            //Init
+            KiiUser *currentUser = [KiiUser currentUser];
             
-            [KiiPushSubscription subscribe:bucket withBlock:^(KiiPushSubscription *subscription, NSError *error) {
-                if (error == nil) {
-                    NSLog(@"bucket succeessd");
-                } else {
-                    NSLog(@"bucket error : %@",error);
-                }
-            }];
+            [[GXBucketManager sharedManager] registerGalaxUser:currentUser];
+            [[GXTopicManager sharedManager] createDefaultUserTopic];
+            [[GXTopicManager sharedManager] setACL];
+            
+            //accesstokenの保存
+            NSString *accessToken = [currentUser accessToken];
+            [GXUserDefaults setAccessToken:accessToken];
+            
         }
         
-        //Todo:クラス化
-        //フォラグラウンド時
-        UIMutableUserNotificationAction *firstAction = [UIMutableUserNotificationAction new];
-        firstAction.identifier = @"FIRST_ACTION";
-        firstAction.title = @"Accept";
-        //ボタンを押した時にアプリを起動するかしないか
-        firstAction.activationMode = UIUserNotificationActivationModeForeground;
-        firstAction.destructive = false;
-        firstAction.authenticationRequired = false;
-        
-        UIMutableUserNotificationAction *secondAction = [UIMutableUserNotificationAction new];
-        secondAction.identifier = @"SECOND_ACTION";
-        secondAction.title = @"Denied";
-        secondAction.activationMode = UIUserNotificationActivationModeForeground;
-        secondAction.destructive = false;
-        secondAction.authenticationRequired = false;
-        
-        //バックグラウンド
-        UIMutableUserNotificationAction *thirdAction = [UIMutableUserNotificationAction new];
-        thirdAction.identifier = @"THIRD_ACTION";
-        thirdAction.title = @"Action C";
-        thirdAction.activationMode = UIUserNotificationActivationModeBackground;
-        thirdAction.destructive = false;
-        thirdAction.authenticationRequired = false;
-        
-        UIMutableUserNotificationCategory *firstCategory = [UIMutableUserNotificationCategory new];
-        firstCategory.identifier = @"INVITE_CATEGORY";
-        
-        NSArray *defaultActions = @[firstAction,secondAction,thirdAction];
-        NSArray *minimalActions = @[firstAction,secondAction];
-        
-        [firstCategory setActions:defaultActions forContext:UIUserNotificationActionContextDefault];
-        [firstCategory setActions:minimalActions forContext:UIUserNotificationActionContextMinimal];
-        
-        NSSet *categories = [NSSet setWithObject:firstCategory];
-        
-        //UserNotificationの設定
-        UIUserNotificationType types = UIUserNotificationTypeAlert | UIUserNotificationTypeBadge |
-        UIUserNotificationTypeSound;
-        UIUserNotificationSettings *mySetting = [UIUserNotificationSettings settingsForTypes:types categories:categories];
-        [[UIApplication sharedApplication] registerUserNotificationSettings:mySetting];
-        
-        [Kii enableAPNSWithDevelopmentMode:YES andNotificationTypes:UIRemoteNotificationTypeAlert|UIRemoteNotificationTypeSound|UIRemoteNotificationTypeBadge];
     }
-    
-    [[GXTopicManager sharedManager] setACL];
-    
     
     [self configureButton];
     [self configurePicutureView];
