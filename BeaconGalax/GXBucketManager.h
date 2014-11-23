@@ -31,6 +31,7 @@
 @property (nonatomic) KiiBucket *joinedMultiPersonQuest; //複数用
 @property (nonatomic) KiiBucket *pointBucket;
 @property (nonatomic) KiiBucket *clearedBucket;
+@property (nonatomic) KiiBucket *notis_questDeliver;
 
 + (GXBucketManager *)sharedManager;
 

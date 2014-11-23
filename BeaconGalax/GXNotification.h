@@ -63,4 +63,7 @@ UIKIT_EXTERN NSString *const GXCommitQuestNotification;
 //ポイントゲット
 UIKIT_EXTERN NSString *const GXPointGetNotification;
 
+//LocalNotification
+UIKIT_EXTERN NSString *const GXRefreshDataFromLocalNotification;
+
 @end

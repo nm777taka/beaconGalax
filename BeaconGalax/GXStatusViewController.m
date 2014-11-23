@@ -75,14 +75,7 @@
     self.pointLable.textColor = [UIColor colorWithRed:62/255.0f green:68/255.0f blue:75/255.0f alpha:1.0f];
     self.rankLabel.font = [UIFont boldFlatFontOfSize:15];
     self.rankLabel.textColor = [UIColor colorWithRed:62/255.0f green:68/255.0f blue:75/255.0f alpha:1.0f];
-    
-    
-//    //ibeacon
-//    self.beacon = [GXBeacon sharedManager];
-//    self.beacon.delegate = self;
-//    GXBeaconRegion *region;
-//    region = [self.beacon registerRegion:kBeaconUUID identifier:kIdentifier];
-//    if (region) region.rangingEnabled = YES;
+
     
     
 }
@@ -90,10 +83,6 @@
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(joinedQuestFetched:) name:GXJoinedQuestFetchedNotification object:nil];
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(loginSuccess:) name:GXLoginSuccessedNotification object:nil];
-    self.rankProgress.progress = 0.0f;
-    
     
 }
 
@@ -104,11 +93,11 @@
     self.iconImageView.profileID = [ud stringForKey:@"fb_id"];
     self.usrNameLabel.text = [ud stringForKey:@"usr_name"];
     
-    int currPoint = [[GXUserManager sharedManager] getUserPoint];
-    int currRank = [[GXUserManager sharedManager] getUserRank];
-    self.pointLable.text = [NSString stringWithFormat:@"%dpt",currPoint];
-    self.rankLabel.text = [NSString stringWithFormat:@"%d",currRank];
-    [self.rankProgress setProgress:0.2 animated:YES];
+//    int currPoint = [[GXUserManager sharedManager] getUserPoint];
+//    int currRank = [[GXUserManager sharedManager] getUserRank];
+//    self.pointLable.text = [NSString stringWithFormat:@"%dpt",currPoint];
+//    self.rankLabel.text = [NSString stringWithFormat:@"%d",currRank];
+//    [self.rankProgress setProgress:0.2 animated:YES];
 
 }
 
@@ -295,26 +284,5 @@
 
 #pragma mark - Notification
 
-- (void)joinedQuestFetched:(NSNotification *)info
-{
-    NSArray *array = info.object;
-    self.joinedQuestArray = [NSMutableArray arrayWithArray:array];
-    [self.tableView reloadData];
-}
-
-- (void)loginSuccess:(NSNotification *)info
-{
-    NSString *userURI = [KiiUser currentUser].objectURI;
-    KiiObject *gxUser = [[GXBucketManager sharedManager] getGalaxUser:userURI];
-    self.iconImageView.profileID = [gxUser getObjectForKey:user_fb_id];
-    self.usrNameLabel.text = [gxUser getObjectForKey:user_name];
-    NSUserDefaults *ud = [NSUserDefaults standardUserDefaults];
-    [ud setObject:[gxUser getObjectForKey:user_fb_id] forKey:@"fb_id"];
-    [ud setObject:[gxUser getObjectForKey:user_name] forKey:@"usr_name"];
-    BOOL successful = [ud synchronize];
-    if (successful) {
-        NSLog(@"udに保存");
-    }
-}
 
 @end

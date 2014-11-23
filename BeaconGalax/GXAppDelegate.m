@@ -10,6 +10,9 @@
 #import "GXBucketManager.h"
 #import "GXDictonaryKeys.h"
 #import "GXNotification.h"
+#import "UILocalNotification+GXNotification.h"
+#import "NSObject+BlocksWait.h"
+#import "GXUserDefaults.h"
 
 
 @interface GXAppDelegate()
@@ -27,6 +30,10 @@
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
     
+    if ([UIApplication instancesRespondToSelector:@selector(registerUserNotificationSettings:)]) {
+        [self registerUserNotificationSettings];
+    }
+
     //kiiCloudの設定
     [Kii beginWithID:@"89c1cddc" andKey:@"b84c451265c396ea57d3eb50784cc29a" andSite:kiiSiteJP];
     
@@ -38,6 +45,7 @@
     
      [Kii enableAPNSWithDevelopmentMode:YES andNotificationTypes:UIRemoteNotificationTypeAlert|UIRemoteNotificationTypeSound|UIRemoteNotificationTypeBadge];
     
+    //リファクタリング
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
     NSString *access_token = [defaults stringForKey:@"access_token"];
     NSLog(@"access_token:%@",access_token);
@@ -46,8 +54,39 @@
     if (!error) {
         [[NSNotificationCenter defaultCenter] postNotificationName:GXLoginSuccessedNotification object:nil];
     }
-    self.locationManager = [CLLocationManager new];
-    self.locationManager.delegate = self;
+    [GXUserDefaults doneLaunchFirst];
+    //初回起動時のInit(一回しか呼ばれない)
+    if ([GXUserDefaults isFirstLaunch]) {
+        NSLog(@"初回起動");
+        //questDeliverNotification設定
+        [UILocalNotification setQuestDeliverLocalNotification];
+        
+        //初回起動したよフラグを書き込み
+        [GXUserDefaults doneLaunchFirst];
+    }
+    
+    
+     [[UIApplication sharedApplication] setApplicationIconBadgeNumber:0];
+    
+    
+    //アプリがForegrondに無いときにこちらが呼ばれる
+    //Local Notificationから起動したかどうか
+    UILocalNotification *notification = [launchOptions objectForKey:UIApplicationLaunchOptionsLocalNotificationKey];
+    if (notification) {
+        NSNotificationCenter *defaultCenter = [NSNotificationCenter defaultCenter];
+        
+        //どの通知なのか
+        if ([UILocalNotification isQuestDeliverLocalNotification:notification]) {
+            NSNotification *notification = [NSNotification notificationWithName:GXRefreshDataFromLocalNotification object:nil];
+            //すぐに通知すると良くない?
+            [NSObject performBlock:^{
+                [defaultCenter postNotification:notification];
+            } afterDelay:2.5f];
+            
+        }
+    }
+    
+    
    
     return YES;
 }
@@ -63,6 +102,7 @@
 - (void)application:(UIApplication *)application didRegisterUserNotificationSettings:(UIUserNotificationSettings *)notificationSettings
 {
     [application registerForRemoteNotifications];
+
 }
 
 - (void)application:(UIApplication *)application didRegisterForRemoteNotificationsWithDeviceToken:(NSData *)deviceToken
@@ -85,33 +125,37 @@
     NSLog(@"register errror:%@",error);
 }
 
-- (void)application:(UIApplication *)application didReceiveRemoteNotification:(NSDictionary *)userInfo
-{
-    
-    //アプリがフォアグランドで起動している時にPush通知を受信した場合
-    if (application.applicationState == UIApplicationStateActive) {
-        NSLog(@"push通知受信@フォアグランド");
-        
 
-    }
+- (void)applicationDidEnterBackground:(UIApplication *)application
+{
+    //[self sendLocalNotificationForMessage:@"test"];
+}
+
+- (void)registerUserNotificationSettings
+{
+    //Aciton生成
+    UIMutableUserNotificationAction *acceptAction = [[UIMutableUserNotificationAction alloc] init];
+    acceptAction.identifier = @"FIRST_ACTION";
+    acceptAction.title = @"FirstAction";
+    acceptAction.activationMode = UIUserNotificationActivationModeBackground;
+    acceptAction.authenticationRequired = NO;
+    acceptAction.destructive = NO;
     
-    
-    //バックグランドからPUSH通知でアクティブになったとき
-    if (application.applicationState == UIApplicationStateInactive) {
-        NSLog(@"プッシュ通知からアクティブ");
-    }
-    
-    if (application.applicationState == UIApplicationStateBackground) {
-        NSLog(@"バックグランドでpushを受信" );
-        
-        
-    }
+    UIMutableUserNotificationCategory *testCategory = [[UIMutableUserNotificationCategory alloc] init];
+    testCategory.identifier = @"TEST_CATEGORY";
+    [testCategory setActions:@[acceptAction] forContext:UIUserNotificationActionContextDefault];
+    NSSet *categories = [NSSet setWithObjects:testCategory, nil];
+    UIUserNotificationSettings *notificationSettings = [UIUserNotificationSettings settingsForTypes:UIUserNotificationTypeAlert|UIUserNotificationTypeBadge|UIUserNotificationTypeSound categories:categories];
+    [[UIApplication sharedApplication] registerUserNotificationSettings:notificationSettings];
     
 }
+
+#pragma mark RemoteNotificationhandler
 
 //slient push からの backgroundFetch
 - (void)application:(UIApplication *)application didReceiveRemoteNotification:(NSDictionary *)userInfo fetchCompletionHandler:(void (^)(UIBackgroundFetchResult))completionHandler
 {
+    
     if(![userInfo[@"aps"][@"content-available"] intValue])
     {
         NSLog(@"push受信");
@@ -160,68 +204,29 @@
             }
         }
         
-        
         completionHandler(UIBackgroundFetchResultNewData);
         return;
-    }
-    
-    //グループ再インスタンス化
-    NSError *error;
-    KiiUser *joinUser = [KiiUser userWithURI:userInfo[@"join_user"]];
-    KiiGroup *questGroup = [KiiGroup groupWithURI:userInfo[@"group"]];
-    [questGroup refreshSynchronous:&error];
-    
-    if (error) {
-        NSLog(@"error:%@",error);
     } else {
-        NSLog(@"グループリフレッシュ");
-        NSLog(@"group:%@",questGroup);
+        NSLog(@"backgrondfecth");
     }
-    [questGroup addUser:joinUser];
-    [questGroup saveSynchronous:&error];
-    if (error) {
-        NSLog(@"----------->error:%@",error);
-    }
-    
-    if (error) {
-        NSLog(@"error:%@",error);
-        completionHandler(UIBackgroundFetchResultFailed);
-    } else {
-        NSLog(@"ユーザ追加");
-        //追加されたのを知らせる
-        KiiBucket *bucket = [questGroup bucketWithName:@"member"];
-        KiiObject *newMember = [bucket createObject];
-        //kiiuser情報からgxUserを取得
-        //---> ここは参加者ができそう
-        KiiObject *gxUser = [[GXBucketManager sharedManager] getGalaxUser:joinUser.objectURI];
-        [newMember setObject:[gxUser getObjectForKey:user_fb_id] forKey:user_fb_id];
-        [newMember setObject:[gxUser getObjectForKey:user_name] forKey:user_name];
-        [newMember setObject:[gxUser getObjectForKey:user_uri] forKey:user_uri];
-        [newMember setObject:@NO forKey:user_isReady];
-        [newMember saveSynchronous:&error];
-        
-        if (error) {
-            NSLog(@"error:%@",error);
-        } else {
-            
-            //push通知を送る
-            KiiTopic *topic = [joinUser topicWithName:topic_invite];
-            KiiAPNSFields *apnsFields = [KiiAPNSFields createFields];
-            NSDictionary *dict = @{
-                                   @"group_uri":questGroup.objectURI
-                                   };
-            
-            [apnsFields setSpecificData:dict];
-            
-            KiiPushMessage *message = [KiiPushMessage composeMessageWithAPNSFields:apnsFields andGCMFields:nil];
-            
-            [topic sendMessageSynchronous:message withError:&error  ];
-            if (error) NSLog(@"error:%@",error);
-            else NSLog(@"参加者にpush通知送信完了");
-        }
-    }
+ 
     completionHandler(UIBackgroundFetchResultNewData);
     
+}
+
+#pragma mark LocalNotificationHandler
+//アプリがForeGroundにあるときにはこちらが呼ばれる
+//LocalNotisから起動したかどうか
+- (void)application:(UIApplication *)application didReceiveLocalNotification:(UILocalNotification *)notification
+{
+    NSNotificationCenter *defaultCenter = [NSNotificationCenter defaultCenter];
+    
+    if ([UILocalNotification isQuestDeliverLocalNotification:notification]) {
+        NSNotification *notification = [NSNotification notificationWithName:GXRefreshDataFromLocalNotification object:nil];
+        [NSObject performBlock:^{
+            [defaultCenter postNotification:notification];
+        } afterDelay:2.5f];
+    }
 }
 
 
@@ -233,7 +238,6 @@
     if ([identifier isEqualToString:@"SECOND_ACTION"]) {
         // Declineした時の処理
     }
-    
     
     // 終了時に呼ばれなければならない
     completionHandler();
@@ -282,11 +286,7 @@
     // Use this method to pause ongoing tasks, disable timers, and throttle down OpenGL ES frame rates. Games should use this method to pause the game.
 }
 
-- (void)applicationDidEnterBackground:(UIApplication *)application
-{
-    // Use this method to release shared resources, save user data, invalidate timers, and store enough application state information to restore your application to its current state in case it is terminated later. 
-    // If your application supports background execution, this method is called instead of applicationWillTerminate: when the user quits.
-}
+
 
 - (void)applicationWillEnterForeground:(UIApplication *)application
 {

@@ -13,6 +13,7 @@
 #import "GXUserManager.h"
 #import "GXDictonaryKeys.h"
 #import "GXFacebook.h"
+#import "GXUserDefaults.h"
 
 @implementation GXKiiCloud
 
@@ -99,26 +100,9 @@
             if (successful) {
                 NSLog(@"udに保存");
             }
-
             
         } else {
-            NSLog(@"login");
             
-            //バケット購読処理
-            //購読の確認f
-//            KiiBucket *bucket = [Kii bucketWithName:@"quest_board"];
-//            BOOL isSubscribed = [KiiPushSubscription checkSubscriptionSynchronous:bucket withError:&error];
-//            if (isSubscribed) {
-//                NSLog(@"quest_boardバケット購読済み");
-//            } else {
-//                //購読処理
-//                [KiiPushSubscription subscribeSynchronous:bucket withError:&error];
-//                if (error != nil) {
-//                    NSLog(@"error:%@",error);
-//                } else {
-//                    NSLog(@"quest_boardバケット購読完了");
-//                }
-//            }
         }
         
         

@@ -82,6 +82,7 @@
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(joinQuestHandler:) name:GXQuestJoinNotification object:nil];
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(registeredInvitedBoard:) name:GXRegisteredInvitedBoardNotification object:nil];
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(deletedQuest:) name:@"deleteQuest" object:nil];
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(refreshFromLocalNotis:) name:GXRefreshDataFromLocalNotification object:nil];
         
 
     }
@@ -217,14 +218,6 @@
 {
     [_refreshControl endRefreshing];
 }
-#pragma mark Notification
-- (void)questFetched:(NSNotification *)info
-{
-    NSArray *array = info.object;
-    self.objects = [NSMutableArray arrayWithArray:array];
-    [self.collectionView reloadData];
-
-}
 
 //カスタムcellクラスでタッチイベントを処理してる
 - (void)joinQuestHandler:(NSNotification *)notification
@@ -262,26 +255,24 @@
 #pragma mark -- サーバーコードのテスト
 - (IBAction)createNewQuest:(id)sender
 {
-    [[GXBucketManager sharedManager] getQuestForQuestBoard];
+    //[[GXBucketManager sharedManager] getQuestForQuestBoard];
     
-//    NSLog(@"call");
-//    KiiServerCodeEntry* entry =[Kii serverCodeEntry:@"main"];
-//    
-//    //実行時パラメータ
-//    KiiUser *currUser = [KiiUser currentUser];
-//    NSDictionary *argDict = @{@"aaa":@"username",@"bbb":@"password"};
-//    KiiServerCodeEntryArgument *argument = [KiiServerCodeEntryArgument argumentWithDictionary:argDict];
-//    NSError* error = nil;
-//    
-//    
-//    KiiServerCodeExecResult* result = [entry executeSynchronous:argument
-//                                                      withError:&error];
-//    
-//    // Parse the result.
-//    NSDictionary *returnedDict = [result returnedValue];
-//    NSString *returnString = [returnedDict objectForKey:@"returnedValue"];
-//    
-//    NSLog(@"%@",returnString);
+    KiiServerCodeEntry* entry =[Kii serverCodeEntry:@"createQuest"];
+    
+    //実行時パラメータ
+    NSDictionary *argDict = @{@"aaa":@"username",@"bbb":@"password"};
+    KiiServerCodeEntryArgument *argument = [KiiServerCodeEntryArgument argumentWithDictionary:argDict];
+    NSError* error = nil;
+    
+    
+    KiiServerCodeExecResult* result = [entry executeSynchronous:argument
+                                                      withError:&error];
+    
+    // Parse the result.
+    NSDictionary *returnedDict = [result returnedValue];
+    NSString *returnString = [returnedDict objectForKey:@"returnedValue"];
+    
+    NSLog(@"%@",returnString);
 }
 
 
@@ -295,6 +286,16 @@
 }
 
 #pragma mark - Notification
+
+- (void)questFetched:(NSNotification *)info
+{
+    NSArray *array = info.object;
+    self.objects = [NSMutableArray arrayWithArray:array];
+    [self.collectionView reloadData];
+    
+    [SVProgressHUD dismiss];
+}
+
 - (void)registeredInvitedBoard:(NSNotification *)notis
 {
     CWStatusBarNotification *notification = [CWStatusBarNotification new];
@@ -308,6 +309,14 @@
     [[GXBucketManager sharedManager] fetchQuestWithNotComplited];
     [self.collectionView reloadData];
 }
+
+- (void)refreshFromLocalNotis:(NSNotification *)notis
+{
+    [SVProgressHUD showWithStatus:@"データ更新中"];
+    [[GXBucketManager sharedManager] fetchQuestWithNotComplited];
+}
+
+#pragma mark-
 
 
 

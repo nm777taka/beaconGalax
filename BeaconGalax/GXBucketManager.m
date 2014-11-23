@@ -52,6 +52,7 @@
         
         self.pointBucket = [[KiiUser currentUser] bucketWithName:@"point"];
         self.clearedBucket = [[KiiUser currentUser] bucketWithName:@"cleard"];
+        self.notis_questDeliver = [[KiiUser currentUser] bucketWithName:@"notis_questDeliver"];
     }
     
     return self;
@@ -63,9 +64,8 @@
 {
     
     KiiObject *object = [self.galaxUser createObject];
-    
+    [object setObject:user.uuid forKey:@"userID"];
     [object setObject:user.objectURI forKey:@"uri"];
-    [object setObject:@YES forKey:@"isNear"];
     [object setObject:@YES forKey:@"isMember"];
     [object setObject:[NSNumber numberWithInt:1] forKey:@"rank"];    
     

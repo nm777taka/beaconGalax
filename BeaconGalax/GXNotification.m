@@ -61,4 +61,6 @@ NSString *const GXSegueToQuestExeViewNotification = @"GXSegueToQuestExeViewNotif
 
 NSString *const GXPointGetNotification = @"GXPointGetNotification";
 
+NSString *const GXRefreshDataFromLocalNotification = @"GXRefreshDataFromLocalNotification";
+
 @end

@@ -120,6 +120,9 @@
 		0FD26D821959F689005E2B95 /* GXCustomSectionHeader.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0FD26D801959F689005E2B95 /* GXCustomSectionHeader.xib */; };
 		0FD26D89195A0A11005E2B95 /* UIColor+GXtheme.m in Sources */ = {isa = PBXBuildFile; fileRef = 0FD26D88195A0A11005E2B95 /* UIColor+GXtheme.m */; };
 		0FD26D8D195A9820005E2B95 /* GXNotification.m in Sources */ = {isa = PBXBuildFile; fileRef = 0FD26D8C195A9820005E2B95 /* GXNotification.m */; };
+		0FDD5FBF1A216A9800FBC852 /* UILocalNotification+GXNotification.m in Sources */ = {isa = PBXBuildFile; fileRef = 0FDD5FBE1A216A9800FBC852 /* UILocalNotification+GXNotification.m */; };
+		0FDD5FC21A217D7700FBC852 /* NSObject+BlocksWait.m in Sources */ = {isa = PBXBuildFile; fileRef = 0FDD5FC11A217D7700FBC852 /* NSObject+BlocksWait.m */; };
+		0FDD5FC51A21813F00FBC852 /* GXUserDefaults.m in Sources */ = {isa = PBXBuildFile; fileRef = 0FDD5FC41A21813F00FBC852 /* GXUserDefaults.m */; };
 		0FF16CE9197F86DB00B02702 /* NSMutableArray+Extended.m in Sources */ = {isa = PBXBuildFile; fileRef = 0FF16CE8197F86DB00B02702 /* NSMutableArray+Extended.m */; };
 		CEEFFA2740D749D0AE5B5B2D /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 0F597A99B7864A4393B072E4 /* libPods.a */; };
 /* End PBXBuildFile section */
@@ -315,6 +318,12 @@
 		0FD26D88195A0A11005E2B95 /* UIColor+GXtheme.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIColor+GXtheme.m"; sourceTree = "<group>"; };
 		0FD26D8B195A9820005E2B95 /* GXNotification.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GXNotification.h; sourceTree = "<group>"; };
 		0FD26D8C195A9820005E2B95 /* GXNotification.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GXNotification.m; sourceTree = "<group>"; };
+		0FDD5FBD1A216A9800FBC852 /* UILocalNotification+GXNotification.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UILocalNotification+GXNotification.h"; sourceTree = "<group>"; };
+		0FDD5FBE1A216A9800FBC852 /* UILocalNotification+GXNotification.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UILocalNotification+GXNotification.m"; sourceTree = "<group>"; };
+		0FDD5FC01A217D7700FBC852 /* NSObject+BlocksWait.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSObject+BlocksWait.h"; sourceTree = "<group>"; };
+		0FDD5FC11A217D7700FBC852 /* NSObject+BlocksWait.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSObject+BlocksWait.m"; sourceTree = "<group>"; };
+		0FDD5FC31A21813F00FBC852 /* GXUserDefaults.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GXUserDefaults.h; sourceTree = "<group>"; };
+		0FDD5FC41A21813F00FBC852 /* GXUserDefaults.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GXUserDefaults.m; sourceTree = "<group>"; };
 		0FF16CE7197F86DB00B02702 /* NSMutableArray+Extended.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSMutableArray+Extended.h"; sourceTree = "<group>"; };
 		0FF16CE8197F86DB00B02702 /* NSMutableArray+Extended.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSMutableArray+Extended.m"; sourceTree = "<group>"; };
 		E359C94E1AFB4D60B499DEE6 /* Pods.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.xcconfig; path = Pods/Pods.xcconfig; sourceTree = "<group>"; };
@@ -970,6 +979,10 @@
 				0FD26D88195A0A11005E2B95 /* UIColor+GXtheme.m */,
 				0FF16CE7197F86DB00B02702 /* NSMutableArray+Extended.h */,
 				0FF16CE8197F86DB00B02702 /* NSMutableArray+Extended.m */,
+				0FDD5FBD1A216A9800FBC852 /* UILocalNotification+GXNotification.h */,
+				0FDD5FBE1A216A9800FBC852 /* UILocalNotification+GXNotification.m */,
+				0FDD5FC01A217D7700FBC852 /* NSObject+BlocksWait.h */,
+				0FDD5FC11A217D7700FBC852 /* NSObject+BlocksWait.m */,
 			);
 			name = Category;
 			sourceTree = "<group>";
@@ -982,6 +995,8 @@
 				0FD26D8C195A9820005E2B95 /* GXNotification.m */,
 				0F42366519BD58530001E204 /* UIPlaceHolderTextView.h */,
 				0F42366619BD58530001E204 /* UIPlaceHolderTextView.m */,
+				0FDD5FC31A21813F00FBC852 /* GXUserDefaults.h */,
+				0FDD5FC41A21813F00FBC852 /* GXUserDefaults.m */,
 			);
 			name = Utility;
 			sourceTree = "<group>";
@@ -1184,6 +1199,7 @@
 				0FD26D811959F689005E2B95 /* GXCustomSectionHeader.m in Sources */,
 				0F3558331A1197470023F2FF /* JVFloatLabeledTextView.m in Sources */,
 				0F42366019BCBEB80001E204 /* GXQuestViewController.m in Sources */,
+				0FDD5FC51A21813F00FBC852 /* GXUserDefaults.m in Sources */,
 				0F3558321A1197470023F2FF /* JVFloatLabeledTextField.m in Sources */,
 				0F7A25DD1959E4AF001B7839 /* GXCustomCell.m in Sources */,
 				0FC9FF1B19EBC6CD00E78B39 /* GXStatusViewCell.m in Sources */,
@@ -1213,6 +1229,7 @@
 				0F42366719BD58530001E204 /* UIPlaceHolderTextView.m in Sources */,
 				0FC9FF1719E81FF100E78B39 /* GXClearViewController.m in Sources */,
 				0F27DAF119824BC20000E0D0 /* GXNavigationItem.m in Sources */,
+				0FDD5FBF1A216A9800FBC852 /* UILocalNotification+GXNotification.m in Sources */,
 				0F6E291D19EEF06D005BE433 /* GXQuestGroupViewController.m in Sources */,
 				0F7A25CD19587E3B001B7839 /* GXBeacon.m in Sources */,
 				0F6E292119EEF17C005BE433 /* GXQuestGroupViewCell.m in Sources */,
@@ -1235,6 +1252,7 @@
 				0F42366E19BDD3510001E204 /* GXDescriptionTableViewCell.m in Sources */,
 				0FF16CE9197F86DB00B02702 /* NSMutableArray+Extended.m in Sources */,
 				0F80277219BF370800453653 /* GXBeaconViewController.m in Sources */,
+				0FDD5FC21A217D7700FBC852 /* NSObject+BlocksWait.m in Sources */,
 				0FD200A619E263CE0034E52A /* GXNavViewController.m in Sources */,
 				0F3558461A14C3700023F2FF /* GXActivityTableViewCell.m in Sources */,
 				0F42366419BD54420001E204 /* GXCreateQuestViewController.m in Sources */,
