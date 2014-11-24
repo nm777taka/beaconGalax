@@ -7,21 +7,14 @@
 //
 
 #import "GXHomeCollectionViewCell.h"
-#import "GXNotification.h"
+#import "GXQuest.h"
+#import "GXQuestList.h"
+
 
 @implementation GXHomeCollectionViewCell
 
 - (void)awakeFromNib
 {
-    self.acceptButton.buttonColor = [UIColor alizarinColor];
-    self.acceptButton.shadowColor = [UIColor pomegranateColor];
-    self.acceptButton.shadowHeight = 3.0f;
-    self.acceptButton.cornerRadius = 6.0f;
-    self.acceptButton.titleLabel.font = [UIFont boldFlatFontOfSize:16];
-    [self.acceptButton setTitleColor:[UIColor cloudsColor] forState:UIControlStateNormal];
-    [self.acceptButton setTitleColor:[UIColor cloudsColor] forState:UIControlStateHighlighted];
-    [self.acceptButton setTitle:@"Accept" forState:UIControlStateNormal];
-    
     //label
     self.createrName.font = [UIFont boldFlatFontOfSize:15];
     self.createrName.textColor = [UIColor midnightBlueColor];
@@ -31,14 +24,30 @@
     self.titleLable.textColor = [UIColor midnightBlueColor];
     self.titleLable.font = [UIFont boldFlatFontOfSize:16];
     
+    self.createrIcon.layer.cornerRadius = 25.0f;
+    self.createrIcon.layer.borderColor = [UIColor whiteColor].CGColor;
+    self.createrIcon.layer.borderWidth = 2.0f;
+    
     //view
     self.questTypeColorView.backgroundColor = [UIColor turquoiseColor];
     
+    //drop shadow
+    //ドロップシャドウ
+    self.layer.masksToBounds = NO;
+    self.layer.shadowOffset = CGSizeMake(0.0f, 0.0f);
+    self.layer.shadowOpacity = 0.1f;
+    self.layer.shadowRadius = 2.0f;
+    
 }
 
-- (IBAction)joinAction:(id)sender {
-    
-    [[NSNotificationCenter defaultCenter] postNotificationName:GXQuestJoinNotification object:self];
+#pragma mark - Setter
+- (void)setQuest:(GXQuest *)quest
+{
+    //レイアウト寒冷
+    _titleLable.text = quest.title;
+    _createrIcon.profileID = quest.fb_id;
 }
+
+
 
 @end

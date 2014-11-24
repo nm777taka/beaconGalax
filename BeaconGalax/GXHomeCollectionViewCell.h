@@ -11,7 +11,14 @@
 #import <FacebookSDK/Facebook.h>
 #import <FlatUIKit/FlatUIKit.h>
 
-@interface GXHomeCollectionViewCell : UICollectionViewCell<UIAlertViewDelegate>
+@class GXQuest;
+
+@interface GXHomeCollectionViewCell : UICollectionViewCell
+
+//Model[
+@property (nonatomic,strong) GXQuest *quest;
+
+//View
 @property (weak, nonatomic) IBOutlet UILabel *titleLable;
 @property (weak, nonatomic) IBOutlet FBProfilePictureView *createrIcon;
 @property (weak, nonatomic) IBOutlet UILabel *createrName;
@@ -19,9 +26,6 @@
 @property (weak, nonatomic) IBOutlet UIImageView *questTypeIcon;
 @property (weak, nonatomic) IBOutlet UIView *questTypeColorView;
 @property (weak, nonatomic) IBOutlet UILabel *requirementLabel;
-@property (weak, nonatomic) IBOutlet UILabel *rankLabel;
 
-- (IBAction)joinAction:(id)sender;
-@property (weak, nonatomic) IBOutlet FUIButton *acceptButton;
 
 @end

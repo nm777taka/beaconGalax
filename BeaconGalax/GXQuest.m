@@ -10,4 +10,17 @@
 
 @implementation GXQuest
 
+- (instancetype)initWithTitle:(NSString *)title fbID:(NSString *)fbID
+{
+    self = [super init];
+    if (self) {
+        _title = title;
+        _fb_id = fbID;
+    }
+    
+    return self;
+}
+
+
+
 @end

@@ -10,10 +10,19 @@
 
 @interface GXQuest : NSObject
 
+- (instancetype)initWithTitle:(NSString *)title fbID:(NSString *)fbID;
+
+//表示する要素
 @property (nonatomic,retain) NSString *title;
+@property (nonatomic,retain) NSString *fb_id;
+
+
+
+
+
+//lagacy
 @property (nonatomic,retain) NSString *description;
 @property (nonatomic,retain) NSString *createUserURI;
-@property (nonatomic,retain) NSString *fb_id;
 @property (nonatomic,retain) NSString *group_uri;
 @property (nonatomic,assign) NSNumber *isStarted;
 @property (nonatomic,assign) NSNumber *isCompleted;

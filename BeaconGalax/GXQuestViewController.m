@@ -27,7 +27,11 @@
 #import "GXNotification.h"
 #import "GXDictonaryKeys.h"
 
-@interface GXQuestViewController ()<UICollectionViewDataSource,UICollectionViewDelegate,FUIAlertViewDelegate>
+//Model
+#import "GXQuest.h"
+#import "GXQuestList.h"
+
+@interface GXQuestViewController ()<UICollectionViewDataSource,UICollectionViewDelegate,FUIAlertViewDelegate,GXQuestListDelegate>
 
 - (IBAction)createNewQuest:(id)sender;
 @property GXDescriptionViewController *descriptionViewContoller;
@@ -36,6 +40,10 @@
 @property NSMutableArray *objects;
 @property KiiObject *selectedObject;
 @property BOOL isSelectedQuestMulti;
+
+
+@property (nonatomic,strong) GXQuestList *questList;
+
 @end
 
 @implementation GXQuestViewController{
@@ -68,7 +76,8 @@
     self.collectionView.dataSource = self;
     self.collectionView.alwaysBounceVertical = YES;
     
-    _objects = [NSMutableArray new];
+    _questList = [[GXQuestList alloc] initWithDelegate:self]; //delegate設定(del先は俺やで）
+    
     
     _refreshControl = [UIRefreshControl new];
     [_refreshControl addTarget:self action:@selector(refresh) forControlEvents:UIControlEventValueChanged];
@@ -89,7 +98,24 @@
     segmentedControl.selectionIndicatorLocation = HMSegmentedControlSelectionIndicatorLocationDown;
     segmentedControl.shouldAnimateUserSelection = YES;
     [segmentedControl setIndexChangeBlock:^(NSInteger index) {
-        NSLog(@"touch");
+        switch (index) {
+            case 0:
+                //newQuest
+                [_questList requestAsyncronous:index];
+                
+                break;
+                
+            case 1:
+                //Joined
+                [_questList requestAsyncronous:index];
+                
+            case 2:
+                //Invited
+                [_questList requestAsyncronous:index];
+                
+            default:
+                break;
+        }
     }];
     
     
@@ -141,18 +167,21 @@
 
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section
 {
-    return self.objects.count;
+    return [_questList count];
 }
 
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath
 {
     GXHomeCollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"Cell" forIndexPath:indexPath];
     
-    [self configureCell:cell atIndexPath:indexPath];
+    //modelの設定
+    cell.quest = [_questList questAtIndex:indexPath.row];
+    
     
     return cell;
     
 }
+
 
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath
 {
@@ -183,7 +212,7 @@
 }
 
 
-
+/*
 - (void)configureCell:(GXHomeCollectionViewCell *)cell atIndexPath:(NSIndexPath *)indexPath
 {
     //ドロップシャドウ
@@ -198,8 +227,6 @@
     cell.requirementLabel.textColor = [UIColor whiteColor];
     cell.requirementLabel.text = [quest getObjectForKey:quest_requirement];
     int questRank = [[quest getObjectForKey:quest_rank] intValue];
-    cell.rankLabel.text = [NSString stringWithFormat:@"☆%d",questRank];
-    cell.rankLabel.textColor = [UIColor orangeColor];
     
     BOOL isMulti = [self isMultiQuest:indexPath];
     if (isMulti) {
@@ -218,6 +245,7 @@
     }
     
 }
+ */
 
 //協力型なのか個人でやるやつなのか判断
 - (BOOL)isMultiQuest:(NSIndexPath *)indexPath
@@ -471,6 +499,13 @@
 
 - (void)segmentedControlChangedValue:(HMSegmentedControl *)segmentedControl {
     NSLog(@"Selected index %ld (via UIControlEventValueChanged)", (long)segmentedControl.selectedSegmentIndex);
+}
+
+#pragma makr - QuestList delegate
+- (void)questListDidLoad
+{
+    NSLog(@"delegate");
+    [_collectionView reloadData];
 }
 
 
