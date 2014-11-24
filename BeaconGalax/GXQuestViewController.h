@@ -8,7 +8,6 @@
 
 #import <UIKit/UIKit.h>
 #import <SVProgressHUD/SVProgressHUD.h>
-#import <TSMessages/TSMessage.h>
 #import <ChameleonFramework/Chameleon.h>
 @interface GXQuestViewController : UIViewController
 

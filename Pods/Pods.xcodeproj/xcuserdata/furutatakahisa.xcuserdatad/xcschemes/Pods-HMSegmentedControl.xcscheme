@@ -14,9 +14,9 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "270A58A11DB04D1D94FB401E"
-               BuildableName = "libPods-HexColors.a"
-               BlueprintName = "Pods-HexColors"
+               BlueprintIdentifier = "5DB59E1284AA4C669E79D761"
+               BuildableName = "libPods-HMSegmentedControl.a"
+               BlueprintName = "Pods-HMSegmentedControl"
                ReferencedContainer = "container:Pods.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>

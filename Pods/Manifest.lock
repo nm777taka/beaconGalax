@@ -43,12 +43,10 @@ PODS:
   - Facebook-iOS-SDK (3.15.1):
     - Bolts
   - FlatUIKit (1.5)
-  - HexColors (2.2.1)
+  - HMSegmentedControl (1.4.0)
   - PulsingHalo (0.0.1)
   - REFrostedViewController (2.4.7)
   - SVProgressHUD (1.0)
-  - TSMessages (0.9.9):
-    - HexColors
   - UAProgressView (0.1.1)
 
 DEPENDENCIES:
@@ -60,10 +58,10 @@ DEPENDENCIES:
   - EstimoteSDK
   - Facebook-iOS-SDK
   - FlatUIKit
+  - HMSegmentedControl (~> 1.4.0)
   - PulsingHalo
   - REFrostedViewController (~> 2.4.7)
   - SVProgressHUD
-  - TSMessages
   - UAProgressView
 
 SPEC CHECKSUMS:
@@ -76,11 +74,10 @@ SPEC CHECKSUMS:
   EstimoteSDK: e20b38d6f5692ae14fc2347a86dd4d64adc6a71c
   Facebook-iOS-SDK: 56214af8e0ef16e751eb2804250326b709e571b8
   FlatUIKit: 5452fa3fca41e6f04014cca6e81b4c2f961f623c
-  HexColors: 01384d2bbe8dc4ffa43c3b4135db6e976952d153
+  HMSegmentedControl: c0517a8d4b80c978b8386f863f1c44729cfd7d6f
   PulsingHalo: 4f5fbc25f9efb9f949e4ddad05ca885a11667aa0
   REFrostedViewController: 08870a24788191339608b80b2bd4fce549858f0d
   SVProgressHUD: 5034c6e22b8c2ca3e09402e48d41ed0340aa1c50
-  TSMessages: 2999ef55e532378692e9d14d32da2bb60e285129
   UAProgressView: c393bc53d1cabc077279e957c5898a5bb7bdb3ce
 
 COCOAPODS: 0.33.1

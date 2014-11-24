@@ -101,7 +101,6 @@
     
     if ([self.textView.text length] == 0) {
         
-        [TSMessage showNotificationInViewController:self title:@"クエストの内容を入力してね" subtitle:nil type:TSMessageNotificationTypeError duration:TSMessageNotificationDurationAutomatic];
         
     } else {
        
@@ -149,8 +148,7 @@
 #pragma mark Notification
 - (void)questCreated:(NSNotification *)info
 {
-    [TSMessage showNotificationWithTitle:@"クエストが作成されました"
-                                    type:TSMessageNotificationTypeSuccess];
+    
     
     [self dismissViewControllerAnimated:YES completion:nil];
 }

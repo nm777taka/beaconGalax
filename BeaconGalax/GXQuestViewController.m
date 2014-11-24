@@ -20,6 +20,9 @@
 #import "REFrostedViewController.h"
 #import "UIViewController+REFrostedViewController.h"
 #import "GXNavViewController.h"
+
+#import <HMSegmentedControl.h>
+
 #import "GXBucketManager.h"
 #import "GXNotification.h"
 #import "GXDictonaryKeys.h"
@@ -52,6 +55,14 @@
 {
     [super viewDidLoad];
 	// Do any additional setup after loading the view, typically from a nib.
+    CGFloat topOffset = 0;
+    
+#if __IPHONE_OS_VERSION_MAX_ALLOWED >= 70000
+    [self.view setTintColor:[UIColor blueColor]];
+    
+    topOffset = [[UIApplication sharedApplication] statusBarFrame].size.height + self.navigationController.navigationBar.frame.size.height;
+#endif
+
     
     self.collectionView.delegate = self;
     self.collectionView.dataSource = self;
@@ -64,6 +75,25 @@
     [self.collectionView addSubview:_refreshControl];
     
     _descriptionViewContoller = [[self storyboard] instantiateViewControllerWithIdentifier:@"DescriptionView"];
+    
+    //segumentControl
+    HMSegmentedControl *segmentedControl = [[HMSegmentedControl alloc] initWithSectionTitles:@[@"新しい",@"受注済み",@"募集中"]];
+    segmentedControl.autoresizingMask = UIViewAutoresizingFlexibleRightMargin | UIViewAutoresizingFlexibleWidth;
+    segmentedControl.frame = CGRectMake(0, topOffset, 320, 50);
+    segmentedControl.selectionIndicatorHeight = 4.0f;
+    segmentedControl.backgroundColor = [UIColor turquoiseColor];
+    segmentedControl.textColor = [UIColor cloudsColor];
+    segmentedControl.selectionIndicatorColor = [UIColor greenSeaColor];
+    segmentedControl.selectionStyle = HMSegmentedControlSelectionStyleBox;
+    segmentedControl.selectedSegmentIndex = HMSegmentedControlNoSegment;
+    segmentedControl.selectionIndicatorLocation = HMSegmentedControlSelectionIndicatorLocationDown;
+    segmentedControl.shouldAnimateUserSelection = YES;
+    [segmentedControl setIndexChangeBlock:^(NSInteger index) {
+        NSLog(@"touch");
+    }];
+    
+    
+    [self.view addSubview:segmentedControl];
     
 }
 
@@ -438,6 +468,11 @@
     navController.viewControllers = @[invitedVC];
     self.frostedViewController.contentViewController = navController;
 }
+
+- (void)segmentedControlChangedValue:(HMSegmentedControl *)segmentedControl {
+    NSLog(@"Selected index %ld (via UIControlEventValueChanged)", (long)segmentedControl.selectedSegmentIndex);
+}
+
 
 
 @end

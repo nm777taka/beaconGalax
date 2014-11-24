@@ -49,7 +49,7 @@
 			<key>isShown</key>
 			<false/>
 		</dict>
-		<key>Pods-HexColors.xcscheme</key>
+		<key>Pods-HMSegmentedControl.xcscheme</key>
 		<dict>
 			<key>isShown</key>
 			<false/>
@@ -69,11 +69,6 @@
 			<key>isShown</key>
 			<false/>
 		</dict>
-		<key>Pods-TSMessages.xcscheme</key>
-		<dict>
-			<key>isShown</key>
-			<false/>
-		</dict>
 		<key>Pods-UAProgressView.xcscheme</key>
 		<dict>
 			<key>isShown</key>
@@ -87,82 +82,77 @@
 	</dict>
 	<key>SuppressBuildableAutocreation</key>
 	<dict>
-		<key>01D4D277F6C545F6A7DFFB95</key>
+		<key>01DC7A1D19F34C73B5306703</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>0DAF2357B0C348F4B4F610B3</key>
+		<key>320029351D5B4C76B8715BE2</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>1CE1663FD0AF45C0B25A5554</key>
+		<key>33864E9BC3484C8C8BC09815</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>270A58A11DB04D1D94FB401E</key>
+		<key>34348E925A02483D9BB3964E</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>3082C3689ED54AC7A6FC1C20</key>
+		<key>366398CB72924114BD2371E3</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>4368C8E396674710909AF794</key>
+		<key>455252B374E941F193E21FD9</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>45319C89E0754DBC95B18EE7</key>
+		<key>4C334186D39348E28478DB3A</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>4C26A0F9E8844D08BC7B3BAB</key>
+		<key>5DB59E1284AA4C669E79D761</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>5529DCC10A77446D8949DA99</key>
+		<key>78A9386359B44601B74974CC</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>8581CD4290BA47EDBAD437D3</key>
+		<key>B4D1985C96BE41849282BAC1</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>9C967F37131A404BB644D662</key>
+		<key>B70003EF38BE430F98C2C043</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>B7BFF0586CC3476DB8F92FBC</key>
+		<key>B9CAD006101A422986AD5CD8</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>D46C027AAC964B12999F6992</key>
+		<key>E35B32BECBC34AA5A0CE4353</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>DBC741F175DB429EB822B5AE</key>
+		<key>E41648E1E1AB44A8B3C41398</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>DD88227C451A4345BD37785F</key>
-		<dict>
-			<key>primary</key>
-			<true/>
-		</dict>
-		<key>E4BFEC2617024120B2037C3D</key>
+		<key>F0E804054E5F4DD6A4B9A69C</key>
 		<dict>
 			<key>primary</key>
 			<true/>

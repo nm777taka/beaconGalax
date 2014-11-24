@@ -93,7 +93,6 @@
 		0F82302F198245CA0081C9BE /* home.png in Resources */ = {isa = PBXBuildFile; fileRef = 0F82302E198245CA0081C9BE /* home.png */; };
 		0F823031198245D30081C9BE /* bell.png in Resources */ = {isa = PBXBuildFile; fileRef = 0F823030198245D30081C9BE /* bell.png */; };
 		0F823039198245F40081C9BE /* quest.png in Resources */ = {isa = PBXBuildFile; fileRef = 0F823038198245F40081C9BE /* quest.png */; };
-		0F8BB0AA1980CEED00D5499F /* GXEmptySegue.m in Sources */ = {isa = PBXBuildFile; fileRef = 0F8BB0A91980CEED00D5499F /* GXEmptySegue.m */; };
 		0FA17E371961A09700158421 /* GXBucketManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 0FA17E361961A09700158421 /* GXBucketManager.m */; };
 		0FA17E3A1961A7A400158421 /* GXBucketNameConst.m in Sources */ = {isa = PBXBuildFile; fileRef = 0FA17E391961A7A400158421 /* GXBucketNameConst.m */; };
 		0FA17E3D1961B00100158421 /* GXTopicManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 0FA17E3C1961B00100158421 /* GXTopicManager.m */; };
@@ -271,8 +270,6 @@
 		0F82302E198245CA0081C9BE /* home.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = home.png; sourceTree = "<group>"; };
 		0F823030198245D30081C9BE /* bell.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = bell.png; sourceTree = "<group>"; };
 		0F823038198245F40081C9BE /* quest.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = quest.png; sourceTree = "<group>"; };
-		0F8BB0A81980CEED00D5499F /* GXEmptySegue.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GXEmptySegue.h; sourceTree = "<group>"; };
-		0F8BB0A91980CEED00D5499F /* GXEmptySegue.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GXEmptySegue.m; sourceTree = "<group>"; };
 		0FA17E351961A09700158421 /* GXBucketManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GXBucketManager.h; sourceTree = "<group>"; };
 		0FA17E361961A09700158421 /* GXBucketManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GXBucketManager.m; sourceTree = "<group>"; };
 		0FA17E381961A7A400158421 /* GXBucketNameConst.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GXBucketNameConst.h; sourceTree = "<group>"; };
@@ -679,8 +676,6 @@
 			isa = PBXGroup;
 			children = (
 				0F7A25A519587ADE001B7839 /* Main.storyboard */,
-				0F8BB0A81980CEED00D5499F /* GXEmptySegue.h */,
-				0F8BB0A91980CEED00D5499F /* GXEmptySegue.m */,
 				0FCFA47519F78E080087011A /* subStoryboard.storyboard */,
 			);
 			name = storyboard;
@@ -1258,7 +1253,6 @@
 				0F42366419BD54420001E204 /* GXCreateQuestViewController.m in Sources */,
 				0F7A25A419587ADE001B7839 /* GXAppDelegate.m in Sources */,
 				0FC0095419E13CB70026A7DC /* GXHomeCollectionViewCell.m in Sources */,
-				0F8BB0AA1980CEED00D5499F /* GXEmptySegue.m in Sources */,
 				0FCFA47D19F7A9F00087011A /* GXJoinedQuestViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

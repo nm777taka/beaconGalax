@@ -8,8 +8,6 @@
 
 #import <UIKit/UIKit.h>
 #import <KiiSDK/Kii.h>
-#import <TSMessages/TSMessage.h>
-#import <TSMessages/TSMessageView.h>
 
 @interface GXCreateQuestViewController : UIViewController<UITextViewDelegate>
 
