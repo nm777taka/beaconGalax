@@ -44,6 +44,7 @@
 @property KiiObject *selectedObject;
 @property BOOL isSelectedQuestMulti;
 @property NSInteger segmentIndex;
+@property HMSegmentedControl *segmentedControl;
 
 @property (nonatomic,strong) GXQuestList *questList;
 
@@ -82,53 +83,29 @@
     
     _questList = [[GXQuestList alloc] initWithDelegate:self]; //delegate設定(del先は俺やで）
     
-    
     _refreshControl = [UIRefreshControl new];
     [_refreshControl addTarget:self action:@selector(refresh) forControlEvents:UIControlEventValueChanged];
     [self.collectionView addSubview:_refreshControl];
     
     //segumentControl
-    HMSegmentedControl *segmentedControl = [[HMSegmentedControl alloc] initWithSectionTitles:@[@"新しい",@"受注済み",@"募集中"]];
-    segmentedControl.selectedSegmentIndex = _segmentIndex; //デフォで０に設定
-    segmentedControl.autoresizingMask = UIViewAutoresizingFlexibleRightMargin | UIViewAutoresizingFlexibleWidth;
-    segmentedControl.frame = CGRectMake(0, topOffset, 320, 50);
-    segmentedControl.selectionIndicatorHeight = 4.0f;
-    segmentedControl.backgroundColor = [UIColor turquoiseColor];
-    segmentedControl.textColor = [UIColor cloudsColor];
-    segmentedControl.selectionIndicatorColor = [UIColor greenSeaColor];
-    segmentedControl.selectionStyle = HMSegmentedControlSelectionStyleBox;
-    segmentedControl.selectedSegmentIndex = HMSegmentedControlNoSegment;
-    segmentedControl.selectionIndicatorLocation = HMSegmentedControlSelectionIndicatorLocationDown;
-    segmentedControl.shouldAnimateUserSelection = YES;
-    [segmentedControl setIndexChangeBlock:^(NSInteger index) {
-        switch (index) {
-            case 0:
-                //newQuest
-                _segmentIndex = 0;
-                [_questList requestAsyncronous:index];
-                
-                break;
-                
-            case 1:
-                //Joined
-                _segmentIndex = 1;
-                [_questList requestAsyncronous:index];
-                
-            case 2:
-                //Invited
-                _segmentIndex = 2;
-                [_questList requestAsyncronous:index];
-                
-            default:
-                break;
-        }
-    }];
-    
-    
-    [self.view addSubview:segmentedControl];
+    _segmentedControl = [[HMSegmentedControl alloc] initWithSectionTitles:@[@"新しい",@"受注済み",@"募集中"]];
+    _segmentedControl.autoresizingMask = UIViewAutoresizingFlexibleRightMargin | UIViewAutoresizingFlexibleWidth;
+    _segmentedControl.selectedSegmentIndex = 0;
+    _segmentedControl.frame = CGRectMake(0, topOffset, 320, 50);
+    _segmentedControl.selectionIndicatorHeight = 4.0f;
+    _segmentedControl.backgroundColor = [UIColor turquoiseColor];
+    _segmentedControl.textColor = [UIColor cloudsColor];
+    _segmentedControl.selectionIndicatorColor = [UIColor greenSeaColor];
+    _segmentedControl.selectionStyle = HMSegmentedControlSelectionStyleBox;
+    _segmentedControl.selectedSegmentIndex = HMSegmentedControlNoSegment;
+    _segmentedControl.selectionIndicatorLocation = HMSegmentedControlSelectionIndicatorLocationDown;
+    _segmentedControl.shouldAnimateUserSelection = YES;
+    [_segmentedControl addTarget:self action:@selector(segmentedControlChangedValue:) forControlEvents:UIControlEventValueChanged];
+    [self.view addSubview:_segmentedControl];
     
     self.detailViewController = [self.storyboard instantiateViewControllerWithIdentifier:@"detail"];
-
+    
+    [self.questList requestAsyncronous:_segmentIndex];
     
 }
 
@@ -142,8 +119,6 @@
     } else {
         //DBからフェッチ(非同期)
         //最終的に変更があった場合のみにしたい
-        [self.questList requestAsyncronous:_segmentIndex];
-        
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(questFetched:) name:GXFetchQuestNotComplitedNotification object:nil];
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(joinQuestHandler:) name:GXQuestJoinNotification object:nil];
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(registeredInvitedBoard:) name:GXRegisteredInvitedBoardNotification object:nil];
@@ -246,7 +221,7 @@
 - (void)refresh
 {
     NSLog(@"refresh");
-    [[GXBucketManager sharedManager] fetchQuestWithNotComplited];
+    [self.questList requestAsyncronous:_segmentIndex];
     [NSTimer scheduledTimerWithTimeInterval:1.f target:self selector:@selector(endRefresh) userInfo:nil repeats:NO];
 }
 
@@ -475,7 +450,23 @@
 }
 
 - (void)segmentedControlChangedValue:(HMSegmentedControl *)segmentedControl {
-    NSLog(@"Selected index %ld (via UIControlEventValueChanged)", (long)segmentedControl.selectedSegmentIndex);
+    switch (segmentedControl.selectedSegmentIndex) {
+        case 0:
+        case 1:
+        case 2:
+            [self request:segmentedControl.selectedSegmentIndex];
+            break;
+        default:
+            break;
+    }
+}
+
+- (void)request:(NSInteger)index
+{
+    if (_questList.loading) {
+    } else {
+        [_questList requestAsyncronous:index];
+    }
 }
 
 #pragma makr - QuestList delegate

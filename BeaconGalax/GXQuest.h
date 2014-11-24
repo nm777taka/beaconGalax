@@ -7,6 +7,7 @@
 //
 
 #import <Foundation/Foundation.h>
+#import <KiiSDK/Kii.h>
 
 @interface GXQuest : NSObject
 
@@ -15,6 +16,10 @@
 //表示する要素
 @property (nonatomic,retain) NSString *title;
 @property (nonatomic,retain) NSString *fb_id;
+
+//サーバーリクエストキー
+@property (nonatomic,retain) NSString *quest_id;
+@property (nonatomic,retain) KiiBucket *bucket;
 
 
 

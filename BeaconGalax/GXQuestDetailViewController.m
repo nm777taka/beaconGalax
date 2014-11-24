@@ -7,6 +7,7 @@
 //
 
 #import "GXQuestDetailViewController.h"
+#import "GXQuestBucketManager.h"
 
 @interface GXQuestDetailViewController()
 
@@ -62,9 +63,14 @@
     _fbIconView.profileID = _quest.fb_id;
 }
 
-
+#pragma mark - TODO
 #pragma ButtonAction
 - (IBAction)questAction:(id)sender {
+    
+    //とりあえず参加してみる
+    //questTypeのチェックが必要
+    //どのバケット？何人用？
+    //[[GXQuestBucketManager sharedInstance] requestJoinNewQuest:_quest];
 }
 
 - (IBAction)closeAction:(id)sender {

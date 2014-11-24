@@ -156,7 +156,13 @@
     for (KiiObject *obj in results) {
         NSString *title = [obj getObjectForKey:quest_title];
         NSString *fbid = [obj getObjectForKey:quest_owner_fbid];
+        NSString *quest_id = obj.objectURI;
+        KiiBucket *bucket = obj.bucket;
         GXQuest *quest = [[GXQuest alloc] initWithTitle:title fbID:fbid];
+        quest.quest_id = quest_id;
+        quest.bucket = bucket;
+        
+        
         [newQuestArray addObject:quest];
     }
     

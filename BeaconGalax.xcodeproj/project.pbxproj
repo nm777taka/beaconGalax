@@ -106,6 +106,7 @@
 		0FC9FF1B19EBC6CD00E78B39 /* GXStatusViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 0FC9FF1A19EBC6CD00E78B39 /* GXStatusViewCell.m */; };
 		0FCB69741A236A1800454D2B /* GXQuestList.m in Sources */ = {isa = PBXBuildFile; fileRef = 0FCB69731A236A1800454D2B /* GXQuestList.m */; };
 		0FCB69781A23975800454D2B /* GXQuestDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0FCB69771A23975800454D2B /* GXQuestDetailViewController.m */; };
+		0FCB697B1A23B3C700454D2B /* GXQuestBucketManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 0FCB697A1A23B3C700454D2B /* GXQuestBucketManager.m */; };
 		0FCFA46B19F6297E0087011A /* homeCellMulti.png in Resources */ = {isa = PBXBuildFile; fileRef = 0FCFA46919F6297E0087011A /* homeCellMulti.png */; };
 		0FCFA46C19F6297E0087011A /* homeCellOne.png in Resources */ = {isa = PBXBuildFile; fileRef = 0FCFA46A19F6297E0087011A /* homeCellOne.png */; };
 		0FCFA46E19F67D910087011A /* update.png in Resources */ = {isa = PBXBuildFile; fileRef = 0FCFA46D19F67D910087011A /* update.png */; };
@@ -297,6 +298,8 @@
 		0FCB69731A236A1800454D2B /* GXQuestList.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GXQuestList.m; sourceTree = "<group>"; };
 		0FCB69761A23975800454D2B /* GXQuestDetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GXQuestDetailViewController.h; sourceTree = "<group>"; };
 		0FCB69771A23975800454D2B /* GXQuestDetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GXQuestDetailViewController.m; sourceTree = "<group>"; };
+		0FCB69791A23B3C700454D2B /* GXQuestBucketManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GXQuestBucketManager.h; sourceTree = "<group>"; };
+		0FCB697A1A23B3C700454D2B /* GXQuestBucketManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GXQuestBucketManager.m; sourceTree = "<group>"; };
 		0FCFA46919F6297E0087011A /* homeCellMulti.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = homeCellMulti.png; sourceTree = "<group>"; };
 		0FCFA46A19F6297E0087011A /* homeCellOne.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = homeCellOne.png; sourceTree = "<group>"; };
 		0FCFA46D19F67D910087011A /* update.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = update.png; sourceTree = "<group>"; };
@@ -863,6 +866,8 @@
 				0F821F4B196FCA5D0002664D /* GXQuest.m */,
 				0FCB69721A236A1800454D2B /* GXQuestList.h */,
 				0FCB69731A236A1800454D2B /* GXQuestList.m */,
+				0FCB69791A23B3C700454D2B /* GXQuestBucketManager.h */,
+				0FCB697A1A23B3C700454D2B /* GXQuestBucketManager.m */,
 			);
 			name = Quest;
 			sourceTree = "<group>";
@@ -1231,6 +1236,7 @@
 				0F35583B1A11FE8F0023F2FF /* GXQuestReadyViewController.m in Sources */,
 				0FA17E4019623FB700158421 /* GXUserManager.m in Sources */,
 				0FA17E3A1961A7A400158421 /* GXBucketNameConst.m in Sources */,
+				0FCB697B1A23B3C700454D2B /* GXQuestBucketManager.m in Sources */,
 				0F821F4C196FCA5D0002664D /* GXQuest.m in Sources */,
 				0F42365C19BC997D0001E204 /* GXQuestTableViewController.m in Sources */,
 				0F5FA5F2198A324600F41B05 /* GXHomeTableViewCell.m in Sources */,
