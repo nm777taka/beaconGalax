@@ -87,6 +87,9 @@ const static CGFloat kJVFieldFloatingLabelFontSize = 11.0f;
     
     if (self.titleField.text.length == 0) {
         //アラート
+        CWStatusBarNotification *notis = [CWStatusBarNotification new];
+        notis.notificationLabelBackgroundColor = [UIColor redColor];
+        [notis displayNotificationWithMessage:@"通信エラー" forDuration:2.0f];
         return;
     }
     
@@ -100,13 +103,14 @@ const static CGFloat kJVFieldFloatingLabelFontSize = 11.0f;
     [newObj setObject:[NSNumber numberWithInt:100] forKey:quest_reward];
     [newObj setObject:[NSNumber numberWithInt:0] forKey:quest_success_cnt];
     
-    //ユーザに紐付いたビーコン
+    //ユーザに紐付いたビーコンを取ってくる
+    KiiObject *gxUser = [GXUserManager sharedManager].gxUser;
+    NSNumber *user_major = [gxUser getObjectForKey:@"user_major"];
     [newObj setObject:@"user" forKey:quest_type];
-    [newObj setObject:[NSNumber numberWithInt:28319] forKey:@"major"]; //対象
+    [newObj setObject:user_major forKey:@"major"]; //対象
     [[GXBucketManager sharedManager] registerInviteBoard:newObj];
     
     //activityに登録
-    KiiObject *gxUser = [GXUserManager sharedManager].gxUser;
     NSString *name = [gxUser getObjectForKey:user_name];
     NSString *fbid = [gxUser getObjectForKey:user_fb_id];
     NSString *text = [NSString stringWithFormat:@"%@クエストを作成しました",self.titleField.text];

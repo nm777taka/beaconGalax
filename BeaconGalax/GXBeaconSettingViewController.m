@@ -10,6 +10,7 @@
 #import "JVFloatLabeledTextField.h"
 #import "JVFloatLabeledTextView.h"
 #import "GXBucketManager.h"
+#import "GXUserManager.h"
 
 const static CGFloat kJVFieldHeight = 44.0f;
 const static CGFloat kJVFieldMargin = 10.0f;
@@ -88,9 +89,11 @@ const static CGFloat kJVFieldFloatingLabelFontSize = 11.0f;
     
 }
 
+//Appのbeaocn管理Bucketと自分の情報にbeaconを書き込む
 - (IBAction)settingDone:(id)sender {
     
     KiiBucket *userBeacons = [GXBucketManager sharedManager].user_beacons;
+    KiiObject *gxUser = [GXUserManager sharedManager].gxUser;
     KiiObject *obj = [userBeacons createObject];
     NSString *name = [KiiUser currentUser].displayName;
     NSNumber *major = [NSNumber numberWithInt:[self.beaconMajorFiled.text intValue]];
@@ -100,10 +103,20 @@ const static CGFloat kJVFieldFloatingLabelFontSize = 11.0f;
         if (error) {
             NSLog(@"error:%@",error);
         } else {
-            NSLog(@"設定完了");
-            [self dismissViewControllerAnimated:YES completion:nil];
+            
+            [gxUser setObject:major forKey:@"user_major"];
+            [gxUser saveWithBlock:^(KiiObject *object, NSError *error) {
+                if (error) {
+                    NSLog(@"error:%@",error);
+                    //アラートとかだす
+                }
+            }];
+            
         }
     }];
     
+    [self dismissViewControllerAnimated:YES completion:nil];
+    
+
 }
 @end
