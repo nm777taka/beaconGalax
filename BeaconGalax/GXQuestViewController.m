@@ -13,6 +13,7 @@
  
  */
 
+//ViewController
 #import "GXQuestViewController.h"
 #import "GXHomeCollectionViewCell.h"
 #import "GXDescriptionViewController.h"
@@ -20,6 +21,7 @@
 #import "REFrostedViewController.h"
 #import "UIViewController+REFrostedViewController.h"
 #import "GXNavViewController.h"
+#import "GXQuestDetailViewController.h"
 
 #import <HMSegmentedControl.h>
 
@@ -34,13 +36,14 @@
 @interface GXQuestViewController ()<UICollectionViewDataSource,UICollectionViewDelegate,FUIAlertViewDelegate,GXQuestListDelegate>
 
 - (IBAction)createNewQuest:(id)sender;
-@property GXDescriptionViewController *descriptionViewContoller;
+
+@property (nonatomic,strong) GXQuestDetailViewController *detailViewController;
 @property (weak, nonatomic) IBOutlet UICollectionView *collectionView;
 @property NSArray *textArray;
 @property NSMutableArray *objects;
 @property KiiObject *selectedObject;
 @property BOOL isSelectedQuestMulti;
-
+@property NSInteger segmentIndex;
 
 @property (nonatomic,strong) GXQuestList *questList;
 
@@ -64,6 +67,7 @@
     [super viewDidLoad];
 	// Do any additional setup after loading the view, typically from a nib.
     CGFloat topOffset = 0;
+    _segmentIndex = 0;
     
 #if __IPHONE_OS_VERSION_MAX_ALLOWED >= 70000
     [self.view setTintColor:[UIColor blueColor]];
@@ -83,10 +87,9 @@
     [_refreshControl addTarget:self action:@selector(refresh) forControlEvents:UIControlEventValueChanged];
     [self.collectionView addSubview:_refreshControl];
     
-    _descriptionViewContoller = [[self storyboard] instantiateViewControllerWithIdentifier:@"DescriptionView"];
-    
     //segumentControl
     HMSegmentedControl *segmentedControl = [[HMSegmentedControl alloc] initWithSectionTitles:@[@"新しい",@"受注済み",@"募集中"]];
+    segmentedControl.selectedSegmentIndex = _segmentIndex; //デフォで０に設定
     segmentedControl.autoresizingMask = UIViewAutoresizingFlexibleRightMargin | UIViewAutoresizingFlexibleWidth;
     segmentedControl.frame = CGRectMake(0, topOffset, 320, 50);
     segmentedControl.selectionIndicatorHeight = 4.0f;
@@ -101,16 +104,19 @@
         switch (index) {
             case 0:
                 //newQuest
+                _segmentIndex = 0;
                 [_questList requestAsyncronous:index];
                 
                 break;
                 
             case 1:
                 //Joined
+                _segmentIndex = 1;
                 [_questList requestAsyncronous:index];
                 
             case 2:
                 //Invited
+                _segmentIndex = 2;
                 [_questList requestAsyncronous:index];
                 
             default:
@@ -120,6 +126,9 @@
     
     
     [self.view addSubview:segmentedControl];
+    
+    self.detailViewController = [self.storyboard instantiateViewControllerWithIdentifier:@"detail"];
+
     
 }
 
@@ -133,7 +142,7 @@
     } else {
         //DBからフェッチ(非同期)
         //最終的に変更があった場合のみにしたい
-        [[GXBucketManager sharedManager] fetchQuestWithNotComplited];
+        [self.questList requestAsyncronous:_segmentIndex];
         
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(questFetched:) name:GXFetchQuestNotComplitedNotification object:nil];
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(joinQuestHandler:) name:GXQuestJoinNotification object:nil];
@@ -185,67 +194,35 @@
 
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath
 {
-    self.selectedObject = self.objects[indexPath.row];
-    
-    if ([[self.selectedObject getObjectForKey:quest_player_num] intValue] > 1) {
-        //invite_boardへ
-        //すでに募集済みかどうか
-        BOOL ret = [[GXBucketManager sharedManager] isInvitedQuest:self.selectedObject];
-        
-        if (ret) {
-            NSLog(@"募集済みです");
-            [self invitedMultiQuestAlert];
-            
-            
-        } else {
-            NSLog(@"募集されてません");
-            [self notInviteMultiQuestAlert];
-        }
-        
-    } else {
-        
-        
-        [self questAlertShow:[self.selectedObject getObjectForKey:quest_title] description:quest_description];
-        
+//    self.selectedObject = self.objects[indexPath.row];
+//    
+//    if ([[self.selectedObject getObjectForKey:quest_player_num] intValue] > 1) {
+//        //invite_boardへ
+//        //すでに募集済みかどうか
+//        BOOL ret = [[GXBucketManager sharedManager] isInvitedQuest:self.selectedObject];
+//        
+//        if (ret) {
+//            NSLog(@"募集済みです");
+//            [self invitedMultiQuestAlert];
+//            
+//            
+//        } else {
+//            NSLog(@"募集されてません");
+//            [self notInviteMultiQuestAlert];
+//        }
+//        
+//    } else {
+//        
+//        
+//        [self questAlertShow:[self.selectedObject getObjectForKey:quest_title] description:quest_description];
+//        
+//    }
+    if (self.detailViewController) {
+        self.detailViewController.quest = [_questList questAtIndex:indexPath.row];
+        [self.view addSubview:self.detailViewController.view];
     }
-
 }
 
-
-/*
-- (void)configureCell:(GXHomeCollectionViewCell *)cell atIndexPath:(NSIndexPath *)indexPath
-{
-    //ドロップシャドウ
-    cell.layer.masksToBounds = NO;
-    cell.layer.shadowOffset = CGSizeMake(0.0f, 0.0f);
-    cell.layer.shadowOpacity = 0.1f;
-    cell.layer.shadowRadius = 2.0f;
-    
-    //コンテンツ
-    KiiObject *quest = self.objects[indexPath.row];
-    cell.titleLable.text = [quest getObjectForKey:quest_title];
-    cell.requirementLabel.textColor = [UIColor whiteColor];
-    cell.requirementLabel.text = [quest getObjectForKey:quest_requirement];
-    int questRank = [[quest getObjectForKey:quest_rank] intValue];
-    
-    BOOL isMulti = [self isMultiQuest:indexPath];
-    if (isMulti) {
-        
-        cell.createrName.text = @"システム";
-        cell.questTypeIcon.image = [UIImage imageNamed:@"homeCellMulti.png"];
-        cell.questTypeLabel.text = @"協力型クエスト";
-        cell.questTypeColorView.backgroundColor = [UIColor amethystColor];
-        
-    } else {
-        
-        cell.createrName.text = @"システム";
-        cell.questTypeLabel.text = @"一人クエスト";
-        cell.questTypeIcon.image = [UIImage imageNamed:@"homeCellOne.png"];
-        cell.questTypeColorView.backgroundColor = [UIColor turquoiseColor];
-    }
-    
-}
- */
 
 //協力型なのか個人でやるやつなのか判断
 - (BOOL)isMultiQuest:(NSIndexPath *)indexPath

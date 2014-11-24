@@ -105,6 +105,7 @@
 		0FC9FF1719E81FF100E78B39 /* GXClearViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0FC9FF1619E81FF100E78B39 /* GXClearViewController.m */; };
 		0FC9FF1B19EBC6CD00E78B39 /* GXStatusViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 0FC9FF1A19EBC6CD00E78B39 /* GXStatusViewCell.m */; };
 		0FCB69741A236A1800454D2B /* GXQuestList.m in Sources */ = {isa = PBXBuildFile; fileRef = 0FCB69731A236A1800454D2B /* GXQuestList.m */; };
+		0FCB69781A23975800454D2B /* GXQuestDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0FCB69771A23975800454D2B /* GXQuestDetailViewController.m */; };
 		0FCFA46B19F6297E0087011A /* homeCellMulti.png in Resources */ = {isa = PBXBuildFile; fileRef = 0FCFA46919F6297E0087011A /* homeCellMulti.png */; };
 		0FCFA46C19F6297E0087011A /* homeCellOne.png in Resources */ = {isa = PBXBuildFile; fileRef = 0FCFA46A19F6297E0087011A /* homeCellOne.png */; };
 		0FCFA46E19F67D910087011A /* update.png in Resources */ = {isa = PBXBuildFile; fileRef = 0FCFA46D19F67D910087011A /* update.png */; };
@@ -294,6 +295,8 @@
 		0FC9FF1A19EBC6CD00E78B39 /* GXStatusViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GXStatusViewCell.m; sourceTree = "<group>"; };
 		0FCB69721A236A1800454D2B /* GXQuestList.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GXQuestList.h; sourceTree = "<group>"; };
 		0FCB69731A236A1800454D2B /* GXQuestList.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GXQuestList.m; sourceTree = "<group>"; };
+		0FCB69761A23975800454D2B /* GXQuestDetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GXQuestDetailViewController.h; sourceTree = "<group>"; };
+		0FCB69771A23975800454D2B /* GXQuestDetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GXQuestDetailViewController.m; sourceTree = "<group>"; };
 		0FCFA46919F6297E0087011A /* homeCellMulti.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = homeCellMulti.png; sourceTree = "<group>"; };
 		0FCFA46A19F6297E0087011A /* homeCellOne.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = homeCellOne.png; sourceTree = "<group>"; };
 		0FCFA46D19F67D910087011A /* update.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = update.png; sourceTree = "<group>"; };
@@ -475,7 +478,7 @@
 			name = CreateQuest;
 			sourceTree = "<group>";
 		};
-		0F42366B19BDD3220001E204 /* Description */ = {
+		0F42366B19BDD3220001E204 /* Description(消していいかも) */ = {
 			isa = PBXGroup;
 			children = (
 				0F42366C19BDD3510001E204 /* GXDescriptionTableViewCell.h */,
@@ -483,16 +486,16 @@
 				0F42366F19BDD3980001E204 /* GXParticipantsCell.h */,
 				0F42367019BDD3980001E204 /* GXParticipantsCell.m */,
 			);
-			name = Description;
+			name = "Description(消していいかも)";
 			sourceTree = "<group>";
 		};
-		0F42367219BDD3FE0001E204 /* Description */ = {
+		0F42367219BDD3FE0001E204 /* Description(いらないかも) */ = {
 			isa = PBXGroup;
 			children = (
 				0F42366819BDAC6C0001E204 /* GXDescriptionViewController.h */,
 				0F42366919BDAC6C0001E204 /* GXDescriptionViewController.m */,
 			);
-			name = Description;
+			name = "Description(いらないかも)";
 			sourceTree = "<group>";
 		};
 		0F5FA5F7198DCF6700F41B05 /* Facebook */ = {
@@ -687,6 +690,7 @@
 		0F7A25C919587E0C001B7839 /* Controller */ = {
 			isa = PBXGroup;
 			children = (
+				0FCB69751A23971C00454D2B /* QuestDetailView */,
 				0FCFCCC21A1B68D20070FA91 /* SettingView */,
 				0F35583F1A14C15C0023F2FF /* ActivityView */,
 				0F3558381A11FE500023F2FF /* QuestReadyView */,
@@ -698,7 +702,7 @@
 				0FD2009F19E2605C0034E52A /* GXUserStatus&menu */,
 				0FC0095519E2597A0026A7DC /* RootViewController */,
 				0F649FDE19CD541300D48074 /* InviteQuest */,
-				0F42367219BDD3FE0001E204 /* Description */,
+				0F42367219BDD3FE0001E204 /* Description(いらないかも) */,
 				0F42366119BD54130001E204 /* CreateQuest */,
 				0F42365D19BCA2220001E204 /* Home */,
 				0FF16CE3197F7B8D00B02702 /* BeaconViewController */,
@@ -863,6 +867,15 @@
 			name = Quest;
 			sourceTree = "<group>";
 		};
+		0FCB69751A23971C00454D2B /* QuestDetailView */ = {
+			isa = PBXGroup;
+			children = (
+				0FCB69761A23975800454D2B /* GXQuestDetailViewController.h */,
+				0FCB69771A23975800454D2B /* GXQuestDetailViewController.m */,
+			);
+			name = QuestDetailView;
+			sourceTree = "<group>";
+		};
 		0FCFA46819F629730087011A /* HOME */ = {
 			isa = PBXGroup;
 			children = (
@@ -958,7 +971,7 @@
 				0FC9FF1819E8C4F600E78B39 /* Status(SlideMenu) */,
 				0F16511F19D4387300918F8D /* QuestExeView */,
 				0F649FE419CD5A0400D48074 /* JoinedQuest */,
-				0F42366B19BDD3220001E204 /* Description */,
+				0F42366B19BDD3220001E204 /* Description(消していいかも) */,
 				0F5FA5F9198DCFA300F41B05 /* BeaconTableView */,
 				0F84209E1988C924003241D1 /* Home */,
 			);
@@ -1268,6 +1281,7 @@
 				0F7A25A419587ADE001B7839 /* GXAppDelegate.m in Sources */,
 				0FC0095419E13CB70026A7DC /* GXHomeCollectionViewCell.m in Sources */,
 				0FCFA47D19F7A9F00087011A /* GXJoinedQuestViewController.m in Sources */,
+				0FCB69781A23975800454D2B /* GXQuestDetailViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

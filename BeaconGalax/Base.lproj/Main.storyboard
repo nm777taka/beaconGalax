@@ -747,10 +747,10 @@
             </objects>
             <point key="canvasLocation" x="3096" y="476"/>
         </scene>
-        <!--Quest Complete View Controller-->
+        <!--Quest Detail View Controller-->
         <scene sceneID="162-5w-95B">
             <objects>
-                <viewController storyboardIdentifier="quest_complete" id="OUy-6N-yEZ" customClass="GXQuestCompleteViewController" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="detail" id="OUy-6N-yEZ" customClass="GXQuestDetailViewController" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="sSR-XK-hol"/>
                         <viewControllerLayoutGuide type="bottom" id="X2v-Bq-OpT"/>
@@ -763,27 +763,68 @@
                                 <rect key="frame" x="-4" y="89" width="328" height="403"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="TJW-6R-sr7">
-                                        <rect key="frame" x="20" y="20" width="288" height="363"/>
+                                        <rect key="frame" x="14" y="77" width="300" height="250"/>
                                         <subviews>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Quest" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bt1-2T-F0n">
-                                                <rect key="frame" x="74" y="21" width="140" height="36"/>
-                                                <fontDescription key="fontDescription" type="boldSystem" pointSize="30"/>
-                                                <color key="textColor" red="0.97042968750000003" green="0.16751024043854257" blue="0.20904376753013715" alpha="1" colorSpace="calibratedRGB"/>
-                                                <nil key="highlightedColor"/>
-                                            </label>
-                                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="quest.png" translatesAutoresizingMaskIntoConstraints="NO" id="dc6-yE-F98">
-                                                <rect key="frame" x="8" y="13" width="51" height="51"/>
-                                            </imageView>
-                                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="430-iJ-dDt" customClass="FUIButton">
-                                                <rect key="frame" x="62" y="296" width="164" height="46"/>
-                                                <state key="normal" title="クリア！">
+                                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="mPC-3O-rJM">
+                                                <rect key="frame" x="62" y="212" width="46" height="30"/>
+                                                <state key="normal" title="閉じる">
+                                                    <color key="titleColor" red="0.1819814891" green="0.69426733259999995" blue="0.53024792669999998" alpha="1" colorSpace="calibratedRGB"/>
                                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                                 </state>
+                                                <connections>
+                                                    <action selector="closeAction:" destination="OUy-6N-yEZ" eventType="touchUpInside" id="goF-Mx-wsM"/>
+                                                </connections>
                                             </button>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" lineBreakMode="wordWrap" numberOfLines="5" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="JY2-6B-cuO">
-                                                <rect key="frame" x="18" y="77" width="242" height="91"/>
-                                                <fontDescription key="fontDescription" type="system" pointSize="20"/>
-                                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="97U-MF-Pkl">
+                                                <rect key="frame" x="180" y="212" width="46" height="30"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                                                <state key="normal" title="Action">
+                                                    <color key="titleColor" red="0.1819814891" green="0.69426733259999995" blue="0.53024792669999998" alpha="1" colorSpace="calibratedRGB"/>
+                                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                                </state>
+                                                <connections>
+                                                    <action selector="questAction:" destination="OUy-6N-yEZ" eventType="touchUpInside" id="ajP-bo-XwT"/>
+                                                </connections>
+                                            </button>
+                                            <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="pb3-W1-svN">
+                                                <rect key="frame" x="8" y="41" width="284" height="163"/>
+                                                <subviews>
+                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="context" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="JY2-6B-cuO">
+                                                        <rect key="frame" x="8" y="28" width="268" height="40"/>
+                                                        <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="13"/>
+                                                        <color key="textColor" red="0.2418571412563324" green="0.17698898911476135" blue="0.1230514720082283" alpha="1" colorSpace="calibratedRGB"/>
+                                                        <nil key="highlightedColor"/>
+                                                    </label>
+                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="詳細：" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="0KB-Ea-CW0">
+                                                        <rect key="frame" x="8" y="8" width="48" height="21"/>
+                                                        <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="15"/>
+                                                        <color key="textColor" red="0.2418571412563324" green="0.17698898911476135" blue="0.1230514720082283" alpha="1" colorSpace="calibratedRGB"/>
+                                                        <nil key="highlightedColor"/>
+                                                    </label>
+                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="2014/11/24" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="a9Z-Wa-d9h">
+                                                        <rect key="frame" x="13" y="105" width="89" height="21"/>
+                                                        <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                                                        <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                                        <nil key="highlightedColor"/>
+                                                    </label>
+                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Takahisa Furuta" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ACa-fa-zcD">
+                                                        <rect key="frame" x="13" y="134" width="118" height="21"/>
+                                                        <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                                                        <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                                        <nil key="highlightedColor"/>
+                                                    </label>
+                                                    <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="gVh-0K-I8o" customClass="FBProfilePictureView">
+                                                        <rect key="frame" x="236" y="115" width="40" height="40"/>
+                                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                    </view>
+                                                </subviews>
+                                                <color key="backgroundColor" red="0.9212072491645813" green="0.84832113981246948" blue="0.62377804517745972" alpha="1" colorSpace="calibratedRGB"/>
+                                            </view>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="タイトル" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bt1-2T-F0n">
+                                                <rect key="frame" x="0.0" y="8" width="300" height="33"/>
+                                                <color key="backgroundColor" red="0.1819814891" green="0.69426733259999995" blue="0.53024792669999998" alpha="1" colorSpace="calibratedRGB"/>
+                                                <fontDescription key="fontDescription" name="HelveticaNeue-Bold" family="Helvetica Neue" pointSize="20"/>
+                                                <color key="textColor" red="0.90823972225189209" green="0.92638683319091797" blue="0.9317171573638916" alpha="1" colorSpace="calibratedRGB"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
                                         </subviews>
@@ -792,7 +833,7 @@
                                 </subviews>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 <userDefinedRuntimeAttributes>
-                                    <userDefinedRuntimeAttribute type="string" keyPath="type" value="slideUp"/>
+                                    <userDefinedRuntimeAttribute type="string" keyPath="type" value="bounceUp"/>
                                     <userDefinedRuntimeAttribute type="number" keyPath="duration">
                                         <integer key="value" value="1"/>
                                     </userDefinedRuntimeAttribute>
@@ -805,14 +846,17 @@
                         <color key="backgroundColor" white="0.0" alpha="0.87" colorSpace="calibratedWhite"/>
                     </view>
                     <connections>
-                        <outlet property="animationView" destination="7ni-Oo-fJ2" id="jv2-sJ-S33"/>
-                        <outlet property="clearButton" destination="430-iJ-dDt" id="Qmw-z6-C8D"/>
-                        <outlet property="descriptionLabel" destination="JY2-6B-cuO" id="R6z-su-Nka"/>
+                        <outlet property="createdDateLabel" destination="a9Z-Wa-d9h" id="1Ww-9V-fop"/>
+                        <outlet property="createdUserLabel" destination="ACa-fa-zcD" id="qls-Xa-Dvg"/>
+                        <outlet property="descriptionLabel" destination="JY2-6B-cuO" id="wY4-FG-35R"/>
+                        <outlet property="detailPanel" destination="7ni-Oo-fJ2" id="Qh7-WX-LyW"/>
+                        <outlet property="fbIconView" destination="gVh-0K-I8o" id="ygi-I4-7mP"/>
+                        <outlet property="titleLabel" destination="bt1-2T-F0n" id="4mS-39-85A"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="4WS-ee-V1q" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3387" y="-621"/>
+            <point key="canvasLocation" x="2374" y="-1223"/>
         </scene>
         <!--クエスト詳細-->
         <scene sceneID="5s6-F7-Wa7">
@@ -988,7 +1032,6 @@
     </scenes>
     <resources>
         <image name="home-32.png" width="32" height="32"/>
-        <image name="quest.png" width="1200" height="1200"/>
         <image name="ready.png" width="100" height="100"/>
     </resources>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">
