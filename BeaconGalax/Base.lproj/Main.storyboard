@@ -419,6 +419,7 @@
                     <connections>
                         <outlet property="collectionView" destination="hmJ-g2-XYq" id="aJh-Dz-EJ3"/>
                         <segue destination="D3g-qf-jYO" kind="modal" identifier="gotoLoginView" id="tPk-Rp-t62"/>
+                        <segue destination="2KE-J0-tPr" kind="push" identifier="goto_QuestMemberView" id="hw7-af-mTc"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="tXN-0u-SKE" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -453,7 +454,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="egZ-1W-BDW" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2425" y="-245"/>
+            <point key="canvasLocation" x="2795" y="175"/>
         </scene>
         <!--募集中-->
         <scene sceneID="MEL-eI-kew">
@@ -561,12 +562,11 @@
                     </navigationItem>
                     <connections>
                         <outlet property="collectionView" destination="d1R-PH-Xz9" id="YfX-qS-4a6"/>
-                        <segue destination="2KE-J0-tPr" kind="push" identifier="goto_QuestMemberView" id="s24-k0-jdN"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="HoD-uz-grb" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1286" y="68"/>
+            <point key="canvasLocation" x="1430" y="160"/>
         </scene>
         <!--参加中のクエスト-->
         <scene sceneID="r4B-Nq-pVi">
@@ -619,7 +619,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="hQ1-Oj-27I" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1919" y="733"/>
+            <point key="canvasLocation" x="1435" y="823"/>
         </scene>
         <!--Quest Ready View Controller-->
         <scene sceneID="irT-HR-mCc">
@@ -745,7 +745,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="1nY-2Z-ElD" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3096" y="476"/>
+            <point key="canvasLocation" x="1823" y="-591"/>
         </scene>
         <!--Quest Detail View Controller-->
         <scene sceneID="162-5w-95B">
@@ -763,10 +763,10 @@
                                 <rect key="frame" x="-4" y="89" width="328" height="403"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="TJW-6R-sr7">
-                                        <rect key="frame" x="14" y="77" width="300" height="250"/>
+                                        <rect key="frame" x="14" y="77" width="300" height="261"/>
                                         <subviews>
                                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="mPC-3O-rJM">
-                                                <rect key="frame" x="62" y="212" width="46" height="30"/>
+                                                <rect key="frame" x="64" y="223" width="46" height="30"/>
                                                 <state key="normal" title="閉じる">
                                                     <color key="titleColor" red="0.1819814891" green="0.69426733259999995" blue="0.53024792669999998" alpha="1" colorSpace="calibratedRGB"/>
                                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
@@ -775,19 +775,8 @@
                                                     <action selector="closeAction:" destination="OUy-6N-yEZ" eventType="touchUpInside" id="goF-Mx-wsM"/>
                                                 </connections>
                                             </button>
-                                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="97U-MF-Pkl">
-                                                <rect key="frame" x="180" y="212" width="46" height="30"/>
-                                                <fontDescription key="fontDescription" type="system" pointSize="15"/>
-                                                <state key="normal" title="Action">
-                                                    <color key="titleColor" red="0.1819814891" green="0.69426733259999995" blue="0.53024792669999998" alpha="1" colorSpace="calibratedRGB"/>
-                                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                                </state>
-                                                <connections>
-                                                    <action selector="questAction:" destination="OUy-6N-yEZ" eventType="touchUpInside" id="ajP-bo-XwT"/>
-                                                </connections>
-                                            </button>
                                             <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="pb3-W1-svN">
-                                                <rect key="frame" x="8" y="41" width="284" height="163"/>
+                                                <rect key="frame" x="8" y="41" width="284" height="166"/>
                                                 <subviews>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="context" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="JY2-6B-cuO">
                                                         <rect key="frame" x="8" y="28" width="268" height="40"/>
@@ -801,22 +790,24 @@
                                                         <color key="textColor" red="0.2418571412563324" green="0.17698898911476135" blue="0.1230514720082283" alpha="1" colorSpace="calibratedRGB"/>
                                                         <nil key="highlightedColor"/>
                                                     </label>
+                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="一人用クエスト" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Ato-WB-lTw">
+                                                        <rect key="frame" x="8" y="111" width="113" height="21"/>
+                                                        <fontDescription key="fontDescription" type="system" pointSize="13"/>
+                                                        <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                                        <nil key="highlightedColor"/>
+                                                    </label>
+                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="クリア条件" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="z0g-xr-s33">
+                                                        <rect key="frame" x="8" y="69" width="268" height="34"/>
+                                                        <fontDescription key="fontDescription" type="system" pointSize="13"/>
+                                                        <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                                        <nil key="highlightedColor"/>
+                                                    </label>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="2014/11/24" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="a9Z-Wa-d9h">
-                                                        <rect key="frame" x="13" y="105" width="89" height="21"/>
-                                                        <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                                                        <rect key="frame" x="8" y="140" width="89" height="21"/>
+                                                        <fontDescription key="fontDescription" type="system" pointSize="13"/>
                                                         <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                                         <nil key="highlightedColor"/>
                                                     </label>
-                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Takahisa Furuta" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ACa-fa-zcD">
-                                                        <rect key="frame" x="13" y="134" width="118" height="21"/>
-                                                        <fontDescription key="fontDescription" type="system" pointSize="15"/>
-                                                        <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
-                                                        <nil key="highlightedColor"/>
-                                                    </label>
-                                                    <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="gVh-0K-I8o" customClass="FBProfilePictureView">
-                                                        <rect key="frame" x="236" y="115" width="40" height="40"/>
-                                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                                    </view>
                                                 </subviews>
                                                 <color key="backgroundColor" red="0.9212072491645813" green="0.84832113981246948" blue="0.62377804517745972" alpha="1" colorSpace="calibratedRGB"/>
                                             </view>
@@ -827,6 +818,14 @@
                                                 <color key="textColor" red="0.90823972225189209" green="0.92638683319091797" blue="0.9317171573638916" alpha="1" colorSpace="calibratedRGB"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
+                                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="97U-MF-Pkl">
+                                                <rect key="frame" x="180" y="223" width="46" height="30"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                                                <state key="normal" title="Action">
+                                                    <color key="titleColor" red="0.1819814891" green="0.69426733259999995" blue="0.53024792669999998" alpha="1" colorSpace="calibratedRGB"/>
+                                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                                </state>
+                                            </button>
                                         </subviews>
                                         <color key="backgroundColor" red="0.95523437499999997" green="0.95523437499999997" blue="0.95523437499999997" alpha="1" colorSpace="calibratedRGB"/>
                                     </view>
@@ -845,18 +844,22 @@
                         </subviews>
                         <color key="backgroundColor" white="0.0" alpha="0.87" colorSpace="calibratedWhite"/>
                     </view>
+                    <navigationItem key="navigationItem" id="zqJ-Is-uzP"/>
+                    <nil key="simulatedStatusBarMetrics"/>
+                    <nil key="simulatedTopBarMetrics"/>
                     <connections>
                         <outlet property="createdDateLabel" destination="a9Z-Wa-d9h" id="1Ww-9V-fop"/>
-                        <outlet property="createdUserLabel" destination="ACa-fa-zcD" id="qls-Xa-Dvg"/>
                         <outlet property="descriptionLabel" destination="JY2-6B-cuO" id="wY4-FG-35R"/>
                         <outlet property="detailPanel" destination="7ni-Oo-fJ2" id="Qh7-WX-LyW"/>
-                        <outlet property="fbIconView" destination="gVh-0K-I8o" id="ygi-I4-7mP"/>
+                        <outlet property="questActionButton" destination="97U-MF-Pkl" id="e7Q-yo-W4w"/>
+                        <outlet property="questClearReqLabel" destination="z0g-xr-s33" id="O5u-zN-cM7"/>
+                        <outlet property="questTypeLabel" destination="Ato-WB-lTw" id="H9f-m2-kVo"/>
                         <outlet property="titleLabel" destination="bt1-2T-F0n" id="4mS-39-85A"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="4WS-ee-V1q" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2374" y="-1223"/>
+            <point key="canvasLocation" x="2317" y="-1229"/>
         </scene>
         <!--クエスト詳細-->
         <scene sceneID="5s6-F7-Wa7">
@@ -988,7 +991,7 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="iy9-bk-fhP" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2047" y="-245"/>
+            <point key="canvasLocation" x="2325" y="99"/>
         </scene>
         <!--home-->
         <scene sceneID="n5B-Z0-Mov">
@@ -1040,6 +1043,6 @@
         <simulatedScreenMetrics key="destination" type="retina4"/>
     </simulatedMetricsContainer>
     <inferredMetricsTieBreakers>
-        <segue reference="HZO-rN-Agp"/>
+        <segue reference="hw7-af-mTc"/>
     </inferredMetricsTieBreakers>
 </document>

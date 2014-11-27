@@ -22,6 +22,7 @@
 #import "UIViewController+REFrostedViewController.h"
 #import "GXNavViewController.h"
 #import "GXQuestDetailViewController.h"
+#import "GXQuestGroupViewController.h"
 
 #import <HMSegmentedControl.h>
 
@@ -42,6 +43,7 @@
 @property NSArray *textArray;
 @property NSMutableArray *objects;
 @property KiiObject *selectedObject;
+@property KiiGroup *selectedQuestGroup;
 @property BOOL isSelectedQuestMulti;
 @property NSInteger segmentIndex;
 @property HMSegmentedControl *segmentedControl;
@@ -124,6 +126,7 @@
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(registeredInvitedBoard:) name:GXRegisteredInvitedBoardNotification object:nil];
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(deletedQuest:) name:@"deleteQuest" object:nil];
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(refreshFromLocalNotis:) name:GXRefreshDataFromLocalNotification object:nil];
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(gotoMemberView:) name:@"gotoMemberView" object:nil];
         
 
     }
@@ -294,6 +297,13 @@
 //        GXDescriptionViewController *vc = segue.destinationViewController;
 //        vc.object = _selectedObject;
 //    }
+    if ([[segue identifier] isEqualToString:@"goto_QuestMemberView"]) {
+        
+        GXQuestGroupViewController *vc = segue.destinationViewController;
+        //選択されたクエストのグループとクエスト自体をパーティーViewに渡してあげる
+        vc.selectedQuestGroup = _selectedQuestGroup;
+        vc.willExeQuest = _selectedObject;
+    }
 }
 
 #pragma mark - Notification
@@ -325,6 +335,20 @@
 {
     [SVProgressHUD showWithStatus:@"データ更新中"];
     [[GXBucketManager sharedManager] fetchQuestWithNotComplited];
+}
+
+- (void)gotoMemberView:(NSNotification *)notis
+{
+    NSLog(@"ok---->");
+    _selectedObject = notis.object;
+    _selectedQuestGroup = [KiiGroup groupWithURI:[_selectedObject getObjectForKey:quest_groupURI]];
+    [_selectedQuestGroup refreshWithBlock:^(KiiGroup *group, NSError *error) {
+        if (error) {
+            NSLog(@"group refresh error:%@",error);
+        } else {
+            [self performSegueWithIdentifier:@"goto_QuestMemberView" sender:self];
+        }
+    }];
 }
 
 #pragma mark-

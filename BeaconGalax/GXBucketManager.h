@@ -68,6 +68,7 @@
 - (void)registerJoinedQuest:(KiiObject *)obj;
 - (void)getOwnerQuest;
 
+- (void)acceptNewQuest:(KiiObject *)obj;
 - (void)deleteJoinedQuest:(KiiObject *)obj;
 
 - (KiiObject *)getGalaxUser:(NSString *)userURI;

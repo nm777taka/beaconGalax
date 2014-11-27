@@ -34,6 +34,7 @@
 }
 
 #pragma mark API
+//一人用クエストを受注した場合に呼ばれる
 - (void)requestJoinNewQuest:(GXQuest *)quest
 {
     //idをもとにbucket内のobjectを再構成
@@ -47,13 +48,14 @@
     
 }
 
+//協力用クエストを募集する際に呼ばれる
 - (void)requestInviteNewQuest:(GXQuest *)quest
 {
     KiiObject *questObj = [KiiObject objectWithURI:quest.quest_id];
     [questObj refreshWithBlock:^(KiiObject *object, NSError *error) {
         if (object) {
             KiiBucket *inviteBucket = [GXBucketManager sharedManager].inviteBoard;
-            [self convertObject:object toBucket:inviteBucket];
+            //[self convertObject:object toBucket:inviteBucket];
         }
     }];
 }
@@ -81,6 +83,8 @@
         }
     }];
 }
+
+
 
 
 @end

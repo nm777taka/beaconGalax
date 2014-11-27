@@ -377,6 +377,23 @@
     [newObj saveSynchronous:&error];
 }
 
+- (void)acceptNewQuest:(KiiObject *)obj
+{
+    NSDictionary *dict = obj.dictionaryValue;
+    NSArray *allKeys = dict.allKeys;
+    KiiObject *newObj = [self.joinedQuest createObject];
+    for (NSString *key in allKeys) {
+        [newObj setObject:dict[key] forKey:key];
+    }
+    
+    [newObj saveWithBlock:^(KiiObject *object, NSError *error) {
+        if (error) {
+            NSLog(@"registerNewQuestError:%@",error);
+        }
+    }];
+
+}
+
 //Quest_boardからnot_joinedにフェッチ
 //そのうちサーバーコードで実現する
 #pragma  mark- ここ修正する!

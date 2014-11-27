@@ -16,6 +16,10 @@
 
 @property (nonatomic,weak) id<GXQuestListDelegate> delegate;
 @property (nonatomic,strong) NSArray *questListArray;
+
+@property (nonatomic,strong) NSArray *notJoinQuestList;
+@property (nonatomic,strong) NSArray *joinedQuestList;
+@property (nonatomic,strong) NSArray *inviteQuestList;
 @property (nonatomic) NSUInteger typeIndex;
 
 @end
@@ -51,6 +55,9 @@
     if (self) {
         _delegate = delegate;
         _questListArray = @[];
+        _notJoinQuestList = @[];
+        _joinedQuestList = @[];
+        _inviteQuestList = @[];
         _loading = NO;
     }
     
@@ -62,9 +69,39 @@
     return _questListArray.count;
 }
 
+-(NSUInteger)notjoinQuestCount
+{
+    return _notJoinQuestList.count;
+}
+
+- (NSUInteger)joinedQuestCount
+{
+    return _joinedQuestList.count;
+}
+
+- (NSUInteger)inviteQuestCount
+{
+    return _inviteQuestList.count;
+}
+
 - (GXQuest *)questAtIndex:(NSUInteger)index
 {
     return _questListArray[index];
+}
+
+- (GXQuest *)notjoinQuestAtIndex:(NSUInteger)index
+{
+    return _notJoinQuestList[index];
+}
+
+- (GXQuest *)joinedQuestAtIndex:(NSUInteger)index
+{
+    return _joinedQuestList[index];
+}
+
+- (GXQuest *)inviteQuestAtIndex:(NSUInteger)index
+{
+    return _inviteQuestList[index];
 }
 
 //通信
@@ -156,12 +193,21 @@
     for (KiiObject *obj in results) {
         NSString *title = [obj getObjectForKey:quest_title];
         NSString *fbid = [obj getObjectForKey:quest_owner_fbid];
-        NSString *quest_id = obj.objectURI;
+        NSString *questID = obj.objectURI;
+        NSString *questReq = [obj getObjectForKey:quest_requirement];
+        NSString *questDes = [obj getObjectForKey:quest_description];
+        NSNumber *playerNum = [obj getObjectForKey:quest_player_num];
+        //あれば(募集者用)
+        NSString *questOnwer = [obj getObjectForKey:quest_owner];
+        
         KiiBucket *bucket = obj.bucket;
         GXQuest *quest = [[GXQuest alloc] initWithTitle:title fbID:fbid];
-        quest.quest_id = quest_id;
+        quest.quest_id = questID;
         quest.bucket = bucket;
-        
+        quest.quest_req = questReq;
+        quest.quest_des = questDes;
+        quest.player_num = playerNum;
+        quest.owner = questOnwer;
         
         [newQuestArray addObject:quest];
     }
