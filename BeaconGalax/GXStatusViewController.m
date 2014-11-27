@@ -150,16 +150,9 @@
         GXQuestViewController *questViewController = [self.storyboard instantiateViewControllerWithIdentifier:@"home"];
         navController.viewControllers = @[questViewController];
     } else if (indexPath.section == 0 && indexPath.row == 1) {
-        GXInviteQuestViewController *inviteViewController = [self.storyboard instantiateViewControllerWithIdentifier:@"invite"];
-        navController.viewControllers = @[inviteViewController];
-    } else if (indexPath.section == 0 && indexPath.row == 2) {
-        GXJoinedQuestViewController *joinedView = [self.storyboard instantiateViewControllerWithIdentifier:@"joined"];
-        navController.viewControllers = @[joinedView];
-    } else if (indexPath.section == 0 && indexPath.row == 3) {
         GXActivityViewController *activityView = [self.storyboard instantiateViewControllerWithIdentifier:@"activityView"];
         navController.viewControllers = @[activityView];
     }
-    
     self.frostedViewController.contentViewController = navController;
     [self.frostedViewController hideMenuViewController];
 }
@@ -180,7 +173,7 @@
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
     if (section == 0) {
-        return 4;
+        return 2;
     } else {
         return 3;
     }
@@ -191,7 +184,7 @@
     GXStatusViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"Cell" forIndexPath:indexPath];
     
     if (indexPath.section == 0) {
-        NSArray *titles = @[@"クエスト一覧",@"募集中のクエスト",@"参加中のクエスト",@"みんなの動き"];
+        NSArray *titles = @[@"クエスト一覧",@"みんなの動き"];
         cell.textLabel.text = titles[indexPath.row];
     } else {
         NSArray *titles = @[@"userA",@"userB",@"userC"];

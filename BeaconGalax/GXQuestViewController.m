@@ -47,7 +47,7 @@
 @property KiiGroup *selectedQuestGroup;
 @property BOOL isSelectedQuestMulti;
 @property NSInteger segmentIndex;
-@property HMSegmentedControl *segmentedControl;
+@property (weak, nonatomic) IBOutlet UISegmentedControl *segmentedControl;
 
 @property (nonatomic,strong) GXQuestList *questList;
 
@@ -83,6 +83,7 @@
     self.collectionView.delegate = self;
     self.collectionView.dataSource = self;
     self.collectionView.alwaysBounceVertical = YES;
+    self.collectionView.backgroundColor = [UIColor sunflowerColor];
     
     _questList = [[GXQuestList alloc] initWithDelegate:self]; //delegate設定(del先は俺やで）
     
@@ -90,21 +91,9 @@
     [_refreshControl addTarget:self action:@selector(refresh) forControlEvents:UIControlEventValueChanged];
     [self.collectionView addSubview:_refreshControl];
     
-    //segumentControl
-    _segmentedControl = [[HMSegmentedControl alloc] initWithSectionTitles:@[@"新しい",@"受注済み",@"募集中"]];
-    _segmentedControl.autoresizingMask = UIViewAutoresizingFlexibleRightMargin | UIViewAutoresizingFlexibleWidth;
-    _segmentedControl.selectedSegmentIndex = 0;
-    _segmentedControl.frame = CGRectMake(0, topOffset, 320, 50);
-    _segmentedControl.selectionIndicatorHeight = 4.0f;
-    _segmentedControl.backgroundColor = [UIColor turquoiseColor];
-    _segmentedControl.textColor = [UIColor cloudsColor];
-    _segmentedControl.selectionIndicatorColor = [UIColor greenSeaColor];
-    _segmentedControl.selectionStyle = HMSegmentedControlSelectionStyleBox;
-    _segmentedControl.selectedSegmentIndex = HMSegmentedControlNoSegment;
-    _segmentedControl.selectionIndicatorLocation = HMSegmentedControlSelectionIndicatorLocationDown;
-    _segmentedControl.shouldAnimateUserSelection = YES;
-    [_segmentedControl addTarget:self action:@selector(segmentedControlChangedValue:) forControlEvents:UIControlEventValueChanged];
-    [self.view addSubview:_segmentedControl];
+    [self.segmentedControl addTarget:self action:@selector(segmentedControlChangedValue:) forControlEvents:UIControlEventValueChanged];
+    self.segmentedControl.selectedSegmentIndex = 0;
+    self.segmentedControl.tintColor = [UIColor sunflowerColor];
     
     self.detailViewController = [self.storyboard instantiateViewControllerWithIdentifier:@"detail"];
     
@@ -128,8 +117,6 @@
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(deletedQuest:) name:@"deleteQuest" object:nil];
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(refreshFromLocalNotis:) name:GXRefreshDataFromLocalNotification object:nil];
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(gotoMemberView:) name:@"gotoMemberView" object:nil];
-        
-
     }
 }
 
@@ -164,7 +151,13 @@
     
     //modelの設定
     cell.quest = [_questList questAtIndex:indexPath.row];
-    
+    if (_segmentedControl.selectedSegmentIndex == 0) {
+        cell.createrIcon.layer.borderColor = [UIColor sunflowerColor].CGColor;
+    } else if (_segmentedControl.selectedSegmentIndex == 1) {
+        cell.createrIcon.layer.borderColor = [UIColor turquoiseColor].CGColor;
+    } else {
+        cell.createrIcon.layer.borderColor = [UIColor amethystColor].CGColor;
+    }
     
     return cell;
     
@@ -173,29 +166,6 @@
 
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath
 {
-//    self.selectedObject = self.objects[indexPath.row];
-//    
-//    if ([[self.selectedObject getObjectForKey:quest_player_num] intValue] > 1) {
-//        //invite_boardへ
-//        //すでに募集済みかどうか
-//        BOOL ret = [[GXBucketManager sharedManager] isInvitedQuest:self.selectedObject];
-//        
-//        if (ret) {
-//            NSLog(@"募集済みです");
-//            [self invitedMultiQuestAlert];
-//            
-//            
-//        } else {
-//            NSLog(@"募集されてません");
-//            [self notInviteMultiQuestAlert];
-//        }
-//        
-//    } else {
-//        
-//        
-//        [self questAlertShow:[self.selectedObject getObjectForKey:quest_title] description:quest_description];
-//        
-//    }
     if (self.detailViewController) {
         self.detailViewController.quest = [_questList questAtIndex:indexPath.row];
         [self.view addSubview:self.detailViewController.view];
@@ -225,7 +195,7 @@
 - (void)refresh
 {
     NSLog(@"refresh");
-    [self.questList requestAsyncronous:_segmentIndex];
+    [self request:_segmentedControl.selectedSegmentIndex];
     [NSTimer scheduledTimerWithTimeInterval:1.f target:self selector:@selector(endRefresh) userInfo:nil repeats:NO];
 }
 
@@ -491,10 +461,24 @@
 - (void)segmentedControlChangedValue:(HMSegmentedControl *)segmentedControl {
     switch (segmentedControl.selectedSegmentIndex) {
         case 0:
-        case 1:
-        case 2:
+            _segmentedControl.tintColor = [UIColor sunflowerColor];
+            self.collectionView.backgroundColor = [UIColor sunflowerColor];
+            
             [self request:segmentedControl.selectedSegmentIndex];
             break;
+            
+        case 1:
+            _segmentedControl.tintColor = [UIColor turquoiseColor];
+            self.collectionView.backgroundColor = [UIColor turquoiseColor];
+            [self request:segmentedControl.selectedSegmentIndex];
+            break;
+            
+        case 2:
+            _segmentedControl.tintColor = [UIColor amethystColor];
+            self.collectionView.backgroundColor = [UIColor amethystColor];
+            [self request:segmentedControl.selectedSegmentIndex];
+            break;
+            
         default:
             break;
     }
@@ -504,6 +488,7 @@
 {
     if (_questList.loading) {
     } else {
+        [SVProgressHUD showWithStatus:@"データ更新中"];
         [_questList requestAsyncronous:index];
     }
 }
@@ -513,6 +498,7 @@
 {
     NSLog(@"delegate");
     [_collectionView reloadData];
+    [SVProgressHUD dismiss];
 }
 
 

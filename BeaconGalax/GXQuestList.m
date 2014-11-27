@@ -197,6 +197,7 @@
         NSString *questReq = [obj getObjectForKey:quest_requirement];
         NSString *questDes = [obj getObjectForKey:quest_description];
         NSNumber *playerNum = [obj getObjectForKey:quest_player_num];
+        NSString *createdUserName = [obj getObjectForKey:quest_owner];
         //あれば(募集者用)
         NSString *questOnwer = [obj getObjectForKey:quest_owner];
         
@@ -208,10 +209,10 @@
         quest.quest_des = questDes;
         quest.player_num = playerNum;
         quest.owner = questOnwer;
-        
+        quest.createdUserName = createdUserName;
         [newQuestArray addObject:quest];
     }
-    
+
     _questListArray = newQuestArray;
 }
 

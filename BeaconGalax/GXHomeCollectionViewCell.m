@@ -46,6 +46,7 @@
     //レイアウト寒冷
     _titleLable.text = quest.title;
     _createrIcon.profileID = quest.fb_id;
+    _createrName.text = quest.createdUserName;
 }
 
 
