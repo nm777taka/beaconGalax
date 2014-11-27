@@ -317,7 +317,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="4ro-C3-VLx" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1937" y="-1223"/>
+            <point key="canvasLocation" x="2695" y="-1193"/>
         </scene>
         <!--クエスト-->
         <scene sceneID="IUh-rZ-Cto">
@@ -614,7 +614,6 @@
                     <connections>
                         <outlet property="segmentControl" destination="hn1-h1-f8o" id="gly-3h-PTH"/>
                         <outlet property="tableView" destination="CgV-RV-gwH" id="9I8-ij-JHX"/>
-                        <segue destination="ZLd-hL-qSR" kind="push" identifier="gotoReadyView" id="R2V-hH-sWM"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="hQ1-Oj-27I" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -669,7 +668,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Rg5-EO-v8n" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2350" y="733"/>
+            <point key="canvasLocation" x="1755" y="-1223"/>
         </scene>
         <!--クエストパーティー-->
         <scene sceneID="bvE-KX-rpo">
@@ -745,7 +744,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="1nY-2Z-ElD" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1823" y="-591"/>
+            <point key="canvasLocation" x="1755" y="-591"/>
         </scene>
         <!--Quest Detail View Controller-->
         <scene sceneID="162-5w-95B">
@@ -859,7 +858,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="4WS-ee-V1q" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2317" y="-1229"/>
+            <point key="canvasLocation" x="2211" y="-1229"/>
         </scene>
         <!--クエスト詳細-->
         <scene sceneID="5s6-F7-Wa7">

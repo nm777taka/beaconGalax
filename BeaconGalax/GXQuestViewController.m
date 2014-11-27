@@ -17,6 +17,7 @@
 #import "GXQuestViewController.h"
 #import "GXHomeCollectionViewCell.h"
 #import "GXDescriptionViewController.h"
+#import "GXQuestReadyViewController.h"
 #import "GXInviteQuestViewController.h"
 #import "REFrostedViewController.h"
 #import "UIViewController+REFrostedViewController.h"
@@ -293,16 +294,16 @@
 #pragma mark segue
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
 {
-//    if ([[segue identifier] isEqualToString:@"gotoDescriptionView"]) {
-//        GXDescriptionViewController *vc = segue.destinationViewController;
-//        vc.object = _selectedObject;
-//    }
     if ([[segue identifier] isEqualToString:@"goto_QuestMemberView"]) {
         
         GXQuestGroupViewController *vc = segue.destinationViewController;
         //選択されたクエストのグループとクエスト自体をパーティーViewに渡してあげる
         vc.selectedQuestGroup = _selectedQuestGroup;
         vc.willExeQuest = _selectedObject;
+    } else if ([[segue identifier] isEqualToString:@"gotoQuestReadyView"]) {
+        GXQuestReadyViewController *vc = segue.destinationViewController;
+        vc.willExeQuest = _selectedObject;
+        vc.selectedQuestGroup = _selectedQuestGroup;
     }
 }
 
@@ -349,6 +350,20 @@
             [self performSegueWithIdentifier:@"goto_QuestMemberView" sender:self];
         }
     }];
+}
+
+- (void)gotoQuestReadyView:(NSNotification *)notis
+{
+    _selectedObject = notis.object;
+    _selectedQuestGroup = [KiiGroup groupWithURI:[_selectedObject getObjectForKey:quest_groupURI]];
+    [_selectedQuestGroup refreshWithBlock:^(KiiGroup *group, NSError *error) {
+        if (error) {
+            NSLog(@"group refresh error:%@",error);
+        } else {
+            [self performSegueWithIdentifier:@"gotoQuestReadyView" sender:self];
+        }
+    }];
+
 }
 
 #pragma mark-
