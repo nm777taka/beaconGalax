@@ -25,7 +25,7 @@
 //UserScope
 @property (nonatomic) KiiBucket *notJoinedQuest;
 @property (nonatomic) KiiBucket *nearUser; //消す
-@property (nonatomic) KiiBucket *joinedQuest; //消す
+@property (nonatomic) KiiBucket *joinedQuest;
 @property (nonatomic) KiiBucket *joinedOnePersonQuest; //一人用
 @property (nonatomic) KiiBucket *joinedMultiPersonQuest; //複数用
 @property (nonatomic) KiiBucket *pointBucket;
@@ -85,6 +85,11 @@
 //データ操作用
 - (void)deleteAllObject:(KiiBucket *)bucket;
 - (void)displayAllObject:(KiiBucket *)bucket;
+- (void)countNotJoinBucket;
+- (void)countJoinedBucket;
+- (void)countInviteBucket;
+
+
 
 
 

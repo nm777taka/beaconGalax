@@ -18,18 +18,12 @@
     //label
     self.createrName.font = [UIFont boldFlatFontOfSize:15];
     self.createrName.textColor = [UIColor midnightBlueColor];
-    self.questTypeLabel.font = [UIFont boldFlatFontOfSize:14];
-    self.questTypeLabel.textColor = [UIColor midnightBlueColor];
-    
     self.titleLable.textColor = [UIColor midnightBlueColor];
     self.titleLable.font = [UIFont boldFlatFontOfSize:16];
     
     self.createrIcon.layer.cornerRadius = 25.0f;
     self.createrIcon.layer.borderColor = [UIColor whiteColor].CGColor;
     self.createrIcon.layer.borderWidth = 2.0f;
-    
-    //view
-    self.questTypeColorView.backgroundColor = [UIColor turquoiseColor];
     
     //drop shadow
     //ドロップシャドウ
@@ -47,8 +41,16 @@
     _titleLable.text = quest.title;
     _createrIcon.profileID = quest.fb_id;
     _createrName.text = quest.createdUserName;
+    
+    NSDate *date = quest.createdDate;
+    NSDateFormatter *df = [NSDateFormatter new];
+    df.dateStyle = NSDateFormatterShortStyle;
+    NSString *formattedDateString = [df stringFromDate:date];
+    _createdDateLable.text = formattedDateString;
+    
 }
 
-
-
+- (IBAction)showInfo:(id)sender {
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"showInfo" object:self];
+}
 @end

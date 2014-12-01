@@ -9,7 +9,8 @@
 #import "GXStatusViewController.h"
 #import "GXAppDelegate.h"
 #import "GXNavViewController.h"
-#import "GXQuestViewController.h"
+#import "GXHomeRootViewController.h"
+#import "GXSettingTableViewController.h"
 #import "GXInviteQuestViewController.h"
 #import "GXJoinedQuestViewController.h"
 #import "GXActivityViewController.h"
@@ -147,8 +148,8 @@
     GXNavViewController *navController = [self.storyboard instantiateViewControllerWithIdentifier:@"contentController"];
     
     if (indexPath.section == 0 && indexPath.row == 0) {
-        GXQuestViewController *questViewController = [self.storyboard instantiateViewControllerWithIdentifier:@"home"];
-        navController.viewControllers = @[questViewController];
+        GXHomeRootViewController *homeRootView = [self.storyboard instantiateViewControllerWithIdentifier:@"root"];
+        navController.viewControllers = @[homeRootView];
     } else if (indexPath.section == 0 && indexPath.row == 1) {
         GXActivityViewController *activityView = [self.storyboard instantiateViewControllerWithIdentifier:@"activityView"];
         navController.viewControllers = @[activityView];

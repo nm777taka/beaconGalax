@@ -8,6 +8,7 @@
 
 #import "GXInviteQuestViewController.h"
 #import "GXQuestGroupViewController.h"
+#import "GXQuestDetailViewController.h"
 #import "GXActivityList.h"
 #import "GXInvitedViewCell.h"
 #import "GXDictonaryKeys.h"
@@ -16,12 +17,23 @@
 #import "GXUserManager.h"
 #import "GXExeQuestManager.h"
 
-@interface GXInviteQuestViewController ()<UICollectionViewDataSource,UICollectionViewDelegate,FUIAlertViewDelegate>
+#import "FUIAlertView+GXTheme.h"
+
+//Model
+#import "GXQuest.h"
+#import "GXQuestList.h"
+
+@interface GXInviteQuestViewController ()<UICollectionViewDataSource,UICollectionViewDelegate,FUIAlertViewDelegate,GXQuestListDelegate>
+
 @property (weak, nonatomic) IBOutlet UICollectionView *collectionView;
+@property (nonatomic,strong) GXQuestList *questList;
+@property (nonatomic,strong) GXQuest *selectedQuest;
+
 @property NSMutableArray *invitedQuestArray;
 @property KiiObject *selectedInviteBucketObj; //InviteBucketObject;
 @property KiiGroup *questGroupAtSelected;
 
+@property (nonatomic,strong) GXQuestDetailViewController *detailViewController;
 @end
 
 @implementation GXInviteQuestViewController{
@@ -38,6 +50,13 @@
     _refreshControl = [UIRefreshControl new];
     [_refreshControl addTarget:self action:@selector(refresh) forControlEvents:UIControlEventValueChanged];
     [self.collectionView addSubview:_refreshControl];
+    
+    _questList = [[GXQuestList alloc] initWithDelegate:self]; //delegate設定(del先は俺やで）
+    
+    //詳細View
+    self.detailViewController = [self.storyboard instantiateViewControllerWithIdentifier:@"detail"];
+    [self.questList requestAsyncronous:2];
+
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -47,9 +66,6 @@
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(invitedQuestFetched:) name:GXInvitedQuestFetchedNotification object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(addedGroup:) name:GXAddGroupSuccessedNotification object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(questInfo:) name:@"questInfo" object:nil];
-    
-    [[GXBucketManager sharedManager] getInvitedQuest];
-    //[SVProgressHUD showWithStatus:@"クエストを取得しています"];
 }
 
 - (void)viewDidDisappear:(BOOL)animated
@@ -67,6 +83,7 @@
 
 
 #pragma mark - CollectionView Delegate
+#pragma mark - CollectionView
 - (NSInteger)numberOfSectionsInCollectionView:(UICollectionView *)collectionView
 {
     return 1;
@@ -74,108 +91,57 @@
 
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section
 {
-    return self.invitedQuestArray.count;
+    return [_questList count];
 }
 
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath
 {
     GXInvitedViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"Cell" forIndexPath:indexPath];
     
-    [self configureCell:cell atIndexPath:indexPath];
+    //modelの設定
+    cell.quest = [_questList questAtIndex:indexPath.row];
     
     return cell;
+    
 }
+
 
 #pragma mark - ToDo
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath
 {
-
-    self.selectedInviteBucketObj = self.invitedQuestArray[indexPath.row];
     
-    //色々判定する
-    //タップしたクエストのグループを取得
-    self.questGroupAtSelected = [self getGroup:(int)indexPath.row];
-    
-    //自分がオーナかどうか
-    if ([self isOwner:self.questGroupAtSelected]) {
-        [self gotoQuestPartyView:indexPath];
-        return;
-    }
-    
-    //既にグループに参加しているか
-    if ([self isJoined:self.questGroupAtSelected]) {
-        //アラート
-        FUIAlertView *alertView = [[FUIAlertView alloc] initWithTitle:@"！" message:@"すでに参加しています。参加済み画面からクエストを開始できます" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
-        alertView.titleLabel.textColor = [UIColor cloudsColor];
-        alertView.titleLabel.font = [UIFont boldFlatFontOfSize:16];
-        alertView.messageLabel.textColor = [UIColor cloudsColor];
-        alertView.messageLabel.font = [UIFont flatFontOfSize:14];
-        alertView.backgroundOverlay.backgroundColor = [[UIColor cloudsColor] colorWithAlphaComponent:0.8];
-        alertView.alertContainer.backgroundColor = [UIColor midnightBlueColor];
-        alertView.defaultButtonColor = [UIColor cloudsColor];
-        alertView.defaultButtonShadowColor = [UIColor asbestosColor];
-        alertView.defaultButtonFont = [UIFont boldFlatFontOfSize:16];
-        alertView.defaultButtonTitleColor = [UIColor asbestosColor];
-        [alertView show];
-        return;
-    }
-    
-    //参加アクション
-    [self showPushSendAlert];
-
+    GXQuest *quest = [_questList questAtIndex:indexPath.row];
+    KiiObject *obj = [KiiObject objectWithURI:quest.quest_id];
+    [obj refreshWithBlock:^(KiiObject *object, NSError *error) {
+        if (!error) {
+            KiiGroup *group = [KiiGroup groupWithURI:[object getObjectForKey:quest_groupURI]];
+            [group refreshWithBlock:^(KiiGroup *group, NSError *error) {
+                if (!error) {
+                    
+                    _selectedInviteBucketObj = object;
+                    _questGroupAtSelected = group;
+                    
+                    //クエスト募集者ならグループviewへ
+                    if ([self isOwner:group]) {
+                        [self gotoQuestPartyView];
+                        return ;
+                    }
+                    
+                    //募集者じゃないなら参加処理へ
+                    [self showPushSendAlert];
+                }
+            }];
+        }
+    }];
 }
 
 #pragma mark - Todo
 //くそ重い
-- (void)configureCell:(GXInvitedViewCell *)cell atIndexPath:(NSIndexPath *)indexPath
-{
-    //影
-    cell.layer.masksToBounds = NO;
-    cell.layer.shadowOffset = CGSizeMake(0.0f, 0.0f);
-    cell.layer.shadowOpacity = 0.1f;
-    cell.layer.shadowRadius = 2.0f;
-    
-    //コンテンツ
-    KiiObject *obj = self.invitedQuestArray[indexPath.row];
-    KiiGroup *group = [self getGroup:indexPath.row];
-    cell.title.text = [obj getObjectForKey:quest_title];
-    int questRank = [[obj getObjectForKey:quest_rank] intValue];
-    cell.questRankLabel.text = [NSString stringWithFormat:@"Rank:☆%d",questRank];
-    cell.questRankLabel.textColor = [UIColor orangeColor];
-    int cur_memberNum = [self getGroupMemberNum:group];
-    cell.nowMemberLabel.text = [NSString stringWithFormat:@"パーティーメンバー:%d",cur_memberNum];
-    cell.ownerIcon.profileID = [obj getObjectForKey:quest_owner_fbid];
-    cell.ownerName.text = [obj getObjectForKey:quest_owner];
-    
-    //既にスタートされているか
-    if ([[obj getObjectForKey:quest_isStarted] boolValue]) {
-        cell.userJoinStatus.text = @"開始済み";
-    }
 
-    //自分がオーナかどうか
-    if ([self isOwner:group]) {
-        cell.userJoinStatus.textColor = [UIColor alizarinColor];
-        cell.userJoinStatus.text = @"オーナー";
-        return;
-    }
-    
-    //参加済みかどうか
-    if ([self isJoined:group]) {
-        cell.userJoinStatus.textColor = [UIColor turquoiseColor];
-        cell.userJoinStatus.text = @"参加済み";
-        return;
-        
-    } else {
-        cell.userJoinStatus.textColor = [UIColor midnightBlueColor];
-        cell.userJoinStatus.text = @"未参加";
-    }
-    
-}
-
-- (KiiGroup *)getGroup:(int)row
+- (KiiGroup *)getGroup
 {
     NSError *error;
-    KiiObject *obj = self.invitedQuestArray[row];
+    KiiObject *obj = _selectedInviteBucketObj;
     KiiGroup *group = [KiiGroup groupWithURI:[obj getObjectForKey:quest_groupURI]];
     [group refreshSynchronous:&error];
     
@@ -277,11 +243,10 @@
 {
     GXInvitedViewCell *cell = info.object;
     NSIndexPath *indexPath = [self.collectionView indexPathForCell:cell];
-    KiiObject *infoObj = self.invitedQuestArray[indexPath.row];
-    NSString *req = [infoObj getObjectForKey:quest_requirement];
-    NSString *des = [infoObj getObjectForKey:quest_description];
-    [self showFUIAlert:des message:req];
-    
+    if (self.detailViewController) {
+        self.detailViewController.quest = [_questList questAtIndex:indexPath.row];
+        [self.view addSubview:self.detailViewController.view];
+    }
 }
 
 #pragma mark - FUIAlertView
@@ -330,9 +295,9 @@
             
             KiiObject *obj = results.firstObject;
             //自分の参加済み協力クエに登録
-            [[GXBucketManager sharedManager] registerJoinedQuest:obj];
+            [[GXBucketManager sharedManager] acceptNewQuest:obj];
             //notJoinから消す
-            [[GXBucketManager sharedManager] deleteJoinedQuest:self.willDeleteObjAtNotJoin];
+            //[[GXBucketManager sharedManager] deleteJoinedQuest:self.willDeleteObjAtNotJoin];
             //Activity
             KiiObject *gxUser = [GXUserManager sharedManager].gxUser;
             NSString *name = [gxUser getObjectForKey:user_name];
@@ -353,8 +318,11 @@
     
     [SVProgressHUD dismiss];
     
-    //[TSMessage showNotificationWithTitle:@"参加完了" type:TSMessageNotificationTypeSuccess];
-    [self showFUIAlert:@"Success" message:@"パーティーに参加しました"];
+    CWStatusBarNotification *notis = [CWStatusBarNotification new];
+    notis.notificationLabelBackgroundColor = [UIColor turquoiseColor];
+    notis.notificationLabel.textColor = [UIColor cloudsColor];
+    notis.notificationStyle = CWNotificationStyleNavigationBarNotification;
+    [notis displayNotificationWithMessage:@"パーティーに参加しました!" forDuration:2.0f];
     
     [self.collectionView reloadData];
     
@@ -364,16 +332,9 @@
 
 #pragma mark - ToDo
 //ここからいくのはリーダーだけにする! ..リーダー以外もできるように
-- (void)gotoQuestPartyView:(NSIndexPath *)indexPath
+- (void)gotoQuestPartyView
 {
-    self.selectedInviteBucketObj = self.invitedQuestArray[indexPath.row];
-    self.questGroupAtSelected = [self getGroup:(int)indexPath.row];
-    
-    if ([self isJoined:self.questGroupAtSelected]) {
-        [self performSegueWithIdentifier:@"goto_QuestMemberView" sender:self];
-
-    }
-
+    [self performSegueWithIdentifier:@"goto_QuestMemberView" sender:self];
 }
 
 #pragma mark - FUIAlertViewDelegate
@@ -384,11 +345,28 @@
             //なにもしない
             break;
         case 1:
-           // [SVProgressHUD showWithStatus:@"参加申請中"];
-            [self requestAddGroup];
+//           // [SVProgressHUD showWithStatus:@"参加申請中"];
+//            [self requestAddGroup];
+            [self questJoinSequence];
+            
             break;
         default:
             break;
+    }
+}
+
+- (void)questJoinSequence
+{
+    [SVProgressHUD showWithStatus:@"参加処理中"];
+    //すでに参加しているかチェック
+    if ([self isJoined:_questGroupAtSelected]) {
+        //参加してた
+        [SVProgressHUD dismiss];
+        FUIAlertView *alert = [FUIAlertView errorTheme:@"すでに参加済みです"];
+        [alert show];
+    } else {
+        //参加してなかったら
+        [self requestAddGroup];
     }
 }
 
@@ -398,8 +376,8 @@
     if ([segue.identifier isEqualToString:@"goto_QuestMemberView"]) {
         GXQuestGroupViewController *vc = segue.destinationViewController;
         //選択されたクエストのグループとクエスト自体をパーティーViewに渡してあげる
-        vc.selectedQuestGroup = self.questGroupAtSelected;
-        vc.willExeQuest = self.selectedInviteBucketObj;
+        vc.selectedQuestGroup = _questGroupAtSelected;
+        vc.willExeQuest = _selectedInviteBucketObj;
     }
 }
 
@@ -416,6 +394,25 @@
 - (void)endRefresh
 {
 }
+
+- (void)request:(NSInteger)index
+{
+    if (_questList.loading) {
+    } else {
+        [SVProgressHUD showWithStatus:@"データ更新中"];
+        [_questList requestAsyncronous:index];
+    }
+}
+
+#pragma makr - QuestList delegate
+- (void)questListDidLoad
+{
+    NSLog(@"delegate");
+    [_collectionView reloadData];
+    [SVProgressHUD dismiss];
+}
+
+
 
 
 

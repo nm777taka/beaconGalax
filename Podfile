@@ -12,6 +12,7 @@ pod 'FlatUIKit'
 pod 'UAProgressView'
 pod 'CWStatusBarNotification', '~> 2.2.2'
 pod 'HMSegmentedControl', '~> 1.4.0'
+pod 'DZNSegmentedControl'
 
 
 

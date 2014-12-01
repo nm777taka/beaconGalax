@@ -65,5 +65,7 @@ NSString *const GXRefreshDataFromLocalNotification = @"GXRefreshDataFromLocalNot
 
 NSString *const GXSignUpNotification = @"GXSignUpNotification";
 
+NSString *const GXBucketObjectCountNotification = @"GXBucketObjectCountNotification";
+
 
 @end

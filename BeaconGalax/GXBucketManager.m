@@ -202,9 +202,6 @@
             
         }];
         
-        CWStatusBarNotification *notis = [CWStatusBarNotification new];
-        [notis displayNotificationWithMessage:@"クエスト募集完了" forDuration:2.0f];
-        
         //activity
         KiiObject *gxUser = [GXUserManager sharedManager].gxUser;
         NSString *questName = [newObj getObjectForKey:quest_title];
@@ -461,10 +458,6 @@
             [newObj setObject:obj.objectURI forKey:@"id"];
             [newObj saveWithBlock:^(KiiObject *object, NSError *error) {
                 
-                CWStatusBarNotification *notis = [CWStatusBarNotification new];
-                notis.notificationStyle = CWNotificationStyleNavigationBarNotification;
-                [notis displayNotificationWithMessage:@"クエスト受注" forDuration:2.0f];
-                
             }];
         }
     }
@@ -574,8 +567,6 @@
             NSLog(@"error :%@",error);
         } else {
             
-            //notification
-            [[NSNotificationCenter defaultCenter] postNotificationName:GXFetchQuestNotComplitedNotification object:results userInfo:nil];
         }
     }];
 }
@@ -656,5 +647,39 @@
     }
 }
 
+- (void)countNotJoinBucket
+{
+    [self.notJoinedQuest count:^(KiiBucket *bucket, KiiQuery *query, NSUInteger result, NSError *error) {
+        if (!error) {
+            NSNumber *num = [NSNumber numberWithInteger:result];
+            NSDictionary *dict = @{@"count":num,@"index":@0};
+            [[NSNotificationCenter defaultCenter] postNotificationName:GXBucketObjectCountNotification object:dict];
+        }
+    }];
+}
+
+- (void)countJoinedBucket
+{
+    [self.joinedQuest count:^(KiiBucket *bucket, KiiQuery *query, NSUInteger result, NSError *error) {
+        if (!error) {
+            NSNumber *num = [NSNumber numberWithInteger:result];
+            NSDictionary *dict = @{@"count":num,@"index":@1};
+            [[NSNotificationCenter defaultCenter] postNotificationName:GXBucketObjectCountNotification object:dict];
+        }
+    }];
+
+}
+
+- (void)countInviteBucket
+{
+    [self.inviteBoard count:^(KiiBucket *bucket, KiiQuery *query, NSUInteger result, NSError *error) {
+        if (!error) {
+            NSNumber *num = [NSNumber numberWithInteger:result];
+            NSDictionary *dict = @{@"count":num,@"index":@2};
+            [[NSNotificationCenter defaultCenter] postNotificationName:GXBucketObjectCountNotification object:dict];
+        }
+    }];
+
+}
 
 @end

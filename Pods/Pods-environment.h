@@ -108,6 +108,12 @@
 #define COCOAPODS_VERSION_MINOR_ChameleonFramework 1
 #define COCOAPODS_VERSION_PATCH_ChameleonFramework 1
 
+// DZNSegmentedControl
+#define COCOAPODS_POD_AVAILABLE_DZNSegmentedControl
+#define COCOAPODS_VERSION_MAJOR_DZNSegmentedControl 1
+#define COCOAPODS_VERSION_MINOR_DZNSegmentedControl 2
+#define COCOAPODS_VERSION_PATCH_DZNSegmentedControl 2
+
 // EstimoteSDK
 #define COCOAPODS_POD_AVAILABLE_EstimoteSDK
 #define COCOAPODS_VERSION_MAJOR_EstimoteSDK 2

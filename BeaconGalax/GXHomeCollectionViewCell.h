@@ -9,7 +9,6 @@
 #import <UIKit/UIKit.h>
 #import <FlatUIKit/FlatUIKit.h>
 #import <FacebookSDK/Facebook.h>
-#import <FlatUIKit/FlatUIKit.h>
 
 @class GXQuest;
 
@@ -22,10 +21,9 @@
 @property (weak, nonatomic) IBOutlet UILabel *titleLable;
 @property (weak, nonatomic) IBOutlet FBProfilePictureView *createrIcon;
 @property (weak, nonatomic) IBOutlet UILabel *createrName;
-@property (weak, nonatomic) IBOutlet UILabel *questTypeLabel;
-@property (weak, nonatomic) IBOutlet UIImageView *questTypeIcon;
-@property (weak, nonatomic) IBOutlet UIView *questTypeColorView;
-@property (weak, nonatomic) IBOutlet UILabel *requirementLabel;
+@property (weak, nonatomic) IBOutlet UILabel *createdDateLable;
 
+- (IBAction)showInfo:(id)sender;
 
 @end
+    

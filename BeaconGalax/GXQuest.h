@@ -25,6 +25,7 @@
 @property (nonatomic,retain) NSString *owner; //募集クエストで判定につかう
 @property (nonatomic,retain) NSNumber *major; //beaconのmajor値
 @property (nonatomic,retain) NSString *groupURI; //協力クエスト用(グループ参加で使う)
+@property (nonatomic,retain) NSDate *createdDate; //日時表示用
 
 //サーバーリクエストキー
 @property (nonatomic,retain) NSString *quest_id;
@@ -40,7 +41,6 @@
 @property (nonatomic,retain) NSString *group_uri;
 @property (nonatomic,assign) NSNumber *isStarted;
 @property (nonatomic,assign) NSNumber *isCompleted;
-@property (nonatomic,assign) NSString *createdDate;
 @property (nonatomic,retain) NSDate *date;
 @property (nonatomic,retain) NSString *createdUserName;
 

@@ -54,6 +54,7 @@
     _fbIconView.layer.cornerRadius = 20.f;
     
     
+    
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -79,46 +80,46 @@
     
     _isMulti = [self isMultiQuest];
     
-    NSInteger questType = [self chekckQuestType];
-    
-    switch (questType) {
-        case 0: //新しいクエ
-            NSLog(@"notjoin");
-            if (_isMulti) {
-                [self.questActionButton setTitle:@"募集" forState:UIControlStateNormal];
-                [self.questActionButton addTarget:self action:@selector(inviteQuestHandler) forControlEvents:UIControlEventTouchUpInside];
-            } else {
-                [self.questActionButton setTitle:@"受注" forState:UIControlStateNormal];
-                [self.questActionButton addTarget:self action:@selector(acceptNewQuest) forControlEvents:UIControlEventTouchUpInside];
-            }
-            break;
-            
-        case 1://受注済み
-            NSLog(@"joined");
-            [self.questActionButton setTitle:@"開始" forState:UIControlStateNormal];
-            [self.questActionButton addTarget:self action:@selector(joinedQuestStart) forControlEvents:UIControlEventTouchUpInside];
-            break;
-            
-        case 2: //募集
-            NSLog(@"invite");
-            //募集者かどうかをチェック
-            _isOwner = [self isQuestInviter];
-            if (_isOwner) {
-                NSLog(@"enter");
-                [self.questActionButton setTitle:@"開始" forState:UIControlStateNormal];
-                [self.questActionButton addTarget:self action:@selector(multiQuestStart) forControlEvents:UIControlEventTouchUpInside];
-                
-            } else {
-                NSLog(@"enter1");
-                [self.questActionButton setTitle:@"参加" forState:UIControlStateNormal];
-                //参加ハンドラーへ
-                [self.questActionButton addTarget:self action:@selector(requestAddQuestGroup) forControlEvents:UIControlEventTouchUpInside];
-            }
-            break;
-            
-        default:
-            break;
-    }
+//    NSInteger questType = [self chekckQuestType];
+//    
+//    switch (questType) {
+//        case 0: //新しいクエ
+//            NSLog(@"notjoin");
+//            if (_isMulti) {
+//                [self.questActionButton setTitle:@"募集" forState:UIControlStateNormal];
+//                [self.questActionButton addTarget:self action:@selector(inviteQuestHandler) forControlEvents:UIControlEventTouchUpInside];
+//            } else {
+//                [self.questActionButton setTitle:@"受注" forState:UIControlStateNormal];
+//                [self.questActionButton addTarget:self action:@selector(acceptNewQuest) forControlEvents:UIControlEventTouchUpInside];
+//            }
+//            break;
+//            
+//        case 1://受注済み
+//            NSLog(@"joined");
+//            [self.questActionButton setTitle:@"開始" forState:UIControlStateNormal];
+//            [self.questActionButton addTarget:self action:@selector(joinedQuestStart) forControlEvents:UIControlEventTouchUpInside];
+//            break;
+//            
+//        case 2: //募集
+//            NSLog(@"invite");
+//            //募集者かどうかをチェック
+//            _isOwner = [self isQuestInviter];
+//            if (_isOwner) {
+//                NSLog(@"enter");
+//                [self.questActionButton setTitle:@"開始" forState:UIControlStateNormal];
+//                [self.questActionButton addTarget:self action:@selector(multiQuestStart) forControlEvents:UIControlEventTouchUpInside];
+//                
+//            } else {
+//                NSLog(@"enter1");
+//                [self.questActionButton setTitle:@"参加" forState:UIControlStateNormal];
+//                //参加ハンドラーへ
+//                [self.questActionButton addTarget:self action:@selector(requestAddQuestGroup) forControlEvents:UIControlEventTouchUpInside];
+//            }
+//            break;
+//            
+//        default:
+//            break;
+//    }
     
 }
 

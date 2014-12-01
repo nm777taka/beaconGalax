@@ -198,8 +198,11 @@
         NSString *questDes = [obj getObjectForKey:quest_description];
         NSNumber *playerNum = [obj getObjectForKey:quest_player_num];
         NSString *createdUserName = [obj getObjectForKey:quest_owner];
-        //あれば(募集者用)
-        NSString *questOnwer = [obj getObjectForKey:quest_owner];
+        NSDate *date = obj.created;
+        if (createdUserName == nil) {
+            createdUserName = @"BeaconGalax";
+        }
+        
         
         KiiBucket *bucket = obj.bucket;
         GXQuest *quest = [[GXQuest alloc] initWithTitle:title fbID:fbid];
@@ -208,8 +211,8 @@
         quest.quest_req = questReq;
         quest.quest_des = questDes;
         quest.player_num = playerNum;
-        quest.owner = questOnwer;
         quest.createdUserName = createdUserName;
+        quest.createdDate = date;
         [newQuestArray addObject:quest];
     }
 

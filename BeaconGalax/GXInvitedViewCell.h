@@ -10,14 +10,18 @@
 #import <FlatUIKit/FlatUIKit.h>
 #import <FacebookSDK/Facebook.h>
 
+@class GXQuest;
+
 @interface GXInvitedViewCell : UICollectionViewCell
 @property (weak, nonatomic) IBOutlet UILabel *title;
 @property (weak, nonatomic) IBOutlet FUIButton *button;
 @property (weak, nonatomic) IBOutlet UILabel *ownerName;
 @property (weak, nonatomic) IBOutlet FBProfilePictureView *ownerIcon;
-@property (weak, nonatomic) IBOutlet UILabel *userJoinStatus;
-@property (weak, nonatomic) IBOutlet UILabel *questRankLabel;
-@property (weak, nonatomic) IBOutlet UILabel *nowMemberLabel;
+@property (weak, nonatomic) IBOutlet UILabel *createdDateLabel;
+
+//model
+@property (nonatomic,strong) GXQuest *quest;
+
 - (IBAction)showInfo:(id)sender;
 
 @end
