@@ -13,6 +13,7 @@
 		0F1295CF1A2C9C9F009A1153 /* UIBarButtonItem+Badge.m in Sources */ = {isa = PBXBuildFile; fileRef = 0F1295CE1A2C9C9F009A1153 /* UIBarButtonItem+Badge.m */; };
 		0F1295D21A2C9D76009A1153 /* someImage.png in Resources */ = {isa = PBXBuildFile; fileRef = 0F1295D01A2C9D76009A1153 /* someImage.png */; };
 		0F1295D31A2C9D76009A1153 /* someImage@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 0F1295D11A2C9D76009A1153 /* someImage@2x.png */; };
+		0F1295D51A2CBEE1009A1153 /* addQuestButton.png in Resources */ = {isa = PBXBuildFile; fileRef = 0F1295D41A2CBEE1009A1153 /* addQuestButton.png */; };
 		0F16512519D4435A00918F8D /* GXGroupManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 0F16512419D4435A00918F8D /* GXGroupManager.m */; };
 		0F16512819D443A800918F8D /* GXQuestMemberCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 0F16512719D443A800918F8D /* GXQuestMemberCell.m */; };
 		0F27DAF119824BC20000E0D0 /* GXNavigationItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 0F27DAF019824BC20000E0D0 /* GXNavigationItem.m */; };
@@ -147,6 +148,7 @@
 		0F1295CE1A2C9C9F009A1153 /* UIBarButtonItem+Badge.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIBarButtonItem+Badge.m"; sourceTree = "<group>"; };
 		0F1295D01A2C9D76009A1153 /* someImage.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = someImage.png; sourceTree = "<group>"; };
 		0F1295D11A2C9D76009A1153 /* someImage@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "someImage@2x.png"; sourceTree = "<group>"; };
+		0F1295D41A2CBEE1009A1153 /* addQuestButton.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = addQuestButton.png; sourceTree = "<group>"; };
 		0F16512319D4435A00918F8D /* GXGroupManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GXGroupManager.h; sourceTree = "<group>"; };
 		0F16512419D4435A00918F8D /* GXGroupManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GXGroupManager.m; sourceTree = "<group>"; };
 		0F16512619D443A800918F8D /* GXQuestMemberCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GXQuestMemberCell.h; sourceTree = "<group>"; };
@@ -743,6 +745,7 @@
 		0F7F4129195B203900A796AD /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				0F1295D41A2CBEE1009A1153 /* addQuestButton.png */,
 				0F1295D01A2C9D76009A1153 /* someImage.png */,
 				0F1295D11A2C9D76009A1153 /* someImage@2x.png */,
 				0F821F43196EE6820002664D /* Common_ButtonNavigationDone@2x.png */,
@@ -1160,6 +1163,7 @@
 				0F1295D21A2C9D76009A1153 /* someImage.png in Resources */,
 				0F7F4149195E9F7700A796AD /* GLAX-U-homeI.png in Resources */,
 				0FCFA46E19F67D910087011A /* update.png in Resources */,
+				0F1295D51A2CBEE1009A1153 /* addQuestButton.png in Resources */,
 				0F629BF619E41B31009757DF /* iPhone.png in Resources */,
 				0F27DB0119876A750000E0D0 /* menu-white.png in Resources */,
 				0F629BF219E41B28009757DF /* beacon.png in Resources */,

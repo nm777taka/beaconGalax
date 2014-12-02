@@ -32,6 +32,7 @@
 @property NSMutableArray *invitedQuestArray;
 @property KiiObject *selectedInviteBucketObj; //InviteBucketObject;
 @property KiiGroup *questGroupAtSelected;
+@property UIButton *addQuestButton;
 
 @property (nonatomic,strong) GXQuestDetailViewController *detailViewController;
 @end
@@ -56,7 +57,17 @@
     //詳細View
     self.detailViewController = [self.storyboard instantiateViewControllerWithIdentifier:@"detail"];
     [self.questList requestAsyncronous:2];
-
+    
+    //button
+    self.addQuestButton = [UIButton buttonWithType:UIButtonTypeCustom];
+    self.addQuestButton.frame = CGRectMake(self.view.center.x - 25, self.view.center.y + 50 + 50, 50, 50);
+    UIImage *image = [UIImage imageNamed:@"addQuestButton.png"];
+    [self.addQuestButton setImage:image forState:UIControlStateNormal];
+    [self.addQuestButton setImage:image forState:UIControlStateHighlighted];
+    [self.addQuestButton addTarget:self action:@selector(addQuest:) forControlEvents:UIControlEventTouchUpInside];
+    [self.view addSubview:self.addQuestButton];
+    
+    
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -412,8 +423,23 @@
     [SVProgressHUD dismiss];
 }
 
+#pragma  mark - Button Action
+- (void)addQuest:(UIButton *)sender
+{
 
+    [self performSegueWithIdentifier:@"gotoCreateView" sender:self];
+    
+}
 
+- (void)scrollViewDidScroll:(UIScrollView *)scrollView
+{
+    self.addQuestButton.hidden = YES;
+}
+
+- (void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView
+{
+    self.addQuestButton.hidden = NO;
+}
 
 
 

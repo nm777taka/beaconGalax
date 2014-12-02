@@ -647,7 +647,7 @@
                     <navigationItem key="navigationItem" title="募集中" id="goE-mP-9Mx">
                         <barButtonItem key="rightBarButtonItem" systemItem="add" id="jDn-Oe-k24">
                             <connections>
-                                <segue destination="kE8-C6-YYK" kind="modal" id="VY3-ct-u3A"/>
+                                <segue destination="kE8-C6-YYK" kind="modal" identifier="gotoCreateView" id="VY3-ct-u3A"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
