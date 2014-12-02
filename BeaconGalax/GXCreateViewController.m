@@ -15,6 +15,8 @@
 #import "GXUserManager.h"
 #import "GXActivityList.h"
 
+#import "GXGoogleTrackingManager.h"
+
 const static CGFloat kJVFieldHeight = 44.0f;
 const static CGFloat kJVFieldMargin = 10.0f;
 
@@ -73,6 +75,13 @@ const static CGFloat kJVFieldFloatingLabelFontSize = 11.0f;
     // Dispose of any resources that can be recreated.
 }
 
+- (void)viewDidAppear:(BOOL)animated
+{
+    
+    [super viewDidAppear:animated];
+    [GXGoogleTrackingManager sendScreenTracking:@"createQuestView"];
+}
+
 /*
 #pragma mark - Navigation
 
@@ -115,6 +124,7 @@ const static CGFloat kJVFieldFloatingLabelFontSize = 11.0f;
     NSString *fbid = [gxUser getObjectForKey:user_fb_id];
     NSString *text = [NSString stringWithFormat:@"%@クエストを作成しました",self.titleField.text];
     [[GXActivityList sharedInstance] registerQuestActivity:name title:text fbid:fbid];
+    [GXGoogleTrackingManager sendEventTracking:@"Quest" action:@"create" label:@"作成" value:nil screen:@"createQuestView"];
     
     [self dismissViewControllerAnimated:YES completion:nil];
     
@@ -122,6 +132,7 @@ const static CGFloat kJVFieldFloatingLabelFontSize = 11.0f;
 }
 
 - (IBAction)closeView:(id)sender {
+    [GXGoogleTrackingManager sendEventTracking:@"Quest" action:@"notCreate" label:@"作成中止" value:nil screen:@"createQuestView"];
     [self dismissViewControllerAnimated:YES completion:nil];
 }
 @end

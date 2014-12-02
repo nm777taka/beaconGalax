@@ -22,6 +22,8 @@
 #import "GXDictonaryKeys.h"
 #import "GXUserDefaults.h"
 
+#import "GXGoogleTrackingManager.h"
+
 
 @interface GXStatusViewController ()<UITableViewDataSource,UITableViewDelegate>
 
@@ -83,6 +85,7 @@
 //    self.pointLable.text = [NSString stringWithFormat:@"%dpt",currPoint];
 //    self.rankLabel.text = [NSString stringWithFormat:@"%d",currRank];
 //    [self.rankProgress setProgress:0.2 animated:YES];
+    [GXGoogleTrackingManager sendScreenTracking:@"menuView"];
 
 }
 

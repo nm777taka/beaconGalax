@@ -23,6 +23,8 @@
 #import "GXQuest.h"
 #import "GXQuestList.h"
 
+#import "GXGoogleTrackingManager.h"
+
 @interface GXInviteQuestViewController ()<UICollectionViewDataSource,UICollectionViewDelegate,FUIAlertViewDelegate,GXQuestListDelegate>
 
 @property (weak, nonatomic) IBOutlet UICollectionView *collectionView;
@@ -77,6 +79,12 @@
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(invitedQuestFetched:) name:GXInvitedQuestFetchedNotification object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(addedGroup:) name:GXAddGroupSuccessedNotification object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(questInfo:) name:@"questInfo" object:nil];
+}
+
+- (void)viewDidAppear:(BOOL)animated
+{
+    [super viewDidAppear:animated];
+    [GXGoogleTrackingManager sendScreenTracking:@"inviteQuestView"];
 }
 
 - (void)viewDidDisappear:(BOOL)animated
@@ -199,6 +207,7 @@
         NSDictionary *retDict = [result returnedValue];
         NSLog(@"returned:%@",retDict);
         [self addedGroup];
+        [GXGoogleTrackingManager sendEventTracking:@"Quest" action:@"join" label:@"参加" value:nil screen:@"inviteQuestView"];
     }];
 }
 

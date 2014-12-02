@@ -12,6 +12,9 @@
 #import <DZNSegmentedControl.h>
 #import "GXNotification.h"
 #import "GXBucketManager.h"
+#import "GXUserDefaults.h"
+
+#import "GXGoogleTrackingManager.h"
 
 @interface GXHomeRootViewController ()<DZNSegmentedControlDelegate>
 
@@ -24,7 +27,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    
+        
     NSArray *items = @[@"New", @"受注済み", @"募集中"];
     _control = [[DZNSegmentedControl alloc] initWithItems:items];
     _control.tintColor = [UIColor blueColor];

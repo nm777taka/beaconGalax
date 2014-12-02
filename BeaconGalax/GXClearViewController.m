@@ -17,6 +17,8 @@
 #import "GXInviteQuestViewController.h"
 #import "GXFrostedViewController.h"
 
+#import "GXGoogleTrackingManager.h"
+
 @interface GXClearViewController ()
 @property (weak, nonatomic) IBOutlet UILabel *pointLable;
 
@@ -40,7 +42,8 @@
 - (void)viewDidAppear:(BOOL)animated
 {
     [super viewDidAppear:animated];
-    
+    [GXGoogleTrackingManager sendScreenTracking:@"clearView"];
+    [GXGoogleTrackingManager sendEventTracking:@"Quest" action:@"clear" label:@"クリア" value:nil screen:@"clearView"];
     [self registerPoint];
     //activity
     [self setActivity];

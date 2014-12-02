@@ -21,6 +21,8 @@
 #import "GXQuest.h"
 #import "GXQuestList.h"
 
+#import "GXGoogleTrackingManager.h"
+
 @interface GXJoinedQuestViewController ()<UICollectionViewDataSource,UICollectionViewDelegate,GXQuestListDelegate,FUIAlertViewDelegate>
 
 @property (weak, nonatomic) IBOutlet UICollectionView *collectionView;
@@ -49,6 +51,13 @@
 {
     [super viewWillAppear:animated];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(showInfo:) name:@"showInfo" object:nil];
+}
+
+- (void)viewDidAppear:(BOOL)animated
+{
+    [super viewDidAppear:animated];
+    
+    [GXGoogleTrackingManager sendScreenTracking:@"joinedQuestView"];
 }
 
 - (void)viewDidDisappear:(BOOL)animated
@@ -149,6 +158,7 @@
             UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"subStoryboard" bundle:nil];
             GXQuestExeViewController *vc  = [storyboard instantiateInitialViewController];
             vc.exeQuest = object;
+            [GXGoogleTrackingManager sendEventTracking:@"Quest" action:@"start_one" label:@"一人クエスト開始" value:nil screen:@"joinedQuestView"];
             [self presentViewController:vc animated:YES completion:^{
                 //QMで管理
                 [GXExeQuestManager sharedManager].nowExeQuest = object;

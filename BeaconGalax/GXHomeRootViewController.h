@@ -7,6 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
+#import <KiiSDK/Kii.h>
 
 @interface GXHomeRootViewController : UIViewController
 

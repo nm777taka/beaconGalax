@@ -13,6 +13,7 @@
 #import "UILocalNotification+GXNotification.h"
 #import "NSObject+BlocksWait.h"
 #import "GXUserDefaults.h"
+#import "GAI.h"
 
 @interface GXAppDelegate()
 
@@ -28,7 +29,9 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
-    NSLog(@"didFinishLaunch");
+    NSLog(@"did finish");
+    //GoogleAnalytics初期化
+    [self initializeGoogleAnalytics];
     
     if ([UIApplication instancesRespondToSelector:@selector(registerUserNotificationSettings:)]) {
         [self registerUserNotificationSettings];
@@ -95,6 +98,25 @@
    
     return YES;
 }
+
+- (void)initializeGoogleAnalytics
+{
+    //トラッキングIDの設定
+    // Optional: automatically send uncaught exceptions to Google Analytics.
+    [GAI sharedInstance].trackUncaughtExceptions = YES;
+    
+    // Optional: set Google Analytics dispatch interval to e.g. 20 seconds.
+    [GAI sharedInstance].dispatchInterval = 20;
+    
+    // Optional: set Logger to VERBOSE for debug information.
+    [[[GAI sharedInstance] logger] setLogLevel:kGAILogLevelVerbose];
+    
+    // Initialize tracker. Replace with your tracking ID.
+    [[GAI sharedInstance] trackerWithTrackingId:@"UA-57276402-1"];
+    
+    // Enable IDFA collection.
+    id<GAITracker> tracker = [[GAI sharedInstance] defaultTracker];
+    [tracker setAllowIDFACollection:YES];}
 
 
 //シングルサインオンの有効

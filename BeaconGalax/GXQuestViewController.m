@@ -35,6 +35,11 @@
 #import "GXQuest.h"
 #import "GXQuestList.h"
 
+#import "GXGoogleTrackingManager.h"
+#import "GAI.h"
+#import "GAIFields.h"
+#import "GAIDictionaryBuilder.h"
+
 @interface GXQuestViewController ()<UICollectionViewDataSource,UICollectionViewDelegate,FUIAlertViewDelegate,GXQuestListDelegate>
 
 - (IBAction)createNewQuest:(id)sender;
@@ -110,6 +115,13 @@
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(refreshFromLocalNotis:) name:GXRefreshDataFromLocalNotification object:nil];
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(showInfo:) name:@"showInfo" object:nil];
     }
+}
+
+- (void)viewDidAppear:(BOOL)animated
+{
+    [super viewDidAppear:animated];
+    [GXGoogleTrackingManager sendScreenTracking:@"NotJoinQuestView"];
+
 }
 
 - (void)viewDidDisappear:(BOOL)animated
@@ -450,6 +462,7 @@
             [notis displayNotificationWithMessage:@"クエストを受注しました!" forDuration:2.0f];
             [self request:0]; //notjoinから更新するよ
             [[GXBucketManager sharedManager] countJoinedBucket];
+            [GXGoogleTrackingManager sendEventTracking:@"Quest" action:@"accept" label:@"受注" value:nil screen:@"NotJoinQuestView"];
         }
     }];
 }
@@ -471,6 +484,7 @@
             [notis displayNotificationWithMessage:@"クエストを募集しました!" forDuration:2.0f];
             [self request:0]; //notjoinから更新するよ
             [[GXBucketManager sharedManager] countInviteBucket];
+            [GXGoogleTrackingManager sendEventTracking:@"Quest" action:@"invite" label:@"募集" value:nil screen:@"NotJoinQuestView"];
         }
     }];
 }

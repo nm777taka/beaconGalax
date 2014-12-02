@@ -12,6 +12,8 @@
 #import "GXBeacon.h"
 #import "GXDictonaryKeys.h"
 #import "GXNotification.h"
+#import "GXGoogleTrackingManager.h"
+
 #define kBeaconUUID @"B9407F30-F5F8-466E-AFF9-25556B57FE6D"
 #define kQuestTypeOne 0
 #define kQuestTypeMulti 1
@@ -63,6 +65,9 @@
     self.questTitle.font = [UIFont boldFlatFontOfSize:17];
     self.questDesLabel.font = [UIFont boldFlatFontOfSize:14];
     self.questRequireLabel.font = [UIFont boldFlatFontOfSize:14];
+    
+    self.userProgressView.fillOnTouch = NO;
+    self.progressView.fillOnTouch = NO;
     
 }
 
@@ -192,6 +197,8 @@
 - (void)viewDidAppear:(BOOL)animated
 {
     [super viewDidAppear:YES];
+    [GXGoogleTrackingManager sendScreenTracking:@"questExeView"];
+    
 }
 
 - (void)viewDidDisappear:(BOOL)animated
@@ -321,6 +328,7 @@
 //一人用
 - (void)commitOnePersonQuest
 {
+    [GXGoogleTrackingManager sendEventTracking:@"Quest" action:@"oneQuestCommit" label:@"一人用クエストコミット" value:nil screen:@"questExeView"];
     KiiServerCodeEntry *entry = [Kii serverCodeEntry:@"commitOnePersonQuest"];
     NSDictionary *argDict = [NSDictionary dictionaryWithObjectsAndKeys:self.exeQuest.objectURI,@"questURI", nil];
     KiiServerCodeEntryArgument *argument = [KiiServerCodeEntryArgument argumentWithDictionary:argDict];
@@ -337,6 +345,7 @@
 //協力型のクエスト
 - (void)commitQuest
 {
+    [GXGoogleTrackingManager sendEventTracking:@"Quest" action:@"multiQuestCommit" label:@"協力クエストコミット" value:nil screen:@"questExeView"];
     KiiServerCodeEntry *entry = [Kii serverCodeEntry:@"commitGroupQuest"];
     NSDictionary* argDict= [NSDictionary dictionaryWithObjectsAndKeys:
                             self.exeQuest.objectURI,@"questURI",self.exeGroup.objectURI,@"groupURI",[NSNumber numberWithInt:self.groupMemberNum],@"memberNum",nil];

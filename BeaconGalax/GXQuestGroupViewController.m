@@ -15,6 +15,8 @@
 #import "GXBucketManager.h"
 #import "GXExeQuestManager.h"
 
+#import "GXGoogleTrackingManager.h"
+
 @interface GXQuestGroupViewController ()<UICollectionViewDataSource,UICollectionViewDelegate>
 
 @property (weak, nonatomic) IBOutlet UICollectionView *collectionView;
@@ -262,6 +264,8 @@
     [NSTimer bk_scheduledTimerWithTimeInterval:2.0f block:^(NSTimer *timer) {
         [self gotoQuestExeView];
         [SVProgressHUD dismiss];
+        [GXGoogleTrackingManager sendEventTracking:@"Quest" action:@"start_multi" label:@"協力クエスト開始" value:nil screen:@"questGroupView"];
+        
     } repeats:NO];
 }
 

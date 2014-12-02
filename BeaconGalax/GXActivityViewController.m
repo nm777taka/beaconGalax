@@ -14,6 +14,8 @@
 
 #import "GXBucketManager.h"
 
+#import "GXGoogleTrackingManager.h"
+
 @interface GXActivityViewController ()<UITableViewDataSource,UITableViewDelegate,GXActivityListDelegate>
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 @property (nonatomic,strong) GXActivityList *activityList;
@@ -41,6 +43,12 @@
     [_activityList requestAsynchronous];
 
     
+}
+
+- (void)viewDidAppear:(BOOL)animated
+{
+    [super viewDidAppear:animated];
+    [GXGoogleTrackingManager sendScreenTracking:@"activityView"];
 }
 
 - (void)didReceiveMemoryWarning {

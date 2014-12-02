@@ -16,6 +16,8 @@
 #import "GXUserManager.h"
 #import "GXDictonaryKeys.h"
 
+#import "GXGoogleTrackingManager.h"
+
 @interface GXQuestDetailViewController()
 
 @property (weak, nonatomic) IBOutlet UILabel *titleLabel;
@@ -69,6 +71,7 @@
 - (void)viewDidAppear:(BOOL)animated
 {
     [super viewDidAppear:animated];
+    [GXGoogleTrackingManager sendScreenTracking:@"questDetailView"];
 }
 
 - (void)configureDetailPanel
