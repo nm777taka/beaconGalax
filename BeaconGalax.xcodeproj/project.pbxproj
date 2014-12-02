@@ -128,6 +128,7 @@
 		0FDD5FC21A217D7700FBC852 /* NSObject+BlocksWait.m in Sources */ = {isa = PBXBuildFile; fileRef = 0FDD5FC11A217D7700FBC852 /* NSObject+BlocksWait.m */; };
 		0FDD5FC51A21813F00FBC852 /* GXUserDefaults.m in Sources */ = {isa = PBXBuildFile; fileRef = 0FDD5FC41A21813F00FBC852 /* GXUserDefaults.m */; };
 		0FF16CE9197F86DB00B02702 /* NSMutableArray+Extended.m in Sources */ = {isa = PBXBuildFile; fileRef = 0FF16CE8197F86DB00B02702 /* NSMutableArray+Extended.m */; };
+		0FF87EBF1A2E1E0C00798090 /* GXGoogleFormViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0FF87EBE1A2E1E0C00798090 /* GXGoogleFormViewController.m */; };
 		CEEFFA2740D749D0AE5B5B2D /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 0F597A99B7864A4393B072E4 /* libPods.a */; };
 /* End PBXBuildFile section */
 
@@ -344,6 +345,8 @@
 		0FDD5FC41A21813F00FBC852 /* GXUserDefaults.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GXUserDefaults.m; sourceTree = "<group>"; };
 		0FF16CE7197F86DB00B02702 /* NSMutableArray+Extended.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSMutableArray+Extended.h"; sourceTree = "<group>"; };
 		0FF16CE8197F86DB00B02702 /* NSMutableArray+Extended.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSMutableArray+Extended.m"; sourceTree = "<group>"; };
+		0FF87EBD1A2E1E0C00798090 /* GXGoogleFormViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GXGoogleFormViewController.h; sourceTree = "<group>"; };
+		0FF87EBE1A2E1E0C00798090 /* GXGoogleFormViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GXGoogleFormViewController.m; sourceTree = "<group>"; };
 		E359C94E1AFB4D60B499DEE6 /* Pods.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.xcconfig; path = Pods/Pods.xcconfig; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -1000,6 +1003,7 @@
 		0FCFCCC21A1B68D20070FA91 /* SettingView */ = {
 			isa = PBXGroup;
 			children = (
+				0FF87EBC1A2E1DEA00798090 /* アンケート */,
 				0FCFCCC91A1B6E200070FA91 /* Beacon */,
 				0FCFCCC61A1B6CBD0070FA91 /* GXSettingTableViewController.h */,
 				0FCFCCC71A1B6CBD0070FA91 /* GXSettingTableViewController.m */,
@@ -1112,6 +1116,15 @@
 				0FA1E9EE19C06FD8003D7CDE /* GXTestBeaconViewController.m */,
 			);
 			name = BeaconViewController;
+			sourceTree = "<group>";
+		};
+		0FF87EBC1A2E1DEA00798090 /* アンケート */ = {
+			isa = PBXGroup;
+			children = (
+				0FF87EBD1A2E1E0C00798090 /* GXGoogleFormViewController.h */,
+				0FF87EBE1A2E1E0C00798090 /* GXGoogleFormViewController.m */,
+			);
+			name = "アンケート";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -1295,6 +1308,7 @@
 				0FDD5FC51A21813F00FBC852 /* GXUserDefaults.m in Sources */,
 				0F3558321A1197470023F2FF /* JVFloatLabeledTextField.m in Sources */,
 				0FC9FF1B19EBC6CD00E78B39 /* GXStatusViewCell.m in Sources */,
+				0FF87EBF1A2E1E0C00798090 /* GXGoogleFormViewController.m in Sources */,
 				0F6E291519ED40CF005BE433 /* GXInviteQuestViewController.m in Sources */,
 				0F7F4147195E77F200A796AD /* GXKiiCloud.m in Sources */,
 				0F649FED19D1543200D48074 /* GXFooterCell.m in Sources */,

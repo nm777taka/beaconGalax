@@ -7,9 +7,11 @@
 //
 
 #import "GXSettingTableViewController.h"
+#import "GXGoogleFormViewController.h"
 
 @interface GXSettingTableViewController ()
 @property (strong, nonatomic) IBOutlet UITableView *tableView;
+@property NSInteger selectedCellIndex;
 - (IBAction)closeView:(id)sender;
 
 @end
@@ -42,6 +44,22 @@
                     //segue
                     [self performSegueWithIdentifier:@"beacon" sender:self];
                     break;
+                    
+                case 1: //実験前（所属意識)
+                    _selectedCellIndex = indexPath.row;
+                    [self performSegueWithIdentifier:@"gotoGoogleForm" sender:self];
+                    break;
+                    
+                case 2: //ユーザビリティ
+                    _selectedCellIndex = indexPath.row;
+                    [self performSegueWithIdentifier:@"gotoGoogleForm" sender:self];
+                    break;
+                
+                case 3: //実験後(所属意識)
+                    _selectedCellIndex = indexPath.row;
+                    [self performSegueWithIdentifier:@"gotoGoogleForm" sender:self];
+                    break;
+                    
                     
                 default:
                     break;
@@ -93,6 +111,25 @@
 // In a storyboard-based application, you will often want to do a little preparation before navigation
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
     if ([segue.identifier isEqualToString:@"beacon"]) {
+        
+    } else if ([segue.identifier isEqualToString:@"gotoGoogleForm"]) {
+        GXGoogleFormViewController *googleFormView = segue.destinationViewController;
+        switch (_selectedCellIndex) {
+            case 1:
+                googleFormView.urlString = @"https://docs.google.com/forms/d/1_ZWsg4vTu8t_aqM_MIwsquaGUut-esRFJ122nmiR73Y/viewform?usp=send_form";
+                break;
+                
+            case 2:
+                googleFormView.urlString = @"https://docs.google.com/forms/d/1QtWs_m8Bvdb3MXfnwtPZ0S3f0dQvj5UmKsKA9Ksg8QA/viewform?usp=send_form";
+                break;
+                
+            case 3:
+                googleFormView.urlString = @"https://docs.google.com/forms/d/1dDg9Wq2eLVM5X4UscVikLQIjalXY8Ct2XpXFkM2Qmlw/viewform?usp=send_form";
+                break;
+                
+            default:
+                break;
+        }
         
     }
 }
