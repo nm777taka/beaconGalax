@@ -361,7 +361,6 @@
         NSDictionary *returendDict = [result returnedValue];
         NSLog(@"returnd:%@",returendDict);
     }];
-    
 }
 
 - (void)gotoClearView
