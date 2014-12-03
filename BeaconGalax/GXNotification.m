@@ -67,5 +67,7 @@ NSString *const GXSignUpNotification = @"GXSignUpNotification";
 
 NSString *const GXBucketObjectCountNotification = @"GXBucketObjectCountNotification";
 
+NSString *const GXGetTargetBeaconUserFbidNotification = @"GXGetTargetBeaconUserFbidNotification";
+
 
 @end

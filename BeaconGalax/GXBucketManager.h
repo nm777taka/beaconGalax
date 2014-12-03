@@ -72,9 +72,10 @@
 - (void)deleteJoinedQuest:(KiiObject *)obj;
 
 - (KiiObject *)getGalaxUser:(NSString *)userURI;
-
-
 - (NSMutableArray *)getQuestMembers:(NSArray *)members;
+
+//近づく、集まる対象のbeaconに紐付いたユーザfbidを取得する
+- (void)getTargetBeaconUserFbid:(NSNumber *)major;
 
 //その内サーバー側で処理できるようにする
 - (void)getQuestForQuestBoard;

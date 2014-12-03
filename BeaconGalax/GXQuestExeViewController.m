@@ -13,6 +13,7 @@
 #import "GXDictonaryKeys.h"
 #import "GXNotification.h"
 #import "GXGoogleTrackingManager.h"
+#import "GXBucketManager.h"
 
 #define kBeaconUUID @"B9407F30-F5F8-466E-AFF9-25556B57FE6D"
 #define kQuestTypeOne 0
@@ -192,6 +193,7 @@
 - (void)viewWillAppear:(BOOL)animated
 {
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(questCommitHandler:) name:GXCommitQuestNotification object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(getTargetBeaconUserFbid:) name:GXGetTargetBeaconUserFbidNotification object:nil];
     [self questParse];
     [self startBeacon];
 }
@@ -222,6 +224,9 @@
     [self.questRequireLabel sizeToFit];
     //self.targetUserIconView.profileID = [self.exeQuest getObjectForKey:quest_owner_fbid];
     //userbeaconから紐付いたやつを持ってくる(targetのbeaconから)
+    [[GXBucketManager sharedManager] getTargetBeaconUserFbid:[self.exeQuest getObjectForKey:@"major"]];
+    
+    
     
 }
 - (void)startBeacon
@@ -326,6 +331,14 @@
 - (void)questEndHandler:(NSNotification *)notis
 {
     [self gotoClearView];
+}
+
+- (void)getTargetBeaconUserFbid:(NSNotification *)notis
+{
+    if (notis.object) {
+        NSString *fbid = notis.object;
+        _targetUserIconView.profileID = fbid;
+    }
 }
 
 

@@ -679,7 +679,21 @@
             [[NSNotificationCenter defaultCenter] postNotificationName:GXBucketObjectCountNotification object:dict];
         }
     }];
+}
 
+- (void)getTargetBeaconUserFbid:(NSNumber *)major
+{
+    KiiClause *clause = [KiiClause equals:@"major" value:major];
+    KiiQuery *query = [KiiQuery queryWithClause:clause];
+    [self.user_beacons executeQuery:query withBlock:^(KiiQuery *query, KiiBucket *bucket, NSArray *results, KiiQuery *nextQuery, NSError *error) {
+        if (!error) {
+            if (results.count == 1) {
+                KiiObject *obj = results.firstObject;
+                NSString *fbid = [obj getObjectForKey:@"fbid"];
+                [[NSNotificationCenter defaultCenter] postNotificationName:GXGetTargetBeaconUserFbidNotification object:fbid];
+            }
+        }
+    }];
 }
 
 @end
