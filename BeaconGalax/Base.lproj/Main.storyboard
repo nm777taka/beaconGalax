@@ -419,7 +419,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="4ro-C3-VLx" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2695" y="-1193"/>
+            <point key="canvasLocation" x="3227" y="-1193"/>
         </scene>
         <!--クエスト-->
         <scene sceneID="IUh-rZ-Cto">
@@ -595,13 +595,15 @@
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
+                    <navigationItem key="navigationItem" id="O0j-oU-Evi"/>
                     <connections>
                         <outlet property="collectionView" destination="Cv6-Df-ISz" id="vrB-mb-H7v"/>
+                        <segue destination="ZLd-hL-qSR" kind="push" identifier="gotoReadyView" id="9er-8S-DxY"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="fmW-Bd-D31" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1755" y="-583"/>
+            <point key="canvasLocation" x="2041" y="-583"/>
         </scene>
         <!--Create View Controller-->
         <scene sceneID="AqG-Wx-e1p">
@@ -769,11 +771,12 @@
                         <outlet property="headerLabel" destination="VdP-Yp-eeS" id="864-5I-iZu"/>
                         <outlet property="ownerIconView" destination="7cp-zc-PtN" id="cDE-co-ncn"/>
                         <outlet property="proxLabel" destination="BQe-UH-Jfl" id="dki-LW-976"/>
+                        <segue destination="2KE-J0-tPr" kind="push" identifier="gotoGroupView" id="dOG-c4-pJL"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Rg5-EO-v8n" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1755" y="-1223"/>
+            <point key="canvasLocation" x="2423" y="-583"/>
         </scene>
         <!--クエストパーティー-->
         <scene sceneID="bvE-KX-rpo">
@@ -849,7 +852,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="1nY-2Z-ElD" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2387" y="-281"/>
+            <point key="canvasLocation" x="2919" y="-281"/>
         </scene>
         <!--Quest Detail View Controller-->
         <scene sceneID="162-5w-95B">
@@ -1145,6 +1148,24 @@
             </objects>
             <point key="canvasLocation" x="1323" y="217"/>
         </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="cIQ-UK-VLv">
+            <objects>
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="3Um-Pg-6iu" sceneMemberID="viewController">
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="xz1-WG-0AA">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="TAN-3Y-oeI" kind="relationship" relationship="rootViewController" id="IXy-4t-7gh"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="pkr-mc-4vm" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1647" y="-583"/>
+        </scene>
     </scenes>
     <resources>
         <image name="home-32.png" width="32" height="32"/>
@@ -1155,4 +1176,7 @@
         <simulatedOrientationMetrics key="orientation"/>
         <simulatedScreenMetrics key="destination" type="retina4"/>
     </simulatedMetricsContainer>
+    <inferredMetricsTieBreakers>
+        <segue reference="dOG-c4-pJL"/>
+    </inferredMetricsTieBreakers>
 </document>

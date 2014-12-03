@@ -11,6 +11,7 @@
 #import "JVFloatLabeledTextView.h"
 #import "GXBucketManager.h"
 #import "GXUserManager.h"
+#import "GXDictonaryKeys.h"
 
 const static CGFloat kJVFieldHeight = 44.0f;
 const static CGFloat kJVFieldMargin = 10.0f;
@@ -96,9 +97,11 @@ const static CGFloat kJVFieldFloatingLabelFontSize = 11.0f;
     KiiObject *gxUser = [GXUserManager sharedManager].gxUser;
     KiiObject *obj = [userBeacons createObject];
     NSString *name = [KiiUser currentUser].displayName;
+    NSString *fbid = [gxUser getObjectForKey:user_fb_id];
     NSNumber *major = [NSNumber numberWithInt:[self.beaconMajorFiled.text intValue]];
     [obj setObject:major forKey:@"major"];
     [obj setObject:name forKey:@"name"];
+    [obj setObject:fbid forKey:@"fbid"];
     [obj saveWithBlock:^(KiiObject *object, NSError *error) {
         if (error) {
             NSLog(@"error:%@",error);

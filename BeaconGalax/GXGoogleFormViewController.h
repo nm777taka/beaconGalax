@@ -13,3 +13,4 @@
 @property (nonatomic,retain) NSString *urlString;
 
 @end
+ 

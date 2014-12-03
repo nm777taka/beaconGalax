@@ -23,7 +23,7 @@
 @property (weak, nonatomic) IBOutlet UILabel *questTitle;
 @property (weak, nonatomic) IBOutlet UILabel *proxLabel;
 @property (weak, nonatomic) IBOutlet UILabel *accLabel;
-@property (weak, nonatomic) IBOutlet UIImageView *beaconImage;
+@property (weak, nonatomic) IBOutlet FBProfilePictureView *targetUserIconView;
 @property (weak, nonatomic) IBOutlet UAProgressView *progressView; //全体(クエストの進捗)
 @property (weak, nonatomic) IBOutlet UAProgressView *userProgressView;
 @property (nonatomic,assign) BOOL paused;
@@ -53,14 +53,16 @@
     self.beaconManager.delegate = self;
     self.beaconManager.avoidUnknownStateBeacons = YES;
     
+    self.targetUserIconView.layer.cornerRadius = 100.0f;
+    
     [self configureUserProgress];
     [self configureQuestProgress];
     
     PulsingHaloLayer *halo = [PulsingHaloLayer layer];
-    halo.position = self.beaconImage.center;
+    halo.position = self.targetUserIconView.center;
     halo.backgroundColor = FlatWatermelon.CGColor;
     halo.radius = 240.0f;
-    [self.view.layer insertSublayer:halo below:self.beaconImage.layer];
+    [self.view.layer insertSublayer:halo below:self.targetUserIconView.layer];
     
     self.questTitle.font = [UIFont boldFlatFontOfSize:17];
     self.questDesLabel.font = [UIFont boldFlatFontOfSize:14];
@@ -218,6 +220,8 @@
     [self.questDesLabel sizeToFit];
     self.questRequireLabel.text = [self.exeQuest getObjectForKey:quest_requirement];
     [self.questRequireLabel sizeToFit];
+    //self.targetUserIconView.profileID = [self.exeQuest getObjectForKey:quest_owner_fbid];
+    //userbeaconから紐付いたやつを持ってくる(targetのbeaconから)
     
 }
 - (void)startBeacon

@@ -14,6 +14,7 @@
 #import <FlatUIKit.h>
 #import <SVProgressHUD.h>
 #import <UAProgressView/UAProgressView.h>
+#import <Facebook.h>
 
 @interface GXQuestExeViewController : UIViewController
 

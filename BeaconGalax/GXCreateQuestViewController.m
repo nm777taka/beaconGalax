@@ -97,48 +97,48 @@
 					 }];
 }
 
-- (IBAction)addQuest:(id)sender {
-    
-    if ([self.textView.text length] == 0) {
-        
-        
-    } else {
-       
-        //基本的な情報
-        KiiObject *user = [[GXBucketManager sharedManager] getMeFromGalaxUserBucket];
-        NSString *fbID = [user getObjectForKey:user_fb_id];
-        NSString *userURI = [user getObjectForKey:@"uri"];
-        
-        //クエスト参加時のためのグループを作る
-        NSError *error = nil;
-        NSString *groupName = @"QuestGroup"; //同じグループ名があっても大丈夫っぽい（一意性は保証してない)
-        KiiGroup *group = [KiiGroup groupWithName:groupName];
-        [group saveSynchronous:&error];
-        if (error != nil) {
-            
-        }
-        NSString *groupUri = [group objectURI];
-        
-        
-        //クエスト作成
-        GXQuest *quest = [GXQuest new];
-        quest.title = self.textView.text;
-        quest.fb_id = fbID;
-        quest.createUserURI = userURI;
-        quest.isStarted = @NO;
-        quest.isCompleted = @NO;
-        quest.group_uri = groupUri;
-        quest.createdUserName = [user getObjectForKey:user_name];
-        
-        [[GXBucketManager sharedManager] registerQuest:quest];
-        
-        //このクエストへの参加者をいれるバケットを作成
-        
-        
-        
-    }
-    
-}
+//- (IBAction)addQuest:(id)sender {
+//    
+//    if ([self.textView.text length] == 0) {
+//        
+//        
+//    } else {
+//       
+//        //基本的な情報
+//        KiiObject *user = [[GXBucketManager sharedManager] getMeFromGalaxUserBucket];
+//        NSString *fbID = [user getObjectForKey:user_fb_id];
+//        NSString *userURI = [user getObjectForKey:@"uri"];
+//        
+//        //クエスト参加時のためのグループを作る
+//        NSError *error = nil;
+//        NSString *groupName = @"QuestGroup"; //同じグループ名があっても大丈夫っぽい（一意性は保証してない)
+//        KiiGroup *group = [KiiGroup groupWithName:groupName];
+//        [group saveSynchronous:&error];
+//        if (error != nil) {
+//            
+//        }
+//        NSString *groupUri = [group objectURI];
+//        
+//        
+//        //クエスト作成
+//        GXQuest *quest = [GXQuest new];
+//        quest.title = self.textView.text;
+//        quest.fb_id = fbID;
+//        quest.createUserURI = userURI;
+//        quest.isStarted = @NO;
+//        quest.isCompleted = @NO;
+//        quest.group_uri = groupUri;
+//        quest.createdUserName = [user getObjectForKey:user_name];
+//        
+//        [[GXBucketManager sharedManager] registerQuest:quest];
+//        
+//        //このクエストへの参加者をいれるバケットを作成
+//        
+//        
+//        
+//    }
+//    
+//}
 
 - (IBAction)closeView:(id)sender {
     

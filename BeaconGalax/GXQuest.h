@@ -38,7 +38,6 @@
 //lagacy
 @property (nonatomic,retain) NSString *description;
 @property (nonatomic,retain) NSString *createUserURI;
-@property (nonatomic,retain) NSString *group_uri;
 @property (nonatomic,assign) NSNumber *isStarted;
 @property (nonatomic,assign) NSNumber *isCompleted;
 @property (nonatomic,retain) NSDate *date;

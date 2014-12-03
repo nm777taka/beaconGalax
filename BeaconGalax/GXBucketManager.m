@@ -106,27 +106,27 @@
  タイプ:
  lv:
  */
-- (void)registerQuest:(GXQuest *)quest
-{
-    KiiObject *object = [self.questBoard createObject];
-    [object setObject:quest.title forKey:quest_title];
-    [object setObject:quest.description forKey:quest_description];
-    [object setObject:quest.createUserURI forKey:quest_createUserURI];
-    [object setObject:quest.fb_id forKey:quest_createdUser_fbid];
-    [object setObject:quest.group_uri forKey:quest_groupURI];
-    [object setObject:quest.isStarted forKey:quest_isStarted];
-    [object setObject:quest.isCompleted forKey:quest_isCompleted];
-    [object setObject:quest.createdUserName forKey:quest_createdUserName];
-    
-    NSError *error  = nil;
-    [object saveSynchronous:&error];
-    
-    if (error != nil) {
-        NSLog(@"error : %@",error);
-    } else {
-        [[NSNotificationCenter defaultCenter] postNotificationName:GXQuestCreatedNotification object:nil];
-    }
-}
+//- (void)registerQuest:(GXQuest *)quest
+//{
+//    KiiObject *object = [self.questBoard createObject];
+//    [object setObject:quest.title forKey:quest_title];
+//    [object setObject:quest.description forKey:quest_description];
+//    [object setObject:quest.createUserURI forKey:quest_createUserURI];
+//    [object setObject:quest.fb_id forKey:quest_createdUser_fbid];
+//    [object setObject:quest.group_uri forKey:quest_groupURI];
+//    [object setObject:quest.isStarted forKey:quest_isStarted];
+//    [object setObject:quest.isCompleted forKey:quest_isCompleted];
+//    [object setObject:quest.createdUserName forKey:quest_createdUserName];
+//    
+//    NSError *error  = nil;
+//    [object saveSynchronous:&error];
+//    
+//    if (error != nil) {
+//        NSLog(@"error : %@",error);
+//    } else {
+//        [[NSNotificationCenter defaultCenter] postNotificationName:GXQuestCreatedNotification object:nil];
+//    }
+//}
 
 - (void)registerInviteBoard:(KiiObject *)obj //obj → not_joinedBucket
 {

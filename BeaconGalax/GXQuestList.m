@@ -202,6 +202,7 @@
         if (createdUserName == nil) {
             createdUserName = @"BeaconGalax";
         }
+        NSString *groupURI = [obj getObjectForKey:quest_groupURI];
         
         
         KiiBucket *bucket = obj.bucket;
@@ -213,6 +214,7 @@
         quest.player_num = playerNum;
         quest.createdUserName = createdUserName;
         quest.createdDate = date;
+        quest.groupURI = groupURI;
         [newQuestArray addObject:quest];
     }
 

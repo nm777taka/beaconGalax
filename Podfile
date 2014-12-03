@@ -13,6 +13,8 @@ pod 'UAProgressView'
 pod 'CWStatusBarNotification', '~> 2.2.2'
 pod 'HMSegmentedControl', '~> 1.4.0'
 pod 'DZNSegmentedControl'
+pod 'EAIntroView', '~> 2.6.0'
+pod 'WSCoachMarksView', '~> 0.2'
 
 
 

@@ -135,7 +135,7 @@
 {
     [NSTimer bk_scheduledTimerWithTimeInterval:2.0f block:^(NSTimer *timer) {
         
-        [self performSegueWithIdentifier:@"gotoPartyView" sender:self];
+        [self performSegueWithIdentifier:@"gotoGroupView" sender:self];
 
     } repeats:NO];
 }
@@ -150,7 +150,7 @@
 #pragma mark segue
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
 {
-    if ([segue.identifier isEqualToString:@"gotoPartyView"]) {
+    if ([segue.identifier isEqualToString:@"gotoGroupView"]) {
         GXQuestGroupViewController *vc = segue.destinationViewController;
         vc.willExeQuest = self.willExeQuest;
         vc.selectedQuestGroup = self.selectedQuestGroup;

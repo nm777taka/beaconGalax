@@ -10,6 +10,7 @@
 #import "GXQuestDetailViewController.h"
 #import "GXJoinedQuestCollectionViewCell.h"
 #import "GXQuestExeViewController.h"
+#import "GXQuestReadyViewController.h"
 
 #import "GXBucketManager.h"
 #import "GXExeQuestManager.h"
@@ -29,6 +30,9 @@
 @property (nonatomic,strong) GXQuestDetailViewController *detailViewController;
 @property (nonatomic,strong) GXQuestList *questList;
 @property (nonatomic,strong) GXQuest *selectedQuest;
+@property BOOL isMulti;
+@property KiiObject *selectedObj;
+@property KiiGroup *selectedGroup;
 
 @end
 
@@ -96,6 +100,11 @@
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath
 {
     _selectedQuest = [_questList questAtIndex:indexPath.row];
+    if ([_selectedQuest.player_num intValue] > 1) {
+        _isMulti = YES;
+    } else {
+        _isMulti = NO;
+    }
     FUIAlertView *alert = [FUIAlertView questStartAlertTheme];
     alert.delegate = self;
     [alert show];
@@ -143,7 +152,12 @@
 - (void)alertView:(FUIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
 {
     if (buttonIndex == 1) {
-        [self questStartSequence];
+        if (_isMulti) {
+            [self multiQuestStartSequence];
+        } else {
+            [self questStartSequence];
+        }
+        
     }
 }
 
@@ -165,5 +179,42 @@
             }];
         }
     }];
+}
+
+- (void)multiQuestStartSequence
+{
+    NSLog(@"call");
+    [SVProgressHUD showWithStatus:@"クエスト開始処理中"];
+    GXQuest *quest = _selectedQuest;
+    KiiObject *obj = [KiiObject objectWithURI:quest.quest_id];
+    [obj refreshWithBlock:^(KiiObject *object, NSError *error) {
+        if (error) {
+            NSLog(@"error:%@",error);
+        } else {
+            _selectedObj = object;
+            
+            KiiGroup *group = [KiiGroup groupWithURI:quest.groupURI];
+            [group refreshWithBlock:^(KiiGroup *group, NSError *error) {
+                if (error) {
+                    NSLog(@"error:%@",error);
+                } else {
+                    NSLog(@"refreshGroup");
+                    _selectedGroup = group;
+                    [SVProgressHUD dismiss];
+                    [self performSegueWithIdentifier:@"gotoReadyView" sender:self];
+                }
+            }];
+        }
+    }];
+}
+
+#pragma makr - Segue
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
+{
+    if ([segue.identifier isEqualToString:@"gotoReadyView"]) {
+        GXQuestReadyViewController *vc = segue.destinationViewController;
+        vc.willExeQuest = _selectedObj;
+        vc.selectedQuestGroup = _selectedGroup;
+    }
 }
 @end

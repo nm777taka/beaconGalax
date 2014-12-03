@@ -265,6 +265,12 @@
     }
 }
 
+- (void)questFetched:(NSNotification *)info
+{
+    [self request:0];
+    [SVProgressHUD dismiss];
+}
+
 - (void)registeredInvitedBoard:(NSNotification *)notis
 {
     CWStatusBarNotification *notification = [CWStatusBarNotification new];
