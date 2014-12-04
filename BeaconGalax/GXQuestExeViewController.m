@@ -14,18 +14,20 @@
 #import "GXNotification.h"
 #import "GXGoogleTrackingManager.h"
 #import "GXBucketManager.h"
+#import "FUIAlertView+GXTheme.h"
 
 #define kBeaconUUID @"B9407F30-F5F8-466E-AFF9-25556B57FE6D"
 #define kQuestTypeOne 0
 #define kQuestTypeMulti 1
 
 
-@interface GXQuestExeViewController ()<ESTBeaconDelegate,ESTBeaconManagerDelegate>
+@interface GXQuestExeViewController ()<ESTBeaconDelegate,ESTBeaconManagerDelegate,FUIAlertViewDelegate>
 @property (weak, nonatomic) IBOutlet UILabel *questTitle;
 @property (weak, nonatomic) IBOutlet UILabel *proxLabel;
 @property (weak, nonatomic) IBOutlet UILabel *accLabel;
 @property (weak, nonatomic) IBOutlet FBProfilePictureView *targetUserIconView;
 @property (weak, nonatomic) IBOutlet UAProgressView *progressView; //全体(クエストの進捗)
+- (IBAction)stopExe:(id)sender;
 @property (weak, nonatomic) IBOutlet UAProgressView *userProgressView;
 @property (nonatomic,assign) BOOL paused;
 @property (nonatomic,assign) float localQuestProgress;
@@ -52,7 +54,7 @@
     self.uuid = [[NSUUID alloc]initWithUUIDString:kBeaconUUID];
     self.beaconManager = [ESTBeaconManager new];
     self.beaconManager.delegate = self;
-    self.beaconManager.avoidUnknownStateBeacons = YES;
+    //self.beaconManager.avoidUnknownStateBeacons = YES;
     
     self.targetUserIconView.layer.cornerRadius = 100.0f;
     
@@ -69,8 +71,9 @@
     self.questDesLabel.font = [UIFont boldFlatFontOfSize:14];
     self.questRequireLabel.font = [UIFont boldFlatFontOfSize:14];
     
-    self.userProgressView.fillOnTouch = NO;
-    self.progressView.fillOnTouch = NO;
+    //触るとprogressが進んでしまうので止める
+    self.userProgressView.userInteractionEnabled = NO;
+    self.progressView.userInteractionEnabled = NO;
     
 }
 
@@ -232,6 +235,7 @@
 - (void)startBeacon
 {
     CLBeaconMajorValue major = [[self.exeQuest getObjectForKey:@"major"] intValue];
+    NSLog(@"近づく研究室のbeacon:%d",major);
     self.beaconRegion = [[ESTBeaconRegion alloc] initWithProximityUUID:self.uuid major:major identifier:@"estimote"];
     [self.beaconManager startRangingBeaconsInRegion:self.beaconRegion];
 
@@ -249,7 +253,8 @@
         
         switch (closeBeacon.proximity) {
             case CLProximityImmediate:
-                self.proxLabel.text = @"すごく近い";
+                self.proxLabel.text = @"GREAT!!";
+                [self.proxLabel sizeToFit];
                 if (_paused) {
                     _paused = NO;
                 }
@@ -258,17 +263,29 @@
             case CLProximityNear:
                 if (!_paused) _paused = YES;
 
-                self.proxLabel.text = @"近い";
+                self.proxLabel.text = @"近い！もっと近づこう";
+                [self.proxLabel sizeToFit];
                 break;
                 
             case CLProximityFar:
                 if (!_paused) _paused = YES;
-                self.proxLabel.text = @"遠い";
+                self.proxLabel.text = @"遠いよ！もっと近づこう";
+                [self.proxLabel sizeToFit];
+                break;
+                
+            case CLProximityUnknown:
+                self.proxLabel.text = @"圏外だよ...！";
+                self.accLabel.text = @"-1m";
+                [self.proxLabel sizeToFit];
                 break;
                 
             default:
                 break;
         }
+    } else {
+        //ビーコンがみつかってない
+        self.proxLabel.text = @"ビーコン不明";
+        self.accLabel.text = @"???";
     }
 }
 
@@ -393,4 +410,29 @@
 }
 
 
+#pragma mark - Button Action
+- (IBAction)stopExe:(id)sender {
+    
+    //実行中のクエストを中断して
+    //前のviewに戻る
+    FUIAlertView *alert = [FUIAlertView cautionTheme:@"本当に中断しますか？"];
+    alert.delegate = self;
+    [alert show];
+    
+}
+
+- (void)alertView:(FUIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
+{
+    if (buttonIndex == 1) {
+        //戻る
+        [self goBack];
+    }
+}
+
+- (void)goBack
+{
+    UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:[NSBundle mainBundle]];
+    UIViewController *initViewController = [storyboard instantiateInitialViewController];
+    [self presentViewController:initViewController animated:NO completion:nil];
+}
 @end

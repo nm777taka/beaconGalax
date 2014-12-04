@@ -18,6 +18,8 @@
 + (FUIAlertView *)gotoGroupViewAlertTheme;
 
 + (FUIAlertView *)errorTheme:(NSString *)errorMsg;
++ (FUIAlertView *)cautionTheme:(NSString *)msg;
+
 
 
 @end

@@ -124,11 +124,13 @@ static NSString *const GXQuestInviteTopic = @"GXQuestInviteTopic";
 
 - (void)sendCreateQuestAlert:(NSString *)createdUserName
 {
+    /*
     NSLog(@"sendCreateQuestAlert");
     KiiAPNSFields *apnsFields = [KiiAPNSFields createFields];
     NSString *body = [NSString stringWithFormat:@"%@が新しいクエストを作成しました！",createdUserName];
     
     apnsFields.alertBody = body;
+    apnsFields.badge = @1;
     
     KiiPushMessage *pushMessage = [KiiPushMessage composeMessageWithAPNSFields:apnsFields andGCMFields:nil];
     
@@ -140,6 +142,7 @@ static NSString *const GXQuestInviteTopic = @"GXQuestInviteTopic";
             NSLog(@"sending-alertへ送信完了");
         }
     }];
+     */
 }
 
 

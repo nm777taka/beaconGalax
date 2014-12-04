@@ -129,7 +129,7 @@
 #pragma mark - ToDo
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath
 {
-    
+    [SVProgressHUD showWithStatus:@"通信中"];
     GXQuest *quest = [_questList questAtIndex:indexPath.row];
     KiiObject *obj = [KiiObject objectWithURI:quest.quest_id];
     [obj refreshWithBlock:^(KiiObject *object, NSError *error) {
@@ -143,11 +143,13 @@
                     
                     //クエスト募集者ならグループviewへ
                     if ([self isOwner:group]) {
+                        [SVProgressHUD dismiss];
                         [self gotoQuestPartyView];
                         return ;
                     }
                     
                     //募集者じゃないなら参加処理へ
+                    [SVProgressHUD dismiss];
                     [self showPushSendAlert];
                 }
             }];
@@ -315,12 +317,12 @@
         if (!error) {
             
             KiiObject *obj = results.firstObject;
+            KiiObject *gxUser = [GXUserManager sharedManager].gxUser;
             //自分の参加済み協力クエに登録
             [[GXBucketManager sharedManager] acceptNewQuest:obj];
             //notJoinから消す
             //[[GXBucketManager sharedManager] deleteJoinedQuest:self.willDeleteObjAtNotJoin];
             //Activity
-            KiiObject *gxUser = [GXUserManager sharedManager].gxUser;
             NSString *name = [gxUser getObjectForKey:user_name];
             NSString *questName = [obj getObjectForKey:quest_title];
             NSString *text = [NSString stringWithFormat:@"%@クエストに参加しました",questName];

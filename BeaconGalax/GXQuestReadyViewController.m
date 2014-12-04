@@ -75,9 +75,11 @@
     [self.beaconManager stopRangingBeaconsInRegion:self.beaconRegion];
 }
 
+#pragma mark Todo:修正必要
 - (void)startBeacon
 {
-    CLBeaconMajorValue major = [[self.willExeQuest getObjectForKey:@"major"] intValue];
+    //ここのmajorがクエスト達成に使うbeaconになってる
+    CLBeaconMajorValue major = [[self.willExeQuest getObjectForKey:@"owner_major"] intValue];
     self.beaconRegion = [[ESTBeaconRegion alloc] initWithProximityUUID:self.uuid major:major identifier:@"estimote"];
     [self.beaconManager startRangingBeaconsInRegion:self.beaconRegion];
     

@@ -58,15 +58,14 @@
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(memberFetched:) name:GXGroupMemberFetchedNotification object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(questStart:) name:GXStartQuestNotification object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(userReady:) name:@"ready" object:nil];
-
-
-    self.quest = [[GXBucketManager sharedManager] getGroupQuest:self.selectedQuestGroup];
 }
 
 - (void)viewDidAppear:(BOOL)animated
 {
     [super viewDidAppear:animated];
     //メンバーフェッチ
+    self.quest = [[GXBucketManager sharedManager] getGroupQuest:self.selectedQuestGroup]; //groupScopeのクエストをとってくる
+    
     [self.selectedQuestGroup refreshWithBlock:^(KiiGroup *group, NSError *error) {
         if (error) NSLog(@"error:%@",error);
         else
@@ -101,7 +100,9 @@
 {
     NSError *error;
     [self.quest refreshSynchronous:&error];
-    if ([[self.quest getObjectForKey:quest_isReady_num] intValue] > 0 ) {
+    //0以上判定だと、だれかが置いてけぼりになる可能性がある
+    NSInteger memberNum = _questMemberArray.count - 1; //リーダは除く
+    if ([[self.quest getObjectForKey:quest_isReady_num] intValue] == memberNum ) {
         NSError *error;
         KiiTopic *startTopic = [self.selectedQuestGroup topicWithName:@"quest_start"];
         KiiAPNSFields *apnsFields = [KiiAPNSFields createFields];
@@ -115,6 +116,9 @@
             
             
         }
+    } else {
+        //メンバー全員がready状態じゃない
+        [SVProgressHUD showErrorWithStatus:@"準備完了じゃないメンバーがいます"];
     }
 }
 

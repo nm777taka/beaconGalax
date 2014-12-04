@@ -9,16 +9,22 @@
 #import "GXQuestDetailViewController.h"
 #import "GXQuestExeViewController.h"
 #import "GXQuestReadyViewController.h"
+#import <CWStatusBarNotification.h>
 #import "GXQuestBucketManager.h"
 #import "GXActivityList.h"
 #import "GXExeQuestManager.h"
 #import "GXBucketManager.h"
 #import "GXUserManager.h"
 #import "GXDictonaryKeys.h"
-
+#import "FUIAlertView+GXTheme.h"
+#import "GXNotification.h"
 #import "GXGoogleTrackingManager.h"
 
-@interface GXQuestDetailViewController()
+#define kNotjoin 0
+#define kJoined 1
+#define kInvite 2
+
+@interface GXQuestDetailViewController()<FUIAlertViewDelegate>
 
 @property (weak, nonatomic) IBOutlet UILabel *titleLabel;
 @property (weak, nonatomic) IBOutlet UILabel *descriptionLabel;
@@ -29,6 +35,7 @@
 @property (weak, nonatomic) IBOutlet CSAnimationView *detailPanel;
 @property (weak, nonatomic) IBOutlet FBProfilePictureView *fbIconView;
 - (IBAction)questAction:(id)sender;
+- (IBAction)questDeleteAction:(id)sender;
 - (IBAction)closeAction:(id)sender;
 @property (weak, nonatomic) IBOutlet UIButton *questActionButton;
 
@@ -55,8 +62,6 @@
     [super viewDidLoad];
     _fbIconView.layer.cornerRadius = 20.f;
     
-    
-    
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -82,83 +87,6 @@
     _descriptionLabel.text = _quest.quest_des;
     
     _isMulti = [self isMultiQuest];
-    
-//    NSInteger questType = [self chekckQuestType];
-//    
-//    switch (questType) {
-//        case 0: //新しいクエ
-//            NSLog(@"notjoin");
-//            if (_isMulti) {
-//                [self.questActionButton setTitle:@"募集" forState:UIControlStateNormal];
-//                [self.questActionButton addTarget:self action:@selector(inviteQuestHandler) forControlEvents:UIControlEventTouchUpInside];
-//            } else {
-//                [self.questActionButton setTitle:@"受注" forState:UIControlStateNormal];
-//                [self.questActionButton addTarget:self action:@selector(acceptNewQuest) forControlEvents:UIControlEventTouchUpInside];
-//            }
-//            break;
-//            
-//        case 1://受注済み
-//            NSLog(@"joined");
-//            [self.questActionButton setTitle:@"開始" forState:UIControlStateNormal];
-//            [self.questActionButton addTarget:self action:@selector(joinedQuestStart) forControlEvents:UIControlEventTouchUpInside];
-//            break;
-//            
-//        case 2: //募集
-//            NSLog(@"invite");
-//            //募集者かどうかをチェック
-//            _isOwner = [self isQuestInviter];
-//            if (_isOwner) {
-//                NSLog(@"enter");
-//                [self.questActionButton setTitle:@"開始" forState:UIControlStateNormal];
-//                [self.questActionButton addTarget:self action:@selector(multiQuestStart) forControlEvents:UIControlEventTouchUpInside];
-//                
-//            } else {
-//                NSLog(@"enter1");
-//                [self.questActionButton setTitle:@"参加" forState:UIControlStateNormal];
-//                //参加ハンドラーへ
-//                [self.questActionButton addTarget:self action:@selector(requestAddQuestGroup) forControlEvents:UIControlEventTouchUpInside];
-//            }
-//            break;
-//            
-//        default:
-//            break;
-//    }
-    
-}
-
-- (BOOL)isQuestInviter
-{
-    BOOL ret;
-    NSString *name = [[GXUserManager sharedManager].gxUser getObjectForKey:user_name];
-    if ([name isEqualToString:_quest.owner]) {
-        NSLog(@"募集者です");
-        ret = YES;
-    } else {
-        ret = NO;
-    }
-    return ret;
-}
-
-- (BOOL)isAlreadyJoinedParty
-{
-    NSError *error;
-    KiiObject *obj = [KiiObject objectWithURI:_quest.quest_id];
-    [obj refreshSynchronous:&error];
-    KiiGroup *group = [KiiGroup groupWithURI:[obj getObjectForKey:quest_groupURI]];
-    [group refreshSynchronous:&error];
-    
-    BOOL ret = false;
-    NSArray *members = [group getMemberListSynchronous:&error];
-    for (KiiUser *user in members) {
-        if ([user.objectURI isEqualToString:[KiiUser currentUser].objectURI]) {
-            ret = YES;
-            break;
-        } else {
-            ret = false;
-        }
-    }
-    
-    return ret;
 }
 
 - (BOOL)isMultiQuest
@@ -193,6 +121,35 @@
 #pragma mark - TODO
 #pragma ButtonAction
 
+- (IBAction)questDeleteAction:(id)sender
+{
+    NSInteger viewControllerIndex = [self chekckQuestType];
+    FUIAlertView *alert = [FUIAlertView errorTheme:@"クエストを本当に削除しますか?"];
+    alert.title = @"確認";
+    alert.delegate = self;
+
+    switch (viewControllerIndex) {
+        case kNotjoin:
+            alert.tag = kNotjoin;
+            [alert show];
+           break;
+            
+        case kJoined:
+            alert.tag = kJoined;
+            [alert show];
+            break;
+            
+        case kInvite:
+            alert.tag = kInvite;
+            [alert show];
+            break;
+            
+        default:
+            break;
+    }
+    
+}
+
 - (IBAction)closeAction:(id)sender {
     
     [self close];
@@ -212,170 +169,68 @@
 
 }
 
-#pragma mark - QuestBotton Selector
-//新しいクエストを受注(一人用)
-- (void)acceptNewQuest
+- (void)alertView:(FUIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
 {
-    KiiObject *obj = [KiiObject objectWithURI:_quest.quest_id];
-    [obj refreshWithBlock:^(KiiObject *object, NSError *error) {
-        if (error) {
-        } else {
-            [[GXBucketManager sharedManager] acceptNewQuest:object];
-            [[GXBucketManager sharedManager] deleteJoinedQuest:object];
-
-        }
-    }];
-}
-
-//参加済みの一人クエストを開始
-- (void)joinedQuestStart
-{
-    KiiObject *obj = [KiiObject objectWithURI:_quest.quest_id];
-    [obj refreshWithBlock:^(KiiObject *object, NSError *error) {
-        if (!error) {
-            if (_isMulti) {
-                //協力型
-                [[NSNotificationCenter defaultCenter] postNotificationName:@"gotoMemberView" object:object];
-                [self.view removeFromSuperview];
-                
-            } else {
-                //一人用だったら開始
-                UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"subStoryboard" bundle:nil];
-                GXQuestExeViewController *initialViewController = [storyboard instantiateInitialViewController];
-                initialViewController.exeQuest = obj;
-                [self presentViewController:initialViewController animated:YES completion:^{
-                    //QMで管理
-                    [GXExeQuestManager sharedManager].nowExeQuest = obj;
-                    [self.view removeFromSuperview];
-                }];
+    switch (alertView.tag) {
+        case kNotjoin:
+            if (buttonIndex == 1) {
+                //削除実行
             }
-        }
-    }];
-}
-
-//クエストを募集する(協力型クエスト)
-- (void)inviteQuestHandler
-{
-    KiiObject *obj = [KiiObject objectWithURI:_quest.quest_id];
-    [obj refreshWithBlock:^(KiiObject *object, NSError *error) {
-        if (!error) {
-            [[GXBucketManager sharedManager] registerInviteBoard:obj];
-            [[GXBucketManager sharedManager] deleteJoinedQuest:obj];
-            
-            [self close];
-        }
-    }];
-    
-}
-
-//マルチクエストをスタート (リーダー)
-- (void)multiQuestStart
-{
-    KiiObject *obj = [KiiObject objectWithURI:_quest.quest_id];
-    [obj refreshWithBlock:^(KiiObject *object, NSError *error) {
-        if (!error) {
-            
-            [[NSNotificationCenter defaultCenter] postNotificationName:@"gotoMemberView" object:object];
-            [self.view removeFromSuperview];
-
-        }
-    }];
-}
-
-//協力型クエストのパーティーに参加する
-- (void)requestAddQuestGroup
-{
-    [SVProgressHUD showWithStatus:@"パーティー参加申請中"];
-    
-    if ([self isAlreadyJoinedParty]) {
-        CWStatusBarNotification *notification = [CWStatusBarNotification new];
-        notification.notificationLabelBackgroundColor = [UIColor alizarinColor];
-        notification.notificationStyle =CWNotificationStyleNavigationBarNotification;
-        [notification displayNotificationWithMessage:@"既に参加済みです" forDuration:2.0f];
+            break;
         
-        [SVProgressHUD dismiss];
-        return;
+        case kJoined:
+            if (buttonIndex == 1) {
+                //削除実行
+                
+            }
+            
+        default:
+            break;
     }
-    
-    KiiObject *obj = [KiiObject objectWithURI:_quest.quest_id];
+
+}
+
+- (void)delete
+{
+    KiiObject *obj = [KiiObject objectWithURI:self.quest.quest_id];
     [obj refreshWithBlock:^(KiiObject *object, NSError *error) {
         if (!error) {
-            
-            KiiServerCodeEntry *entry = [Kii serverCodeEntry:@"addGroup"];
-            NSString *groupURI = [object getObjectForKey:quest_groupURI];
-            NSString *kiiuserURI = [KiiUser currentUser].objectURI;
-            KiiObject *gxUser = [GXUserManager sharedManager].gxUser;
-            NSString *gxUserURI = gxUser.objectURI;
-            
-            NSDictionary *argDict = [NSDictionary dictionaryWithObjectsAndKeys:groupURI,@"groupURI",kiiuserURI,@"userURI",gxUserURI,@"gxURI", nil];
-            
-            KiiServerCodeEntryArgument *argument = [KiiServerCodeEntryArgument argumentWithDictionary:argDict];
-            
-            [entry execute:argument withBlock:^(KiiServerCodeEntry *entry, KiiServerCodeEntryArgument *argument, KiiServerCodeExecResult *result, NSError *error) {
-                NSDictionary *retDict = [result returnedValue];
-                NSLog(@"returned:%@",retDict);
-                [self addedGroup:object];
+            //削除
+            [object deleteWithBlock:^(KiiObject *object, NSError *error) {
+                if (!error) {
+                    NSLog(@"削除完了");
+                    [[NSNotificationCenter defaultCenter] postNotificationName:GXQuestDeletedNotification object:nil];
+                    CWStatusBarNotification *notis = [CWStatusBarNotification new];
+                    notis.notificationLabelBackgroundColor = [UIColor turquoiseColor];
+                    notis.notificationLabel.textColor = [UIColor cloudsColor];
+                    [self close];
+                }
             }];
         }
     }];
 }
 
-- (void)addedGroup:(KiiObject *)obj
+- (void)deleteJoinedQuest
 {
-    NSError *error;
-    //今選択しているobjのグループに参加したから
-    NSString *groupURI = [obj getObjectForKey:quest_groupURI];
-    KiiGroup *joinedGroup = [KiiGroup groupWithURI:groupURI];
-    [joinedGroup refreshSynchronous:&error];
-    
-    //トピック購読
-    KiiTopic *topic = [joinedGroup topicWithName:@"quest_start"];
-    [KiiPushSubscription subscribe:topic withBlock:^(KiiPushSubscription *subscription, NSError *error) {
-        if (error) NSLog(@"error:%@",error);
-    }];
-    
-    //参加したクエストを取得
-    KiiBucket *bucket = [joinedGroup bucketWithName:@"quest"];
-    KiiQuery *query = [KiiQuery queryWithClause:nil];
-    [bucket executeQuery:query withBlock:^(KiiQuery *query, KiiBucket *bucket, NSArray *results, KiiQuery *nextQuery, NSError *error) {
+    if (_isMulti) {
+        //協力クエストを削除
+        //参加したけどやめる的な感じ
+        //もしくはなにかしらのエラーで参加クエストが既にはじまってしまった場合
+        NSLog(@"参加した協力クエストを削除します");
+        //グループから自分を削除＆グループのメンバーバケットからも削除
         
-        if (!error) {
-            
-            KiiObject *obj = results.firstObject;
-            //自分の参加済み協力クエに登録
-            [[GXBucketManager sharedManager] acceptNewQuest:obj];
-            //notJoinから消す
-//            [[GXBucketManager sharedManager] deleteJoinedQuest:self.willDeleteObjAtNotJoin];
-            //Activity
-            KiiObject *gxUser = [GXUserManager sharedManager].gxUser;
-            NSString *name = [gxUser getObjectForKey:user_name];
-            NSString *questName = [obj getObjectForKey:quest_title];
-            NSString *text = [NSString stringWithFormat:@"%@クエストに参加しました",questName];
-            [[GXActivityList sharedInstance] registerQuestActivity:name title:text fbid:[gxUser getObjectForKey:user_fb_id]];
-            
-        }
         
-    }];
+    } else {
+        //一人用クエストを削除
+    }
+}
+
+- (void)removeQuestGroup
+{
     
-    KiiBucket *clearJudegeBucket = [joinedGroup bucketWithName:@"clear_judge"];
-    
-    [KiiPushSubscription subscribe:clearJudegeBucket withBlock:^(KiiPushSubscription *subscription, NSError *error) {
-        
-        if (!error) NSLog(@"参加者によるグループバケットの購読完了");
-    }];
-    
-    [SVProgressHUD dismiss];
-    
-    CWStatusBarNotification *notification = [CWStatusBarNotification new];
-    notification.notificationLabelBackgroundColor = [UIColor turquoiseColor];
-    notification.notificationStyle = CWNotificationStyleNavigationBarNotification;
-    [notification displayNotificationWithMessage:@"パーティーに参加しました" forDuration:2.0f];
-    
-    [self close];
 }
 
 
 
-#pragma mark - Segue
 
 @end
