@@ -25,6 +25,7 @@
 @property KiiObject *quest;
 
 @property (weak, nonatomic) IBOutlet FUIButton *actionButton;
+@property BOOL isActionButtonPushed;
 
 @end
 
@@ -49,6 +50,8 @@
     self.actionButton.cornerRadius = 6.0f;
     self.actionButton.titleLabel.font = [UIFont boldFlatFontOfSize:16];
     
+    _isActionButtonPushed = NO; //連打されると落ちるためにフラグで管理
+    
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -58,6 +61,9 @@
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(memberFetched:) name:GXGroupMemberFetchedNotification object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(questStart:) name:GXStartQuestNotification object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(userReady:) name:@"ready" object:nil];
+    
+    //一応フラグをおっとく
+    _isActionButtonPushed = NO;
 }
 
 - (void)viewDidAppear:(BOOL)animated
@@ -76,7 +82,12 @@
             //オーナー
             [self.actionButton setTitle:@"Start" forState:UIControlStateNormal];
             [self.actionButton bk_addEventHandler:^(id sender) {
-                [self questStartSequence];
+                if (_isActionButtonPushed) {
+                    return ;
+                } else {
+                    _isActionButtonPushed = YES;
+                    [self questStartSequence];
+                }
             } forControlEvents:UIControlEventTouchUpInside];
             
         } else {
