@@ -11,5 +11,7 @@
 
 @interface GXHomeRootViewController : UIViewController
 
+- (void)countBucketObj;
+
 
 @end

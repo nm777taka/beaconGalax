@@ -70,7 +70,8 @@
                 if (error) {
                     NSLog(@"error:%@",error);
                 } else {
-                    
+                    [[GXBucketManager sharedManager] countJoinedBucket];
+                    [[GXBucketManager sharedManager] countInviteBucket];
                 }
             }];
         }

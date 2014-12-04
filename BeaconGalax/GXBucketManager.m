@@ -209,6 +209,7 @@
         [[GXActivityList sharedInstance] registerQuestActivity:[gxUser getObjectForKey:user_name] title:text fbid:[gxUser getObjectForKey:user_fb_id]];
         
         //[[NSNotificationCenter defaultCenter ] postNotificationName:GXRegisteredInvitedBoardNotification object:nil];
+        [self countInviteBucket];
 
     }];
     
@@ -357,6 +358,7 @@
             NSLog(@"error:%@",error);
         } else {
             [[NSNotificationCenter defaultCenter] postNotificationName:@"deleteQuest" object:nil];
+            [self countNotJoinBucket];
         }
     }];
 }
@@ -386,6 +388,9 @@
     [newObj saveWithBlock:^(KiiObject *object, NSError *error) {
         if (error) {
             NSLog(@"registerNewQuestError:%@",error);
+        } else {
+            [self countJoinedBucket];
+            [self countNotJoinBucket];
         }
     }];
 
@@ -443,7 +448,6 @@
         [newObj saveWithBlock:^(KiiObject *object, NSError *error) {
             
         }];
-        
         
     } else {
         if (playerNum != 0) {

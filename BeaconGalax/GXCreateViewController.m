@@ -14,6 +14,8 @@
 #import "GXBucketManager.h"
 #import "GXUserManager.h"
 #import "GXActivityList.h"
+#import "GXCreateViewController.h"
+#import "GXTopicManager.h"
 
 #import "GXGoogleTrackingManager.h"
 
@@ -125,6 +127,10 @@ const static CGFloat kJVFieldFloatingLabelFontSize = 11.0f;
     NSString *text = [NSString stringWithFormat:@"%@クエストを作成しました",self.titleField.text];
     [[GXActivityList sharedInstance] registerQuestActivity:name title:text fbid:fbid];
     [GXGoogleTrackingManager sendEventTracking:@"Quest" action:@"create" label:@"作成" value:nil screen:@"createQuestView"];
+    
+    //みんなに伝える
+    NSString *createdUserName = [gxUser getObjectForKey:@"name"];
+    [[GXTopicManager sharedManager] sendCreateQuestAlert:createdUserName];
     
     [self dismissViewControllerAnimated:YES completion:nil];
     

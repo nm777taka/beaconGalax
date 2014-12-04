@@ -14,12 +14,16 @@
 @property (nonatomic) KiiTopic *infoTopic; //システムから発行用（お知らせ)
 @property (nonatomic) KiiTopic *questInviteTopic; //クエスト募集した時にみんなに知らせる
 
+@property (nonatomic) KiiTopic *sendingAlertTopic; //ApplicationScope(みんな購読、みんな送信可能)
+
 + (GXTopicManager *)sharedManager;
 - (void)createUserTopic:(NSString *)title;
 - (void)createDefaultUserTopic;
 - (void)subscribeTopic;
 
 - (void)setACL;
+
+- (void)sendCreateQuestAlert:(NSString *)createdUserName;
 
 
 

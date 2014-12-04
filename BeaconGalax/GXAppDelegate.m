@@ -29,7 +29,6 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
-    NSLog(@"did finish");
     //GoogleAnalytics初期化
     [self initializeGoogleAnalytics];
     
@@ -72,7 +71,23 @@
         
     }
     
-     [[UIApplication sharedApplication] setApplicationIconBadgeNumber:0];
+    //ApplicationTopicを購読
+    KiiTopic *applicationTopic = [Kii topicWithName:@"SendingAlert"];
+    [KiiPushSubscription checkSubscription:applicationTopic withBlock:^(id<KiiSubscribable> subscribable, BOOL result, NSError *error) {
+        if (result) {
+            //購読済み
+        } else {
+            //購読
+            [KiiPushSubscription subscribe:applicationTopic withBlock:^(KiiPushSubscription *subscription, NSError *error) {
+                if (error) {
+                    NSLog(@"error:%@",error);
+                } else {
+                    NSLog(@"app-topic購読完了");
+                }
+            }];
+        }
+    }];
+    
     self.locationManager = [CLLocationManager new];
     self.locationManager.delegate = self;
     
@@ -288,6 +303,8 @@
 
 - (void)locationManager:(CLLocationManager *)manager didChangeAuthorizationStatus:(CLAuthorizationStatus)status
 {
+    //ここ対応必要
+#if __IPHONE_OS_VERSION_MAX_ALLOWED >= 70000
     
     switch (status) {
         case kCLAuthorizationStatusNotDetermined:
@@ -304,6 +321,7 @@
             break;
     }
     
+#endif
 }
 
 - (void)applicationWillResignActive:(UIApplication *)application

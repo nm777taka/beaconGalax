@@ -79,6 +79,7 @@
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(invitedQuestFetched:) name:GXInvitedQuestFetchedNotification object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(addedGroup:) name:GXAddGroupSuccessedNotification object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(questInfo:) name:@"questInfo" object:nil];
+    [self request:2];
 }
 
 - (void)viewDidAppear:(BOOL)animated
@@ -405,14 +406,14 @@
 #pragma  mark - refresh
 - (void)refresh
 {
-    NSLog(@"refresh");
-    [SVProgressHUD showWithStatus:@"クエストを取得しています"];
-    [[GXBucketManager sharedManager] getInvitedQuest];
+    [self request:2];
+    [NSTimer scheduledTimerWithTimeInterval:1.f target:self selector:@selector(endRefresh) userInfo:nil repeats:NO];
 
 }
 
 - (void)endRefresh
 {
+    [_refreshControl endRefreshing];
 }
 
 - (void)request:(NSInteger)index
@@ -420,6 +421,7 @@
     if (_questList.loading) {
     } else {
         [SVProgressHUD showWithStatus:@"データ更新中"];
+        [[GXBucketManager sharedManager] countInviteBucket];
         [_questList requestAsyncronous:index];
     }
 }

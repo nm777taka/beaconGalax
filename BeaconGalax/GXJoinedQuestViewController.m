@@ -36,7 +36,9 @@
 
 @end
 
-@implementation GXJoinedQuestViewController
+@implementation GXJoinedQuestViewController{
+    UIRefreshControl *_refreshControl;
+}
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -48,12 +50,17 @@
     
     //詳細viewを取得
     self.detailViewController = [self.storyboard instantiateViewControllerWithIdentifier:@"detail"];
-    [self.questList requestAsyncronous:1];    
+    [self.questList requestAsyncronous:1];
+    
+    _refreshControl = [UIRefreshControl new];
+    [_refreshControl addTarget:self action:@selector(refresh) forControlEvents:UIControlEventValueChanged];
+    [self.collectionView addSubview:_refreshControl];
 }
 
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
+    [self request:1];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(showInfo:) name:@"showInfo" object:nil];
 }
 
@@ -125,6 +132,7 @@
     if (_questList.loading) {
     } else {
         [SVProgressHUD showWithStatus:@"データ更新中"];
+        [[GXBucketManager sharedManager] countJoinedBucket];
         [_questList requestAsyncronous:index];
     }
 }
@@ -207,6 +215,19 @@
         }
     }];
 }
+
+#pragma  mark - refresh
+- (void)refresh
+{
+    [self request:1];
+    [NSTimer scheduledTimerWithTimeInterval:1.f target:self selector:@selector(endRefresh) userInfo:nil repeats:NO];
+}
+
+- (void)endRefresh
+{
+    [_refreshControl endRefreshing];
+}
+
 
 #pragma makr - Segue
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender

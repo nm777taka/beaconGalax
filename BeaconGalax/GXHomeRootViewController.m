@@ -57,6 +57,9 @@
     UIBarButtonItem *navLeftButton = [[UIBarButtonItem alloc] initWithCustomView:button];
     self.navigationItem.leftBarButtonItem = navLeftButton;
     
+    //バッジの初期化
+    [[UIApplication sharedApplication] setApplicationIconBadgeNumber:0];
+    
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -135,7 +138,6 @@
 #pragma mark - Notification
 - (void)updateControl:(NSNotification *)notis
 {
-    NSLog(@"call");
     NSDictionary *dict = notis.object;
     NSNumber *dataNum = dict[@"count"];
     NSNumber *index = dict[@"index"];

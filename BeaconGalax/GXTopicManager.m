@@ -35,6 +35,7 @@ static NSString *const GXQuestInviteTopic = @"GXQuestInviteTopic";
     if (self) {
         self.infoTopic = [Kii topicWithName:GXInfoTopic];
         self.questInviteTopic = [Kii topicWithName:GXQuestInviteTopic];
+        self.sendingAlertTopic = [Kii topicWithName:@"SendingAlert"];
     }
     
     return self;
@@ -119,6 +120,26 @@ static NSString *const GXQuestInviteTopic = @"GXQuestInviteTopic";
         NSLog(@"save acl error : %@",error);
     }
  
+}
+
+- (void)sendCreateQuestAlert:(NSString *)createdUserName
+{
+    NSLog(@"sendCreateQuestAlert");
+    KiiAPNSFields *apnsFields = [KiiAPNSFields createFields];
+    NSString *body = [NSString stringWithFormat:@"%@が新しいクエストを作成しました！",createdUserName];
+    
+    apnsFields.alertBody = body;
+    
+    KiiPushMessage *pushMessage = [KiiPushMessage composeMessageWithAPNSFields:apnsFields andGCMFields:nil];
+    
+    [self.sendingAlertTopic sendMessage:pushMessage withBlock:^(KiiTopic *topic, NSError *error) {
+        if (error) {
+            NSLog(@"error-sendingCreateQuestAlert");
+            NSLog(@"error:%@",error);
+        } else {
+            NSLog(@"sending-alertへ送信完了");
+        }
+    }];
 }
 
 

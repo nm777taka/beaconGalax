@@ -138,7 +138,7 @@
     KiiBucket *bucket = [GXBucketManager sharedManager].notJoinedQuest;
     KiiClause *clause = [KiiClause equals:@"isCompleted" value:@NO];
     KiiQuery *query = [KiiQuery queryWithClause:clause];
-    [query sortByAsc:@"_created"];
+    [query sortByDesc:@"_created"];
     
     [bucket executeQuery:query withBlock:^(KiiQuery *query, KiiBucket *bucket, NSArray *results, KiiQuery *nextQuery, NSError *error) {
         if (error) {
@@ -156,7 +156,7 @@
 {
     KiiBucket *bucket = [GXBucketManager sharedManager].joinedQuest;
     KiiQuery *query = [KiiQuery queryWithClause:nil];
-    [query sortByAsc:@"_created"];
+    [query sortByDesc:@"_created"];
     [bucket executeQuery:query withBlock:^(KiiQuery *query, KiiBucket *bucket, NSArray *results, KiiQuery *nextQuery, NSError *error) {
         if (error) {
             NSLog(@"error:%@",error);
@@ -173,7 +173,7 @@
 {
     KiiBucket *bucket = [GXBucketManager sharedManager].inviteBoard;
     KiiQuery *query = [KiiQuery queryWithClause:nil];
-    [query sortByAsc:@"_created"];
+    [query sortByDesc:@"_created"];
     [bucket executeQuery:query withBlock:^(KiiQuery *query, KiiBucket *bucket, NSArray *results, KiiQuery *nextQuery, NSError *error) {
         if (error) {
             NSLog(@"error:%@",error);

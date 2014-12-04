@@ -148,8 +148,6 @@
 #pragma mark Notification
 - (void)questCreated:(NSNotification *)info
 {
-    
-    
     [self dismissViewControllerAnimated:YES completion:nil];
 }
 @end

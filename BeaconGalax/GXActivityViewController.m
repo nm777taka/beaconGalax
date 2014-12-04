@@ -8,6 +8,7 @@
 
 #import "GXActivityViewController.h"
 #import "GXActivityTableViewCell.h"
+#import <REFrostedViewController.h>
 
 #import "GXActivity.h"
 #import "GXActivityList.h"
@@ -34,6 +35,16 @@
     self.title = @"みんなの動き";
         
     _activityList = [[GXActivityList alloc] initWithDelegate:self];
+    
+    UIImage *image = [UIImage imageNamed:@"someImage"];
+    UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
+    button.frame = CGRectMake(0,0,image.size.width, image.size.height);
+    [button addTarget:self action:@selector(buttonPress) forControlEvents:UIControlEventTouchDown];
+    [button setBackgroundImage:image forState:UIControlStateNormal];
+    
+    UIBarButtonItem *navLeftButton = [[UIBarButtonItem alloc] initWithCustomView:button];
+    self.navigationItem.leftBarButtonItem = navLeftButton;
+
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -100,5 +111,18 @@
     [self.indicator stopAnimating];
     [self.tableView reloadData];
 }
+
+#pragma mark BarButton + Badge
+- (void)buttonPress
+{
+    NSLog(@"buttonPress");
+    [self.frostedViewController presentMenuViewController];
+}
+
+- (UIBarPosition)positionForBar:(id <UIBarPositioning>)view
+{
+    return UIBarPositionBottom;
+}
+
 
 @end

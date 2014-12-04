@@ -86,12 +86,9 @@
 //データ操作用
 - (void)deleteAllObject:(KiiBucket *)bucket;
 - (void)displayAllObject:(KiiBucket *)bucket;
+
 - (void)countNotJoinBucket;
 - (void)countJoinedBucket;
 - (void)countInviteBucket;
-
-
-
-
 
 @end

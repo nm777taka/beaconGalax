@@ -114,6 +114,9 @@
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(deletedQuest:) name:@"deleteQuest" object:nil];
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(refreshFromLocalNotis:) name:GXRefreshDataFromLocalNotification object:nil];
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(showInfo:) name:@"showInfo" object:nil];
+        
+        //questFetch
+        [self request:0];
     }
 }
 
@@ -203,7 +206,7 @@
 #pragma  mark - refresh
 - (void)refresh
 {
-    NSLog(@"refresh");
+    [self request:0];
     [NSTimer scheduledTimerWithTimeInterval:1.f target:self selector:@selector(endRefresh) userInfo:nil repeats:NO];
 }
 
@@ -467,7 +470,6 @@
             notis.notificationStyle = CWNotificationStyleNavigationBarNotification;
             [notis displayNotificationWithMessage:@"クエストを受注しました!" forDuration:2.0f];
             [self request:0]; //notjoinから更新するよ
-            [[GXBucketManager sharedManager] countJoinedBucket];
             [GXGoogleTrackingManager sendEventTracking:@"Quest" action:@"accept" label:@"受注" value:nil screen:@"NotJoinQuestView"];
         }
     }];
@@ -500,6 +502,7 @@
     if (_questList.loading) {
     } else {
         [SVProgressHUD showWithStatus:@"データ更新中"];
+        [[GXBucketManager sharedManager] countNotJoinBucket];
         [_questList requestAsyncronous:index];
     }
 }
