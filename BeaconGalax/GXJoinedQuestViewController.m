@@ -62,6 +62,7 @@
     [super viewWillAppear:animated];
     [self request:1];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(showInfo:) name:@"showInfo" object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(questDeleted:) name:GXQuestDeletedNotification object:nil];
 }
 
 - (void)viewDidAppear:(BOOL)animated
@@ -228,6 +229,15 @@
     [_refreshControl endRefreshing];
 }
 
+#pragma mark - Notificaiton
+- (void)questDeleted:(NSNotification *)notis
+{
+    [self request:1];
+    CWStatusBarNotification *notification = [CWStatusBarNotification new];
+    notification.notificationLabelBackgroundColor = [UIColor turquoiseColor];
+    [notification displayNotificationWithMessage:@"削除完了" forDuration:2.0f];
+}
+
 
 #pragma makr - Segue
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
@@ -236,6 +246,7 @@
         GXQuestReadyViewController *vc = segue.destinationViewController;
         vc.willExeQuest = _selectedObj;
         vc.selectedQuestGroup = _selectedGroup;
+        vc.isPushSegued = NO; //画面遷移する上でのバグ対策
     }
 }
 @end

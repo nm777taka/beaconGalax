@@ -19,5 +19,7 @@
 
 @property KiiObject *willExeQuest;
 @property KiiGroup *selectedQuestGroup;
+@property BOOL isPushSegued; //領域監視が少し残るため、次の画面から戻ってきた時にbug起きるからそれ用
+
 
 @end

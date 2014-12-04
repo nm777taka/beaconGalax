@@ -77,8 +77,8 @@
     [super viewWillAppear:animated];
     self.navigationController.navigationBarHidden = NO;
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(invitedQuestFetched:) name:GXInvitedQuestFetchedNotification object:nil];
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(addedGroup:) name:GXAddGroupSuccessedNotification object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(questInfo:) name:@"questInfo" object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(questDeleted:) name:GXQuestDeletedNotification object:nil];
     [self request:2];
 }
 
@@ -252,6 +252,13 @@
 }
 
 #pragma mark - GXNotification
+- (void)questDeleted:(NSNotification *)notis
+{
+    [self request:2]; //2 → bucketIndex (2=inviteBucket)
+    CWStatusBarNotification *notification = [CWStatusBarNotification new];
+    notification.notificationLabelBackgroundColor = [UIColor turquoiseColor];
+    [notification displayNotificationWithMessage:@"削除完了" forDuration:2.0f];
+}
 - (void)invitedQuestFetched:(NSNotification *)info
 {
     NSArray *array = info.object;

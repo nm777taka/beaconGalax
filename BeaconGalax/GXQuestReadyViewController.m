@@ -135,11 +135,17 @@
 
 - (void)gotoPartyView
 {
-    [NSTimer bk_scheduledTimerWithTimeInterval:2.0f block:^(NSTimer *timer) {
-        
-        [self performSegueWithIdentifier:@"gotoGroupView" sender:self];
-
-    } repeats:NO];
+    if (_isPushSegued) {
+        return;
+    } else {
+        [NSTimer bk_scheduledTimerWithTimeInterval:2.0f block:^(NSTimer *timer) {
+            
+            [self performSegueWithIdentifier:@"gotoGroupView" sender:self];
+            _isPushSegued = YES;
+            
+        } repeats:NO];
+    }
+    
 }
 
 - (void)stopBeacon

@@ -130,6 +130,7 @@
     } else {
         //メンバー全員がready状態じゃない
         [SVProgressHUD showErrorWithStatus:@"準備完了じゃないメンバーがいます"];
+        _isActionButtonPushed = NO;
     }
 }
 

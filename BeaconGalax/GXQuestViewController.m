@@ -97,6 +97,8 @@
     
     [self.questList requestAsyncronous:_segmentIndex];
     
+    [self request:0];
+    
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -111,10 +113,9 @@
         //最終的に変更があった場合のみにしたい
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(questFetched:) name:GXFetchQuestNotComplitedNotification object:nil];
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(registeredInvitedBoard:) name:GXRegisteredInvitedBoardNotification object:nil];
-        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(deletedQuest:) name:@"deleteQuest" object:nil];
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(refreshFromLocalNotis:) name:GXRefreshDataFromLocalNotification object:nil];
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(showInfo:) name:@"showInfo" object:nil];
-        
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(questDeleted:) name:GXQuestDeletedNotification object:nil];
         //questFetch
         [self request:0];
     }
@@ -257,6 +258,14 @@
 }
 
 #pragma mark - Notification
+
+- (void)questDeleted:(NSNotification *)info
+{
+    [self request:0]; //更新するよ
+    CWStatusBarNotification *notis = [CWStatusBarNotification new];
+    notis.notificationLabelBackgroundColor = [UIColor turquoiseColor];
+    [notis displayNotificationWithMessage:@"削除完了" forDuration:2.0f];
+}
 - (void)showInfo:(NSNotification *)info
 {
     GXHomeCollectionViewCell *cell = info.object;
@@ -461,7 +470,7 @@
             NSLog(@"joinedBucketに登録します");
             [[GXBucketManager sharedManager] acceptNewQuest:object]; // だめじゃねこれ
             NSLog(@"notJoinから削除");
-            [[GXBucketManager sharedManager] deleteJoinedQuest:object];
+           // [[GXBucketManager sharedManager] deleteJoinedQuest:object];
             [SVProgressHUD dismiss];
             
             CWStatusBarNotification *notis = [CWStatusBarNotification new];
@@ -483,7 +492,7 @@
     [obj refreshWithBlock:^(KiiObject *object, NSError *error) {
         if(!error) {
             [[GXBucketManager sharedManager] registerInviteBoard:object];
-            [[GXBucketManager sharedManager] deleteJoinedQuest:object];
+           // [[GXBucketManager sharedManager] deleteJoinedQuest:object];
             [SVProgressHUD dismiss];
             CWStatusBarNotification *notis = [CWStatusBarNotification new];
             notis.notificationLabelBackgroundColor = [UIColor turquoiseColor];

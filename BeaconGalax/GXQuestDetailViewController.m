@@ -19,6 +19,7 @@
 #import "FUIAlertView+GXTheme.h"
 #import "GXNotification.h"
 #import "GXGoogleTrackingManager.h"
+#import "GXUserManager.h"
 
 #define kNotjoin 0
 #define kJoined 1
@@ -124,8 +125,7 @@
 - (IBAction)questDeleteAction:(id)sender
 {
     NSInteger viewControllerIndex = [self chekckQuestType];
-    FUIAlertView *alert = [FUIAlertView errorTheme:@"クエストを本当に削除しますか?"];
-    alert.title = @"確認";
+    FUIAlertView *alert = [FUIAlertView cautionTheme:@"本当に削除しますか?"];
     alert.delegate = self;
 
     switch (viewControllerIndex) {
@@ -175,13 +175,21 @@
         case kNotjoin:
             if (buttonIndex == 1) {
                 //削除実行
+                [self delete];
             }
             break;
         
         case kJoined:
             if (buttonIndex == 1) {
                 //削除実行
+                [self deleteJoinedQuest];
                 
+            }
+            break;
+            
+        case kInvite:
+            if (buttonIndex == 1) {
+                [self deleteInvitedQuest];
             }
             
         default:
@@ -200,9 +208,6 @@
                 if (!error) {
                     NSLog(@"削除完了");
                     [[NSNotificationCenter defaultCenter] postNotificationName:GXQuestDeletedNotification object:nil];
-                    CWStatusBarNotification *notis = [CWStatusBarNotification new];
-                    notis.notificationLabelBackgroundColor = [UIColor turquoiseColor];
-                    notis.notificationLabel.textColor = [UIColor cloudsColor];
                     [self close];
                 }
             }];
@@ -216,17 +221,43 @@
         //協力クエストを削除
         //参加したけどやめる的な感じ
         //もしくはなにかしらのエラーで参加クエストが既にはじまってしまった場合
-        NSLog(@"参加した協力クエストを削除します");
-        //グループから自分を削除＆グループのメンバーバケットからも削除
+        //グループから自分を削除＆グループのメンバーバケットからも削除 (絶対必要となったらやる)
         
+        //とりあえず消しとく
+        //[self delete];
         
     } else {
         //一人用クエストを削除
+        [self delete];
     }
+}
+
+- (void)deleteInvitedQuest
+{
+    //オーナーかどうか(オーナ以外は削除できない)
+    NSString *currentUserName = [KiiUser currentUser].displayName;
+    NSString *ownerName = _quest.createdUserName;
+    if ([currentUserName isEqualToString:ownerName]) {
+        //オーナー
+        [self delete];
+    } else {
+        FUIAlertView *alert = [FUIAlertView errorTheme:@"募集者以外は削除できません"];
+        [alert show];
+    }
+    
 }
 
 - (void)removeQuestGroup
 {
+    NSString *currentUserName = [KiiUser currentUser].displayName;
+    NSString *questCreaterName = _quest.createdUserName;
+    if ([currentUserName isEqualToString:questCreaterName]) {
+        //オーナーです
+        [self delete];
+    } else {
+        FUIAlertView *alert = [FUIAlertView errorTheme:@"募集者以外は削除できません"];
+        [alert show];
+    }
     
 }
 
