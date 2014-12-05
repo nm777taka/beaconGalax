@@ -16,7 +16,7 @@
 //スクリーン名をGAに送信
 + (void)sendScreenTracking:(NSString *)screenName
 {
-    
+    /*
     id<GAITracker> tracker = [[GAI sharedInstance] defaultTracker];
     
     //スクリーン名を設定
@@ -29,13 +29,14 @@
     [tracker set:kGAIScreenName value:nil];
     
     NSLog(@"送信完了");
+     */
     
 }
 
 //イベントをGAに送信
 + (void)sendEventTracking:(NSString *)category action:(NSString *)action label:(NSString *)label value:(NSNumber *)value screen:(NSString *)screen
 {
-    
+    /*
     id<GAITracker> tracker = [[GAI sharedInstance] defaultTracker];
     
     [tracker set:kGAIScreenName value:screen];
@@ -44,6 +45,7 @@
                                                           action:action
                                                            label:label
                                                            value:value] build]];
+     */
      
      
 }

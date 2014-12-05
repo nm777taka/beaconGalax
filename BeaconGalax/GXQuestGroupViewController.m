@@ -14,6 +14,7 @@
 #import "GXNotification.h"
 #import "GXBucketManager.h"
 #import "GXExeQuestManager.h"
+#import "GXUserManager.h"
 
 #import "GXGoogleTrackingManager.h"
 
@@ -63,7 +64,7 @@
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(userReady:) name:@"ready" object:nil];
     
     //一応フラグをおっとく
-    _isActionButtonPushed = NO;
+    //_isActionButtonPushed = NO;
 }
 
 - (void)viewDidAppear:(BOOL)animated
@@ -95,7 +96,14 @@
             [self.actionButton setTitle:@"準備完了" forState:UIControlStateNormal];
             
             [self.actionButton bk_addEventHandler:^(id sender) {
-                [self setReadyStatus];
+                if (_isActionButtonPushed) {
+                    NSLog(@"_isAction=YES ->");
+                    return ;
+                    
+                } else {
+                    _isActionButtonPushed = YES;
+                    [self setReadyStatus];
+                }
             } forControlEvents:UIControlEventTouchUpInside];
         }
     }];
@@ -110,34 +118,81 @@
 - (void)questStartSequence
 {
     NSError *error;
-    [self.quest refreshSynchronous:&error];
-    //0以上判定だと、だれかが置いてけぼりになる可能性がある
-    NSInteger memberNum = _questMemberArray.count - 1; //リーダは除く
-    
-    if ([[self.quest getObjectForKey:quest_isReady_num] intValue] == memberNum ) {
-        NSError *error;
-        KiiTopic *startTopic = [self.selectedQuestGroup topicWithName:@"quest_start"];
-        KiiAPNSFields *apnsFields = [KiiAPNSFields createFields];
-        KiiPushMessage *message = [KiiPushMessage composeMessageWithAPNSFields:apnsFields andGCMFields:nil];
-        [startTopic sendMessageSynchronous:message withError:&error];
-        
-        if (error) {
-            NSLog(@"error:%@",error);
-            [SVProgressHUD showErrorWithStatus:@"クエストを開始できません"];
-        } else {
-            
-            
+    [self.quest refreshWithBlock:^(KiiObject *object, NSError *error) {
+        if (!error) {
+            KiiClause *clause = [KiiClause equals:user_isReady value:@YES ];
+            KiiQuery *query = [KiiQuery queryWithClause:clause];
+            KiiBucket *bucket = [self.selectedQuestGroup bucketWithName:@"member"];
+            [bucket executeQuery:query withBlock:^(KiiQuery *query, KiiBucket *bucket, NSArray *results, KiiQuery *nextQuery, NSError *error) {
+                if (!error) {
+                    NSLog(@"isReadyMemberNum:%d",results.count);
+                    if ((self.questMemberArray.count - 1) == results.count) {
+                        //リーダ以外全員準備完了
+                        //開始処理
+                        KiiTopic *startTopic = [self.selectedQuestGroup topicWithName:@"quest_start"];
+                        KiiAPNSFields *apnsFields = [KiiAPNSFields createFields];
+                        KiiPushMessage *message = [KiiPushMessage composeMessageWithAPNSFields:apnsFields andGCMFields:nil];
+                        [startTopic sendMessage:message withBlock:^(KiiTopic *topic, NSError *error) {
+                        
+                        }];
+
+                    } else {
+                        //まだ全員準備OKじゃない
+                        [SVProgressHUD showErrorWithStatus:@"準備完了じゃないメンバーがいます"];
+                        _isActionButtonPushed = NO; //フラグリセット
+                    }
+                }
+            }];
         }
-    } else {
-        //メンバー全員がready状態じゃない
-        [SVProgressHUD showErrorWithStatus:@"準備完了じゃないメンバーがいます"];
-        _isActionButtonPushed = NO;
-    }
+    }];
+    
+    //legacy code
+//    if ([[self.quest getObjectForKey:quest_isReady_num] intValue] == memberNum ) {
+//        NSError *error;
+//        KiiTopic *startTopic = [self.selectedQuestGroup topicWithName:@"quest_start"];
+//        KiiAPNSFields *apnsFields = [KiiAPNSFields createFields];
+//        KiiPushMessage *message = [KiiPushMessage composeMessageWithAPNSFields:apnsFields andGCMFields:nil];
+//        [startTopic sendMessageSynchronous:message withError:&error];
+//        
+//        if (error) {
+//            NSLog(@"error:%@",error);
+//            [SVProgressHUD showErrorWithStatus:@"クエストを開始できません"];
+//        } else {
+//            
+//            
+//        }
+//    } else {
+//        //メンバー全員がready状態じゃない
+//        [SVProgressHUD showErrorWithStatus:@"準備完了じゃないメンバーがいます"];
+//        _isActionButtonPushed = NO;
+//    }
 }
 
 - (void)setReadyStatus
 {
+    KiiBucket *bucket = [_selectedQuestGroup bucketWithName:@"member"];
+    KiiObject *gxUser = [GXUserManager sharedManager].gxUser;
+    KiiClause *clause = [KiiClause equals:user_uri value:[gxUser getObjectForKey:user_uri]];
+    KiiQuery *query = [KiiQuery queryWithClause:clause];
+    //Groupスコープのmemberバケットから自分をとってくる
+    [bucket executeQuery:query withBlock:^(KiiQuery *query, KiiBucket *bucket, NSArray *results, KiiQuery *nextQuery, NSError *error) {
+        if (!error) {
+            NSLog(@"questGroupMemberNum:%d",results.count);
+            //自分のreadyステータスをアップデート
+            KiiObject *me = results.firstObject;
+            NSNumber *isReady = [me getObjectForKey:user_isReady];
+            isReady = @YES;
+            [me setObject:isReady forKey:user_isReady];
+            [me saveWithBlock:^(KiiObject *object, NSError *error) {
+                NSLog(@"isReadyUpdate");
+                [self.collectionView reloadData];
+            }];
+        }
+    }];
+    
+    
     //クエストにできたよーって書き込む
+    /*
     NSError *error;
     int isReadyNum = [[self.quest getObjectForKey:quest_isReady_num] intValue];
     NSLog(@"readynum:%d",isReadyNum);
@@ -150,23 +205,24 @@
     } else {
         NSLog(@"readyup");
     }
+     */
     
     
-    //自分のステータス(cell用)
-    for (KiiObject *obj in self.questMemberArray) {
-        
-        if ([[obj getObjectForKey:@"uri"] isEqualToString:[KiiUser currentUser].objectURI]) {
-            
-            //準備完了じゃなかったら→完了へ
-            if ([[obj getObjectForKey:user_isReady] isEqualToNumber:@NO]) {
-                [obj setObject:@YES forKey:user_isReady];
-                [obj saveSynchronous:&error];
-            }
-            
-        }
-    }
+//    //自分のステータス(cell用)
+//    for (KiiObject *obj in self.questMemberArray) {
+//        
+//        if ([[obj getObjectForKey:@"uri"] isEqualToString:[KiiUser currentUser].objectURI]) {
+//            
+//            //準備完了じゃなかったら→完了へ
+//            if ([[obj getObjectForKey:user_isReady] isEqualToNumber:@NO]) {
+//                [obj setObject:@YES forKey:user_isReady];
+//                [obj saveSynchronous:&error];
+//            }
+//            
+//        }
+//    }
     
-    [self.collectionView reloadData];
+    //[self.collectionView reloadData];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -208,27 +264,43 @@
 {
     
     KiiObject *member = self.questMemberArray[indexPath.row];
-    
-    if (member) {
-        cell.userName.text = [member getObjectForKey:user_name];
-        cell.userIcon.profileID = [member getObjectForKey:user_fb_id];
-        
-        
-        if ([self isOwer:(int)indexPath.row]) {
-            
-            cell.readyIcon.hidden = YES;
-            cell.backgroundColor = [UIColor alizarinColor];
-
-        }else {
-            
-            if ([[member getObjectForKey:user_isReady] isEqualToNumber:@YES]) {
-                cell.readyIcon.hidden = NO;
-                cell.backgroundColor = [UIColor whiteColor];
-            }
-            
-        }
-            
+    cell.userName.text = [member getObjectForKey:user_name];
+    cell.userIcon.profileID = [member getObjectForKey:user_fb_id];
+    BOOL isReady = [[member getObjectForKey:user_isReady] boolValue];
+    BOOL isOwner = [[member getObjectForKey:user_isOwner] boolValue];
+    if (isReady) {
+        cell.readyIcon.hidden = NO;
+    } else {
+        cell.readyIcon.hidden = YES;
     }
+    
+    if (isOwner) {
+        cell.userIcon.layer.borderWidth = 2.0f;
+        cell.userIcon.layer.borderColor = [UIColor alizarinColor].CGColor;
+    } else {
+        cell.userIcon.layer.borderColor = [UIColor cloudsColor].CGColor;
+    }
+    
+//    if (member) {
+//        cell.userName.text = [member getObjectForKey:user_name];
+//        cell.userIcon.profileID = [member getObjectForKey:user_fb_id];
+//        
+//        
+//        if ([self isOwer:(int)indexPath.row]) {
+//            
+//            cell.readyIcon.hidden = YES;
+//            cell.backgroundColor = [UIColor alizarinColor];
+//
+//        }else {
+//            
+//            if ([[member getObjectForKey:user_isReady] isEqualToNumber:@YES]) {
+//                cell.readyIcon.hidden = NO;
+//                cell.backgroundColor = [UIColor whiteColor];
+//            }
+//            
+//        }
+//            
+//    }
 
 }
 

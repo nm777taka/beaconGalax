@@ -319,12 +319,12 @@
     //参加したクエストを取得
     KiiBucket *bucket = [joinedGroup bucketWithName:@"quest"];
     KiiQuery *query = [KiiQuery queryWithClause:nil];
+    KiiObject *gxUser = [GXUserManager sharedManager].gxUser;
     [bucket executeQuery:query withBlock:^(KiiQuery *query, KiiBucket *bucket, NSArray *results, KiiQuery *nextQuery, NSError *error) {
         
         if (!error) {
             
             KiiObject *obj = results.firstObject;
-            KiiObject *gxUser = [GXUserManager sharedManager].gxUser;
             //自分の参加済み協力クエに登録
             [[GXBucketManager sharedManager] acceptNewQuest:obj];
             //notJoinから消す
@@ -334,16 +334,11 @@
             NSString *questName = [obj getObjectForKey:quest_title];
             NSString *text = [NSString stringWithFormat:@"%@クエストに参加しました",questName];
             [[GXActivityList sharedInstance] registerQuestActivity:name title:text fbid:[gxUser getObjectForKey:user_fb_id]];
-            
         }
-
     }];
     
     KiiBucket *clearJudegeBucket = [joinedGroup bucketWithName:@"clear_judge"];
-    
     [KiiPushSubscription subscribe:clearJudegeBucket withBlock:^(KiiPushSubscription *subscription, NSError *error) {
-        
-        if (!error) NSLog(@"参加者によるグループバケットの購読完了");
     }];
     
     [SVProgressHUD dismiss];

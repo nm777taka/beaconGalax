@@ -128,13 +128,14 @@
 //    }
 //}
 
+#pragma mark - Debug
 - (void)registerInviteBoard:(KiiObject *)obj //obj → not_joinedBucket
 {
     //group作成
     NSError *error;
     NSString *uuid = [[NSUUID UUID] UUIDString];
     NSString *groupName = uuid;
-    KiiGroup *group = [KiiGroup groupWithName:groupName];
+    KiiGroup *group = [KiiGroup groupWithName:@"db1"];
     [group saveSynchronous:&error];
     if (error) {
         NSLog(@"error:%@",error);
