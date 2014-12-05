@@ -113,6 +113,7 @@
     [self.quest refreshSynchronous:&error];
     //0以上判定だと、だれかが置いてけぼりになる可能性がある
     NSInteger memberNum = _questMemberArray.count - 1; //リーダは除く
+    
     if ([[self.quest getObjectForKey:quest_isReady_num] intValue] == memberNum ) {
         NSError *error;
         KiiTopic *startTopic = [self.selectedQuestGroup topicWithName:@"quest_start"];

@@ -200,7 +200,7 @@
         [groupQuest setObject:group.objectURI forKey:quest_groupURI];
         [groupQuest setObject:[ownerUser getObjectForKey:user_fb_id] forKey:quest_owner_fbid];
         [groupQuest setObject:[ownerUser getObjectForKey:user_name] forKey:quest_owner];
-        [groupQuest setObject:[gxUser getObjectForKey:@"user_major"] forKey:@"owner_major"];
+        [groupQuest setObject:[ownerUser getObjectForKey:@"user_major"] forKey:@"owner_major"];
 
         [groupQuest saveWithBlock:^(KiiObject *object, NSError *error) {
             
