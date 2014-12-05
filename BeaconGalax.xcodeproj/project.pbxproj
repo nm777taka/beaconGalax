@@ -106,6 +106,8 @@
 		0FB4406619F18745006F857D /* GXQuestExeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0FB4406519F18745006F857D /* GXQuestExeViewController.m */; };
 		0FC0095419E13CB70026A7DC /* GXHomeCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 0FC0095319E13CB70026A7DC /* GXHomeCollectionViewCell.m */; };
 		0FC0095819E259DD0026A7DC /* GXFrostedViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0FC0095719E259DD0026A7DC /* GXFrostedViewController.m */; };
+		0FC928381A30E451002931F1 /* Crashlytics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0FC928361A30E451002931F1 /* Crashlytics.framework */; };
+		0FC928391A30E451002931F1 /* Fabric.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0FC928371A30E451002931F1 /* Fabric.framework */; };
 		0FC9FF1319E81C2800E78B39 /* GALAX-update-.png in Resources */ = {isa = PBXBuildFile; fileRef = 0FC9FF1219E81C2800E78B39 /* GALAX-update-.png */; };
 		0FC9FF1719E81FF100E78B39 /* GXClearViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0FC9FF1619E81FF100E78B39 /* GXClearViewController.m */; };
 		0FC9FF1B19EBC6CD00E78B39 /* GXStatusViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 0FC9FF1A19EBC6CD00E78B39 /* GXStatusViewCell.m */; };
@@ -307,6 +309,8 @@
 		0FC0095319E13CB70026A7DC /* GXHomeCollectionViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GXHomeCollectionViewCell.m; sourceTree = "<group>"; };
 		0FC0095619E259DD0026A7DC /* GXFrostedViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GXFrostedViewController.h; sourceTree = "<group>"; };
 		0FC0095719E259DD0026A7DC /* GXFrostedViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GXFrostedViewController.m; sourceTree = "<group>"; };
+		0FC928361A30E451002931F1 /* Crashlytics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Crashlytics.framework; sourceTree = "<group>"; };
+		0FC928371A30E451002931F1 /* Fabric.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Fabric.framework; sourceTree = "<group>"; };
 		0FC9FF1219E81C2800E78B39 /* GALAX-update-.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "GALAX-update-.png"; sourceTree = "<group>"; };
 		0FC9FF1519E81FF100E78B39 /* GXClearViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GXClearViewController.h; sourceTree = "<group>"; };
 		0FC9FF1619E81FF100E78B39 /* GXClearViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GXClearViewController.m; sourceTree = "<group>"; };
@@ -358,6 +362,7 @@
 				0F1295E71A2DCA2C009A1153 /* CoreData.framework in Frameworks */,
 				0F80277619BF6E9200453653 /* SystemConfiguration.framework in Frameworks */,
 				0F80277419BF6B8300453653 /* CoreBluetooth.framework in Frameworks */,
+				0FC928391A30E451002931F1 /* Fabric.framework in Frameworks */,
 				0F7F413F195C754800A796AD /* libsqlite3.dylib in Frameworks */,
 				0F7F413D195C753B00A796AD /* ImageIO.framework in Frameworks */,
 				0F7F413B195C753300A796AD /* Security.framework in Frameworks */,
@@ -365,6 +370,7 @@
 				0F7F4137195C751E00A796AD /* Accounts.framework in Frameworks */,
 				0F7F4135195C751000A796AD /* MobileCoreServices.framework in Frameworks */,
 				0F7A25CF19587E74001B7839 /* CoreLocation.framework in Frameworks */,
+				0FC928381A30E451002931F1 /* Crashlytics.framework in Frameworks */,
 				0F7A259619587ADE001B7839 /* CoreGraphics.framework in Frameworks */,
 				0F7A259819587ADE001B7839 /* UIKit.framework in Frameworks */,
 				0F7A259419587ADE001B7839 /* Foundation.framework in Frameworks */,
@@ -674,6 +680,8 @@
 		0F7A258719587ADE001B7839 = {
 			isa = PBXGroup;
 			children = (
+				0FC928361A30E451002931F1 /* Crashlytics.framework */,
+				0FC928371A30E451002931F1 /* Fabric.framework */,
 				0F1295D81A2DC9E5009A1153 /* GoogleAnalytics */,
 				0F7F4129195B203900A796AD /* Resources */,
 				0F7A259919587ADE001B7839 /* BeaconGalax */,
@@ -1139,6 +1147,7 @@
 				0F7A258D19587ADE001B7839 /* Frameworks */,
 				0F7A258E19587ADE001B7839 /* Resources */,
 				99982ECECCF04735A18B9962 /* Copy Pods Resources */,
+				0FC928351A30E3BF002931F1 /* ShellScript */,
 			);
 			buildRules = (
 			);
@@ -1261,6 +1270,19 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
+		0FC928351A30E3BF002931F1 /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "./Fabric.framework/run b8ef5612199b100a9a8067f2be788ae7b2d1d4f1 d74a35c53a012439c5c3bec267dbcf3853215088e1c433427f5c24fe2074547c";
+		};
 		504CB1DDB18344078008FBC1 /* Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;

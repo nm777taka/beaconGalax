@@ -7,6 +7,10 @@
 //
 
 #import "GXAppDelegate.h"
+#import <Fabric/Fabric.h>
+#import <Crashlytics/Crashlytics.h>
+
+
 #import "GXBucketManager.h"
 #import "GXDictonaryKeys.h"
 #import "GXNotification.h"
@@ -29,6 +33,7 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
+    [Fabric with:@[CrashlyticsKit]];
     //GoogleAnalytics初期化
     [self initializeGoogleAnalytics];
     
