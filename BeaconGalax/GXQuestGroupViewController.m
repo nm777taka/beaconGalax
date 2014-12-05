@@ -63,8 +63,6 @@
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(questStart:) name:GXStartQuestNotification object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(userReady:) name:@"ready" object:nil];
     
-    //一応フラグをおっとく
-    //_isActionButtonPushed = NO;
 }
 
 - (void)viewDidAppear:(BOOL)animated
@@ -145,27 +143,6 @@
             }];
         }
     }];
-    
-    //legacy code
-//    if ([[self.quest getObjectForKey:quest_isReady_num] intValue] == memberNum ) {
-//        NSError *error;
-//        KiiTopic *startTopic = [self.selectedQuestGroup topicWithName:@"quest_start"];
-//        KiiAPNSFields *apnsFields = [KiiAPNSFields createFields];
-//        KiiPushMessage *message = [KiiPushMessage composeMessageWithAPNSFields:apnsFields andGCMFields:nil];
-//        [startTopic sendMessageSynchronous:message withError:&error];
-//        
-//        if (error) {
-//            NSLog(@"error:%@",error);
-//            [SVProgressHUD showErrorWithStatus:@"クエストを開始できません"];
-//        } else {
-//            
-//            
-//        }
-//    } else {
-//        //メンバー全員がready状態じゃない
-//        [SVProgressHUD showErrorWithStatus:@"準備完了じゃないメンバーがいます"];
-//        _isActionButtonPushed = NO;
-//    }
 }
 
 - (void)setReadyStatus
@@ -189,40 +166,6 @@
             }];
         }
     }];
-    
-    
-    //クエストにできたよーって書き込む
-    /*
-    NSError *error;
-    int isReadyNum = [[self.quest getObjectForKey:quest_isReady_num] intValue];
-    NSLog(@"readynum:%d",isReadyNum);
-    isReadyNum++;
-    NSNumber *newValue = [NSNumber numberWithInt:isReadyNum];
-    [self.quest setObject:newValue forKey:quest_isReady_num];
-    [self.quest saveSynchronous:&error];
-    if (error) {
-        NSLog(@"error:%@",error);
-    } else {
-        NSLog(@"readyup");
-    }
-     */
-    
-    
-//    //自分のステータス(cell用)
-//    for (KiiObject *obj in self.questMemberArray) {
-//        
-//        if ([[obj getObjectForKey:@"uri"] isEqualToString:[KiiUser currentUser].objectURI]) {
-//            
-//            //準備完了じゃなかったら→完了へ
-//            if ([[obj getObjectForKey:user_isReady] isEqualToNumber:@NO]) {
-//                [obj setObject:@YES forKey:user_isReady];
-//                [obj saveSynchronous:&error];
-//            }
-//            
-//        }
-//    }
-    
-    //[self.collectionView reloadData];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -280,27 +223,6 @@
     } else {
         cell.userIcon.layer.borderColor = [UIColor cloudsColor].CGColor;
     }
-    
-//    if (member) {
-//        cell.userName.text = [member getObjectForKey:user_name];
-//        cell.userIcon.profileID = [member getObjectForKey:user_fb_id];
-//        
-//        
-//        if ([self isOwer:(int)indexPath.row]) {
-//            
-//            cell.readyIcon.hidden = YES;
-//            cell.backgroundColor = [UIColor alizarinColor];
-//
-//        }else {
-//            
-//            if ([[member getObjectForKey:user_isReady] isEqualToNumber:@YES]) {
-//                cell.readyIcon.hidden = NO;
-//                cell.backgroundColor = [UIColor whiteColor];
-//            }
-//            
-//        }
-//            
-//    }
 
 }
 
@@ -315,8 +237,6 @@
     }
     
     return ret;
-    
-
 }
 
 - (BOOL)isCurrentUserOwner:(KiiGroup *)group
@@ -381,6 +301,7 @@
         vc.exeGroup = self.selectedQuestGroup;
     }
 }
+
 
 - (void)gotoQuestExeView
 {

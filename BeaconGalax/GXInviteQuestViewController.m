@@ -24,6 +24,7 @@
 #import "GXQuestList.h"
 
 #import "GXGoogleTrackingManager.h"
+#import "Device.h"
 
 @interface GXInviteQuestViewController ()<UICollectionViewDataSource,UICollectionViewDelegate,FUIAlertViewDelegate,GXQuestListDelegate>
 
@@ -62,7 +63,14 @@
     
     //button
     self.addQuestButton = [UIButton buttonWithType:UIButtonTypeCustom];
-    self.addQuestButton.frame = CGRectMake(self.view.center.x - 25, self.view.center.y + 50 + 50, 50, 50);
+    //デバイス判定いれる
+    BOOL isDeviceIphone4 = [Device isIphone4];
+    if (isDeviceIphone4) {
+        self.addQuestButton.frame = CGRectMake(self.view.center.x - 25, self.view.center.y + 50 , 50, 50);
+    } else {
+        self.addQuestButton.frame = CGRectMake(self.view.center.x - 25, self.view.center.y + 50 + 50, 50, 50);
+    }
+    
     UIImage *image = [UIImage imageNamed:@"addQuestButton.png"];
     [self.addQuestButton setImage:image forState:UIControlStateNormal];
     [self.addQuestButton setImage:image forState:UIControlStateHighlighted];
