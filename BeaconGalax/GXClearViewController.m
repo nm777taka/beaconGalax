@@ -44,27 +44,27 @@
     [super viewDidAppear:animated];
     [GXGoogleTrackingManager sendScreenTracking:@"clearView"];
     [GXGoogleTrackingManager sendEventTracking:@"Quest" action:@"clear" label:@"クリア" value:nil screen:@"clearView"];
-    [self registerPoint];
+    //[self registerPoint];
     //activity
-    [self setActivity];
-    self.pointLable.text = [NSString stringWithFormat:@"%d",self.point];
-    
-    [NSTimer bk_scheduledTimerWithTimeInterval:2.0 block:^(NSTimer *timer) {
-        
-        UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"Congratulation" message:@"クエストクリアおめでとうございます" preferredStyle:UIAlertControllerStyleAlert];
-        [alertController addAction:[UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
-            
-            [self clearQuest];
-            
-            UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:[NSBundle mainBundle]];
-            UIViewController *initViewController = [storyboard instantiateInitialViewController];
-            [self presentViewController:initViewController animated:NO completion:nil];
-            
-        }]];
-        
-        [self presentViewController:alertController animated:YES completion:nil];
-
-    } repeats:NO];
+    //[self setActivity];
+//    self.pointLable.text = [NSString stringWithFormat:@"%d",self.point];
+//    
+//    [NSTimer bk_scheduledTimerWithTimeInterval:2.0 block:^(NSTimer *timer) {
+//        
+//        UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"Congratulation" message:@"クエストクリアおめでとうございます" preferredStyle:UIAlertControllerStyleAlert];
+//        [alertController addAction:[UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
+//            
+//            [self clearQuest];
+//            
+//            UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:[NSBundle mainBundle]];
+//            UIViewController *initViewController = [storyboard instantiateInitialViewController];
+//            [self presentViewController:initViewController animated:NO completion:nil];
+//            
+//        }]];
+//        
+//        [self presentViewController:alertController animated:YES completion:nil];
+//
+//    } repeats:NO];
 }
 
 

@@ -14,6 +14,8 @@
 #import "GXInviteQuestViewController.h"
 #import "GXJoinedQuestViewController.h"
 #import "GXActivityViewController.h"
+#import "GXLeaderBoardViewController.h"
+
 #import "UIViewController+REFrostedViewController.h"
 #import "GXStatusViewCell.h"
 #import "GXNotification.h"
@@ -156,6 +158,9 @@
     } else if (indexPath.section == 0 && indexPath.row == 1) {
         GXActivityViewController *activityView = [self.storyboard instantiateViewControllerWithIdentifier:@"activityView"];
         navController.viewControllers = @[activityView];
+    } else if (indexPath.section == 0 && indexPath.row == 2) {
+        GXLeaderBoardViewController *leaderBoardView = [self.storyboard instantiateViewControllerWithIdentifier:@"leaderBoard"];
+        navController.viewControllers = @[leaderBoardView];
     }
     self.frostedViewController.contentViewController = navController;
     [self.frostedViewController hideMenuViewController];
@@ -177,7 +182,7 @@
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
     if (section == 0) {
-        return 2;
+        return 3;
     } else {
         return 3;
     }
@@ -188,7 +193,7 @@
     GXStatusViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"Cell" forIndexPath:indexPath];
     
     if (indexPath.section == 0) {
-        NSArray *titles = @[@"クエスト一覧",@"みんなの動き"];
+        NSArray *titles = @[@"クエスト一覧",@"みんなの動き",@"ステータス"];
         cell.textLabel.text = titles[indexPath.row];
     } else {
         NSArray *titles = @[@"userA",@"userB",@"userC"];

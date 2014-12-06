@@ -23,7 +23,7 @@
 #import "GXNavViewController.h"
 #import "GXQuestDetailViewController.h"
 #import "GXQuestGroupViewController.h"
-
+#import "GXPointManager.h"
 #import <HMSegmentedControl.h>
 
 #import "GXBucketManager.h"
@@ -492,7 +492,7 @@
     [obj refreshWithBlock:^(KiiObject *object, NSError *error) {
         if(!error) {
             [[GXBucketManager sharedManager] registerInviteBoard:object];
-            [[GXBucketManager sharedManager] deleteJoinedQuest:object];
+            //[[GXBucketManager sharedManager] deleteJoinedQuest:object];
             [SVProgressHUD dismiss];
             CWStatusBarNotification *notis = [CWStatusBarNotification new];
             notis.notificationLabelBackgroundColor = [UIColor turquoiseColor];
@@ -502,6 +502,7 @@
             [self request:0]; //notjoinから更新するよ
             [[GXBucketManager sharedManager] countInviteBucket];
             [GXGoogleTrackingManager sendEventTracking:@"Quest" action:@"invite" label:@"募集" value:nil screen:@"NotJoinQuestView"];
+            [[GXPointManager sharedInstance] getInviteQuestPoint];
         }
     }];
 }

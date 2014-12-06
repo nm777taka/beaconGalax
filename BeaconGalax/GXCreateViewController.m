@@ -16,6 +16,7 @@
 #import "GXActivityList.h"
 #import "GXCreateViewController.h"
 #import "GXTopicManager.h"
+#import "GXPointManager.h"
 
 #import "GXGoogleTrackingManager.h"
 
@@ -132,6 +133,8 @@ const static CGFloat kJVFieldFloatingLabelFontSize = 11.0f;
     NSString *createdUserName = [gxUser getObjectForKey:@"name"];
     [[GXTopicManager sharedManager] sendCreateQuestAlert:createdUserName];
     
+    //pointゲット
+    [[GXPointManager sharedInstance] getCreateQuestPoint];
     [self dismissViewControllerAnimated:YES completion:nil];
     
     

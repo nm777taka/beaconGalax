@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6250" systemVersion="13F34" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" initialViewController="dvL-ND-Tg6">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6250" systemVersion="13F34" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" initialViewController="8fl-Pj-LvM">
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6244"/>
@@ -220,7 +220,90 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="zbQ-xe-45F" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1225" y="898"/>
+            <point key="canvasLocation" x="1081" y="908"/>
+        </scene>
+        <!--leaderborad-->
+        <scene sceneID="kpI-Ud-xeo">
+            <objects>
+                <viewController storyboardIdentifier="leaderBoard" id="ywW-cu-gNz" customClass="GXLeaderBoardViewController" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="c00-jp-7hM"/>
+                        <viewControllerLayoutGuide type="bottom" id="fEV-oF-k0M"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="GkT-V0-NvN">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="GGJ-AQ-x7L">
+                                <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                            </view>
+                            <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ZBT-jO-bPh">
+                                <rect key="frame" x="0.0" y="64" width="320" height="114"/>
+                                <subviews>
+                                    <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="vYN-wY-Uym">
+                                        <rect key="frame" x="206" y="62" width="100" height="30"/>
+                                        <state key="normal" title="ランキング">
+                                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                        </state>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="7Dq-TI-H5S">
+                                        <rect key="frame" x="7" y="62" width="100" height="30"/>
+                                        <state key="normal" title="クリア済">
+                                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                        </state>
+                                    </button>
+                                    <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="alH-g6-PYW" customClass="FBProfilePictureView">
+                                        <rect key="frame" x="125" y="22" width="70" height="70"/>
+                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                    </view>
+                                </subviews>
+                                <color key="backgroundColor" red="0.85471791131588848" green="0.8760638044748118" blue="0.88654296874999994" alpha="1" colorSpace="calibratedRGB"/>
+                            </view>
+                            <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="fTf-20-Vcw">
+                                <rect key="frame" x="10" y="193" width="300" height="50"/>
+                                <subviews>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="100" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="7yI-SV-qq5">
+                                        <rect key="frame" x="110" y="14" width="100" height="21"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                        <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                </subviews>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                            </view>
+                            <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="vtV-rQ-cKK">
+                                <rect key="frame" x="10" y="251" width="300" height="80"/>
+                                <subviews>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="rank" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="sUi-a6-Z4z">
+                                        <rect key="frame" x="112" y="14" width="100" height="21"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                        <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <progressView opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="750" fixedFrame="YES" progressViewStyle="bar" progress="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="UQW-Ck-yuH">
+                                        <rect key="frame" x="0.0" y="63" width="300" height="3"/>
+                                        <color key="backgroundColor" red="0.68888300660000001" green="0.71366006140000005" blue="0.73448425530000006" alpha="1" colorSpace="calibratedRGB"/>
+                                    </progressView>
+                                </subviews>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                            </view>
+                        </subviews>
+                        <color key="backgroundColor" red="0.68888300657272339" green="0.71366006135940552" blue="0.73448425531387329" alpha="1" colorSpace="calibratedRGB"/>
+                    </view>
+                    <navigationItem key="navigationItem" title="leaderborad" id="6sZ-c4-5Ku">
+                        <barButtonItem key="rightBarButtonItem" title="rank" style="plain" id="JDK-x1-jDo"/>
+                    </navigationItem>
+                    <connections>
+                        <outlet property="gotoCleardQuestView" destination="7Dq-TI-H5S" id="FGE-gG-Otm"/>
+                        <outlet property="gotoRanking" destination="vYN-wY-Uym" id="fBi-gA-a1o"/>
+                        <outlet property="pointLabel" destination="7yI-SV-qq5" id="QDg-je-2sZ"/>
+                        <outlet property="rankLabel" destination="sUi-a6-Z4z" id="mZN-yW-MFi"/>
+                        <outlet property="userIcon" destination="alH-g6-PYW" id="UvP-lm-2rp"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="qOn-qT-Byy" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2152" y="910"/>
         </scene>
         <!--アンケート-->
         <scene sceneID="n6x-Mc-zdM">
@@ -254,7 +337,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="LzY-To-KSd" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1225" y="1572"/>
+            <point key="canvasLocation" x="679" y="1600"/>
         </scene>
         <!--Home Root View Controller-->
         <scene sceneID="UzX-U9-4XO">
@@ -996,7 +1079,7 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="iy9-bk-fhP" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2387" y="349"/>
+            <point key="canvasLocation" x="2597" y="217"/>
         </scene>
         <!--home-->
         <scene sceneID="n5B-Z0-Mov">
@@ -1070,6 +1153,24 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="pkr-mc-4vm" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1647" y="-583"/>
+        </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="Hao-4g-l2a">
+            <objects>
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="1Z7-6V-kbg" sceneMemberID="viewController">
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="3wX-cn-nRe">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="ywW-cu-gNz" kind="relationship" relationship="rootViewController" id="aCS-ln-rCA"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="AIV-zC-Vp5" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1749" y="908"/>
         </scene>
     </scenes>
     <resources>
