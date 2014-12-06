@@ -38,14 +38,17 @@
     
     UIBarButtonItem *navLeftButton = [[UIBarButtonItem alloc] initWithCustomView:button];
     self.navigationItem.leftBarButtonItem = navLeftButton;
-
 }
 
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
-    NSLog(@"willApper");
     [self configureStatus];
+}
+
+- (void)viewDidAppear:(BOOL)animated
+{
+    [super viewDidAppear:animated];
     
 }
 
@@ -56,8 +59,7 @@
 
 - (void)configureStatus
 {
-    int point = [[GXPointManager sharedInstance] getCurrentPoint];
-    self.pointLabel.text = [NSString stringWithFormat:@"%d pt",point];
+    
 }
 
 /*

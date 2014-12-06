@@ -8,6 +8,7 @@
 
 #import "GXPointManager.h"
 #import "GXUserManager.h"
+#import "GXDictonaryKeys.h"
 #import <CWStatusBarNotification.h>
 
 @implementation GXPointManager
@@ -63,8 +64,56 @@
     return point;
 }
 
+- (int)getQuestClearPoint:(KiiObject *)cleardQuest
+{
+    KiiObject *quest = cleardQuest;
+    NSString *type = [quest getObjectForKey:quest_type];
+    int point = 0;
+    
+    if ([type isEqualToString:@"user"]) {
+        //これはuserクエスト
+        [self userQuestClearPoint];
+    } else {
+        //one or multi
+        int playerNum = [[quest getObjectForKey:quest_player_num] intValue];
+        if (playerNum > 1) {
+            //協力クエスト
+            [self multiQuestClearPoint];
+        } else {
+            //一人用クエスト
+            [self refreshPoint:20];
+            point = 20;
+        }
+    }
+    
+    return 20;
+}
+
 
 #pragma mark - Internal
+- (void)userQuestClearPoint
+{
+    NSLog(@"userQuestClearPoint");
+    int point = 20;
+    [self refreshPoint:point];
+    
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"getPoint" object:[NSNumber numberWithInt:point]];
+    
+}
+
+- (void)multiQuestClearPoint
+{
+    NSLog(@"multiQuestClearPoint");
+}
+- (void)oneQuestClearPoint
+{
+    int point = 20;
+    [self refreshPoint:point];
+    
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"getPoint" object:[NSNumber numberWithInt:point]];
+
+}
+
 - (void)refreshPoint:(int)point
 {
     KiiQuery *query = [KiiQuery queryWithClause:nil];
@@ -79,10 +128,10 @@
             [obj setObject:[NSNumber numberWithInt:curPoint] forKey:@"point"];
             [obj saveWithBlock:^(KiiObject *object, NSError *error) {
                 if (!error) {
-                    NSLog(@"ok");
                 }
             }];
             
+            //gxuserにもポイント
             KiiObject *gxusr = [GXUserManager sharedManager].gxUser;
             [gxusr setObject:[NSNumber numberWithInt:curPoint] forKey:@"point"];
             [gxusr saveWithBlock:^(KiiObject *object, NSError *error) {

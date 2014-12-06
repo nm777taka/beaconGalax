@@ -16,12 +16,11 @@
 #import "GXQuestViewController.h"
 #import "GXInviteQuestViewController.h"
 #import "GXFrostedViewController.h"
-
+#import "GXPointManager.h"
 #import "GXGoogleTrackingManager.h"
 
 @interface GXClearViewController ()
 @property (weak, nonatomic) IBOutlet UILabel *pointLable;
-
 
 @end
 
@@ -37,13 +36,13 @@
 {
     [super viewWillAppear:animated];
     self.tabBarController.tabBar.hidden = YES;
-    
+    int p = [[GXPointManager sharedInstance] getQuestClearPoint:self.quest];
+    self.pointLable.text = [NSString stringWithFormat:@"%d",p];
 }
 - (void)viewDidAppear:(BOOL)animated
 {
     [super viewDidAppear:animated];
-    [GXGoogleTrackingManager sendScreenTracking:@"clearView"];
-    [GXGoogleTrackingManager sendEventTracking:@"Quest" action:@"clear" label:@"クリア" value:nil screen:@"clearView"];
+    [self googleAnalytics];
     //[self registerPoint];
     //activity
     //[self setActivity];
@@ -107,7 +106,13 @@
     NSString *fbid = [gxUser getObjectForKey:user_fb_id];
     [[GXActivityList sharedInstance] registerQuestActivity:[gxUser getObjectForKey:user_name] title:text fbid:fbid];
     
-    
+}
+
+- (void)googleAnalytics
+{
+    [GXGoogleTrackingManager sendScreenTracking:@"clearView"];
+    [GXGoogleTrackingManager sendEventTracking:@"Quest" action:@"clear" label:@"クリア" value:nil screen:@"clearView"];
+
 }
 
 @end

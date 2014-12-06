@@ -19,6 +19,9 @@
 - (void)getCreateQuestPoint;
 - (void)getInviteQuestPoint;
 
+//クエストクリアに対する報酬
+- (int)getQuestClearPoint:(KiiObject *)cleardQuest;
+
 - (int)getCurrentPoint;
 
 
