@@ -90,11 +90,6 @@
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="currentPoint" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="riJ-nk-vqw">
-                                <rect key="frame" x="87" y="376" width="143" height="21"/>
-                                <fontDescription key="fontDescription" name="HiraKakuProN-W3" family="Hiragino Kaku Gothic ProN" pointSize="17"/>
-                                <nil key="highlightedColor"/>
-                            </label>
                             <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="RXz-gj-i47" customClass="CSAnimationView">
                                 <rect key="frame" x="19" y="68" width="282" height="42"/>
                                 <subviews>
@@ -122,7 +117,7 @@
                             <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="hlN-Fb-sex">
                                 <rect key="frame" x="49" y="182" width="218" height="69"/>
                                 <subviews>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="100" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="GVe-XS-WM2">
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="100" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="GVe-XS-WM2" customClass="GXAnimationLabel">
                                         <rect key="frame" x="20" y="-15" width="178" height="95"/>
                                         <fontDescription key="fontDescription" name="Verdana" family="Verdana" pointSize="80"/>
                                         <nil key="highlightedColor"/>
@@ -153,6 +148,26 @@
                                     <action selector="gotoHome:" destination="T90-QZ-KLs" eventType="touchUpInside" id="f6Y-78-pRw"/>
                                 </connections>
                             </button>
+                            <progressView opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="750" fixedFrame="YES" progress="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="oGc-UN-M8j">
+                                <rect key="frame" x="60" y="431" width="200" height="2"/>
+                            </progressView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="現在の取得ポイント:" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="8Ea-ad-P9S">
+                                <rect key="frame" x="49" y="347" width="172" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="100" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="RVX-bf-1ts">
+                                <rect key="frame" x="215" y="347" width="86" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="次のランクまで" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="riJ-nk-vqw">
+                                <rect key="frame" x="56" y="393" width="143" height="21"/>
+                                <fontDescription key="fontDescription" name="HiraKakuProN-W3" family="Hiragino Kaku Gothic ProN" pointSize="17"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <color key="backgroundColor" red="0.97556640625000002" green="0.97556640625000002" blue="0.97556640625000002" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
@@ -164,8 +179,14 @@
                     <navigationItem key="navigationItem" id="bAe-eN-99M"/>
                     <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina4"/>
                     <connections>
+                        <outlet property="currentPointLabel" destination="RVX-bf-1ts" id="JJ4-F2-HXl"/>
+                        <outlet property="headerSubTitle" destination="Lji-ZC-heQ" id="8PC-St-vfA"/>
+                        <outlet property="headerTitle" destination="PS8-nt-73w" id="dgu-nA-YTX"/>
                         <outlet property="homeButton" destination="yMq-cB-cRm" id="IsU-YV-CGT"/>
-                        <outlet property="pointLable" destination="GVe-XS-WM2" id="u7g-JW-M96"/>
+                        <outlet property="nextRankSubLabel" destination="riJ-nk-vqw" id="y7o-wN-Grs"/>
+                        <outlet property="pointLable" destination="GVe-XS-WM2" id="3bT-ug-jKg"/>
+                        <outlet property="pointSubLabel" destination="phn-rN-lFO" id="wYs-CX-5VR"/>
+                        <outlet property="rankProgressView" destination="oGc-UN-M8j" id="Ktq-Qf-uW0"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="cfh-wF-18E" userLabel="First Responder" sceneMemberID="firstResponder"/>

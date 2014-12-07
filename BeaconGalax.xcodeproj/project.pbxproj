@@ -22,6 +22,7 @@
 		0F16512819D443A800918F8D /* GXQuestMemberCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 0F16512719D443A800918F8D /* GXQuestMemberCell.m */; };
 		0F2455ED1A3417E000F34724 /* GXRankingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0F2455EC1A3417E000F34724 /* GXRankingViewController.m */; };
 		0F2455F51A3418C300F34724 /* GXRankingTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 0F2455F41A3418C300F34724 /* GXRankingTableViewCell.m */; };
+		0F2455F91A34968200F34724 /* GXAnimationLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = 0F2455F81A34968200F34724 /* GXAnimationLabel.m */; };
 		0F27DAF119824BC20000E0D0 /* GXNavigationItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 0F27DAF019824BC20000E0D0 /* GXNavigationItem.m */; };
 		0F27DB0119876A750000E0D0 /* menu-white.png in Resources */ = {isa = PBXBuildFile; fileRef = 0F27DB0019876A750000E0D0 /* menu-white.png */; };
 		0F27DB0319876A780000E0D0 /* bell-white.png in Resources */ = {isa = PBXBuildFile; fileRef = 0F27DB0219876A780000E0D0 /* bell-white.png */; };
@@ -184,6 +185,8 @@
 		0F2455EC1A3417E000F34724 /* GXRankingViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GXRankingViewController.m; sourceTree = "<group>"; };
 		0F2455F31A3418C300F34724 /* GXRankingTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GXRankingTableViewCell.h; sourceTree = "<group>"; };
 		0F2455F41A3418C300F34724 /* GXRankingTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GXRankingTableViewCell.m; sourceTree = "<group>"; };
+		0F2455F71A34968200F34724 /* GXAnimationLabel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GXAnimationLabel.h; sourceTree = "<group>"; };
+		0F2455F81A34968200F34724 /* GXAnimationLabel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GXAnimationLabel.m; sourceTree = "<group>"; };
 		0F27DAEF19824BC20000E0D0 /* GXNavigationItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GXNavigationItem.h; sourceTree = "<group>"; };
 		0F27DAF019824BC20000E0D0 /* GXNavigationItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GXNavigationItem.m; sourceTree = "<group>"; };
 		0F27DB0019876A750000E0D0 /* menu-white.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "menu-white.png"; sourceTree = "<group>"; };
@@ -531,6 +534,15 @@
 				0F2455F41A3418C300F34724 /* GXRankingTableViewCell.m */,
 			);
 			name = RankingView;
+			sourceTree = "<group>";
+		};
+		0F2455F61A34965400F34724 /* CustomUILabel */ = {
+			isa = PBXGroup;
+			children = (
+				0F2455F71A34968200F34724 /* GXAnimationLabel.h */,
+				0F2455F81A34968200F34724 /* GXAnimationLabel.m */,
+			);
+			name = CustomUILabel;
 			sourceTree = "<group>";
 		};
 		0F3558241A0909B30023F2FF /* 実行中のクエスト */ = {
@@ -1058,6 +1070,7 @@
 		0FCFCCC11A1B68AF0070FA91 /* Other */ = {
 			isa = PBXGroup;
 			children = (
+				0F2455F61A34965400F34724 /* CustomUILabel */,
 				0FC9283A1A3200DB002931F1 /* Device */,
 				0F1295CC1A2C9C8D009A1153 /* UIBarButton+Badge */,
 				0F649FE219CD586B00D48074 /* font */,
@@ -1403,6 +1416,7 @@
 				0F35585E1A16054F0023F2FF /* GXActivity.m in Sources */,
 				0F35583B1A11FE8F0023F2FF /* GXQuestReadyViewController.m in Sources */,
 				0FA17E4019623FB700158421 /* GXUserManager.m in Sources */,
+				0F2455F91A34968200F34724 /* GXAnimationLabel.m in Sources */,
 				0FA17E3A1961A7A400158421 /* GXBucketNameConst.m in Sources */,
 				0FCB697B1A23B3C700454D2B /* GXQuestBucketManager.m in Sources */,
 				0F821F4C196FCA5D0002664D /* GXQuest.m in Sources */,

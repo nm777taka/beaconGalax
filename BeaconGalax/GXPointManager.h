@@ -20,11 +20,12 @@
 - (void)getInviteQuestPoint;
 
 //クエストクリアに対する報酬
-- (int)getQuestClearPoint:(KiiObject *)cleardQuest;
+- (float)getQuestClearPoint:(KiiObject *)cleardQuest;
 
 //
 - (int)getCurrentPoint;
 - (void)checkRank;
+- (NSDictionary *)checkNextRank;
 
 
 @end

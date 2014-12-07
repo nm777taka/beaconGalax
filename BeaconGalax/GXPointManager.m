@@ -68,11 +68,11 @@
 //クエストクリア時のポイント配布メソッド
 //クエストタイプ判定 + ポイント登録
 //return : ゲットしたポイント(viewcontrollerで表示するため)
-- (int)getQuestClearPoint:(KiiObject *)cleardQuest
+- (float)getQuestClearPoint:(KiiObject *)cleardQuest
 {
     KiiObject *quest = cleardQuest;
     NSString *type = [quest getObjectForKey:quest_type];
-    int retPoint = 0;
+    float retPoint = 0.0f;
     
     if ([type isEqualToString:@"user"]) {
         //これはuserクエスト
@@ -97,20 +97,60 @@
 
 - (void)checkRank
 {
+    NSLog(@"call");
     int currentPoint = [self getCurrentPoint];
     //DBから検索 指定FがcurrentPoint以下のものをFetch
     KiiClause *clause = [KiiClause lessThanOrEqual:@"point" value:[NSNumber numberWithInt:currentPoint]];
     KiiQuery *query = [KiiQuery queryWithClause:clause];
-    KiiQuery *nextQuery;
-    [query sortByDesc:@"point"];
+    [query sortByAsc:@"point"];
     KiiBucket *bucket = [GXBucketManager sharedManager].rank_bucket;
+    [bucket executeQuery:query withBlock:^(KiiQuery *query, KiiBucket *bucket, NSArray *results, KiiQuery *nextQuery, NSError *error) {
+        KiiObject *firstObj = results.lastObject;
+        NSString *currentRank = [firstObj getObjectForKey:@"rank"];
+        NSLog(@"currentRank:%@",currentRank);
+        
+        //次にnextRankを探す
+        KiiClause *clause = [KiiClause greaterThan:@"point" value:[NSNumber numberWithInt:currentPoint]];
+        KiiQuery *nextRankQuery = [KiiQuery queryWithClause:clause];
+        [nextRankQuery sortByAsc:@"point"];
+        KiiBucket *rankBucket = [GXBucketManager sharedManager].rank_bucket;
+        [rankBucket executeQuery:nextRankQuery withBlock:^(KiiQuery *query, KiiBucket *bucket, NSArray *results, KiiQuery *nextQuery, NSError *error) {
+            
+            //カンストした場合の処理
+            if (error) {
+                //カンスト処理
+            } else {
+                
+                KiiObject *firstObj = results.firstObject;
+                NSString *nextRank = [firstObj getObjectForKey:@"rank"];
+                NSLog(@"nextRank:%@",nextRank);
+            }
+        }];
+        
+    }];
+}
+
+- (NSDictionary *)checkNextRank
+{
+    int currentPoint = [self getCurrentPoint];
+    NSDictionary *retDict;
     NSError *error;
-    NSArray *results = [bucket executeQuerySynchronous:query withError:&error andNext:&nextQuery];
-    KiiObject *firstObj = results.firstObject;
-    NSLog(@"rank:%@",[firstObj getObjectForKey:@"rank"]);
-    //今のランクと違ってたら
-    //ランクアップ処理
+    KiiClause *clause = [KiiClause greaterThan:@"point" value:[NSNumber numberWithInt:currentPoint]];
+    KiiQuery *nextRankQuery = [KiiQuery queryWithClause:clause];
+    KiiQuery *nextQuery;
+    [nextRankQuery sortByAsc:@"point"];
+    KiiBucket *rankBucket = [GXBucketManager sharedManager].rank_bucket;
+    NSArray *results =  [rankBucket executeQuerySynchronous:nextRankQuery withError:&error andNext:&nextQuery];
+    if (error) {
+        //カンスト？
+    } else {
+        KiiObject *firstObj = results.firstObject;
+        NSString *nextRank = [firstObj getObjectForKey:@"rank"];
+        NSNumber *nextReqPoint = [firstObj getObjectForKey:@"point"];
+        retDict = @{@"nextRank":nextRank,@"nextPoint":nextReqPoint};
+    }
     
+    return retDict;
 }
 
 #pragma mark - Internal
