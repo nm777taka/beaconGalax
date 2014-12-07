@@ -136,8 +136,7 @@
 - (void)handlerNewQuest
 {
     KiiBucket *bucket = [GXBucketManager sharedManager].notJoinedQuest;
-    KiiClause *clause = [KiiClause equals:@"isCompleted" value:@NO];
-    KiiQuery *query = [KiiQuery queryWithClause:clause];
+    KiiQuery *query = [KiiQuery queryWithClause:nil];
     [query sortByDesc:@"_created"];
     
     [bucket executeQuery:query withBlock:^(KiiQuery *query, KiiBucket *bucket, NSArray *results, KiiQuery *nextQuery, NSError *error) {

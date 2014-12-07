@@ -64,29 +64,34 @@
     return point;
 }
 
+//クエストクリア時のポイント配布メソッド
+//クエストタイプ判定 + ポイント登録
+//return : ゲットしたポイント(viewcontrollerで表示するため)
 - (int)getQuestClearPoint:(KiiObject *)cleardQuest
 {
     KiiObject *quest = cleardQuest;
     NSString *type = [quest getObjectForKey:quest_type];
-    int point = 0;
+    int retPoint = 0;
     
     if ([type isEqualToString:@"user"]) {
         //これはuserクエスト
-        [self userQuestClearPoint];
+        [self refreshPoint:30];
+        retPoint = 30;
     } else {
         //one or multi
         int playerNum = [[quest getObjectForKey:quest_player_num] intValue];
         if (playerNum > 1) {
             //協力クエスト
-            [self multiQuestClearPoint];
+            [self refreshPoint:25];
+            retPoint = 25;
         } else {
             //一人用クエスト
             [self refreshPoint:20];
-            point = 20;
+            retPoint = 20;
         }
     }
     
-    return 20;
+    return retPoint;
 }
 
 
@@ -99,19 +104,6 @@
     
     [[NSNotificationCenter defaultCenter] postNotificationName:@"getPoint" object:[NSNumber numberWithInt:point]];
     
-}
-
-- (void)multiQuestClearPoint
-{
-    NSLog(@"multiQuestClearPoint");
-}
-- (void)oneQuestClearPoint
-{
-    int point = 20;
-    [self refreshPoint:point];
-    
-    [[NSNotificationCenter defaultCenter] postNotificationName:@"getPoint" object:[NSNumber numberWithInt:point]];
-
 }
 
 - (void)refreshPoint:(int)point

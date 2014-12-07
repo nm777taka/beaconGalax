@@ -21,6 +21,8 @@
 
 @interface GXClearViewController ()
 @property (weak, nonatomic) IBOutlet UILabel *pointLable;
+@property (weak, nonatomic) IBOutlet FUIButton *homeButton;
+- (IBAction)gotoHome:(id)sender;
 
 @end
 
@@ -29,7 +31,11 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
-    
+    self.homeButton.buttonColor = [UIColor turquoiseColor];
+    self.homeButton.shadowColor = [UIColor greenSeaColor];
+    self.homeButton.shadowHeight = 3.0f;
+    self.homeButton.cornerRadius = 6.0f;
+    self.homeButton.titleLabel.font = [UIFont boldFlatFontOfSize:15];
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -115,4 +121,11 @@
 
 }
 
+- (IBAction)gotoHome:(id)sender
+{
+    UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:[NSBundle mainBundle]];
+    UIViewController *initViewController = [storyboard instantiateInitialViewController];
+    [self presentViewController:initViewController animated:NO completion:nil];
+
+}
 @end

@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6250" systemVersion="13F34" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="MGA-9e-gcu">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6254" systemVersion="13F34" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="MGA-9e-gcu">
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6244"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6247"/>
+        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
     <scenes>
         <!--QUEST-->
@@ -140,12 +141,30 @@
                                 </subviews>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                             </view>
+                            <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="yMq-cB-cRm" customClass="FUIButton">
+                                <rect key="frame" x="107" y="499" width="107" height="30"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="30" id="Sai-UT-h2r"/>
+                                </constraints>
+                                <state key="normal" title="homeへ">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="gotoHome:" destination="T90-QZ-KLs" eventType="touchUpInside" id="f6Y-78-pRw"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" red="0.97556640625000002" green="0.97556640625000002" blue="0.97556640625000002" alpha="1" colorSpace="calibratedRGB"/>
+                        <constraints>
+                            <constraint firstAttribute="trailingMargin" secondItem="yMq-cB-cRm" secondAttribute="trailing" constant="90" id="ZtR-JS-JoW"/>
+                            <constraint firstItem="yMq-cB-cRm" firstAttribute="leading" secondItem="QBd-8J-NbE" secondAttribute="leadingMargin" constant="90" id="ah2-65-tpB"/>
+                            <constraint firstItem="1v8-8g-Ovs" firstAttribute="top" secondItem="yMq-cB-cRm" secondAttribute="bottom" constant="39" id="uv5-dy-Oes"/>
+                        </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="bAe-eN-99M"/>
                     <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina4"/>
                     <connections>
+                        <outlet property="homeButton" destination="yMq-cB-cRm" id="IsU-YV-CGT"/>
                         <outlet property="pointLable" destination="GVe-XS-WM2" id="u7g-JW-M96"/>
                     </connections>
                 </viewController>

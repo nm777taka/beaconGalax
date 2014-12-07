@@ -150,6 +150,7 @@
 
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section
 {
+    NSLog(@"%d:object",[_questList count]);
     return [_questList count];
 }
 
@@ -408,38 +409,6 @@
 #pragma mark - FUIAlert
 - (void)alertView:(FUIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
 {
-//    switch (alertView.tag) {
-//        case 0: // 一人用クエスト選択
-//            if (buttonIndex == 1) {
-//                [[GXBucketManager sharedManager] registerJoinedQuest:self.selectedObject];
-//                [[GXBucketManager sharedManager] deleteJoinedQuest:self.selectedObject];
-//
-//            }
-//            break;
-//            
-//        case 1: //募集されてるクエスト
-//            //inviteに遷移
-//            if (buttonIndex == 1) {
-//                [NSTimer bk_scheduledTimerWithTimeInterval:0.5 block:^(NSTimer *timer) {
-//                    [self gotoInvitedView];
-//                } repeats:NO];
-//                
-//            }
-//            break;
-//            
-//        case 2: //募集するクエスト
-//            if (buttonIndex == 1) {
-//                
-//                [[GXBucketManager sharedManager] registerInviteBoard:self.selectedObject];
-//                [[GXBucketManager sharedManager] deleteJoinedQuest:self.selectedObject];
-//
-//            }
-//            break;
-//            
-//        default:
-//            break;
-//    }
-    
     switch (alertView.tag) {
         case 0://invite
             if (buttonIndex == 1) {
@@ -470,7 +439,7 @@
             NSLog(@"joinedBucketに登録します");
             [[GXBucketManager sharedManager] acceptNewQuest:object]; // だめじゃねこれ
             NSLog(@"notJoinから削除");
-            [[GXBucketManager sharedManager] deleteJoinedQuest:object];
+            //[[GXBucketManager sharedManager] deleteJoinedQuest:object];
             [SVProgressHUD dismiss];
             
             CWStatusBarNotification *notis = [CWStatusBarNotification new];
