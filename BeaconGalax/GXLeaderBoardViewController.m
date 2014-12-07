@@ -59,7 +59,9 @@
 
 - (void)configureStatus
 {
-    
+    int point  = [[GXPointManager sharedInstance] getCurrentPoint];
+    NSLog(@"%d",point);
+    self.pointLabel.text = [NSString stringWithFormat:@"%d",point];
 }
 
 /*

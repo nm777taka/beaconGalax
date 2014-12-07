@@ -20,6 +20,8 @@
 		0F1295EC1A2DCB5B009A1153 /* GXGoogleTrackingManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 0F1295EB1A2DCB5B009A1153 /* GXGoogleTrackingManager.m */; };
 		0F16512519D4435A00918F8D /* GXGroupManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 0F16512419D4435A00918F8D /* GXGroupManager.m */; };
 		0F16512819D443A800918F8D /* GXQuestMemberCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 0F16512719D443A800918F8D /* GXQuestMemberCell.m */; };
+		0F2455ED1A3417E000F34724 /* GXRankingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0F2455EC1A3417E000F34724 /* GXRankingViewController.m */; };
+		0F2455F51A3418C300F34724 /* GXRankingTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 0F2455F41A3418C300F34724 /* GXRankingTableViewCell.m */; };
 		0F27DAF119824BC20000E0D0 /* GXNavigationItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 0F27DAF019824BC20000E0D0 /* GXNavigationItem.m */; };
 		0F27DB0119876A750000E0D0 /* menu-white.png in Resources */ = {isa = PBXBuildFile; fileRef = 0F27DB0019876A750000E0D0 /* menu-white.png */; };
 		0F27DB0319876A780000E0D0 /* bell-white.png in Resources */ = {isa = PBXBuildFile; fileRef = 0F27DB0219876A780000E0D0 /* bell-white.png */; };
@@ -178,6 +180,10 @@
 		0F16512419D4435A00918F8D /* GXGroupManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GXGroupManager.m; sourceTree = "<group>"; };
 		0F16512619D443A800918F8D /* GXQuestMemberCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GXQuestMemberCell.h; sourceTree = "<group>"; };
 		0F16512719D443A800918F8D /* GXQuestMemberCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GXQuestMemberCell.m; sourceTree = "<group>"; };
+		0F2455EB1A3417E000F34724 /* GXRankingViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GXRankingViewController.h; sourceTree = "<group>"; };
+		0F2455EC1A3417E000F34724 /* GXRankingViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GXRankingViewController.m; sourceTree = "<group>"; };
+		0F2455F31A3418C300F34724 /* GXRankingTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GXRankingTableViewCell.h; sourceTree = "<group>"; };
+		0F2455F41A3418C300F34724 /* GXRankingTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GXRankingTableViewCell.m; sourceTree = "<group>"; };
 		0F27DAEF19824BC20000E0D0 /* GXNavigationItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GXNavigationItem.h; sourceTree = "<group>"; };
 		0F27DAF019824BC20000E0D0 /* GXNavigationItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GXNavigationItem.m; sourceTree = "<group>"; };
 		0F27DB0019876A750000E0D0 /* menu-white.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "menu-white.png"; sourceTree = "<group>"; };
@@ -510,6 +516,23 @@
 			name = QuestExeView;
 			sourceTree = "<group>";
 		};
+		0F2455EE1A34187C00F34724 /* LeaderBoard */ = {
+			isa = PBXGroup;
+			children = (
+				0F2455EF1A34188300F34724 /* RankingView */,
+			);
+			name = LeaderBoard;
+			sourceTree = "<group>";
+		};
+		0F2455EF1A34188300F34724 /* RankingView */ = {
+			isa = PBXGroup;
+			children = (
+				0F2455F31A3418C300F34724 /* GXRankingTableViewCell.h */,
+				0F2455F41A3418C300F34724 /* GXRankingTableViewCell.m */,
+			);
+			name = RankingView;
+			sourceTree = "<group>";
+		};
 		0F3558241A0909B30023F2FF /* 実行中のクエスト */ = {
 			isa = PBXGroup;
 			children = (
@@ -738,7 +761,7 @@
 			isa = PBXGroup;
 			children = (
 				0FCFCCC11A1B68AF0070FA91 /* Other */,
-				0F7A25C819587DFA001B7839 /* storyboard */,
+				0F7A25C819587DFA001B7839 /* Storyboard */,
 				0F35582A1A11971E0023F2FF /* MVC */,
 				0F7A25AB19587ADE001B7839 /* Images.xcassets */,
 				0F7A259A19587ADE001B7839 /* Supporting Files */,
@@ -775,13 +798,13 @@
 			name = "Supporting Files";
 			sourceTree = "<group>";
 		};
-		0F7A25C819587DFA001B7839 /* storyboard */ = {
+		0F7A25C819587DFA001B7839 /* Storyboard */ = {
 			isa = PBXGroup;
 			children = (
 				0F7A25A519587ADE001B7839 /* Main.storyboard */,
 				0FCFA47519F78E080087011A /* subStoryboard.storyboard */,
 			);
-			name = storyboard;
+			name = Storyboard;
 			sourceTree = "<group>";
 		};
 		0F7A25C919587E0C001B7839 /* Controller */ = {
@@ -944,6 +967,8 @@
 			children = (
 				0FC9283F1A32300C002931F1 /* GXLeaderBoardViewController.h */,
 				0FC928401A32300C002931F1 /* GXLeaderBoardViewController.m */,
+				0F2455EB1A3417E000F34724 /* GXRankingViewController.h */,
+				0F2455EC1A3417E000F34724 /* GXRankingViewController.m */,
 			);
 			name = LeaderBoard;
 			sourceTree = "<group>";
@@ -1088,6 +1113,7 @@
 		0FD26D7C1959F32C005E2B95 /* View */ = {
 			isa = PBXGroup;
 			children = (
+				0F2455EE1A34187C00F34724 /* LeaderBoard */,
 				0F3558431A14C3520023F2FF /* ActivityView */,
 				0F6E291E19EEF14F005BE433 /* QuestGroupView */,
 				0F6E291619ED4FEE005BE433 /* InvitedView */,
@@ -1395,6 +1421,7 @@
 				0F5FA5ED198A31D900F41B05 /* GXHomeTableViewHeader.m in Sources */,
 				0F16512519D4435A00918F8D /* GXGroupManager.m in Sources */,
 				0F42366719BD58530001E204 /* UIPlaceHolderTextView.m in Sources */,
+				0F2455ED1A3417E000F34724 /* GXRankingViewController.m in Sources */,
 				0FC9FF1719E81FF100E78B39 /* GXClearViewController.m in Sources */,
 				0F27DAF119824BC20000E0D0 /* GXNavigationItem.m in Sources */,
 				0FDD5FBF1A216A9800FBC852 /* UILocalNotification+GXNotification.m in Sources */,
@@ -1403,6 +1430,7 @@
 				0F6E292119EEF17C005BE433 /* GXQuestGroupViewCell.m in Sources */,
 				0F7A25A019587ADE001B7839 /* main.m in Sources */,
 				0FD26D89195A0A11005E2B95 /* UIColor+GXtheme.m in Sources */,
+				0F2455F51A3418C300F34724 /* GXRankingTableViewCell.m in Sources */,
 				0F5FA5F6198DCF5300F41B05 /* GXFacebook.m in Sources */,
 				0FB4406619F18745006F857D /* GXQuestExeViewController.m in Sources */,
 				0F7F4142195C823000A796AD /* GXLoginViewController.m in Sources */,
