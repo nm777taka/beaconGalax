@@ -219,12 +219,7 @@
 {
     if (_isMulti) {
         //協力クエストを削除
-        //参加したけどやめる的な感じ
-        //もしくはなにかしらのエラーで参加クエストが既にはじまってしまった場合
-        //グループから自分を削除＆グループのメンバーバケットからも削除 (絶対必要となったらやる)
-        
-        //とりあえず消しとく
-        //[self delete];
+      
         KiiObject *deleteObj = [KiiObject objectWithURI:self.quest.quest_id];
         [deleteObj refreshWithBlock:^(KiiObject *object, NSError *error) {
             KiiObject *deleteJoinedQuest = object;
@@ -255,6 +250,9 @@
                                     
                                     //kiiGrupから消える
                                     [self getOutQuestGroup:group.objectURI];
+                                    CWStatusBarNotification *notis = [CWStatusBarNotification new];
+                                    notis.notificationLabelBackgroundColor = [UIColor turquoiseColor];
+                                    [notis displayNotificationWithMessage:@"削除しました" forDuration:2.0f];
                                     
                                     [self close];
                                     

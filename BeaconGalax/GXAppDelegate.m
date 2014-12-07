@@ -207,12 +207,12 @@
         NSLog(@"push受信");
         KiiPushMessage *msg = [KiiPushMessage messageFromAPNS:userInfo];
         NSString *topicName = [msg getValueOfKiiMessageField:KiiMessage_TOPIC];
+        NSString *msgType = [msg getValueOfKiiMessageField:KiiMessage_TYPE];
         NSString *bucketName = [msg getValueOfKiiMessageField:KiiMessage_BUCKET_ID];
         
         if ([topicName isEqualToString:@"invite_notify"]) {
             NSLog(@"きたよ☆");
             if (application.applicationState == UIApplicationStateActive) {
-                NSLog(@"アクティブで受けっとたよ☆");
                 //TSMessage表示用
                 [[NSNotificationCenter defaultCenter] postNotificationName:GXAddGroupSuccessedNotification object:userInfo[@"group_uri"]];
                 
@@ -232,12 +232,18 @@
         //パーティーへの参加
         if ([bucketName isEqualToString:@"member"]) {
             if (application.applicationState == UIApplicationStateActive) {
-                NSLog(@"newmember");
-                //cwnotis
+                
                 CWStatusBarNotification *notis = [CWStatusBarNotification new];
                 notis.notificationLabelBackgroundColor = [UIColor turquoiseColor];
                 notis.notificationStyle = CWNotificationStyleNavigationBarNotification;
-                [notis displayNotificationWithMessage:@"新しいメンバーが参加しました" forDuration:2.0f];
+                if ([msgType isEqualToString:@"DATA_OBJECT_CREATED"]) {
+                    [notis displayNotificationWithMessage:@"新しいメンバーが参加しました" forDuration:2.0f];
+                    
+                } else if ([msgType isEqualToString:@"DATA_OBJECT_DELETED"]) {
+                    [notis displayNotificationWithMessage:@"メンバーが抜けました" forDuration:2.0f];
+
+                }
+                
                 
             }
         }
