@@ -7,6 +7,7 @@
 //
 
 #import "GXPointManager.h"
+#import "GXBucketManager.h"
 #import "GXUserManager.h"
 #import "GXDictonaryKeys.h"
 #import <CWStatusBarNotification.h>
@@ -94,6 +95,23 @@
     return retPoint;
 }
 
+- (void)checkRank
+{
+    int currentPoint = [self getCurrentPoint];
+    //DBから検索 指定FがcurrentPoint以下のものをFetch
+    KiiClause *clause = [KiiClause lessThanOrEqual:@"point" value:[NSNumber numberWithInt:currentPoint]];
+    KiiQuery *query = [KiiQuery queryWithClause:clause];
+    KiiQuery *nextQuery;
+    [query sortByDesc:@"point"];
+    KiiBucket *bucket = [GXBucketManager sharedManager].rank_bucket;
+    NSError *error;
+    NSArray *results = [bucket executeQuerySynchronous:query withError:&error andNext:&nextQuery];
+    KiiObject *firstObj = results.firstObject;
+    NSLog(@"rank:%@",[firstObj getObjectForKey:@"rank"]);
+    //今のランクと違ってたら
+    //ランクアップ処理
+    
+}
 
 #pragma mark - Internal
 - (void)userQuestClearPoint

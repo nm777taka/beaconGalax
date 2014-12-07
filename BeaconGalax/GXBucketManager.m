@@ -43,6 +43,7 @@
         self.inviteBoard = [Kii bucketWithName:@"invite_board"];
         self.activityBucket = [Kii bucketWithName:@"activity"];
         self.user_beacons = [Kii bucketWithName:@"user_beacons"];
+        self.rank_bucket = [Kii bucketWithName:@"Rank_Bucket"];
         
         //Userスコープ
         self.notJoinedQuest = [[KiiUser currentUser] bucketWithName:@"notJoined_quest"];

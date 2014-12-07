@@ -22,6 +22,7 @@
 @interface GXClearViewController ()
 @property (weak, nonatomic) IBOutlet UILabel *pointLable;
 @property (weak, nonatomic) IBOutlet FUIButton *homeButton;
+@property NSDictionary *rankDict;
 - (IBAction)gotoHome:(id)sender;
 
 @end
@@ -49,6 +50,7 @@
 {
     [super viewDidAppear:animated];
     [self googleAnalytics];
+    [[GXPointManager sharedInstance] checkRank];
     //[self registerPoint];
     //activity
     //[self setActivity];
@@ -81,27 +83,6 @@
 - (void)clearQuest
 {
     [[GXExeQuestManager sharedManager] clearNowExeQuest];
-}
-
-- (void)registerPoint
-{
-    NSError *error;
-    KiiBucket *pointBucket = [[KiiUser currentUser] bucketWithName:@"point"];
-    KiiQuery *query = [KiiQuery queryWithClause:nil];
-    KiiQuery *nxQuery;
-    NSArray *results = [pointBucket executeQuerySynchronous:query withError:&error andNext:&nxQuery];
-    if (results.count == 0) {
-        KiiObject *pointObj = [pointBucket createObject];
-        [pointObj setObject:[NSNumber numberWithInt:self.point] forKey:@"point"];
-        [pointObj saveSynchronous:&error];
-    } else {
-        KiiObject *currentPointObj = results.firstObject;
-        [currentPointObj refreshSynchronous:&error];
-        int currPoint = [[currentPointObj getObjectForKey:@"point"] intValue];
-        currPoint += self.point;
-        [currentPointObj setObject:[NSNumber numberWithInt:currPoint] forKey:@"point"];
-        [currentPointObj saveSynchronous:&error];
-    }
 }
 
 - (void)setActivity

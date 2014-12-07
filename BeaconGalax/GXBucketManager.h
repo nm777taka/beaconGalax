@@ -18,6 +18,7 @@
 @property (nonatomic) KiiBucket *inviteBoard;
 @property (nonatomic) KiiBucket *activityBucket;
 @property (nonatomic) KiiBucket *user_beacons;
+@property (nonatomic) KiiBucket *rank_bucket;
 
 //GroupScope
 @property (nonatomic) KiiBucket *questMember;

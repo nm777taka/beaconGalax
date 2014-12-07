@@ -225,11 +225,73 @@
         
         //とりあえず消しとく
         //[self delete];
+        KiiObject *deleteObj = [KiiObject objectWithURI:self.quest.quest_id];
+        [deleteObj refreshWithBlock:^(KiiObject *object, NSError *error) {
+            KiiObject *deleteJoinedQuest = object;
+            if (error) {
+                [self showErrorMsg];
+            } else {
+                KiiGroup *targetGroup = [KiiGroup groupWithURI:[object getObjectForKey:quest_groupURI]];
+                [targetGroup refreshWithBlock:^(KiiGroup *group, NSError *error) {
+                    //もしかしたらオーナーが削除してるかも
+                    if (error) {
+                        [self showErrorMsg];
+                    } else {
+                        //グループのmemberバケットから自分を削除
+                        KiiBucket *member = [group bucketWithName:@"member"];
+                        KiiObject *gxusr = [GXUserManager sharedManager].gxUser;
+                        KiiClause *clause = [KiiClause equals:@"name" value:[gxusr getObjectForKey:user_name]];
+                        KiiQuery *query = [KiiQuery queryWithClause:clause];
+                        [member executeQuery:query withBlock:^(KiiQuery *query, KiiBucket *bucket, NSArray *results, KiiQuery *nextQuery, NSError *error) {
+                            if (!error) {
+                                KiiObject *deleteObj = results.firstObject;
+                                [deleteObj deleteWithBlock:^(KiiObject *object, NSError *error) {
+                                    NSLog(@"クエストメンバーから抜けました");
+                                    
+                                    //自分のバケットから参加クエストを消す
+                                    [deleteJoinedQuest deleteWithBlock:^(KiiObject *object, NSError *error) {
+                                        NSLog(@"削除完了なり");
+                                    }];
+                                    
+                                    //kiiGrupから消える
+                                    [self getOutQuestGroup:group.objectURI];
+                                    
+                                    [self close];
+                                    
+                                }];
+                            }
+                        }];
+                    }
+                }];
+            }
+        }];
         
     } else {
         //一人用クエストを削除
         [self delete];
     }
+}
+
+- (void)getOutQuestGroup:(NSString *)groupURI
+{
+    NSLog(@"groupURI:%@",groupURI);
+    KiiServerCodeEntry *entry = [Kii serverCodeEntry:@"getOutQuestGroup"];
+    NSString *userURI = [KiiUser currentUser].objectURI;
+    NSLog(@"userURI:%@",userURI);
+    NSDictionary *argDict = [NSDictionary dictionaryWithObjectsAndKeys:groupURI,@"groupURI",userURI,@"userURI", nil];
+    KiiServerCodeEntryArgument *argument = [KiiServerCodeEntryArgument argumentWithDictionary:argDict];
+    [entry execute:argument withBlock:^(KiiServerCodeEntry *entry, KiiServerCodeEntryArgument *argument, KiiServerCodeExecResult *result, NSError *error) {
+        if (!error) {
+            NSLog(@"%@",result);
+        } else {
+            NSLog(@"error:%@",error);
+        }
+    }];
+}
+- (void)showErrorMsg
+{
+    FUIAlertView *alert = [FUIAlertView errorTheme:@"エラー"];
+    [alert show];
 }
 
 - (void)deleteInvitedQuest
