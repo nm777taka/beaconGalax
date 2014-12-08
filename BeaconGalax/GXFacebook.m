@@ -62,7 +62,7 @@
         [gxuser setObject:user_email forKey:@"email"];
         [gxuser setObject:user_id forKey:@"facebook_id"];
         [gxuser setObject:0 forKey:@"point"];
-        [gxuser setObject:@"D" forKey:@"rank"];
+        [gxuser setObject:@"E" forKey:@"rank"];
         [gxuser saveSynchronous:&error];
         if (error != nil) {
             

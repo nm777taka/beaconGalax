@@ -78,8 +78,9 @@
     cell.userName.text = [user getObjectForKey:user_name];
     int point = [[user getObjectForKey:@"point"] intValue];
     cell.userPoint.text = [NSString stringWithFormat:@"%d",point];
-    cell.userRank.text = [user getObjectForKey:@"rank"];
+    cell.userRank.text = [NSString stringWithFormat:@"%@ランク",[user getObjectForKey:@"rank"]];
     cell.rankIndex.text = [NSString stringWithFormat:@"%d",indexPath.row + 1];
+    cell.rankIndex.textColor = [UIColor grayColor];
 }
 
 #pragma mark - TalbleView delegata

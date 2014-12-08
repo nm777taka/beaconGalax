@@ -19,6 +19,7 @@
 
 + (FUIAlertView *)errorTheme:(NSString *)errorMsg;
 + (FUIAlertView *)cautionTheme:(NSString *)msg;
++ (FUIAlertView *)rankUPTheme:(NSString *)rank;
 
 
 

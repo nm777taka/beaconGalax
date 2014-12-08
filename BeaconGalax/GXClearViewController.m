@@ -21,8 +21,9 @@
 
 #import "GXAnimationLabel.h"
 #import "NSObject+BlocksWait.h"
+#import "FUIAlertView+GXTheme.h"
 
-@interface GXClearViewController ()
+@interface GXClearViewController ()<FUIAlertViewDelegate>
 @property (weak, nonatomic) IBOutlet UILabel *headerTitle;
 @property (weak, nonatomic) IBOutlet UILabel *headerSubTitle;
 @property (weak, nonatomic) IBOutlet UILabel *pointSubLabel;
@@ -70,16 +71,13 @@
 {
     [super viewWillAppear:animated];
     self.tabBarController.tabBar.hidden = YES;
-    self.userPoint = [[GXPointManager sharedInstance] getCurrentPoint];
-    self.currentPointLabel.text = [NSString stringWithFormat:@"%d",(int)self.userPoint];
-    self.gotQuestPoint = [[GXPointManager sharedInstance] getQuestClearPoint:self.quest];
-
+    
     NSDictionary *dict = [[GXPointManager sharedInstance] checkNextRank];
     NSNumber *nextPoint = dict[@"nextPoint"];
     self.nextPoint = [nextPoint floatValue];
     self.nextRank = dict[@"nextRank"];
     self.nextRankSubLabel.text = [NSString stringWithFormat:@"%@ランクまで",self.nextRank];
-    
+    self.userPoint = [[GXPointManager sharedInstance] getCurrentPoint];
     if (self.userPoint != 0) {
         self.nowProgress = (self.userPoint / self.nextPoint);
         [self.rankProgressView setProgress:self.nowProgress];
@@ -91,25 +89,38 @@
 {
     [super viewDidAppear:animated];
     [self googleAnalytics];
+    self.gotQuestPoint = [[GXPointManager sharedInstance] getQuestClearPoint:self.quest]; //取得ポイントを登録
     [self.pointLable animationFrom:0 to:self.gotQuestPoint withDuration:1.0];
     
+    [self clearQuest];
+    
     //activity
-    //[self setActivity];
+    [self setActivity];
     [NSObject performBlock:^{
+        self.userPoint = [[GXPointManager sharedInstance] getCurrentPoint]; //refresh
+        self.currentPointLabel.text = [NSString stringWithFormat:@"%d",(int)self.userPoint];
         [self setProgress];
     } afterDelay:2.0];
 }
 
 - (void)setProgress
 {
-    float sum = self.userPoint + self.gotQuestPoint;
-    float progress = sum / self.nextPoint;
+    float progress = self.userPoint / self.nextPoint;
     [self.rankProgressView setProgress:progress animated:YES];
+    NSLog(@"progress:%f",progress);
+    
+    if (progress >= 1.0) {
+        //rankup
+        [self rankUP];
+    }
 }
 
-- (void)viewAnimationSequece
+- (void)rankUP
 {
-    
+    NSLog(@"rankUP");
+    FUIAlertView *alert = [FUIAlertView rankUPTheme:self.nextRank];
+    alert.delegate = self;
+    [alert show];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -145,5 +156,18 @@
     UIViewController *initViewController = [storyboard instantiateInitialViewController];
     [self presentViewController:initViewController animated:NO completion:nil];
 
+}
+
+#pragma FUIAlert
+- (void)alertView:(FUIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
+{
+    if (buttonIndex == 0) {
+        NSLog(@"rankup");
+        [[GXPointManager sharedInstance] rankUP:self.nextRank];
+        
+        UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:[NSBundle mainBundle]];
+        UIViewController *initViewController = [storyboard instantiateInitialViewController];
+        [self presentViewController:initViewController animated:NO completion:nil];
+    }
 }
 @end

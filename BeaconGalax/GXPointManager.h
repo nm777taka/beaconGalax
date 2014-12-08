@@ -26,6 +26,7 @@
 - (int)getCurrentPoint;
 - (void)checkRank;
 - (NSDictionary *)checkNextRank;
+- (void)rankUP:(NSString *)nextRank;
 
 
 @end

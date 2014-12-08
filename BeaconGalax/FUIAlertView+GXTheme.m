@@ -150,4 +150,26 @@
 
 }
 
++ (FUIAlertView *)rankUPTheme:(NSString *)rank
+{
+    NSString *msg = [NSString stringWithFormat:@"%@ランクになりました",rank];
+    FUIAlertView *alertView = [[FUIAlertView alloc] initWithTitle:@"ランクアップ！"
+                                                          message:msg
+                                                         delegate:nil cancelButtonTitle:@"OK"
+                                                otherButtonTitles:nil, nil];
+    
+    alertView.titleLabel.textColor = [UIColor cloudsColor];
+    alertView.titleLabel.font = [UIFont boldFlatFontOfSize:16];
+    alertView.messageLabel.textColor = [UIColor cloudsColor];
+    alertView.messageLabel.font = [UIFont flatFontOfSize:14];
+    alertView.backgroundOverlay.backgroundColor = [[UIColor cloudsColor] colorWithAlphaComponent:0.8];
+    alertView.alertContainer.backgroundColor = [UIColor sunflowerColor];
+    alertView.defaultButtonColor = [UIColor cloudsColor];
+    alertView.defaultButtonShadowColor = [UIColor asbestosColor];
+    alertView.defaultButtonFont = [UIFont boldFlatFontOfSize:16];
+    alertView.defaultButtonTitleColor = [UIColor sunflowerColor];
+    return alertView;
+
+}
+
 @end

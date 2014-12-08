@@ -97,7 +97,6 @@
 
 - (void)checkRank
 {
-    NSLog(@"call");
     int currentPoint = [self getCurrentPoint];
     //DBから検索 指定FがcurrentPoint以下のものをFetch
     KiiClause *clause = [KiiClause lessThanOrEqual:@"point" value:[NSNumber numberWithInt:currentPoint]];
@@ -107,7 +106,6 @@
     [bucket executeQuery:query withBlock:^(KiiQuery *query, KiiBucket *bucket, NSArray *results, KiiQuery *nextQuery, NSError *error) {
         KiiObject *firstObj = results.lastObject;
         NSString *currentRank = [firstObj getObjectForKey:@"rank"];
-        NSLog(@"currentRank:%@",currentRank);
         
         //次にnextRankを探す
         KiiClause *clause = [KiiClause greaterThan:@"point" value:[NSNumber numberWithInt:currentPoint]];
@@ -123,7 +121,6 @@
                 
                 KiiObject *firstObj = results.firstObject;
                 NSString *nextRank = [firstObj getObjectForKey:@"rank"];
-                NSLog(@"nextRank:%@",nextRank);
             }
         }];
         
@@ -146,6 +143,7 @@
     } else {
         KiiObject *firstObj = results.firstObject;
         NSString *nextRank = [firstObj getObjectForKey:@"rank"];
+        NSLog(@"checkNextRank:%@",nextRank);
         NSNumber *nextReqPoint = [firstObj getObjectForKey:@"point"];
         retDict = @{@"nextRank":nextRank,@"nextPoint":nextReqPoint};
     }
@@ -190,6 +188,18 @@
         }
     }];
     
+}
+
+- (void)rankUP:(NSString *)nextRank
+{
+    NSLog(@"call-rankUP");
+    KiiObject *user = [GXUserManager sharedManager].gxUser;
+    [user setObject:nextRank forKey:@"rank"];
+    [user saveWithBlock:^(KiiObject *object, NSError *error) {
+        if (!error) {
+            NSLog(@"setNewRank");
+        }
+    }];
 }
 
 - (void)showAlert:(int)point

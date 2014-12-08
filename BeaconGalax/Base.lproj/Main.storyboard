@@ -222,7 +222,7 @@
             </objects>
             <point key="canvasLocation" x="1081" y="908"/>
         </scene>
-        <!--leaderborad-->
+        <!--ステータス-->
         <scene sceneID="kpI-Ud-xeo">
             <objects>
                 <viewController storyboardIdentifier="leaderBoard" id="ywW-cu-gNz" customClass="GXLeaderBoardViewController" sceneMemberID="viewController">
@@ -243,64 +243,58 @@
                                     <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="vYN-wY-Uym">
                                         <rect key="frame" x="206" y="62" width="100" height="30"/>
                                         <state key="normal" title="ランキング">
+                                            <color key="titleColor" red="0.9212072491645813" green="0.84832113981246948" blue="0.62377804517745972" alpha="1" colorSpace="calibratedRGB"/>
                                             <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                         </state>
                                         <connections>
                                             <segue destination="lL7-D4-vDM" kind="push" id="uiV-4o-fgo"/>
                                         </connections>
                                     </button>
-                                    <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="7Dq-TI-H5S">
-                                        <rect key="frame" x="7" y="62" width="100" height="30"/>
-                                        <state key="normal" title="クリア済">
-                                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                        </state>
-                                    </button>
                                     <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="alH-g6-PYW" customClass="FBProfilePictureView">
                                         <rect key="frame" x="125" y="22" width="70" height="70"/>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                     </view>
                                 </subviews>
-                                <color key="backgroundColor" red="0.85471791131588848" green="0.8760638044748118" blue="0.88654296874999994" alpha="1" colorSpace="calibratedRGB"/>
-                            </view>
-                            <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="fTf-20-Vcw">
-                                <rect key="frame" x="10" y="193" width="300" height="50"/>
-                                <subviews>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="100" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="7yI-SV-qq5">
-                                        <rect key="frame" x="110" y="14" width="100" height="21"/>
-                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                        <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
-                                        <nil key="highlightedColor"/>
-                                    </label>
-                                </subviews>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <color key="backgroundColor" red="0.18198148906230927" green="0.69426733255386353" blue="0.53024792671203613" alpha="1" colorSpace="calibratedRGB"/>
                             </view>
                             <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="vtV-rQ-cKK">
-                                <rect key="frame" x="10" y="251" width="300" height="80"/>
+                                <rect key="frame" x="10" y="206" width="300" height="136"/>
                                 <subviews>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="rank" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="sUi-a6-Z4z">
-                                        <rect key="frame" x="112" y="14" width="100" height="21"/>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="現在のRank : A" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="sUi-a6-Z4z">
+                                        <rect key="frame" x="15" y="47" width="270" height="21"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                         <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <progressView opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="750" fixedFrame="YES" progressViewStyle="bar" progress="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="UQW-Ck-yuH">
-                                        <rect key="frame" x="0.0" y="63" width="300" height="3"/>
+                                        <rect key="frame" x="15" y="113" width="270" height="3"/>
                                         <color key="backgroundColor" red="0.68888300660000001" green="0.71366006140000005" blue="0.73448425530000006" alpha="1" colorSpace="calibratedRGB"/>
                                     </progressView>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="取得ポイント数: 180903" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="7yI-SV-qq5">
+                                        <rect key="frame" x="15" y="18" width="270" height="21"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                        <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="次のランクまで" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dzA-Iq-XoF">
+                                        <rect key="frame" x="15" y="84" width="270" height="21"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                        <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
                                 </subviews>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                             </view>
                         </subviews>
-                        <color key="backgroundColor" red="0.68888300657272339" green="0.71366006135940552" blue="0.73448425531387329" alpha="1" colorSpace="calibratedRGB"/>
+                        <color key="backgroundColor" red="0.89806829209834071" green="0.92681061396645414" blue="0.95746093750000005" alpha="1" colorSpace="calibratedRGB"/>
                     </view>
-                    <navigationItem key="navigationItem" title="leaderborad" id="6sZ-c4-5Ku">
-                        <barButtonItem key="rightBarButtonItem" title="rank" style="plain" id="JDK-x1-jDo"/>
-                    </navigationItem>
+                    <navigationItem key="navigationItem" title="ステータス" id="6sZ-c4-5Ku"/>
                     <connections>
-                        <outlet property="gotoCleardQuestView" destination="7Dq-TI-H5S" id="FGE-gG-Otm"/>
                         <outlet property="gotoRanking" destination="vYN-wY-Uym" id="fBi-gA-a1o"/>
-                        <outlet property="pointLabel" destination="7yI-SV-qq5" id="QDg-je-2sZ"/>
-                        <outlet property="rankLabel" destination="sUi-a6-Z4z" id="mZN-yW-MFi"/>
+                        <outlet property="pointLabel" destination="7yI-SV-qq5" id="gIP-Zb-5W0"/>
+                        <outlet property="rankLabel" destination="sUi-a6-Z4z" id="fQU-NM-RvT"/>
+                        <outlet property="rankProgressView" destination="UQW-Ck-yuH" id="Ie7-Q5-mTk"/>
+                        <outlet property="rankSubLabel" destination="dzA-Iq-XoF" id="wbU-RM-cUw"/>
                         <outlet property="userIcon" destination="alH-g6-PYW" id="UvP-lm-2rp"/>
                     </connections>
                 </viewController>

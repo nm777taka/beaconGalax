@@ -126,14 +126,14 @@ const static CGFloat kJVFieldFloatingLabelFontSize = 11.0f;
     NSString *name = [gxUser getObjectForKey:user_name];
     NSString *fbid = [gxUser getObjectForKey:user_fb_id];
     NSString *text = [NSString stringWithFormat:@"%@クエストを作成しました",self.titleField.text];
-    //[[GXActivityList sharedInstance] registerQuestActivity:name title:text fbid:fbid];
+    [[GXActivityList sharedInstance] registerQuestActivity:name title:text fbid:fbid];
     [GXGoogleTrackingManager sendEventTracking:@"Quest" action:@"create" label:@"作成" value:nil screen:@"createQuestView"];
     
     //みんなに伝える
     NSString *createdUserName = [gxUser getObjectForKey:@"name"];
     [[GXTopicManager sharedManager] sendCreateQuestAlert:createdUserName];
     
-    //pointゲット
+    //pointゲットx
     [[GXPointManager sharedInstance] getCreateQuestPoint];
     [self dismissViewControllerAnimated:YES completion:nil];
     
