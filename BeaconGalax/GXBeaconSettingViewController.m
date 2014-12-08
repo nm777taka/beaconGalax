@@ -26,6 +26,7 @@ const static CGFloat kJVFieldFloatingLabelFontSize = 11.0f;
 - (IBAction)settingDone:(id)sender;
 
 @property JVFloatLabeledTextField *beaconMajorFiled;
+@property BOOL isSetBeaconMajor;
 
 @end
 
@@ -68,6 +69,18 @@ const static CGFloat kJVFieldFloatingLabelFontSize = 11.0f;
     
 }
 
+- (void)viewDidAppear:(BOOL)animated
+{
+    [super viewDidAppear:animated];
+    KiiObject *gxuser = [GXUserManager sharedManager].gxUser;
+    NSNumber *major = [gxuser getObjectForKey:@"major"];
+    if (major != nil) {
+        _isSetBeaconMajor = YES;
+    } else {
+        _isSetBeaconMajor = NO;
+    }
+}
+
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
@@ -93,33 +106,36 @@ const static CGFloat kJVFieldFloatingLabelFontSize = 11.0f;
 //Appのbeaocn管理Bucketと自分の情報にbeaconを書き込む
 - (IBAction)settingDone:(id)sender {
     
-    KiiBucket *userBeacons = [GXBucketManager sharedManager].user_beacons;
-    KiiObject *gxUser = [GXUserManager sharedManager].gxUser;
-    KiiObject *obj = [userBeacons createObject];
-    NSString *name = [KiiUser currentUser].displayName;
-    NSString *fbid = [gxUser getObjectForKey:user_fb_id];
-    NSNumber *major = [NSNumber numberWithInt:[self.beaconMajorFiled.text intValue]];
-    [obj setObject:major forKey:@"major"];
-    [obj setObject:name forKey:@"name"];
-    [obj setObject:fbid forKey:@"fbid"];
-    [obj saveWithBlock:^(KiiObject *object, NSError *error) {
-        if (error) {
-            NSLog(@"error:%@",error);
-        } else {
-            
-            [gxUser setObject:major forKey:@"user_major"];
-            [gxUser saveWithBlock:^(KiiObject *object, NSError *error) {
-                if (error) {
-                    NSLog(@"error:%@",error);
-                    //アラートとかだす
-                }
-            }];
-            
-        }
-    }];
-    
-    [self dismissViewControllerAnimated:YES completion:nil];
-    
+    if (_isSetBeaconMajor != NO) {
+        KiiBucket *userBeacons = [GXBucketManager sharedManager].user_beacons;
+        KiiObject *gxUser = [GXUserManager sharedManager].gxUser;
+        KiiObject *obj = [userBeacons createObject];
+        NSString *name = [KiiUser currentUser].displayName;
+        NSString *fbid = [gxUser getObjectForKey:user_fb_id];
+        NSNumber *major = [NSNumber numberWithInt:[self.beaconMajorFiled.text intValue]]; //ここが変わるとやばい
+        [obj setObject:major forKey:@"major"];
+        [obj setObject:name forKey:@"name"];
+        [obj setObject:fbid forKey:@"fbid"];
+        [obj saveWithBlock:^(KiiObject *object, NSError *error) {
+            if (error) {
+                NSLog(@"error:%@",error);
+            } else {
+                
+                [gxUser setObject:major forKey:@"user_major"];
+                [gxUser saveWithBlock:^(KiiObject *object, NSError *error) {
+                    if (error) {
+                        NSLog(@"error:%@",error);
+                        //アラートとかだす
+                    }
+                }];
+                
+            }
+        }];
+        
+        [self dismissViewControllerAnimated:YES completion:nil];
+    } else {
+        [self dismissViewControllerAnimated:YES completion:nil];
+    }
 
 }
 @end
