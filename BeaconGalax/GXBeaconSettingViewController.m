@@ -74,11 +74,7 @@ const static CGFloat kJVFieldFloatingLabelFontSize = 11.0f;
     [super viewDidAppear:animated];
     KiiObject *gxuser = [GXUserManager sharedManager].gxUser;
     NSNumber *major = [gxuser getObjectForKey:@"major"];
-    if (major != nil) {
-        _isSetBeaconMajor = YES;
-    } else {
-        _isSetBeaconMajor = NO;
-    }
+    NSLog(@"setBeaconMajor:%d",[major intValue]);
 }
 
 - (void)didReceiveMemoryWarning {
@@ -106,7 +102,6 @@ const static CGFloat kJVFieldFloatingLabelFontSize = 11.0f;
 //Appのbeaocn管理Bucketと自分の情報にbeaconを書き込む
 - (IBAction)settingDone:(id)sender {
     
-    if (_isSetBeaconMajor != NO) {
         KiiBucket *userBeacons = [GXBucketManager sharedManager].user_beacons;
         KiiObject *gxUser = [GXUserManager sharedManager].gxUser;
         KiiObject *obj = [userBeacons createObject];
@@ -133,9 +128,5 @@ const static CGFloat kJVFieldFloatingLabelFontSize = 11.0f;
         }];
         
         [self dismissViewControllerAnimated:YES completion:nil];
-    } else {
-        [self dismissViewControllerAnimated:YES completion:nil];
-    }
-
 }
 @end

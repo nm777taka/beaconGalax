@@ -79,13 +79,13 @@
 - (void)requestAsynchronous
 {
     _loading = YES;
-    [self performSelector:@selector(requestAsynchronousDone) withObject:self afterDelay:1.0];
+    //[self performSelector:@selector(requestAsynchronousDone) withObject:self afterDelay:1.0];
 }
 
 - (void)requestMoreAsynchronous
 {
     _loading = YES;
-    [self performSelector:@selector(requestMoreAsynchronousDone) withObject:self afterDelay:1.0];
+    //[self performSelector:@selector(requestMoreAsynchronousDone) withObject:self afterDelay:1.0];
 }
 
 //クエストのアクティビティを設定
@@ -93,6 +93,7 @@
                    title:(NSString *)text
                     fbid:(NSString *)fbid
 {
+    /*
     KiiBucket *bucket = [GXBucketManager sharedManager].activityBucket;
     KiiObject *newActivity = [bucket createObject];
     [newActivity setObject:name forKey:@"name"];
@@ -103,6 +104,7 @@
             NSLog(@"activity登録完了");
         }
     }];
+     */
 }
 
 #pragma mark - internals

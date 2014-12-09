@@ -123,8 +123,14 @@
             KiiBucket *bucket = [self.selectedQuestGroup bucketWithName:@"member"];
             [bucket executeQuery:query withBlock:^(KiiQuery *query, KiiBucket *bucket, NSArray *results, KiiQuery *nextQuery, NSError *error) {
                 if (!error) {
-                    NSLog(@"isReadyMemberNum:%d",results.count);
-                    if ((self.questMemberArray.count - 1) == results.count) {
+                    
+                    if ((self.questMemberArray.count - 1) == 0) { //リーダーしか以内状況
+                        [SVProgressHUD showErrorWithStatus:@"メンバーが一人もいません"];
+                        _isActionButtonPushed = NO; //フラグリセット
+                        return ;
+                    }
+                    
+                    if ((self.questMemberArray.count - 1) == results.count) { //リーダーはisReadyStatusを持たないので除いた数で判定する
                         //リーダ以外全員準備完了
                         //開始処理
                         KiiTopic *startTopic = [self.selectedQuestGroup topicWithName:@"quest_start"];
