@@ -11,6 +11,7 @@
 #import "GXUserManager.h"
 #import "GXDictonaryKeys.h"
 #import "GXNotification.h"
+#import "FUIAlertView+GXTheme.h"
 
 #import "GXGoogleTrackingManager.h"
 
@@ -19,6 +20,7 @@
 @property (weak, nonatomic) IBOutlet UILabel *questTitle;
 @property (nonatomic,assign) BOOL paused;
 @property (nonatomic,assign) float localQuestProgress;
+- (IBAction)stopQuestAction:(id)sender;
 
 
 
@@ -211,7 +213,11 @@
 {
     switch (buttonIndex) {
         case 1:
-            [self commitQuest];
+            if (alertView.tag == 99) {
+                [self goBack];
+            } else {
+                [self commitQuest];
+            }
             break;
             
         default:
@@ -239,6 +245,23 @@
         vc.group = self.exeGroup;
         vc.quest = self.exeQuest;
     }
+}
+
+- (IBAction)stopQuestAction:(id)sender
+{
+    FUIAlertView *alert = [FUIAlertView cautionTheme:@"本当に中断しますか？"];
+    alert.delegate = self;
+    alert.tag = 99;
+    [alert show];
+
+}
+
+
+- (void)goBack
+{
+    UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:[NSBundle mainBundle]];
+    UIViewController *initViewController = [storyboard instantiateInitialViewController];
+    [self presentViewController:initViewController animated:NO completion:nil];
 }
 
 @end
