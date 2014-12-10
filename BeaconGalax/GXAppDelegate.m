@@ -10,8 +10,8 @@
 #import <Fabric/Fabric.h>
 #import <Crashlytics/Crashlytics.h>
 
-
 #import "GXBucketManager.h"
+#import "GXUserManager.h"
 #import "GXDictonaryKeys.h"
 #import "GXNotification.h"
 #import "UILocalNotification+GXNotification.h"
@@ -23,13 +23,15 @@
 
 @property KiiUser *joinUser;
 @property KiiGroup *joinedGroup;
-@property CLLocationManager *locationManager;
+
+@property (strong, nonatomic) NSUUID *proximityUUID;
+@property (strong, nonatomic) CLLocationManager *locationManager;
+@property (strong, nonatomic) CLBeaconRegion *region;
 
 @end
 
 @implementation GXAppDelegate{
 }
-
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
@@ -95,7 +97,17 @@
     
     self.locationManager = [CLLocationManager new];
     self.locationManager.delegate = self;
+    NSString *uuid = @"B9407F30-F5F8-466E-AFF9-25556B57FE6D";
+    self.proximityUUID = [[NSUUID alloc] initWithUUIDString:uuid];
     
+    //region作成
+    self.region = [[CLBeaconRegion alloc] initWithProximityUUID:self.proximityUUID major:0001 identifier:@"研究室"];
+    self.region.notifyOnEntry = YES;
+    self.region.notifyOnExit = YES;
+    self.region.notifyEntryStateOnDisplay = NO;
+    
+    //モニタリング開始
+    [self.locationManager startMonitoringForRegion:self.region];
     
     //アプリがForegrondに無いときにこちらが呼ばれる
     //Local Notificationから起動したかどうか
@@ -113,7 +125,7 @@
             
         }
     }
-   
+    
     return YES;
 }
 
@@ -401,8 +413,67 @@
     
 }
 
+#pragma mark - CLLocationManagerDelegate methods
 
+// Beaconに入ったときに呼ばれる
+- (void)locationManager:(CLLocationManager *)manager
+         didEnterRegion:(CLRegion *)region
+{
+    NSLog(@"didEnter");
+    NSLog(@"%@", NSStringFromSelector(_cmd));
+    [self sendNotification:@"didEnterRegion"];
+    NSLog(@"beacon identifire:%@",region.identifier);
+    [[GXUserManager sharedManager] setLocation:region.identifier];
+    
+}
 
+// Beaconから出たときに呼ばれる
+- (void)locationManager:(CLLocationManager *)manager
+          didExitRegion:(CLRegion *)region
+{
+    NSLog(@"%@", NSStringFromSelector(_cmd));
+    [self sendNotification:@"didExitRegion"];
+    [[GXUserManager sharedManager] exitCommunitySpace];
+}
 
+#pragma mark - Other methods
+
+- (void)sendNotification:(NSString*)message
+{
+    // 通知を作成する
+    UILocalNotification *notification = [[UILocalNotification alloc] init];
+    
+    notification.fireDate = [NSDate dateWithTimeInterval:10 sinceDate:[NSDate new]];
+    notification.timeZone = [NSTimeZone defaultTimeZone];
+    notification.alertBody = message;
+    notification.alertAction = @"Open";
+    notification.soundName = UILocalNotificationDefaultSoundName;
+    
+    // 通知を登録する
+    [[UIApplication sharedApplication] scheduleLocalNotification:notification];
+}
+
+- (void)locationManager:(CLLocationManager *)manager didStartMonitoringForRegion:(CLRegion *)region
+{
+    NSLog(@"すでにいた");
+    [self.locationManager requestStateForRegion:region];
+}
+
+- (void)locationManager:(CLLocationManager *)manager didDetermineState:(CLRegionState)state forRegion:(CLRegion *)region
+{
+    if ([region isKindOfClass:[CLBeaconRegion class]]) {
+        switch (state) {
+            case CLRegionStateInside:
+                
+                break;
+            case CLRegionStateOutside:
+            case CLRegionStateUnknown:
+                break;
+                
+            default:
+                break;
+        }
+    }
+}
 
 @end

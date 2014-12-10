@@ -63,5 +63,40 @@
     return currRank;
 }
 
+- (void)setLocation:(NSString *)beaconName
+{
+    NSDate *timeStamp = [NSDate date];
+    NSDateFormatter *df = [NSDateFormatter new];
+    df.timeStyle = NSDateFormatterShortStyle;
+    NSString *stringDate = [df stringFromDate:timeStamp];
+    NSLog(@"%@",stringDate);
+    
+    [self.gxUser setObject:beaconName forKey:@"location"];
+    [self.gxUser setObject:stringDate forKey:@"locationTimeStamp"];
+    
+    [self.gxUser saveWithBlock:^(KiiObject *object, NSError *error) {
+        if (!error) {
+            NSLog(@"ロケーションアップデート");
+        }
+    }];
+}
+
+- (void)exitCommunitySpace
+{
+    NSDate *timeStamp = [NSDate date];
+    NSDateFormatter *df = [NSDateFormatter new];
+    df.timeStyle = NSDateFormatterShortStyle;
+    NSString *stringDate = [df stringFromDate:timeStamp];
+    NSLog(@"%@",stringDate);
+
+    [self.gxUser setObject:@"オフライン" forKey:@"location"];
+    [self.gxUser setObject:stringDate forKey:@"locationTimeStamp" ];
+    [self.gxUser saveWithBlock:^(KiiObject *object, NSError *error) {
+        if (!error) {
+            NSLog(@"帰宅");
+        }
+    }];
+}
+
 
 @end

@@ -15,6 +15,9 @@
 
 + (GXUserManager *)sharedManager;
 
+//出席とかとる
+- (void)setLocation:(NSString *)beaconName;
+- (void)exitCommunitySpace;
 
 - (int)getUserPoint;
 

@@ -110,7 +110,6 @@
     
     [self.pointLable animationFrom:0 to:self.gotQuestPoint withDuration:1.0]; //カウントアニメーション
     
-    
     [NSObject performBlock:^{
         self.userPoint += self.gotQuestPoint; //自分のポイントを更新
         
