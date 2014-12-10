@@ -59,7 +59,7 @@
     
     //詳細View
     self.detailViewController = [self.storyboard instantiateViewControllerWithIdentifier:@"detail"];
-    [self.questList requestAsyncronous:2];
+   // [self.questList requestAsyncronous:2];
     
     //button
     self.addQuestButton = [UIButton buttonWithType:UIButtonTypeCustom];
@@ -87,6 +87,7 @@
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(invitedQuestFetched:) name:GXInvitedQuestFetchedNotification object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(questInfo:) name:@"questInfo" object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(questDeleted:) name:GXQuestDeletedNotification object:nil];
+    
     [self request:2];
 }
 

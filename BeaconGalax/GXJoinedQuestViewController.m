@@ -50,7 +50,7 @@
     
     //詳細viewを取得
     self.detailViewController = [self.storyboard instantiateViewControllerWithIdentifier:@"detail"];
-    [self.questList requestAsyncronous:1];
+    //[self.questList requestAsyncronous:1];
     
     _refreshControl = [UIRefreshControl new];
     [_refreshControl addTarget:self action:@selector(refresh) forControlEvents:UIControlEventValueChanged];

@@ -95,9 +95,9 @@
     
     self.detailViewController = [self.storyboard instantiateViewControllerWithIdentifier:@"detail"];
     
-    [self.questList requestAsyncronous:_segmentIndex];
+    //[self.questList requestAsyncronous:_segmentIndex];
     
-    [self request:0];
+    //[self request:0];
     
 }
 
@@ -208,6 +208,7 @@
 #pragma  mark - refresh
 - (void)refresh
 {
+    NSLog(@"pull-refresh");
     [self request:0];
     [NSTimer scheduledTimerWithTimeInterval:1.f target:self selector:@selector(endRefresh) userInfo:nil repeats:NO];
 }

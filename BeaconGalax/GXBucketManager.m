@@ -65,23 +65,6 @@
 {
     
     [[GXFacebook sharedManager] initGxUserWithFacebook:user];
-    
-//    KiiObject *object = [self.galaxUser createObject];
-//    [object setObject:user.uuid forKey:@"userID"];
-//    [object setObject:user.objectURI forKey:@"uri"];
-//    [object setObject:@YES forKey:@"isMember"];
-//    [object setObject:[NSNumber numberWithInt:1] forKey:@"rank"];    
-//    
-//    NSError *error = nil;
-//    [object saveSynchronous:&error];
-//    
-//    if (error != nil) {
-//        NSLog(@"error:%@",error);
-//    } else {
-//        NSLog(@"ギャラックスユーザバケットへ登録完了");
-//        [[GXFacebook sharedManager] getUserFacebookID];
-//    }
-
 }
 
 - (KiiObject *)getGalaxUser:(NSString *)userURI

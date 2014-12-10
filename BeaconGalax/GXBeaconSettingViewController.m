@@ -100,33 +100,57 @@ const static CGFloat kJVFieldFloatingLabelFontSize = 11.0f;
 }
 
 //Appのbeaocn管理Bucketと自分の情報にbeaconを書き込む
-- (IBAction)settingDone:(id)sender {
+- (IBAction)settingDone:(id)sender
+{
     
-        KiiBucket *userBeacons = [GXBucketManager sharedManager].user_beacons;
-        KiiObject *gxUser = [GXUserManager sharedManager].gxUser;
-        KiiObject *obj = [userBeacons createObject];
-        NSString *name = [KiiUser currentUser].displayName;
-        NSString *fbid = [gxUser getObjectForKey:user_fb_id];
-        NSNumber *major = [NSNumber numberWithInt:[self.beaconMajorFiled.text intValue]]; //ここが変わるとやばい
-        [obj setObject:major forKey:@"major"];
-        [obj setObject:name forKey:@"name"];
-        [obj setObject:fbid forKey:@"fbid"];
-        [obj saveWithBlock:^(KiiObject *object, NSError *error) {
-            if (error) {
-                NSLog(@"error:%@",error);
-            } else {
-                
-                [gxUser setObject:major forKey:@"user_major"];
-                [gxUser saveWithBlock:^(KiiObject *object, NSError *error) {
-                    if (error) {
-                        NSLog(@"error:%@",error);
-                        //アラートとかだす
-                    }
-                }];
-                
-            }
-        }];
+    KiiBucket *userBeacons = [GXBucketManager sharedManager].user_beacons;
+    KiiObject *gxUser = [GXUserManager sharedManager].gxUser;
+    NSNumber *currentMajor = [gxUser getObjectForKey:@"user_major"];
+    //すでに設定されていたらするー
+    if (currentMajor) {
+        //errror
+        CWStatusBarNotification *notis = [CWStatusBarNotification new];
+        notis.notificationLabelBackgroundColor = [UIColor alizarinColor];
+        [notis displayNotificationWithMessage:@"既に設定されています" forDuration:2.0f];
+        return ;
         
-        [self dismissViewControllerAnimated:YES completion:nil];
+    }
+    
+    KiiObject *obj = [userBeacons createObject];
+    NSString *name = [KiiUser currentUser].displayName;
+    NSString *fbid = [gxUser getObjectForKey:user_fb_id];
+    NSNumber *major = [NSNumber numberWithInt:[self.beaconMajorFiled.text intValue]]; //ここが変わるとやばい
+    
+    //バリデーション
+    if ([major intValue] == 0) {
+        CWStatusBarNotification *notis = [CWStatusBarNotification new];
+        notis.notificationLabelBackgroundColor = [UIColor alizarinColor];
+        [notis displayNotificationWithMessage:@"正しい値を設定してください" forDuration:2.0f];
+        return ;
+    }
+   
+    [obj setObject:major forKey:@"major"];
+    [obj setObject:name forKey:@"name"];
+    [obj setObject:fbid forKey:@"fbid"];
+    [obj saveWithBlock:^(KiiObject *object, NSError *error) {
+        if (error) {
+            NSLog(@"error:%@",error);
+        } else {
+                
+            [gxUser setObject:major forKey:@"user_major"];
+            [gxUser saveWithBlock:^(KiiObject *object, NSError *error) {
+                if (error) {
+                    NSLog(@"error:%@",error);
+                } else {
+                        CWStatusBarNotification *notis = [CWStatusBarNotification new];
+                        notis.notificationLabelBackgroundColor = [UIColor turquoiseColor];
+                        [notis displayNotificationWithMessage:@"Major値を設定しました" forDuration:2.0f];
+                }
+            }];
+                
+        }
+    }];
+        
+    [self dismissViewControllerAnimated:YES completion:nil];
 }
 @end

@@ -32,6 +32,12 @@
     if (self) {
         //init
         self.userPointBucket = [[KiiUser currentUser] bucketWithName:@"point"];
+        NSNumber *initPoint = @0;
+        KiiObject *initObj = [self.userPointBucket createObject];
+        [initObj setObject:initPoint forKey:@"point"];
+        [initObj saveWithBlock:^(KiiObject *object, NSError *error) {
+            
+        }];
     }
     
     return self;

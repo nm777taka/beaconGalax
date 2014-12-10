@@ -135,7 +135,9 @@
 
 - (void)handlerNewQuest
 {
+    NSLog(@"callhandlerNewQuest");
     KiiBucket *bucket = [GXBucketManager sharedManager].notJoinedQuest;
+    NSLog(@"bucket:%@",bucket);
     KiiQuery *query = [KiiQuery queryWithClause:nil];
     [query sortByDesc:@"_created"];
     
@@ -143,6 +145,7 @@
         if (error) {
             NSLog(@"error:%@",error);
         } else {
+            NSLog(@"enter");
             _questListArray = @[];
             [self addQuest:results];
             [_delegate questListDidLoad];
