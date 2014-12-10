@@ -72,12 +72,25 @@
     [super viewWillAppear:animated];
     self.tabBarController.tabBar.hidden = YES;
     
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(rankUp:) name:@"rankUp" object:nil];
+    
+    //次のランクとそれに必要なポイントを探しにいく
     NSDictionary *dict = [[GXPointManager sharedInstance] checkNextRank];
     NSNumber *nextPoint = dict[@"nextPoint"];
+    //次のランクに必要なポイント
     self.nextPoint = [nextPoint floatValue];
+    //次のランク
     self.nextRank = dict[@"nextRank"];
+    NSLog(@"次に必要なポイント:%f",self.nextPoint);
+    NSLog(@"次のランク:%@",self.nextRank);
+    
     self.nextRankSubLabel.text = [NSString stringWithFormat:@"%@ランクまで",self.nextRank];
+    
+    //現在の取得ポイント
     self.userPoint = [[GXPointManager sharedInstance] getCurrentPoint];
+    
+    //現在のプログレスを設定
+    //0除算対策
     if (self.userPoint != 0) {
         self.nowProgress = (self.userPoint / self.nextPoint);
         [self.rankProgressView setProgress:self.nowProgress];
@@ -89,18 +102,29 @@
 {
     [super viewDidAppear:animated];
     [self googleAnalytics];
-    self.gotQuestPoint = [[GXPointManager sharedInstance] getQuestClearPoint:self.quest]; //取得ポイントを登録
-    [self.pointLable animationFrom:0 to:self.gotQuestPoint withDuration:1.0];
     
-    [self clearQuest];
+    //クエストにより獲得したポイントを取得
+    self.gotQuestPoint = [[GXPointManager sharedInstance] getQuestClearPoint:self.quest];
+    NSLog(@"取得したクエストのポイント:%f",self.gotQuestPoint);
     
-    //activity
-    [self setActivity];
+    [self.pointLable animationFrom:0 to:self.gotQuestPoint withDuration:1.0]; //カウントアニメーション
+    
+    
     [NSObject performBlock:^{
-        self.userPoint = [[GXPointManager sharedInstance] getCurrentPoint]; //refresh
+        self.userPoint += self.gotQuestPoint; //自分のポイントを更新
+        
+        //ラベル更新
         self.currentPointLabel.text = [NSString stringWithFormat:@"%d",(int)self.userPoint];
+        
+        //プログレスバー更新
         [self setProgress];
-    } afterDelay:2.0];
+        
+    } afterDelay:1.0];
+    
+    [self clearQuest]; //クエスト片付け
+    
+    //activityに投稿
+    [self setActivity];
 }
 
 - (void)setProgress
@@ -109,15 +133,13 @@
     [self.rankProgressView setProgress:progress animated:YES];
     NSLog(@"progress:%f",progress);
     
-    if (progress >= 1.0) {
-        //rankup
-        [self rankUP];
-    }
+    //ポイントをサーバへコミット
+    //必要ならPointManajor側でランクアップ処理がされる
+    [[GXPointManager sharedInstance] refreshPoint:self.gotQuestPoint];
 }
 
 - (void)rankUP
 {
-    NSLog(@"rankUP");
     FUIAlertView *alert = [FUIAlertView rankUPTheme:self.nextRank];
     alert.delegate = self;
     [alert show];
@@ -162,12 +184,21 @@
 - (void)alertView:(FUIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
 {
     if (buttonIndex == 0) {
-        NSLog(@"rankup");
-        [[GXPointManager sharedInstance] rankUP:self.nextRank];
         
         UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:[NSBundle mainBundle]];
         UIViewController *initViewController = [storyboard instantiateInitialViewController];
         [self presentViewController:initViewController animated:NO completion:nil];
     }
+}
+
+#pragma mark Notification
+- (void)rankUp:(NSNotification *)notis
+{
+    //次のランク
+    NSString *nextRank = notis.object;
+    
+    //アラート
+    FUIAlertView *alert = [FUIAlertView rankUPTheme:nextRank];
+    [alert show];
 }
 @end

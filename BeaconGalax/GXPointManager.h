@@ -19,14 +19,17 @@
 - (void)getCreateQuestPoint;
 - (void)getInviteQuestPoint;
 
-//クエストクリアに対する報酬
+//クエストクリアに対する報酬ポイントをかえす
 - (float)getQuestClearPoint:(KiiObject *)cleardQuest;
+
+//取得したポイントを渡して、ステータスを更新する
+- (void)refreshPoint:(int)point;
+
 
 //
 - (int)getCurrentPoint;
 - (void)checkRank;
 - (NSDictionary *)checkNextRank;
-- (void)rankUP:(NSString *)nextRank;
 
 
 @end

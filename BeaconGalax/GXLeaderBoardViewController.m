@@ -70,8 +70,8 @@
 - (void)configureStatus
 {
     int point  = [[GXPointManager sharedInstance] getCurrentPoint];
-    NSLog(@"%d",point);
     self.pointLabel.text = [NSString stringWithFormat:@"取得ポイント数: %d",point];
+    
     NSDictionary *dict = [[GXPointManager sharedInstance] checkNextRank];
     NSNumber *nextPoint = dict[@"nextPoint"];
     self.nextPoint = [nextPoint floatValue];
@@ -86,6 +86,7 @@
     
     KiiObject *gxuser = [GXUserManager sharedManager].gxUser;
     self.userIcon.profileID = [gxuser getObjectForKey:user_fb_id];
+    
     NSString *rank = [gxuser getObjectForKey:@"rank"];
     self.rankLabel.text = [NSString stringWithFormat:@"現在のランク: %@ランク",rank];
 

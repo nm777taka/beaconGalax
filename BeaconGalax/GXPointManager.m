@@ -76,18 +76,18 @@
     
     if ([type isEqualToString:@"user"]) {
         //これはuserクエスト
-        [self refreshPoint:30];
+        //[self refreshPoint:30];
         retPoint = 30;
     } else {
         //one or multi
         int playerNum = [[quest getObjectForKey:quest_player_num] intValue];
         if (playerNum > 1) {
             //協力クエスト
-            [self refreshPoint:25];
+           // [self refreshPoint:25];
             retPoint = 25;
         } else {
             //一人用クエスト
-            [self refreshPoint:20];
+           // [self refreshPoint:20];
             retPoint = 20;
         }
     }
@@ -95,37 +95,6 @@
     return retPoint;
 }
 
-- (void)checkRank
-{
-    int currentPoint = [self getCurrentPoint];
-    //DBから検索 指定FがcurrentPoint以下のものをFetch
-    KiiClause *clause = [KiiClause lessThanOrEqual:@"point" value:[NSNumber numberWithInt:currentPoint]];
-    KiiQuery *query = [KiiQuery queryWithClause:clause];
-    [query sortByAsc:@"point"];
-    KiiBucket *bucket = [GXBucketManager sharedManager].rank_bucket;
-    [bucket executeQuery:query withBlock:^(KiiQuery *query, KiiBucket *bucket, NSArray *results, KiiQuery *nextQuery, NSError *error) {
-        KiiObject *firstObj = results.lastObject;
-        NSString *currentRank = [firstObj getObjectForKey:@"rank"];
-        
-        //次にnextRankを探す
-        KiiClause *clause = [KiiClause greaterThan:@"point" value:[NSNumber numberWithInt:currentPoint]];
-        KiiQuery *nextRankQuery = [KiiQuery queryWithClause:clause];
-        [nextRankQuery sortByAsc:@"point"];
-        KiiBucket *rankBucket = [GXBucketManager sharedManager].rank_bucket;
-        [rankBucket executeQuery:nextRankQuery withBlock:^(KiiQuery *query, KiiBucket *bucket, NSArray *results, KiiQuery *nextQuery, NSError *error) {
-            
-            //カンストした場合の処理
-            if (error) {
-                //カンスト処理
-            } else {
-                
-                KiiObject *firstObj = results.firstObject;
-                NSString *nextRank = [firstObj getObjectForKey:@"rank"];
-            }
-        }];
-        
-    }];
-}
 
 - (NSDictionary *)checkNextRank
 {
@@ -162,6 +131,7 @@
     
 }
 
+//取得したポイントを反映させる
 - (void)refreshPoint:(int)point
 {
     KiiQuery *query = [KiiQuery queryWithClause:nil];
@@ -173,13 +143,16 @@
             KiiObject *obj = results.firstObject;
             int curPoint = [[obj getObjectForKey:@"point"] intValue];
             curPoint += point;
+            
             [obj setObject:[NSNumber numberWithInt:curPoint] forKey:@"point"];
             [obj saveWithBlock:^(KiiObject *object, NSError *error) {
                 if (!error) {
+                    //ここでチェックいれる
+                    [self checkRank:curPoint];
                 }
             }];
             
-            //gxuserにもポイント
+            //gxuserにもポイントを反映させる
             KiiObject *gxusr = [GXUserManager sharedManager].gxUser;
             [gxusr setObject:[NSNumber numberWithInt:curPoint] forKey:@"point"];
             [gxusr saveWithBlock:^(KiiObject *object, NSError *error) {
@@ -190,15 +163,49 @@
     
 }
 
-- (void)rankUP:(NSString *)nextRank
+//ポイントに応じたランク設定とランクアップ処理
+- (void)checkRank:(int)point
 {
-    NSLog(@"call-rankUP");
-    KiiObject *user = [GXUserManager sharedManager].gxUser;
-    [user setObject:nextRank forKey:@"rank"];
-    [user saveWithBlock:^(KiiObject *object, NSError *error) {
-        if (!error) {
-            NSLog(@"setNewRank");
+    int currentPoint = point;
+    NSLog(@"chekcRank");
+    NSLog(@"currntPoint:%d",currentPoint);
+    //次のランクを現在の所持ポイントから取得する
+    
+    KiiClause *clause = [KiiClause lessThanOrEqual:@"point" value:[NSNumber numberWithInt:currentPoint]];
+    KiiQuery *query = [KiiQuery queryWithClause:clause];
+    [query sortByAsc:@"point"];
+    KiiBucket *bucket = [GXBucketManager sharedManager].rank_bucket;
+    [bucket executeQuery:query withBlock:^(KiiQuery *query, KiiBucket *bucket, NSArray *results, KiiQuery *nextQuery, NSError *error) {
+        //ポイントから算出したランク
+        KiiObject *firstObj = results.lastObject;
+        NSString *gotRank = [firstObj getObjectForKey:@"rank"];
+        
+        //まだユーザのランクは確定してない(ランクアップ前)
+        KiiObject *gxuser = [GXUserManager sharedManager].gxUser;
+        NSString *gxuserRank = [gxuser getObjectForKey:@"rank"];
+        NSLog(@"gotRank:%@",gotRank);
+        if ([gxuserRank isEqualToString:gotRank]) {
+            //特になにもしない
+        } else {
+            //ランクアップが必要
+            NSLog(@"rankUP!!");
+            [gxuser setObject:gotRank forKey:@"rank"];
+            [gxuser saveWithBlock:^(KiiObject *object, NSError *error) {
+                if (!error) {
+
+                    [[NSNotificationCenter defaultCenter] postNotificationName:@"rankUp" object:gotRank];
+                    
+                    CWStatusBarNotification *notis = [CWStatusBarNotification new];
+                    notis.notificationLabelBackgroundColor = [UIColor sunflowerColor];
+                    notis.notificationStyle = CWNotificationStyleNavigationBarNotification;
+                    NSString *msg = [NSString stringWithFormat:@"%@になりました！",gotRank];
+                    [notis displayNotificationWithMessage:msg forDuration:2.0f];
+                } else {
+                    NSLog(@"RankSettingError:%@",error);
+                }
+            }];
         }
+        
     }];
 }
 
@@ -207,7 +214,7 @@
     CWStatusBarNotification *notis = [CWStatusBarNotification new];
     notis.notificationLabelBackgroundColor = [UIColor sunflowerColor];
     NSString *msg = [NSString stringWithFormat:@"%d ゲット！",point];
-    [notis displayNotificationWithMessage:msg forDuration:5.0f];
+    [notis displayNotificationWithMessage:msg forDuration:3.0f];
 }
 
 
