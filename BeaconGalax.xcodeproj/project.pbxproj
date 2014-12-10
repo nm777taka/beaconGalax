@@ -24,6 +24,8 @@
 		0F2455F51A3418C300F34724 /* GXRankingTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 0F2455F41A3418C300F34724 /* GXRankingTableViewCell.m */; };
 		0F2455F91A34968200F34724 /* GXAnimationLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = 0F2455F81A34968200F34724 /* GXAnimationLabel.m */; };
 		0F2456001A3843EE00F34724 /* GXPageViewAnalyzer.m in Sources */ = {isa = PBXBuildFile; fileRef = 0F2455FF1A3843EE00F34724 /* GXPageViewAnalyzer.m */; };
+		0F2456031A384B7F00F34724 /* GXActionAnalyzer.m in Sources */ = {isa = PBXBuildFile; fileRef = 0F2456021A384B7F00F34724 /* GXActionAnalyzer.m */; };
+		0F2456061A38591C00F34724 /* GXAction.m in Sources */ = {isa = PBXBuildFile; fileRef = 0F2456051A38591C00F34724 /* GXAction.m */; };
 		0F27DAF119824BC20000E0D0 /* GXNavigationItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 0F27DAF019824BC20000E0D0 /* GXNavigationItem.m */; };
 		0F27DB0119876A750000E0D0 /* menu-white.png in Resources */ = {isa = PBXBuildFile; fileRef = 0F27DB0019876A750000E0D0 /* menu-white.png */; };
 		0F27DB0319876A780000E0D0 /* bell-white.png in Resources */ = {isa = PBXBuildFile; fileRef = 0F27DB0219876A780000E0D0 /* bell-white.png */; };
@@ -190,6 +192,10 @@
 		0F2455F81A34968200F34724 /* GXAnimationLabel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GXAnimationLabel.m; sourceTree = "<group>"; };
 		0F2455FE1A3843EE00F34724 /* GXPageViewAnalyzer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GXPageViewAnalyzer.h; sourceTree = "<group>"; };
 		0F2455FF1A3843EE00F34724 /* GXPageViewAnalyzer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GXPageViewAnalyzer.m; sourceTree = "<group>"; };
+		0F2456011A384B7F00F34724 /* GXActionAnalyzer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GXActionAnalyzer.h; sourceTree = "<group>"; };
+		0F2456021A384B7F00F34724 /* GXActionAnalyzer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GXActionAnalyzer.m; sourceTree = "<group>"; };
+		0F2456041A38591C00F34724 /* GXAction.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GXAction.h; sourceTree = "<group>"; };
+		0F2456051A38591C00F34724 /* GXAction.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GXAction.m; sourceTree = "<group>"; };
 		0F27DAEF19824BC20000E0D0 /* GXNavigationItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GXNavigationItem.h; sourceTree = "<group>"; };
 		0F27DAF019824BC20000E0D0 /* GXNavigationItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GXNavigationItem.m; sourceTree = "<group>"; };
 		0F27DB0019876A750000E0D0 /* menu-white.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "menu-white.png"; sourceTree = "<group>"; };
@@ -580,6 +586,10 @@
 			children = (
 				0F2455FE1A3843EE00F34724 /* GXPageViewAnalyzer.h */,
 				0F2455FF1A3843EE00F34724 /* GXPageViewAnalyzer.m */,
+				0F2456011A384B7F00F34724 /* GXActionAnalyzer.h */,
+				0F2456021A384B7F00F34724 /* GXActionAnalyzer.m */,
+				0F2456041A38591C00F34724 /* GXAction.h */,
+				0F2456051A38591C00F34724 /* GXAction.m */,
 			);
 			name = Analyzer;
 			sourceTree = "<group>";
@@ -1463,6 +1473,7 @@
 				0FA17E371961A09700158421 /* GXBucketManager.m in Sources */,
 				0FD200A219E2608D0034E52A /* GXStatusViewController.m in Sources */,
 				0F16512819D443A800918F8D /* GXQuestMemberCell.m in Sources */,
+				0F2456031A384B7F00F34724 /* GXActionAnalyzer.m in Sources */,
 				0F3558371A1198610023F2FF /* GXCreateViewController.m in Sources */,
 				0F35583E1A121D600023F2FF /* GXUserQuestExeViewController.m in Sources */,
 				0F3558341A1197470023F2FF /* NSString+TextDirectionality.m in Sources */,
@@ -1491,6 +1502,7 @@
 				0F4AEA971998D086009879C6 /* GXDictonaryKeys.m in Sources */,
 				0FC928411A32300C002931F1 /* GXLeaderBoardViewController.m in Sources */,
 				0FA17E3D1961B00100158421 /* GXTopicManager.m in Sources */,
+				0F2456061A38591C00F34724 /* GXAction.m in Sources */,
 				0FC928451A329CB3002931F1 /* GXPointManager.m in Sources */,
 				0FD26D7B1959F0E7005E2B95 /* GXTableViewConst.m in Sources */,
 				0F3558611A16063F0023F2FF /* GXActivityList.m in Sources */,

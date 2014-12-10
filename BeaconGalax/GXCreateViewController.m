@@ -139,8 +139,11 @@ const static CGFloat kJVFieldFloatingLabelFontSize = 11.0f;
     NSString *createdUserName = [gxUser getObjectForKey:@"name"];
     [[GXTopicManager sharedManager] sendCreateQuestAlert:createdUserName];
     
-    //pointゲットx
+    //pointゲット
     [[GXPointManager sharedInstance] getCreateQuestPoint];
+    
+    [[GXActionAnalyzer sharedInstance] setActionName:GXQuestCreate];
+    
     [self dismissViewControllerAnimated:YES completion:nil];
     
     

@@ -211,6 +211,9 @@
                 if (!error) {
                     NSLog(@"削除完了");
                     [[NSNotificationCenter defaultCenter] postNotificationName:GXQuestDeletedNotification object:nil];
+                    
+                    [[GXActionAnalyzer sharedInstance] setActionName:GXQuestDelete];
+                    
                     [self close];
                 }
             }];

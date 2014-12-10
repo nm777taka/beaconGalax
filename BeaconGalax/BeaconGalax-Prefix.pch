@@ -19,4 +19,6 @@
     #import <Facebook.h>
     #import <FlatUIKit.h>
     #import "GXPageViewAnalyzer.h"
+    #import "GXActionAnalyzer.h"
+    #import "GXAction.h"
 #endif

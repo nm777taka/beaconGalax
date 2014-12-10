@@ -102,6 +102,7 @@
 {
     [super viewDidAppear:animated];
     [self googleAnalytics];
+    [[GXActionAnalyzer sharedInstance] setActionName:GXQuestClear];
     
     //クエストにより獲得したポイントを取得
     self.gotQuestPoint = [[GXPointManager sharedInstance] getQuestClearPoint:self.quest];

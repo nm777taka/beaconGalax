@@ -275,6 +275,7 @@
 - (void)questStart:(NSNotification *)notis
 {
     NSLog(@"クエストスタート!!");
+    [[GXActionAnalyzer sharedInstance] setActionName:GXQuestStart];
     [SVProgressHUD showWithStatus:@"クエストを開始します"];
     [NSTimer bk_scheduledTimerWithTimeInterval:2.0f block:^(NSTimer *timer) {
         [self gotoQuestExeView];

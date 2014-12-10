@@ -449,6 +449,8 @@
             [notis displayNotificationWithMessage:@"クエストを受注しました!" forDuration:2.0f];
             [self request:0]; //notjoinから更新するよ
             [GXGoogleTrackingManager sendEventTracking:@"Quest" action:@"accept" label:@"受注" value:nil screen:@"NotJoinQuestView"];
+            
+            [[GXActionAnalyzer sharedInstance] setActionName:GXQuestAccept];
         }
     }];
 }
@@ -472,6 +474,7 @@
             [[GXBucketManager sharedManager] countInviteBucket];
             [GXGoogleTrackingManager sendEventTracking:@"Quest" action:@"invite" label:@"募集" value:nil screen:@"NotJoinQuestView"];
             [[GXPointManager sharedInstance] getInviteQuestPoint];
+            [[GXActionAnalyzer sharedInstance] setActionName:GXQuestInvite];
         }
     }];
 }
