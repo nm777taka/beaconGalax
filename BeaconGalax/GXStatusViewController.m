@@ -33,9 +33,7 @@
 @property (weak, nonatomic) IBOutlet FBProfilePictureView *iconImageView;
 @property (weak, nonatomic) IBOutlet UILabel *usrNameLabel;
 
-
-
-@property NSMutableArray *joinedQuestArray;
+@property (weak,nonatomic) NSMutableArray *userData;
 
 @property KiiObject *gxUser;
 
@@ -72,7 +70,8 @@
 
     self.usrNameLabel.text = userInfo[@"GXUserName"];
     self.iconImageView.profileID = userInfo[@"GXFacebookID"];
-    
+    NSLog(@"viewwillapper");
+    [self getGalaxUserData];
 }
 
 - (void)viewDidAppear:(BOOL)animated
@@ -128,7 +127,7 @@
     view.backgroundColor = [UIColor colorWithRed:167/255.0f green:167/255.0f blue:167/255.0f alpha:0.6f];
     
     UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(10, 8, 0, 0)];
-    label.text = @"FriendsOnline";
+    label.text = @"FriendsStatus";
     label.font = [UIFont boldFlatFontOfSize:15];
     label.textColor = [UIColor whiteColor];
     label.backgroundColor = [UIColor clearColor];
@@ -184,25 +183,40 @@
     if (section == 0) {
         return 3;
     } else {
-        return 3;
+        return self.userData.count;
     }
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    GXStatusViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"Cell" forIndexPath:indexPath];
+    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"Cell" forIndexPath:indexPath];
     
     if (indexPath.section == 0) {
         NSArray *titles = @[@"クエスト一覧",@"みんなの動き",@"ステータス"];
         cell.textLabel.text = titles[indexPath.row];
-    } else {
-        NSArray *titles = @[@"userA",@"userB",@"userC"];
-        cell.textLabel.text = titles[indexPath.row];
+    } else if (indexPath.section == 1){
+        cell.textLabel.text = @"1";
     }
     
     return cell;
 }
 
+
+- (void)getGalaxUserData
+{
+    NSLog(@"getGalaxUserData");
+    KiiBucket *bucket = [GXBucketManager sharedManager].galaxUser;
+    KiiQuery *query = [KiiQuery queryWithClause:nil];
+    [bucket executeQuery:query withBlock:^(KiiQuery *query, KiiBucket *bucket, NSArray *results, KiiQuery *nextQuery, NSError *error) {
+        if (!error) {
+            NSLog(@"%d",results.count);
+            self.userData = [NSMutableArray arrayWithArray:results];
+            [self.tableView reloadData];
+        } else {
+            NSLog(@"error");
+        }
+    }];
+}
 
 
 @end

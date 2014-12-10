@@ -204,7 +204,7 @@
                     CWStatusBarNotification *notis = [CWStatusBarNotification new];
                     notis.notificationLabelBackgroundColor = [UIColor sunflowerColor];
                     notis.notificationStyle = CWNotificationStyleNavigationBarNotification;
-                    NSString *msg = [NSString stringWithFormat:@"%@になりました！",gotRank];
+                    NSString *msg = [NSString stringWithFormat:@"%@ランクになりました！",gotRank];
                     [notis displayNotificationWithMessage:msg forDuration:2.0f];
                 } else {
                     NSLog(@"RankSettingError:%@",error);

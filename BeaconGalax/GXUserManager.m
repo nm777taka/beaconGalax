@@ -68,6 +68,7 @@
     NSDate *timeStamp = [NSDate date];
     NSDateFormatter *df = [NSDateFormatter new];
     df.timeStyle = NSDateFormatterShortStyle;
+    df.dateStyle = NSDateFormatterShortStyle;
     NSString *stringDate = [df stringFromDate:timeStamp];
     NSLog(@"%@",stringDate);
     

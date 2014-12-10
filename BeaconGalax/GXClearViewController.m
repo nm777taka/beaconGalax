@@ -127,6 +127,12 @@
     [self setActivity];
 }
 
+- (void)viewDidDisappear:(BOOL)animated
+{
+    [super viewDidDisappear:animated];
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
+}
+
 - (void)setProgress
 {
     float progress = self.userPoint / self.nextPoint;
