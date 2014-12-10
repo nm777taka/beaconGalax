@@ -464,7 +464,7 @@
     if ([region isKindOfClass:[CLBeaconRegion class]]) {
         switch (state) {
             case CLRegionStateInside:
-                
+                [self locationManager:manager didEnterRegion:region];
                 break;
             case CLRegionStateOutside:
             case CLRegionStateUnknown:
