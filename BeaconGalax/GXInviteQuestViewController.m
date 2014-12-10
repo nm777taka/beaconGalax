@@ -88,6 +88,8 @@
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(questInfo:) name:@"questInfo" object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(questDeleted:) name:GXQuestDeletedNotification object:nil];
     
+    [[GXPageViewAnalyzer shareInstance] setPageView:NSStringFromClass([self class])];
+    
     [self request:2];
 }
 

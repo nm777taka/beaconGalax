@@ -68,8 +68,11 @@
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
+    
     self.view.alpha = 1.0f;
     [self.detailPanel startCanvasAnimation];
+    [[GXPageViewAnalyzer shareInstance] setPageView:NSStringFromClass([self class])];
+    
     [self configureDetailPanel];
     
 }

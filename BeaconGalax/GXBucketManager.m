@@ -54,6 +54,8 @@
         self.pointBucket = [[KiiUser currentUser] bucketWithName:@"point"];
         self.clearedBucket = [[KiiUser currentUser] bucketWithName:@"cleard"];
         self.notis_questDeliver = [[KiiUser currentUser] bucketWithName:@"notis_questDeliver"];
+        self.pageViewBucket = [[KiiUser currentUser] bucketWithName:@"pageView"];
+        self.userActionBucket = [[KiiUser currentUser] bucketWithName:@"action"];
     }
     
     return self;

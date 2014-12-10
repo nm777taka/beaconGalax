@@ -33,6 +33,10 @@
 @property (nonatomic) KiiBucket *clearedBucket;
 @property (nonatomic) KiiBucket *notis_questDeliver;
 
+//Analytics
+@property (nonatomic) KiiBucket *pageViewBucket;
+@property (nonatomic) KiiBucket *userActionBucket;
+
 + (GXBucketManager *)sharedManager;
 
 //登録

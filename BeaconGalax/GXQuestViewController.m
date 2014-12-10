@@ -95,10 +95,6 @@
     
     self.detailViewController = [self.storyboard instantiateViewControllerWithIdentifier:@"detail"];
     
-    //[self.questList requestAsyncronous:_segmentIndex];
-    
-    //[self request:0];
-    
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -118,6 +114,9 @@
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(questDeleted:) name:GXQuestDeletedNotification object:nil];
         //questFetch
         [self request:0];
+        
+        //pageview
+        [[GXPageViewAnalyzer shareInstance] setPageView:NSStringFromClass([self class])];
     }
 }
 

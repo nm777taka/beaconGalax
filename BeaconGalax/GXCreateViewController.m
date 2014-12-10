@@ -78,6 +78,12 @@ const static CGFloat kJVFieldFloatingLabelFontSize = 11.0f;
     // Dispose of any resources that can be recreated.
 }
 
+- (void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+    [[GXPageViewAnalyzer shareInstance] setPageView:NSStringFromClass([self class])];
+}
+
 - (void)viewDidAppear:(BOOL)animated
 {
     

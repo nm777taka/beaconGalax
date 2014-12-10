@@ -53,6 +53,9 @@
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
+    
+    [[GXPageViewAnalyzer shareInstance] setPageView:NSStringFromClass([self class])];
+    
     [self configureStatus];
 }
 

@@ -18,4 +18,5 @@
     #import <KiiSDK/Kii.h>
     #import <Facebook.h>
     #import <FlatUIKit.h>
+    #import "GXPageViewAnalyzer.h"
 #endif

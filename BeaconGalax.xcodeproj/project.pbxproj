@@ -23,6 +23,7 @@
 		0F2455ED1A3417E000F34724 /* GXRankingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0F2455EC1A3417E000F34724 /* GXRankingViewController.m */; };
 		0F2455F51A3418C300F34724 /* GXRankingTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 0F2455F41A3418C300F34724 /* GXRankingTableViewCell.m */; };
 		0F2455F91A34968200F34724 /* GXAnimationLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = 0F2455F81A34968200F34724 /* GXAnimationLabel.m */; };
+		0F2456001A3843EE00F34724 /* GXPageViewAnalyzer.m in Sources */ = {isa = PBXBuildFile; fileRef = 0F2455FF1A3843EE00F34724 /* GXPageViewAnalyzer.m */; };
 		0F27DAF119824BC20000E0D0 /* GXNavigationItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 0F27DAF019824BC20000E0D0 /* GXNavigationItem.m */; };
 		0F27DB0119876A750000E0D0 /* menu-white.png in Resources */ = {isa = PBXBuildFile; fileRef = 0F27DB0019876A750000E0D0 /* menu-white.png */; };
 		0F27DB0319876A780000E0D0 /* bell-white.png in Resources */ = {isa = PBXBuildFile; fileRef = 0F27DB0219876A780000E0D0 /* bell-white.png */; };
@@ -187,6 +188,8 @@
 		0F2455F41A3418C300F34724 /* GXRankingTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GXRankingTableViewCell.m; sourceTree = "<group>"; };
 		0F2455F71A34968200F34724 /* GXAnimationLabel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GXAnimationLabel.h; sourceTree = "<group>"; };
 		0F2455F81A34968200F34724 /* GXAnimationLabel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GXAnimationLabel.m; sourceTree = "<group>"; };
+		0F2455FE1A3843EE00F34724 /* GXPageViewAnalyzer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GXPageViewAnalyzer.h; sourceTree = "<group>"; };
+		0F2455FF1A3843EE00F34724 /* GXPageViewAnalyzer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GXPageViewAnalyzer.m; sourceTree = "<group>"; };
 		0F27DAEF19824BC20000E0D0 /* GXNavigationItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GXNavigationItem.h; sourceTree = "<group>"; };
 		0F27DAF019824BC20000E0D0 /* GXNavigationItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GXNavigationItem.m; sourceTree = "<group>"; };
 		0F27DB0019876A750000E0D0 /* menu-white.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "menu-white.png"; sourceTree = "<group>"; };
@@ -543,6 +546,42 @@
 				0F2455F81A34968200F34724 /* GXAnimationLabel.m */,
 			);
 			name = CustomUILabel;
+			sourceTree = "<group>";
+		};
+		0F2455FA1A38438300F34724 /* Bucket */ = {
+			isa = PBXGroup;
+			children = (
+				0FA17E351961A09700158421 /* GXBucketManager.h */,
+				0FA17E361961A09700158421 /* GXBucketManager.m */,
+			);
+			name = Bucket;
+			sourceTree = "<group>";
+		};
+		0F2455FB1A38438B00F34724 /* Topic */ = {
+			isa = PBXGroup;
+			children = (
+				0FA17E3B1961B00100158421 /* GXTopicManager.h */,
+				0FA17E3C1961B00100158421 /* GXTopicManager.m */,
+			);
+			name = Topic;
+			sourceTree = "<group>";
+		};
+		0F2455FC1A38439400F34724 /* User */ = {
+			isa = PBXGroup;
+			children = (
+				0FA17E3E19623FB700158421 /* GXUserManager.h */,
+				0FA17E3F19623FB700158421 /* GXUserManager.m */,
+			);
+			name = User;
+			sourceTree = "<group>";
+		};
+		0F2455FD1A3843A600F34724 /* Analyzer */ = {
+			isa = PBXGroup;
+			children = (
+				0F2455FE1A3843EE00F34724 /* GXPageViewAnalyzer.h */,
+				0F2455FF1A3843EE00F34724 /* GXPageViewAnalyzer.m */,
+			);
+			name = Analyzer;
 			sourceTree = "<group>";
 		};
 		0F3558241A0909B30023F2FF /* 実行中のクエスト */ = {
@@ -927,16 +966,14 @@
 		0FA17E3119619EB600158421 /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				0F2455FD1A3843A600F34724 /* Analyzer */,
+				0F2455FC1A38439400F34724 /* User */,
+				0F2455FB1A38438B00F34724 /* Topic */,
+				0F2455FA1A38438300F34724 /* Bucket */,
 				0FC928421A329CA3002931F1 /* Point */,
 				0FCB69701A2369FF00454D2B /* Quest */,
 				0F3558481A15C4D00023F2FF /* Acivity */,
 				0F3558241A0909B30023F2FF /* 実行中のクエスト */,
-				0FA17E351961A09700158421 /* GXBucketManager.h */,
-				0FA17E361961A09700158421 /* GXBucketManager.m */,
-				0FA17E3B1961B00100158421 /* GXTopicManager.h */,
-				0FA17E3C1961B00100158421 /* GXTopicManager.m */,
-				0FA17E3E19623FB700158421 /* GXUserManager.h */,
-				0FA17E3F19623FB700158421 /* GXUserManager.m */,
 				0F27DAEF19824BC20000E0D0 /* GXNavigationItem.h */,
 				0F27DAF019824BC20000E0D0 /* GXNavigationItem.m */,
 				0F16512319D4435A00918F8D /* GXGroupManager.h */,
@@ -1468,6 +1505,7 @@
 				0F3558461A14C3700023F2FF /* GXActivityTableViewCell.m in Sources */,
 				0F42366419BD54420001E204 /* GXCreateQuestViewController.m in Sources */,
 				0FCB69741A236A1800454D2B /* GXQuestList.m in Sources */,
+				0F2456001A3843EE00F34724 /* GXPageViewAnalyzer.m in Sources */,
 				0F7A25A419587ADE001B7839 /* GXAppDelegate.m in Sources */,
 				0FC0095419E13CB70026A7DC /* GXHomeCollectionViewCell.m in Sources */,
 				0FCB69781A23975800454D2B /* GXQuestDetailViewController.m in Sources */,
