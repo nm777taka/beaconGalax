@@ -32,6 +32,7 @@
 @property (nonatomic) KiiBucket *pointBucket;
 @property (nonatomic) KiiBucket *clearedBucket;
 @property (nonatomic) KiiBucket *notis_questDeliver;
+@property (nonatomic) KiiBucket *attendBucket; //研究室への出席をとる
 
 //Analytics
 @property (nonatomic) KiiBucket *pageViewBucket;

@@ -28,6 +28,7 @@
 		0F2456061A38591C00F34724 /* GXAction.m in Sources */ = {isa = PBXBuildFile; fileRef = 0F2456051A38591C00F34724 /* GXAction.m */; };
 		0F2456151A38DDC800F34724 /* GXGalaxterStatusViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0F2456141A38DDC800F34724 /* GXGalaxterStatusViewController.m */; };
 		0F2456191A38DF2400F34724 /* GXGalaxterStatusViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 0F2456181A38DF2400F34724 /* GXGalaxterStatusViewCell.m */; };
+		0F24561C1A39711D00F34724 /* GXUserAttendAnalytics.m in Sources */ = {isa = PBXBuildFile; fileRef = 0F24561B1A39711D00F34724 /* GXUserAttendAnalytics.m */; };
 		0F27DAF119824BC20000E0D0 /* GXNavigationItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 0F27DAF019824BC20000E0D0 /* GXNavigationItem.m */; };
 		0F27DB0119876A750000E0D0 /* menu-white.png in Resources */ = {isa = PBXBuildFile; fileRef = 0F27DB0019876A750000E0D0 /* menu-white.png */; };
 		0F27DB0319876A780000E0D0 /* bell-white.png in Resources */ = {isa = PBXBuildFile; fileRef = 0F27DB0219876A780000E0D0 /* bell-white.png */; };
@@ -202,6 +203,8 @@
 		0F2456141A38DDC800F34724 /* GXGalaxterStatusViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GXGalaxterStatusViewController.m; sourceTree = "<group>"; };
 		0F2456171A38DF2400F34724 /* GXGalaxterStatusViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GXGalaxterStatusViewCell.h; sourceTree = "<group>"; };
 		0F2456181A38DF2400F34724 /* GXGalaxterStatusViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GXGalaxterStatusViewCell.m; sourceTree = "<group>"; };
+		0F24561A1A39711D00F34724 /* GXUserAttendAnalytics.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GXUserAttendAnalytics.h; sourceTree = "<group>"; };
+		0F24561B1A39711D00F34724 /* GXUserAttendAnalytics.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GXUserAttendAnalytics.m; sourceTree = "<group>"; };
 		0F27DAEF19824BC20000E0D0 /* GXNavigationItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GXNavigationItem.h; sourceTree = "<group>"; };
 		0F27DAF019824BC20000E0D0 /* GXNavigationItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GXNavigationItem.m; sourceTree = "<group>"; };
 		0F27DB0019876A750000E0D0 /* menu-white.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "menu-white.png"; sourceTree = "<group>"; };
@@ -583,6 +586,8 @@
 			children = (
 				0FA17E3E19623FB700158421 /* GXUserManager.h */,
 				0FA17E3F19623FB700158421 /* GXUserManager.m */,
+				0F24561A1A39711D00F34724 /* GXUserAttendAnalytics.h */,
+				0F24561B1A39711D00F34724 /* GXUserAttendAnalytics.m */,
 			);
 			name = User;
 			sourceTree = "<group>";
@@ -1495,6 +1500,7 @@
 				0F821F4C196FCA5D0002664D /* GXQuest.m in Sources */,
 				0F1295CF1A2C9C9F009A1153 /* UIBarButtonItem+Badge.m in Sources */,
 				0F5FA5F2198A324600F41B05 /* GXHomeTableViewCell.m in Sources */,
+				0F24561C1A39711D00F34724 /* GXUserAttendAnalytics.m in Sources */,
 				0F7A25D219588264001B7839 /* GXBeaconRegion.m in Sources */,
 				0FA17E371961A09700158421 /* GXBucketManager.m in Sources */,
 				0FD200A219E2608D0034E52A /* GXStatusViewController.m in Sources */,

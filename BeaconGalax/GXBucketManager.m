@@ -56,6 +56,7 @@
         self.notis_questDeliver = [[KiiUser currentUser] bucketWithName:@"notis_questDeliver"];
         self.pageViewBucket = [[KiiUser currentUser] bucketWithName:@"pageView"];
         self.userActionBucket = [[KiiUser currentUser] bucketWithName:@"action"];
+        self.attendBucket = [[KiiUser currentUser] bucketWithName:@"attend"];
     }
     
     return self;

@@ -9,6 +9,7 @@
 #import "GXUserManager.h"
 #import "GXNotification.h"
 #import "GXBucketManager.h"
+#import "GXUserAttendAnalytics.h"
 #import "GXDictonaryKeys.h"
 
 @implementation GXUserManager
@@ -67,8 +68,7 @@
 {
     NSDate *timeStamp = [NSDate date];
     NSDateFormatter *df = [NSDateFormatter new];
-    df.timeStyle = NSDateFormatterShortStyle;
-    df.dateStyle = NSDateFormatterShortStyle;
+    df.dateFormat = @"yyyy-MM-dd 'at' HH:mm";
     NSString *stringDate = [df stringFromDate:timeStamp];
     NSLog(@"%@",stringDate);
     
@@ -78,6 +78,8 @@
     [self.gxUser saveWithBlock:^(KiiObject *object, NSError *error) {
         if (!error) {
             NSLog(@"ロケーションアップデート");
+            //出席データをとっとく
+            [[GXUserAttendAnalytics sharedInstance] attend];
         }
     }];
 }
