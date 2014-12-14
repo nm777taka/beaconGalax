@@ -33,7 +33,6 @@ static NSString *const GXQuestInviteTopic = @"GXQuestInviteTopic";
     self = [super init];
     
     if (self) {
-        self.infoTopic = [Kii topicWithName:GXInfoTopic];
         self.questInviteTopic = [Kii topicWithName:GXQuestInviteTopic];
         self.sendingAlertTopic = [Kii topicWithName:@"SendingAlert"];
     }
@@ -72,24 +71,24 @@ static NSString *const GXQuestInviteTopic = @"GXQuestInviteTopic";
     
 }
 
-- (void)subscribeTopic
+- (void)subscribeInfoTopic
 {
-//   [KiiPushSubscription subscribe:self.infoTopic withBlock:^(KiiPushSubscription *subscription, NSError *error) {
-//       if (error) {
-//           NSLog(@"subscribeTopicError:%@",error);
-//       } else {
-//           NSLog(@"infoトピック購読");
-//       }
-//   }];
-//    
-//    [KiiPushSubscription subscribe:self.questInviteTopic withBlock:^(KiiPushSubscription *subscription, NSError *error) {
-//        if (error) {
-//            NSLog(@"subscribeTopicError:%@",error);
-//        } else {
-//            NSLog(@"questInviteトピック購読");
-//        }
-//    }];
+    NSError *error;
+    self.infoTopic = [[KiiUser currentUser] topicWithName:@"newQuestInfo"];
+    [self.infoTopic saveSynchronous:&error];
     
+    BOOL isSubscribe = [KiiPushSubscription checkSubscriptionSynchronous:self.infoTopic withError:&error];
+    if (!isSubscribe) {
+        
+        [KiiPushSubscription subscribe:self.infoTopic withBlock:^(KiiPushSubscription *subscription, NSError *error) {
+            if (error) {
+                NSLog(@"subscribeTopicError:%@",error);
+            } else {
+                NSLog(@"infoトピック購読");
+            }
+        }];
+
+    }
     //AppScopeのTopicは管理者しか作れない
     
 }
@@ -122,6 +121,7 @@ static NSString *const GXQuestInviteTopic = @"GXQuestInviteTopic";
  
 }
 
+#pragma mark - Send Message
 - (void)sendCreateQuestAlert:(NSString *)createdUserName
 {
     /*
@@ -144,6 +144,24 @@ static NSString *const GXQuestInviteTopic = @"GXQuestInviteTopic";
     }];
      */
      
+}
+
+- (void)sendUserInfoTopic:(NSString *)msg
+{
+    KiiAPNSFields *apnsFields = [KiiAPNSFields createFields];
+    NSString *body = msg;
+    
+    apnsFields.alertBody = body;
+    apnsFields.badge = @1;
+    
+    KiiPushMessage *pushMessage = [KiiPushMessage composeMessageWithAPNSFields:apnsFields andGCMFields:nil];
+    [self.infoTopic sendMessage:pushMessage withBlock:^(KiiTopic *topic, NSError *error) {
+        if (error) {
+            NSLog(@"sendError:%@",error);
+        } else {
+            NSLog(@"send to infoTopic");
+        }
+    }];
 }
 
 

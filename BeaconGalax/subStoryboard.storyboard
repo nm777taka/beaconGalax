@@ -244,8 +244,36 @@
             </objects>
             <point key="canvasLocation" x="2715" y="1632"/>
         </scene>
+        <!--Visit Quest Exe View Controller-->
+        <scene sceneID="e9w-bf-AtH">
+            <objects>
+                <viewController storyboardIdentifier="visitQuest" id="8lC-dJ-MMO" customClass="GXVisitQuestExeViewController" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="PGe-UA-4sa"/>
+                        <viewControllerLayoutGuide type="bottom" id="38F-3I-HZ3"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="ZBN-Qh-A9w">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="9t7-zE-12F" customClass="UAProgressView">
+                                <rect key="frame" x="110" y="155" width="100" height="100"/>
+                                <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                            </view>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                    <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina4"/>
+                    <connections>
+                        <outlet property="progressView" destination="9t7-zE-12F" id="ZY6-wI-dGz"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="yBb-VW-gbM" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2715" y="2285"/>
+        </scene>
     </scenes>
     <inferredMetricsTieBreakers>
-        <segue reference="LEd-C8-VAr"/>
+        <segue reference="Juo-hy-iYO"/>
     </inferredMetricsTieBreakers>
 </document>

@@ -72,6 +72,18 @@ static NSUserDefaults *ud;
     return retDict;
 }
 
++ (void)setCurrentNotJoinQuestNum:(NSUInteger)num
+{
+    [ud setObject:[NSNumber numberWithInteger:num] forKey:@"currentNotJoinQuest"];
+    BOOL succed = [ud synchronize];
+    
+}
+
++ (NSUInteger)getCurrentNotJoinQuest
+{
+    return [ud integerForKey:@"currentNotJoinQuest"];
+}
+
 
 
 

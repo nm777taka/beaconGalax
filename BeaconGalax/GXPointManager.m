@@ -79,6 +79,7 @@
     KiiObject *quest = cleardQuest;
     NSString *type = [quest getObjectForKey:quest_type];
     float retPoint = 0.0f;
+    NSError *error;
     
     if ([type isEqualToString:@"user"]) {
         //これはuserクエスト
@@ -90,7 +91,12 @@
         if (playerNum > 1) {
             //協力クエスト
            // [self refreshPoint:25];
-            retPoint = 25;
+            //グループメンバを取得
+            NSString *groupURI = [cleardQuest getObjectForKey:quest_groupURI];
+            KiiGroup *group = [KiiGroup groupWithURI:groupURI];
+            [group refreshSynchronous:&error];
+            NSArray *members = [group getMemberListSynchronous:&error];
+            retPoint = (members.count * 10) + 20; //人数ボーナス＋基本ポイント
         } else {
             //一人用クエスト
            // [self refreshPoint:20];

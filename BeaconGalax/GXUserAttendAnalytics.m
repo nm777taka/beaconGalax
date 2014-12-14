@@ -80,7 +80,6 @@
                 [obj setObject:dfString forKey:@"attendDate"];
                 [obj saveWithBlock:^(KiiObject *object, NSError *error) {
                     if (!error) {
-                        NSLog(@"出席");
                     }
                 }];
                 
@@ -88,8 +87,6 @@
             }
             
             if (!error) {
-                NSLog(@"検索成功");
-                NSLog(@"%d",results.count);
                 KiiObject *obj = results.lastObject;
                 NSDate *created = obj.created;
                 
@@ -113,7 +110,6 @@
                 //日付だけ抜き出す
                 
                 if (createdComps.day == currentDateComp.day) {
-                    NSLog(@"今日は出席済");
                     return ;
                 } else {
                     //出席データを送信

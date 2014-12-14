@@ -27,6 +27,7 @@
 #import <HMSegmentedControl.h>
 
 #import "GXBucketManager.h"
+#import "GXUserDefaults.h"
 #import "GXNotification.h"
 #import "GXDictonaryKeys.h"
 #import "FUIAlertView+GXTheme.h"
@@ -494,6 +495,11 @@
 {
     NSLog(@"delegate");
     [_collectionView reloadData];
+    NSUInteger objNum = [self.questList count];
+    NSLog(@"objNum:%ld",objNum);
+    [GXUserDefaults setCurrentNotJoinQuestNum:objNum];
+    NSUInteger ret = [GXUserDefaults getCurrentNotJoinQuest];
+    NSLog(@"%ld",ret);
     [SVProgressHUD dismiss];
     
     if (_questList.count == 0) {

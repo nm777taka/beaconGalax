@@ -21,5 +21,7 @@
 + (void)setUserInfomation:(NSString *)fbid name:(NSString *)name;
 + (NSDictionary *)getUserInfomation;
 
++ (void)setCurrentNotJoinQuestNum:(NSUInteger)num;
++ (NSUInteger)getCurrentNotJoinQuest;
 
 @end

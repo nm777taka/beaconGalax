@@ -97,4 +97,8 @@
 - (void)countJoinedBucket;
 - (void)countInviteBucket;
 
+
+//購読
+- (void)subscribeNotJoinBucket;
+
 @end

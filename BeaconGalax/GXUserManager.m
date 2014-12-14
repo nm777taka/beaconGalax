@@ -74,7 +74,7 @@
     
     [self.gxUser setObject:beaconName forKey:@"location"];
     [self.gxUser setObject:stringDate forKey:@"locationTimeStamp"];
-    
+    [self.gxUser setObject:@YES forKey:@"isOnline"];
     [self.gxUser saveWithBlock:^(KiiObject *object, NSError *error) {
         if (!error) {
             NSLog(@"ロケーションアップデート");
@@ -93,10 +93,10 @@
     NSLog(@"%@",stringDate);
 
     [self.gxUser setObject:@"オフライン" forKey:@"location"];
+    [self.gxUser setObject:@NO forKey:@"isOnline"];
     [self.gxUser setObject:stringDate forKey:@"locationTimeStamp" ];
     [self.gxUser saveWithBlock:^(KiiObject *object, NSError *error) {
         if (!error) {
-            NSLog(@"帰宅");
         }
     }];
 }

@@ -341,6 +341,26 @@
 
 #pragma mark - UserScope
 
+- (void)subscribeNotJoinBucket
+{
+    KiiBucket *bucket = self.notJoinedQuest;
+    [KiiPushSubscription checkSubscription:bucket withBlock:^(id<KiiSubscribable> subscribable, BOOL result, NSError *error) {
+        if (result) {
+            NSLog(@"notjoinBucket-subscribed");
+            return ;
+        } else {
+            //購読する
+            [KiiPushSubscription subscribe:bucket withBlock:^(KiiPushSubscription *subscription, NSError *error) {
+                if (error) {
+                    NSLog(@"sub-error:%@",error);
+                } else {
+                    NSLog(@"notjoinBucket-sub");
+                }
+            }];
+        }
+    }];
+}
+
 //参加したクエストをnotJoinBucketから消す
 - (void)deleteJoinedQuest:(KiiObject *)obj
 {

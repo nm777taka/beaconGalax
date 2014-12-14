@@ -29,6 +29,7 @@
 		0F2456151A38DDC800F34724 /* GXGalaxterStatusViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0F2456141A38DDC800F34724 /* GXGalaxterStatusViewController.m */; };
 		0F2456191A38DF2400F34724 /* GXGalaxterStatusViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 0F2456181A38DF2400F34724 /* GXGalaxterStatusViewCell.m */; };
 		0F24561C1A39711D00F34724 /* GXUserAttendAnalytics.m in Sources */ = {isa = PBXBuildFile; fileRef = 0F24561B1A39711D00F34724 /* GXUserAttendAnalytics.m */; };
+		0F2456201A3A810A00F34724 /* GXVisitQuestExeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0F24561F1A3A810A00F34724 /* GXVisitQuestExeViewController.m */; };
 		0F27DAF119824BC20000E0D0 /* GXNavigationItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 0F27DAF019824BC20000E0D0 /* GXNavigationItem.m */; };
 		0F27DB0119876A750000E0D0 /* menu-white.png in Resources */ = {isa = PBXBuildFile; fileRef = 0F27DB0019876A750000E0D0 /* menu-white.png */; };
 		0F27DB0319876A780000E0D0 /* bell-white.png in Resources */ = {isa = PBXBuildFile; fileRef = 0F27DB0219876A780000E0D0 /* bell-white.png */; };
@@ -205,6 +206,8 @@
 		0F2456181A38DF2400F34724 /* GXGalaxterStatusViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GXGalaxterStatusViewCell.m; sourceTree = "<group>"; };
 		0F24561A1A39711D00F34724 /* GXUserAttendAnalytics.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GXUserAttendAnalytics.h; sourceTree = "<group>"; };
 		0F24561B1A39711D00F34724 /* GXUserAttendAnalytics.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GXUserAttendAnalytics.m; sourceTree = "<group>"; };
+		0F24561E1A3A810A00F34724 /* GXVisitQuestExeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GXVisitQuestExeViewController.h; sourceTree = "<group>"; };
+		0F24561F1A3A810A00F34724 /* GXVisitQuestExeViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GXVisitQuestExeViewController.m; sourceTree = "<group>"; };
 		0F27DAEF19824BC20000E0D0 /* GXNavigationItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GXNavigationItem.h; sourceTree = "<group>"; };
 		0F27DAF019824BC20000E0D0 /* GXNavigationItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GXNavigationItem.m; sourceTree = "<group>"; };
 		0F27DB0019876A750000E0D0 /* menu-white.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "menu-white.png"; sourceTree = "<group>"; };
@@ -623,6 +626,15 @@
 			name = GalaxterStatus;
 			sourceTree = "<group>";
 		};
+		0F24561D1A3A80D300F34724 /* VisitQuestView */ = {
+			isa = PBXGroup;
+			children = (
+				0F24561E1A3A810A00F34724 /* GXVisitQuestExeViewController.h */,
+				0F24561F1A3A810A00F34724 /* GXVisitQuestExeViewController.m */,
+			);
+			name = VisitQuestView;
+			sourceTree = "<group>";
+		};
 		0F3558241A0909B30023F2FF /* 実行中のクエスト */ = {
 			isa = PBXGroup;
 			children = (
@@ -900,6 +912,7 @@
 		0F7A25C919587E0C001B7839 /* Controller */ = {
 			isa = PBXGroup;
 			children = (
+				0F24561D1A3A80D300F34724 /* VisitQuestView */,
 				0F24560F1A38D7F800F34724 /* GalaxterStatus */,
 				0FC9283E1A322FED002931F1 /* LeaderBoard */,
 				0FCB69751A23971C00454D2B /* QuestDetailView */,
@@ -1493,6 +1506,7 @@
 				0F649FED19D1543200D48074 /* GXFooterCell.m in Sources */,
 				0F35585E1A16054F0023F2FF /* GXActivity.m in Sources */,
 				0F35583B1A11FE8F0023F2FF /* GXQuestReadyViewController.m in Sources */,
+				0F2456201A3A810A00F34724 /* GXVisitQuestExeViewController.m in Sources */,
 				0FA17E4019623FB700158421 /* GXUserManager.m in Sources */,
 				0F2455F91A34968200F34724 /* GXAnimationLabel.m in Sources */,
 				0FA17E3A1961A7A400158421 /* GXBucketNameConst.m in Sources */,

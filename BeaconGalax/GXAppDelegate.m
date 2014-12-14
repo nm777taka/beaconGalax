@@ -11,7 +11,10 @@
 #import <Crashlytics/Crashlytics.h>
 
 #import "GXBucketManager.h"
+#import "GXQuest.h"
+#import "GXQuestList.h"
 #import "GXUserManager.h"
+#import "GXTopicManager.h"
 #import "GXDictonaryKeys.h"
 #import "GXNotification.h"
 #import "UILocalNotification+GXNotification.h"
@@ -27,6 +30,8 @@
 @property (strong, nonatomic) NSUUID *proximityUUID;
 @property (strong, nonatomic) CLLocationManager *locationManager;
 @property (strong, nonatomic) CLBeaconRegion *region;
+
+@property (nonatomic,strong) GXQuestList *questList;
 
 @end
 
@@ -78,6 +83,7 @@
         
     }
     
+    //topicManagerでやっちゃう
     //ApplicationTopicを購読
     KiiTopic *applicationTopic = [Kii topicWithName:@"SendingAlert"];
     [KiiPushSubscription checkSubscription:applicationTopic withBlock:^(id<KiiSubscribable> subscribable, BOOL result, NSError *error) {
@@ -94,6 +100,16 @@
             }];
         }
     }];
+    
+    //singup時にやっちゃう
+    //infoTopicを購読
+   // [[GXTopicManager sharedManager] subscribeInfoTopic];
+    
+    //notJoinBucketを購読
+  //  [[GXBucketManager sharedManager] subscribeNotJoinBucket];
+    
+    //background fetch
+    [[UIApplication sharedApplication] setMinimumBackgroundFetchInterval:UIApplicationBackgroundFetchIntervalMinimum];
     
     self.locationManager = [CLLocationManager new];
     self.locationManager.delegate = self;
@@ -206,6 +222,30 @@
     
 }
 
+#pragma mark - BackgroundFetch
+// バックグラウンド実行の際に呼び出される
+- (void)application:(UIApplication *)application performFetchWithCompletionHandler:(void (^)(UIBackgroundFetchResult result))completionHandler
+{
+    // ここにバックグラウンド処理
+    KiiBucket *bucket = [GXBucketManager sharedManager].notJoinedQuest;
+    [bucket count:^(KiiBucket *bucket, KiiQuery *query, NSUInteger result, NSError *error) {
+        if (error) {
+            completionHandler(UIBackgroundFetchResultFailed);
+        } else {
+            NSUInteger preNum = [GXUserDefaults getCurrentNotJoinQuest];
+            NSLog(@"preNum:%ld",preNum);
+            NSLog(@"currentNotJoin:%ld",result);
+            if (result > preNum) {
+                //新しいデータあり
+                [self sendNotification:@"あたなへの新しいクエストがあります。挑戦してみませんか?"];
+                completionHandler(UIBackgroundFetchResultNewData);
+            } else {
+                completionHandler(UIBackgroundFetchResultNoData);
+            }
+        }
+    }];
+}
+
 #pragma mark RemoteNotificationhandler
 
 //slient push からの backgroundFetch
@@ -214,14 +254,12 @@
     
     if(![userInfo[@"aps"][@"content-available"] intValue])
     {
-        NSLog(@"push受信");
         KiiPushMessage *msg = [KiiPushMessage messageFromAPNS:userInfo];
         NSString *topicName = [msg getValueOfKiiMessageField:KiiMessage_TOPIC];
         NSString *msgType = [msg getValueOfKiiMessageField:KiiMessage_TYPE];
         NSString *bucketName = [msg getValueOfKiiMessageField:KiiMessage_BUCKET_ID];
         
         if ([topicName isEqualToString:@"invite_notify"]) {
-            NSLog(@"きたよ☆");
             if (application.applicationState == UIApplicationStateActive) {
                 //TSMessage表示用
                 [[NSNotificationCenter defaultCenter] postNotificationName:GXAddGroupSuccessedNotification object:userInfo[@"group_uri"]];
@@ -266,14 +304,52 @@
             }
         }
         
+//        //新しいクエストを発行したのをUser Pushで自分に知らせる
+//        if ([bucketName isEqualToString:@"notJoined_quest"]) {
+//            NSLog(@"notjoin-newObjCreated");
+//            if ([msgType isEqualToString:@"DATA_OBJECT_CREATED"]) {
+//               // [[GXTopicManager sharedManager] sendUserInfoTopic:@"あたなへクエストを発行したよ"];
+//                
+//            }
+//        }
+        
+        if ([topicName isEqualToString:@"newQuestInfo"]) {
+            NSLog(@"questInfo");
+        }
+        
+        
         completionHandler(UIBackgroundFetchResultNewData);
         return;
-    } else {
-        NSLog(@"backgrondfecth");
     }
- 
-    completionHandler(UIBackgroundFetchResultNewData);
     
+//    //push - silent じゃないと無理
+//    KiiPushMessage *msg = [KiiPushMessage messageFromAPNS:userInfo];
+//    NSString *topicName = [msg getValueOfKiiMessageField:KiiMessage_TOPIC];
+//    NSString *msgType = [msg getValueOfKiiMessageField:KiiMessage_TYPE];
+//    NSString *bucketName = [msg getValueOfKiiMessageField:KiiMessage_BUCKET_ID];
+//    
+//    if ([bucketName isEqualToString:@"notJoined_quest"]) {
+//        if ([msgType isEqualToString:@"DATA_OBJECT_CREATED"]) {
+//            /*
+//            KiiAPNSFields *apnsFields = [KiiAPNSFields createFields];
+//            apnsFields.alertBody = @"test";
+//            KiiPushMessage *pushMsg = [KiiPushMessage composeMessageWithAPNSFields:apnsFields andGCMFields:nil];
+//            KiiTopic *sendTopic = [GXTopicManager sharedManager].infoTopic;
+//            NSError *error;
+//            [sendTopic sendMessageSynchronous:pushMsg withError:&error];
+//             */
+//            UILocalNotification *localNotif = [[UILocalNotification alloc] init];
+//            localNotif.fireDate = [NSDate date];
+//            localNotif.timeZone = [NSTimeZone defaultTimeZone];
+//            localNotif.alertBody = @"text";
+//            [[UIApplication sharedApplication] presentLocalNotificationNow:localNotif];
+//            
+//            completionHandler(UIBackgroundFetchResultNewData);
+//
+//        } else {
+//            completionHandler(UIBackgroundFetchResultNoData);
+//        }
+//    }
 }
 
 #pragma mark LocalNotificationHandler

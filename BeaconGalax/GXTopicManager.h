@@ -19,12 +19,14 @@
 + (GXTopicManager *)sharedManager;
 - (void)createUserTopic:(NSString *)title;
 - (void)createDefaultUserTopic;
-- (void)subscribeTopic;
-
+- (void)subscribeInfoTopic;
 - (void)setACL;
 
+//send
 - (void)sendCreateQuestAlert:(NSString *)createdUserName;
 
+//システムからクエストが発行されたタイミングで表示する
+- (void)sendUserInfoTopic:(NSString *)msg;
 
 
 @end
