@@ -13,7 +13,7 @@
 #import "GXNotification.h"
 #import "GXBucketManager.h"
 #import "GXUserDefaults.h"
-
+#import "GXTopicManager.h"
 #import "GXGoogleTrackingManager.h"
 
 @interface GXHomeRootViewController ()<DZNSegmentedControlDelegate>
@@ -39,12 +39,15 @@
     _control.height = 63;
     [self.view addSubview:_control];
     
-    UIViewController *vc = [self viewControllerForSegmentIndex:0];
-    [self addChildViewController:vc];
-    vc.view.frame = self.contentView.bounds;
-    
-    [self.contentView addSubview:vc.view];
-    self.currentViewController = vc;
+//    UIViewController *vc = [self viewControllerForSegmentIndex:0];
+//    [self addChildViewController:vc];
+//    vc.view.frame = self.contentView.bounds;
+//    
+//    [self.contentView addSubview:vc.view];
+//    self.currentViewController = vc;
+    if ([KiiUser loggedIn]) {
+        [self showNotJoinView];
+    }
     
     self.title = @"クエスト一覧";
     
@@ -66,8 +69,32 @@
 {
     [super viewWillAppear:animated];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(updateControl:) name:GXBucketObjectCountNotification object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(loginSuccessed:) name:GXLoginSuccessedNotification object:nil];
     
-    [self countBucketObj];
+    //[self countBucketObj];
+}
+
+- (void)viewDidAppear:(BOOL)animated
+{
+    [super viewDidAppear:animated];
+    if ([KiiUser loggedIn]) {
+        [self countBucketObj];
+    } else {
+        //ログイン処理
+        //accessTokenを使ったログイン
+        NSError *error;
+        NSString *accessToken = [GXUserDefaults getAccessToken];
+        if (accessToken) {
+            
+            [KiiUser authenticateWithTokenSynchronous:accessToken andError:&error];
+            if (!error) {
+                //[[NSNotificationCenter defaultCenter] postNotificationName:GXLoginSuccessedNotification object:nil];
+            } else {
+                [SVProgressHUD showWithStatus:@"ログイン中"];
+                [[GXKiiCloud sharedManager] kiiCloudLogin];
+            }
+        }
+    }
 }
 
 - (void)countBucketObj
@@ -159,6 +186,39 @@
     
 }
 
+- (void)loginSuccessed:(NSNotification *)notis
+{
+    [SVProgressHUD dismiss];
+    //show view
+    if ([KiiUser loggedIn]) {
+        
+        //signUpかどうか
+        //初回起動フラグを見る
+        //初回起動だったらgxUserに登録する
+        if ([GXUserDefaults isFirstLaunch]) {
+            //Init
+            KiiUser *currentUser = [KiiUser currentUser];
+            
+            [[GXBucketManager sharedManager] registerGalaxUser:currentUser];
+            [[GXTopicManager sharedManager] createDefaultUserTopic];
+            [[GXTopicManager sharedManager] subscribeInfoTopic];
+            [[GXTopicManager sharedManager] setACL];
+            
+            //accesstokenの保存
+            NSString *accessToken = [currentUser accessToken];
+            [GXUserDefaults setAccessToken:accessToken];
+            
+            [SVProgressHUD showSuccessWithStatus:@"ログイン完了"];
+            
+            [self showNotJoinView];
+            
+        }
+        
+    }
+
+    
+}
+
 #pragma mark BarButton + Badge
 - (void)buttonPress
 {
@@ -169,5 +229,16 @@
 - (UIBarPosition)positionForBar:(id <UIBarPositioning>)view
 {
     return UIBarPositionBottom;
+}
+
+- (void)showNotJoinView
+{
+    UIViewController *vc = [self viewControllerForSegmentIndex:0];
+    [self addChildViewController:vc];
+    vc.view.frame = self.contentView.bounds;
+    
+    [self.contentView addSubview:vc.view];
+    self.currentViewController = vc;
+
 }
 @end

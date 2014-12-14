@@ -100,25 +100,16 @@
 
 - (void)viewWillAppear:(BOOL)animated
 {
-    if (![KiiUser loggedIn]) {
-        //ログイン画面へ遷移
-        [self performSegueWithIdentifier:@"gotoLoginView" sender:self];
-        
-        
-    } else {
-        //DBからフェッチ(非同期)
-        //最終的に変更があった場合のみにしたい
-        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(questFetched:) name:GXFetchQuestNotComplitedNotification object:nil];
-        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(registeredInvitedBoard:) name:GXRegisteredInvitedBoardNotification object:nil];
-        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(refreshFromLocalNotis:) name:GXRefreshDataFromLocalNotification object:nil];
-        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(showInfo:) name:@"showInfo" object:nil];
-        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(questDeleted:) name:GXQuestDeletedNotification object:nil];
-        //questFetch
-        [self request:0];
-        
-        //pageview
-        [[GXPageViewAnalyzer shareInstance] setPageView:NSStringFromClass([self class])];
-    }
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(questFetched:) name:GXFetchQuestNotComplitedNotification object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(registeredInvitedBoard:) name:GXRegisteredInvitedBoardNotification object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(refreshFromLocalNotis:) name:GXRefreshDataFromLocalNotification object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(showInfo:) name:@"showInfo" object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(questDeleted:) name:GXQuestDeletedNotification object:nil];
+    //questFetch
+    [self request:0];
+    
+    //pageview
+    [[GXPageViewAnalyzer shareInstance] setPageView:NSStringFromClass([self class])];
 }
 
 - (void)viewDidAppear:(BOOL)animated

@@ -8,6 +8,8 @@
 
 #import <UIKit/UIKit.h>
 #import <KiiSDK/Kii.h>
+#import <SVProgressHUD.h>
+#import "GXKiiCloud.h"
 
 @interface GXHomeRootViewController : UIViewController
 
