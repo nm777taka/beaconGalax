@@ -19,7 +19,7 @@
     self.createrName.font = [UIFont boldFlatFontOfSize:15];
     self.createrName.textColor = [UIColor midnightBlueColor];
     self.titleLable.textColor = [UIColor midnightBlueColor];
-    self.titleLable.font = [UIFont boldFlatFontOfSize:16];
+    self.titleLable.font = [UIFont boldFlatFontOfSize:13];
     
     self.createrIcon.layer.cornerRadius = 25.0f;
     self.createrIcon.layer.borderColor = [UIColor whiteColor].CGColor;

@@ -89,6 +89,11 @@
     _fbIconView.profileID = _quest.fb_id;
     _questClearReqLabel.text = _quest.quest_req;
     _descriptionLabel.text = _quest.quest_des;
+    NSDate *createdDate = _quest.createdDate;
+    NSDateFormatter *df = [NSDateFormatter new];
+    df.dateStyle = NSDateFormatterShortStyle;
+    NSString *dfString = [df stringFromDate:createdDate];
+    _createdDateLabel.text = dfString;
     
     _isMulti = [self isMultiQuest];
 }
