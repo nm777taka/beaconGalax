@@ -107,7 +107,7 @@
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(questDeleted:) name:GXQuestDeletedNotification object:nil];
     //questFetch
     [self request:0];
-    
+    [self.collectionView reloadData];
     //pageview
     [[GXPageViewAnalyzer shareInstance] setPageView:NSStringFromClass([self class])];
 }
@@ -293,7 +293,7 @@
 - (void)refreshFromLocalNotis:(NSNotification *)notis
 {
     [SVProgressHUD showWithStatus:@"データ更新中"];
-    [[GXBucketManager sharedManager] fetchQuestWithNotComplited];
+    [self request:0];
 }
 
 - (void)gotoMemberView:(NSNotification *)notis

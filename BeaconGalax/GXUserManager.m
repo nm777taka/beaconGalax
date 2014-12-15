@@ -70,8 +70,6 @@
     NSDateFormatter *df = [NSDateFormatter new];
     df.dateFormat = @"yyyy-MM-dd 'at' HH:mm";
     NSString *stringDate = [df stringFromDate:timeStamp];
-    NSLog(@"%@",stringDate);
-    
     [self.gxUser setObject:beaconName forKey:@"location"];
     [self.gxUser setObject:stringDate forKey:@"locationTimeStamp"];
     [self.gxUser setObject:@YES forKey:@"isOnline"];
@@ -82,6 +80,10 @@
             [[GXUserAttendAnalytics sharedInstance] attend];
         }
     }];
+    
+    //研究室エンタートリガーでクエストを生成
+    [self exeServerCode];
+
 }
 
 - (void)exitCommunitySpace
@@ -98,6 +100,20 @@
     [self.gxUser saveWithBlock:^(KiiObject *object, NSError *error) {
         if (!error) {
         }
+    }];
+    
+}
+
+- (void)exeServerCode
+{
+    KiiUser *currentUser = [KiiUser currentUser];
+    KiiServerCodeEntry *entry = [Kii serverCodeEntry:@"didEnterCommunitySpace"];
+    NSDictionary *dict = @{@"userID":currentUser.objectURI,
+                           @"objectURI":self.gxUser.objectURI};
+    KiiServerCodeEntryArgument *argument = [KiiServerCodeEntryArgument argumentWithDictionary:dict];
+    [entry execute:argument withBlock:^(KiiServerCodeEntry *entry, KiiServerCodeEntryArgument *argument, KiiServerCodeExecResult *result, NSError *error) {
+        NSDictionary *retDict = [result returnedValue];
+        NSLog(@"returned:%@",retDict);
     }];
 }
 

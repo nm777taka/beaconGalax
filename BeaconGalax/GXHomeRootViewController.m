@@ -7,6 +7,7 @@
 //
 
 #import "GXHomeRootViewController.h"
+#import "GXAppDelegate.h"
 #import "UIBarButtonItem+Badge.h"
 #import <REFrostedViewController.h>
 #import <DZNSegmentedControl.h>
@@ -39,12 +40,6 @@
     _control.height = 63;
     [self.view addSubview:_control];
     
-//    UIViewController *vc = [self viewControllerForSegmentIndex:0];
-//    [self addChildViewController:vc];
-//    vc.view.frame = self.contentView.bounds;
-//    
-//    [self.contentView addSubview:vc.view];
-//    self.currentViewController = vc;
     if ([KiiUser loggedIn]) {
         [self showNotJoinView];
     }
@@ -212,11 +207,13 @@
             
             [self showNotJoinView];
             
+            GXAppDelegate *app = [GXAppDelegate new];
+            [app startMonitaring];
+            
+            
         }
         
     }
-
-    
 }
 
 #pragma mark BarButton + Badge

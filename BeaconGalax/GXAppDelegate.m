@@ -22,7 +22,7 @@
 #import "GXUserDefaults.h"
 #import "GAI.h"
 
-@interface GXAppDelegate()
+@interface GXAppDelegate() <GXQuestListDelegate>
 
 @property KiiUser *joinUser;
 @property KiiGroup *joinedGroup;
@@ -68,6 +68,17 @@
         [KiiUser authenticateWithTokenSynchronous:accessToken andError:&error];
         if (!error) {
             //[[NSNotificationCenter defaultCenter] postNotificationName:GXLoginSuccessedNotification object:nil];
+            self.locationManager = [CLLocationManager new];
+            self.locationManager.delegate = self;
+            NSString *uuid = @"B9407F30-F5F8-466E-AFF9-25556B57FE6D";
+            self.proximityUUID = [[NSUUID alloc] initWithUUIDString:uuid];
+            
+            //region作成
+            self.region = [[CLBeaconRegion alloc] initWithProximityUUID:self.proximityUUID major:0001 identifier:@"研究室"];
+            self.region.notifyOnEntry = YES;
+            self.region.notifyOnExit = YES;
+            self.region.notifyEntryStateOnDisplay = NO;
+            [self startMonitaring];
         }
     }
     
@@ -101,29 +112,9 @@
         }
     }];
     
-    //singup時にやっちゃう
-    //infoTopicを購読
-   // [[GXTopicManager sharedManager] subscribeInfoTopic];
-    
-    //notJoinBucketを購読
-  //  [[GXBucketManager sharedManager] subscribeNotJoinBucket];
-    
     //background fetch
     [[UIApplication sharedApplication] setMinimumBackgroundFetchInterval:UIApplicationBackgroundFetchIntervalMinimum];
     
-    self.locationManager = [CLLocationManager new];
-    self.locationManager.delegate = self;
-    NSString *uuid = @"B9407F30-F5F8-466E-AFF9-25556B57FE6D";
-    self.proximityUUID = [[NSUUID alloc] initWithUUIDString:uuid];
-    
-    //region作成
-    self.region = [[CLBeaconRegion alloc] initWithProximityUUID:self.proximityUUID major:0001 identifier:@"研究室"];
-    self.region.notifyOnEntry = YES;
-    self.region.notifyOnExit = YES;
-    self.region.notifyEntryStateOnDisplay = NO;
-    
-    //モニタリング開始
-    [self.locationManager startMonitoringForRegion:self.region];
     
     //アプリがForegrondに無いときにこちらが呼ばれる
     //Local Notificationから起動したかどうか
@@ -132,14 +123,21 @@
         NSNotificationCenter *defaultCenter = [NSNotificationCenter defaultCenter];
         
         //どの通知なのか
-        if ([UILocalNotification isQuestDeliverLocalNotification:notification]) {
-            NSNotification *notification = [NSNotification notificationWithName:GXRefreshDataFromLocalNotification object:nil];
-            //すぐに通知すると良くない?
-            [NSObject performBlock:^{
-                [defaultCenter postNotification:notification];
-            } afterDelay:2.5f];
-            
-        }
+//        if ([UILocalNotification isQuestDeliverLocalNotification:notification]) {
+//            NSNotification *notification = [NSNotification notificationWithName:GXRefreshDataFromLocalNotification object:nil];
+//            //すぐに通知すると良くない?
+//            [NSObject performBlock:^{
+//                [defaultCenter postNotification:notification];
+//            } afterDelay:2.5f];
+//            
+//        }
+        
+        NSNotification *notification = [NSNotification notificationWithName:GXRefreshDataFromLocalNotification object:nil];
+        //すぐに通知すると良くない?
+        [NSObject performBlock:^{
+            [defaultCenter postNotification:notification];
+        } afterDelay:2.5f];
+
     }
     
     return YES;
@@ -237,6 +235,8 @@
             NSLog(@"currentNotJoin:%ld",result);
             if (result > preNum) {
                 //新しいデータあり
+                GXQuestList *questList = [[GXQuestList alloc] initWithDelegate:self];
+                [questList requestAsyncronous:0];
                 [self sendNotification:@"あたなへの新しいクエストがあります。挑戦してみませんか?"];
                 completionHandler(UIBackgroundFetchResultNewData);
             } else {
@@ -497,7 +497,7 @@
 {
     NSLog(@"didEnter");
     NSLog(@"%@", NSStringFromSelector(_cmd));
-    [self sendNotification:@"didEnterRegion"];
+    [self sendNotification:@"Enter:研究室"];
     NSLog(@"beacon identifire:%@",region.identifier);
     [[GXUserManager sharedManager] setLocation:region.identifier];
     
@@ -508,7 +508,7 @@
           didExitRegion:(CLRegion *)region
 {
     NSLog(@"%@", NSStringFromSelector(_cmd));
-    [self sendNotification:@"didExitRegion"];
+    [self sendNotification:@"Exit:研究室"];
     [[GXUserManager sharedManager] exitCommunitySpace];
 }
 
@@ -531,7 +531,6 @@
 
 - (void)locationManager:(CLLocationManager *)manager didStartMonitoringForRegion:(CLRegion *)region
 {
-    NSLog(@"すでにいた");
     [self.locationManager requestStateForRegion:region];
 }
 
@@ -540,7 +539,10 @@
     if ([region isKindOfClass:[CLBeaconRegion class]]) {
         switch (state) {
             case CLRegionStateInside:
-                [self locationManager:manager didEnterRegion:region];
+                //[self locationManager:manager didEnterRegion:region];
+                //すでに居た場合は明示的によぶ
+                [[GXUserManager sharedManager] setLocation:region.identifier];
+                
                 break;
             case CLRegionStateOutside:
             case CLRegionStateUnknown:
@@ -550,6 +552,26 @@
                 break;
         }
     }
+}
+
+#pragma mark - Monitaring
+- (void)startMonitaring
+{
+    if ([KiiUser loggedIn]) {
+        //モニタリング開始
+        NSLog(@"モニタリング開始");
+        [self.locationManager startMonitoringForRegion:self.region];
+
+    } else {
+        NSLog(@"モニタリングできない");
+        return;
+    }
+}
+
+#pragma makr - QustListDidLoad
+- (void)questListDidLoad
+{
+    NSLog(@"didLoad");
 }
 
 @end

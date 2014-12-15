@@ -84,7 +84,12 @@
     if ([type isEqualToString:@"user"]) {
         //これはuserクエスト
         //[self refreshPoint:30];
-        retPoint = 30;
+        NSString *groupURI = [cleardQuest getObjectForKey:quest_groupURI];
+        KiiGroup *group = [KiiGroup groupWithURI:groupURI];
+        [group refreshSynchronous:&error];
+        NSArray *members = [group getMemberListSynchronous:&error];
+        retPoint = (members.count * 10) + 25; //人数ボーナス＋基本ポイント
+        
     } else {
         //one or multi
         int playerNum = [[quest getObjectForKey:quest_player_num] intValue];

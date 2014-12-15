@@ -21,4 +21,6 @@
 @property (nonatomic,retain) Facebook *facebook;
 @property KiiObject *gxUser;
 
+- (void)startMonitaring;
+
 @end
