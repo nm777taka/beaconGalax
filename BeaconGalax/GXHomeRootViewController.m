@@ -17,6 +17,7 @@
 #import "GXTopicManager.h"
 #import "GXDictonaryKeys.h"
 #import "GXGoogleTrackingManager.h"
+#import "NSObject+BlocksWait.h"
 
 @interface GXHomeRootViewController ()<DZNSegmentedControlDelegate>
 
@@ -78,7 +79,9 @@
     } else {
         //ログイン処理
         [SVProgressHUD showWithStatus:@"ログイン中"];
-        [[GXKiiCloud sharedManager] kiiCloudLogin];
+        [NSObject performBlock:^{
+            [[GXKiiCloud sharedManager] kiiCloudLogin];
+        } afterDelay:5.0f];
     }
 }
 
@@ -176,7 +179,7 @@
             
             [[GXBucketManager sharedManager] registerGalaxUser:currentUser]; //galaxuserに登録
             [[GXTopicManager sharedManager] createDefaultUserTopic];
-            //[[GXTopicManager sharedManager] subscribeInfoTopic];
+            [[GXTopicManager sharedManager] subscribeInfoTopic];
             [[GXTopicManager sharedManager] setACL];
             
             //accesstokenの保存

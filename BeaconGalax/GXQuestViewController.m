@@ -24,6 +24,7 @@
 #import "GXQuestDetailViewController.h"
 #import "GXQuestGroupViewController.h"
 #import "GXPointManager.h"
+#import "GXTopicManager.h"
 #import <HMSegmentedControl.h>
 
 #import "GXBucketManager.h"
@@ -95,6 +96,9 @@
     [self.collectionView addSubview:_refreshControl];
     
     self.detailViewController = [self.storyboard instantiateViewControllerWithIdentifier:@"detail"];
+    
+    [[GXTopicManager sharedManager] subscribeInfoTopic];
+
     
 }
 

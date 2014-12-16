@@ -88,9 +88,9 @@ static NSString *const GXQuestInviteTopic = @"GXQuestInviteTopic";
             }
         }];
 
+    } else {
+        NSLog(@"すでにinfoTopicを購読してます");
     }
-    //AppScopeのTopicは管理者しか作れない
-    
 }
 
 - (void)createUserTopic:(NSString *)title

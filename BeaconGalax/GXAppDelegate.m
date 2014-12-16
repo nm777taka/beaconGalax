@@ -35,6 +35,7 @@ compare:v options:NSNumericSearch] == NSOrderedAscending)
 @property (strong, nonatomic) CLBeaconRegion *region;
 
 @property (nonatomic,strong) GXQuestList *questList;
+@property (nonatomic) BOOL isEntered;
 
 @end
 
@@ -317,7 +318,12 @@ compare:v options:NSNumericSearch] == NSOrderedAscending)
 //        }
         
         if ([topicName isEqualToString:@"newQuestInfo"]) {
-            NSLog(@"questInfo");
+            if (application.applicationState == UIApplicationStateActive) {
+                NSLog(@"きたよ");
+                CWStatusBarNotification *notis = [CWStatusBarNotification new];
+                notis.notificationLabelBackgroundColor = [UIColor turquoiseColor];
+                [notis displayNotificationWithMessage:@"新しいクエストが届きました" forDuration:2.0f];
+            }
         }
         
         
@@ -440,6 +446,8 @@ compare:v options:NSNumericSearch] == NSOrderedAscending)
 - (void)applicationDidBecomeActive:(UIApplication *)application
 {
     // Restart any tasks that were paused (or not yet started) while the application was inactive. If the application was previously in the background, optionally refresh the user interface.
+    //badgeを消す
+    [UIApplication sharedApplication].applicationIconBadgeNumber = -1;
 }
 
 - (void)applicationWillTerminate:(UIApplication *)application
@@ -498,11 +506,9 @@ compare:v options:NSNumericSearch] == NSOrderedAscending)
 - (void)locationManager:(CLLocationManager *)manager
          didEnterRegion:(CLRegion *)region
 {
-    NSLog(@"didEnter");
-    NSLog(@"%@", NSStringFromSelector(_cmd));
     [self sendNotification:@"Enter:研究室"];
-    NSLog(@"beacon identifire:%@",region.identifier);
-    [[GXUserManager sharedManager] setLocation:region.identifier];
+    //[[GXUserManager sharedManager] setLocation:region.identifier];
+    NSLog(@"didenterRegion-------->");
     
 }
 
@@ -511,7 +517,8 @@ compare:v options:NSNumericSearch] == NSOrderedAscending)
           didExitRegion:(CLRegion *)region
 {
     NSLog(@"%@", NSStringFromSelector(_cmd));
-    [self sendNotification:@"Exit:研究室"];
+    //[self sendNotification:@"Exit:研究室"];
+    self.isEntered = NO;
     [[GXUserManager sharedManager] exitCommunitySpace];
 }
 
@@ -534,7 +541,7 @@ compare:v options:NSNumericSearch] == NSOrderedAscending)
 
 - (void)locationManager:(CLLocationManager *)manager didStartMonitoringForRegion:(CLRegion *)region
 {
-    [self.locationManager requestStateForRegion:region];
+    //[self.locationManager requestStateForRegion:region];
 }
 
 - (void)locationManager:(CLLocationManager *)manager didDetermineState:(CLRegionState)state forRegion:(CLRegion *)region
@@ -544,6 +551,9 @@ compare:v options:NSNumericSearch] == NSOrderedAscending)
             case CLRegionStateInside:
                 //[self locationManager:manager didEnterRegion:region];
                 //すでに居た場合は明示的によぶ
+                //ここが二階くらい呼ばれてる気がする
+                NSLog(@"didDetermainState---------->");
+                //[self sendNotification:@"Enter:研究室"];
                 [[GXUserManager sharedManager] setLocation:region.identifier];
                 
                 break;

@@ -47,7 +47,7 @@ NSString * const GXNotificationInfoKindQuestDeliver = @"GXNotificationInfoKindQu
             if ([[NSDate date] compare:fireDateOfNotification] == NSOrderedAscending) { //今よりも未来であること
                 notification.fireDate = fireDateOfNotification;
                 notification.timeZone = [NSTimeZone defaultTimeZone];
-                notification.alertBody = @"今日のクエストが配信されました";
+                notification.alertBody = @"今日もクエストに挑戦しよう！";
                 notification.alertAction = @"開く";
                 notification.soundName = UILocalNotificationDefaultSoundName;
                 
