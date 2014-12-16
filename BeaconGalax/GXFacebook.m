@@ -63,6 +63,8 @@
         [gxuser setObject:user_id forKey:@"facebook_id"];
         [gxuser setObject:@0 forKey:@"point"];
         [gxuser setObject:@"E" forKey:@"rank"];
+        [gxuser setObject:@NO forKey:@"isOnline"];
+        [gxuser setObject:@"オフライン" forKey:@"location"];
         [gxuser saveSynchronous:&error];
         if (error != nil) {
             

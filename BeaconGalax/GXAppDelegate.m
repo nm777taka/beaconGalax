@@ -22,6 +22,9 @@
 #import "GXUserDefaults.h"
 #import "GAI.h"
 
+#define SYSTEM_VERSION_LESS_THAN(v) ([[[UIDevice currentDevice] systemVersion] \
+compare:v options:NSNumericSearch] == NSOrderedAscending)
+
 @interface GXAppDelegate() <GXQuestListDelegate>
 
 @property KiiUser *joinUser;
@@ -59,6 +62,16 @@
     
      [Kii enableAPNSWithDevelopmentMode:YES andNotificationTypes:UIRemoteNotificationTypeAlert|UIRemoteNotificationTypeSound|UIRemoteNotificationTypeBadge];
     
+    //beaconの設定
+    self.locationManager = [CLLocationManager new];
+    self.locationManager.delegate = self;
+    NSString *uuid = @"B9407F30-F5F8-466E-AFF9-25556B57FE6D";
+    self.proximityUUID = [[NSUUID alloc] initWithUUIDString:uuid];
+    //region作成
+    self.region = [[CLBeaconRegion alloc] initWithProximityUUID:self.proximityUUID major:0001 identifier:@"研究室"];
+    self.region.notifyOnEntry = YES;
+    self.region.notifyOnExit = YES;
+    self.region.notifyEntryStateOnDisplay = NO;
   
     //accessTokenを使ったログイン
     NSError *error;
@@ -68,16 +81,6 @@
         [KiiUser authenticateWithTokenSynchronous:accessToken andError:&error];
         if (!error) {
             //[[NSNotificationCenter defaultCenter] postNotificationName:GXLoginSuccessedNotification object:nil];
-            self.locationManager = [CLLocationManager new];
-            self.locationManager.delegate = self;
-            NSString *uuid = @"B9407F30-F5F8-466E-AFF9-25556B57FE6D";
-            self.proximityUUID = [[NSUUID alloc] initWithUUIDString:uuid];
-            
-            //region作成
-            self.region = [[CLBeaconRegion alloc] initWithProximityUUID:self.proximityUUID major:0001 identifier:@"研究室"];
-            self.region.notifyOnEntry = YES;
-            self.region.notifyOnExit = YES;
-            self.region.notifyEntryStateOnDisplay = NO;
             [self startMonitaring];
         }
     }

@@ -17,6 +17,9 @@
 
 #import "GXGoogleTrackingManager.h"
 
+#define SYSTEM_VERSION_LESS_THAN(v) ([[[UIDevice currentDevice] systemVersion] \
+compare:v options:NSNumericSearch] == NSOrderedAscending)
+
 @interface GXActivityViewController ()<UITableViewDataSource,UITableViewDelegate,GXActivityListDelegate>
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 @property (nonatomic,strong) GXActivityList *activityList;
@@ -31,7 +34,11 @@
     // Do any additional setup after loading the view.
     self.tableView.delegate = self;
     self.tableView.dataSource = self;
-    self.tableView.rowHeight = UITableViewAutomaticDimension;
+    if (SYSTEM_VERSION_LESS_THAN(@"8.0")) {
+        //ios 7.x
+    } else {
+        self.tableView.rowHeight = UITableViewAutomaticDimension;
+    }
     self.title = @"みんなの動き";
         
     _activityList = [[GXActivityList alloc] initWithDelegate:self];

@@ -79,13 +79,13 @@
 - (void)requestAsynchronous
 {
     _loading = YES;
-    //[self performSelector:@selector(requestAsynchronousDone) withObject:self afterDelay:1.0];
+    [self performSelector:@selector(requestAsynchronousDone) withObject:self afterDelay:1.0];
 }
 
 - (void)requestMoreAsynchronous
 {
     _loading = YES;
-    //[self performSelector:@selector(requestMoreAsynchronousDone) withObject:self afterDelay:1.0];
+    [self performSelector:@selector(requestMoreAsynchronousDone) withObject:self afterDelay:1.0];
 }
 
 //クエストのアクティビティを設定

@@ -15,6 +15,7 @@
 #import "GXBucketManager.h"
 #import "GXUserDefaults.h"
 #import "GXTopicManager.h"
+#import "GXDictonaryKeys.h"
 #import "GXGoogleTrackingManager.h"
 
 @interface GXHomeRootViewController ()<DZNSegmentedControlDelegate>
@@ -76,19 +77,8 @@
         [self countBucketObj];
     } else {
         //ログイン処理
-        //accessTokenを使ったログイン
-        NSError *error;
-        NSString *accessToken = [GXUserDefaults getAccessToken];
-        if (accessToken) {
-            
-            [KiiUser authenticateWithTokenSynchronous:accessToken andError:&error];
-            if (!error) {
-                //[[NSNotificationCenter defaultCenter] postNotificationName:GXLoginSuccessedNotification object:nil];
-            } else {
-                [SVProgressHUD showWithStatus:@"ログイン中"];
-                [[GXKiiCloud sharedManager] kiiCloudLogin];
-            }
-        }
+        [SVProgressHUD showWithStatus:@"ログイン中"];
+        [[GXKiiCloud sharedManager] kiiCloudLogin];
     }
 }
 
@@ -129,15 +119,6 @@
     return vc;
 }
 
-/*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-*/
 
 - (void)selectedSegment:(DZNSegmentedControl *)sender {
     
@@ -183,7 +164,6 @@
 
 - (void)loginSuccessed:(NSNotification *)notis
 {
-    [SVProgressHUD dismiss];
     //show view
     if ([KiiUser loggedIn]) {
         
@@ -194,26 +174,66 @@
             //Init
             KiiUser *currentUser = [KiiUser currentUser];
             
-            [[GXBucketManager sharedManager] registerGalaxUser:currentUser];
+            [[GXBucketManager sharedManager] registerGalaxUser:currentUser]; //galaxuserに登録
             [[GXTopicManager sharedManager] createDefaultUserTopic];
-            [[GXTopicManager sharedManager] subscribeInfoTopic];
+            //[[GXTopicManager sharedManager] subscribeInfoTopic];
             [[GXTopicManager sharedManager] setACL];
             
             //accesstokenの保存
             NSString *accessToken = [currentUser accessToken];
             [GXUserDefaults setAccessToken:accessToken];
             
-            [SVProgressHUD showSuccessWithStatus:@"ログイン完了"];
+            //userdefaultに保存する(基本的なuser情報)
+            KiiObject *gxuser = [[GXBucketManager sharedManager] getMeFromGalaxUserBucket];
+            [GXUserDefaults setUserInfomation:[gxuser getObjectForKey:user_fb_id] name:[gxuser getObjectForKey:user_name]];
             
+            //こっちで初期クエストを作っちゃう
+            [self createFirstQuest];
+            
+            [SVProgressHUD showSuccessWithStatus:@"ログイン完了"];
+
             [self showNotJoinView];
             
+            //モニタリング開始
             GXAppDelegate *app = [GXAppDelegate new];
             [app startMonitaring];
-            
             
         }
         
     }
+}
+
+#pragma mark - 最初のクエスト
+- (void)createFirstQuest
+{
+    NSError *error;
+    KiiBucket *bucket = [GXBucketManager sharedManager].notJoinedQuest;
+    //一人用
+    KiiObject *newQuest1 = [bucket createObject];
+    [newQuest1 setObject:@"最初のクエスト" forKey:@"title"];
+    [newQuest1 setObject:@"研究室のビーコンに近づいてみよう" forKey:@"description"];
+    [newQuest1 setObject:@"クリア条件:研究室のビーコンに一定時間近づく" forKey:@"requirement"];
+    [newQuest1 setObject:@28319 forKey:@"major"];
+    [newQuest1 setObject:@1 forKey:@"player_num"];
+    [newQuest1 setObject:@NO forKey:@"isCompleted"];
+    [newQuest1 setObject:@0 forKey:@"success_cnt"];
+    [newQuest1 saveSynchronous:&error];
+    if (error) NSLog(@"init quest error:%@",error);
+    else NSLog(@"newQuest1 suc");
+    
+    //協力クエスト
+    KiiObject *newQuest2 = [bucket createObject];
+    [newQuest2 setObject:@"はじめての協力" forKey:@"title"];
+    [newQuest2 setObject:@"メンバーと一緒にクエストをやってみよう" forKey:@"description"];
+    [newQuest2 setObject:@"クリア条件：研究室のビーコンに一定時間近づく" forKey:@"requirement"];
+    [newQuest2 setObject:@28319 forKey:@"major"];
+    [newQuest2 setObject:@2 forKey:@"player_num"];
+    [newQuest2 setObject:@NO forKey:@"isCompleted"];
+    [newQuest2 setObject:@0 forKey:@"success_cnt"];
+    [newQuest2 saveSynchronous:&error];
+    if (error) NSLog(@"init quest error:%@",error);
+    else NSLog(@"newQuest1 suc");
+
 }
 
 #pragma mark BarButton + Badge

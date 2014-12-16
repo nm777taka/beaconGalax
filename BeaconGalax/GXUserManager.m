@@ -83,7 +83,6 @@
     
     //研究室エンタートリガーでクエストを生成
     [self exeServerCode];
-
 }
 
 - (void)exitCommunitySpace
@@ -101,7 +100,6 @@
         if (!error) {
         }
     }];
-    
 }
 
 - (void)exeServerCode
