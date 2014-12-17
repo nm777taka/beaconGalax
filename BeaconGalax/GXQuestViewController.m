@@ -435,7 +435,7 @@
             NSLog(@"joinedBucketに登録します");
             [[GXBucketManager sharedManager] acceptNewQuest:object]; // だめじゃねこれ
             NSLog(@"notJoinから削除");
-          //  [[GXBucketManager sharedManager] deleteJoinedQuest:object];
+            [[GXBucketManager sharedManager] deleteJoinedQuest:object];
             [SVProgressHUD dismiss];
             
             CWStatusBarNotification *notis = [CWStatusBarNotification new];
@@ -459,7 +459,7 @@
     [obj refreshWithBlock:^(KiiObject *object, NSError *error) {
         if(!error) {
             [[GXBucketManager sharedManager] registerInviteBoard:object];
-           // [[GXBucketManager sharedManager] deleteJoinedQuest:object];
+            [[GXBucketManager sharedManager] deleteJoinedQuest:object];
             [SVProgressHUD dismiss];
             CWStatusBarNotification *notis = [CWStatusBarNotification new];
             notis.notificationLabelBackgroundColor = [UIColor turquoiseColor];

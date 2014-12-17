@@ -52,14 +52,25 @@
 {
     //clearBucketに保存
     //保存できたら消す
+    BOOL isMulti;
+    BOOL isUserType;
     
     KiiBucket *bucket = [GXBucketManager sharedManager].clearedBucket;
     KiiObject *obj = [bucket createObject];
     NSDictionary *dict = self.nowExeQuest.dictionaryValue;
+    int players = [dict[@"player_num"]intValue];
+    if (players > 1) {
+        isMulti = YES;
+    } else {
+        isMulti = NO;
+    }
+    
     NSArray *keys = dict.allKeys;
     for (NSString *key in keys) {
         [obj setObject:dict[key] forKey:key];
     }
+    
+    //cleardに保存
     [obj saveWithBlock:^(KiiObject *object, NSError *error) {
         if (error) {
             NSLog(@"error:%@",error);
@@ -77,8 +88,46 @@
         }
     }];
     
-    
-    
+    //appscopeに保存しとく
+    if (isMulti) {
+        if (isUserType) {
+            KiiBucket *bucket = [Kii bucketWithName:@"cleard_UserQuest"];
+            KiiObject *obj = [bucket createObject];
+            for (NSString *key in keys) {
+                [obj setObject:dict[key] forKey:key];
+            }
+            [obj saveWithBlock:^(KiiObject *object, NSError *error) {
+                if (!error) {
+                    NSLog(@"userQuest-APPに保存");
+                }
+            }];
+
+        } else {
+            KiiBucket *bucket = [Kii bucketWithName:@"cleard_MultiQuest"];
+            KiiObject *obj = [bucket createObject];
+            
+            for (NSString *key in keys) {
+                [obj setObject:dict[key] forKey:key];
+            }
+            [obj saveWithBlock:^(KiiObject *object, NSError *error) {
+                if (!error) {
+                    NSLog(@"MultiQuest-APPに保存");
+                }
+            }];
+        }
+        
+    } else {
+        KiiBucket *bucket = [Kii bucketWithName:@"cleard_OneQuest"];
+        KiiObject *obj = [bucket createObject];
+        for (NSString *key in keys) {
+            [obj setObject:dict[key] forKey:key];
+        }
+        [obj saveWithBlock:^(KiiObject *object, NSError *error) {
+            if (!error) {
+                NSLog(@"oneQuest-APPに保存");
+            }
+        }];
+    }
 }
 
 

@@ -10,6 +10,7 @@
 #import "GXGalaxterStatusViewCell.h"
 #import "GXBucketManager.h"
 #import "GXDictonaryKeys.h"
+#import "GXGoogleTrackingManager.h"
 
 @interface GXGalaxterStatusViewController ()<UITableViewDataSource,UITableViewDelegate>
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
@@ -35,6 +36,7 @@
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
+    [GXGoogleTrackingManager sendScreenTracking:@"galaxterStatusView"];
     [[GXPageViewAnalyzer shareInstance] setPageView:NSStringFromClass([self class])];
     [self fetchGalaxUsers];
 }
