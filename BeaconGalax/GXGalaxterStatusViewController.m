@@ -31,6 +31,16 @@
     _refreshControl = [UIRefreshControl new];
     [_refreshControl addTarget:self action:@selector(refresh) forControlEvents:UIControlEventValueChanged];
     [self.tableView addSubview:_refreshControl];
+    
+    UIImage *image = [UIImage imageNamed:@"someImage"];
+    UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
+    button.frame = CGRectMake(0,0,image.size.width, image.size.height);
+    [button addTarget:self action:@selector(buttonPress) forControlEvents:UIControlEventTouchDown];
+    [button setBackgroundImage:image forState:UIControlStateNormal];
+    
+    UIBarButtonItem *navLeftButton = [[UIBarButtonItem alloc] initWithCustomView:button];
+    self.navigationItem.leftBarButtonItem = navLeftButton;
+
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -106,4 +116,12 @@
 {
     [_refreshControl endRefreshing];
 }
+
+#pragma mark BarButton + Badge
+- (void)buttonPress
+{
+    NSLog(@"buttonPress");
+    [self.frostedViewController presentMenuViewController];
+}
+
 @end

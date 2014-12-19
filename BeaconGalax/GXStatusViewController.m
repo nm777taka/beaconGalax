@@ -32,6 +32,7 @@
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 @property (weak, nonatomic) IBOutlet FBProfilePictureView *iconImageView;
 @property (weak, nonatomic) IBOutlet UILabel *usrNameLabel;
+@property (weak, nonatomic) IBOutlet UILabel *userLocationStatusLabel;
 
 
 @property KiiObject *gxUser;
@@ -59,6 +60,10 @@
     self.usrNameLabel.text = @"name";
     self.usrNameLabel.font = [UIFont fontWithName:@"HelveticaNeue" size:15];
     self.usrNameLabel.textColor = [UIColor colorWithRed:62/255.0f green:68/255.0f blue:75/255.0f alpha:1.0f];
+    self.userLocationStatusLabel.font = [UIFont fontWithName:@"HelveticaNeue" size:15];
+    self.userLocationStatusLabel.textColor = [UIColor colorWithRed:62/255.0f green:68/255.0f blue:75/255.0f alpha:1.0f];
+
+    
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -74,16 +79,12 @@
 - (void)viewDidAppear:(BOOL)animated
 {
     [super viewDidAppear:animated];
-//    NSUserDefaults *ud = [NSUserDefaults standardUserDefaults];
-//    self.iconImageView.profileID = [ud stringForKey:@"fb_id"];
-//    self.usrNameLabel.text = [ud stringForKey:@"usr_name"];
-//    
-//    int currPoint = [[GXUserManager sharedManager] getUserPoint];
-//    int currRank = [[GXUserManager sharedManager] getUserRank];
-//    self.pointLable.text = [NSString stringWithFormat:@"%dpt",currPoint];
-//    self.rankLabel.text = [NSString stringWithFormat:@"%d",currRank];
-//    [self.rankProgress setProgress:0.2 animated:YES];
-
+    KiiObject *gxuser = [GXUserManager sharedManager].gxUser;
+    NSString *locationState = [NSString stringWithFormat:@"Status:%@",[gxuser getObjectForKey:@"location"]];
+    self.userLocationStatusLabel.text = locationState;
+    BOOL isOnline = [[gxuser getObjectForKey:@"isOnline"] boolValue];
+    if (isOnline) self.iconImageView.layer.borderColor = [UIColor turquoiseColor].CGColor;
+    else self.iconImageView.layer.borderColor = [UIColor grayColor].CGColor;
 }
 
 - (void)viewDidDisappear:(BOOL)animated

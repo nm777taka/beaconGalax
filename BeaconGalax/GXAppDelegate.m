@@ -44,7 +44,6 @@ compare:v options:NSNumericSearch] == NSOrderedAscending)
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
-    [self deployModeTest];
     [Fabric with:@[CrashlyticsKit]];
     //GoogleAnalytics初期化
     [self initializeGoogleAnalytics];
@@ -117,8 +116,6 @@ compare:v options:NSNumericSearch] == NSOrderedAscending)
         
     }
     
-    //topicManagerでやっちゃう
-    //ApplicationTopicを購読
     
     //background fetch
     [[UIApplication sharedApplication] setMinimumBackgroundFetchInterval:UIApplicationBackgroundFetchIntervalMinimum];
@@ -151,10 +148,6 @@ compare:v options:NSNumericSearch] == NSOrderedAscending)
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(signuped:) name:@"singUpSuccessed" object:nil];
     
     return YES;
-}
--(void)deployModeTest
-{
-    NSLog(@"deploy mode - now");
 }
 
 - (void)initializeGoogleAnalytics
@@ -316,15 +309,6 @@ compare:v options:NSNumericSearch] == NSOrderedAscending)
             }
         }
         
-//        //新しいクエストを発行したのをUser Pushで自分に知らせる
-//        if ([bucketName isEqualToString:@"notJoined_quest"]) {
-//            NSLog(@"notjoin-newObjCreated");
-//            if ([msgType isEqualToString:@"DATA_OBJECT_CREATED"]) {
-//               // [[GXTopicManager sharedManager] sendUserInfoTopic:@"あたなへクエストを発行したよ"];
-//                
-//            }
-//        }
-        
         if ([topicName isEqualToString:@"newQuestInfo"]) {
             if (application.applicationState == UIApplicationStateActive) {
                 NSLog(@"きたよ");
@@ -428,6 +412,8 @@ compare:v options:NSNumericSearch] == NSOrderedAscending)
     // Restart any tasks that were paused (or not yet started) while the application was inactive. If the application was previously in the background, optionally refresh the user interface.
     //badgeを消す
     [UIApplication sharedApplication].applicationIconBadgeNumber = -1;
+    [self.locationManager requestStateForRegion:self.region];
+    
 }
 
 - (void)applicationWillTerminate:(UIApplication *)application
@@ -486,7 +472,7 @@ compare:v options:NSNumericSearch] == NSOrderedAscending)
 - (void)locationManager:(CLLocationManager *)manager
          didEnterRegion:(CLRegion *)region
 {
-    [self sendNotification:@"Enter:研究室"];
+    //[self sendNotification:@"Enter:研究室"];
     [[GXUserManager sharedManager] setLocation:region.identifier];
     NSLog(@"didenterRegion-------->");
     
@@ -496,10 +482,9 @@ compare:v options:NSNumericSearch] == NSOrderedAscending)
 - (void)locationManager:(CLLocationManager *)manager
           didExitRegion:(CLRegion *)region
 {
-    NSLog(@"%@", NSStringFromSelector(_cmd));
-    [self sendNotification:@"Exit:研究室"];
-    self.isEntered = NO;
+   // [self sendNotification:@"Exit:研究室"];
     [[GXUserManager sharedManager] exitCommunitySpace];
+    NSLog(@"didExitRegion-------->");
 }
 
 #pragma mark - Other methods
@@ -539,6 +524,7 @@ compare:v options:NSNumericSearch] == NSOrderedAscending)
                 break;
             case CLRegionStateOutside:
             case CLRegionStateUnknown:
+                [[GXUserManager sharedManager] exitCommunitySpace];
                 break;
                 
             default:
