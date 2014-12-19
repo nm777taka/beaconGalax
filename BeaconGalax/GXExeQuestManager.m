@@ -53,11 +53,16 @@
     //clearBucketに保存
     //保存できたら消す
     BOOL isMulti;
-    BOOL isUserType;
-    
+    BOOL isUserType = false;
+    NSString *curretUserID = [KiiUser currentUser].uuid;
     KiiBucket *bucket = [GXBucketManager sharedManager].clearedBucket;
     KiiObject *obj = [bucket createObject];
     NSDictionary *dict = self.nowExeQuest.dictionaryValue;
+    NSString *questType = dict[@"type"];
+    if ([questType isEqualToString:@"user"]) {
+        isUserType = YES;
+    }
+    
     int players = [dict[@"player_num"]intValue];
     if (players > 1) {
         isMulti = YES;
@@ -96,6 +101,7 @@
             for (NSString *key in keys) {
                 [obj setObject:dict[key] forKey:key];
             }
+            [obj setObject:curretUserID forKey:@"userUUID"];
             [obj saveWithBlock:^(KiiObject *object, NSError *error) {
                 if (!error) {
                     NSLog(@"userQuest-APPに保存");
@@ -109,6 +115,7 @@
             for (NSString *key in keys) {
                 [obj setObject:dict[key] forKey:key];
             }
+            [obj setObject:curretUserID forKey:@"userUUID"];
             [obj saveWithBlock:^(KiiObject *object, NSError *error) {
                 if (!error) {
                     NSLog(@"MultiQuest-APPに保存");

@@ -87,7 +87,7 @@
             }
             
             if (!error) {
-                KiiObject *obj = results.lastObject;
+                KiiObject *obj = results.firstObject;
                 NSDate *created = obj.created;
                 
                 NSDateComponents *createdComps
@@ -114,6 +114,7 @@
                 } else {
                     //出席データを送信
                     NSString *dfString = [df stringFromDate:date];
+                    KiiObject *obj = [bucket createObject];
                     [obj setObject:dfString forKey:@"attendDate"];
                     [obj saveWithBlock:^(KiiObject *object, NSError *error) {
                         if (!error) {

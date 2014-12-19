@@ -93,18 +93,17 @@
                    title:(NSString *)text
                     fbid:(NSString *)fbid
 {
-    /*
-    KiiBucket *bucket = [GXBucketManager sharedManager].activityBucket;
-    KiiObject *newActivity = [bucket createObject];
-    [newActivity setObject:name forKey:@"name"];
-    [newActivity setObject:text forKey:@"text"];
-    [newActivity setObject:fbid forKey:@"fbid"];
-    [newActivity saveWithBlock:^(KiiObject *object, NSError *error) {
-        if (error != nil) {
-            NSLog(@"activity登録完了");
-        }
-    }];
-     */
+    
+//    KiiBucket *bucket = [GXBucketManager sharedManager].activityBucket;
+//    KiiObject *newActivity = [bucket createObject];
+//    [newActivity setObject:name forKey:@"name"];
+//    [newActivity setObject:text forKey:@"text"];
+//    [newActivity setObject:fbid forKey:@"fbid"];
+//    [newActivity saveWithBlock:^(KiiObject *object, NSError *error) {
+//        if (error != nil) {
+//            NSLog(@"activity登録完了");
+//        }
+//    }];
 }
 
 #pragma mark - internals

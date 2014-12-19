@@ -197,9 +197,7 @@
 
             [self showNotJoinView];
             
-            //モニタリング開始
-            GXAppDelegate *app = [GXAppDelegate new];
-            [app startMonitaring];
+            [[NSNotificationCenter defaultCenter ]postNotificationName:@"singUpSuccessed" object:nil];
             
         }
         

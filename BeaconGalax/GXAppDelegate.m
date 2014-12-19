@@ -44,6 +44,7 @@ compare:v options:NSNumericSearch] == NSOrderedAscending)
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
+    [self deployModeTest];
     [Fabric with:@[CrashlyticsKit]];
     //GoogleAnalytics初期化
     [self initializeGoogleAnalytics];
@@ -67,6 +68,7 @@ compare:v options:NSNumericSearch] == NSOrderedAscending)
     self.locationManager = [CLLocationManager new];
     self.locationManager.delegate = self;
     NSString *uuid = @"B9407F30-F5F8-466E-AFF9-25556B57FE6D";
+    //NSString *uuid = @"C318D059-F9F2-4DE8-AB0B-0701ADB7078F";
     self.proximityUUID = [[NSUUID alloc] initWithUUIDString:uuid];
     //region作成
     self.region = [[CLBeaconRegion alloc] initWithProximityUUID:self.proximityUUID major:0001 identifier:@"研究室"];
@@ -83,6 +85,23 @@ compare:v options:NSNumericSearch] == NSOrderedAscending)
         if (!error) {
             //[[NSNotificationCenter defaultCenter] postNotificationName:GXLoginSuccessedNotification object:nil];
             [self startMonitaring];
+            
+            KiiTopic *applicationTopic = [Kii topicWithName:@"SendingAlert"];
+            [KiiPushSubscription checkSubscription:applicationTopic withBlock:^(id<KiiSubscribable> subscribable, BOOL result, NSError *error) {
+                if (result) {
+                    //購読済み
+                } else {
+                    //購読
+                    [KiiPushSubscription subscribe:applicationTopic withBlock:^(KiiPushSubscription *subscription, NSError *error) {
+                        if (error) {
+                            NSLog(@"error:%@",error);
+                        } else {
+                            NSLog(@"app-topic購読完了");
+                        }
+                    }];
+                }
+            }];
+
         }
     }
     
@@ -100,21 +119,6 @@ compare:v options:NSNumericSearch] == NSOrderedAscending)
     
     //topicManagerでやっちゃう
     //ApplicationTopicを購読
-    KiiTopic *applicationTopic = [Kii topicWithName:@"SendingAlert"];
-    [KiiPushSubscription checkSubscription:applicationTopic withBlock:^(id<KiiSubscribable> subscribable, BOOL result, NSError *error) {
-        if (result) {
-            //購読済み
-        } else {
-            //購読
-            [KiiPushSubscription subscribe:applicationTopic withBlock:^(KiiPushSubscription *subscription, NSError *error) {
-                if (error) {
-                    NSLog(@"error:%@",error);
-                } else {
-                    NSLog(@"app-topic購読完了");
-                }
-            }];
-        }
-    }];
     
     //background fetch
     [[UIApplication sharedApplication] setMinimumBackgroundFetchInterval:UIApplicationBackgroundFetchIntervalMinimum];
@@ -144,7 +148,13 @@ compare:v options:NSNumericSearch] == NSOrderedAscending)
 
     }
     
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(signuped:) name:@"singUpSuccessed" object:nil];
+    
     return YES;
+}
+-(void)deployModeTest
+{
+    NSLog(@"deploy mode - now");
 }
 
 - (void)initializeGoogleAnalytics
@@ -160,7 +170,7 @@ compare:v options:NSNumericSearch] == NSOrderedAscending)
     [[[GAI sharedInstance] logger] setLogLevel:kGAILogLevelVerbose];
     
     // Initialize tracker. Replace with your tracking ID.
-    [[GAI sharedInstance] trackerWithTrackingId:@"UA-57276402-1"];
+    [[GAI sharedInstance] trackerWithTrackingId:@"UA-57747228-1"];
     
     // Enable IDFA collection.
     id<GAITracker> tracker = [[GAI sharedInstance] defaultTracker];
@@ -235,8 +245,6 @@ compare:v options:NSNumericSearch] == NSOrderedAscending)
             completionHandler(UIBackgroundFetchResultFailed);
         } else {
             NSUInteger preNum = [GXUserDefaults getCurrentNotJoinQuest];
-            NSLog(@"preNum:%ld",preNum);
-            NSLog(@"currentNotJoin:%ld",result);
             if (result > preNum) {
                 //新しいデータあり
                 GXQuestList *questList = [[GXQuestList alloc] initWithDelegate:self];
@@ -331,34 +339,6 @@ compare:v options:NSNumericSearch] == NSOrderedAscending)
         return;
     }
     
-//    //push - silent じゃないと無理
-//    KiiPushMessage *msg = [KiiPushMessage messageFromAPNS:userInfo];
-//    NSString *topicName = [msg getValueOfKiiMessageField:KiiMessage_TOPIC];
-//    NSString *msgType = [msg getValueOfKiiMessageField:KiiMessage_TYPE];
-//    NSString *bucketName = [msg getValueOfKiiMessageField:KiiMessage_BUCKET_ID];
-//    
-//    if ([bucketName isEqualToString:@"notJoined_quest"]) {
-//        if ([msgType isEqualToString:@"DATA_OBJECT_CREATED"]) {
-//            /*
-//            KiiAPNSFields *apnsFields = [KiiAPNSFields createFields];
-//            apnsFields.alertBody = @"test";
-//            KiiPushMessage *pushMsg = [KiiPushMessage composeMessageWithAPNSFields:apnsFields andGCMFields:nil];
-//            KiiTopic *sendTopic = [GXTopicManager sharedManager].infoTopic;
-//            NSError *error;
-//            [sendTopic sendMessageSynchronous:pushMsg withError:&error];
-//             */
-//            UILocalNotification *localNotif = [[UILocalNotification alloc] init];
-//            localNotif.fireDate = [NSDate date];
-//            localNotif.timeZone = [NSTimeZone defaultTimeZone];
-//            localNotif.alertBody = @"text";
-//            [[UIApplication sharedApplication] presentLocalNotificationNow:localNotif];
-//            
-//            completionHandler(UIBackgroundFetchResultNewData);
-//
-//        } else {
-//            completionHandler(UIBackgroundFetchResultNoData);
-//        }
-//    }
 }
 
 #pragma mark LocalNotificationHandler
@@ -507,7 +487,7 @@ compare:v options:NSNumericSearch] == NSOrderedAscending)
          didEnterRegion:(CLRegion *)region
 {
     [self sendNotification:@"Enter:研究室"];
-    //[[GXUserManager sharedManager] setLocation:region.identifier];
+    [[GXUserManager sharedManager] setLocation:region.identifier];
     NSLog(@"didenterRegion-------->");
     
 }
@@ -517,7 +497,7 @@ compare:v options:NSNumericSearch] == NSOrderedAscending)
           didExitRegion:(CLRegion *)region
 {
     NSLog(@"%@", NSStringFromSelector(_cmd));
-    //[self sendNotification:@"Exit:研究室"];
+    [self sendNotification:@"Exit:研究室"];
     self.isEntered = NO;
     [[GXUserManager sharedManager] exitCommunitySpace];
 }
@@ -585,6 +565,29 @@ compare:v options:NSNumericSearch] == NSOrderedAscending)
 - (void)questListDidLoad
 {
     NSLog(@"didLoad");
+}
+
+
+#pragma mark - SingUpedNotification
+- (void)signuped:(NSNotification *)notis
+{
+    [self startMonitaring];
+    KiiTopic *applicationTopic = [Kii topicWithName:@"SendingAlert"];
+    [KiiPushSubscription checkSubscription:applicationTopic withBlock:^(id<KiiSubscribable> subscribable, BOOL result, NSError *error) {
+        if (result) {
+            //購読済み
+        } else {
+            //購読
+            [KiiPushSubscription subscribe:applicationTopic withBlock:^(KiiPushSubscription *subscription, NSError *error) {
+                if (error) {
+                    NSLog(@"error:%@",error);
+                } else {
+                    NSLog(@"app-topic購読完了");
+                }
+            }];
+        }
+    }];
+
 }
 
 @end

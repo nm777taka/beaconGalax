@@ -30,14 +30,15 @@
 {
     self = [super init];
     if (self) {
+        NSLog(@"initPointManager");
         //init
-        self.userPointBucket = [[KiiUser currentUser] bucketWithName:@"point"];
-        NSNumber *initPoint = @0;
-        KiiObject *initObj = [self.userPointBucket createObject];
-        [initObj setObject:initPoint forKey:@"point"];
-        [initObj saveWithBlock:^(KiiObject *object, NSError *error) {
-            
-        }];
+//        self.userPointBucket = [[KiiUser currentUser] bucketWithName:@"point"];
+//        NSNumber *initPoint = @0;
+//        KiiObject *initObj = [self.userPointBucket createObject];
+//        [initObj setObject:initPoint forKey:@"point"];
+//        [initObj saveWithBlock:^(KiiObject *object, NSError *error) {
+//            
+//        }];
     }
     
     return self;
@@ -60,10 +61,11 @@
 
 - (int)getCurrentPoint
 {
+    KiiBucket *bukcet = [[KiiUser currentUser] bucketWithName:@"point"];
     KiiQuery *query = [KiiQuery queryWithClause:nil];
     NSError *error;
     KiiQuery *nextQuery;
-    NSArray *results = [self.userPointBucket executeQuerySynchronous:query withError:&error andNext:&nextQuery];
+    NSArray *results = [bukcet executeQuerySynchronous:query withError:&error andNext:&nextQuery];
     KiiObject *obj = results.firstObject;
     NSLog(@"obj:%@",obj);
     int point = [[obj getObjectForKey:@"point"] intValue];
@@ -151,32 +153,60 @@
 //取得したポイントを反映させる
 - (void)refreshPoint:(int)point
 {
-    KiiQuery *query = [KiiQuery queryWithClause:nil];
-    [self.userPointBucket executeQuery:query withBlock:^(KiiQuery *query, KiiBucket *bucket, NSArray *results, KiiQuery *nextQuery, NSError *error) {
-        if (error) {
-            NSLog(@"error:%@",error);
-        } else {
-            [self showAlert:point];
-            KiiObject *obj = results.firstObject;
-            int curPoint = [[obj getObjectForKey:@"point"] intValue];
-            curPoint += point;
-            
-            [obj setObject:[NSNumber numberWithInt:curPoint] forKey:@"point"];
-            [obj saveWithBlock:^(KiiObject *object, NSError *error) {
-                if (!error) {
-                    //ここでチェックいれる
-                    [self checkRank:curPoint];
+    KiiBucket *bucket = [[KiiUser currentUser] bucketWithName:@"point"];
+    
+    if (bucket == nil) {
+        KiiObject *initPoint = [self.userPointBucket createObject];
+        [initPoint setObject:[NSNumber numberWithInt:point] forKey:@"point"];
+        [initPoint saveWithBlock:^(KiiObject *object, NSError *error) {
+            NSLog(@"init - point");
+        }];
+        
+    } else {
+        
+        KiiQuery *query = [KiiQuery queryWithClause:nil];
+        [bucket executeQuery:query withBlock:^(KiiQuery *query, KiiBucket *bucket, NSArray *results, KiiQuery *nextQuery, NSError *error) {
+            if (error) {
+                NSLog(@"error:%@",error);
+            } else {
+                if (results.count == 0) {
+                    
+                    [self showAlert:point];
+                    
+                    KiiObject *obj = [bucket createObject];
+                    [obj setObject:[NSNumber numberWithInt:point] forKey:@"point"];
+                    [obj saveWithBlock:^(KiiObject *object, NSError *error) {
+                        if (!error) {
+                            NSLog(@"pointobj == null , newpointObj created");
+                        }
+                    }];
+                    
+                } else {
+                    [self showAlert:point];
+                    KiiObject *obj = results.firstObject;
+                    int curPoint = [[obj getObjectForKey:@"point"] intValue];
+                    curPoint += point;
+                    
+                    [obj setObject:[NSNumber numberWithInt:curPoint] forKey:@"point"];
+                    [obj saveWithBlock:^(KiiObject *object, NSError *error) {
+                        if (!error) {
+                            //ここでチェックいれる
+                            [self checkRank:curPoint];
+                        }
+                    }];
+                    
+                    //gxuserにもポイントを反映させる
+                    KiiObject *gxusr = [GXUserManager sharedManager].gxUser;
+                    [gxusr setObject:[NSNumber numberWithInt:curPoint] forKey:@"point"];
+                    [gxusr saveWithBlock:^(KiiObject *object, NSError *error) {
+                        
+                    }];
+
                 }
-            }];
-            
-            //gxuserにもポイントを反映させる
-            KiiObject *gxusr = [GXUserManager sharedManager].gxUser;
-            [gxusr setObject:[NSNumber numberWithInt:curPoint] forKey:@"point"];
-            [gxusr saveWithBlock:^(KiiObject *object, NSError *error) {
-                
-            }];
-        }
-    }];
+            }
+        }];
+        
+    }
     
 }
 
