@@ -89,7 +89,6 @@
             if (!error) {
                 KiiObject *obj = results.firstObject;
                 NSDate *created = obj.created;
-                
                 NSDateComponents *createdComps
                 = [calender components:NSYearCalendarUnit   |
                    NSMonthCalendarUnit  |
@@ -128,7 +127,6 @@
                 
             }
         }];
-        
     }
 }
 

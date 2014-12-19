@@ -200,7 +200,7 @@
         NSString *questDes = [obj getObjectForKey:quest_description];
         NSNumber *playerNum = [obj getObjectForKey:quest_player_num];
         NSString *createdUserName = [obj getObjectForKey:quest_owner];
-        NSDate *date = obj.created;
+        NSDate *date = obj.created; //utc
         if (createdUserName == nil) {
             createdUserName = @"BeaconGalax";
         }

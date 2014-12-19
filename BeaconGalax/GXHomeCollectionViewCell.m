@@ -44,7 +44,7 @@
     
     NSDate *date = quest.createdDate;
     NSDateFormatter *df = [NSDateFormatter new];
-    df.dateStyle = NSDateFormatterShortStyle;
+    df.dateFormat = @"yyyy/MM/dd HH:mm"; //ここでGMTに変換される！
     NSString *formattedDateString = [df stringFromDate:date];
     _createdDateLable.text = formattedDateString;
     

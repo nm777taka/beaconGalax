@@ -46,7 +46,7 @@ compare:v options:NSNumericSearch] == NSOrderedAscending)
 {
     [Fabric with:@[CrashlyticsKit]];
     //GoogleAnalytics初期化
-    [self initializeGoogleAnalytics];
+    //[self initializeGoogleAnalytics];
     
     if ([UIApplication instancesRespondToSelector:@selector(registerUserNotificationSettings:)]) {
         [self registerUserNotificationSettings];

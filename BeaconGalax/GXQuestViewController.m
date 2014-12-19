@@ -488,13 +488,10 @@
 #pragma makr - QuestList delegate
 - (void)questListDidLoad
 {
-    NSLog(@"delegate");
     [_collectionView reloadData];
     NSUInteger objNum = [self.questList count];
-    NSLog(@"objNum:%ld",objNum);
     [GXUserDefaults setCurrentNotJoinQuestNum:objNum];
     NSUInteger ret = [GXUserDefaults getCurrentNotJoinQuest];
-    NSLog(@"%ld",ret);
     [SVProgressHUD dismiss];
     
     if (_questList.count == 0) {

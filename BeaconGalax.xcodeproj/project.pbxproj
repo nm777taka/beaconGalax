@@ -61,6 +61,7 @@
 		0F649FDA19CD223900D48074 /* home-32.png in Resources */ = {isa = PBXBuildFile; fileRef = 0F649FD919CD223900D48074 /* home-32.png */; };
 		0F649FE719CD5A1C00D48074 /* GXJoinedQuestTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 0F649FE619CD5A1C00D48074 /* GXJoinedQuestTableViewCell.m */; };
 		0F649FED19D1543200D48074 /* GXFooterCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 0F649FEC19D1543200D48074 /* GXFooterCell.m */; };
+		0F68FA341A4420A10085FA2E /* UILabel+Ajastable.m in Sources */ = {isa = PBXBuildFile; fileRef = 0F68FA331A4420A10085FA2E /* UILabel+Ajastable.m */; };
 		0F6E291519ED40CF005BE433 /* GXInviteQuestViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0F6E291419ED40CF005BE433 /* GXInviteQuestViewController.m */; };
 		0F6E291919ED5015005BE433 /* GXInvitedViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 0F6E291819ED5015005BE433 /* GXInvitedViewCell.m */; };
 		0F6E291D19EEF06D005BE433 /* GXQuestGroupViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0F6E291C19EEF06D005BE433 /* GXQuestGroupViewController.m */; };
@@ -263,6 +264,8 @@
 		0F649FE619CD5A1C00D48074 /* GXJoinedQuestTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GXJoinedQuestTableViewCell.m; sourceTree = "<group>"; };
 		0F649FEB19D1543200D48074 /* GXFooterCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GXFooterCell.h; sourceTree = "<group>"; };
 		0F649FEC19D1543200D48074 /* GXFooterCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GXFooterCell.m; sourceTree = "<group>"; };
+		0F68FA321A4420A10085FA2E /* UILabel+Ajastable.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UILabel+Ajastable.h"; sourceTree = "<group>"; };
+		0F68FA331A4420A10085FA2E /* UILabel+Ajastable.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UILabel+Ajastable.m"; sourceTree = "<group>"; };
 		0F6E291319ED40CF005BE433 /* GXInviteQuestViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GXInviteQuestViewController.h; sourceTree = "<group>"; };
 		0F6E291419ED40CF005BE433 /* GXInviteQuestViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GXInviteQuestViewController.m; sourceTree = "<group>"; };
 		0F6E291719ED5015005BE433 /* GXInvitedViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GXInvitedViewCell.h; sourceTree = "<group>"; };
@@ -1257,6 +1260,8 @@
 				0FDD5FC11A217D7700FBC852 /* NSObject+BlocksWait.m */,
 				0F1295C91A289914009A1153 /* FUIAlertView+GXTheme.h */,
 				0F1295CA1A289914009A1153 /* FUIAlertView+GXTheme.m */,
+				0F68FA321A4420A10085FA2E /* UILabel+Ajastable.h */,
+				0F68FA331A4420A10085FA2E /* UILabel+Ajastable.m */,
 			);
 			name = Category;
 			sourceTree = "<group>";
@@ -1531,6 +1536,7 @@
 				0F42366719BD58530001E204 /* UIPlaceHolderTextView.m in Sources */,
 				0F2455ED1A3417E000F34724 /* GXRankingViewController.m in Sources */,
 				0FC9FF1719E81FF100E78B39 /* GXClearViewController.m in Sources */,
+				0F68FA341A4420A10085FA2E /* UILabel+Ajastable.m in Sources */,
 				0F27DAF119824BC20000E0D0 /* GXNavigationItem.m in Sources */,
 				0FDD5FBF1A216A9800FBC852 /* UILocalNotification+GXNotification.m in Sources */,
 				0F6E291D19EEF06D005BE433 /* GXQuestGroupViewController.m in Sources */,

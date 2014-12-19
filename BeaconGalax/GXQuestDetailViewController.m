@@ -73,31 +73,49 @@
     [self.detailPanel startCanvasAnimation];
     [[GXPageViewAnalyzer shareInstance] setPageView:NSStringFromClass([self class])];
     
-    [self configureDetailPanel];
-    
 }
 
 - (void)viewDidAppear:(BOOL)animated
 {
     [super viewDidAppear:animated];
     [GXGoogleTrackingManager sendScreenTracking:@"questDetailView"];
+    [self configureDetailPanel];
+
 }
 
 - (void)configureDetailPanel
 {
+    //一応再設定
     _titleLabel.text = _quest.title;
+    [_titleLabel sizeToFit];
+    [self resizeLable:_titleLabel];
+    
     _fbIconView.profileID = _quest.fb_id;
+    
     _questClearReqLabel.text = _quest.quest_req;
+    [_questClearReqLabel sizeToFit];
+    [self resizeLable:_questClearReqLabel];
+    
     _descriptionLabel.text = _quest.quest_des;
-    NSDate *createdDate = _quest.createdDate;
+    [_descriptionLabel sizeToFit];
+    [self resizeLable:_descriptionLabel];
+    
+    NSDate *createdDate = _quest.createdDate; //utc
+    
     NSDateFormatter *df = [NSDateFormatter new];
-    df.dateStyle = NSDateFormatterShortStyle;
+    df.dateFormat = @"yyyy-MM-dd 'at' HH:mm";
     NSString *dfString = [df stringFromDate:createdDate];
     _createdDateLabel.text = dfString;
+    [_createdDateLabel sizeToFit];
+    [self resizeLable:_createdDateLabel];
     
     _isMulti = [self isMultiQuest];
 }
 
+- (void)resizeLable:(UILabel *)label
+{
+    label.frame = CGRectMake(label.frame.origin.x, label.frame.origin.y, 284, label.frame.size.height );
+}
 - (BOOL)isMultiQuest
 {
     BOOL ret;
