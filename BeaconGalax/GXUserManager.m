@@ -77,7 +77,11 @@
         if (!error) {
             NSLog(@"ロケーションアップデート");
             //出席データをとっとく
-            [self sendNotification:@"Enter:研究室"];
+            UIApplication *application = [UIApplication sharedApplication];
+            if (application.applicationState == UIApplicationStateInactive || application.applicationState == UIApplicationStateBackground) {
+                [self sendNotification:@"Enter:研究室"];
+            }
+            
             [[GXUserAttendAnalytics sharedInstance] attend];
         }
     }];
@@ -99,7 +103,11 @@
     [self.gxUser setObject:stringDate forKey:@"locationTimeStamp" ];
     [self.gxUser saveWithBlock:^(KiiObject *object, NSError *error) {
         if (!error) {
-            [self sendNotification:@"Exit:研究室"];
+            UIApplication *application = [UIApplication sharedApplication];
+            if (application.applicationState == UIApplicationStateInactive || application.applicationState == UIApplicationStateBackground) {
+                [self sendNotification:@"Exit:研究室"];
+            }
+
         }
     }];
 }
@@ -126,6 +134,7 @@
     notification.timeZone = [NSTimeZone defaultTimeZone];
     notification.alertBody = message;
     notification.alertAction = @"Open";
+    notification.applicationIconBadgeNumber = 1;
     notification.soundName = UILocalNotificationDefaultSoundName;
     
     // 通知を登録する
