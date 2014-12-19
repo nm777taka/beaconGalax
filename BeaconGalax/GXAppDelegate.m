@@ -414,6 +414,7 @@ compare:v options:NSNumericSearch] == NSOrderedAscending)
     [UIApplication sharedApplication].applicationIconBadgeNumber = -1;
     [self.locationManager requestStateForRegion:self.region];
     
+    
 }
 
 - (void)applicationWillTerminate:(UIApplication *)application
@@ -473,7 +474,7 @@ compare:v options:NSNumericSearch] == NSOrderedAscending)
          didEnterRegion:(CLRegion *)region
 {
     //[self sendNotification:@"Enter:研究室"];
-    [[GXUserManager sharedManager] setLocation:region.identifier];
+    [self runBackgroundTask:0];
     NSLog(@"didenterRegion-------->");
     
 }
@@ -519,12 +520,12 @@ compare:v options:NSNumericSearch] == NSOrderedAscending)
                 //ここが二階くらい呼ばれてる気がする
                 NSLog(@"didDetermainState---------->");
                 //[self sendNotification:@"Enter:研究室"];
-                [[GXUserManager sharedManager] setLocation:region.identifier];
+                [self runBackgroundTask:0];
                 
                 break;
             case CLRegionStateOutside:
             case CLRegionStateUnknown:
-                [[GXUserManager sharedManager] exitCommunitySpace];
+                [self runBackgroundTask:1];
                 break;
                 
             default:
@@ -574,6 +575,39 @@ compare:v options:NSNumericSearch] == NSOrderedAscending)
         }
     }];
 
+}
+
+#pragma makr - Background Task
+//stateIndex = 0 → enter
+//stateIndex = 1 → exit
+- (void)runBackgroundTask:(NSInteger)stateIndex
+{
+    UIApplication *application = [UIApplication sharedApplication];
+    
+    __block UIBackgroundTaskIdentifier bgTask = [application beginBackgroundTaskWithExpirationHandler:^{
+        dispatch_async(dispatch_get_main_queue(), ^{
+            //既に実行済みであれば終了
+            if (bgTask != UIBackgroundTaskInvalid) {
+                [application endBackgroundTask:bgTask];
+                bgTask = UIBackgroundTaskInvalid;
+            }
+        });
+    }];
+    
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+        //出席データの送信やら
+        switch (stateIndex) {
+            case 0:
+                [[GXUserManager sharedManager] setLocation:@"研究室"];
+                break;
+                
+            case 1:
+                [[GXUserManager sharedManager] exitCommunitySpace];
+                break;
+            default:
+                break;
+        }
+    });
 }
 
 @end
