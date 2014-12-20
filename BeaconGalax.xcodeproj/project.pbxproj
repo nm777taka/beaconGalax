@@ -62,6 +62,8 @@
 		0F649FE719CD5A1C00D48074 /* GXJoinedQuestTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 0F649FE619CD5A1C00D48074 /* GXJoinedQuestTableViewCell.m */; };
 		0F649FED19D1543200D48074 /* GXFooterCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 0F649FEC19D1543200D48074 /* GXFooterCell.m */; };
 		0F68FA341A4420A10085FA2E /* UILabel+Ajastable.m in Sources */ = {isa = PBXBuildFile; fileRef = 0F68FA331A4420A10085FA2E /* UILabel+Ajastable.m */; };
+		0F68FA381A4440A10085FA2E /* GXCreateBeaconQuestViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0F68FA371A4440A10085FA2E /* GXCreateBeaconQuestViewController.m */; };
+		0F68FA3B1A444EEB0085FA2E /* GXOnlineMemberTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0F68FA3A1A444EEB0085FA2E /* GXOnlineMemberTableViewController.m */; };
 		0F6E291519ED40CF005BE433 /* GXInviteQuestViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0F6E291419ED40CF005BE433 /* GXInviteQuestViewController.m */; };
 		0F6E291919ED5015005BE433 /* GXInvitedViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 0F6E291819ED5015005BE433 /* GXInvitedViewCell.m */; };
 		0F6E291D19EEF06D005BE433 /* GXQuestGroupViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0F6E291C19EEF06D005BE433 /* GXQuestGroupViewController.m */; };
@@ -266,6 +268,10 @@
 		0F649FEC19D1543200D48074 /* GXFooterCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GXFooterCell.m; sourceTree = "<group>"; };
 		0F68FA321A4420A10085FA2E /* UILabel+Ajastable.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UILabel+Ajastable.h"; sourceTree = "<group>"; };
 		0F68FA331A4420A10085FA2E /* UILabel+Ajastable.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UILabel+Ajastable.m"; sourceTree = "<group>"; };
+		0F68FA361A4440A10085FA2E /* GXCreateBeaconQuestViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GXCreateBeaconQuestViewController.h; sourceTree = "<group>"; };
+		0F68FA371A4440A10085FA2E /* GXCreateBeaconQuestViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GXCreateBeaconQuestViewController.m; sourceTree = "<group>"; };
+		0F68FA391A444EEB0085FA2E /* GXOnlineMemberTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GXOnlineMemberTableViewController.h; sourceTree = "<group>"; };
+		0F68FA3A1A444EEB0085FA2E /* GXOnlineMemberTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GXOnlineMemberTableViewController.m; sourceTree = "<group>"; };
 		0F6E291319ED40CF005BE433 /* GXInviteQuestViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GXInviteQuestViewController.h; sourceTree = "<group>"; };
 		0F6E291419ED40CF005BE433 /* GXInviteQuestViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GXInviteQuestViewController.m; sourceTree = "<group>"; };
 		0F6E291719ED5015005BE433 /* GXInvitedViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GXInvitedViewCell.h; sourceTree = "<group>"; };
@@ -732,6 +738,7 @@
 		0F42366119BD54130001E204 /* CreateQuest */ = {
 			isa = PBXGroup;
 			children = (
+				0F68FA351A443CAF0085FA2E /* クリア判定=beacon */,
 				0F42366219BD54420001E204 /* GXCreateQuestViewController.h */,
 				0F42366319BD54420001E204 /* GXCreateQuestViewController.m */,
 				0F3558351A1198610023F2FF /* GXCreateViewController.h */,
@@ -785,6 +792,17 @@
 				0F649FEC19D1543200D48074 /* GXFooterCell.m */,
 			);
 			name = JoinedQuest;
+			sourceTree = "<group>";
+		};
+		0F68FA351A443CAF0085FA2E /* クリア判定=beacon */ = {
+			isa = PBXGroup;
+			children = (
+				0F68FA361A4440A10085FA2E /* GXCreateBeaconQuestViewController.h */,
+				0F68FA371A4440A10085FA2E /* GXCreateBeaconQuestViewController.m */,
+				0F68FA391A444EEB0085FA2E /* GXOnlineMemberTableViewController.h */,
+				0F68FA3A1A444EEB0085FA2E /* GXOnlineMemberTableViewController.m */,
+			);
+			name = "クリア判定=beacon";
 			sourceTree = "<group>";
 		};
 		0F6E291619ED4FEE005BE433 /* InvitedView */ = {
@@ -1499,6 +1517,7 @@
 				0F1295BE1A28774C009A1153 /* GXJoinedQuestViewController.m in Sources */,
 				0F6E291919ED5015005BE433 /* GXInvitedViewCell.m in Sources */,
 				0F649FE719CD5A1C00D48074 /* GXJoinedQuestTableViewCell.m in Sources */,
+				0F68FA3B1A444EEB0085FA2E /* GXOnlineMemberTableViewController.m in Sources */,
 				0F3558331A1197470023F2FF /* JVFloatLabeledTextView.m in Sources */,
 				0F42366019BCBEB80001E204 /* GXQuestViewController.m in Sources */,
 				0F1295EC1A2DCB5B009A1153 /* GXGoogleTrackingManager.m in Sources */,
@@ -1573,6 +1592,7 @@
 				0FCB69741A236A1800454D2B /* GXQuestList.m in Sources */,
 				0F2456001A3843EE00F34724 /* GXPageViewAnalyzer.m in Sources */,
 				0F7A25A419587ADE001B7839 /* GXAppDelegate.m in Sources */,
+				0F68FA381A4440A10085FA2E /* GXCreateBeaconQuestViewController.m in Sources */,
 				0FC0095419E13CB70026A7DC /* GXHomeCollectionViewCell.m in Sources */,
 				0FCB69781A23975800454D2B /* GXQuestDetailViewController.m in Sources */,
 				0F1295C21A287E7B009A1153 /* GXJoinedQuestCollectionViewCell.m in Sources */,
