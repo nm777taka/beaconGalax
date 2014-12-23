@@ -24,8 +24,6 @@
 #import "GXDictonaryKeys.h"
 #import "GXUserDefaults.h"
 
-#import "GXGoogleTrackingManager.h"
-
 
 @interface GXStatusViewController ()<UITableViewDataSource,UITableViewDelegate>
 

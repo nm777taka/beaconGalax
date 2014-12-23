@@ -16,7 +16,6 @@
 #import "GXUserDefaults.h"
 #import "GXTopicManager.h"
 #import "GXDictonaryKeys.h"
-#import "GXGoogleTrackingManager.h"
 #import "NSObject+BlocksWait.h"
 
 @interface GXHomeRootViewController ()<DZNSegmentedControlDelegate>
@@ -175,8 +174,9 @@
         //初回起動だったらgxUserに登録する
         if ([GXUserDefaults isFirstLaunch]) {
             //Init
-            KiiUser *currentUser = [KiiUser currentUser];
+            NSLog(@"init-user");
             
+            KiiUser *currentUser = [KiiUser currentUser];
             [[GXBucketManager sharedManager] registerGalaxUser:currentUser]; //galaxuserに登録
             [[GXTopicManager sharedManager] createDefaultUserTopic];
             [[GXTopicManager sharedManager] subscribeInfoTopic];
@@ -188,6 +188,7 @@
             
             //userdefaultに保存する(基本的なuser情報)
             KiiObject *gxuser = [[GXBucketManager sharedManager] getMeFromGalaxUserBucket];
+            
             [GXUserDefaults setUserInfomation:[gxuser getObjectForKey:user_fb_id] name:[gxuser getObjectForKey:user_name]];
             
             //こっちで初期クエストを作っちゃう
@@ -197,7 +198,7 @@
 
             [self showNotJoinView];
             
-            [[NSNotificationCenter defaultCenter ]postNotificationName:@"singUpSuccessed" object:nil];
+            [[NSNotificationCenter defaultCenter] postNotificationName:@"singUpSuccessed" object:nil];
             
         }
         
@@ -234,7 +235,6 @@
     [newQuest2 saveSynchronous:&error];
     if (error) NSLog(@"init quest error:%@",error);
     else NSLog(@"newQuest1 suc");
-
 }
 
 #pragma mark BarButton + Badge

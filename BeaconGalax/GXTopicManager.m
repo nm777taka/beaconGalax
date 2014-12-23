@@ -122,11 +122,8 @@ static NSString *const GXQuestInviteTopic = @"GXQuestInviteTopic";
 }
 
 #pragma mark - Send Message
-#if Deploy
 - (void)sendCreateQuestAlert:(NSString *)createdUserName
 {
-    
-    NSLog(@"sendCreateQuestAlert");
     KiiAPNSFields *apnsFields = [KiiAPNSFields createFields];
     NSString *body = [NSString stringWithFormat:@"%@が新しいクエストを作成しました！",createdUserName];
     
@@ -137,16 +134,27 @@ static NSString *const GXQuestInviteTopic = @"GXQuestInviteTopic";
     
     [self.sendingAlertTopic sendMessage:pushMessage withBlock:^(KiiTopic *topic, NSError *error) {
         if (error) {
-            NSLog(@"error-sendingCreateQuestAlert");
-            NSLog(@"error:%@",error);
         } else {
-            NSLog(@"sending-alertへ送信完了");
         }
     }];
-    
-     
 }
-#endif
+
+- (void)sendInviteQuestAlert:(NSString *)createdUserName
+{
+    KiiAPNSFields *apnsFields = [KiiAPNSFields createFields];
+    NSString *body = [NSString stringWithFormat:@"%@がクエストの参加者を募集しています！",createdUserName];
+    
+    apnsFields.alertBody = body;
+    apnsFields.badge = @1;
+    
+    KiiPushMessage *pushMessage = [KiiPushMessage composeMessageWithAPNSFields:apnsFields andGCMFields:nil];
+    
+    [self.sendingAlertTopic sendMessage:pushMessage withBlock:^(KiiTopic *topic, NSError *error) {
+        if (error) {
+        } else {
+        }
+    }];
+}
 
 - (void)sendUserInfoTopic:(NSString *)msg
 {
@@ -164,6 +172,28 @@ static NSString *const GXQuestInviteTopic = @"GXQuestInviteTopic";
             NSLog(@"send to infoTopic");
         }
     }];
+}
+
+- (void)sendAlertForSpecificUser:(NSMutableArray *)targetUsers
+{
+    if (targetUsers.count == 0) {
+        
+    } else {
+        
+        NSMutableArray *array = [NSMutableArray new];
+        for (KiiObject *user in targetUsers) {
+            NSString *userID = [user getObjectForKey:@"userID"];
+            [array addObject:userID];
+        }
+        
+        KiiServerCodeEntry *entry = [Kii serverCodeEntry:@"sendAlert"];
+        NSDictionary *argDict = @{@"users":array};
+        KiiServerCodeEntryArgument *argument = [KiiServerCodeEntryArgument argumentWithDictionary:argDict];
+        [entry execute:argument withBlock:^(KiiServerCodeEntry *entry, KiiServerCodeEntryArgument *argument, KiiServerCodeExecResult *result, NSError *error) {
+            NSDictionary *retDict = [result returnedValue];
+            NSLog(@"retDict:%@",retDict);
+        }];
+    }
 }
 
 

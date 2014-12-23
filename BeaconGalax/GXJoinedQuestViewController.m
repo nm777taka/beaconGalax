@@ -22,7 +22,6 @@
 #import "GXQuest.h"
 #import "GXQuestList.h"
 
-#import "GXGoogleTrackingManager.h"
 
 @interface GXJoinedQuestViewController ()<UICollectionViewDataSource,UICollectionViewDelegate,GXQuestListDelegate,FUIAlertViewDelegate>
 
@@ -71,7 +70,6 @@
 {
     [super viewDidAppear:animated];
     
-    [GXGoogleTrackingManager sendScreenTracking:@"joinedQuestView"];
 }
 
 - (void)viewDidDisappear:(BOOL)animated
@@ -143,9 +141,9 @@
 #pragma makr - QuestList delegate
 - (void)questListDidLoad
 {
-    NSLog(@"delegate");
     [_collectionView reloadData];
     [SVProgressHUD dismiss];
+
 }
 
 #pragma markr - Notification
@@ -183,7 +181,6 @@
             UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"subStoryboard" bundle:nil];
             GXQuestExeViewController *vc  = [storyboard instantiateInitialViewController];
             vc.exeQuest = object;
-            [GXGoogleTrackingManager sendEventTracking:@"Quest" action:@"start_one" label:@"一人クエスト開始" value:nil screen:@"joinedQuestView"];
             [self presentViewController:vc animated:YES completion:^{
                 //QMで管理
                 [GXExeQuestManager sharedManager].nowExeQuest = object;

@@ -36,11 +36,7 @@
 //Model
 #import "GXQuest.h"
 #import "GXQuestList.h"
-
-#import "GXGoogleTrackingManager.h"
-#import "GAI.h"
-#import "GAIFields.h"
-#import "GAIDictionaryBuilder.h"
+#import "Device.h"
 
 @interface GXQuestViewController ()<UICollectionViewDataSource,UICollectionViewDelegate,FUIAlertViewDelegate,GXQuestListDelegate>
 
@@ -54,6 +50,8 @@
 @property NSInteger segmentIndex;
 @property GXQuest *selectedQuest;
 @property (nonatomic,strong) GXQuestList *questList;
+
+@property UIButton *addQuestButton;
 
 @end
 
@@ -98,8 +96,22 @@
     self.detailViewController = [self.storyboard instantiateViewControllerWithIdentifier:@"detail"];
     
     [[GXTopicManager sharedManager] subscribeInfoTopic];
-
     
+    //button
+    self.addQuestButton = [UIButton buttonWithType:UIButtonTypeCustom];
+    //デバイス判定いれる
+    BOOL isDeviceIphone4 = [Device isIphone4];
+    if (isDeviceIphone4) {
+        self.addQuestButton.frame = CGRectMake(self.view.center.x - 25, self.view.center.y + 50 , 50, 50);
+    } else {
+        self.addQuestButton.frame = CGRectMake(self.view.center.x - 25, self.view.center.y + 50 + 50, 50, 50);
+    }
+    
+    UIImage *image = [UIImage imageNamed:@"createQuestButton.png"];
+    [self.addQuestButton setImage:image forState:UIControlStateNormal];
+    [self.addQuestButton setImage:image forState:UIControlStateHighlighted];
+    [self.addQuestButton addTarget:self action:@selector(addQuest:) forControlEvents:UIControlEventTouchUpInside];
+    [self.view addSubview:self.addQuestButton];
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -119,7 +131,6 @@
 - (void)viewDidAppear:(BOOL)animated
 {
     [super viewDidAppear:animated];
-    [GXGoogleTrackingManager sendScreenTracking:@"NotJoinQuestView"];
 
 }
 
@@ -145,7 +156,6 @@
 
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section
 {
-    NSLog(@"%d:object",[_questList count]);
     return [_questList count];
 }
 
@@ -444,7 +454,6 @@
             notis.notificationStyle = CWNotificationStyleNavigationBarNotification;
             [notis displayNotificationWithMessage:@"クエストを受注しました!" forDuration:2.0f];
             [self request:0]; //notjoinから更新するよ
-            [GXGoogleTrackingManager sendEventTracking:@"Quest" action:@"accept" label:@"受注" value:nil screen:@"NotJoinQuestView"];
             
             [[GXActionAnalyzer sharedInstance] setActionName:GXQuestAccept];
         }
@@ -458,21 +467,62 @@
     KiiObject *obj = [KiiObject objectWithURI:quest.quest_id];
     [obj refreshWithBlock:^(KiiObject *object, NSError *error) {
         if(!error) {
-            [[GXBucketManager sharedManager] registerInviteBoard:object];
-            [[GXBucketManager sharedManager] deleteJoinedQuest:object];
-            [SVProgressHUD dismiss];
-            CWStatusBarNotification *notis = [CWStatusBarNotification new];
-            notis.notificationLabelBackgroundColor = [UIColor turquoiseColor];
-            notis.notificationLabel.textColor = [UIColor cloudsColor];
-            notis.notificationStyle = CWNotificationStyleNavigationBarNotification;
-            [notis displayNotificationWithMessage:@"クエストを募集しました!" forDuration:2.0f];
-            [self request:0]; //notjoinから更新するよ
-            [[GXBucketManager sharedManager] countInviteBucket];
-            [GXGoogleTrackingManager sendEventTracking:@"Quest" action:@"invite" label:@"募集" value:nil screen:@"NotJoinQuestView"];
-            [[GXPointManager sharedInstance] getInviteQuestPoint];
-            [[GXActionAnalyzer sharedInstance] setActionName:GXQuestInvite];
+            
+            //すでに同じものがあるかチェック
+            if ([self isAlreadyInvitedQuest:[object getObjectForKey:quest_title]]) {
+                
+                CWStatusBarNotification *notis = [CWStatusBarNotification new];
+                notis.notificationLabelBackgroundColor = [UIColor redColor];
+                [notis displayNotificationWithMessage:@"既に同じ名前のクエストが募集中です" forDuration:2.0f];
+                
+            } else {
+                [[GXBucketManager sharedManager] registerInviteBoard:object];
+                [[GXBucketManager sharedManager] deleteJoinedQuest:object];
+                [SVProgressHUD dismiss];
+                CWStatusBarNotification *notis = [CWStatusBarNotification new];
+                notis.notificationLabelBackgroundColor = [UIColor turquoiseColor];
+                notis.notificationLabel.textColor = [UIColor cloudsColor];
+                notis.notificationStyle = CWNotificationStyleNavigationBarNotification;
+                [notis displayNotificationWithMessage:@"クエストを募集しました!" forDuration:2.0f];
+                [self request:0]; //notjoinから更新するよ
+                [[GXBucketManager sharedManager] countInviteBucket];
+                [[GXPointManager sharedInstance] getInviteQuestPoint];
+                [[GXActionAnalyzer sharedInstance] setActionName:GXQuestInvite];
+                [[GXTopicManager sharedManager] sendInviteQuestAlert:[KiiUser currentUser].displayName]; //募集をみんなに知らせる
+            }
         }
     }];
+}
+
+////クエストチェック(すでに募集済みのものがあるか)
+- (BOOL)isAlreadyInvitedQuest:(NSString *)questTitle
+{
+    BOOL ret;
+    [SVProgressHUD showWithStatus:@"処理中"];
+    
+    KiiBucket *bucket = [GXBucketManager sharedManager].inviteBoard;
+    KiiClause *clause = [KiiClause equals:quest_title value:questTitle];
+    KiiQuery *query = [KiiQuery queryWithClause:clause];
+    NSError *error;
+    KiiQuery *nextQuery;
+    NSArray *results = [bucket executeQuerySynchronous:query withError:&error andNext:&nextQuery];
+    if (error) {
+        CWStatusBarNotification *notis = [CWStatusBarNotification new];
+        notis.notificationLabelBackgroundColor = [UIColor redColor];
+        [notis displayNotificationWithMessage:@"通信エラー" forDuration:2.0f];
+    } else {
+        
+        if (results.count == 0) {
+            ret = NO;
+        } else {
+            ret = YES;
+        }
+    }
+    
+    [SVProgressHUD dismiss];
+    
+    return ret;
+    
 }
 
 - (void)request:(NSInteger)index
@@ -489,15 +539,12 @@
 - (void)questListDidLoad
 {
     [_collectionView reloadData];
-    NSUInteger objNum = [self.questList count];
-    [GXUserDefaults setCurrentNotJoinQuestNum:objNum];
-    NSUInteger ret = [GXUserDefaults getCurrentNotJoinQuest];
     [SVProgressHUD dismiss];
-    
-    if (_questList.count == 0) {
-    }
 }
 
-
+- (void)addQuest:(UIButton *)sender
+{
+    [self performSegueWithIdentifier:@"gotoCreateView" sender:self];
+}
 
 @end

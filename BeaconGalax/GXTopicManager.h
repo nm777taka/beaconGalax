@@ -24,9 +24,10 @@
 
 //send
 - (void)sendCreateQuestAlert:(NSString *)createdUserName;
+- (void)sendInviteQuestAlert:(NSString *)createdUserName;
 
 //システムからクエストが発行されたタイミングで表示する
 - (void)sendUserInfoTopic:(NSString *)msg;
-
+- (void)sendAlertForSpecificUser:(NSMutableArray *)targetUsers;
 
 @end

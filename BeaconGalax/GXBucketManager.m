@@ -66,7 +66,6 @@
 
 - (void)registerGalaxUser:(KiiUser *)user
 {
-    
     [[GXFacebook sharedManager] initGxUserWithFacebook:user];
 }
 

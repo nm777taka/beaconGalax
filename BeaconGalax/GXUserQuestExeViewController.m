@@ -13,8 +13,6 @@
 #import "GXNotification.h"
 #import "FUIAlertView+GXTheme.h"
 
-#import "GXGoogleTrackingManager.h"
-
 @interface GXUserQuestExeViewController ()<FUIAlertViewDelegate>
 @property (weak, nonatomic) IBOutlet UAProgressView *progressView;
 @property (weak, nonatomic) IBOutlet UILabel *questTitle;
@@ -48,7 +46,6 @@
 - (void)viewDidAppear:(BOOL)animated
 {
     [super viewDidAppear:animated];
-    [GXGoogleTrackingManager sendScreenTracking:@"userQuestExeView"];
     BOOL isOwner = [self isOwner];
     if (isOwner) {
         [self configureOwnerProgress];
@@ -196,7 +193,6 @@
 
 - (void)commitQuest
 {
-    [GXGoogleTrackingManager sendEventTracking:@"Quest" action:@"userQuestCommit" label:@"ユーザクエストコミット" value:nil screen:@"userQuestExeView"];
     NSLog(@"groupURI:%@",self.exeGroup.objectURI);
     KiiServerCodeEntry *entry = [Kii serverCodeEntry:@"commitUserCreateQuest"];
     NSDictionary *argDict = [NSDictionary dictionaryWithObjectsAndKeys:self.exeGroup.objectURI,@"groupURI", nil];

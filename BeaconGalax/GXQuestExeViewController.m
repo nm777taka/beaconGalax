@@ -12,7 +12,6 @@
 #import "GXBeacon.h"
 #import "GXDictonaryKeys.h"
 #import "GXNotification.h"
-#import "GXGoogleTrackingManager.h"
 #import "GXBucketManager.h"
 #import "FUIAlertView+GXTheme.h"
 
@@ -204,7 +203,6 @@
 - (void)viewDidAppear:(BOOL)animated
 {
     [super viewDidAppear:YES];
-    [GXGoogleTrackingManager sendScreenTracking:@"questExeView"];
     
 }
 
@@ -214,7 +212,6 @@
     [[NSNotificationCenter defaultCenter] removeObserver:self];
     [self.beaconManager stopMonitoringForRegion:self.beaconRegion];
     [self.beaconManager stopRangingBeaconsInRegion:self.beaconRegion];
-
 }
 
 - (void)questParse
@@ -362,7 +359,6 @@
 //一人用
 - (void)commitOnePersonQuest
 {
-    [GXGoogleTrackingManager sendEventTracking:@"Quest" action:@"oneQuestCommit" label:@"一人用クエストコミット" value:nil screen:@"questExeView"];
     KiiServerCodeEntry *entry = [Kii serverCodeEntry:@"commitOnePersonQuest"];
     NSDictionary *argDict = [NSDictionary dictionaryWithObjectsAndKeys:self.exeQuest.objectURI,@"questURI", nil];
     KiiServerCodeEntryArgument *argument = [KiiServerCodeEntryArgument argumentWithDictionary:argDict];
@@ -379,7 +375,6 @@
 //協力型のクエスト
 - (void)commitQuest
 {
-    [GXGoogleTrackingManager sendEventTracking:@"Quest" action:@"multiQuestCommit" label:@"協力クエストコミット" value:nil screen:@"questExeView"];
     KiiServerCodeEntry *entry = [Kii serverCodeEntry:@"commitGroupQuest"];
     NSDictionary* argDict= [NSDictionary dictionaryWithObjectsAndKeys:
                             self.exeQuest.objectURI,@"questURI",self.exeGroup.objectURI,@"groupURI",[NSNumber numberWithInt:self.groupMemberNum],@"memberNum",nil];
@@ -425,6 +420,7 @@
 {
     if (buttonIndex == 1) {
         //戻る
+        _paused = YES;
         [self goBack];
     }
 }

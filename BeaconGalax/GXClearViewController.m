@@ -17,7 +17,6 @@
 #import "GXInviteQuestViewController.h"
 #import "GXFrostedViewController.h"
 #import "GXPointManager.h"
-#import "GXGoogleTrackingManager.h"
 
 #import "GXAnimationLabel.h"
 #import "NSObject+BlocksWait.h"
@@ -101,7 +100,6 @@
 - (void)viewDidAppear:(BOOL)animated
 {
     [super viewDidAppear:animated];
-    [self googleAnalytics];
     [[GXActionAnalyzer sharedInstance] setActionName:GXQuestClear];
     
     //クエストにより獲得したポイントを取得
@@ -169,13 +167,6 @@
     NSString *fbid = [gxUser getObjectForKey:user_fb_id];
     [[GXActivityList sharedInstance] registerQuestActivity:[gxUser getObjectForKey:user_name] title:text fbid:fbid];
     
-}
-
-- (void)googleAnalytics
-{
-    [GXGoogleTrackingManager sendScreenTracking:@"clearView"];
-    [GXGoogleTrackingManager sendEventTracking:@"Quest" action:@"clear" label:@"クリア" value:nil screen:@"clearView"];
-
 }
 
 - (IBAction)gotoHome:(id)sender

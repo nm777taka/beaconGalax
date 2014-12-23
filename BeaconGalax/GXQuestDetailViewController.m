@@ -18,7 +18,6 @@
 #import "GXDictonaryKeys.h"
 #import "FUIAlertView+GXTheme.h"
 #import "GXNotification.h"
-#import "GXGoogleTrackingManager.h"
 #import "GXUserManager.h"
 
 #define kNotjoin 0
@@ -78,7 +77,6 @@
 - (void)viewDidAppear:(BOOL)animated
 {
     [super viewDidAppear:animated];
-    [GXGoogleTrackingManager sendScreenTracking:@"questDetailView"];
     [self configureDetailPanel];
 
 }

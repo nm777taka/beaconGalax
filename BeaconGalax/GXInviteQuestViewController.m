@@ -23,7 +23,6 @@
 #import "GXQuest.h"
 #import "GXQuestList.h"
 
-#import "GXGoogleTrackingManager.h"
 #import "Device.h"
 
 @interface GXInviteQuestViewController ()<UICollectionViewDataSource,UICollectionViewDelegate,FUIAlertViewDelegate,GXQuestListDelegate>
@@ -71,7 +70,7 @@
         self.addQuestButton.frame = CGRectMake(self.view.center.x - 25, self.view.center.y + 50 + 50, 50, 50);
     }
     
-    UIImage *image = [UIImage imageNamed:@"addQuestButton.png"];
+    UIImage *image = [UIImage imageNamed:@"createQuestButton.png"];
     [self.addQuestButton setImage:image forState:UIControlStateNormal];
     [self.addQuestButton setImage:image forState:UIControlStateHighlighted];
     [self.addQuestButton addTarget:self action:@selector(addQuest:) forControlEvents:UIControlEventTouchUpInside];
@@ -96,7 +95,6 @@
 - (void)viewDidAppear:(BOOL)animated
 {
     [super viewDidAppear:animated];
-    [GXGoogleTrackingManager sendScreenTracking:@"inviteQuestView"];
 }
 
 - (void)viewDidDisappear:(BOOL)animated
@@ -221,7 +219,6 @@
         NSDictionary *retDict = [result returnedValue];
         NSLog(@"returned:%@",retDict);
         [self addedGroup];
-        [GXGoogleTrackingManager sendEventTracking:@"Quest" action:@"join" label:@"参加" value:nil screen:@"inviteQuestView"];
     }];
 }
 
@@ -445,7 +442,6 @@
 #pragma makr - QuestList delegate
 - (void)questListDidLoad
 {
-    NSLog(@"delegate");
     [_collectionView reloadData];
     [SVProgressHUD dismiss];
 }

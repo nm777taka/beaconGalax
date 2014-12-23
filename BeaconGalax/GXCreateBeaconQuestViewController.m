@@ -11,6 +11,9 @@
 #import "JVFloatLabeledTextField.h"
 #import "JVFloatLabeledTextView.h"
 #import "GXBucketManager.h"
+#import "GXUserManager.h"
+#import "GXDictonaryKeys.h"
+#import "FUIAlertView+GXTheme.h"
 const static CGFloat kJVFieldHeight = 44.0f;
 const static CGFloat kJVFieldMargin = 10.0f;
 const static CGFloat kJVFieldFontSize = 16.0f;
@@ -31,7 +34,9 @@ const static CGFloat kJVFieldFloatingLabelFontSize = 11.0f;
 @property FUIButton *targetUserBtn;
 @property KiiObject *selectedBeaconObj;
 @property KiiObject *selectedTargetObj;
-@property NSInteger selectedButtonIndex;
+@property NSInteger selectedButtonIndex; //どのボタンが押されたか
+@property NSInteger quesytTypeIndex;
+@property NSInteger targetTypeIndex;
 @property UISegmentedControl *targetSegmentedControl;
 @property UISegmentedControl *questTypeSegmentedControl;
 @property (weak, nonatomic) IBOutlet UIScrollView *scrollView;
@@ -171,8 +176,8 @@ const static CGFloat kJVFieldFloatingLabelFontSize = 11.0f;
     //scrollViewの大きさを設定
     //最後のUI要素＋10
     self.scrollView.contentSize = CGSizeMake(self.view.frame.size.width, self.targetUserBtn.frame.origin.y+self.targetUserBtn.frame.size.height + 10);
-
-
+    
+    
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -181,6 +186,13 @@ const static CGFloat kJVFieldFloatingLabelFontSize = 11.0f;
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(beaconSet:) name:@"beaconSet" object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(targetUserSet:) name:@"targetUserSet" object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(pushedCreateButton:) name:@"pushCreateButton" object:nil];
+
+}
+
+- (void)viewDidDisappear:(BOOL)animated
+{
+    [super viewDidDisappear:animated];
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -225,32 +237,85 @@ const static CGFloat kJVFieldFloatingLabelFontSize = 11.0f;
 - (void)pushedCreateButton:(NSNotification *)notis
 {
     //servercodeを動かす
-    //必要の要素
-    /*
-     タイトル
-     詳細
-     クエストタイプ（0,1)
-     判定するビーコンを所持するKiiObj
-     誰に配信するか(0,1)
-     作成者の情報(URI)
-    */
+    //varidation
+    if (self.titleField.text.length == 0) {
+        CWStatusBarNotification *notis = [CWStatusBarNotification new];
+        notis.notificationLabelBackgroundColor = [UIColor redColor];
+        [notis displayNotificationWithMessage:@"タイトルを入力してください" forDuration:2.0f];
+        return;
+    }
+    
+    if (self.selectedBeaconObj == nil) {
+        CWStatusBarNotification *notis = [CWStatusBarNotification new];
+        notis.notificationLabelBackgroundColor = [UIColor redColor];
+        [notis displayNotificationWithMessage:@"クリア判定用のビーコンを指定して下さい" forDuration:2.0f];
+        return;
+    }
+    
+    if (self.targetTypeIndex == kTARGET_USER_SPECIFIC) {
+        if (self.selectedTargetObj == nil) {
+            CWStatusBarNotification *notis = [CWStatusBarNotification new];
+            notis.notificationLabelBackgroundColor = [UIColor redColor];
+            [notis displayNotificationWithMessage:@"配信先のユーザを指定して下さい" forDuration:2.0f];
+            return;
+        }
+        return;
+    }
+    
+    KiiObject *gxUser = [GXUserManager sharedManager].gxUser;
+    NSString *questTitle = self.titleField.text;
+    NSString *questDescription = self.descriptionView.text;
+    NSNumber *tMajor = [self.selectedBeaconObj getObjectForKey:@"user_major"];
+    NSString *tMajorOwnerFBID = [self.selectedBeaconObj getObjectForKey:user_fb_id];
+    
+    NSString *userName = [gxUser getObjectForKey:user_name];
+    NSString *userFBID = [gxUser getObjectForKey:user_fb_id];
+    
+    KiiServerCodeEntry *entry = [Kii serverCodeEntry:@"deliverAllMember"];
+    NSDictionary *argDict = @{@"questType":[NSNumber numberWithInteger:self.quesytTypeIndex],
+                              @"questTitle":questTitle,
+                              @"questDescription":questDescription,
+                              @"tMajor":tMajor,
+                              @"tMajorOwnerFBID":tMajorOwnerFBID,
+                              @"createrName":userName,
+                              @"createrFBID":userFBID};
+    
+    KiiServerCodeEntryArgument *argument = [KiiServerCodeEntryArgument argumentWithDictionary:argDict];
+    NSError *error;
+    KiiServerCodeExecResult *result = [entry executeSynchronous:argument withError:&error];
+    
+    //Perse the result.
+    NSDictionary *returnedDict = [result returnedValue];
+    NSString *returnString = [returnedDict objectForKey:@"returnedValue"];
+    NSLog(@"%@",returnString);
+    CWStatusBarNotification *successNotis = [CWStatusBarNotification new];
+    successNotis.notificationLabelBackgroundColor = [UIColor turquoiseColor];
+    [successNotis displayNotificationWithMessage:@"クエストを作成しました!" forDuration:2.0f];
+    
+    [self dismissViewControllerAnimated:YES completion:nil];
+    
 }
 
-#pragma  mark SegmentChang
+- (void)notisRemove
+{
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
+}
+
+#pragma  mark SegmentChang -
 - (void)segmentedChanged:(UISegmentedControl *)sender
 {
     switch (sender.selectedSegmentIndex) {
         case kTARGET_USER_ALL:
-            NSLog(@"touch");
+            self.targetTypeIndex = kTARGET_USER_ALL;
             self.targetUserBtn.hidden = YES;
             break;
             
         case kTARGET_USER_RANDOM:
-            NSLog(@"touch2");
+            self.targetTypeIndex = kTARGET_USER_RANDOM;
             self.targetUserBtn.hidden = YES;
             break;
         case kTARGET_USER_SPECIFIC:
-            NSLog(@"touch3");
+            self.targetTypeIndex = kTARGET_USER_SPECIFIC;
             self.targetUserBtn.hidden = NO;
             break;
         default:
@@ -263,11 +328,12 @@ const static CGFloat kJVFieldFloatingLabelFontSize = 11.0f;
     switch (sender.selectedSegmentIndex) {
         case kQUEST_TYPE_ONE:
             //一人用クエスト
-            
+            self.quesytTypeIndex = kQUEST_TYPE_ONE;
             break;
             
         case KQUEST_TYPE_MULTI:
             //協力
+            self.quesytTypeIndex = KQUEST_TYPE_MULTI;
             break;
             
         default:

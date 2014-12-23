@@ -168,7 +168,6 @@
     
     //ついでにudに保存
     [GXUserDefaults setUserInfomation:fb_id name:name];
-    
    
     
     if (self.profilePictureView.hidden == YES) {

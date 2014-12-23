@@ -52,6 +52,7 @@
     [self refreshPoint:5];
 }
 
+
 //クエスト招待したら
 //1pt配布
 - (void)getInviteQuestPoint

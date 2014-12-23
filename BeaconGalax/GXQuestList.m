@@ -135,17 +135,18 @@
 
 - (void)handlerNewQuest
 {
-    NSLog(@"callhandlerNewQuest");
     KiiBucket *bucket = [GXBucketManager sharedManager].notJoinedQuest;
-    NSLog(@"bucket:%@",bucket);
     KiiQuery *query = [KiiQuery queryWithClause:nil];
     [query sortByDesc:@"_created"];
     
     [bucket executeQuery:query withBlock:^(KiiQuery *query, KiiBucket *bucket, NSArray *results, KiiQuery *nextQuery, NSError *error) {
         if (error) {
-            NSLog(@"error:%@",error);
+            CWStatusBarNotification *notis = [CWStatusBarNotification new];
+            notis.notificationLabelBackgroundColor = [UIColor redColor];
+            [notis displayNotificationWithMessage:@"通信エラー" forDuration:2.0f];
+            [_delegate questListDidLoad];
+            _loading = NO;
         } else {
-            NSLog(@"enter");
             _questListArray = @[];
             [self addQuest:results];
             [_delegate questListDidLoad];
@@ -161,7 +162,12 @@
     [query sortByDesc:@"_created"];
     [bucket executeQuery:query withBlock:^(KiiQuery *query, KiiBucket *bucket, NSArray *results, KiiQuery *nextQuery, NSError *error) {
         if (error) {
-            NSLog(@"error:%@",error);
+            CWStatusBarNotification *notis = [CWStatusBarNotification new];
+            notis.notificationLabelBackgroundColor = [UIColor redColor];
+            [notis displayNotificationWithMessage:@"通信エラー" forDuration:2.0f];
+            [_delegate questListDidLoad];
+            _loading = NO;
+
         } else {
             _questListArray = @[];
             [self addQuest:results];
@@ -178,7 +184,12 @@
     [query sortByDesc:@"_created"];
     [bucket executeQuery:query withBlock:^(KiiQuery *query, KiiBucket *bucket, NSArray *results, KiiQuery *nextQuery, NSError *error) {
         if (error) {
-            NSLog(@"error:%@",error);
+            CWStatusBarNotification *notis = [CWStatusBarNotification new];
+            notis.notificationLabelBackgroundColor = [UIColor redColor];
+            [notis displayNotificationWithMessage:@"通信エラー" forDuration:2.0f];
+            [_delegate questListDidLoad];
+            _loading = NO;
+
         } else {
             _questListArray = @[];
             [self addQuest:results];

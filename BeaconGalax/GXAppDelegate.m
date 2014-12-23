@@ -20,7 +20,6 @@
 #import "UILocalNotification+GXNotification.h"
 #import "NSObject+BlocksWait.h"
 #import "GXUserDefaults.h"
-#import "GAI.h"
 
 #define SYSTEM_VERSION_LESS_THAN(v) ([[[UIDevice currentDevice] systemVersion] \
 compare:v options:NSNumericSearch] == NSOrderedAscending)
@@ -118,7 +117,7 @@ compare:v options:NSNumericSearch] == NSOrderedAscending)
     
     
     //background fetch
-    [[UIApplication sharedApplication] setMinimumBackgroundFetchInterval:UIApplicationBackgroundFetchIntervalMinimum];
+   //x [[UIApplication sharedApplication] setMinimumBackgroundFetchInterval:UIApplicationBackgroundFetchIntervalMinimum];
     
     
     //アプリがForegrondに無いときにこちらが呼ばれる
@@ -149,25 +148,6 @@ compare:v options:NSNumericSearch] == NSOrderedAscending)
     
     return YES;
 }
-
-- (void)initializeGoogleAnalytics
-{
-    //トラッキングIDの設定
-    // Optional: automatically send uncaught exceptions to Google Analytics.
-    [GAI sharedInstance].trackUncaughtExceptions = YES;
-    
-    // Optional: set Google Analytics dispatch interval to e.g. 20 seconds.
-    [GAI sharedInstance].dispatchInterval = 20;
-    
-    // Optional: set Logger to VERBOSE for debug information.
-    [[[GAI sharedInstance] logger] setLogLevel:kGAILogLevelVerbose];
-    
-    // Initialize tracker. Replace with your tracking ID.
-    [[GAI sharedInstance] trackerWithTrackingId:@"UA-57747228-1"];
-    
-    // Enable IDFA collection.
-    id<GAITracker> tracker = [[GAI sharedInstance] defaultTracker];
-    [tracker setAllowIDFACollection:YES];}
 
 
 //シングルサインオンの有効
@@ -231,24 +211,24 @@ compare:v options:NSNumericSearch] == NSOrderedAscending)
 // バックグラウンド実行の際に呼び出される
 - (void)application:(UIApplication *)application performFetchWithCompletionHandler:(void (^)(UIBackgroundFetchResult result))completionHandler
 {
-    // ここにバックグラウンド処理
-    KiiBucket *bucket = [GXBucketManager sharedManager].notJoinedQuest;
-    [bucket count:^(KiiBucket *bucket, KiiQuery *query, NSUInteger result, NSError *error) {
-        if (error) {
-            completionHandler(UIBackgroundFetchResultFailed);
-        } else {
-            NSUInteger preNum = [GXUserDefaults getCurrentNotJoinQuest];
-            if (result > preNum) {
-                //新しいデータあり
-                GXQuestList *questList = [[GXQuestList alloc] initWithDelegate:self];
-                [questList requestAsyncronous:0];
-                [self sendNotification:@"あたなへの新しいクエストがあります。挑戦してみませんか?"];
-                completionHandler(UIBackgroundFetchResultNewData);
-            } else {
-                completionHandler(UIBackgroundFetchResultNoData);
-            }
-        }
-    }];
+//    // ここにバックグラウンド処理
+//    KiiBucket *bucket = [GXBucketManager sharedManager].notJoinedQuest;
+//    [bucket count:^(KiiBucket *bucket, KiiQuery *query, NSUInteger result, NSError *error) {
+//        if (error) {
+//            completionHandler(UIBackgroundFetchResultFailed);
+//        } else {
+//            NSUInteger preNum = [GXUserDefaults getCurrentNotJoinQuest];
+//            if (result > preNum) {
+//                //新しいデータあり
+//                GXQuestList *questList = [[GXQuestList alloc] initWithDelegate:self];
+//                [questList requestAsyncronous:0];
+//                [self sendNotification:@"あたなへの新しいクエストがあります。挑戦してみませんか?"];
+//                completionHandler(UIBackgroundFetchResultNewData);
+//            } else {
+//                completionHandler(UIBackgroundFetchResultNoData);
+//            }
+//        }
+//    }];
 }
 
 #pragma mark RemoteNotificationhandler

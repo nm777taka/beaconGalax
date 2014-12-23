@@ -12,7 +12,10 @@
 @interface GXOnlineMemberTableViewController ()
 
 @property (nonatomic,strong) NSMutableArray *onlineUsers;
+@property (nonatomic,strong) NSMutableArray *selectedUsersIndex;
 
+- (IBAction)closeAction:(id)sender;
+- (IBAction)doneAction:(id)sender;
 
 @end
 
@@ -20,12 +23,12 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    
     // Uncomment the following line to preserve selection between presentations.
     // self.clearsSelectionOnViewWillAppear = NO;
     
     // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
     // self.navigationItem.rightBarButtonItem = self.editButtonItem;
+    self.selectedUsersIndex = [NSMutableArray new];
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -56,26 +59,76 @@
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"Cell" forIndexPath:indexPath];
     
     // Configure the cell...
-    KiiObject *obj = self.onlineUsers[indexPath.row];
-    cell.textLabel.text = [obj getObjectForKey:@"name"];
+    [self configureCell:cell atIndexPath:indexPath];
     return cell;
+}
+
+- (void)configureCell:(UITableViewCell *)cell atIndexPath:(NSIndexPath *)indexPath
+{
+    KiiObject *obj = self.onlineUsers[indexPath.row];
+    if ([[obj getObjectForKey:@"isSelected"] boolValue]) {
+        cell.imageView.image = [UIImage imageNamed:@"green.png"];
+    } else {
+        cell.imageView.image = nil;
+    }
+    cell.textLabel.text = [obj getObjectForKey:@"name"];
+    cell.detailTextLabel.text = [obj getObjectForKey:@"location"];
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    KiiObject *selectedObj = self.onlineUsers[indexPath.row];
-    switch (self.index) {
-        case 0:
-            [[NSNotificationCenter defaultCenter] postNotificationName:@"beaconSet" object:selectedObj];
-            break;
-        case 1:
-            [[NSNotificationCenter defaultCenter] postNotificationName:@"targetUserSet" object:selectedObj];
-            break;
-            
-        default:
-            break;
+    //クリア対象のbeaconを設定する場合
+    if (self.index == 0) {
+        KiiObject *selectedObj = self.onlineUsers[indexPath.row];
+        [[NSNotificationCenter defaultCenter] postNotificationName:@"beaconSet" object:selectedObj];
+        [self dismissViewControllerAnimated:YES completion:nil];
+        return;
     }
-    [self dismissViewControllerAnimated:YES completion:nil];
+ 
+    KiiObject *selected = self.onlineUsers[indexPath.row];
+    if ([[selected getObjectForKey:@"isSelected"] boolValue]) {
+        //選択されてたら
+        [selected setObject:@NO forKey:@"isSelected"];
+    } else {
+        [selected setObject:@YES forKey:@"isSelected"];
+    }
+    
+    [self.tableView reloadData];
+    
+//    //だれに配信するか設定（複数人対応)
+//    NSString *indexString = [NSString stringWithFormat:@"%ld",indexPath.row];
+//    UITableViewCell *cell = [tableView cellForRowAtIndexPath:indexPath];
+//    //すでに選択しているか調べる
+//    NSUInteger index = [self.selectedUsersIndex indexOfObject:indexString];
+//    
+//    if (index != NSNotFound) {
+//        //チェックマークを削除
+//        cell.imageView.image = nil;
+//        //データ削除
+//        [self.selectedUsersIndex removeObject:indexString];
+//        NSLog(@"%@",self.selectedUsersIndex);
+//    } else {
+//        //新規
+//        NSLog(@"新規");
+//        [self.selectedUsersIndex addObject:indexString];
+//        cell.imageView.image = [UIImage imageNamed:@"green.png"];
+//        NSLog(@"selecteduser:%@",self.selectedUsersIndex);
+//    }
+//    
+//    //[self configureCell:cell atIndexPath:indexPath];
+//    [self.tableView reloadData];
+//    switch (self.index) {
+//        case 0:
+//            [[NSNotificationCenter defaultCenter] postNotificationName:@"beaconSet" object:selectedObj];
+//            break;
+//        case 1:
+//            [[NSNotificationCenter defaultCenter] postNotificationName:@"targetUserSet" object:selectedObj];
+//            break;
+//            
+//        default:
+//            break;
+//    }
+//    [self dismissViewControllerAnimated:YES completion:nil];
 }
 
 /*
@@ -137,4 +190,33 @@
     }];
 }
 
+
+- (IBAction)closeAction:(id)sender {
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"targetUserSet" object:nil]; //nilを返す
+    [self dismissViewControllerAnimated:YES completion:nil];
+}
+
+- (IBAction)doneAction:(id)sender {
+    //選択したindexから実際のuserを取得
+    
+    NSMutableArray *array = [NSMutableArray new];
+    for (KiiObject *userObj in self.onlineUsers) {
+        BOOL isSelected = [[userObj getObjectForKey:@"isSelected"] boolValue];
+        if (isSelected) {
+            [array addObject:userObj];
+        }
+    }
+    
+    //なにも選択してなかったら
+    if (array.count == 0) {
+        [[NSNotificationCenter defaultCenter] postNotificationName:@"targetUserSet" object:nil]; //nilを返す
+
+    } else {
+        
+        [[NSNotificationCenter defaultCenter] postNotificationName:@"targetUserSet" object:array];
+
+    }
+    
+    [self dismissViewControllerAnimated:YES completion:nil];
+}
 @end

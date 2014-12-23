@@ -7,7 +7,6 @@
 //
 #import <SVProgressHUD.h>
 #import "GXVisitQuestExeViewController.h"
-#import "GXGoogleTrackingManager.h"
 #import "GXClearViewController.h"
 
 #define kBeaconUUID @"B9407F30-F5F8-466E-AFF9-25556B57FE6D"
@@ -163,7 +162,6 @@
 #pragma mark QuestCommit
 - (void)commitOnePersonQuest
 {
-    [GXGoogleTrackingManager sendEventTracking:@"Quest" action:@"oneQuestCommit" label:@"一人用クエストコミット" value:nil screen:@"questExeView"];
     KiiServerCodeEntry *entry = [Kii serverCodeEntry:@"commitOnePersonQuest"];
     NSDictionary *argDict = [NSDictionary dictionaryWithObjectsAndKeys:self.exeQuest.objectURI,@"questURI", nil];
     KiiServerCodeEntryArgument *argument = [KiiServerCodeEntryArgument argumentWithDictionary:argDict];

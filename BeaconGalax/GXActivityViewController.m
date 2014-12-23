@@ -15,8 +15,6 @@
 
 #import "GXBucketManager.h"
 
-#import "GXGoogleTrackingManager.h"
-
 #define SYSTEM_VERSION_LESS_THAN(v) ([[[UIDevice currentDevice] systemVersion] \
 compare:v options:NSNumericSearch] == NSOrderedAscending)
 
@@ -66,7 +64,6 @@ compare:v options:NSNumericSearch] == NSOrderedAscending)
 - (void)viewDidAppear:(BOOL)animated
 {
     [super viewDidAppear:animated];
-    [GXGoogleTrackingManager sendScreenTracking:@"activityView"];
 }
 
 - (void)didReceiveMemoryWarning {
