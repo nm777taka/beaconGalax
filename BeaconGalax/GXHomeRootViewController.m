@@ -56,8 +56,6 @@
     UIBarButtonItem *navLeftButton = [[UIBarButtonItem alloc] initWithCustomView:button];
     self.navigationItem.leftBarButtonItem = navLeftButton;
     
-    //バッジの初期化
-    [[UIApplication sharedApplication] setApplicationIconBadgeNumber:0];
     
 }
 
@@ -166,43 +164,10 @@
 
 - (void)loginSuccessed:(NSNotification *)notis
 {
-    //show view
-    if ([KiiUser loggedIn]) {
-        
-        //signUpかどうか
-        //初回起動フラグを見る
-        //初回起動だったらgxUserに登録する
-        if ([GXUserDefaults isFirstLaunch]) {
-            //Init
-            NSLog(@"init-user");
-            
-            KiiUser *currentUser = [KiiUser currentUser];
-            [[GXBucketManager sharedManager] registerGalaxUser:currentUser]; //galaxuserに登録
-            [[GXTopicManager sharedManager] createDefaultUserTopic];
-            [[GXTopicManager sharedManager] subscribeInfoTopic];
-            [[GXTopicManager sharedManager] setACL];
-            
-            //accesstokenの保存
-            NSString *accessToken = [currentUser accessToken];
-            [GXUserDefaults setAccessToken:accessToken];
-            
-            //userdefaultに保存する(基本的なuser情報)
-            KiiObject *gxuser = [[GXBucketManager sharedManager] getMeFromGalaxUserBucket];
-            
-            [GXUserDefaults setUserInfomation:[gxuser getObjectForKey:user_fb_id] name:[gxuser getObjectForKey:user_name]];
-            
-            //こっちで初期クエストを作っちゃう
-            [self createFirstQuest];
-            
-            [SVProgressHUD showSuccessWithStatus:@"ログイン完了"];
-
-            [self showNotJoinView];
-            
-            [[NSNotificationCenter defaultCenter] postNotificationName:@"singUpSuccessed" object:nil];
-            
-        }
-        
-    }
+    [SVProgressHUD showSuccessWithStatus:@"ログイン完了"];
+    
+    [self showNotJoinView];
+    
 }
 
 #pragma mark - 最初のクエスト

@@ -64,10 +64,6 @@
 
 #pragma mark - AppScope
 
-- (void)registerGalaxUser:(KiiUser *)user
-{
-    [[GXFacebook sharedManager] initGxUserWithFacebook:user];
-}
 
 - (KiiObject *)getGalaxUser:(NSString *)userURI
 {
@@ -663,7 +659,8 @@
 
 - (void)countNotJoinBucket
 {
-    [self.notJoinedQuest count:^(KiiBucket *bucket, KiiQuery *query, NSUInteger result, NSError *error) {
+    KiiBucket *bucket = [[KiiUser currentUser] bucketWithName:@"notJoined_quest"];
+    [bucket count:^(KiiBucket *bucket, KiiQuery *query, NSUInteger result, NSError *error) {
         if (!error) {
             NSNumber *num = [NSNumber numberWithInteger:result];
             NSDictionary *dict = @{@"count":num,@"index":@0};

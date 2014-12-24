@@ -190,7 +190,6 @@
             //Init
             KiiUser *currentUser = [KiiUser currentUser];
             
-            [[GXBucketManager sharedManager] registerGalaxUser:currentUser];
             [[GXTopicManager sharedManager] createDefaultUserTopic];
             [[GXTopicManager sharedManager] subscribeInfoTopic];
             [[GXTopicManager sharedManager] setACL];

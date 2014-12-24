@@ -61,17 +61,68 @@
         [KiiPushInstallation installSynchronous:&error];
         
         if (error != nil) {
-        NSLog(@"push install error:%@",error);
+            NSLog(@"push install error:%@",error);
         } else {
-        NSLog(@"push install!!");
-                
-        [[NSNotificationCenter defaultCenter] postNotificationName:GXLoginSuccessedNotification object:nil];
-                
+            NSLog(@"push install!!");
+        }
+        
+        if ([GXUserDefaults isFirstLaunch]) {
+            [[GXFacebook sharedManager] initGxUserWithFacebook:user];
+            //Topic初期化
+            [[GXTopicManager sharedManager] createDefaultUserTopic];
+            [[GXTopicManager sharedManager] subscribeInfoTopic];
+            [[GXTopicManager sharedManager] setACL];
+            
+            //accesstokenの保存
+            NSString *accessToken = [user accessToken];
+            [GXUserDefaults setAccessToken:accessToken];
+            
+            //userdefaultに保存する(基本的なuser情報)
+            KiiObject *gxuser = [[GXBucketManager sharedManager] getMeFromGalaxUserBucket];
+            [GXUserDefaults setUserInfomation:[gxuser getObjectForKey:user_fb_id] name:[gxuser getObjectForKey:user_name]];
+            
+            [self createFirstQuest:user];
+            
+            [[NSNotificationCenter defaultCenter] postNotificationName:GXLoginSuccessedNotification object:nil];
+            
+        } else {
+            
         }
 
     } else {
         NSLog(@"error : %@",error);
     }
+}
+
+- (void)createFirstQuest:(KiiUser *)user
+{
+    NSError *error;
+    KiiBucket *bucket = [user bucketWithName:@"notJoined_quest"];
+    //一人用
+    KiiObject *newQuest1 = [bucket createObject];
+    [newQuest1 setObject:@"最初のクエスト" forKey:@"title"];
+    [newQuest1 setObject:@"研究室のビーコンに近づいてみよう" forKey:@"description"];
+    [newQuest1 setObject:@"クリア条件:研究室のビーコンに一定時間近づく" forKey:@"requirement"];
+    [newQuest1 setObject:@28319 forKey:@"major"];
+    [newQuest1 setObject:@1 forKey:@"player_num"];
+    [newQuest1 setObject:@NO forKey:@"isCompleted"];
+    [newQuest1 setObject:@0 forKey:@"success_cnt"];
+    [newQuest1 saveSynchronous:&error];
+    if (error) NSLog(@"init quest error:%@",error);
+    else NSLog(@"newQuest1 suc");
+    
+    //協力クエスト
+    KiiObject *newQuest2 = [bucket createObject];
+    [newQuest2 setObject:@"はじめての協力" forKey:@"title"];
+    [newQuest2 setObject:@"メンバーと一緒にクエストをやってみよう" forKey:@"description"];
+    [newQuest2 setObject:@"クリア条件：研究室のビーコンに一定時間近づく" forKey:@"requirement"];
+    [newQuest2 setObject:@28319 forKey:@"major"];
+    [newQuest2 setObject:@2 forKey:@"player_num"];
+    [newQuest2 setObject:@NO forKey:@"isCompleted"];
+    [newQuest2 setObject:@0 forKey:@"success_cnt"];
+    [newQuest2 saveSynchronous:&error];
+    if (error) NSLog(@"init quest error:%@",error);
+    else NSLog(@"newQuest1 suc");
 }
 
 @end

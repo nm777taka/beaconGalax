@@ -121,9 +121,6 @@
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(refreshFromLocalNotis:) name:GXRefreshDataFromLocalNotification object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(showInfo:) name:@"showInfo" object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(questDeleted:) name:GXQuestDeletedNotification object:nil];
-    //questFetch
-    [self request:0];
-    [self.collectionView reloadData];
     //pageview
     [[GXPageViewAnalyzer shareInstance] setPageView:NSStringFromClass([self class])];
 }
@@ -131,6 +128,8 @@
 - (void)viewDidAppear:(BOOL)animated
 {
     [super viewDidAppear:animated];
+    //questFetch
+    [self request:0];
 
 }
 

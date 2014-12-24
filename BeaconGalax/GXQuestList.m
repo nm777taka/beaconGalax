@@ -107,6 +107,7 @@
 //通信
 - (void)requestAsyncronous:(NSUInteger)typeIndex
 {
+    NSLog(@"%s",__PRETTY_FUNCTION__);
     _loading =YES;
     _typeIndex = typeIndex;
     [self performSelector:@selector(requestAsyncronousDone) withObject:self afterDelay:1.0];
@@ -135,7 +136,9 @@
 
 - (void)handlerNewQuest
 {
-    KiiBucket *bucket = [GXBucketManager sharedManager].notJoinedQuest;
+    NSLog(@"%s",__PRETTY_FUNCTION__);
+    KiiUser *currentUser = [KiiUser currentUser];
+    KiiBucket *bucket = [currentUser bucketWithName:@"notJoined_quest"];
     KiiQuery *query = [KiiQuery queryWithClause:nil];
     [query sortByDesc:@"_created"];
     

@@ -394,7 +394,6 @@ compare:v options:NSNumericSearch] == NSOrderedAscending)
     [UIApplication sharedApplication].applicationIconBadgeNumber = -1;
     [self.locationManager requestStateForRegion:self.region];
     
-    
 }
 
 - (void)applicationWillTerminate:(UIApplication *)application

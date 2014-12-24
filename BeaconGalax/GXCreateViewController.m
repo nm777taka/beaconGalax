@@ -411,12 +411,16 @@ const static CGFloat kJVFieldFloatingLabelFontSize = 11.0f;
 
 - (NSDictionary *)setParamsForBeaconQuest
 {
+    NSLog(@"%s",__PRETTY_FUNCTION__);
     //クエスト状況
     KiiObject *gxUser = [GXUserManager sharedManager].gxUser;
+    NSLog(@"%@",gxUser);
     NSString *questTitle = self.titleField.text;
     NSString *questDescription = self.descriptionView.text;
     
     NSNumber *tMajor = [self.selectedBeaconObj getObjectForKey:@"user_major"];
+    NSLog(@"tMajor:%ld",[tMajor integerValue]);
+    
     NSString *tMajorOwnerFBID = [self.selectedBeaconObj getObjectForKey:user_fb_id];
     
     //作成ユーザー情報
@@ -441,6 +445,8 @@ const static CGFloat kJVFieldFloatingLabelFontSize = 11.0f;
                               @"createrName":userName,
                               @"createrFBID":userFBID,
                               @"targetURIs":targetURIs};
+    
+    NSLog(@"argDict:%@",argDict);
     
     return argDict;
 

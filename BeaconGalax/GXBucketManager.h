@@ -41,7 +41,6 @@
 + (GXBucketManager *)sharedManager;
 
 //登録
-- (void)registerGalaxUser:(KiiUser *)user;
 - (void)registerQuest:(GXQuest *)quest;
 - (void)registerInviteBoard:(KiiObject *)obj;
 - (void)registerJoinedMultiQuest:(KiiObject *)obj;

@@ -71,21 +71,6 @@
             NSLog(@"gxUser登録OK");
         }
         
-//        //GalaxUserBucketからuserをフェッチして
-//        //パラムを追加
-//        KiiBucket *bucket = [GXBucketManager sharedManager].galaxUser;
-//        NSError *error = nil;
-//        KiiClause *clause = [KiiClause equals:@"uri" value:[KiiUser currentUser].objectURI];
-//        KiiQuery *query = [KiiQuery queryWithClause:clause];
-//        KiiQuery *nextQuery;
-//        
-//        NSArray *results = [bucket executeQuerySynchronous:query withError:&error andNext:&nextQuery];
-        
-//        KiiObject *current_userObject = gxUser;
-//        [current_userObject setObject:user_name forKey:@"name"];
-//        [current_userObject setObject:user_email forKey:@"email"];
-//        [current_userObject setObject:user_id forKey:@"facebook_id"];
-//        [current_userObject saveSynchronous:&error];
         
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         NSLog(@"error:%@",error);
