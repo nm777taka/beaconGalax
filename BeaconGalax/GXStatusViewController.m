@@ -77,12 +77,17 @@
 - (void)viewDidAppear:(BOOL)animated
 {
     [super viewDidAppear:animated];
-    KiiObject *gxuser = [GXUserManager sharedManager].gxUser;
-    NSString *locationState = [NSString stringWithFormat:@"Status:%@",[gxuser getObjectForKey:@"location"]];
-    self.userLocationStatusLabel.text = locationState;
-    BOOL isOnline = [[gxuser getObjectForKey:@"isOnline"] boolValue];
-    if (isOnline) self.iconImageView.layer.borderColor = [UIColor turquoiseColor].CGColor;
-    else self.iconImageView.layer.borderColor = [UIColor grayColor].CGColor;
+    KiiObject *gxuser = [[GXBucketManager sharedManager] getGalaxUser:[KiiUser currentUser].objectURI];
+    
+    if (gxuser != nil) {
+        
+        NSString *locationState = [NSString stringWithFormat:@"Status:%@",[gxuser getObjectForKey:@"location"]];
+        self.userLocationStatusLabel.text = locationState;
+        BOOL isOnline = [[gxuser getObjectForKey:@"isOnline"] boolValue];
+        if (isOnline) self.iconImageView.layer.borderColor = [UIColor turquoiseColor].CGColor;
+        else self.iconImageView.layer.borderColor = [UIColor grayColor].CGColor;
+
+    }
 }
 
 - (void)viewDidDisappear:(BOOL)animated

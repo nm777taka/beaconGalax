@@ -96,8 +96,6 @@
     NSDateFormatter *df = [NSDateFormatter new];
     df.timeStyle = NSDateFormatterShortStyle;
     NSString *stringDate = [df stringFromDate:timeStamp];
-    NSLog(@"%@",stringDate);
-
     [self.gxUser setObject:@"オフライン" forKey:@"location"];
     [self.gxUser setObject:@NO forKey:@"isOnline"];
     [self.gxUser setObject:stringDate forKey:@"locationTimeStamp" ];
@@ -121,7 +119,6 @@
     KiiServerCodeEntryArgument *argument = [KiiServerCodeEntryArgument argumentWithDictionary:dict];
     [entry execute:argument withBlock:^(KiiServerCodeEntry *entry, KiiServerCodeEntryArgument *argument, KiiServerCodeExecResult *result, NSError *error) {
         NSDictionary *retDict = [result returnedValue];
-        NSLog(@"returned:%@",retDict);
     }];
 }
 

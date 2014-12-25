@@ -82,6 +82,7 @@ compare:v options:NSNumericSearch] == NSOrderedAscending)
         [KiiUser authenticateWithTokenSynchronous:accessToken andError:&error];
         if (!error) {
             //[[NSNotificationCenter defaultCenter] postNotificationName:GXLoginSuccessedNotification object:nil];
+            
             [self startMonitaring];
             
             KiiTopic *applicationTopic = [Kii topicWithName:@"SendingAlert"];
@@ -463,7 +464,7 @@ compare:v options:NSNumericSearch] == NSOrderedAscending)
           didExitRegion:(CLRegion *)region
 {
    // [self sendNotification:@"Exit:研究室"];
-    [[GXUserManager sharedManager] exitCommunitySpace];
+    [self runBackgroundTask:1];
     NSLog(@"didExitRegion-------->");
 }
 
@@ -502,9 +503,12 @@ compare:v options:NSNumericSearch] == NSOrderedAscending)
                 [self runBackgroundTask:0];
                 
                 break;
+                
             case CLRegionStateOutside:
+               // [self runBackgroundTask:1];
+                break;
+                
             case CLRegionStateUnknown:
-                [self runBackgroundTask:1];
                 break;
                 
             default:
