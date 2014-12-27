@@ -413,13 +413,12 @@ const static CGFloat kJVFieldFloatingLabelFontSize = 11.0f;
 {
     NSLog(@"%s",__PRETTY_FUNCTION__);
     //クエスト状況
-    KiiObject *gxUser = [GXUserManager sharedManager].gxUser;
+    KiiObject *gxUser = [[GXBucketManager sharedManager] getGalaxUser:[KiiUser currentUser].objectURI];
     NSLog(@"%@",gxUser);
     NSString *questTitle = self.titleField.text;
     NSString *questDescription = self.descriptionView.text;
     
     NSNumber *tMajor = [self.selectedBeaconObj getObjectForKey:@"user_major"];
-    NSLog(@"tMajor:%ld",[tMajor integerValue]);
     
     NSString *tMajorOwnerFBID = [self.selectedBeaconObj getObjectForKey:user_fb_id];
     
@@ -465,7 +464,7 @@ const static CGFloat kJVFieldFloatingLabelFontSize = 11.0f;
     [newObj setObject:[NSNumber numberWithInt:0] forKey:quest_success_cnt];
     
     //ユーザに紐付いたビーコンを取ってくる
-    KiiObject *gxUser = [GXUserManager sharedManager].gxUser;
+    KiiObject *gxUser = [[GXBucketManager sharedManager] getGalaxUser:[KiiUser currentUser].objectURI];
     NSNumber *user_major = [gxUser getObjectForKey:@"user_major"];
     [newObj setObject:@"user" forKey:quest_type];
     [newObj setObject:user_major forKey:@"major"]; //対象

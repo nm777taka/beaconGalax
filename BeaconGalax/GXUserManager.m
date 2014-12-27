@@ -31,7 +31,6 @@
     self = [super init];
     if (self) {
         //init
-        self.gxUser = [[GXBucketManager sharedManager] getGalaxUser:[KiiUser currentUser].objectURI];
     }
     
     return self;
@@ -60,7 +59,8 @@
 
 - (int)getUserRank
 {
-    int currRank = [[self.gxUser getObjectForKey:@"rank"] intValue];
+    KiiObject *gxUser = [[GXBucketManager sharedManager] getGalaxUser:[KiiUser currentUser].objectURI];
+    int currRank = [[gxUser getObjectForKey:@"rank"] intValue];
     return currRank;
 }
 
@@ -70,10 +70,11 @@
     NSDateFormatter *df = [NSDateFormatter new];
     df.dateFormat = @"yyyy-MM-dd 'at' HH:mm";
     NSString *stringDate = [df stringFromDate:timeStamp];
-    [self.gxUser setObject:beaconName forKey:@"location"];
-    [self.gxUser setObject:stringDate forKey:@"locationTimeStamp"];
-    [self.gxUser setObject:@YES forKey:@"isOnline"];
-    [self.gxUser saveWithBlock:^(KiiObject *object, NSError *error) {
+    KiiObject *gxUser = [[GXBucketManager sharedManager] getGalaxUser:[KiiUser currentUser].objectURI];
+    [gxUser setObject:beaconName forKey:@"location"];
+    [gxUser setObject:stringDate forKey:@"locationTimeStamp"];
+    [gxUser setObject:@YES forKey:@"isOnline"];
+    [gxUser saveWithBlock:^(KiiObject *object, NSError *error) {
         if (!error) {
             NSLog(@"ロケーションアップデート");
             //出席データをとっとく
@@ -96,10 +97,11 @@
     NSDateFormatter *df = [NSDateFormatter new];
     df.timeStyle = NSDateFormatterShortStyle;
     NSString *stringDate = [df stringFromDate:timeStamp];
-    [self.gxUser setObject:@"オフライン" forKey:@"location"];
-    [self.gxUser setObject:@NO forKey:@"isOnline"];
-    [self.gxUser setObject:stringDate forKey:@"locationTimeStamp" ];
-    [self.gxUser saveWithBlock:^(KiiObject *object, NSError *error) {
+    KiiObject *gxUser = [[GXBucketManager sharedManager] getGalaxUser:[KiiUser currentUser].objectURI];
+    [gxUser setObject:@"オフライン" forKey:@"location"];
+    [gxUser setObject:@NO forKey:@"isOnline"];
+    [gxUser setObject:stringDate forKey:@"locationTimeStamp" ];
+    [gxUser saveWithBlock:^(KiiObject *object, NSError *error) {
         if (!error) {
             UIApplication *application = [UIApplication sharedApplication];
             if (application.applicationState == UIApplicationStateInactive || application.applicationState == UIApplicationStateBackground) {
@@ -113,9 +115,10 @@
 - (void)exeServerCode
 {
     KiiUser *currentUser = [KiiUser currentUser];
+    KiiObject *gxUser = [[GXBucketManager sharedManager] getGalaxUser:currentUser.objectURI];
     KiiServerCodeEntry *entry = [Kii serverCodeEntry:@"didEnterCommunitySpace"];
     NSDictionary *dict = @{@"userID":currentUser.objectURI,
-                           @"objectURI":self.gxUser.objectURI};
+                           @"objectURI":gxUser.objectURI};
     KiiServerCodeEntryArgument *argument = [KiiServerCodeEntryArgument argumentWithDictionary:dict];
     [entry execute:argument withBlock:^(KiiServerCodeEntry *entry, KiiServerCodeEntryArgument *argument, KiiServerCodeExecResult *result, NSError *error) {
         NSDictionary *retDict = [result returnedValue];

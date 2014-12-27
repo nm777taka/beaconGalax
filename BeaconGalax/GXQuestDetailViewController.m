@@ -261,7 +261,7 @@
                     } else {
                         //グループのmemberバケットから自分を削除
                         KiiBucket *member = [group bucketWithName:@"member"];
-                        KiiObject *gxusr = [GXUserManager sharedManager].gxUser;
+                        KiiObject *gxusr = [[GXBucketManager sharedManager] getGalaxUser:[KiiUser currentUser].objectURI];
                         KiiClause *clause = [KiiClause equals:@"name" value:[gxusr getObjectForKey:user_name]];
                         KiiQuery *query = [KiiQuery queryWithClause:clause];
                         [member executeQuery:query withBlock:^(KiiQuery *query, KiiBucket *bucket, NSArray *results, KiiQuery *nextQuery, NSError *error) {

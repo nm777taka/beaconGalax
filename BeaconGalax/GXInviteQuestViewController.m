@@ -208,7 +208,8 @@
     NSString *groupURI = [self.selectedInviteBucketObj getObjectForKey:quest_groupURI];
     NSLog(@"selected-groupuri:%@",groupURI);
     NSString *kiiuserURI = [KiiUser currentUser].objectURI;
-    KiiObject *gxUser = [GXUserManager sharedManager].gxUser;
+   // KiiObject *gxUser = [GXUserManager sharedManager].gxUser;
+    KiiObject *gxUser = [[GXBucketManager sharedManager] getGalaxUser:[KiiUser currentUser].objectURI];
     NSString *gxUserURI = gxUser.objectURI;
     
     NSDictionary *argDict = [NSDictionary dictionaryWithObjectsAndKeys:groupURI,@"groupURI",kiiuserURI,@"userURI",gxUserURI,@"gxURI", nil];
@@ -327,7 +328,7 @@
     //参加したクエストを取得
     KiiBucket *bucket = [joinedGroup bucketWithName:@"quest"];
     KiiQuery *query = [KiiQuery queryWithClause:nil];
-    KiiObject *gxUser = [GXUserManager sharedManager].gxUser;
+    KiiObject *gxUser = [[GXBucketManager sharedManager] getGalaxUser:[KiiUser currentUser].objectURI];
     [bucket executeQuery:query withBlock:^(KiiQuery *query, KiiBucket *bucket, NSArray *results, KiiQuery *nextQuery, NSError *error) {
         
         if (!error) {

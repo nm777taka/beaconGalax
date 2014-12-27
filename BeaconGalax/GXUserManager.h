@@ -11,8 +11,6 @@
 
 @interface GXUserManager : NSObject
 
-@property (nonatomic,retain) KiiObject *gxUser;
-
 + (GXUserManager *)sharedManager;
 
 //出席とかとる

@@ -197,9 +197,9 @@
                     }];
                     
                     //gxuserにもポイントを反映させる
-                    KiiObject *gxusr = [GXUserManager sharedManager].gxUser;
-                    [gxusr setObject:[NSNumber numberWithInt:curPoint] forKey:@"point"];
-                    [gxusr saveWithBlock:^(KiiObject *object, NSError *error) {
+                    KiiObject *gxUser = [[GXBucketManager sharedManager] getGalaxUser:[KiiUser currentUser].objectURI];
+                    [gxUser setObject:[NSNumber numberWithInt:curPoint] forKey:@"point"];
+                    [gxUser saveWithBlock:^(KiiObject *object, NSError *error) {
                         
                     }];
 
@@ -229,16 +229,16 @@
         NSString *gotRank = [firstObj getObjectForKey:@"rank"];
         
         //まだユーザのランクは確定してない(ランクアップ前)
-        KiiObject *gxuser = [GXUserManager sharedManager].gxUser;
-        NSString *gxuserRank = [gxuser getObjectForKey:@"rank"];
+        KiiObject *gxUser = [[GXBucketManager sharedManager] getGalaxUser:[KiiUser currentUser].objectURI];
+        NSString *gxuserRank = [gxUser getObjectForKey:@"rank"];
         NSLog(@"gotRank:%@",gotRank);
         if ([gxuserRank isEqualToString:gotRank]) {
             //特になにもしない
         } else {
             //ランクアップが必要
             NSLog(@"rankUP!!");
-            [gxuser setObject:gotRank forKey:@"rank"];
-            [gxuser saveWithBlock:^(KiiObject *object, NSError *error) {
+            [gxUser setObject:gotRank forKey:@"rank"];
+            [gxUser saveWithBlock:^(KiiObject *object, NSError *error) {
                 if (!error) {
 
                     [[NSNotificationCenter defaultCenter] postNotificationName:@"rankUp" object:gotRank];

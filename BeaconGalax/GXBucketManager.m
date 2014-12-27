@@ -172,8 +172,7 @@
     
     [newObj saveWithBlock:^(KiiObject *object, NSError *error) {
         
-        KiiObject *gxUser = [GXUserManager sharedManager].gxUser;
-
+        KiiObject *gxUser = [[GXBucketManager sharedManager] getGalaxUser:[KiiUser currentUser].objectURI];
         //グループに入れとく
         KiiBucket *groupQuestBucket = [group bucketWithName:@"quest"];
         KiiObject *groupQuest = [groupQuestBucket createObject]; //groupにいれる

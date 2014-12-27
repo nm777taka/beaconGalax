@@ -9,6 +9,7 @@
 #import "GXLeaderBoardViewController.h"
 #import  <REFrostedViewController.h>
 #import "GXPointManager.h"
+#import "GXBucketManager.h"
 #import "GXUserManager.h"
 #import "GXDictonaryKeys.h"
 
@@ -87,10 +88,10 @@
         [self.rankProgressView setProgress:0];
     }
     
-    KiiObject *gxuser = [GXUserManager sharedManager].gxUser;
-    self.userIcon.profileID = [gxuser getObjectForKey:user_fb_id];
+    KiiObject *gxUser = [[GXBucketManager sharedManager] getGalaxUser:[KiiUser currentUser].objectURI];
+    self.userIcon.profileID = [gxUser getObjectForKey:user_fb_id];
     
-    NSString *rank = [gxuser getObjectForKey:@"rank"];
+    NSString *rank = [gxUser getObjectForKey:@"rank"];
     self.rankLabel.text = [NSString stringWithFormat:@"現在のランク: %@ランク",rank];
 
 }

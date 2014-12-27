@@ -262,7 +262,7 @@ const static CGFloat kJVFieldFloatingLabelFontSize = 11.0f;
         return;
     }
     
-    KiiObject *gxUser = [GXUserManager sharedManager].gxUser;
+    KiiObject *gxUser = [[GXBucketManager sharedManager] getGalaxUser:[KiiUser currentUser].objectURI];
     NSString *questTitle = self.titleField.text;
     NSString *questDescription = self.descriptionView.text;
     NSNumber *tMajor = [self.selectedBeaconObj getObjectForKey:@"user_major"];

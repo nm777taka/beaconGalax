@@ -9,6 +9,7 @@
 #import "GXAcivityManager.h"
 #import "GXUserManager.h"
 #import "GXDictonaryKeys.h"
+#import "GXBucketManager.h"
 
 
 @implementation GXAcivityManager
@@ -53,7 +54,8 @@
 //クエスト作成
 - (void)questCreated:(KiiObject *)quest
 {
-    NSString *activeUser = [[GXUserManager sharedManager].gxUser getObjectForKey:user_name];
+    KiiObject *gxUser = [[GXBucketManager sharedManager] getGalaxUser:[KiiUser currentUser].objectURI];
+    NSString *activeUser = [gxUser getObjectForKey:user_name];
     NSString *questName = [quest getObjectForKey:quest_title];
     NSString *message = [NSString stringWithFormat:@"%@が%@クエストを作成しました",activeUser,questName];
     
@@ -68,8 +70,9 @@
 //クエスト参加
 - (void)joinedQuest:(KiiObject *)obj
 {
+    KiiObject *gxUser = [[GXBucketManager sharedManager] getGalaxUser:[KiiUser currentUser].objectURI];
     NSString *questTitle = [obj getObjectForKey:quest_title];
-    NSString *activeUser = [[GXUserManager sharedManager].gxUser getObjectForKey:user_name];
+    NSString *activeUser = [gxUser getObjectForKey:user_name];
     NSString *message = [NSString stringWithFormat:@"%@が%@クエストに参加しました",activeUser,questTitle];
     KiiObject *newObj = [self.activityBucket createObject];
     [newObj setObject:message forKey:@"msg"];
@@ -81,8 +84,9 @@
 //クエスト達成
 - (void)clearedQuest:(KiiObject *)obj
 {
+    KiiObject *gxUser = [[GXBucketManager sharedManager] getGalaxUser:[KiiUser currentUser].objectURI];
     NSString *questTitle = [obj getObjectForKey:quest_title];
-    NSString *activeUser = [[GXUserManager sharedManager].gxUser getObjectForKey:user_name];
+    NSString *activeUser = [gxUser getObjectForKey:user_name];
     NSString *message = [NSString stringWithFormat:@"%@が%@クエストを達成しました",activeUser,questTitle];
     KiiObject *newObj = [self.activityBucket createObject];
     [newObj setObject:message forKey:@"msg"];

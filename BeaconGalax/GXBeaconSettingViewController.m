@@ -72,7 +72,7 @@ const static CGFloat kJVFieldFloatingLabelFontSize = 11.0f;
 - (void)viewDidAppear:(BOOL)animated
 {
     [super viewDidAppear:animated];
-    KiiObject *gxuser = [GXUserManager sharedManager].gxUser;
+    KiiObject *gxuser = [[GXBucketManager sharedManager] getGalaxUser:[KiiUser currentUser].objectURI];
     NSNumber *major = [gxuser getObjectForKey:@"major"];
     NSLog(@"setBeaconMajor:%d",[major intValue]);
 }
@@ -104,7 +104,7 @@ const static CGFloat kJVFieldFloatingLabelFontSize = 11.0f;
 {
     
     KiiBucket *userBeacons = [GXBucketManager sharedManager].user_beacons;
-    KiiObject *gxUser = [GXUserManager sharedManager].gxUser;
+    KiiObject *gxUser = [[GXBucketManager sharedManager] getGalaxUser:[KiiUser currentUser].objectURI];
     NSNumber *currentMajor = [gxUser getObjectForKey:@"user_major"];
     //すでに設定されていたらするー
     if (currentMajor) {

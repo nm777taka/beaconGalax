@@ -153,7 +153,7 @@
 - (void)setReadyStatus
 {
     KiiBucket *bucket = [_selectedQuestGroup bucketWithName:@"member"];
-    KiiObject *gxUser = [GXUserManager sharedManager].gxUser;
+    KiiObject *gxUser = [[GXBucketManager sharedManager] getGalaxUser:[KiiUser currentUser].objectURI];
     KiiClause *clause = [KiiClause equals:user_uri value:[gxUser getObjectForKey:user_uri]];
     KiiQuery *query = [KiiQuery queryWithClause:clause];
     //Groupスコープのmemberバケットから自分をとってくる

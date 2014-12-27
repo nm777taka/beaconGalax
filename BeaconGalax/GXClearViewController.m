@@ -161,7 +161,7 @@
 
 - (void)setActivity
 {
-    KiiObject *gxUser = [GXUserManager sharedManager].gxUser;
+    KiiObject *gxUser = [[GXBucketManager sharedManager] getGalaxUser:[KiiUser currentUser].objectURI];
     NSString *questName = [self.quest getObjectForKey:quest_title];
     NSString *text = [NSString stringWithFormat:@"%@クエストを達成しました",questName];
     NSString *fbid = [gxUser getObjectForKey:user_fb_id];
