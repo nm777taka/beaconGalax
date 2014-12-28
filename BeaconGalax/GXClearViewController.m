@@ -139,7 +139,7 @@
     
     //ポイントをサーバへコミット
     //必要ならPointManajor側でランクアップ処理がされる
-    [[GXPointManager sharedInstance] refreshPoint:self.gotQuestPoint];
+    //[[GXPointManager sharedInstance] refreshPoint:self.gotQuestPoint];
 }
 
 - (void)rankUP
