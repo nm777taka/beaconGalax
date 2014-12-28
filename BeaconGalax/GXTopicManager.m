@@ -158,42 +158,42 @@ static NSString *const GXQuestInviteTopic = @"GXQuestInviteTopic";
 
 - (void)sendUserInfoTopic:(NSString *)msg
 {
-    KiiAPNSFields *apnsFields = [KiiAPNSFields createFields];
-    NSString *body = msg;
-    
-    apnsFields.alertBody = body;
-    apnsFields.badge = @1;
-    
-    KiiPushMessage *pushMessage = [KiiPushMessage composeMessageWithAPNSFields:apnsFields andGCMFields:nil];
-    [self.infoTopic sendMessage:pushMessage withBlock:^(KiiTopic *topic, NSError *error) {
-        if (error) {
-            NSLog(@"sendError:%@",error);
-        } else {
-            NSLog(@"send to infoTopic");
-        }
-    }];
+//    KiiAPNSFields *apnsFields = [KiiAPNSFields createFields];
+//    NSString *body = msg;
+//    
+//    apnsFields.alertBody = body;
+//    apnsFields.badge = @1;
+//    
+//    KiiPushMessage *pushMessage = [KiiPushMessage composeMessageWithAPNSFields:apnsFields andGCMFields:nil];
+//    [self.infoTopic sendMessage:pushMessage withBlock:^(KiiTopic *topic, NSError *error) {
+//        if (error) {
+//            NSLog(@"sendError:%@",error);
+//        } else {
+//            NSLog(@"send to infoTopic");
+//        }
+//    }];
 }
 
 - (void)sendAlertForSpecificUser:(NSMutableArray *)targetUsers
 {
-    if (targetUsers.count == 0) {
-        
-    } else {
-        
-        NSMutableArray *array = [NSMutableArray new];
-        for (KiiObject *user in targetUsers) {
-            NSString *userID = [user getObjectForKey:@"userID"];
-            [array addObject:userID];
-        }
-        
-        KiiServerCodeEntry *entry = [Kii serverCodeEntry:@"sendAlert"];
-        NSDictionary *argDict = @{@"users":array};
-        KiiServerCodeEntryArgument *argument = [KiiServerCodeEntryArgument argumentWithDictionary:argDict];
-        [entry execute:argument withBlock:^(KiiServerCodeEntry *entry, KiiServerCodeEntryArgument *argument, KiiServerCodeExecResult *result, NSError *error) {
-            NSDictionary *retDict = [result returnedValue];
-            NSLog(@"retDict:%@",retDict);
-        }];
-    }
+//    if (targetUsers.count == 0) {
+//        
+//    } else {
+//        
+//        NSMutableArray *array = [NSMutableArray new];
+//        for (KiiObject *user in targetUsers) {
+//            NSString *userID = [user getObjectForKey:@"userID"];
+//            [array addObject:userID];
+//        }
+//        
+//        KiiServerCodeEntry *entry = [Kii serverCodeEntry:@"sendAlert"];
+//        NSDictionary *argDict = @{@"users":array};
+//        KiiServerCodeEntryArgument *argument = [KiiServerCodeEntryArgument argumentWithDictionary:argDict];
+//        [entry execute:argument withBlock:^(KiiServerCodeEntry *entry, KiiServerCodeEntryArgument *argument, KiiServerCodeExecResult *result, NSError *error) {
+//            NSDictionary *retDict = [result returnedValue];
+//            NSLog(@"retDict:%@",retDict);
+//        }];
+//    }
 }
 
 
