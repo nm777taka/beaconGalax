@@ -534,7 +534,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="XNB-d8-B19" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2279" y="-1460"/>
+            <point key="canvasLocation" x="2259" y="-1834"/>
         </scene>
         <!--Login View Controller-->
         <scene sceneID="pVw-jq-tED">
@@ -1420,10 +1420,10 @@
             </objects>
             <point key="canvasLocation" x="2191" y="-583"/>
         </scene>
-        <!--Navigation Controller-->
+        <!--Nav View Controller-->
         <scene sceneID="wxP-ki-BZ2">
             <objects>
-                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="kLh-Yn-8RL" sceneMemberID="viewController">
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="kLh-Yn-8RL" customClass="GXNavViewController" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" systemItem="topRated" id="zLs-pg-t7f"/>
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="54I-Gd-eUT">
@@ -1439,10 +1439,10 @@
             </objects>
             <point key="canvasLocation" x="810" y="-1286"/>
         </scene>
-        <!--Navigation Controller-->
+        <!--Nav View Controller-->
         <scene sceneID="zxk-Uq-voJ">
             <objects>
-                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="TyB-1Y-XDs" sceneMemberID="viewController">
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="TyB-1Y-XDs" customClass="GXNavViewController" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" systemItem="mostViewed" id="lKR-Cu-9Lt"/>
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="7Hs-4f-YuS">
@@ -1458,10 +1458,10 @@
             </objects>
             <point key="canvasLocation" x="615" y="-620"/>
         </scene>
-        <!--Navigation Controller-->
+        <!--Nav View Controller-->
         <scene sceneID="h7I-2m-XmY">
             <objects>
-                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="EUH-ot-clK" sceneMemberID="viewController">
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="EUH-ot-clK" customClass="GXNavViewController" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" systemItem="contacts" id="D6g-9X-FfP"/>
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="q4B-Et-0as">
@@ -1477,10 +1477,10 @@
             </objects>
             <point key="canvasLocation" x="-77" y="95"/>
         </scene>
-        <!--Navigation Controller-->
+        <!--Nav View Controller-->
         <scene sceneID="UDK-zq-vgp">
             <objects>
-                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="rQ3-ej-weh" sceneMemberID="viewController">
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="rQ3-ej-weh" customClass="GXNavViewController" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" systemItem="favorites" id="qWO-pg-nM1"/>
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="ODE-YJ-fzy">

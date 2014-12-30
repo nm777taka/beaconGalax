@@ -72,46 +72,38 @@
 {
     [super viewDidLoad];
 	// Do any additional setup after loading the view, typically from a nib.
-    CGFloat topOffset = 0;
+    //どっからデータとってくるかのindex
     _segmentIndex = 0;
-    
-#if __IPHONE_OS_VERSION_MAX_ALLOWED >= 70000
-    [self.view setTintColor:[UIColor blueColor]];
-    
-    topOffset = [[UIApplication sharedApplication] statusBarFrame].size.height + self.navigationController.navigationBar.frame.size.height;
-#endif
-
     
     self.collectionView.delegate = self;
     self.collectionView.dataSource = self;
     self.collectionView.alwaysBounceVertical = YES;
     self.collectionView.backgroundColor = [UIColor sunflowerColor];
     
+    //セルに表示するデータを管理してるクラスのインスタンス
     _questList = [[GXQuestList alloc] initWithDelegate:self]; //delegate設定(del先は俺やで）
     
+    //refreshcontrolを追加
     _refreshControl = [UIRefreshControl new];
     [_refreshControl addTarget:self action:@selector(refresh) forControlEvents:UIControlEventValueChanged];
     [self.collectionView addSubview:_refreshControl];
     
+    //detailViewを取得
     self.detailViewController = [self.storyboard instantiateViewControllerWithIdentifier:@"detail"];
     
+    //ここでinfoトピックを購読してる(必要かどうか...?)
     [[GXTopicManager sharedManager] subscribeInfoTopic];
     
-    //button
-    self.addQuestButton = [UIButton buttonWithType:UIButtonTypeCustom];
-    //デバイス判定いれる
-    BOOL isDeviceIphone4 = [Device isIphone4];
-    if (isDeviceIphone4) {
-        self.addQuestButton.frame = CGRectMake(self.view.center.x - 25, self.view.center.y + 50 , 50, 50);
-    } else {
-        self.addQuestButton.frame = CGRectMake(self.view.center.x - 25, self.view.center.y + 50 + 50, 50, 50);
-    }
+    //NavItem
+    UIImage *image = [UIImage imageNamed:@"someImage"];
+    UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
+    button.frame = CGRectMake(0,0,image.size.width, image.size.height);
+    [button addTarget:self action:@selector(buttonPress) forControlEvents:UIControlEventTouchDown];
+    [button setBackgroundImage:image forState:UIControlStateNormal];
     
-    UIImage *image = [UIImage imageNamed:@"createQuestButton.png"];
-    [self.addQuestButton setImage:image forState:UIControlStateNormal];
-    [self.addQuestButton setImage:image forState:UIControlStateHighlighted];
-    [self.addQuestButton addTarget:self action:@selector(addQuest:) forControlEvents:UIControlEventTouchUpInside];
-    [self.view addSubview:self.addQuestButton];
+    UIBarButtonItem *navLeftButton = [[UIBarButtonItem alloc] initWithCustomView:button];
+    self.navigationItem.leftBarButtonItem = navLeftButton;
+    
 }
 
 - (void)viewWillAppear:(BOOL)animated
