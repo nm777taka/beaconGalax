@@ -9,13 +9,7 @@
 #import "GXStatusViewController.h"
 #import "GXAppDelegate.h"
 #import "GXNavViewController.h"
-#import "GXHomeRootViewController.h"
 #import "GXSettingTableViewController.h"
-#import "GXInviteQuestViewController.h"
-#import "GXJoinedQuestViewController.h"
-#import "GXActivityViewController.h"
-#import "GXLeaderBoardViewController.h"
-#import "GXGalaxterStatusViewController.h"
 #import "UIViewController+REFrostedViewController.h"
 #import "GXStatusViewCell.h"
 #import "GXNotification.h"
@@ -103,6 +97,9 @@
     NSDictionary *userInfo = [GXUserDefaults getUserInfomation];
     self.usrNameLabel.text = userInfo[@"GXUserName"];
     self.iconImageView.profileID = userInfo[@"GXFacebookID"];
+    
+    //fetch
+    [self request];
 }
 
 - (void)viewDidAppear:(BOOL)animated
@@ -212,7 +209,7 @@
 {
     NSInteger rows;
     if (section == 0) {
-        rows = 2;
+        rows = [self.joinedQuestList count];
     } else if(section == 1){
         rows = 3;
     }
@@ -222,10 +219,10 @@
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"Cell" forIndexPath:indexPath];
+    GXStatusViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"Cell" forIndexPath:indexPath];
     
     if (indexPath.section == 0) {
-        cell.textLabel.text = @"sample";
+        cell.quest = [self.joinedQuestList joinedQuestAtIndex:indexPath.row];
     } else if (indexPath.section == 1) {
         cell.textLabel.text = @"cretaed";
     }

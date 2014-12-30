@@ -15,10 +15,11 @@
 
 //表示する要素
 @property (nonatomic,retain) NSString *title;
+@property (nonatomic,retain) NSString *quest_des; //クエスト詳細
 @property (nonatomic,retain) NSString *fb_id;
 @property (nonatomic,retain) NSString *quest_req; //クリア条件
 @property (nonatomic,retain) NSString *quest_status; //クエストの状態
-@property (nonatomic,retain) NSString *quest_des; //クエスト詳細
+@property (nonatomic,retain) NSString *startDateLabel; //クエストを開始する時間
 
 //サポート用
 @property (nonatomic,retain) NSNumber *player_num; //クエストのタイプ(１orマルチ）判定用
@@ -26,6 +27,7 @@
 @property (nonatomic,retain) NSNumber *major; //beaconのmajor値
 @property (nonatomic,retain) NSString *groupURI; //協力クエスト用(グループ参加で使う)
 @property (nonatomic,retain) NSDate *createdDate; //日時表示用
+@property (nonatomic,retain) NSDate *startDate;
 
 //サーバーリクエストキー
 @property (nonatomic,retain) NSString *quest_id;

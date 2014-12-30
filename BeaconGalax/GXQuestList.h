@@ -24,14 +24,10 @@
 + (GXQuestList *)sharedInstance;
 - (instancetype)initWithDelegate:(id<GXQuestListDelegate>)delegate;
 - (NSUInteger)count;
-- (NSUInteger)notjoinQuestCount;
 - (NSUInteger)joinedQuestCount;
-- (NSUInteger)inviteQuestCount;
 
 - (GXQuest *)questAtIndex:(NSUInteger)index;
-- (GXQuest *)notjoinQuestAtIndex:(NSUInteger)index;
 - (GXQuest *)joinedQuestAtIndex:(NSUInteger)index;
-- (GXQuest *)inviteQuestAtIndex:(NSUInteger)index;
 
 //通信
 - (void)requestAsyncronous:(NSUInteger)typeIndex;

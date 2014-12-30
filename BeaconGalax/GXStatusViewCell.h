@@ -7,12 +7,12 @@
 //
 
 #import <UIKit/UIKit.h>
-#import <FlatUIKit.h>
-#import <Facebook.h>
+
+@class GXQuest;
 
 @interface GXStatusViewCell : UITableViewCell
 @property (weak, nonatomic) IBOutlet UILabel *title;
-@property (weak, nonatomic) IBOutlet FBProfilePictureView *createrIcon;
-@property (weak, nonatomic) IBOutlet UILabel *createdDate;
+@property (weak, nonatomic) IBOutlet UILabel *startDateLabel;
+@property (nonatomic,strong) GXQuest *quest;
 
 @end

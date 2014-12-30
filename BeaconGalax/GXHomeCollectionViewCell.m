@@ -37,7 +37,7 @@
 #pragma mark - Setter
 - (void)setQuest:(GXQuest *)quest
 {
-    //レイアウト寒冷
+    //レイアウト
     _titleLable.text = quest.title;
     _createrIcon.profileID = quest.fb_id;
     _createrName.text = quest.createdUserName;

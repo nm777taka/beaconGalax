@@ -16,10 +16,7 @@
 
 @property (nonatomic,weak) id<GXQuestListDelegate> delegate;
 @property (nonatomic,strong) NSArray *questListArray;
-
-@property (nonatomic,strong) NSArray *notJoinQuestList;
 @property (nonatomic,strong) NSArray *joinedQuestList;
-@property (nonatomic,strong) NSArray *inviteQuestList;
 @property (nonatomic) NSUInteger typeIndex;
 
 @end
@@ -55,23 +52,17 @@
     if (self) {
         _delegate = delegate;
         _questListArray = @[];
-        _notJoinQuestList = @[];
         _joinedQuestList = @[];
-        _inviteQuestList = @[];
         _loading = NO;
     }
     
     return self;
 }
 
+//クエストの数を返す
 - (NSUInteger)count
 {
     return _questListArray.count;
-}
-
--(NSUInteger)notjoinQuestCount
-{
-    return _notJoinQuestList.count;
 }
 
 - (NSUInteger)joinedQuestCount
@@ -79,19 +70,10 @@
     return _joinedQuestList.count;
 }
 
-- (NSUInteger)inviteQuestCount
-{
-    return _inviteQuestList.count;
-}
-
+//クエストの要素を取得
 - (GXQuest *)questAtIndex:(NSUInteger)index
 {
     return _questListArray[index];
-}
-
-- (GXQuest *)notjoinQuestAtIndex:(NSUInteger)index
-{
-    return _notJoinQuestList[index];
 }
 
 - (GXQuest *)joinedQuestAtIndex:(NSUInteger)index
@@ -99,10 +81,6 @@
     return _joinedQuestList[index];
 }
 
-- (GXQuest *)inviteQuestAtIndex:(NSUInteger)index
-{
-    return _inviteQuestList[index];
-}
 
 //通信
 - (void)requestAsyncronous:(NSUInteger)typeIndex
@@ -134,6 +112,7 @@
     }
 }
 
+//みんなで共有しているクエストボードバケットから取得
 - (void)handlerNewQuest
 {
     NSLog(@"%s",__PRETTY_FUNCTION__);
@@ -158,6 +137,7 @@
     }];
 }
 
+//自分の受注済みのクエストバケットから取得
 - (void)handlerJoinedQuest
 {
     KiiBucket *bucket = [GXBucketManager sharedManager].joinedQuest;
@@ -172,7 +152,7 @@
             _loading = NO;
 
         } else {
-            _questListArray = @[];
+            _joinedQuestList = @[];
             [self addQuest:results];
             [_delegate questListDidLoad];
             _loading = NO;
@@ -180,6 +160,7 @@
     }];
 }
 
+//これはいらないかも
 - (void)handlerInvitedQuest
 {
     KiiBucket *bucket = [GXBucketManager sharedManager].inviteBoard;
@@ -202,6 +183,7 @@
     }];
 }
 
+//取得したクエストで更新
 - (void)addQuest:(NSArray *)results
 {
     NSMutableArray *newQuestArray = [NSMutableArray arrayWithArray:_questListArray];
@@ -233,8 +215,13 @@
         quest.groupURI = groupURI;
         [newQuestArray addObject:quest];
     }
+    
+    if (self.typeIndex == 0) {
+        _questListArray = newQuestArray;
+    } else if (self.typeIndex == 1) {
+        _joinedQuestList = newQuestArray;
+    }
 
-    _questListArray = newQuestArray;
 }
 
 @end
