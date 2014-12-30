@@ -117,6 +117,8 @@
 		0FB4406619F18745006F857D /* GXQuestExeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0FB4406519F18745006F857D /* GXQuestExeViewController.m */; };
 		0FC0095419E13CB70026A7DC /* GXHomeCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 0FC0095319E13CB70026A7DC /* GXHomeCollectionViewCell.m */; };
 		0FC0095819E259DD0026A7DC /* GXFrostedViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0FC0095719E259DD0026A7DC /* GXFrostedViewController.m */; };
+		0FC67C831A53330D00FD82B2 /* GXDetailHeaderViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 0FC67C821A53330D00FD82B2 /* GXDetailHeaderViewCell.m */; };
+		0FC67C861A53331D00FD82B2 /* GXDetailTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 0FC67C851A53331D00FD82B2 /* GXDetailTableViewCell.m */; };
 		0FC7F0CE1A46ECF200A83BFC /* createQuestButton.png in Resources */ = {isa = PBXBuildFile; fileRef = 0FC7F0CD1A46ECF200A83BFC /* createQuestButton.png */; };
 		0FC928381A30E451002931F1 /* Crashlytics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0FC928361A30E451002931F1 /* Crashlytics.framework */; };
 		0FC928391A30E451002931F1 /* Fabric.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0FC928371A30E451002931F1 /* Fabric.framework */; };
@@ -337,6 +339,10 @@
 		0FC0095319E13CB70026A7DC /* GXHomeCollectionViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GXHomeCollectionViewCell.m; sourceTree = "<group>"; };
 		0FC0095619E259DD0026A7DC /* GXFrostedViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GXFrostedViewController.h; sourceTree = "<group>"; };
 		0FC0095719E259DD0026A7DC /* GXFrostedViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GXFrostedViewController.m; sourceTree = "<group>"; };
+		0FC67C811A53330D00FD82B2 /* GXDetailHeaderViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GXDetailHeaderViewCell.h; sourceTree = "<group>"; };
+		0FC67C821A53330D00FD82B2 /* GXDetailHeaderViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GXDetailHeaderViewCell.m; sourceTree = "<group>"; };
+		0FC67C841A53331D00FD82B2 /* GXDetailTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GXDetailTableViewCell.h; sourceTree = "<group>"; };
+		0FC67C851A53331D00FD82B2 /* GXDetailTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GXDetailTableViewCell.m; sourceTree = "<group>"; };
 		0FC7F0CD1A46ECF200A83BFC /* createQuestButton.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = createQuestButton.png; sourceTree = "<group>"; };
 		0FC928361A30E451002931F1 /* Crashlytics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Crashlytics.framework; sourceTree = "<group>"; };
 		0FC928371A30E451002931F1 /* Fabric.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Fabric.framework; sourceTree = "<group>"; };
@@ -1034,6 +1040,17 @@
 			name = RootViewController;
 			sourceTree = "<group>";
 		};
+		0FC67C801A5332E900FD82B2 /* QuestDetail */ = {
+			isa = PBXGroup;
+			children = (
+				0FC67C811A53330D00FD82B2 /* GXDetailHeaderViewCell.h */,
+				0FC67C821A53330D00FD82B2 /* GXDetailHeaderViewCell.m */,
+				0FC67C841A53331D00FD82B2 /* GXDetailTableViewCell.h */,
+				0FC67C851A53331D00FD82B2 /* GXDetailTableViewCell.m */,
+			);
+			name = QuestDetail;
+			sourceTree = "<group>";
+		};
 		0FC9283A1A3200DB002931F1 /* Device */ = {
 			isa = PBXGroup;
 			children = (
@@ -1195,6 +1212,7 @@
 		0FD26D7C1959F32C005E2B95 /* View */ = {
 			isa = PBXGroup;
 			children = (
+				0FC67C801A5332E900FD82B2 /* QuestDetail */,
 				0F2456161A38DEF300F34724 /* GalaxterStatus */,
 				0F2455EE1A34187C00F34724 /* LeaderBoard */,
 				0F3558431A14C3520023F2FF /* ActivityView */,
@@ -1488,6 +1506,7 @@
 				0F649FED19D1543200D48074 /* GXFooterCell.m in Sources */,
 				0F35585E1A16054F0023F2FF /* GXActivity.m in Sources */,
 				0F35583B1A11FE8F0023F2FF /* GXQuestReadyViewController.m in Sources */,
+				0FC67C831A53330D00FD82B2 /* GXDetailHeaderViewCell.m in Sources */,
 				0F2456201A3A810A00F34724 /* GXVisitQuestExeViewController.m in Sources */,
 				0FA17E4019623FB700158421 /* GXUserManager.m in Sources */,
 				0F2455F91A34968200F34724 /* GXAnimationLabel.m in Sources */,
@@ -1532,6 +1551,7 @@
 				0F4AEA971998D086009879C6 /* GXDictonaryKeys.m in Sources */,
 				0FC928411A32300C002931F1 /* GXLeaderBoardViewController.m in Sources */,
 				0FA17E3D1961B00100158421 /* GXTopicManager.m in Sources */,
+				0FC67C861A53331D00FD82B2 /* GXDetailTableViewCell.m in Sources */,
 				0F2456191A38DF2400F34724 /* GXGalaxterStatusViewCell.m in Sources */,
 				0F2456061A38591C00F34724 /* GXAction.m in Sources */,
 				0FC928451A329CB3002931F1 /* GXPointManager.m in Sources */,

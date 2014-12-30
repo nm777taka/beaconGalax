@@ -20,24 +20,16 @@
 #import "GXNotification.h"
 #import "GXUserManager.h"
 
+#import "GXDetailHeaderViewCell.h"
+#import "GXDetailTableViewCell.h"
+
 #define kNotjoin 0
 #define kJoined 1
 #define kInvite 2
 
-@interface GXQuestDetailViewController()<FUIAlertViewDelegate>
+@interface GXQuestDetailViewController()<FUIAlertViewDelegate,UITableViewDataSource,UITableViewDelegate>
+@property (weak, nonatomic) IBOutlet UITableView *tableView;
 
-@property (weak, nonatomic) IBOutlet UILabel *titleLabel;
-@property (weak, nonatomic) IBOutlet UILabel *descriptionLabel;
-@property (weak, nonatomic) IBOutlet UILabel *createdDateLabel;
-@property (weak, nonatomic) IBOutlet UILabel *createdUserLabel;
-@property (weak, nonatomic) IBOutlet UILabel *questTypeLabel;
-@property (weak, nonatomic) IBOutlet UILabel *questClearReqLabel;
-@property (weak, nonatomic) IBOutlet CSAnimationView *detailPanel;
-@property (weak, nonatomic) IBOutlet FBProfilePictureView *fbIconView;
-- (IBAction)questAction:(id)sender;
-- (IBAction)questDeleteAction:(id)sender;
-- (IBAction)closeAction:(id)sender;
-@property (weak, nonatomic) IBOutlet UIButton *questActionButton;
 
 @property BOOL isOwner;
 @property BOOL isMulti;
@@ -60,7 +52,8 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    _fbIconView.layer.cornerRadius = 20.f;
+    self.tableView.delegate = self;
+    self.tableView.dataSource = self;
     
 }
 
@@ -68,8 +61,8 @@
 {
     [super viewWillAppear:animated];
     
-    self.view.alpha = 1.0f;
-    [self.detailPanel startCanvasAnimation];
+    self.tableView.tableFooterView = [[UIView alloc] initWithFrame:CGRectZero]; //空のcellを表示させないtameni
+    
     [[GXPageViewAnalyzer shareInstance] setPageView:NSStringFromClass([self class])];
     
 }
@@ -83,29 +76,6 @@
 
 - (void)configureDetailPanel
 {
-    //一応再設定
-    _titleLabel.text = _quest.title;
-    [_titleLabel sizeToFit];
-    [self resizeLable:_titleLabel];
-    
-    _fbIconView.profileID = _quest.fb_id;
-    
-    _questClearReqLabel.text = _quest.quest_req;
-    [_questClearReqLabel sizeToFit];
-    [self resizeLable:_questClearReqLabel];
-    
-    _descriptionLabel.text = _quest.quest_des;
-    [_descriptionLabel sizeToFit];
-    [self resizeLable:_descriptionLabel];
-    
-    NSDate *createdDate = _quest.createdDate; //utc
-    
-    NSDateFormatter *df = [NSDateFormatter new];
-    df.dateFormat = @"yyyy-MM-dd 'at' HH:mm";
-    NSString *dfString = [df stringFromDate:createdDate];
-    _createdDateLabel.text = dfString;
-    [_createdDateLabel sizeToFit];
-    [self resizeLable:_createdDateLabel];
     
     _isMulti = [self isMultiQuest];
 }
@@ -118,10 +88,8 @@
 {
     BOOL ret;
     if ([_quest.player_num intValue] > 1) {
-        _questTypeLabel.text = @"みんなでクエスト";
         ret = YES;
     } else {
-        _questTypeLabel.text = @"ひとりでクエスト";
         ret = NO;
     }
     
@@ -174,24 +142,7 @@
     
 }
 
-- (IBAction)closeAction:(id)sender {
-    
-    [self close];
-}
 
-- (void)close
-{
-    [UIView animateWithDuration:0.5f
-                          delay:0.0f
-                        options:UIViewAnimationOptionCurveEaseOut
-                     animations:^{
-                         self.view.alpha = 0.0f;
-                     }
-                     completion:^(BOOL finished) {
-                         [self.view removeFromSuperview];
-                     }];
-
-}
 
 - (void)alertView:(FUIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
 {
@@ -235,7 +186,6 @@
                     
                     [[GXActionAnalyzer sharedInstance] setActionName:GXQuestDelete];
                     
-                    [self close];
                 }
             }];
         }
@@ -280,8 +230,6 @@
                                     CWStatusBarNotification *notis = [CWStatusBarNotification new];
                                     notis.notificationLabelBackgroundColor = [UIColor turquoiseColor];
                                     [notis displayNotificationWithMessage:@"削除しました" forDuration:2.0f];
-                                    
-                                    [self close];
                                     
                                 }];
                             }
@@ -348,7 +296,69 @@
     
 }
 
+#pragma  mark - TableViewDataSource
+- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
+{
+    return 2;
+}
+
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
+{
+    if (section == 0) {
+        return 1;
+    }
+    
+    return 4;
+}
 
 
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    if (indexPath.section == 0) {
+        GXDetailHeaderViewCell *headerCell = [tableView dequeueReusableCellWithIdentifier:@"Header"];
+        return headerCell;
+    }
+    
+    GXDetailTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"Cell" forIndexPath:indexPath];
+    return cell;
+}
+
+- (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section
+{
+ 
+    
+    UIView *view = [[UIView alloc] initWithFrame:CGRectMake(0, 0, tableView.frame.size.width, 34)];
+    
+    view.backgroundColor = [UIColor colorWithRed:167/255.0f green:167/255.0f blue:167/255.0f alpha:0.6f];
+    UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(10, 8, 0, 0)];
+    label.text = @"参加しているメンバ-";
+    label.font = [UIFont systemFontOfSize:15];
+    label.textColor = [UIColor whiteColor];
+    label.backgroundColor = [UIColor clearColor];
+    [label sizeToFit];
+    [view addSubview:label];
+    
+    return view;
+
+
+}
+
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    if (indexPath.section == 0) {
+        return 260.0f;
+    }
+    
+    return 50.0f;
+}
+
+- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
+{
+    if (section == 0) {
+        return 0;
+    }
+    
+    return 34;
+}
 
 @end

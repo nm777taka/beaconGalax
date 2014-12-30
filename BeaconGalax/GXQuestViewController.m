@@ -165,22 +165,24 @@
 {
     _selectedQuest = [_questList questAtIndex:indexPath.row];
     
-    //協力型か一人かチェック
-    if ([self isMultiQuest:indexPath]) {
-        
-        FUIAlertView *alert = [FUIAlertView questInviteAlertTheme];
-        alert.delegate = self;
-        alert.tag = 0;
-        [alert show];
-        
-        
-    } else {
-        FUIAlertView *alert = [FUIAlertView questAcceptAlertTheme];
-        alert.delegate = self;
-        alert.tag = 1;
-        [alert show];
-
-    }
+//    //協力型か一人かチェック
+//    if ([self isMultiQuest:indexPath]) {
+//        
+//        FUIAlertView *alert = [FUIAlertView questInviteAlertTheme];
+//        alert.delegate = self;
+//        alert.tag = 0;
+//        [alert show];
+//        
+//        
+//    } else {
+//        FUIAlertView *alert = [FUIAlertView questAcceptAlertTheme];
+//        alert.delegate = self;
+//        alert.tag = 1;
+//        [alert show];
+//
+//    }
+    
+    [self performSegueWithIdentifier:@"gotoDetail" sender:self];
 }
 
 
