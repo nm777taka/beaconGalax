@@ -116,8 +116,7 @@
 - (void)handlerNewQuest
 {
     NSLog(@"%s",__PRETTY_FUNCTION__);
-    KiiUser *currentUser = [KiiUser currentUser];
-    KiiBucket *bucket = [currentUser bucketWithName:@"notJoined_quest"];
+    KiiBucket *bucket = [Kii bucketWithName:@"quest_board"];
     KiiQuery *query = [KiiQuery queryWithClause:nil];
     [query sortByDesc:@"_created"];
     

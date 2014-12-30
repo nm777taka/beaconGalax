@@ -22,7 +22,10 @@
     // Configure the view for the selected state
 }
 
-- (IBAction)updateAction:(id)sender {
+- (IBAction)updateAction:(id)sender
+{
+    NSString *questID = self.quest.quest_id;
+    
 }
 
 - (IBAction)joinAction:(id)sender {
