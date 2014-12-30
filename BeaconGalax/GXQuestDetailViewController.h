@@ -11,9 +11,10 @@
 #import <Canvas/CSAnimation.h>
 #import <Canvas/CSAnimationView.h>
 #import <Facebook.h>
-#import "GXQuest.h"
+
+@class GXQuest;
 @interface GXQuestDetailViewController : UIViewController
 
-@property GXQuest *quest;
+@property (nonatomic,strong) GXQuest *quest;
 
 @end

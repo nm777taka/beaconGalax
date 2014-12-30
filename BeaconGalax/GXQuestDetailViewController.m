@@ -22,6 +22,8 @@
 
 #import "GXDetailHeaderViewCell.h"
 #import "GXDetailTableViewCell.h"
+#import "GXQuestList.h"
+#import "GXQuest.h"
 
 #define kNotjoin 0
 #define kJoined 1
@@ -316,6 +318,7 @@
 {
     if (indexPath.section == 0) {
         GXDetailHeaderViewCell *headerCell = [tableView dequeueReusableCellWithIdentifier:@"Header"];
+        headerCell.quest = self.quest;
         return headerCell;
     }
     

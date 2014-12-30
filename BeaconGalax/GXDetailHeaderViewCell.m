@@ -7,6 +7,8 @@
 //
 
 #import "GXDetailHeaderViewCell.h"
+#import "GXQuest.h"
+#import "GXQuestList.h"
 
 @implementation GXDetailHeaderViewCell
 
@@ -27,5 +29,22 @@
 }
 
 - (IBAction)deleteAction:(id)sender {
+}
+
+#pragma mark - Data
+
+- (void)setQuest:(GXQuest *)quest
+{
+    self.nameLabel.text = quest.createdUserName;
+    self.titleLabel.text = quest.title;
+    self.iconView.profileID = quest.fb_id;
+    self.detailTextView.text = quest.quest_des;
+    
+    NSDate *createdDate = quest.createdDate;
+    NSDateFormatter *df = [NSDateFormatter new];
+    df.dateFormat = @"yyyy/MM/dd HH:mm";
+    NSString *dfString = [df stringFromDate:createdDate];
+    self.dateLabel.text = dfString;
+    
 }
 @end

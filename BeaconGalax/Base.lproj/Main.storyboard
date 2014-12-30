@@ -1274,7 +1274,7 @@
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="Evk-O2-fqw" id="tBZ-a9-HMu">
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ZQd-2k-02y">
+                                                <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ZQd-2k-02y" customClass="FBProfilePictureView">
                                                     <rect key="frame" x="8" y="8" width="50" height="50"/>
                                                     <color key="backgroundColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                                 </view>
@@ -1329,8 +1329,8 @@
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="OuE-XC-sbC">
-                                                    <rect key="frame" x="19" y="214" width="46" height="30"/>
-                                                    <state key="normal" title="Button">
+                                                    <rect key="frame" x="19" y="215" width="54" height="30"/>
+                                                    <state key="normal" title="Update">
                                                         <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                                     </state>
                                                     <connections>
@@ -1339,7 +1339,7 @@
                                                 </button>
                                                 <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="UTp-Tb-Art">
                                                     <rect key="frame" x="133" y="214" width="46" height="30"/>
-                                                    <state key="normal" title="Button">
+                                                    <state key="normal" title="JOIN">
                                                         <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                                     </state>
                                                     <connections>
@@ -1366,7 +1366,7 @@
                                         <connections>
                                             <outlet property="dateLabel" destination="Rg3-Hb-tbx" id="fSK-I0-Mo7"/>
                                             <outlet property="detailTextView" destination="tAy-1j-nua" id="c1v-CW-uYr"/>
-                                            <outlet property="iconView" destination="ZQd-2k-02y" id="NL6-wH-zAX"/>
+                                            <outlet property="iconView" destination="ZQd-2k-02y" id="VH1-7F-I79"/>
                                             <outlet property="joinLabel" destination="dnc-5c-voI" id="cZd-sw-JQZ"/>
                                             <outlet property="nameLabel" destination="EuD-gL-wu9" id="7cP-SZ-a8x"/>
                                             <outlet property="titleLabel" destination="296-TJ-QMo" id="eAr-P8-yw9"/>
@@ -1393,7 +1393,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="4WS-ee-V1q" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1555" y="-620"/>
+            <point key="canvasLocation" x="1555" y="-621"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="pkc-4p-zdi">

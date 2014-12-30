@@ -165,6 +165,7 @@
 {
     _selectedQuest = [_questList questAtIndex:indexPath.row];
     
+    
 //    //協力型か一人かチェック
 //    if ([self isMultiQuest:indexPath]) {
 //        
@@ -254,6 +255,9 @@
         GXQuestReadyViewController *vc = segue.destinationViewController;
         vc.willExeQuest = _selectedObject;
         vc.selectedQuestGroup = _selectedQuestGroup;
+    } else if ([[segue identifier] isEqualToString:@"gotoDetail"]){
+        GXQuestDetailViewController *vc = segue.destinationViewController;
+        vc.quest = _selectedQuest;
     }
 }
 

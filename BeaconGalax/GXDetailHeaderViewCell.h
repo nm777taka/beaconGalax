@@ -8,8 +8,10 @@
 
 #import <UIKit/UIKit.h>
 
+@class GXQuest;
+
 @interface GXDetailHeaderViewCell : UITableViewCell
-@property (weak, nonatomic) IBOutlet UIView *iconView;
+@property (weak, nonatomic) IBOutlet FBProfilePictureView *iconView;
 @property (weak, nonatomic) IBOutlet UILabel *nameLabel;
 @property (weak, nonatomic) IBOutlet UILabel *titleLabel;
 @property (weak, nonatomic) IBOutlet UITextView *detailTextView;
@@ -19,5 +21,7 @@
 - (IBAction)updateAction:(id)sender;
 - (IBAction)joinAction:(id)sender;
 - (IBAction)deleteAction:(id)sender;
+
+@property(nonatomic,strong) GXQuest *quest;
 
 @end
