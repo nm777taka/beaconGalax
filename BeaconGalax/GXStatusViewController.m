@@ -25,8 +25,12 @@
 #import "GXUserDefaults.h"
 #import "GXPointManager.h"
 
+//model
+#import "GXQuestList.h"
+#import "GXQuest.h"
 
-@interface GXStatusViewController ()<UITableViewDataSource,UITableViewDelegate>
+
+@interface GXStatusViewController ()<UITableViewDataSource,UITableViewDelegate,GXQuestListDelegate>
 
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 @property (weak, nonatomic) IBOutlet FBProfilePictureView *iconImageView;
@@ -36,7 +40,7 @@
 @property (weak, nonatomic) IBOutlet UIProgressView *rankProgressView;
 @property (weak, nonatomic) IBOutlet UILabel *requirePointLabel;
 
-
+@property (nonatomic,strong) GXQuestList *joinedQuestList;
 @property KiiObject *gxUser;
 
 @end
@@ -85,6 +89,9 @@
     //requirePoint
     self.requirePointLabel.font = [UIFont fontWithName:@"HelveticaNeue" size:13];
     self.requirePointLabel.textColor = [UIColor colorWithRed:62/255.0f green:68/255.0f blue:75/255.0f alpha:1.0f];
+    
+    //modelの設定
+    self.joinedQuestList = [[GXQuestList alloc] initWithDelegate:self];
     
 }
 
@@ -152,54 +159,40 @@
     cell.textLabel.font = [UIFont fontWithName:@"HelveticaNeue" size:17];
 }
 
-//- (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section
-//{
-//    if (section == 0)
-//        return nil;
-//    
-//    UIView *view = [[UIView alloc] initWithFrame:CGRectMake(0, 0, tableView.frame.size.width, 34)];
-//    view.backgroundColor = [UIColor colorWithRed:167/255.0f green:167/255.0f blue:167/255.0f alpha:0.6f];
-//    
-//    UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(10, 8, 0, 0)];
-//    label.text = @"FriendsStatus";
-//    label.font = [UIFont boldFlatFontOfSize:15];
-//    label.textColor = [UIColor whiteColor];
-//    label.backgroundColor = [UIColor clearColor];
-//    [label sizeToFit];
-//    [view addSubview:label];
-//    
-//    return view;
-//
-//}
+- (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section
+{
+    UIView *view = [[UIView alloc] initWithFrame:CGRectMake(0, 0, tableView.frame.size.width, 34)];
+    view.backgroundColor = [UIColor colorWithRed:167/255.0f green:167/255.0f blue:167/255.0f alpha:0.6f];
+    
+    UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(10, 8, 0, 0)];
+    
+    if (section == 0) {
+        label.text = @"受注済みのクエスト";
+        label.font = [UIFont systemFontOfSize:15];
+        label.textColor = [UIColor whiteColor];
+        label.backgroundColor = [UIColor clearColor];
+        [label sizeToFit];
+        [view addSubview:label];
+    } else if (section == 1) {
+        label.text = @"作ったクエスト";
+        label.font = [UIFont systemFontOfSize:15];
+        label.textColor = [UIColor whiteColor];
+        label.backgroundColor = [UIColor clearColor];
+        [label sizeToFit];
+        [view addSubview:label];
+    }
+    
+    return view;
+
+}
 
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
 {
-    if (section == 0)
-        return 0;
-    
     return 34;
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    [tableView deselectRowAtIndexPath:indexPath animated:YES];
-    GXNavViewController *navController = [self.storyboard instantiateViewControllerWithIdentifier:@"contentController"];
-    
-    if (indexPath.section == 0 && indexPath.row == 0) {
-        GXHomeRootViewController *homeRootView = [self.storyboard instantiateViewControllerWithIdentifier:@"root"];
-        navController.viewControllers = @[homeRootView];
-    } else if (indexPath.section == 0 && indexPath.row == 1) {
-        GXActivityViewController *activityView = [self.storyboard instantiateViewControllerWithIdentifier:@"activityView"];
-        navController.viewControllers = @[activityView];
-    } else if (indexPath.section == 0 && indexPath.row == 2) {
-        GXLeaderBoardViewController *leaderBoardView = [self.storyboard instantiateViewControllerWithIdentifier:@"leaderBoard"];
-        navController.viewControllers = @[leaderBoardView];
-    } else if (indexPath.section == 0 && indexPath.row == 3) {
-        GXGalaxterStatusViewController *galaxterStatusView = [self.storyboard instantiateViewControllerWithIdentifier:@"galaxterStatus"];
-        navController.viewControllers = @[galaxterStatusView];
-    }
-    self.frostedViewController.contentViewController = navController;
-    [self.frostedViewController hideMenuViewController];
 }
 
 #pragma mark -
@@ -212,25 +205,49 @@
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
-    return 1;
+    return 2;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return 4;
+    NSInteger rows;
+    if (section == 0) {
+        rows = 2;
+    } else if(section == 1){
+        rows = 3;
+    }
+    
+    return rows;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"Cell" forIndexPath:indexPath];
     
-    NSArray *titles = @[@"クエスト一覧",@"みんなの動き",@"ステータス",@"みんなの状況"];
-    cell.textLabel.text = titles[indexPath.row];
+    if (indexPath.section == 0) {
+        cell.textLabel.text = @"sample";
+    } else if (indexPath.section == 1) {
+        cell.textLabel.text = @"cretaed";
+    }
 
-    
     return cell;
 }
 
+#pragma data fetch
+- (void)request
+{
+    if (self.joinedQuestList.loading) {
+    
+    }else {
+        [self.joinedQuestList requestAsyncronous:1]; //1(magic number) 参加済みのクエスト
+    }
+}
+
+#pragma makr - QuestList delegate
+- (void)questListDidLoad
+{
+    [self.tableView reloadData];
+}
 
 
 @end
