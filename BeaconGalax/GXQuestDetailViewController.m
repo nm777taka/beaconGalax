@@ -29,7 +29,7 @@
 #define kJoined 1
 #define kInvite 2
 
-@interface GXQuestDetailViewController()<FUIAlertViewDelegate,UITableViewDataSource,UITableViewDelegate>
+@interface GXQuestDetailViewController()<FUIAlertViewDelegate,UITableViewDataSource,UITableViewDelegate,GXHeaderCellDelegate>
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 
 
@@ -57,6 +57,9 @@
     self.tableView.delegate = self;
     self.tableView.dataSource = self;
     
+    //delegateの設定
+  
+    
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -64,6 +67,8 @@
     [super viewWillAppear:animated];
     
     self.tableView.tableFooterView = [[UIView alloc] initWithFrame:CGRectZero]; //空のcellを表示させないtameni
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(questJoined:) name:GXQuestJoinNotification object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(errorHandler:) name:GXErrorNotification object:nil];
     
     [[GXPageViewAnalyzer shareInstance] setPageView:NSStringFromClass([self class])];
     
@@ -74,6 +79,11 @@
     [super viewDidAppear:animated];
     [self configureDetailPanel];
 
+}
+
+- (void)viewDidDisappear:(BOOL)animated
+{
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
 
 - (void)configureDetailPanel
@@ -318,6 +328,7 @@
 {
     if (indexPath.section == 0) {
         GXDetailHeaderViewCell *headerCell = [tableView dequeueReusableCellWithIdentifier:@"Header"];
+        headerCell.delegate = self;
         headerCell.quest = self.quest;
         return headerCell;
     }
@@ -362,6 +373,12 @@
     }
     
     return 34;
+}
+
+#pragma HeaderView delegate
+- (void)joinActionDelegate
+{
+    NSLog(@"joiniiii");
 }
 
 @end

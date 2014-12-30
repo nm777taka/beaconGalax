@@ -10,6 +10,12 @@
 
 @class GXQuest;
 
+@protocol GXHeaderCellDelegate <NSObject>
+
+- (void)joinActionDelegate;
+
+@end
+
 @interface GXDetailHeaderViewCell : UITableViewCell
 @property (weak, nonatomic) IBOutlet FBProfilePictureView *iconView;
 @property (weak, nonatomic) IBOutlet UILabel *nameLabel;
@@ -18,10 +24,13 @@
 @property (weak, nonatomic) IBOutlet UILabel *dateLabel;
 @property (weak, nonatomic) IBOutlet UILabel *updateLabel;
 @property (weak, nonatomic) IBOutlet UILabel *joinLabel;
+@property (nonatomic,assign) id<GXHeaderCellDelegate> delegate;
 - (IBAction)updateAction:(id)sender;
 - (IBAction)joinAction:(id)sender;
 - (IBAction)deleteAction:(id)sender;
 
 @property(nonatomic,strong) GXQuest *quest;
+
+
 
 @end

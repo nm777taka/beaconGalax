@@ -381,24 +381,46 @@
     [newObj saveSynchronous:&error];
 }
 
-- (void)acceptNewQuest:(KiiObject *)obj
+- (void)acceptNewQuest:(NSString *)questId
 {
-    NSDictionary *dict = obj.dictionaryValue;
-    NSArray *allKeys = dict.allKeys;
-    KiiObject *newObj = [self.joinedQuest createObject];
-    for (NSString *key in allKeys) {
-        [newObj setObject:dict[key] forKey:key];
-    }
-    
-    [newObj saveWithBlock:^(KiiObject *object, NSError *error) {
-        if (error) {
-            NSLog(@"registerNewQuestError:%@",error);
+    NSString *questID = questId;
+    KiiBucket *bucket = [Kii bucketWithName:@"quest_board"];
+    KiiClause *clause = [KiiClause equals:@"id" value:questID];
+    KiiQuery *query = [KiiQuery queryWithClause:clause];
+    [bucket executeQuery:query withBlock:^(KiiQuery *query, KiiBucket *bucket, NSArray *results, KiiQuery *nextQuery, NSError *error) {
+        if (!error) {
+            
+            if (results.count > 1) {
+                //２個同じクエストがあるかチェック
+                //notification
+                [[NSNotificationCenter defaultCenter] postNotificationName:GXErrorNotification object:@"既に参加済みです"];
+
+                return ;
+            }
+            
+            KiiObject *obj = results.firstObject;
+            NSDictionary *dict = obj.dictionaryValue;
+            NSArray *allKeys = dict.allKeys;
+            KiiObject *newObj = [self.joinedQuest createObject];
+            for (NSString *key in allKeys) {
+                [newObj setObject:dict[key] forKey:key];
+            }
+            
+            [newObj saveWithBlock:^(KiiObject *object, NSError *error) {
+                if (error) {
+                    //notis]
+                    [[NSNotificationCenter defaultCenter] postNotificationName:GXQuestJoinNotification object:nil];
+                    
+                } else {
+                    //error表示
+                    [[NSNotificationCenter defaultCenter] postNotificationName:GXErrorNotification object:@"クエストの受注に失敗"];
+                }
+            }];
+            
         } else {
-            [self countJoinedBucket];
-            [self countNotJoinBucket];
+            [[NSNotificationCenter defaultCenter] postNotificationName:GXErrorNotification object:@"通信エラー"];
         }
     }];
-
 }
 
 //Quest_boardからnot_joinedにフェッチ

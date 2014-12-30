@@ -9,6 +9,7 @@
 #import "GXDetailHeaderViewCell.h"
 #import "GXQuest.h"
 #import "GXQuestList.h"
+#import "GXNotification.h"
 
 @implementation GXDetailHeaderViewCell
 
@@ -22,13 +23,19 @@
     // Configure the view for the selected state
 }
 
+//とりあえず保留
 - (IBAction)updateAction:(id)sender
 {
-    NSString *questID = self.quest.quest_id;
+    //作成者以外がupdateできる
     
 }
 
-- (IBAction)joinAction:(id)sender {
+- (IBAction)joinAction:(id)sender
+{
+    if ([self.delegate respondsToSelector:@selector(joinActionDelegate)]){
+        NSLog(@"delegateメソッドをよぶ");
+        [self.delegate joinActionDelegate];
+    }
 }
 
 - (IBAction)deleteAction:(id)sender {

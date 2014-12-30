@@ -75,4 +75,7 @@ UIKIT_EXTERN NSString *const GXBucketObjectCountNotification;
 //ユーザに紐付いたbeaconからfbidを取得
 UIKIT_EXTERN NSString *const GXGetTargetBeaconUserFbidNotification;
 
+//エラー全般
+UIKIT_EXTERN NSString *const GXErrorNotification;
+
 @end
