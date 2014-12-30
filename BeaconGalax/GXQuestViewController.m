@@ -537,4 +537,10 @@
     [self performSegueWithIdentifier:@"gotoCreateView" sender:self];
 }
 
+#pragma mark BarButton + Badge
+- (void)buttonPress
+{
+    [self.frostedViewController presentMenuViewController];
+}
+
 @end

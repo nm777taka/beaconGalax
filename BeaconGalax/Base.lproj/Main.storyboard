@@ -40,7 +40,7 @@
                                 <rect key="frame" x="0.0" y="0.0" width="280" height="568"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <view key="tableHeaderView" contentMode="scaleToFill" id="kLF-iz-gdh">
-                                    <rect key="frame" x="0.0" y="0.0" width="280" height="140"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="280" height="201"/>
                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                     <subviews>
                                         <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="DbB-wc-VQf" customClass="FBProfilePictureView">
@@ -48,7 +48,7 @@
                                             <color key="backgroundColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                         </view>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text=" name" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="JEG-km-7SO">
-                                            <rect key="frame" x="96" y="45" width="140" height="20"/>
+                                            <rect key="frame" x="96" y="45" width="140" height="21"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="16"/>
                                             <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                             <nil key="highlightedColor"/>
@@ -74,6 +74,27 @@
                                             <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                             <nil key="highlightedColor"/>
                                         </label>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Rank" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="H9A-W7-Na5">
+                                            <rect key="frame" x="96" y="97" width="140" height="21"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                            <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="次のランクまで" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="cBt-oS-ydh">
+                                            <rect key="frame" x="8" y="139" width="96" height="21"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="13"/>
+                                            <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                        <progressView opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="750" fixedFrame="YES" progress="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="Ss0-9e-a6L">
+                                            <rect key="frame" x="8" y="168" width="156" height="2"/>
+                                        </progressView>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="あと235pt" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="WdB-iX-kix">
+                                            <rect key="frame" x="181" y="158" width="91" height="21"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="13"/>
+                                            <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
                                     </subviews>
                                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 </view>
@@ -97,6 +118,9 @@
                     <size key="freeformSize" width="280" height="568"/>
                     <connections>
                         <outlet property="iconImageView" destination="DbB-wc-VQf" id="wz9-fi-D3x"/>
+                        <outlet property="rankLabel" destination="H9A-W7-Na5" id="EWt-gd-Ijm"/>
+                        <outlet property="rankProgressView" destination="Ss0-9e-a6L" id="A6W-hG-ZNs"/>
+                        <outlet property="requirePointLabel" destination="WdB-iX-kix" id="vN9-6F-qGY"/>
                         <outlet property="tableView" destination="WiM-xI-N4G" id="PGn-Le-CGa"/>
                         <outlet property="userLocationStatusLabel" destination="Wgf-da-vWZ" id="YS2-XK-Uwo"/>
                         <outlet property="usrNameLabel" destination="JEG-km-7SO" id="5Zg-dN-Yng"/>

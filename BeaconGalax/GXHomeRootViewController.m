@@ -205,7 +205,6 @@
 #pragma mark BarButton + Badge
 - (void)buttonPress
 {
-    NSLog(@"buttonPress");
     [self.frostedViewController presentMenuViewController];
 }
 
