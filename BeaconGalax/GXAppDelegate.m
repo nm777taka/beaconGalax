@@ -78,7 +78,7 @@ compare:v options:NSNumericSearch] == NSOrderedAscending)
     NSError *error;
     NSString *accessToken = [GXUserDefaults getAccessToken];
     if (accessToken) {
-        
+        NSLog(@"acesstoken");
         [KiiUser authenticateWithTokenSynchronous:accessToken andError:&error];
         if (!error) {
             //[[NSNotificationCenter defaultCenter] postNotificationName:GXLoginSuccessedNotification object:nil];

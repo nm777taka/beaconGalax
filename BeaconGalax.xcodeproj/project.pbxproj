@@ -146,6 +146,7 @@
 		0FDD5FC51A21813F00FBC852 /* GXUserDefaults.m in Sources */ = {isa = PBXBuildFile; fileRef = 0FDD5FC41A21813F00FBC852 /* GXUserDefaults.m */; };
 		0FF16CE9197F86DB00B02702 /* NSMutableArray+Extended.m in Sources */ = {isa = PBXBuildFile; fileRef = 0FF16CE8197F86DB00B02702 /* NSMutableArray+Extended.m */; };
 		0FF87EBF1A2E1E0C00798090 /* GXGoogleFormViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0FF87EBE1A2E1E0C00798090 /* GXGoogleFormViewController.m */; };
+		0FFB98D41A4FEF050042EADF /* GXRestAPIViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0FFB98D31A4FEF050042EADF /* GXRestAPIViewController.m */; };
 		CEEFFA2740D749D0AE5B5B2D /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 0F597A99B7864A4393B072E4 /* libPods.a */; };
 /* End PBXBuildFile section */
 
@@ -386,6 +387,8 @@
 		0FF16CE8197F86DB00B02702 /* NSMutableArray+Extended.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSMutableArray+Extended.m"; sourceTree = "<group>"; };
 		0FF87EBD1A2E1E0C00798090 /* GXGoogleFormViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GXGoogleFormViewController.h; sourceTree = "<group>"; };
 		0FF87EBE1A2E1E0C00798090 /* GXGoogleFormViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GXGoogleFormViewController.m; sourceTree = "<group>"; };
+		0FFB98D21A4FEF050042EADF /* GXRestAPIViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GXRestAPIViewController.h; sourceTree = "<group>"; };
+		0FFB98D31A4FEF050042EADF /* GXRestAPIViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GXRestAPIViewController.m; sourceTree = "<group>"; };
 		E359C94E1AFB4D60B499DEE6 /* Pods.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.xcconfig; path = Pods/Pods.xcconfig; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -845,6 +848,8 @@
 				0F35582A1A11971E0023F2FF /* MVC */,
 				0F7A25AB19587ADE001B7839 /* Images.xcassets */,
 				0F7A259A19587ADE001B7839 /* Supporting Files */,
+				0FFB98D21A4FEF050042EADF /* GXRestAPIViewController.h */,
+				0FFB98D31A4FEF050042EADF /* GXRestAPIViewController.m */,
 			);
 			path = BeaconGalax;
 			sourceTree = "<group>";
@@ -1529,6 +1534,7 @@
 				0FD26D8D195A9820005E2B95 /* GXNotification.m in Sources */,
 				0F7881FF1988D1C3002783D6 /* GXViewConst.m in Sources */,
 				0F35584B1A15C4F90023F2FF /* GXAcivityManager.m in Sources */,
+				0FFB98D41A4FEF050042EADF /* GXRestAPIViewController.m in Sources */,
 				0F4AEA971998D086009879C6 /* GXDictonaryKeys.m in Sources */,
 				0FC928411A32300C002931F1 /* GXLeaderBoardViewController.m in Sources */,
 				0FA17E3D1961B00100158421 /* GXTopicManager.m in Sources */,
