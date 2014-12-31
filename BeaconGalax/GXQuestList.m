@@ -189,7 +189,7 @@
     
     for (KiiObject *obj in results) {
         NSString *title = [obj getObjectForKey:quest_title];
-        NSString *fbid = [obj getObjectForKey:quest_owner_fbid];
+        NSString *fbid = [obj getObjectForKey:quest_createdUser_fbid];
         NSString *questID = obj.objectURI;
         NSString *questReq = [obj getObjectForKey:quest_requirement];
         NSString *questDes = [obj getObjectForKey:quest_description];

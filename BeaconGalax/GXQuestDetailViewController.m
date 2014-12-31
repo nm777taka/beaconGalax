@@ -376,9 +376,24 @@
 }
 
 #pragma HeaderView delegate
-- (void)joinActionDelegate
+- (void)joinActionDelegate:(GXQuest *)quest
 {
-    NSLog(@"joiniiii");
+    [[GXBucketManager sharedManager] acceptNewQuest:quest];
+}
+
+#pragma mark - GXNotification
+- (void)questJoined:(NSNotification *)notis
+{
+    CWStatusBarNotification *notification = [CWStatusBarNotification new];
+    notification.notificationLabelBackgroundColor = [UIColor turquoiseColor];
+    [notification displayNotificationWithMessage:@"クエストを受注しました" forDuration:2.0f];
+}
+- (void)errorHandler:(NSNotification *)notis
+{
+    NSString *msg = notis.object;
+    CWStatusBarNotification *notification = [CWStatusBarNotification new];
+    notification.notificationLabelBackgroundColor = [UIColor alizarinColor];
+    [notification displayNotificationWithMessage:msg forDuration:2.0f];
 }
 
 @end

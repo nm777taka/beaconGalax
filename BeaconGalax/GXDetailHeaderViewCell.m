@@ -32,9 +32,9 @@
 
 - (IBAction)joinAction:(id)sender
 {
-    if ([self.delegate respondsToSelector:@selector(joinActionDelegate)]){
-        NSLog(@"delegateメソッドをよぶ");
-        [self.delegate joinActionDelegate];
+    if ([self.delegate respondsToSelector:@selector(joinActionDelegate:)]){
+        
+        [self.delegate joinActionDelegate:self.quest];
     }
 }
 

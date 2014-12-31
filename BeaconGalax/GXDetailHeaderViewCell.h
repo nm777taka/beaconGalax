@@ -12,7 +12,7 @@
 
 @protocol GXHeaderCellDelegate <NSObject>
 
-- (void)joinActionDelegate;
+- (void)joinActionDelegate:(GXQuest *)quest;
 
 @end
 
