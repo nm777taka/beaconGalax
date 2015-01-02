@@ -21,6 +21,8 @@
 
 @end
 
+#define kQuestTypeNew 0
+#define kQuestTypeJoined 1
 
 @implementation GXQuestList
 
@@ -85,7 +87,6 @@
 //通信
 - (void)requestAsyncronous:(NSUInteger)typeIndex
 {
-    NSLog(@"%s",__PRETTY_FUNCTION__);
     _loading =YES;
     _typeIndex = typeIndex;
     [self performSelector:@selector(requestAsyncronousDone) withObject:self afterDelay:1.0];
@@ -104,7 +105,6 @@
             break;
             
         case 2:
-            [self handlerInvitedQuest];
             break;
             
         default:
@@ -115,7 +115,6 @@
 //みんなで共有しているクエストボードバケットから取得
 - (void)handlerNewQuest
 {
-    NSLog(@"%s",__PRETTY_FUNCTION__);
     KiiBucket *bucket = [Kii bucketWithName:@"quest_board"];
     KiiQuery *query = [KiiQuery queryWithClause:nil];
     [query sortByDesc:@"_created"];
@@ -129,7 +128,7 @@
             _loading = NO;
         } else {
             _questListArray = @[];
-            [self addQuest:results];
+            [self addQuest:results questType:kQuestTypeNew];
             [_delegate questListDidLoad];
             _loading = NO;
         }
@@ -139,7 +138,7 @@
 //自分の受注済みのクエストバケットから取得
 - (void)handlerJoinedQuest
 {
-    KiiBucket *bucket = [GXBucketManager sharedManager].joinedQuest;
+    KiiBucket *bucket = [[KiiUser currentUser] bucketWithName:@"joined_quest"];
     KiiQuery *query = [KiiQuery queryWithClause:nil];
     [query sortByDesc:@"_created"];
     [bucket executeQuery:query withBlock:^(KiiQuery *query, KiiBucket *bucket, NSArray *results, KiiQuery *nextQuery, NSError *error) {
@@ -152,7 +151,7 @@
 
         } else {
             _joinedQuestList = @[];
-            [self addQuest:results];
+            [self addQuest:results questType:kQuestTypeJoined];
             [_delegate questListDidLoad];
             _loading = NO;
         }
@@ -160,32 +159,38 @@
 }
 
 //これはいらないかも
-- (void)handlerInvitedQuest
-{
-    KiiBucket *bucket = [GXBucketManager sharedManager].inviteBoard;
-    KiiQuery *query = [KiiQuery queryWithClause:nil];
-    [query sortByDesc:@"_created"];
-    [bucket executeQuery:query withBlock:^(KiiQuery *query, KiiBucket *bucket, NSArray *results, KiiQuery *nextQuery, NSError *error) {
-        if (error) {
-            CWStatusBarNotification *notis = [CWStatusBarNotification new];
-            notis.notificationLabelBackgroundColor = [UIColor redColor];
-            [notis displayNotificationWithMessage:@"通信エラー" forDuration:2.0f];
-            [_delegate questListDidLoad];
-            _loading = NO;
+//- (void)handlerInvitedQuest
+//{
+//    KiiBucket *bucket = [GXBucketManager sharedManager].inviteBoard;
+//    KiiQuery *query = [KiiQuery queryWithClause:nil];
+//    [query sortByDesc:@"_created"];
+//    [bucket executeQuery:query withBlock:^(KiiQuery *query, KiiBucket *bucket, NSArray *results, KiiQuery *nextQuery, NSError *error) {
+//        if (error) {
+//            CWStatusBarNotification *notis = [CWStatusBarNotification new];
+//            notis.notificationLabelBackgroundColor = [UIColor redColor];
+//            [notis displayNotificationWithMessage:@"通信エラー" forDuration:2.0f];
+//            [_delegate questListDidLoad];
+//            _loading = NO;
+//
+//        } else {
+//            _questListArray = @[];
+//            [self addQuest:results];
+//            [_delegate questListDidLoad];
+//            _loading = NO;
+//        }
+//    }];
+//}
 
-        } else {
-            _questListArray = @[];
-            [self addQuest:results];
-            [_delegate questListDidLoad];
-            _loading = NO;
-        }
-    }];
-}
-
+//internal
 //取得したクエストで更新
-- (void)addQuest:(NSArray *)results
+- (void)addQuest:(NSArray *)results questType:(NSInteger)questType
 {
-    NSMutableArray *newQuestArray = [NSMutableArray arrayWithArray:_questListArray];
+    NSMutableArray *questArray;
+    if (questType == kQuestTypeNew ) {
+        questArray = [NSMutableArray arrayWithArray:_questListArray];
+    } else if (questType == kQuestTypeJoined) {
+        questArray = [NSMutableArray arrayWithArray:_joinedQuestList];
+    }
     
     for (KiiObject *obj in results) {
         NSString *title = [obj getObjectForKey:quest_title];
@@ -212,13 +217,13 @@
         quest.createdUserName = createdUserName;
         quest.createdDate = date;
         quest.groupURI = groupURI;
-        [newQuestArray addObject:quest];
+        [questArray addObject:quest];
     }
     
-    if (self.typeIndex == 0) {
-        _questListArray = newQuestArray;
-    } else if (self.typeIndex == 1) {
-        _joinedQuestList = newQuestArray;
+    if (questType == kQuestTypeNew) {
+        _questListArray = questArray;
+    } else if (questType == kQuestTypeJoined) {
+        _joinedQuestList = questArray;
     }
 
 }

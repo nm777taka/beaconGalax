@@ -34,7 +34,7 @@
 @property (weak, nonatomic) IBOutlet UIProgressView *rankProgressView;
 @property (weak, nonatomic) IBOutlet UILabel *requirePointLabel;
 
-@property (nonatomic,strong) GXQuestList *joinedQuestList;
+@property (nonatomic,strong) GXQuestList *questList;
 @property KiiObject *gxUser;
 
 @end
@@ -85,7 +85,7 @@
     self.requirePointLabel.textColor = [UIColor colorWithRed:62/255.0f green:68/255.0f blue:75/255.0f alpha:1.0f];
     
     //modelの設定
-    self.joinedQuestList = [[GXQuestList alloc] initWithDelegate:self];
+    self.questList = [[GXQuestList alloc] initWithDelegate:self];
     
 }
 
@@ -209,7 +209,7 @@
 {
     NSInteger rows;
     if (section == 0) {
-        rows = [self.joinedQuestList count];
+        rows = [self.questList joinedQuestCount];
     } else if(section == 1){
         rows = 3;
     }
@@ -222,9 +222,8 @@
     GXStatusViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"Cell" forIndexPath:indexPath];
     
     if (indexPath.section == 0) {
-        cell.quest = [self.joinedQuestList joinedQuestAtIndex:indexPath.row];
+        cell.quest = [self.questList joinedQuestAtIndex:indexPath.row];
     } else if (indexPath.section == 1) {
-        cell.textLabel.text = @"cretaed";
     }
 
     return cell;
@@ -233,10 +232,10 @@
 #pragma data fetch
 - (void)request
 {
-    if (self.joinedQuestList.loading) {
+    if (self.questList.loading) {
     
     }else {
-        [self.joinedQuestList requestAsyncronous:1]; //1(magic number) 参加済みのクエスト
+        [self.questList requestAsyncronous:1]; //1(magic number) 参加済みのクエスト
     }
 }
 
