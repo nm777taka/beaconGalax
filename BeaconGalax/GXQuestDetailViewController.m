@@ -31,6 +31,7 @@
 
 @interface GXQuestDetailViewController()<FUIAlertViewDelegate,UITableViewDataSource,UITableViewDelegate,GXHeaderCellDelegate>
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
+- (IBAction)closeAction:(id)sender;
 
 
 @property BOOL isOwner;
@@ -320,7 +321,7 @@
         return 1;
     }
     
-    return 4;
+    return 0;
 }
 
 
@@ -396,4 +397,8 @@
     [notification displayNotificationWithMessage:msg forDuration:2.0f];
 }
 
+#pragma mark - ButtonAction
+- (IBAction)closeAction:(id)sender {
+    [self dismissViewControllerAnimated:YES completion:nil];
+}
 @end

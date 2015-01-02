@@ -255,7 +255,7 @@
         vc.willExeQuest = _selectedObject;
         vc.selectedQuestGroup = _selectedQuestGroup;
     } else if ([[segue identifier] isEqualToString:@"gotoDetail"]){
-        GXQuestDetailViewController *vc = segue.destinationViewController;
+        GXQuestDetailViewController *vc = (GXQuestDetailViewController *)[(UINavigationController *)segue.destinationViewController topViewController];
         vc.quest = _selectedQuest;
     }
 }

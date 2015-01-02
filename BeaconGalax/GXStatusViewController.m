@@ -11,6 +11,8 @@
 #import "GXNavViewController.h"
 #import "GXSettingTableViewController.h"
 #import "UIViewController+REFrostedViewController.h"
+#import "GXQuestDetailViewController.h"
+
 #import "GXStatusViewCell.h"
 #import "GXNotification.h"
 #import "GXBucketManager.h"
@@ -36,6 +38,7 @@
 @property (weak, nonatomic) IBOutlet UILabel *requirePointLabel;
 
 @property (nonatomic,strong) GXQuestList *questList;
+@property GXQuest *selectedQuest;
 @property KiiObject *gxUser;
 
 @end
@@ -196,6 +199,8 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
+    _selectedQuest = [self.questList joinedQuestAtIndex:indexPath.row];
+    [self performSegueWithIdentifier:@"gotoDetail" sender:self];
 }
 
 #pragma mark -
@@ -260,6 +265,15 @@
         [_refreshControl endRefreshing];
     } afterDelay:1.0f];
     
+}
+
+#pragma mark - Segue
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
+{
+    if ([segue.identifier isEqualToString:@"gotoDetail"]) {
+        GXQuestDetailViewController *vc = (GXQuestDetailViewController *)[(UINavigationController *)[segue destinationViewController] topViewController];
+        vc.quest = _selectedQuest;
+    }
 }
 
 
