@@ -18,6 +18,7 @@
 #import "GXDictonaryKeys.h"
 #import "GXUserDefaults.h"
 #import "GXPointManager.h"
+#import "NSObject+BlocksWait.h"
 
 //model
 #import "GXQuestList.h"
@@ -40,6 +41,7 @@
 @end
 
 @implementation GXStatusViewController{
+    UIRefreshControl *_refreshControl;
 }
 
 - (void)viewDidLoad {
@@ -87,6 +89,10 @@
     //modelの設定
     self.questList = [[GXQuestList alloc] initWithDelegate:self];
     
+    //refreshControl
+    _refreshControl = [UIRefreshControl new];
+    [_refreshControl addTarget:self action:@selector(refresh:) forControlEvents:UIControlEventValueChanged];
+    [self.tableView addSubview:_refreshControl];
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -211,7 +217,7 @@
     if (section == 0) {
         rows = [self.questList joinedQuestCount];
     } else if(section == 1){
-        rows = 3;
+        rows = 0;
     }
     
     return rows;
@@ -243,6 +249,17 @@
 - (void)questListDidLoad
 {
     [self.tableView reloadData];
+}
+
+#pragma mark - RefreshControlEvent
+- (void)refresh:(UIRefreshControl *)sender
+{
+    //データの更新
+    [self request];
+    [NSObject performBlock:^{
+        [_refreshControl endRefreshing];
+    } afterDelay:1.0f];
+    
 }
 
 

@@ -207,7 +207,6 @@
 #pragma  mark - refresh
 - (void)refresh
 {
-    NSLog(@"pull-refresh");
     [self request:0];
     [NSTimer scheduledTimerWithTimeInterval:1.f target:self selector:@selector(endRefresh) userInfo:nil repeats:NO];
 }
