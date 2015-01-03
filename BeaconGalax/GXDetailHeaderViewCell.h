@@ -13,6 +13,9 @@
 @protocol GXHeaderCellDelegate <NSObject>
 
 - (void)joinActionDelegate:(GXQuest *)quest;
+- (void)questStatrtDelegate:(GXQuest *)quest;
+- (void)questCacelDelegate:(GXQuest *)quest;
+- (void)questDeleteDelgate:(GXQuest *)quest;
 
 @end
 
@@ -25,12 +28,16 @@
 @property (weak, nonatomic) IBOutlet UILabel *updateLabel;
 @property (weak, nonatomic) IBOutlet UILabel *joinLabel;
 @property (nonatomic,assign) id<GXHeaderCellDelegate> delegate;
+@property (weak, nonatomic) IBOutlet UIButton *joinButton;
+@property (weak, nonatomic) IBOutlet UIButton *deleteButton;
 - (IBAction)updateAction:(id)sender;
 - (IBAction)joinAction:(id)sender;
 - (IBAction)deleteAction:(id)sender;
 
 @property(nonatomic,strong) GXQuest *quest;
 
+- (void)configureButtonForOwner;
+- (void)configureButtonForJoiner:(BOOL)isJoined;
 
 
 @end

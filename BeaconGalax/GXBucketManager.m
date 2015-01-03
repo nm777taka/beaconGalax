@@ -408,7 +408,6 @@
                 [[NSNotificationCenter defaultCenter] postNotificationName:GXErrorNotification object:@"エラー"];
                 return ;
             }
-            NSLog(@"resultCNt:%ld",results.count);
             if (results.count >= 1) {
                 NSLog(@"同じクエストがあるよ");
                 [[NSNotificationCenter defaultCenter] postNotificationName:GXErrorNotification object:@"既に同じクエストを受注済みです"];
@@ -424,6 +423,7 @@
             }
             //一応uriをつけとく
             [newObj setObject:quest.quest_id forKey:@"questID"];
+            [newObj setObject:@1 forKey:quest_player_num];
             
             [newObj saveWithBlock:^(KiiObject *object, NSError *error) {
                 if (!error) {

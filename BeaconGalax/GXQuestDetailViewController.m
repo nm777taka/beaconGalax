@@ -9,8 +9,14 @@
 #import "GXQuestDetailViewController.h"
 #import "GXQuestExeViewController.h"
 #import "GXQuestReadyViewController.h"
+#import "GXQuestGroupViewController.h"
+#import "GXQuestReadyViewController.h"
+#import "GXQuestExeViewController.h"
+
+
 #import <CWStatusBarNotification.h>
 #import "GXQuestBucketManager.h"
+#import "GXExeQuestManager.h"
 #import "GXActivityList.h"
 #import "GXExeQuestManager.h"
 #import "GXBucketManager.h"
@@ -33,6 +39,8 @@
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 - (IBAction)closeAction:(id)sender;
 
+@property KiiObject *selectedQuestObj;
+@property KiiGroup *selectedQuestGroup;
 
 @property BOOL isOwner;
 @property BOOL isMulti;
@@ -331,6 +339,11 @@
         GXDetailHeaderViewCell *headerCell = [tableView dequeueReusableCellWithIdentifier:@"Header"];
         headerCell.delegate = self;
         headerCell.quest = self.quest;
+        if ([self isQuestOwner]) {
+            [headerCell configureButtonForOwner];
+        } else {
+            [self isJoinedQuest:headerCell];
+        }
         return headerCell;
     }
     
@@ -355,8 +368,9 @@
     
     return view;
 
-
 }
+
+
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
@@ -376,10 +390,91 @@
     return 34;
 }
 
-#pragma HeaderView delegate
+#pragma makr - Internal
+
+//自分が作ったクエストか
+- (BOOL)isQuestOwner
+{
+    BOOL ret = false;
+    //自分が作ったクエストかどうか
+    NSString *currentUserName  = [KiiUser currentUser].displayName;
+    if ([currentUserName isEqualToString:self.quest.createdUserName]) {
+        //リーダ権限をもつ
+        ret = true;
+    }
+    
+    return ret;
+
+}
+
+//参加済み・受注済みのクエストか
+- (void)isJoinedQuest:(GXDetailHeaderViewCell *)cell
+{
+    KiiBucket *bucket = [GXBucketManager sharedManager].joinedQuest;
+    KiiClause *clause = [KiiClause equals:@"title" value:self.quest.title];
+    KiiQuery *query = [KiiQuery queryWithClause:clause];
+    [bucket executeQuery:query withBlock:^(KiiQuery *query, KiiBucket *bucket, NSArray *results, KiiQuery *nextQuery, NSError *error) {
+        if (error) {
+            NSLog(@"%s",__PRETTY_FUNCTION__);
+            NSLog(@"error:%@",error);
+        } else {
+            if (results.count > 0) {
+                //既に受注済み
+                //join → start
+                NSLog(@"joined--->>>");
+                [cell configureButtonForJoiner:YES];
+                [cell setNeedsLayout];
+            } else {
+                NSLog(@"notJonied");
+                [cell configureButtonForJoiner:NO];
+                [cell setNeedsLayout];
+            }
+        }
+    }];
+}
+
+
+#pragma mark - HeaderView delegate
 - (void)joinActionDelegate:(GXQuest *)quest
 {
     [[GXBucketManager sharedManager] acceptNewQuest:quest];
+}
+
+- (void)questStatrtDelegate:(GXQuest *)quest
+{
+    KiiClause *clause = [KiiClause equals:@"title" value:quest.title];
+    KiiQuery *query = [KiiQuery queryWithClause:clause];
+    KiiBucket *bucket = [GXBucketManager sharedManager].joinedQuest;
+    [bucket executeQuery:query withBlock:^(KiiQuery *query, KiiBucket *bucket, NSArray *results, KiiQuery *nextQuery, NSError *error) {
+        
+        if (!error) {
+            self.selectedQuestObj = results.firstObject;
+            
+            //一人 (現状はシステムの作ったクエスト)
+            if ([[self.selectedQuestObj getObjectForKey:quest_player_num] intValue] == 1) {
+                [self gotoExeView];
+                return ;
+            }
+            
+            if ([[KiiUser currentUser].displayName isEqualToString:quest.title]) {
+                //groupViewへ
+                [self performSegueWithIdentifier:@"groupView" sender:self];
+            } else {
+                // readyViewへ
+                [self performSegueWithIdentifier:@"readyView" sender:self];
+            }
+        } else {
+            NSLog(@"error----->");
+        }
+
+    }];
+    
+}
+
+//受注したクエストを取り消す
+- (void)questCacelDelegate:(GXQuest *)quest
+{
+    
 }
 
 #pragma mark - GXNotification
@@ -401,4 +496,31 @@
 - (IBAction)closeAction:(id)sender {
     [self dismissViewControllerAnimated:YES completion:nil];
 }
+
+#pragma mark - PrepareForSegue
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
+{
+    if ([segue.identifier isEqualToString:@"readyView"]) {
+        
+        GXQuestReadyViewController *vc = segue.destinationViewController;
+        vc.willExeQuest = self.selectedQuestObj;
+        
+    } else if ([segue.identifier isEqualToString:@"groupView"]) {
+        GXQuestGroupViewController *vc = segue.destinationViewController;
+        vc.willExeQuest = self.selectedQuestObj;
+    }
+}
+
+#pragma mark - segue
+- (void)gotoExeView
+{
+    UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"subStoryboard" bundle:nil];
+    GXQuestExeViewController *vc = [storyboard instantiateInitialViewController];
+    vc.exeQuest = self.selectedQuestObj;
+    [self presentViewController:vc animated:YES completion:^{
+        //クエストマネージャーに
+        [GXExeQuestManager sharedManager].nowExeQuest = self.selectedQuestObj;
+    }];
+}
+
 @end

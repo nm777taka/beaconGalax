@@ -869,12 +869,11 @@
                     <navigationItem key="navigationItem" id="O0j-oU-Evi"/>
                     <connections>
                         <outlet property="collectionView" destination="Cv6-Df-ISz" id="vrB-mb-H7v"/>
-                        <segue destination="ZLd-hL-qSR" kind="push" identifier="gotoReadyView" id="9er-8S-DxY"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="fmW-Bd-D31" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3105" y="-583"/>
+            <point key="canvasLocation" x="3877" y="-1087"/>
         </scene>
         <!--Create View Controller-->
         <scene sceneID="AqG-Wx-e1p">
@@ -917,7 +916,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="egZ-1W-BDW" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="4117" y="216"/>
+            <point key="canvasLocation" x="3613" y="598"/>
         </scene>
         <!--Create Beacon Quest View Controller-->
         <scene sceneID="Knj-GG-bsZ">
@@ -1024,7 +1023,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Vfy-wa-WLx" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="4557" y="434"/>
+            <point key="canvasLocation" x="4013" y="598"/>
         </scene>
         <!--募集中-->
         <scene sceneID="MEL-eI-kew">
@@ -1112,12 +1111,11 @@
                     </navigationItem>
                     <connections>
                         <outlet property="collectionView" destination="d1R-PH-Xz9" id="YfX-qS-4a6"/>
-                        <segue destination="2KE-J0-tPr" kind="push" identifier="goto_QuestMemberView" id="LfA-Cd-7WF"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="HoD-uz-grb" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2801" y="217"/>
+            <point key="canvasLocation" x="2485" y="319"/>
         </scene>
         <!--Quest Ready View Controller-->
         <scene sceneID="irT-HR-mCc">
@@ -1167,7 +1165,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Rg5-EO-v8n" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3487" y="-583"/>
+            <point key="canvasLocation" x="2921" y="-749"/>
         </scene>
         <!--クエストパーティー-->
         <scene sceneID="bvE-KX-rpo">
@@ -1251,7 +1249,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="1nY-2Z-ElD" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="5099" y="-395"/>
+            <point key="canvasLocation" x="2921" y="-57"/>
         </scene>
         <!--詳細-->
         <scene sceneID="162-5w-95B">
@@ -1269,7 +1267,7 @@
                                 <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <prototypes>
-                                    <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="Header" rowHeight="260" id="Evk-O2-fqw" customClass="GXDetailHeaderViewCell">
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" reuseIdentifier="Header" rowHeight="260" id="Evk-O2-fqw" customClass="GXDetailHeaderViewCell">
                                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="Evk-O2-fqw" id="tBZ-a9-HMu">
@@ -1329,32 +1327,11 @@
                                                     <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="OuE-XC-sbC">
-                                                    <rect key="frame" x="19" y="215" width="54" height="30"/>
-                                                    <state key="normal" title="Update">
-                                                        <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                                    </state>
-                                                    <connections>
-                                                        <action selector="updateAction:" destination="Evk-O2-fqw" eventType="touchUpInside" id="5N7-Mk-a8l"/>
-                                                    </connections>
-                                                </button>
                                                 <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="UTp-Tb-Art">
-                                                    <rect key="frame" x="133" y="214" width="46" height="30"/>
+                                                    <rect key="frame" x="110" y="214" width="100" height="30"/>
                                                     <state key="normal" title="JOIN">
                                                         <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                                     </state>
-                                                    <connections>
-                                                        <action selector="joinAction:" destination="Evk-O2-fqw" eventType="touchUpInside" id="Mf2-RV-6pU"/>
-                                                    </connections>
-                                                </button>
-                                                <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="fC7-vx-hCY">
-                                                    <rect key="frame" x="252" y="214" width="46" height="30"/>
-                                                    <state key="normal" title="Button">
-                                                        <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                                    </state>
-                                                    <connections>
-                                                        <action selector="deleteAction:" destination="Evk-O2-fqw" eventType="touchUpInside" id="Onq-jQ-3oD"/>
-                                                    </connections>
                                                 </button>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Name" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="EuD-gL-wu9">
                                                     <rect key="frame" x="66" y="9" width="246" height="21"/>
@@ -1362,12 +1339,20 @@
                                                     <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
+                                                <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="fC7-vx-hCY">
+                                                    <rect key="frame" x="242" y="214" width="70" height="30"/>
+                                                    <state key="normal" title="Delete">
+                                                        <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                                    </state>
+                                                </button>
                                             </subviews>
                                         </tableViewCellContentView>
                                         <connections>
                                             <outlet property="dateLabel" destination="Rg3-Hb-tbx" id="fSK-I0-Mo7"/>
+                                            <outlet property="deleteButton" destination="fC7-vx-hCY" id="92j-Po-ek1"/>
                                             <outlet property="detailTextView" destination="tAy-1j-nua" id="c1v-CW-uYr"/>
                                             <outlet property="iconView" destination="ZQd-2k-02y" id="VH1-7F-I79"/>
+                                            <outlet property="joinButton" destination="UTp-Tb-Art" id="gkE-DI-tOO"/>
                                             <outlet property="joinLabel" destination="dnc-5c-voI" id="cZd-sw-JQZ"/>
                                             <outlet property="nameLabel" destination="EuD-gL-wu9" id="7cP-SZ-a8x"/>
                                             <outlet property="titleLabel" destination="296-TJ-QMo" id="eAr-P8-yw9"/>
@@ -1396,6 +1381,8 @@
                     </navigationItem>
                     <connections>
                         <outlet property="tableView" destination="c7T-gv-q6c" id="wVp-1p-wvm"/>
+                        <segue destination="ZLd-hL-qSR" kind="push" identifier="readyView" id="EGL-mn-jPG"/>
+                        <segue destination="2KE-J0-tPr" kind="push" identifier="groupView" id="4v2-Yy-1DP"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="4WS-ee-V1q" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -1418,7 +1405,7 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="iy9-bk-fhP" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3638" y="217"/>
+            <point key="canvasLocation" x="3206" y="593"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="70Z-eJ-P9V">
@@ -1454,25 +1441,7 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="XSc-v7-8zu" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2387" y="217"/>
-        </scene>
-        <!--Navigation Controller-->
-        <scene sceneID="cIQ-UK-VLv">
-            <objects>
-                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="3Um-Pg-6iu" sceneMemberID="viewController">
-                    <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="xz1-WG-0AA">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
-                        <autoresizingMask key="autoresizingMask"/>
-                    </navigationBar>
-                    <nil name="viewControllers"/>
-                    <connections>
-                        <segue destination="TAN-3Y-oeI" kind="relationship" relationship="rootViewController" id="IXy-4t-7gh"/>
-                    </connections>
-                </navigationController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="pkr-mc-4vm" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="2723" y="-583"/>
+            <point key="canvasLocation" x="2097" y="253"/>
         </scene>
         <!--Nav View Controller-->
         <scene sceneID="wxP-ki-BZ2">
@@ -1585,6 +1554,6 @@
     </simulatedMetricsContainer>
     <inferredMetricsTieBreakers>
         <segue reference="FiV-RE-YMP"/>
-        <segue reference="LfA-Cd-7WF"/>
+        <segue reference="4v2-Yy-1DP"/>
     </inferredMetricsTieBreakers>
 </document>
