@@ -54,16 +54,20 @@
     //保存できたら消す
     BOOL isMulti;
     BOOL isUserType = false;
+    
     NSString *curretUserID = [KiiUser currentUser].uuid;
     KiiBucket *bucket = [GXBucketManager sharedManager].clearedBucket;
     KiiObject *obj = [bucket createObject];
     NSDictionary *dict = self.nowExeQuest.dictionaryValue;
     NSString *questType = dict[@"type"];
+    
     if ([questType isEqualToString:@"user"]) {
         isUserType = YES;
+    } else {
     }
     
     int players = [dict[@"player_num"]intValue];
+    
     if (players > 1) {
         isMulti = YES;
     } else {
@@ -88,6 +92,11 @@
                 } else {
                     
                 }
+            }];
+            
+            //system(デイリーの場合、joinedからだけでなく、ソースになっているnotJoinからの消す
+            [self.nowExeParentQuest deleteWithBlock:^(KiiObject *object, NSError *error) {
+                
             }];
         }
     }];

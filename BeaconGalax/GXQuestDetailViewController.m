@@ -365,11 +365,11 @@
     [bucket executeQuery:query withBlock:^(KiiQuery *query, KiiBucket *bucket, NSArray *results, KiiQuery *nextQuery, NSError *error) {
         
         if (!error) {
-            self.selectedQuestObj = results.firstObject;
+            KiiObject *questObj = results.firstObject;
             
             //一人 (現状はシステムの作ったクエスト)
-            if ([[self.selectedQuestObj getObjectForKey:quest_player_num] intValue] == 1) {
-                [self gotoExeView];
+            if ([[questObj getObjectForKey:quest_player_num] intValue] == 1) {
+                [self gotoExeView:questObj];
                 return ;
             }
             
@@ -432,15 +432,28 @@
 }
 
 #pragma mark - segue
-- (void)gotoExeView
+- (void)gotoExeView:(KiiObject *)questObj
 {
     UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"subStoryboard" bundle:nil];
     GXQuestExeViewController *vc = [storyboard instantiateInitialViewController];
-    vc.exeQuest = self.selectedQuestObj;
-    [self presentViewController:vc animated:NO completion:^{
-        //クエストマネージャーに
-        [GXExeQuestManager sharedManager].nowExeQuest = self.selectedQuestObj;
+    vc.exeQuest = questObj; //JoinedBucket
+    
+    //notJoinBucketからデイリークエストを取得
+    KiiBucket *bucket = [GXBucketManager sharedManager].notJoinedQuest;
+    KiiClause *clause = [KiiClause equals:@"title" value:self.quest.title];
+    KiiQuery *query = [KiiQuery queryWithClause:clause];
+    
+    [bucket executeQuery:query withBlock:^(KiiQuery *query, KiiBucket *bucket, NSArray *results, KiiQuery *nextQuery, NSError *error) {
+        if (!error) {
+            [self presentViewController:vc animated:NO completion:^{
+                //クエストマネージャーに
+                [GXExeQuestManager sharedManager].nowExeQuest = questObj; //joinedBucket
+                [GXExeQuestManager sharedManager].nowExeParentQuest = results.firstObject; //notJoin
+            }];
+        }
     }];
+    
+    
 }
 
 @end

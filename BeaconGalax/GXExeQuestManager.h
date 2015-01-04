@@ -29,6 +29,7 @@
         そのクエストをnowExeにいれて消すとcleardからも消える（でも書き込んでから消すから要素数は変わらないかな?)
  
  */
+@property (nonatomic,retain) KiiObject *nowExeParentQuest;
 @property (nonatomic,retain) KiiObject *nowExeQuest;
 
 - (void)clearNowExeQuest;

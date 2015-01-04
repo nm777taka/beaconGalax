@@ -386,7 +386,12 @@
     //kiiobjectを取得
     KiiClause *clause = [KiiClause equals:@"title" value:quest.title];
     KiiQuery *getObjQuery = [KiiQuery queryWithClause:clause];
-    KiiBucket *bucket = self.questBoard;
+    KiiBucket *bucket;
+    if ([quest.type isEqualToString:@"system"]) {
+        bucket = [GXBucketManager sharedManager].notJoinedQuest;
+    } else {
+        bucket = [GXBucketManager sharedManager].questBoard;
+    }
     
     [bucket executeQuery:getObjQuery withBlock:^(KiiQuery *query, KiiBucket *bucket, NSArray *results, KiiQuery *nextQuery, NSError *error) {
         
