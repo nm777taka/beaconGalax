@@ -25,9 +25,12 @@
 - (instancetype)initWithDelegate:(id<GXQuestListDelegate>)delegate;
 - (NSUInteger)count;
 - (NSUInteger)joinedQuestCount;
+- (NSUInteger)dailyQuestCount;
 
 - (GXQuest *)questAtIndex:(NSUInteger)index;
 - (GXQuest *)joinedQuestAtIndex:(NSUInteger)index;
+- (GXQuest *)dailyQuestAtIndex:(NSUInteger)index;
+
 
 //通信
 - (void)requestAsyncronous:(NSUInteger)typeIndex;

@@ -125,7 +125,7 @@
 {
     [super viewDidAppear:animated];
     //questFetch
-    [self request:0];
+    [self request:0]; //new
 
 }
 
@@ -152,7 +152,8 @@
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section
 {
     if (section == 0) {
-        return 0;
+        NSLog(@"dailyCount:%u",[_questList dailyQuestCount]);
+        return [_questList dailyQuestCount];
     } else {
         return [_questList count];
     }
@@ -163,7 +164,7 @@
     GXHomeCollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"Cell" forIndexPath:indexPath];
     
     if (indexPath.section == 0 ) {
-        
+        cell.quest = [_questList dailyQuestAtIndex:indexPath.row];
     } else if (indexPath.section == 1) {
         cell.quest = [_questList questAtIndex:indexPath.row];
     }
