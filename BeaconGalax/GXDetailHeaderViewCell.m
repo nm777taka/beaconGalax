@@ -92,11 +92,6 @@
         [self.joinButton setTitle:@"START" forState:UIControlStateHighlighted];
         [self.joinButton setTitleColor:[UIColor cloudsColor] forState:UIControlStateNormal];
         [self.joinButton setTitleColor:[UIColor cloudsColor] forState:UIControlStateHighlighted];
-        [self.joinButton bk_addEventHandler:^(id sender) {
-            if ([self.delegate respondsToSelector:@selector(questStatrtDelegate:)]) {
-                [self.delegate questStatrtDelegate:self.quest];
-            }
-        } forControlEvents:UIControlEventTouchUpInside];
         
         //DeleteButton
         self.deleteButton.enabled = YES;
@@ -108,35 +103,69 @@
         [self.deleteButton setTitle:@"Cancel" forState:UIControlStateHighlighted];
         [self.deleteButton setTitleColor:[UIColor cloudsColor] forState:UIControlStateNormal];
         [self.deleteButton setTitleColor:[UIColor cloudsColor] forState:UIControlStateHighlighted];
-        [self.deleteButton bk_addEventHandler:^(id sender) {
-            if ([self.delegate respondsToSelector:@selector(questCacelDelegate:)]) {
-                [self.delegate questCacelDelegate:self.quest];
-            }
-        } forControlEvents:UIControlEventTouchUpInside];
-    
+        
+        [self joinerButtonSelectorChange:YES];
         
     } else {
         
         //JoinButton
         self.joinButton.layer.cornerRadius = 5.0f;
         self.joinButton.layer.borderColor = [UIColor turquoiseColor].CGColor;
-        self.joinButton.layer.borderWidth = 2.0f;
+        self.joinButton.layer.borderWidth = 1.0f;
+        self.joinButton.backgroundColor = [UIColor whiteColor];
         
         [self.joinButton setTitle:@"JOIN" forState:UIControlStateNormal];
         [self.joinButton setTitle:@"JOIN" forState:UIControlStateHighlighted];
         [self.joinButton setTitleColor:[UIColor turquoiseColor] forState:UIControlStateNormal];
         [self.joinButton setTitleColor:[UIColor turquoiseColor] forState:UIControlStateHighlighted];
+        //DeleteButton
+        self.deleteButton.enabled = NO;
+        self.deleteButton.backgroundColor = [UIColor lightGrayColor];
+        self.deleteButton.alpha = 0.8f;
+        self.deleteButton.layer.cornerRadius = 5.0f;
+        
+        [self joinerButtonSelectorChange:NO];
+
+    }
+}
+
+- (void)joinerButtonSelectorChange:(BOOL)isJoined
+{
+    //JOIN_Button
+    //既に登録していたら消す
+    if ([self.joinButton bk_hasEventHandlersForControlEvents:UIControlEventTouchUpInside]) {
+        [self.joinButton bk_removeEventHandlersForControlEvents:UIControlEventTouchUpInside];
+    }
+    
+    //Delete_Button
+    if ([self.deleteButton bk_hasEventHandlersForControlEvents:UIControlEventTouchUpInside]) {
+        [self.deleteButton bk_removeEventHandlersForControlEvents:UIControlEventTouchUpInside];
+    }
+    
+    //新たに設定
+    if (isJoined) {
+        
+        [self.joinButton bk_addEventHandler:^(id sender) {
+            if ([self.delegate respondsToSelector:@selector(questStatrtDelegate:)]) {
+                [self.delegate questStatrtDelegate:self.quest];
+            }
+        } forControlEvents:UIControlEventTouchUpInside];
+        
+        [self.deleteButton bk_addEventHandler:^(id sender) {
+            if ([self.delegate respondsToSelector:@selector(questCacelDelegate:)]) {
+                [self.delegate questCacelDelegate:self.quest];
+            }
+        } forControlEvents:UIControlEventTouchUpInside];
+
+    } else {
+        
         [self.joinButton bk_addEventHandler:^(id sender) {
             if ([self.delegate respondsToSelector:@selector(joinActionDelegate:)]) {
                 [self.delegate joinActionDelegate:self.quest];
             }
         } forControlEvents:UIControlEventTouchUpInside];
-        
-        //DeleteButton
-        self.deleteButton.enabled = NO;
-        self.deleteButton.backgroundColor = [UIColor lightGrayColor];
-        self.deleteButton.alpha = 0.8f;
 
     }
+    
 }
 @end

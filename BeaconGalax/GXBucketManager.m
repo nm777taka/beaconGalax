@@ -423,7 +423,6 @@
             }
             //一応uriをつけとく
             [newObj setObject:quest.quest_id forKey:@"questID"];
-            [newObj setObject:@1 forKey:quest_player_num];
             
             [newObj saveWithBlock:^(KiiObject *object, NSError *error) {
                 if (!error) {

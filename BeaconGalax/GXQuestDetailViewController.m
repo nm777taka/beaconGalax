@@ -25,6 +25,7 @@
 #import "FUIAlertView+GXTheme.h"
 #import "GXNotification.h"
 #import "GXUserManager.h"
+#import "NSObject+BlocksWait.h"
 
 #import "GXDetailHeaderViewCell.h"
 #import "GXDetailTableViewCell.h"
@@ -163,35 +164,20 @@
     
 }
 
-
+#pragma mark - FUIAlertView
 
 - (void)alertView:(FUIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
 {
-    switch (alertView.tag) {
-        case kNotjoin:
-            if (buttonIndex == 1) {
-                //削除実行
-                [self delete];
-            }
-            break;
-        
-        case kJoined:
-            if (buttonIndex == 1) {
-                //削除実行
-                [self deleteJoinedQuest];
-                
-            }
-            break;
-            
-        case kInvite:
-            if (buttonIndex == 1) {
-                [self deleteInvitedQuest];
-            }
-            
-        default:
-            break;
+    if (alertView.tag == 0) {
+        if (buttonIndex == 1) {
+            //cancel
+            [self cancelJoinedQuest];
+        }
+    } else {
+        if (buttonIndex == 1) {
+            //delete
+        }
     }
-
 }
 
 - (void)delete
@@ -213,6 +199,83 @@
     }];
 }
 
+- (void)cancelJoinedQuest
+{
+    [SVProgressHUD showWithStatus:@"取り消し中"];
+    //bucketからkii_objectを取得
+    KiiBucket *bucket = [GXBucketManager sharedManager].joinedQuest;
+    KiiClause *clause = [KiiClause equals:@"title" value:self.quest.title];
+    KiiQuery *query = [KiiQuery queryWithClause:clause];
+    [bucket executeQuery:query withBlock:^(KiiQuery *query, KiiBucket *bucket, NSArray *results, KiiQuery *nextQuery, NSError *error) {
+        if (!error) {
+            
+            KiiObject *quest = results.firstObject;
+            
+            if ([[quest getObjectForKey:quest_player_num] intValue] > 1) {
+                //協力
+                [quest deleteWithBlock:^(KiiObject *object, NSError *error) {
+                    if (error) {
+                        [self showErrorMsg];
+                    } else {
+                        KiiGroup *targetGroup = [KiiGroup groupWithURI:[quest getObjectForKey:quest_groupURI]];
+                        [targetGroup refreshWithBlock:^(KiiGroup *group, NSError *error) {
+                            if (error) {
+                                [self showErrorMsg];
+                            } else {
+                                KiiBucket *member = [group bucketWithName:@"member"];
+                                KiiObject *gxusr = [[GXBucketManager sharedManager] getGalaxUser:[KiiUser currentUser].objectURI];
+                                KiiClause *clause = [KiiClause equals:@"name" value:[gxusr getObjectForKey:user_name]];
+                                KiiQuery *query = [KiiQuery queryWithClause:clause];
+                                [member executeQuery:query withBlock:^(KiiQuery *query, KiiBucket *bucket, NSArray *results, KiiQuery *nextQuery, NSError *error) {
+                                    if (!error) {
+                                        KiiObject *deleteObj = results.firstObject;
+                                        [deleteObj deleteWithBlock:^(KiiObject *object, NSError *error) {
+                                            NSLog(@"クエストメンバーから抜けました");
+                                            
+                                            //自分のバケットから参加クエストを消す
+                                            [quest deleteWithBlock:^(KiiObject *object, NSError *error) {
+                                            }];
+                                            
+                                            //kiiGrupから消える
+                                            [self getOutQuestGroup:group.objectURI];
+                                            CWStatusBarNotification *notis = [CWStatusBarNotification new];
+                                            notis.notificationLabelBackgroundColor = [UIColor turquoiseColor];
+                                            [notis displayNotificationWithMessage:@"削除しました" forDuration:2.0f];
+                                            
+                                            [self.tableView reloadData];
+                                            [SVProgressHUD dismiss];
+                                        }];
+                                    }
+                                }];
+                            }
+                        }];
+                    }
+                }];
+            }
+            
+            else {
+                [quest deleteWithBlock:^(KiiObject *object, NSError *error) {
+                    
+                    if (!error) {
+                        CWStatusBarNotification *notis = [CWStatusBarNotification new];
+                        notis.notificationLabelBackgroundColor = [UIColor turquoiseColor];
+                        [notis displayNotificationWithMessage:@"取り消しました" forDuration:2.0f];
+                        
+                        [[NSNotificationCenter defaultCenter] postNotificationName:GXQuestDeletedNotification object:nil];
+                        [[GXActionAnalyzer sharedInstance] setActionName:GXQuestDelete];
+                        
+                        [self.tableView reloadData];
+                        
+                        [SVProgressHUD dismiss];
+                    }
+                }];
+            }
+            
+        }
+    }];
+}
+
+//legacy
 - (void)deleteJoinedQuest
 {
     if (_isMulti) {
@@ -433,11 +496,16 @@
     }];
 }
 
-
 #pragma mark - HeaderView delegate
 - (void)joinActionDelegate:(GXQuest *)quest
 {
+    [SVProgressHUD showWithStatus:@"クエスト受注中"];
     [[GXBucketManager sharedManager] acceptNewQuest:quest];
+    [NSObject performBlock:^{
+        [self.tableView reloadData];
+        [SVProgressHUD dismiss];
+    } afterDelay:2.0f];
+    
 }
 
 - (void)questStatrtDelegate:(GXQuest *)quest
@@ -474,7 +542,10 @@
 //受注したクエストを取り消す
 - (void)questCacelDelegate:(GXQuest *)quest
 {
-    
+    FUIAlertView *alert = [FUIAlertView cautionTheme:@"受注を取り消しますか？"];
+    alert.delegate = self;
+    [alert show];
+
 }
 
 #pragma mark - GXNotification
