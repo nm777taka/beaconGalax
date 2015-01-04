@@ -119,6 +119,7 @@
 		0FC0095819E259DD0026A7DC /* GXFrostedViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0FC0095719E259DD0026A7DC /* GXFrostedViewController.m */; };
 		0FC67C831A53330D00FD82B2 /* GXDetailHeaderViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 0FC67C821A53330D00FD82B2 /* GXDetailHeaderViewCell.m */; };
 		0FC67C861A53331D00FD82B2 /* GXDetailTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 0FC67C851A53331D00FD82B2 /* GXDetailTableViewCell.m */; };
+		0FC67C8B1A59191900FD82B2 /* GXHomeCollectionReusableView.m in Sources */ = {isa = PBXBuildFile; fileRef = 0FC67C8A1A59191900FD82B2 /* GXHomeCollectionReusableView.m */; };
 		0FC7F0CE1A46ECF200A83BFC /* createQuestButton.png in Resources */ = {isa = PBXBuildFile; fileRef = 0FC7F0CD1A46ECF200A83BFC /* createQuestButton.png */; };
 		0FC928381A30E451002931F1 /* Crashlytics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0FC928361A30E451002931F1 /* Crashlytics.framework */; };
 		0FC928391A30E451002931F1 /* Fabric.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0FC928371A30E451002931F1 /* Fabric.framework */; };
@@ -343,6 +344,8 @@
 		0FC67C821A53330D00FD82B2 /* GXDetailHeaderViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GXDetailHeaderViewCell.m; sourceTree = "<group>"; };
 		0FC67C841A53331D00FD82B2 /* GXDetailTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GXDetailTableViewCell.h; sourceTree = "<group>"; };
 		0FC67C851A53331D00FD82B2 /* GXDetailTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GXDetailTableViewCell.m; sourceTree = "<group>"; };
+		0FC67C891A59191900FD82B2 /* GXHomeCollectionReusableView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GXHomeCollectionReusableView.h; sourceTree = "<group>"; };
+		0FC67C8A1A59191900FD82B2 /* GXHomeCollectionReusableView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GXHomeCollectionReusableView.m; sourceTree = "<group>"; };
 		0FC7F0CD1A46ECF200A83BFC /* createQuestButton.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = createQuestButton.png; sourceTree = "<group>"; };
 		0FC928361A30E451002931F1 /* Crashlytics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Crashlytics.framework; sourceTree = "<group>"; };
 		0FC928371A30E451002931F1 /* Fabric.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Fabric.framework; sourceTree = "<group>"; };
@@ -997,6 +1000,8 @@
 				0F5FA5EC198A31D900F41B05 /* GXHomeTableViewHeader.xib */,
 				0F5FA5EF198A324600F41B05 /* GXHomeTableViewCell.h */,
 				0F5FA5F0198A324600F41B05 /* GXHomeTableViewCell.m */,
+				0FC67C891A59191900FD82B2 /* GXHomeCollectionReusableView.h */,
+				0FC67C8A1A59191900FD82B2 /* GXHomeCollectionReusableView.m */,
 			);
 			name = Home;
 			sourceTree = "<group>";
@@ -1550,6 +1555,7 @@
 				0F35584B1A15C4F90023F2FF /* GXAcivityManager.m in Sources */,
 				0F4AEA971998D086009879C6 /* GXDictonaryKeys.m in Sources */,
 				0FC928411A32300C002931F1 /* GXLeaderBoardViewController.m in Sources */,
+				0FC67C8B1A59191900FD82B2 /* GXHomeCollectionReusableView.m in Sources */,
 				0FA17E3D1961B00100158421 /* GXTopicManager.m in Sources */,
 				0FC67C861A53331D00FD82B2 /* GXDetailTableViewCell.m in Sources */,
 				0F2456191A38DF2400F34724 /* GXGalaxterStatusViewCell.m in Sources */,

@@ -87,7 +87,6 @@
 - (void)viewDidAppear:(BOOL)animated
 {
     [super viewDidAppear:animated];
-    [self configureDetailPanel];
 
 }
 
@@ -96,73 +95,12 @@
     [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
 
-- (void)configureDetailPanel
-{
-    
-    _isMulti = [self isMultiQuest];
-}
 
 - (void)resizeLable:(UILabel *)label
 {
     label.frame = CGRectMake(label.frame.origin.x, label.frame.origin.y, 284, label.frame.size.height );
 }
-- (BOOL)isMultiQuest
-{
-    BOOL ret;
-    if ([_quest.player_num intValue] > 1) {
-        ret = YES;
-    } else {
-        ret = NO;
-    }
-    
-    return ret;
-}
 
-- (NSInteger)chekckQuestType
-{
-    NSInteger ret;
-    KiiBucket *currentBucket = _quest.bucket;
-    if ([currentBucket isEqual:[GXBucketManager sharedManager].notJoinedQuest]) {
-        ret = 0;
-    } else if ([currentBucket isEqual:[GXBucketManager sharedManager].joinedQuest]) {
-        ret = 1;
-    } else {
-        ret = 2;
-    }
-    
-    return ret;
-}
-
-#pragma mark - TODO
-#pragma ButtonAction
-
-- (IBAction)questDeleteAction:(id)sender
-{
-    NSInteger viewControllerIndex = [self chekckQuestType];
-    FUIAlertView *alert = [FUIAlertView cautionTheme:@"本当に削除しますか?"];
-    alert.delegate = self;
-
-    switch (viewControllerIndex) {
-        case kNotjoin:
-            alert.tag = kNotjoin;
-            [alert show];
-           break;
-            
-        case kJoined:
-            alert.tag = kJoined;
-            [alert show];
-            break;
-            
-        case kInvite:
-            alert.tag = kInvite;
-            [alert show];
-            break;
-            
-        default:
-            break;
-    }
-    
-}
 
 #pragma mark - FUIAlertView
 
@@ -178,25 +116,6 @@
             //delete
         }
     }
-}
-
-- (void)delete
-{
-    KiiObject *obj = [KiiObject objectWithURI:self.quest.quest_id];
-    [obj refreshWithBlock:^(KiiObject *object, NSError *error) {
-        if (!error) {
-            //削除
-            [object deleteWithBlock:^(KiiObject *object, NSError *error) {
-                if (!error) {
-                    NSLog(@"削除完了");
-                    [[NSNotificationCenter defaultCenter] postNotificationName:GXQuestDeletedNotification object:nil];
-                    
-                    [[GXActionAnalyzer sharedInstance] setActionName:GXQuestDelete];
-                    
-                }
-            }];
-        }
-    }];
 }
 
 - (void)cancelJoinedQuest
@@ -275,59 +194,6 @@
     }];
 }
 
-//legacy
-- (void)deleteJoinedQuest
-{
-    if (_isMulti) {
-        //協力クエストを削除
-      
-        KiiObject *deleteObj = [KiiObject objectWithURI:self.quest.quest_id];
-        [deleteObj refreshWithBlock:^(KiiObject *object, NSError *error) {
-            KiiObject *deleteJoinedQuest = object;
-            if (error) {
-                [self showErrorMsg];
-            } else {
-                KiiGroup *targetGroup = [KiiGroup groupWithURI:[object getObjectForKey:quest_groupURI]];
-                [targetGroup refreshWithBlock:^(KiiGroup *group, NSError *error) {
-                    //もしかしたらオーナーが削除してるかも
-                    if (error) {
-                        [self showErrorMsg];
-                    } else {
-                        //グループのmemberバケットから自分を削除
-                        KiiBucket *member = [group bucketWithName:@"member"];
-                        KiiObject *gxusr = [[GXBucketManager sharedManager] getGalaxUser:[KiiUser currentUser].objectURI];
-                        KiiClause *clause = [KiiClause equals:@"name" value:[gxusr getObjectForKey:user_name]];
-                        KiiQuery *query = [KiiQuery queryWithClause:clause];
-                        [member executeQuery:query withBlock:^(KiiQuery *query, KiiBucket *bucket, NSArray *results, KiiQuery *nextQuery, NSError *error) {
-                            if (!error) {
-                                KiiObject *deleteObj = results.firstObject;
-                                [deleteObj deleteWithBlock:^(KiiObject *object, NSError *error) {
-                                    NSLog(@"クエストメンバーから抜けました");
-                                    
-                                    //自分のバケットから参加クエストを消す
-                                    [deleteJoinedQuest deleteWithBlock:^(KiiObject *object, NSError *error) {
-                                        NSLog(@"削除完了なり");
-                                    }];
-                                    
-                                    //kiiGrupから消える
-                                    [self getOutQuestGroup:group.objectURI];
-                                    CWStatusBarNotification *notis = [CWStatusBarNotification new];
-                                    notis.notificationLabelBackgroundColor = [UIColor turquoiseColor];
-                                    [notis displayNotificationWithMessage:@"削除しました" forDuration:2.0f];
-                                    
-                                }];
-                            }
-                        }];
-                    }
-                }];
-            }
-        }];
-        
-    } else {
-        //一人用クエストを削除
-        [self delete];
-    }
-}
 
 - (void)getOutQuestGroup:(NSString *)groupURI
 {
@@ -351,20 +217,6 @@
     [alert show];
 }
 
-- (void)deleteInvitedQuest
-{
-    //オーナーかどうか(オーナ以外は削除できない)
-    NSString *currentUserName = [KiiUser currentUser].displayName;
-    NSString *ownerName = _quest.createdUserName;
-    if ([currentUserName isEqualToString:ownerName]) {
-        //オーナー
-        [self delete];
-    } else {
-        FUIAlertView *alert = [FUIAlertView errorTheme:@"募集者以外は削除できません"];
-        [alert show];
-    }
-    
-}
 
 - (void)removeQuestGroup
 {
@@ -372,7 +224,6 @@
     NSString *questCreaterName = _quest.createdUserName;
     if ([currentUserName isEqualToString:questCreaterName]) {
         //オーナーです
-        [self delete];
     } else {
         FUIAlertView *alert = [FUIAlertView errorTheme:@"募集者以外は削除できません"];
         [alert show];
@@ -588,7 +439,7 @@
     UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"subStoryboard" bundle:nil];
     GXQuestExeViewController *vc = [storyboard instantiateInitialViewController];
     vc.exeQuest = self.selectedQuestObj;
-    [self presentViewController:vc animated:YES completion:^{
+    [self presentViewController:vc animated:NO completion:^{
         //クエストマネージャーに
         [GXExeQuestManager sharedManager].nowExeQuest = self.selectedQuestObj;
     }];
