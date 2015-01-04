@@ -59,8 +59,8 @@
     [self.joinButton setTitle:@"START" forState:UIControlStateNormal];
     [self.joinButton setTitle:@"START" forState:UIControlStateHighlighted];
     [self.joinButton bk_addEventHandler:^(id sender) {
-        if ([self.delegate respondsToSelector:@selector(questStatrtDelegate:)]) {
-            [self.delegate questStatrtDelegate:self.quest];
+        if ([self.delegate respondsToSelector:@selector(questStatrtDelegate)]) {
+            [self.delegate questStatrtDelegate];
         }
     } forControlEvents:UIControlEventTouchUpInside];
     
@@ -146,22 +146,22 @@
     if (isJoined) {
         
         [self.joinButton bk_addEventHandler:^(id sender) {
-            if ([self.delegate respondsToSelector:@selector(questStatrtDelegate:)]) {
-                [self.delegate questStatrtDelegate:self.quest];
+            if ([self.delegate respondsToSelector:@selector(questStatrtDelegate)]) {
+                [self.delegate questStatrtDelegate];
             }
         } forControlEvents:UIControlEventTouchUpInside];
         
         [self.deleteButton bk_addEventHandler:^(id sender) {
-            if ([self.delegate respondsToSelector:@selector(questCacelDelegate:)]) {
-                [self.delegate questCacelDelegate:self.quest];
+            if ([self.delegate respondsToSelector:@selector(questCacelDelegate)]) {
+                [self.delegate questCacelDelegate];
             }
         } forControlEvents:UIControlEventTouchUpInside];
 
     } else {
         
         [self.joinButton bk_addEventHandler:^(id sender) {
-            if ([self.delegate respondsToSelector:@selector(joinActionDelegate:)]) {
-                [self.delegate joinActionDelegate:self.quest];
+            if ([self.delegate respondsToSelector:@selector(joinActionDelegate)]) {
+                [self.delegate joinActionDelegate];
             }
         } forControlEvents:UIControlEventTouchUpInside];
 

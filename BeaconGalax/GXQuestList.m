@@ -173,14 +173,13 @@ static int const QuestType_Daily = 2;
 
 - (void)handlerDailyQuest
 {
-    KiiBucket *bucket = [Kii bucketWithName:@"quest_board"];
+    KiiBucket *bucket = [[KiiUser currentUser] bucketWithName:@"notJoined_quest"];
     KiiClause *clause = [KiiClause equals:@"type" value:@"system"];
     KiiQuery *query = [KiiQuery queryWithClause:clause];
     [bucket executeQuery:query withBlock:^(KiiQuery *query, KiiBucket *bucket, NSArray *results, KiiQuery *nextQuery, NSError *error) {
         if (error) {
             _loading = NO;
         } else {
-            NSLog(@"count---->%u",results.count);
             _dailyQuestList = @[];
             [self addQuest:results questType:QuestType_Daily];
             [_delegate questListDidLoad];
@@ -189,7 +188,6 @@ static int const QuestType_Daily = 2;
     }];
     
 }
-
 
 //internal
 //取得したクエストで更新
@@ -212,6 +210,7 @@ static int const QuestType_Daily = 2;
         NSString *questDes = [obj getObjectForKey:quest_description];
         NSNumber *playerNum = [obj getObjectForKey:quest_player_num];
         NSString *createdUserName = [obj getObjectForKey:quest_owner];
+        NSString *type = [obj getObjectForKey:@"type"];
         NSDate *date = obj.created; //utc
         if (createdUserName == nil) {
             createdUserName = @"BeaconGalax";
@@ -229,6 +228,7 @@ static int const QuestType_Daily = 2;
         quest.createdUserName = createdUserName;
         quest.createdDate = date;
         quest.groupURI = groupURI;
+        quest.type = type;
         [questArray addObject:quest];
     }
     

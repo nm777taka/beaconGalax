@@ -28,6 +28,7 @@
 @property (nonatomic,retain) NSString *groupURI; //協力クエスト用(グループ参加で使う)
 @property (nonatomic,retain) NSDate *createdDate; //日時表示用
 @property (nonatomic,retain) NSDate *startDate;
+@property (nonatomic,retain) NSString *type; //system?user?
 
 //サーバーリクエストキー
 @property (nonatomic,retain) NSString *quest_id;

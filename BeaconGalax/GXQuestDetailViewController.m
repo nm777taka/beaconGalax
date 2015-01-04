@@ -197,10 +197,8 @@
 
 - (void)getOutQuestGroup:(NSString *)groupURI
 {
-    NSLog(@"groupURI:%@",groupURI);
     KiiServerCodeEntry *entry = [Kii serverCodeEntry:@"getOutQuestGroup"];
     NSString *userURI = [KiiUser currentUser].objectURI;
-    NSLog(@"userURI:%@",userURI);
     NSDictionary *argDict = [NSDictionary dictionaryWithObjectsAndKeys:groupURI,@"groupURI",userURI,@"userURI", nil];
     KiiServerCodeEntryArgument *argument = [KiiServerCodeEntryArgument argumentWithDictionary:argDict];
     [entry execute:argument withBlock:^(KiiServerCodeEntry *entry, KiiServerCodeEntryArgument *argument, KiiServerCodeExecResult *result, NSError *error) {
@@ -253,6 +251,7 @@
         GXDetailHeaderViewCell *headerCell = [tableView dequeueReusableCellWithIdentifier:@"Header"];
         headerCell.delegate = self;
         headerCell.quest = self.quest;
+        
         if ([self isQuestOwner]) {
             [headerCell configureButtonForOwner];
         } else {
@@ -335,11 +334,9 @@
             if (results.count > 0) {
                 //既に受注済み
                 //join → start
-                NSLog(@"joined--->>>");
                 [cell configureButtonForJoiner:YES];
                 [cell setNeedsLayout];
             } else {
-                NSLog(@"notJonied");
                 [cell configureButtonForJoiner:NO];
                 [cell setNeedsLayout];
             }
@@ -348,10 +345,11 @@
 }
 
 #pragma mark - HeaderView delegate
-- (void)joinActionDelegate:(GXQuest *)quest
+- (void)joinActionDelegate
 {
     [SVProgressHUD showWithStatus:@"クエスト受注中"];
-    [[GXBucketManager sharedManager] acceptNewQuest:quest];
+    
+    [[GXBucketManager sharedManager] acceptNewQuest:self.quest];
     [NSObject performBlock:^{
         [self.tableView reloadData];
         [SVProgressHUD dismiss];
@@ -359,9 +357,9 @@
     
 }
 
-- (void)questStatrtDelegate:(GXQuest *)quest
+- (void)questStatrtDelegate
 {
-    KiiClause *clause = [KiiClause equals:@"title" value:quest.title];
+    KiiClause *clause = [KiiClause equals:@"title" value:self.quest.title];
     KiiQuery *query = [KiiQuery queryWithClause:clause];
     KiiBucket *bucket = [GXBucketManager sharedManager].joinedQuest;
     [bucket executeQuery:query withBlock:^(KiiQuery *query, KiiBucket *bucket, NSArray *results, KiiQuery *nextQuery, NSError *error) {
@@ -375,7 +373,7 @@
                 return ;
             }
             
-            if ([[KiiUser currentUser].displayName isEqualToString:quest.title]) {
+            if ([[KiiUser currentUser].displayName isEqualToString:self.quest.title]) {
                 //groupViewへ
                 [self performSegueWithIdentifier:@"groupView" sender:self];
             } else {
@@ -391,7 +389,7 @@
 }
 
 //受注したクエストを取り消す
-- (void)questCacelDelegate:(GXQuest *)quest
+- (void)questCacelDelegate
 {
     FUIAlertView *alert = [FUIAlertView cautionTheme:@"受注を取り消しますか？"];
     alert.delegate = self;

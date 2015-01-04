@@ -176,7 +176,11 @@
 
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath
 {
-    _selectedQuest = [_questList questAtIndex:indexPath.row];
+    if (indexPath.section == 0) {
+        _selectedQuest = [_questList dailyQuestAtIndex:indexPath.row];
+    } else if (indexPath.section == 1) {
+        _selectedQuest = [_questList questAtIndex:indexPath.row];
+    }
     
     [self performSegueWithIdentifier:@"gotoDetail" sender:self];
 }
@@ -249,19 +253,10 @@
 #pragma mark segue
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
 {
-    if ([[segue identifier] isEqualToString:@"goto_QuestMemberView"]) {
-        
-        GXQuestGroupViewController *vc = segue.destinationViewController;
-        //選択されたクエストのグループとクエスト自体をパーティーViewに渡してあげる
-        vc.selectedQuestGroup = _selectedQuestGroup;
-        vc.willExeQuest = _selectedObject;
-    } else if ([[segue identifier] isEqualToString:@"gotoQuestReadyView"]) {
-        GXQuestReadyViewController *vc = segue.destinationViewController;
-        vc.willExeQuest = _selectedObject;
-        vc.selectedQuestGroup = _selectedQuestGroup;
-    } else if ([[segue identifier] isEqualToString:@"gotoDetail"]){
+    if ([[segue identifier] isEqualToString:@"gotoDetail"]){
         GXQuestDetailViewController *vc = (GXQuestDetailViewController *)[(UINavigationController *)segue.destinationViewController topViewController];
         vc.quest = _selectedQuest;
+        NSLog(@"vc.quest:%@",_selectedQuest.title);
     }
 }
 

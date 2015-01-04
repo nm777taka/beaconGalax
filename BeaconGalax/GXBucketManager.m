@@ -384,7 +384,7 @@
 - (void)acceptNewQuest:(GXQuest *)quest
 {
     //kiiobjectを取得
-    KiiClause *clause = [KiiClause equals:@"id" value:quest.quest_id];
+    KiiClause *clause = [KiiClause equals:@"title" value:quest.title];
     KiiQuery *getObjQuery = [KiiQuery queryWithClause:clause];
     KiiBucket *bucket = self.questBoard;
     
@@ -396,7 +396,6 @@
         }
         
         KiiObject *questObject = results.firstObject;
-        NSLog(@"questOBj:title:%@",[questObject getObjectForKey:quest_title]);
         
         //既に受注しているかチェック
         KiiClause *clause = [KiiClause equals:quest_title value:[questObject getObjectForKey:quest_title]];

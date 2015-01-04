@@ -12,10 +12,10 @@
 
 @protocol GXHeaderCellDelegate <NSObject>
 
-- (void)joinActionDelegate:(GXQuest *)quest;
-- (void)questStatrtDelegate:(GXQuest *)quest;
-- (void)questCacelDelegate:(GXQuest *)quest;
-- (void)questDeleteDelgate:(GXQuest *)quest;
+- (void)joinActionDelegate;
+- (void)questStatrtDelegate;
+- (void)questCacelDelegate;
+- (void)questDeleteDelgate;
 
 @end
 
