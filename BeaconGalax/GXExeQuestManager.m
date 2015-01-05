@@ -105,8 +105,7 @@
 //            [self.nowExeParentQuest deleteWithBlock:^(KiiObject *object, NSError *error) {
 //                
 //            }];
-            [self.nowExeParentQuest setObject:@YES forKey:quest_isCompleted];
-            [self.nowExeParentQuest saveWithBlock:^(KiiObject *object, NSError *error) {
+            [self.nowExeParentQuest deleteWithBlock:^(KiiObject *object, NSError *error) {
                 //
             }];
         }

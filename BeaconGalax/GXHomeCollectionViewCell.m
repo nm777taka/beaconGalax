@@ -56,6 +56,12 @@
     NSString *formattedDateString = [df stringFromDate:date];
     _createdDateLable.text = formattedDateString;
     
+    if ([quest.type isEqualToString:@"system"]) {
+        self.questStatusLabel.text = @"";
+        self.questStatusLabel.backgroundColor = [UIColor clearColor];
+        return;
+    }
+    
     if (quest.isCompleted) {
         [self changeStatusForQuestCompleted];
         return;

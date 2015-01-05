@@ -38,6 +38,11 @@
         self.startDateLabel.text = @"AnyTime";
     }
     
+    if ([quest.type isEqualToString:@"system"]) {
+        self.questStatusLabel.text = @"";
+        return;
+    }
+    
     if (quest.isStarted) {
         self.questStatusLabel.text = @"挑戦中";
     } else {
