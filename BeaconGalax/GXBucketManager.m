@@ -161,7 +161,7 @@
     //募集用クエスト
     NSDictionary *dict = obj.dictionaryValue;
     NSArray *allKeys = dict.allKeys;
-    KiiObject *newObj = [self.inviteBoard createObject]; //募集掲示板のやつ
+    KiiObject *newObj = [self.questBoard createObject]; //募集掲示板のやつ
     
     for (NSString *key in allKeys) {
         [newObj setObject:dict[key] forKey:key];

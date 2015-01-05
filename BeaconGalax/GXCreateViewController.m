@@ -41,6 +41,7 @@ const static CGFloat kJVFieldFloatingLabelFontSize = 11.0f;
 @property (weak, nonatomic) IBOutlet UILabel *userNameLabel;
 @property (weak,nonatomic) UIButton *dateSettingButton;
 @property NSString *selectedDateString;
+@property NSDate *selectedDate;
 
 @end
 
@@ -173,37 +174,8 @@ const static CGFloat kJVFieldFloatingLabelFontSize = 11.0f;
         [notis displayNotificationWithMessage:@"タイトルを入力してください" forDuration:2.0f];
         return;
     }
-
-    KiiServerCodeEntry *entry;
-    NSDictionary *argDict;
-
-    KiiServerCodeEntryArgument *argument = [KiiServerCodeEntryArgument argumentWithDictionary:argDict];
-    NSError *error;
-    KiiServerCodeExecResult *result = [entry executeSynchronous:argument withError:&error];
     
-    //Perse the result.
-    if (error) {
-        CWStatusBarNotification *successNotis = [CWStatusBarNotification new];
-        successNotis.notificationLabelBackgroundColor = [UIColor redColor];
-        [successNotis displayNotificationWithMessage:@"通信エラー" forDuration:2.0f];
-        return;
-    }
-    
-    NSDictionary *returnedDict = [result returnedValue];
-    NSString *returnString = [returnedDict objectForKey:@"returnedValue"];
-    NSLog(@"%@",returnString);
-    
-    CWStatusBarNotification *successNotis = [CWStatusBarNotification new];
-    successNotis.notificationLabelBackgroundColor = [UIColor turquoiseColor];
-    [successNotis displayNotificationWithMessage:@"クエストを配信しました!" forDuration:2.0f];
-    
-    //pointゲット
-    [[GXPointManager sharedInstance] getCreateQuestPoint];
-    
-    //action
-    [[GXActionAnalyzer sharedInstance] setActionName:GXQuestCreate];
-    
-    [self dismissViewControllerAnimated:YES completion:nil];
+    [self createUserQuest];
 }
 
 - (void)createUserQuest
@@ -214,26 +186,28 @@ const static CGFloat kJVFieldFloatingLabelFontSize = 11.0f;
     [newObj setObject:@NO forKey:quest_isCompleted];
     [newObj setObject:@NO forKey:quest_isStarted];
     [newObj setObject:[NSNumber numberWithInt:2] forKey:quest_player_num];
-    [newObj setObject:@"クリア条件：リーダーがクリアボタンを押す" forKey:@"requirement"];
-    [newObj setObject:[NSNumber numberWithInt:100] forKey:quest_reward];
     [newObj setObject:[NSNumber numberWithInt:0] forKey:quest_success_cnt];
-    
+    [newObj setObject:@"user" forKey:quest_type];
+    [newObj setObject:self.selectedDate forKey:@"start_date"];
     //ユーザに紐付いたビーコンを取ってくる
     KiiObject *gxUser = [[GXBucketManager sharedManager] getGalaxUser:[KiiUser currentUser].objectURI];
     NSNumber *user_major = [gxUser getObjectForKey:@"user_major"];
     [newObj setObject:@"user" forKey:quest_type];
     [newObj setObject:user_major forKey:@"major"]; //対象
+    
+    //投稿
     [[GXBucketManager sharedManager] registerInviteBoard:newObj];
 
-    //activityに登録
+    //activityに登録 --- >dubg中のなのでoff
     NSString *name = [gxUser getObjectForKey:user_name];
     NSString *fbid = [gxUser getObjectForKey:user_fb_id];
     NSString *text = [NSString stringWithFormat:@"%@クエストを作成しました",self.titleField.text];
-    [[GXActivityList sharedInstance] registerQuestActivity:name title:text fbid:fbid];
+    //[[GXActivityList sharedInstance] registerQuestActivity:name title:text fbid:fbid];
 
     //みんなに伝える
-    NSString *createdUserName = [gxUser getObjectForKey:@"name"];
-    [[GXTopicManager sharedManager] sendInviteQuestAlert:createdUserName]; //新しい募集をpushで知らせる (ユーザクエの場合は募集が前提)
+    //とりあえずoff -- > dubug
+//    NSString *createdUserName = [gxUser getObjectForKey:@"name"];
+//    [[GXTopicManager sharedManager] sendInviteQuestAlert:createdUserName]; //新しい募集をpushで知らせる (ユーザクエの場合は募集が前提)
     
     //pointゲット
     [[GXPointManager sharedInstance] getCreateQuestPoint];
@@ -248,12 +222,11 @@ const static CGFloat kJVFieldFloatingLabelFontSize = 11.0f;
 #pragma mark - RMDataSelectionDelegate
 - (void)dateSelectionViewController:(RMDateSelectionViewController *)vc didSelectDate:(NSDate *)aDate
 {
-    NSLog(@"aDate:%@",aDate);
     NSDateFormatter *df = [NSDateFormatter new];
     df.dateFormat = @"MM/dd HH:mm";
     NSString *dfStringDate = [df stringFromDate:aDate];
     NSString *buttonTitle = [NSString stringWithFormat:@"クエスト開始予定時間：%@",dfStringDate];
-    self.selectedDateString = dfStringDate;
+    self.selectedDate = aDate;
     [self.dateSettingButton setTitle:buttonTitle forState:UIControlStateNormal];
     
 }
