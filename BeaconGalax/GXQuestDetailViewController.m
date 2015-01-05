@@ -522,27 +522,30 @@
 
 - (void)questStatrtDelegate
 {
-    NSLog(@"call-qstd");
     KiiClause *clause = [KiiClause equals:@"title" value:self.quest.title];
     KiiQuery *query = [KiiQuery queryWithClause:clause];
-    KiiBucket *bucket = [GXBucketManager sharedManager].joinedQuest;
+    KiiBucket *bucket = self.quest.bucket;
+    //KiiBucket *bucket = [GXBucketManager sharedManager].joinedQuest;
     [bucket executeQuery:query withBlock:^(KiiQuery *query, KiiBucket *bucket, NSArray *results, KiiQuery *nextQuery, NSError *error) {
         
         if (!error) {
-            KiiObject *questObj = results.firstObject;
+          //  KiiObject *questObj = results.firstObject;
+            self.selectedQuestObj = results.firstObject;
             
             //一人 (現状はシステムの作ったクエスト)
-            if ([[questObj getObjectForKey:quest_player_num] intValue] == 1) {
-                [self gotoExeView:questObj];
+            if ([[self.selectedQuestObj getObjectForKey:quest_player_num] intValue] == 1) {
+                [self gotoExeView:self.selectedQuestObj];
                 return ;
             }
             
             if ([[KiiUser currentUser].displayName isEqualToString:self.quest.createdUserName]) {
                 //groupViewへ
                 [self performSegueWithIdentifier:@"groupView" sender:self];
+                return;
             } else {
                 // readyViewへ
                 [self performSegueWithIdentifier:@"readyView" sender:self];
+                return;
             }
         } else {
             NSLog(@"error----->");
@@ -597,6 +600,7 @@
         
         GXQuestReadyViewController *vc = segue.destinationViewController;
         vc.willExeQuest = self.selectedQuestObj;
+        vc.selectedQuestGroup = self.selectedQuestGroup;
         
     } else if ([segue.identifier isEqualToString:@"groupView"]) {
         GXQuestGroupViewController *vc = segue.destinationViewController;
@@ -627,7 +631,10 @@
             }];
         }
     }];
-    
+}
+
+- (void)gotoGroupView:(KiiObject *)questObj
+{
     
 }
 

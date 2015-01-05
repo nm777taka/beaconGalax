@@ -1143,7 +1143,7 @@
         <!--Quest Ready View Controller-->
         <scene sceneID="irT-HR-mCc">
             <objects>
-                <viewController id="ZLd-hL-qSR" customClass="GXQuestReadyViewController" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="ReadyView" id="ZLd-hL-qSR" customClass="GXQuestReadyViewController" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="dlP-JD-HUh"/>
                         <viewControllerLayoutGuide type="bottom" id="RwE-mj-jhV"/>
@@ -1580,6 +1580,6 @@
     </simulatedMetricsContainer>
     <inferredMetricsTieBreakers>
         <segue reference="FiV-RE-YMP"/>
-        <segue reference="4v2-Yy-1DP"/>
+        <segue reference="dOG-c4-pJL"/>
     </inferredMetricsTieBreakers>
 </document>

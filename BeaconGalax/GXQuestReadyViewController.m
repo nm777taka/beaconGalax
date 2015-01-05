@@ -58,14 +58,17 @@
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
-    [self startBeacon];
 }
 
 - (void)viewDidAppear:(BOOL)animated
 {
     [super viewDidAppear:animated];
+    NSLog(@"self.willExeQuest:%@",self.willExeQuest);
     NSString *ownerFBID = [self.willExeQuest getObjectForKey:quest_owner_fbid];
+    NSLog(@"major:%d",[[self.willExeQuest getObjectForKey:@"major"]intValue]);
     self.ownerIconView.profileID = ownerFBID;
+    [self startBeacon];
+
 }
 
 - (void)viewDidDisappear:(BOOL)animated
@@ -79,7 +82,10 @@
 - (void)startBeacon
 {
     //ここのmajorがクエスト達成に使うbeaconになってる
-    CLBeaconMajorValue major = [[self.willExeQuest getObjectForKey:@"owner_major"] intValue];
+    //この変更はbugでそう...
+    //CLBeaconMajorValue major = [[self.willExeQuest getObjectForKey:@"owner_major"] intValue];
+    CLBeaconMajorValue major = [[self.willExeQuest getObjectForKey:@"major"] intValue];
+    NSLog(@"reader major:%d",major);
     self.beaconRegion = [[ESTBeaconRegion alloc] initWithProximityUUID:self.uuid major:major identifier:@"estimote"];
     [self.beaconManager startRangingBeaconsInRegion:self.beaconRegion];
     
