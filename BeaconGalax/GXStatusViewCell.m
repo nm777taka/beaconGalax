@@ -28,15 +28,15 @@
     self.title.text = quest.title;
     
     //スタート時間
-    NSDate *startDate = quest.startDate;
-    if (startDate) {
-        NSDateFormatter *df = [NSDateFormatter new];
-        df.dateFormat = @"MM/dd HH:mm";
-        NSString *formattedDate = [df stringFromDate:startDate];
-        self.startDateLabel.text = formattedDate;
-    } else {
-        self.startDateLabel.text = @"AnyTime";
-    }
+//    NSDate *startDate = quest.startDate;
+//    if (startDate) {
+//        NSDateFormatter *df = [NSDateFormatter new];
+//        df.dateFormat = @"MM/dd HH:mm";
+//        NSString *formattedDate = [df stringFromDate:startDate];
+//        self.startDateLabel.text = formattedDate;
+//    } else {
+//        self.startDateLabel.text = @"AnyTime";
+//    }
 }
 
 

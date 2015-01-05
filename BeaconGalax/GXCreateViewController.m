@@ -188,7 +188,7 @@ const static CGFloat kJVFieldFloatingLabelFontSize = 11.0f;
     [newObj setObject:[NSNumber numberWithInt:2] forKey:quest_player_num];
     [newObj setObject:[NSNumber numberWithInt:0] forKey:quest_success_cnt];
     [newObj setObject:@"user" forKey:quest_type];
-    [newObj setObject:self.selectedDate forKey:@"start_date"];
+    [newObj setObject:self.selectedDateString forKey:@"start_date"];
     //ユーザに紐付いたビーコンを取ってくる
     KiiObject *gxUser = [[GXBucketManager sharedManager] getGalaxUser:[KiiUser currentUser].objectURI];
     NSNumber *user_major = [gxUser getObjectForKey:@"user_major"];
@@ -226,7 +226,7 @@ const static CGFloat kJVFieldFloatingLabelFontSize = 11.0f;
     df.dateFormat = @"MM/dd HH:mm";
     NSString *dfStringDate = [df stringFromDate:aDate];
     NSString *buttonTitle = [NSString stringWithFormat:@"クエスト開始予定時間：%@",dfStringDate];
-    self.selectedDate = aDate;
+    self.selectedDateString = dfStringDate;
     [self.dateSettingButton setTitle:buttonTitle forState:UIControlStateNormal];
     
 }

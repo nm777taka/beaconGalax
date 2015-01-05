@@ -39,7 +39,7 @@
     self.titleLabel.text = quest.title;
     self.iconView.profileID = quest.fb_id;
     self.detailTextView.text = quest.quest_des;
-    
+    self.questStartDateLabel.text = quest.startDateString;
     NSDate *createdDate = quest.createdDate;
     NSDateFormatter *df = [NSDateFormatter new];
     df.dateFormat = @"yyyy/MM/dd HH:mm";
@@ -53,16 +53,14 @@
 {
     //JoinButton
     self.joinButton.layer.cornerRadius = 5.0f;
-    self.joinButton.layer.borderColor = [UIColor turquoiseColor].CGColor;
-    self.joinButton.layer.borderWidth = 2.0f;
+    self.joinButton.backgroundColor = [UIColor turquoiseColor];
     
     [self.joinButton setTitle:@"START" forState:UIControlStateNormal];
     [self.joinButton setTitle:@"START" forState:UIControlStateHighlighted];
-    [self.joinButton bk_addEventHandler:^(id sender) {
-        if ([self.delegate respondsToSelector:@selector(questStatrtDelegate)]) {
-            [self.delegate questStatrtDelegate];
-        }
-    } forControlEvents:UIControlEventTouchUpInside];
+    [self.joinButton setTitleColor:[UIColor cloudsColor] forState:UIControlStateNormal];
+    [self.joinButton setTitleColor:[UIColor cloudsColor] forState:UIControlStateHighlighted];
+    
+    [self ownerButtonSelectorChange];
     
     //DeleteButton
     self.deleteButton.enabled = YES;
@@ -167,5 +165,24 @@
 
     }
     
+}
+
+- (void)ownerButtonSelectorChange
+{
+    if ([self.joinButton bk_hasEventHandlersForControlEvents:UIControlEventTouchUpInside]) {
+        [self.joinButton bk_removeEventHandlersForControlEvents:UIControlEventTouchUpInside];
+    }
+    
+    //Delete_Button
+    if ([self.deleteButton bk_hasEventHandlersForControlEvents:UIControlEventTouchUpInside]) {
+        [self.deleteButton bk_removeEventHandlersForControlEvents:UIControlEventTouchUpInside];
+    }
+    
+    //再設定
+    [self.joinButton bk_addEventHandler:^(id sender) {
+        if ([self.delegate respondsToSelector:@selector(questStatrtDelegate)]) {
+            [self.delegate questStatrtDelegate];
+        }
+    } forControlEvents:UIControlEventTouchUpInside];
 }
 @end

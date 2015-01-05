@@ -27,6 +27,7 @@
 @property (weak, nonatomic) IBOutlet UILabel *dateLabel;
 @property (weak, nonatomic) IBOutlet UILabel *updateLabel;
 @property (weak, nonatomic) IBOutlet UILabel *joinLabel;
+@property (weak, nonatomic) IBOutlet UILabel *questStartDateLabel;
 @property (nonatomic,assign) id<GXHeaderCellDelegate> delegate;
 @property (weak, nonatomic) IBOutlet UIButton *joinButton;
 @property (weak, nonatomic) IBOutlet UIButton *deleteButton;

@@ -38,6 +38,7 @@
 
 @interface GXQuestDetailViewController()<FUIAlertViewDelegate,UITableViewDataSource,UITableViewDelegate,GXHeaderCellDelegate>
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
+@property (nonatomic,strong) NSMutableArray *questMembersArray;
 - (IBAction)closeAction:(id)sender;
 
 @property KiiObject *selectedQuestObj;
@@ -68,7 +69,6 @@
     self.tableView.dataSource = self;
     
     //delegateの設定
-  
     
 }
 
@@ -87,7 +87,27 @@
 - (void)viewDidAppear:(BOOL)animated
 {
     [super viewDidAppear:animated];
-
+    if ([self isQuestOwner]) {
+        self.selectedQuestGroup = [KiiGroup groupWithURI:self.quest.groupURI];
+        [self.selectedQuestGroup refreshWithBlock:^(KiiGroup *group, NSError *error) {
+            if (!error) {
+                [group getMemberListWithBlock:^(KiiGroup *group, NSArray *members, NSError *error) {
+                    if (!error) {
+                        NSMutableArray *resultsArray = [NSMutableArray new];
+                        for (KiiUser *user in members) {
+                            KiiObject *gx_user = [[GXBucketManager sharedManager] getGalaxUser:user.objectURI];
+                            [resultsArray addObject:gx_user];
+                        }
+                        self.questMembersArray = [NSMutableArray arrayWithArray:resultsArray];
+                        [self.tableView reloadData];
+                    }
+                }];
+            } else {
+                NSLog(@"groupError->%@",error);
+            }
+        }];
+    }
+    
 }
 
 - (void)viewDidDisappear:(BOOL)animated
@@ -310,7 +330,8 @@
 {
     BOOL ret = false;
     //自分が作ったクエストかどうか
-    NSString *currentUserName  = [KiiUser currentUser].displayName;
+    //NSString *currentUserName  = [KiiUser currentUser].displayName;
+    NSString *currentUserName = @"Tester";
     if ([currentUserName isEqualToString:self.quest.createdUserName]) {
         //リーダ権限をもつ
         ret = true;
@@ -359,6 +380,7 @@
 
 - (void)questStatrtDelegate
 {
+    NSLog(@"call-qstd");
     KiiClause *clause = [KiiClause equals:@"title" value:self.quest.title];
     KiiQuery *query = [KiiQuery queryWithClause:clause];
     KiiBucket *bucket = [GXBucketManager sharedManager].joinedQuest;
@@ -373,7 +395,9 @@
                 return ;
             }
             
-            if ([[KiiUser currentUser].displayName isEqualToString:self.quest.title]) {
+            //debug--->
+            NSString *debugName = @"Tester";
+            if ([debugName isEqualToString:self.quest.createdUserName]) {
                 //groupViewへ
                 [self performSegueWithIdentifier:@"groupView" sender:self];
             } else {
@@ -428,6 +452,8 @@
     } else if ([segue.identifier isEqualToString:@"groupView"]) {
         GXQuestGroupViewController *vc = segue.destinationViewController;
         vc.willExeQuest = self.selectedQuestObj;
+        vc.selectedQuestGroup = self.selectedQuestGroup;
+        
     }
 }
 

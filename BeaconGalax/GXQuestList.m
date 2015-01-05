@@ -211,9 +211,8 @@ static int const QuestType_Daily = 2;
         NSNumber *playerNum = [obj getObjectForKey:quest_player_num];
         NSString *createdUserName = [obj getObjectForKey:quest_owner];
         NSString *type = [obj getObjectForKey:@"type"];
-        NSDate *startDate = [obj getObjectForKey:@"start_date"];
-        
-        NSLog(@"questStartDate-%@",startDate);
+        NSString *startDateString = [obj getObjectForKey:@"start_date"];
+        NSLog(@"startDateString:%@",startDateString);
         NSDate *date = obj.created; //utc
         if (createdUserName == nil) {
             createdUserName = @"BeaconGalax";
@@ -233,7 +232,7 @@ static int const QuestType_Daily = 2;
         quest.createdDate = date;
         quest.groupURI = groupURI;
         quest.type = type;
-        quest.startDate = startDate;
+        quest.startDateString = startDateString;
         [questArray addObject:quest];
     }
     

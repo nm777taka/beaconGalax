@@ -120,6 +120,7 @@
 		0FC67C831A53330D00FD82B2 /* GXDetailHeaderViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 0FC67C821A53330D00FD82B2 /* GXDetailHeaderViewCell.m */; };
 		0FC67C861A53331D00FD82B2 /* GXDetailTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 0FC67C851A53331D00FD82B2 /* GXDetailTableViewCell.m */; };
 		0FC67C8B1A59191900FD82B2 /* GXHomeCollectionReusableView.m in Sources */ = {isa = PBXBuildFile; fileRef = 0FC67C8A1A59191900FD82B2 /* GXHomeCollectionReusableView.m */; };
+		0FC67C8E1A5A55EE00FD82B2 /* GXDetailViewMembersCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 0FC67C8D1A5A55EE00FD82B2 /* GXDetailViewMembersCell.m */; };
 		0FC7F0CE1A46ECF200A83BFC /* createQuestButton.png in Resources */ = {isa = PBXBuildFile; fileRef = 0FC7F0CD1A46ECF200A83BFC /* createQuestButton.png */; };
 		0FC928381A30E451002931F1 /* Crashlytics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0FC928361A30E451002931F1 /* Crashlytics.framework */; };
 		0FC928391A30E451002931F1 /* Fabric.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0FC928371A30E451002931F1 /* Fabric.framework */; };
@@ -346,6 +347,8 @@
 		0FC67C851A53331D00FD82B2 /* GXDetailTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GXDetailTableViewCell.m; sourceTree = "<group>"; };
 		0FC67C891A59191900FD82B2 /* GXHomeCollectionReusableView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GXHomeCollectionReusableView.h; sourceTree = "<group>"; };
 		0FC67C8A1A59191900FD82B2 /* GXHomeCollectionReusableView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GXHomeCollectionReusableView.m; sourceTree = "<group>"; };
+		0FC67C8C1A5A55EE00FD82B2 /* GXDetailViewMembersCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GXDetailViewMembersCell.h; sourceTree = "<group>"; };
+		0FC67C8D1A5A55EE00FD82B2 /* GXDetailViewMembersCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GXDetailViewMembersCell.m; sourceTree = "<group>"; };
 		0FC7F0CD1A46ECF200A83BFC /* createQuestButton.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = createQuestButton.png; sourceTree = "<group>"; };
 		0FC928361A30E451002931F1 /* Crashlytics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Crashlytics.framework; sourceTree = "<group>"; };
 		0FC928371A30E451002931F1 /* Fabric.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Fabric.framework; sourceTree = "<group>"; };
@@ -1052,6 +1055,8 @@
 				0FC67C821A53330D00FD82B2 /* GXDetailHeaderViewCell.m */,
 				0FC67C841A53331D00FD82B2 /* GXDetailTableViewCell.h */,
 				0FC67C851A53331D00FD82B2 /* GXDetailTableViewCell.m */,
+				0FC67C8C1A5A55EE00FD82B2 /* GXDetailViewMembersCell.h */,
+				0FC67C8D1A5A55EE00FD82B2 /* GXDetailViewMembersCell.m */,
 			);
 			name = QuestDetail;
 			sourceTree = "<group>";
@@ -1505,6 +1510,7 @@
 				0FDD5FC51A21813F00FBC852 /* GXUserDefaults.m in Sources */,
 				0F3558321A1197470023F2FF /* JVFloatLabeledTextField.m in Sources */,
 				0FC9FF1B19EBC6CD00E78B39 /* GXStatusViewCell.m in Sources */,
+				0FC67C8E1A5A55EE00FD82B2 /* GXDetailViewMembersCell.m in Sources */,
 				0FF87EBF1A2E1E0C00798090 /* GXGoogleFormViewController.m in Sources */,
 				0F6E291519ED40CF005BE433 /* GXInviteQuestViewController.m in Sources */,
 				0F7F4147195E77F200A796AD /* GXKiiCloud.m in Sources */,
