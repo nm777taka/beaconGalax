@@ -204,6 +204,7 @@ static int const QuestType_Daily = 2;
     }
     
     for (KiiObject *obj in results) {
+        
         NSString *title = [obj getObjectForKey:quest_title];
         //NSString *fbid = [obj getObjectForKey:quest_createdUser_fbid];
         NSString *fbid = [obj getObjectForKey:quest_owner_fbid];
@@ -213,6 +214,8 @@ static int const QuestType_Daily = 2;
         NSNumber *playerNum = [obj getObjectForKey:quest_player_num];
         NSString *createdUserName = [obj getObjectForKey:quest_owner];
         NSString *type = [obj getObjectForKey:@"type"];
+        BOOL isStarted = [[obj getObjectForKey:quest_isStarted] boolValue];
+        BOOL isCompleted = [[obj getObjectForKey:quest_isCompleted] boolValue];
         NSString *startDateString = [obj getObjectForKey:@"start_date"];
         NSLog(@"startDateString:%@",startDateString);
         NSDate *date = obj.created; //utc
@@ -234,6 +237,8 @@ static int const QuestType_Daily = 2;
         quest.createdDate = date;
         quest.groupURI = groupURI;
         quest.type = type;
+        quest.isStarted = isStarted;
+        quest.isCompleted = isCompleted;
         quest.startDateString = startDateString;
         [questArray addObject:quest];
     }

@@ -28,6 +28,8 @@
 @property (nonatomic,retain) NSString *groupURI; //協力クエスト用(グループ参加で使う)
 @property (nonatomic,retain) NSDate *createdDate; //日時表示用
 @property (nonatomic,retain) NSString *type; //system?user?
+@property (nonatomic,assign) BOOL isStarted;
+@property (nonatomic,assign) BOOL isCompleted;
 
 //サーバーリクエストキー
 @property (nonatomic,retain) NSString *quest_id;
@@ -40,8 +42,7 @@
 //lagacy
 @property (nonatomic,retain) NSString *description;
 @property (nonatomic,retain) NSString *createUserURI;
-@property (nonatomic,assign) NSNumber *isStarted;
-@property (nonatomic,assign) NSNumber *isCompleted;
+
 @property (nonatomic,retain) NSDate *date;
 @property (nonatomic,retain) NSString *createdUserName;
 

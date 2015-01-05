@@ -203,7 +203,7 @@
 - (void)viewDidAppear:(BOOL)animated
 {
     [super viewDidAppear:YES];
-    
+    //クエストのステータスを変更
 }
 
 - (void)viewDidDisappear:(BOOL)animated

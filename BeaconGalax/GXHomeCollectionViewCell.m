@@ -15,11 +15,19 @@
 
 - (void)awakeFromNib
 {
-    //label
+    //userName
     self.createrName.font = [UIFont boldFlatFontOfSize:15];
     self.createrName.textColor = [UIColor midnightBlueColor];
+    
+    //title
     self.titleLable.textColor = [UIColor midnightBlueColor];
     self.titleLable.font = [UIFont boldFlatFontOfSize:13];
+    
+    //questStatus
+    self.questStatusLabel.font = [UIFont boldFlatFontOfSize:13];
+    self.questStatusLabel.layer.cornerRadius = 5.0f;
+    self.questStatusLabel.backgroundColor = [UIColor turquoiseColor];
+    self.questStatusLabel.textColor = [UIColor whiteColor];
     
     self.createrIcon.layer.cornerRadius = 25.0f;
     self.createrIcon.layer.borderColor = [UIColor whiteColor].CGColor;
@@ -48,9 +56,43 @@
     NSString *formattedDateString = [df stringFromDate:date];
     _createdDateLable.text = formattedDateString;
     
+    if (quest.isCompleted) {
+        [self changeStatusForQuestCompleted];
+        return;
+    }
+    
+    if (quest.isStarted) {
+        [self changeStatusForQuestStarting];
+        return;
+    }
+    
+    [self changeStatsuForQuestInviting];
 }
+
 
 - (IBAction)showInfo:(id)sender {
     [[NSNotificationCenter defaultCenter] postNotificationName:@"showInfo" object:self];
+}
+
+#pragma mark - クエストステータス変更メソッド
+- (void)changeStatsuForQuestInviting
+{
+    self.questStatusLabel.text = @"募集中";
+    self.questStatusLabel.backgroundColor = [UIColor turquoiseColor];
+    self.questStatusLabel.textColor = [UIColor whiteColor];
+}
+
+- (void)changeStatusForQuestStarting
+{
+    self.questStatusLabel.text = @"スタート";
+    self.questStatusLabel.textColor = [UIColor whiteColor];
+    self.questStatusLabel.backgroundColor = [UIColor alizarinColor];
+}
+
+- (void)changeStatusForQuestCompleted
+{
+    self.questStatusLabel.text = @"クリア";
+    self.questStatusLabel.backgroundColor = [UIColor amethystColor];
+    self.questStatusLabel.textColor = [UIColor whiteColor];
 }
 @end

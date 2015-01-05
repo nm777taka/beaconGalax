@@ -391,7 +391,8 @@
     KiiBucket *bucket = [GXBucketManager sharedManager].joinedQuest;
     KiiClause *clause1 = [KiiClause equals:@"title" value:self.quest.title];
     KiiClause *clause2 = [KiiClause equals:quest_isCompleted value:@NO];
-    KiiClause *totalClause = [KiiClause and:clause1,clause2];
+    NSArray *clauseArray = [NSArray arrayWithObjects:clause1,clause2, nil];
+    KiiClause *totalClause = [KiiClause andClauses:clauseArray];
     KiiQuery *query = [KiiQuery queryWithClause:totalClause];
     [bucket executeQuery:query withBlock:^(KiiQuery *query, KiiBucket *bucket, NSArray *results, KiiQuery *nextQuery, NSError *error) {
         if (error) {

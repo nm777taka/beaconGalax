@@ -22,6 +22,7 @@
 @property (weak, nonatomic) IBOutlet FBProfilePictureView *createrIcon;
 @property (weak, nonatomic) IBOutlet UILabel *createrName;
 @property (weak, nonatomic) IBOutlet UILabel *createdDateLable;
+@property (weak, nonatomic) IBOutlet UILabel *questStatusLabel;
 
 - (IBAction)showInfo:(id)sender;
 

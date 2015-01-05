@@ -760,6 +760,13 @@
                                                     <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="スタート" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="vvn-NT-ykY">
+                                                    <rect key="frame" x="240" y="8" width="52" height="21"/>
+                                                    <color key="backgroundColor" red="0.1819814891" green="0.69426733259999995" blue="0.53024792669999998" alpha="1" colorSpace="calibratedRGB"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="13"/>
+                                                    <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
                                             </subviews>
                                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                         </view>
@@ -769,6 +776,7 @@
                                             <outlet property="createdDateLable" destination="GeY-Ef-M85" id="3Mf-gG-1o1"/>
                                             <outlet property="createrIcon" destination="Ufc-bL-ec4" id="PhL-am-cd4"/>
                                             <outlet property="createrName" destination="xXt-Ec-sHu" id="1hS-zw-iLV"/>
+                                            <outlet property="questStatusLabel" destination="vvn-NT-ykY" id="G6c-64-QEj"/>
                                             <outlet property="titleLable" destination="qpv-c9-9IA" id="lrg-TW-GHg"/>
                                         </connections>
                                     </collectionViewCell>

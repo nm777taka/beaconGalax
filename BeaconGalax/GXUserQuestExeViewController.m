@@ -49,11 +49,27 @@
     BOOL isOwner = [self isOwner];
     if (isOwner) {
         [self configureOwnerProgress];
+        [self changeQuestStatus:YES];
     } else {
         [self configureParticipantProgress];
     }
     
     self.questTitle.text = [self.exeQuest getObjectForKey:quest_title];
+}
+
+- (void)changeQuestStatus:(BOOL)status
+{
+    if (status) {
+        //started
+        [self.exeQuest setObject:@YES forKey:quest_isStarted];
+
+    } else {
+        //no
+        [self.exeQuest setObject:@NO forKey:quest_isStarted];
+    }
+    [self.exeQuest saveWithBlock:^(KiiObject *object, NSError *error) {
+        
+    }];
 }
 
 - (BOOL)isOwner
@@ -255,6 +271,8 @@
 
 - (void)goBack
 {
+    [self changeQuestStatus:NO];
+    
     UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:[NSBundle mainBundle]];
     UIViewController *initViewController = [storyboard instantiateInitialViewController];
     [self presentViewController:initViewController animated:NO completion:nil];
