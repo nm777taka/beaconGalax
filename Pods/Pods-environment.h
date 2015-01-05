@@ -114,12 +114,6 @@
 #define COCOAPODS_VERSION_MINOR_DZNSegmentedControl 2
 #define COCOAPODS_VERSION_PATCH_DZNSegmentedControl 2
 
-// EAIntroView
-#define COCOAPODS_POD_AVAILABLE_EAIntroView
-#define COCOAPODS_VERSION_MAJOR_EAIntroView 2
-#define COCOAPODS_VERSION_MINOR_EAIntroView 6
-#define COCOAPODS_VERSION_PATCH_EAIntroView 4
-
 // EstimoteSDK
 #define COCOAPODS_POD_AVAILABLE_EstimoteSDK
 #define COCOAPODS_VERSION_MAJOR_EstimoteSDK 2
@@ -156,6 +150,12 @@
 #define COCOAPODS_VERSION_MINOR_REFrostedViewController 4
 #define COCOAPODS_VERSION_PATCH_REFrostedViewController 7
 
+// RMDateSelectionViewController
+#define COCOAPODS_POD_AVAILABLE_RMDateSelectionViewController
+#define COCOAPODS_VERSION_MAJOR_RMDateSelectionViewController 1
+#define COCOAPODS_VERSION_MINOR_RMDateSelectionViewController 4
+#define COCOAPODS_VERSION_PATCH_RMDateSelectionViewController 1
+
 // SVProgressHUD
 #define COCOAPODS_POD_AVAILABLE_SVProgressHUD
 #define COCOAPODS_VERSION_MAJOR_SVProgressHUD 1
@@ -167,10 +167,4 @@
 #define COCOAPODS_VERSION_MAJOR_UAProgressView 0
 #define COCOAPODS_VERSION_MINOR_UAProgressView 1
 #define COCOAPODS_VERSION_PATCH_UAProgressView 1
-
-// WSCoachMarksView
-#define COCOAPODS_POD_AVAILABLE_WSCoachMarksView
-#define COCOAPODS_VERSION_MAJOR_WSCoachMarksView 0
-#define COCOAPODS_VERSION_MINOR_WSCoachMarksView 2
-#define COCOAPODS_VERSION_PATCH_WSCoachMarksView 0
 

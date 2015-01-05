@@ -14,9 +14,9 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "1AC8650826524A33A146A8AB"
-               BuildableName = "libPods-WSCoachMarksView.a"
-               BlueprintName = "Pods-WSCoachMarksView"
+               BlueprintIdentifier = "6374003F590249DAB547D490"
+               BuildableName = "libPods-RMDateSelectionViewController.a"
+               BlueprintName = "Pods-RMDateSelectionViewController"
                ReferencedContainer = "container:Pods.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>

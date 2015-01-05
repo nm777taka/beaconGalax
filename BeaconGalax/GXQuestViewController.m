@@ -53,6 +53,7 @@
 @property GXQuest *selectedQuest;
 @property (nonatomic,strong) GXQuestList *questList;
 
+- (IBAction)createQuest:(id)sender;
 @property UIButton *addQuestButton;
 
 @end
@@ -466,4 +467,7 @@
     [self.frostedViewController presentMenuViewController];
 }
 
+- (IBAction)createQuest:(id)sender {
+    [self performSegueWithIdentifier:@"gotoCreateView" sender:self];
+}
 @end

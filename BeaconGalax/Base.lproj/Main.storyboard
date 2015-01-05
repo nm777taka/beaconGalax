@@ -577,7 +577,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="XNB-d8-B19" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2259" y="-1834"/>
+            <point key="canvasLocation" x="3359" y="-1424"/>
         </scene>
         <!--Login View Controller-->
         <scene sceneID="pVw-jq-tED">
@@ -609,7 +609,7 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Hbv-Ve-4PE" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <exit id="Ngn-J0-9JT" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
-            <point key="canvasLocation" x="2259" y="-1267"/>
+            <point key="canvasLocation" x="3121" y="-1447"/>
         </scene>
         <!--アクティビティ-->
         <scene sceneID="l70-5i-kJ3">
@@ -794,11 +794,18 @@
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
                     <toolbarItems/>
-                    <navigationItem key="navigationItem" title="クエスト" id="YiJ-ZY-8S3"/>
+                    <navigationItem key="navigationItem" title="クエスト" id="YiJ-ZY-8S3">
+                        <barButtonItem key="rightBarButtonItem" systemItem="add" id="vFb-eS-bvi">
+                            <connections>
+                                <action selector="createQuest:" destination="0wR-c0-tUS" id="4WZ-iX-YxW"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
                     <simulatedOrientationMetrics key="simulatedOrientationMetrics"/>
                     <connections>
                         <outlet property="collectionView" destination="hmJ-g2-XYq" id="aJh-Dz-EJ3"/>
                         <segue destination="FmO-LH-Oe6" kind="modal" identifier="gotoDetail" id="FiV-RE-YMP"/>
+                        <segue destination="kE8-C6-YYK" kind="modal" identifier="gotoCreateView" id="Blh-f7-BRh"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="tXN-0u-SKE" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -902,6 +909,18 @@
                     <view key="view" contentMode="scaleToFill" id="fkr-E0-knU">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="p6B-mC-QGh" customClass="FBProfilePictureView">
+                                <rect key="frame" x="8" y="72" width="40" height="40"/>
+                                <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                            </view>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="MDf-vJ-quq">
+                                <rect key="frame" x="56" y="81" width="171" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
                     <navigationItem key="navigationItem" id="GA4-rf-rzi">
@@ -911,14 +930,6 @@
                                 <action selector="closeView:" destination="0sk-fa-YAs" id="UyR-gO-TF8"/>
                             </connections>
                         </barButtonItem>
-                        <segmentedControl key="titleView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="bar" selectedSegmentIndex="0" id="o1E-Uy-5ci">
-                            <rect key="frame" x="72" y="7" width="177" height="31"/>
-                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                            <segments>
-                                <segment title="ビーコン"/>
-                                <segment title="ユーザ"/>
-                            </segments>
-                        </segmentedControl>
                         <barButtonItem key="rightBarButtonItem" title="作成" id="jGk-Hh-wM3">
                             <connections>
                                 <action selector="create:" destination="0sk-fa-YAs" id="H3L-1L-Hql"/>
@@ -926,13 +937,13 @@
                         </barButtonItem>
                     </navigationItem>
                     <connections>
-                        <outlet property="segmentedControl" destination="o1E-Uy-5ci" id="y3E-Ef-yYn"/>
-                        <segue destination="xPY-Ou-4ee" kind="modal" identifier="getMember" id="xjy-5S-X1O"/>
+                        <outlet property="userIcon" destination="p6B-mC-QGh" id="neI-ye-4UG"/>
+                        <outlet property="userNameLabel" destination="MDf-vJ-quq" id="vEM-VT-a7Z"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="egZ-1W-BDW" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3613" y="598"/>
+            <point key="canvasLocation" x="2526" y="-1270"/>
         </scene>
         <!--Create Beacon Quest View Controller-->
         <scene sceneID="Knj-GG-bsZ">
@@ -1119,11 +1130,7 @@
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
                     <navigationItem key="navigationItem" title="募集中" id="goE-mP-9Mx">
-                        <barButtonItem key="rightBarButtonItem" systemItem="add" id="jDn-Oe-k24">
-                            <connections>
-                                <segue destination="kE8-C6-YYK" kind="modal" identifier="gotoCreateView" id="VY3-ct-u3A"/>
-                            </connections>
-                        </barButtonItem>
+                        <barButtonItem key="rightBarButtonItem" systemItem="add" id="jDn-Oe-k24"/>
                     </navigationItem>
                     <connections>
                         <outlet property="collectionView" destination="d1R-PH-Xz9" id="YfX-qS-4a6"/>
@@ -1421,7 +1428,7 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="iy9-bk-fhP" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3206" y="593"/>
+            <point key="canvasLocation" x="2097" y="-1286"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="70Z-eJ-P9V">
