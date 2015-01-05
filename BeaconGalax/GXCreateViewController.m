@@ -39,7 +39,7 @@ const static CGFloat kJVFieldFloatingLabelFontSize = 11.0f;
 @property JVFloatLabeledTextView *descriptionView;
 @property (weak, nonatomic) IBOutlet FBProfilePictureView *userIcon;
 @property (weak, nonatomic) IBOutlet UILabel *userNameLabel;
-@property (weak,nonatomic) UIButton *dateSettingButton;
+@property UIButton *dateSettingButton;
 @property NSString *selectedDateString;
 @property NSDate *selectedDate;
 
@@ -135,7 +135,8 @@ const static CGFloat kJVFieldFloatingLabelFontSize = 11.0f;
 //    div2.frame = CGRectMake(kJVFieldMargin, self.descriptionView.frame.origin.y + self.descriptionView.frame.size.height, self.view.frame.size.width - 2*kJVFieldMargin, 1.0f);
 //    div2.backgroundColor = [[UIColor lightGrayColor] colorWithAlphaComponent:0.3f];
 //    [self.view addSubview:div2];
-    self.dateSettingButton = [UIButton buttonWithType:UIButtonTypeRoundedRect];
+    self.dateSettingButton = [UIButton new];
+    self.dateSettingButton = [UIButton buttonWithType:UIButtonTypeSystem];
     self.dateSettingButton.frame = CGRectMake(kJVFieldMargin, self.descriptionView.frame.origin.y + self.descriptionView.frame.size.height, self.view.frame.size.width -2*kJVFieldMargin, 40);
     self.dateSettingButton.layer.borderColor = [UIColor turquoiseColor].CGColor;
     self.dateSettingButton.layer.borderWidth = 1.0f;

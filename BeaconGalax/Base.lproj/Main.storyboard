@@ -1138,7 +1138,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="HoD-uz-grb" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2485" y="319"/>
+            <point key="canvasLocation" x="2484" y="253"/>
         </scene>
         <!--Quest Ready View Controller-->
         <scene sceneID="irT-HR-mCc">
