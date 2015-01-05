@@ -10,6 +10,7 @@
 #import "GXBucketManager.h"
 #import "GXActivityList.h"
 #import "GXUserManager.h"
+#import "GXEventManager.h"
 #import "GXExeQuestManager.h"
 #import "GXDictonaryKeys.h"
 #import "GXNotification.h"
@@ -119,10 +120,31 @@
         
     } afterDelay:1.0];
     
-    [self clearQuest]; //クエスト片付け
-    
     //activityに投稿
     [self setActivity];
+    
+    [self clearQuest]; //クエスト片付け
+    
+    
+    NSString *questType = [self.quest getObjectForKey:quest_type];
+    
+    //eventのclear_cntにcommit
+    if ([questType isEqualToString:@"system"]) {
+        [self exeServerCode];
+    }
+    
+    if ([[self.quest getObjectForKey:quest_owner] isEqualToString:[KiiUser currentUser].displayName]) {
+        [self exeServerCode];
+    }
+    
+    //evetPT処理
+    
+    if ([[self.quest getObjectForKey:quest_owner] isEqualToString:[KiiUser currentUser].displayName]) {
+        [[GXEventManager sharedInstance] registerCommiterUser:YES type:questType];
+    } else {
+        [[GXEventManager sharedInstance] registerCommiterUser:NO type:questType];
+    }
+
 }
 
 - (void)viewDidDisappear:(BOOL)animated
@@ -197,5 +219,17 @@
     //アラート
     FUIAlertView *alert = [FUIAlertView rankUPTheme:nextRank];
     [alert show];
+}
+
+#pragma mark - ServerCode
+- (void)exeServerCode
+{
+    KiiServerCodeEntry *entry = [Kii serverCodeEntry:@"eventCommit"];
+    NSDictionary *dict = @{@"aaa":@"aaa"};
+    KiiServerCodeEntryArgument *arg = [KiiServerCodeEntryArgument argumentWithDictionary:dict];
+    [entry execute:arg withBlock:^(KiiServerCodeEntry *entry, KiiServerCodeEntryArgument *argument, KiiServerCodeExecResult *result, NSError *error) {
+        NSDictionary *retDict = [result returnedValue];
+        NSLog(@"returned:%@",retDict);
+    }];
 }
 @end

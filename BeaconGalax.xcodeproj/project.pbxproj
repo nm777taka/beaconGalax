@@ -126,6 +126,9 @@
 		0FC67C951A5AE51C00FD82B2 /* user_location@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 0FC67C941A5AE51C00FD82B2 /* user_location@2x.png */; };
 		0FC67C971A5AE51F00FD82B2 /* activity@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 0FC67C961A5AE51F00FD82B2 /* activity@2x.png */; };
 		0FC67C991A5AEB9200FD82B2 /* menu@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 0FC67C981A5AEB9200FD82B2 /* menu@2x.png */; };
+		0FC67C9D1A5B060200FD82B2 /* GXEventViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0FC67C9C1A5B060200FD82B2 /* GXEventViewController.m */; };
+		0FC67CA11A5B1A2900FD82B2 /* GXEventTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 0FC67CA01A5B1A2900FD82B2 /* GXEventTableViewCell.m */; };
+		0FC67CA51A5B1FA600FD82B2 /* GXEventManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 0FC67CA41A5B1FA600FD82B2 /* GXEventManager.m */; };
 		0FC7F0CE1A46ECF200A83BFC /* createQuestButton.png in Resources */ = {isa = PBXBuildFile; fileRef = 0FC7F0CD1A46ECF200A83BFC /* createQuestButton.png */; };
 		0FC928381A30E451002931F1 /* Crashlytics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0FC928361A30E451002931F1 /* Crashlytics.framework */; };
 		0FC928391A30E451002931F1 /* Fabric.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0FC928371A30E451002931F1 /* Fabric.framework */; };
@@ -359,6 +362,12 @@
 		0FC67C941A5AE51C00FD82B2 /* user_location@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "user_location@2x.png"; sourceTree = "<group>"; };
 		0FC67C961A5AE51F00FD82B2 /* activity@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "activity@2x.png"; sourceTree = "<group>"; };
 		0FC67C981A5AEB9200FD82B2 /* menu@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "menu@2x.png"; sourceTree = "<group>"; };
+		0FC67C9B1A5B060200FD82B2 /* GXEventViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GXEventViewController.h; sourceTree = "<group>"; };
+		0FC67C9C1A5B060200FD82B2 /* GXEventViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GXEventViewController.m; sourceTree = "<group>"; };
+		0FC67C9F1A5B1A2900FD82B2 /* GXEventTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GXEventTableViewCell.h; sourceTree = "<group>"; };
+		0FC67CA01A5B1A2900FD82B2 /* GXEventTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GXEventTableViewCell.m; sourceTree = "<group>"; };
+		0FC67CA31A5B1FA600FD82B2 /* GXEventManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GXEventManager.h; sourceTree = "<group>"; };
+		0FC67CA41A5B1FA600FD82B2 /* GXEventManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GXEventManager.m; sourceTree = "<group>"; };
 		0FC7F0CD1A46ECF200A83BFC /* createQuestButton.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = createQuestButton.png; sourceTree = "<group>"; };
 		0FC928361A30E451002931F1 /* Crashlytics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Crashlytics.framework; sourceTree = "<group>"; };
 		0FC928371A30E451002931F1 /* Fabric.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Fabric.framework; sourceTree = "<group>"; };
@@ -912,6 +921,7 @@
 		0F7A25C919587E0C001B7839 /* Controller */ = {
 			isa = PBXGroup;
 			children = (
+				0FC67C9A1A5B05CF00FD82B2 /* EventView */,
 				0F24561D1A3A80D300F34724 /* VisitQuestView */,
 				0F24560F1A38D7F800F34724 /* GalaxterStatus */,
 				0FC9283E1A322FED002931F1 /* LeaderBoard */,
@@ -1024,6 +1034,7 @@
 		0FA17E3119619EB600158421 /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				0FC67CA21A5B1F8E00FD82B2 /* Event */,
 				0F2455FD1A3843A600F34724 /* Analyzer */,
 				0F2455FC1A38439400F34724 /* User */,
 				0F2455FB1A38438B00F34724 /* Topic */,
@@ -1082,6 +1093,33 @@
 				0FC67C901A5AE51200FD82B2 /* qeust_icon@2x.png */,
 			);
 			name = HomeView;
+			sourceTree = "<group>";
+		};
+		0FC67C9A1A5B05CF00FD82B2 /* EventView */ = {
+			isa = PBXGroup;
+			children = (
+				0FC67C9B1A5B060200FD82B2 /* GXEventViewController.h */,
+				0FC67C9C1A5B060200FD82B2 /* GXEventViewController.m */,
+			);
+			name = EventView;
+			sourceTree = "<group>";
+		};
+		0FC67C9E1A5B1A1600FD82B2 /* EventView */ = {
+			isa = PBXGroup;
+			children = (
+				0FC67C9F1A5B1A2900FD82B2 /* GXEventTableViewCell.h */,
+				0FC67CA01A5B1A2900FD82B2 /* GXEventTableViewCell.m */,
+			);
+			name = EventView;
+			sourceTree = "<group>";
+		};
+		0FC67CA21A5B1F8E00FD82B2 /* Event */ = {
+			isa = PBXGroup;
+			children = (
+				0FC67CA31A5B1FA600FD82B2 /* GXEventManager.h */,
+				0FC67CA41A5B1FA600FD82B2 /* GXEventManager.m */,
+			);
+			name = Event;
 			sourceTree = "<group>";
 		};
 		0FC9283A1A3200DB002931F1 /* Device */ = {
@@ -1245,6 +1283,7 @@
 		0FD26D7C1959F32C005E2B95 /* View */ = {
 			isa = PBXGroup;
 			children = (
+				0FC67C9E1A5B1A1600FD82B2 /* EventView */,
 				0FC67C801A5332E900FD82B2 /* QuestDetail */,
 				0F2456161A38DEF300F34724 /* GalaxterStatus */,
 				0F2455EE1A34187C00F34724 /* LeaderBoard */,
@@ -1529,6 +1568,7 @@
 			files = (
 				0FC9283D1A3200E7002931F1 /* Device.m in Sources */,
 				0F3558421A14C1700023F2FF /* GXActivityViewController.m in Sources */,
+				0FC67C9D1A5B060200FD82B2 /* GXEventViewController.m in Sources */,
 				0F1295BE1A28774C009A1153 /* GXJoinedQuestViewController.m in Sources */,
 				0F6E291919ED5015005BE433 /* GXInvitedViewCell.m in Sources */,
 				0F649FE719CD5A1C00D48074 /* GXJoinedQuestTableViewCell.m in Sources */,
@@ -1560,6 +1600,7 @@
 				0FD200A219E2608D0034E52A /* GXStatusViewController.m in Sources */,
 				0F16512819D443A800918F8D /* GXQuestMemberCell.m in Sources */,
 				0F2456031A384B7F00F34724 /* GXActionAnalyzer.m in Sources */,
+				0FC67CA11A5B1A2900FD82B2 /* GXEventTableViewCell.m in Sources */,
 				0F3558371A1198610023F2FF /* GXCreateViewController.m in Sources */,
 				0F35583E1A121D600023F2FF /* GXUserQuestExeViewController.m in Sources */,
 				0F3558341A1197470023F2FF /* NSString+TextDirectionality.m in Sources */,
@@ -1580,6 +1621,7 @@
 				0F7A25A019587ADE001B7839 /* main.m in Sources */,
 				0FD26D89195A0A11005E2B95 /* UIColor+GXtheme.m in Sources */,
 				0F2455F51A3418C300F34724 /* GXRankingTableViewCell.m in Sources */,
+				0FC67CA51A5B1FA600FD82B2 /* GXEventManager.m in Sources */,
 				0F5FA5F6198DCF5300F41B05 /* GXFacebook.m in Sources */,
 				0FB4406619F18745006F857D /* GXQuestExeViewController.m in Sources */,
 				0F2456151A38DDC800F34724 /* GXGalaxterStatusViewController.m in Sources */,

@@ -97,7 +97,7 @@ const static CGFloat kJVFieldFloatingLabelFontSize = 11.0f;
     
     //title
     self.titleField = [[JVFloatLabeledTextField alloc] initWithFrame:CGRectMake(kJVFieldMargin, self.userIcon.frame.size.height + 64 + 10, self.view.frame.size.width -2 * kJVFieldMargin, kJVFieldHeight)];
-    self.titleField.attributedPlaceholder = [[NSAttributedString alloc] initWithString:@"これからなにしたい？" attributes:@{NSForegroundColorAttributeName:[UIColor darkGrayColor]}];
+    self.titleField.attributedPlaceholder = [[NSAttributedString alloc] initWithString:@"メンバーとやりたいことをかこう" attributes:@{NSForegroundColorAttributeName:[UIColor darkGrayColor]}];
     self.titleField.font = [UIFont systemFontOfSize:kJVFieldFontSize];
     self.titleField.floatingLabelTextColor = floatingLabelColor;
     self.titleField.clearButtonMode = UITextFieldViewModeWhileEditing;

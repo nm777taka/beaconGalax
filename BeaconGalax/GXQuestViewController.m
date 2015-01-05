@@ -24,6 +24,7 @@
 #import "GXQuestDetailViewController.h"
 #import "GXQuestGroupViewController.h"
 #import "GXHomeCollectionReusableView.h"
+#import "GXEventViewController.h"
 
 #import "GXPointManager.h"
 #import "GXTopicManager.h"
@@ -46,14 +47,18 @@
 
 @property (nonatomic,strong) GXQuestDetailViewController *detailViewController;
 @property (weak, nonatomic) IBOutlet UICollectionView *collectionView;
+@property (weak, nonatomic) IBOutlet UILabel *eventTitleLabel;
 @property KiiObject *selectedObject;
 @property KiiGroup *selectedQuestGroup;
 @property BOOL isSelectedQuestMulti;
 @property NSInteger segmentIndex;
 @property GXQuest *selectedQuest;
+@property KiiObject *eventObject;
 @property (nonatomic,strong) GXQuestList *questList;
 
+- (IBAction)gotoEventAction:(id)sender;
 - (IBAction)createQuest:(id)sender;
+
 @property UIButton *addQuestButton;
 
 @end
@@ -108,6 +113,10 @@
     
     UIBarButtonItem *navLeftButton = [[UIBarButtonItem alloc] initWithCustomView:button];
     self.navigationItem.leftBarButtonItem = navLeftButton;
+    
+    //eventUI
+    self.eventTitleLabel.font = [UIFont boldFlatFontOfSize:15];
+    self.eventTitleLabel.textColor = [UIColor whiteColor];
                            
     
 }
@@ -128,6 +137,7 @@
     [super viewDidAppear:animated];
     //questFetch
     [self request:0]; //new
+    [self fetchEvent]; //eventをフェッチ
 
 }
 
@@ -259,6 +269,9 @@
     if ([[segue identifier] isEqualToString:@"gotoDetail"]){
         GXQuestDetailViewController *vc = (GXQuestDetailViewController *)[(UINavigationController *)segue.destinationViewController topViewController];
         vc.quest = _selectedQuest;
+    } else if ([segue.identifier isEqualToString:@"gotoEvent"]) {
+        GXEventViewController *vc = segue.destinationViewController;
+        vc.eventData = self.eventObject;
     }
 }
 
@@ -469,7 +482,31 @@
     [self.frostedViewController presentMenuViewController];
 }
 
+- (IBAction)gotoEventAction:(id)sender {
+    [self performSegueWithIdentifier:@"gotoEvent" sender:self];
+}
+
 - (IBAction)createQuest:(id)sender {
     [self performSegueWithIdentifier:@"gotoCreateView" sender:self];
+}
+
+#pragma mark - Event
+- (void)fetchEvent
+{
+    KiiBucket *bucket = [Kii bucketWithName:@"Event"];
+    KiiClause *clause = [KiiClause equals:@"isCompleted" value:@NO];
+    KiiQuery *query = [KiiQuery queryWithClause:clause];
+    [bucket executeQuery:query withBlock:^(KiiQuery *query, KiiBucket *bucket, NSArray *results, KiiQuery *nextQuery, NSError *error) {
+        if (!error) {
+            self.eventObject = results.firstObject;
+            [self updateEventUI];
+        }
+    }];
+}
+
+- (void)updateEventUI
+{
+    KiiObject *eventDate = self.eventObject;
+    self.eventTitleLabel.text = [eventDate getObjectForKey:@"title"];
 }
 @end
