@@ -47,7 +47,15 @@
 {
     //レイアウト
     _titleLable.text = quest.title;
+    
+    if ([quest.type isEqualToString:@"system"]) {
+        _createrIcon.hidden = YES;
+    } else {
+        _createrIcon.hidden = NO;
+    }
     _createrIcon.profileID = quest.fb_id;
+
+    
     _createrName.text = quest.createdUserName;
     
     NSDate *date = quest.createdDate;

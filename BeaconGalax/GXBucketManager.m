@@ -403,8 +403,11 @@
         KiiObject *questObject = results.firstObject;
         
         //既に受注しているかチェック
-        KiiClause *clause = [KiiClause equals:quest_title value:[questObject getObjectForKey:quest_title]];
-        KiiQuery *isAlreadyQuery = [KiiQuery queryWithClause:clause];
+        KiiClause *clause1 = [KiiClause equals:quest_title value:[questObject getObjectForKey:quest_title]];
+        KiiClause *clause2 = [KiiClause equals:quest_isCompleted value:@NO];
+        NSArray *clauseArray = @[clause1,clause2];
+        KiiClause *totalClause = [KiiClause andClauses:clauseArray];
+        KiiQuery *isAlreadyQuery = [KiiQuery queryWithClause:totalClause];
         KiiBucket *joinedBucket = [[KiiUser currentUser] bucketWithName:@"joined_quest"];
         [joinedBucket executeQuery:isAlreadyQuery withBlock:^(KiiQuery *query, KiiBucket *bucket, NSArray *results, KiiQuery *nextQuery, NSError *error) {
             
