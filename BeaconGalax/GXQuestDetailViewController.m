@@ -504,6 +504,18 @@
 #pragma mark - HeaderView delegate
 - (void)joinActionDelegate
 {
+    if (self.quest.isStarted) {
+        FUIAlertView *alert = [FUIAlertView errorTheme:@"このクエストは開始済みです"];
+        [alert show];
+        return;
+    }
+    
+    if (self.quest.isCompleted) {
+        FUIAlertView *alert = [FUIAlertView errorTheme:@"このクエストはクリア済みです"];
+        [alert show];
+        return;
+    }
+    
     [SVProgressHUD showWithStatus:@"クエスト受注中"];
     
     NSString *questType = self.quest.type;
@@ -525,6 +537,18 @@
 
 - (void)questStatrtDelegate
 {
+    if (self.quest.isStarted) {
+        FUIAlertView *alert = [FUIAlertView errorTheme:@"このクエストは開始済みです"];
+        [alert show];
+        return;
+    }
+    
+    if (self.quest.isCompleted) {
+        FUIAlertView *alert = [FUIAlertView errorTheme:@"このクエストはクリア済みです"];
+        [alert show];
+        return;
+    }
+    
     KiiClause *clause = [KiiClause equals:@"title" value:self.quest.title];
     KiiQuery *query = [KiiQuery queryWithClause:clause];
     KiiBucket *bucket;
