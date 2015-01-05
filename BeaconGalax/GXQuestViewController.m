@@ -153,7 +153,6 @@
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section
 {
     if (section == 0) {
-        NSLog(@"dailyCount:%u",[_questList dailyQuestCount]);
         return [_questList dailyQuestCount];
     } else {
         return [_questList count];

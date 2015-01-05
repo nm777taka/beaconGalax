@@ -86,17 +86,28 @@
         } else {
             //完了したクエストを元バケットから消す
             //クエストが属しているBucketから消える
-            [self.nowExeQuest deleteWithBlock:^(KiiObject *object, NSError *error) {
-                if (error) {
-                    NSLog(@"error:%@",error);
-                } else {
-                    
-                }
+            //消すんじゃなくて、isCompleted = yesにする
+            
+//            [self.nowExeQuest deleteWithBlock:^(KiiObject *object, NSError *error) {
+//                if (error) {
+//                    NSLog(@"error:%@",error);
+//                } else {
+//                    
+//                }
+//            }];
+            
+            [self.nowExeQuest setObject:@YES forKey:quest_isCompleted];
+            [self.nowExeQuest saveWithBlock:^(KiiObject *object, NSError *error) {
+                
             }];
             
             //system(デイリーの場合、joinedからだけでなく、ソースになっているnotJoinからの消す
-            [self.nowExeParentQuest deleteWithBlock:^(KiiObject *object, NSError *error) {
-                
+//            [self.nowExeParentQuest deleteWithBlock:^(KiiObject *object, NSError *error) {
+//                
+//            }];
+            [self.nowExeParentQuest setObject:@YES forKey:quest_isCompleted];
+            [self.nowExeParentQuest saveWithBlock:^(KiiObject *object, NSError *error) {
+                //
             }];
         }
     }];

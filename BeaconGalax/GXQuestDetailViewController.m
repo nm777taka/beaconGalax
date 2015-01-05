@@ -389,8 +389,10 @@
 - (void)isJoinedQuest:(GXDetailHeaderViewCell *)cell
 {
     KiiBucket *bucket = [GXBucketManager sharedManager].joinedQuest;
-    KiiClause *clause = [KiiClause equals:@"title" value:self.quest.title];
-    KiiQuery *query = [KiiQuery queryWithClause:clause];
+    KiiClause *clause1 = [KiiClause equals:@"title" value:self.quest.title];
+    KiiClause *clause2 = [KiiClause equals:quest_isCompleted value:@NO];
+    KiiClause *totalClause = [KiiClause and:clause1,clause2];
+    KiiQuery *query = [KiiQuery queryWithClause:totalClause];
     [bucket executeQuery:query withBlock:^(KiiQuery *query, KiiBucket *bucket, NSArray *results, KiiQuery *nextQuery, NSError *error) {
         if (error) {
             NSLog(@"%s",__PRETTY_FUNCTION__);
@@ -524,7 +526,13 @@
 {
     KiiClause *clause = [KiiClause equals:@"title" value:self.quest.title];
     KiiQuery *query = [KiiQuery queryWithClause:clause];
-    KiiBucket *bucket = self.quest.bucket;
+    KiiBucket *bucket;
+    if ([self isQuestOwner]) {
+        bucket = [GXBucketManager sharedManager].questBoard;
+    } else {
+        bucket = [GXBucketManager sharedManager].joinedQuest;
+    }
+    
     //KiiBucket *bucket = [GXBucketManager sharedManager].joinedQuest;
     [bucket executeQuery:query withBlock:^(KiiQuery *query, KiiBucket *bucket, NSArray *results, KiiQuery *nextQuery, NSError *error) {
         
@@ -601,11 +609,13 @@
         GXQuestReadyViewController *vc = segue.destinationViewController;
         vc.willExeQuest = self.selectedQuestObj;
         vc.selectedQuestGroup = self.selectedQuestGroup;
+        [GXExeQuestManager sharedManager].nowExeQuest = self.selectedQuestObj;
         
     } else if ([segue.identifier isEqualToString:@"groupView"]) {
         GXQuestGroupViewController *vc = segue.destinationViewController;
         vc.willExeQuest = self.selectedQuestObj;
         vc.selectedQuestGroup = self.selectedQuestGroup;
+        [GXExeQuestManager sharedManager].nowExeQuest = self.selectedQuestObj;
         
     }
 }

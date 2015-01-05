@@ -152,7 +152,8 @@ static int const QuestType_Daily = 2;
 - (void)handlerJoinedQuest
 {
     KiiBucket *bucket = [[KiiUser currentUser] bucketWithName:@"joined_quest"];
-    KiiQuery *query = [KiiQuery queryWithClause:nil];
+    KiiClause *clause = [KiiClause equals:quest_isCompleted value:@NO];
+    KiiQuery *query = [KiiQuery queryWithClause:clause];
     [query sortByDesc:@"_created"];
     [bucket executeQuery:query withBlock:^(KiiQuery *query, KiiBucket *bucket, NSArray *results, KiiQuery *nextQuery, NSError *error) {
         if (error) {
@@ -204,7 +205,8 @@ static int const QuestType_Daily = 2;
     
     for (KiiObject *obj in results) {
         NSString *title = [obj getObjectForKey:quest_title];
-        NSString *fbid = [obj getObjectForKey:quest_createdUser_fbid];
+        //NSString *fbid = [obj getObjectForKey:quest_createdUser_fbid];
+        NSString *fbid = [obj getObjectForKey:quest_owner_fbid];
         NSString *questID = obj.objectURI;
         NSString *questReq = [obj getObjectForKey:quest_requirement];
         NSString *questDes = [obj getObjectForKey:quest_description];
