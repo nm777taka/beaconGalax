@@ -15,6 +15,7 @@
 
 - (void)awakeFromNib {
     // Initialization code
+    self.iconView.layer.cornerRadius = 5.0f;
 }
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {

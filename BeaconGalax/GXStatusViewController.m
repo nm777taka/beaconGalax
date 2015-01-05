@@ -180,7 +180,7 @@
         [label sizeToFit];
         [view addSubview:label];
     } else if (section == 1) {
-        label.text = @"作ったクエスト";
+        label.text = @"自分が募集しているクエスト";
         label.font = [UIFont systemFontOfSize:15];
         label.textColor = [UIColor whiteColor];
         label.backgroundColor = [UIColor clearColor];
@@ -199,7 +199,12 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    _selectedQuest = [self.questList joinedQuestAtIndex:indexPath.row];
+    if (indexPath.section == 0) {
+        _selectedQuest = [self.questList joinedQuestAtIndex:indexPath.row];
+    } else if (indexPath.section == 1) {
+        _selectedQuest = [self.questList invitingQuestAtIndex:indexPath.row];
+    }
+    
     [self performSegueWithIdentifier:@"gotoDetail" sender:self];
 }
 
@@ -222,7 +227,7 @@
     if (section == 0) {
         rows = [self.questList joinedQuestCount];
     } else if(section == 1){
-        rows = 0;
+        rows = [self.questList invitingQuestCount];
     }
     
     return rows;
@@ -235,6 +240,7 @@
     if (indexPath.section == 0) {
         cell.quest = [self.questList joinedQuestAtIndex:indexPath.row];
     } else if (indexPath.section == 1) {
+        cell.quest = [self.questList invitingQuestAtIndex:indexPath.row];
     }
 
     return cell;
@@ -246,7 +252,7 @@
     if (self.questList.loading) {
     
     }else {
-        [self.questList requestAsyncronous:1]; //1(magic number) 参加済みのクエスト
+        [self.questList requestAsyncronous:1]; //1(magic number) 参加済みのクエストと自分が募集しているクエスト
     }
 }
 

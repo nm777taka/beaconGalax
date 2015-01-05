@@ -29,9 +29,8 @@
     self.questStatusLabel.backgroundColor = [UIColor turquoiseColor];
     self.questStatusLabel.textColor = [UIColor whiteColor];
     
-    self.createrIcon.layer.cornerRadius = 25.0f;
-    self.createrIcon.layer.borderColor = [UIColor whiteColor].CGColor;
-    self.createrIcon.layer.borderWidth = 2.0f;
+    self.createrIcon.layer.cornerRadius = 5.0f;
+
     
     //drop shadow
     //ドロップシャドウ

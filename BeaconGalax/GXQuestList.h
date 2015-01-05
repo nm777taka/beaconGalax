@@ -26,11 +26,12 @@
 - (NSUInteger)count;
 - (NSUInteger)joinedQuestCount;
 - (NSUInteger)dailyQuestCount;
+- (NSUInteger)invitingQuestCount;
 
 - (GXQuest *)questAtIndex:(NSUInteger)index;
 - (GXQuest *)joinedQuestAtIndex:(NSUInteger)index;
 - (GXQuest *)dailyQuestAtIndex:(NSUInteger)index;
-
+- (GXQuest *)invitingQuestAtIndex:(NSUInteger)index;
 
 //通信
 - (void)requestAsyncronous:(NSUInteger)typeIndex;

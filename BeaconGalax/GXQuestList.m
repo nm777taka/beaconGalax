@@ -18,6 +18,7 @@
 @property (nonatomic,strong) NSArray *questListArray;
 @property (nonatomic,strong) NSArray *joinedQuestList;
 @property (nonatomic,strong) NSArray *dailyQuestList;
+@property (nonatomic,strong) NSArray *invitingQuestList;
 @property (nonatomic) NSUInteger typeIndex;
 
 @end
@@ -26,6 +27,7 @@
 static int const QuestType_New = 0;
 static int const QuestType_Joined = 1;
 static int const QuestType_Daily = 2;
+static int const QuestType_Inviting = 3;
 
 @implementation GXQuestList
 
@@ -59,6 +61,7 @@ static int const QuestType_Daily = 2;
         _questListArray = @[];
         _joinedQuestList = @[];
         _dailyQuestList = @[];
+        _invitingQuestList = @[];
         _loading = NO;
     }
     
@@ -81,6 +84,11 @@ static int const QuestType_Daily = 2;
     return _dailyQuestList.count;
 }
 
+- (NSUInteger)invitingQuestCount
+{
+    return _invitingQuestList.count;
+}
+
 //クエストの要素を取得
 - (GXQuest *)questAtIndex:(NSUInteger)index
 {
@@ -97,6 +105,10 @@ static int const QuestType_Daily = 2;
     return _dailyQuestList[index];
 }
 
+- (GXQuest *)invitingQuestAtIndex:(NSUInteger)index
+{
+    return _invitingQuestList[index];
+}
 
 //通信
 - (void)requestAsyncronous:(NSUInteger)typeIndex
@@ -117,6 +129,10 @@ static int const QuestType_Daily = 2;
             
         case 1:
             [self handlerJoinedQuest];
+            [self handlerInvitingQuest];
+            break;
+            
+        case 2: //
             break;
             
         default:
@@ -190,6 +206,27 @@ static int const QuestType_Daily = 2;
     
 }
 
+- (void)handlerInvitingQuest
+{
+    NSLog(@"%s",__PRETTY_FUNCTION__);
+    KiiBucket *bucket = [GXBucketManager sharedManager].questBoard;
+    KiiClause *clause1 = [KiiClause equals:quest_isCompleted value:@NO];
+    KiiClause *clause2 = [KiiClause equals:quest_owner value:[KiiUser currentUser].displayName];
+    NSArray *totalClauseArray = @[clause1,clause2];
+    KiiClause *totalClause = [KiiClause andClauses:totalClauseArray];
+    KiiQuery *query = [KiiQuery queryWithClause:totalClause];
+    [bucket executeQuery:query withBlock:^(KiiQuery *query, KiiBucket *bucket, NSArray *results, KiiQuery *nextQuery, NSError *error) {
+        if (error) {
+            _loading = NO;
+        } else {
+            _invitingQuestList = @[];
+            [self addQuest:results questType:QuestType_Inviting];
+            [_delegate questListDidLoad];
+            _loading = NO;
+        }
+    }];
+}
+
 //internal
 //取得したクエストで更新
 - (void)addQuest:(NSArray *)results questType:(NSInteger)questType
@@ -201,6 +238,8 @@ static int const QuestType_Daily = 2;
         questArray = [NSMutableArray arrayWithArray:_joinedQuestList];
     } else if (questType == QuestType_Daily) {
         questArray = [NSMutableArray arrayWithArray:_dailyQuestList];
+    } else if (questType == QuestType_Inviting) {
+        questArray = [NSMutableArray arrayWithArray:_invitingQuestList];
     }
     
     for (KiiObject *obj in results) {
@@ -249,6 +288,8 @@ static int const QuestType_Daily = 2;
         _joinedQuestList = questArray;
     } else if (questType == QuestType_Daily) {
         _dailyQuestList = questArray;
+    } else if (questType == QuestType_Inviting) {
+        _invitingQuestList = questArray;
     }
 
 }
