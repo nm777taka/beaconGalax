@@ -735,7 +735,7 @@
                                     <size key="itemSize" width="300" height="80"/>
                                     <size key="headerReferenceSize" width="50" height="40"/>
                                     <size key="footerReferenceSize" width="0.0" height="0.0"/>
-                                    <inset key="sectionInset" minX="0.0" minY="1" maxX="0.0" maxY="1"/>
+                                    <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
                                 </collectionViewFlowLayout>
                                 <cells>
                                     <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="Cell" id="IW9-2s-zbe" customClass="GXHomeCollectionViewCell">
@@ -1484,11 +1484,11 @@
             </objects>
             <point key="canvasLocation" x="2097" y="253"/>
         </scene>
-        <!--Nav View Controller-->
+        <!--ランキング-->
         <scene sceneID="wxP-ki-BZ2">
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="kLh-Yn-8RL" customClass="GXNavViewController" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" systemItem="topRated" id="zLs-pg-t7f"/>
+                    <tabBarItem key="tabBarItem" title="ランキング" image="ranking.png" id="zLs-pg-t7f"/>
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="54I-Gd-eUT">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
@@ -1503,11 +1503,11 @@
             </objects>
             <point key="canvasLocation" x="810" y="-1286"/>
         </scene>
-        <!--Nav View Controller-->
+        <!--クエスト-->
         <scene sceneID="zxk-Uq-voJ">
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="TyB-1Y-XDs" customClass="GXNavViewController" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" systemItem="mostViewed" id="lKR-Cu-9Lt"/>
+                    <tabBarItem key="tabBarItem" title="クエスト" image="qeust_icon.png" id="lKR-Cu-9Lt"/>
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="7Hs-4f-YuS">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
@@ -1522,11 +1522,11 @@
             </objects>
             <point key="canvasLocation" x="615" y="-620"/>
         </scene>
-        <!--Nav View Controller-->
+        <!--みんなの状況-->
         <scene sceneID="h7I-2m-XmY">
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="EUH-ot-clK" customClass="GXNavViewController" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" systemItem="contacts" id="D6g-9X-FfP"/>
+                    <tabBarItem key="tabBarItem" title="みんなの状況" image="user_location.png" id="D6g-9X-FfP"/>
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="q4B-Et-0as">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
@@ -1541,11 +1541,11 @@
             </objects>
             <point key="canvasLocation" x="-77" y="95"/>
         </scene>
-        <!--Nav View Controller-->
+        <!--アクティビティ-->
         <scene sceneID="UDK-zq-vgp">
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="rQ3-ej-weh" customClass="GXNavViewController" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" systemItem="favorites" id="qWO-pg-nM1"/>
+                    <tabBarItem key="tabBarItem" title="アクティビティ" image="activity.png" id="qWO-pg-nM1"/>
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="ODE-YJ-fzy">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
@@ -1586,7 +1586,11 @@
         </scene>
     </scenes>
     <resources>
+        <image name="activity.png" width="30" height="30"/>
+        <image name="qeust_icon.png" width="30" height="30"/>
+        <image name="ranking.png" width="30" height="30"/>
         <image name="ready.png" width="100" height="100"/>
+        <image name="user_location.png" width="30" height="30"/>
     </resources>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">
         <simulatedStatusBarMetrics key="statusBar"/>
@@ -1594,7 +1598,7 @@
         <simulatedScreenMetrics key="destination" type="retina4"/>
     </simulatedMetricsContainer>
     <inferredMetricsTieBreakers>
-        <segue reference="sBG-Cy-f7v"/>
+        <segue reference="FiV-RE-YMP"/>
         <segue reference="dOG-c4-pJL"/>
     </inferredMetricsTieBreakers>
 </document>

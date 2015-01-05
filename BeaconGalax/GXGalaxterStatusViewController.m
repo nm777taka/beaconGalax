@@ -31,7 +31,7 @@
     [_refreshControl addTarget:self action:@selector(refresh) forControlEvents:UIControlEventValueChanged];
     [self.tableView addSubview:_refreshControl];
     
-    UIImage *image = [UIImage imageNamed:@"someImage"];
+    UIImage *image = [UIImage imageNamed:@"menu"];
     UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
     button.frame = CGRectMake(0,0,image.size.width, image.size.height);
     [button addTarget:self action:@selector(buttonPress) forControlEvents:UIControlEventTouchDown];

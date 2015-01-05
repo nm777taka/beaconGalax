@@ -16,12 +16,15 @@
 {
     self = [super initWithStyle:style reuseIdentifier:reuseIdentifier];
     if (self) {
-        _userIcon.layer.cornerRadius = 25.0f;
-        _userIcon.layer.borderColor = [UIColor midnightBlueColor].CGColor;
-        _userIcon.layer.borderWidth = 2.0f;
+    
     }
     
     return self;
+}
+
+- (void)awakeFromNib
+{
+    self.userIcon.layer.cornerRadius = 5.0f;
 }
 
 //セッター(activityに設定される)

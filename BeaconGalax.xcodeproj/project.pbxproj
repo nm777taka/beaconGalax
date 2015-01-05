@@ -121,6 +121,11 @@
 		0FC67C861A53331D00FD82B2 /* GXDetailTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 0FC67C851A53331D00FD82B2 /* GXDetailTableViewCell.m */; };
 		0FC67C8B1A59191900FD82B2 /* GXHomeCollectionReusableView.m in Sources */ = {isa = PBXBuildFile; fileRef = 0FC67C8A1A59191900FD82B2 /* GXHomeCollectionReusableView.m */; };
 		0FC67C8E1A5A55EE00FD82B2 /* GXDetailViewMembersCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 0FC67C8D1A5A55EE00FD82B2 /* GXDetailViewMembersCell.m */; };
+		0FC67C911A5AE51200FD82B2 /* qeust_icon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 0FC67C901A5AE51200FD82B2 /* qeust_icon@2x.png */; };
+		0FC67C931A5AE51700FD82B2 /* ranking@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 0FC67C921A5AE51700FD82B2 /* ranking@2x.png */; };
+		0FC67C951A5AE51C00FD82B2 /* user_location@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 0FC67C941A5AE51C00FD82B2 /* user_location@2x.png */; };
+		0FC67C971A5AE51F00FD82B2 /* activity@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 0FC67C961A5AE51F00FD82B2 /* activity@2x.png */; };
+		0FC67C991A5AEB9200FD82B2 /* menu@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 0FC67C981A5AEB9200FD82B2 /* menu@2x.png */; };
 		0FC7F0CE1A46ECF200A83BFC /* createQuestButton.png in Resources */ = {isa = PBXBuildFile; fileRef = 0FC7F0CD1A46ECF200A83BFC /* createQuestButton.png */; };
 		0FC928381A30E451002931F1 /* Crashlytics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0FC928361A30E451002931F1 /* Crashlytics.framework */; };
 		0FC928391A30E451002931F1 /* Fabric.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0FC928371A30E451002931F1 /* Fabric.framework */; };
@@ -349,6 +354,11 @@
 		0FC67C8A1A59191900FD82B2 /* GXHomeCollectionReusableView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GXHomeCollectionReusableView.m; sourceTree = "<group>"; };
 		0FC67C8C1A5A55EE00FD82B2 /* GXDetailViewMembersCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GXDetailViewMembersCell.h; sourceTree = "<group>"; };
 		0FC67C8D1A5A55EE00FD82B2 /* GXDetailViewMembersCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GXDetailViewMembersCell.m; sourceTree = "<group>"; };
+		0FC67C901A5AE51200FD82B2 /* qeust_icon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "qeust_icon@2x.png"; sourceTree = "<group>"; };
+		0FC67C921A5AE51700FD82B2 /* ranking@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ranking@2x.png"; sourceTree = "<group>"; };
+		0FC67C941A5AE51C00FD82B2 /* user_location@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "user_location@2x.png"; sourceTree = "<group>"; };
+		0FC67C961A5AE51F00FD82B2 /* activity@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "activity@2x.png"; sourceTree = "<group>"; };
+		0FC67C981A5AEB9200FD82B2 /* menu@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "menu@2x.png"; sourceTree = "<group>"; };
 		0FC7F0CD1A46ECF200A83BFC /* createQuestButton.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = createQuestButton.png; sourceTree = "<group>"; };
 		0FC928361A30E451002931F1 /* Crashlytics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Crashlytics.framework; sourceTree = "<group>"; };
 		0FC928371A30E451002931F1 /* Fabric.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Fabric.framework; sourceTree = "<group>"; };
@@ -936,6 +946,8 @@
 		0F7F4129195B203900A796AD /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				0FC67C981A5AEB9200FD82B2 /* menu@2x.png */,
+				0FC67C8F1A5AE50A00FD82B2 /* HomeView */,
 				0FC7F0CD1A46ECF200A83BFC /* createQuestButton.png */,
 				0F1295D41A2CBEE1009A1153 /* addQuestButton.png */,
 				0F1295D01A2C9D76009A1153 /* someImage.png */,
@@ -1059,6 +1071,17 @@
 				0FC67C8D1A5A55EE00FD82B2 /* GXDetailViewMembersCell.m */,
 			);
 			name = QuestDetail;
+			sourceTree = "<group>";
+		};
+		0FC67C8F1A5AE50A00FD82B2 /* HomeView */ = {
+			isa = PBXGroup;
+			children = (
+				0FC67C961A5AE51F00FD82B2 /* activity@2x.png */,
+				0FC67C941A5AE51C00FD82B2 /* user_location@2x.png */,
+				0FC67C921A5AE51700FD82B2 /* ranking@2x.png */,
+				0FC67C901A5AE51200FD82B2 /* qeust_icon@2x.png */,
+			);
+			name = HomeView;
 			sourceTree = "<group>";
 		};
 		0FC9283A1A3200DB002931F1 /* Device */ = {
@@ -1406,6 +1429,7 @@
 				0FCFA46C19F6297E0087011A /* homeCellOne.png in Resources */,
 				0F3558291A0F89CC0023F2FF /* Clear.png in Resources */,
 				0F821F44196EE6820002664D /* Common_ButtonNavigationDone@2x.png in Resources */,
+				0FC67C931A5AE51700FD82B2 /* ranking@2x.png in Resources */,
 				0F1295D31A2C9D76009A1153 /* someImage@2x.png in Resources */,
 				0F82302F198245CA0081C9BE /* home.png in Resources */,
 				0F7A25AC19587ADE001B7839 /* Images.xcassets in Resources */,
@@ -1416,6 +1440,7 @@
 				0FCFA46B19F6297E0087011A /* homeCellMulti.png in Resources */,
 				0F1295D21A2C9D76009A1153 /* someImage.png in Resources */,
 				0F7F4149195E9F7700A796AD /* GLAX-U-homeI.png in Resources */,
+				0FC67C951A5AE51C00FD82B2 /* user_location@2x.png in Resources */,
 				0FCFA46E19F67D910087011A /* update.png in Resources */,
 				0F1295D51A2CBEE1009A1153 /* addQuestButton.png in Resources */,
 				0F629BF619E41B31009757DF /* iPhone.png in Resources */,
@@ -1425,8 +1450,11 @@
 				0F27DB0319876A780000E0D0 /* bell-white.png in Resources */,
 				0F823031198245D30081C9BE /* bell.png in Resources */,
 				0F7A259E19587ADE001B7839 /* InfoPlist.strings in Resources */,
+				0FC67C911A5AE51200FD82B2 /* qeust_icon@2x.png in Resources */,
 				0F7A25D91959C014001B7839 /* red.png in Resources */,
+				0FC67C991A5AEB9200FD82B2 /* menu@2x.png in Resources */,
 				0FC9FF1319E81C2800E78B39 /* GALAX-update-.png in Resources */,
+				0FC67C971A5AE51F00FD82B2 /* activity@2x.png in Resources */,
 				0F7A25A719587ADE001B7839 /* Main.storyboard in Resources */,
 				0F629BF819E41B35009757DF /* location.png in Resources */,
 				0F5FA5EE198A31D900F41B05 /* GXHomeTableViewHeader.xib in Resources */,

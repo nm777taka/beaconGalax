@@ -81,7 +81,7 @@
     self.collectionView.delegate = self;
     self.collectionView.dataSource = self;
     self.collectionView.alwaysBounceVertical = YES;
-    self.collectionView.backgroundColor = [UIColor sunflowerColor];
+    self.collectionView.backgroundColor = [UIColor whiteColor];
 //    UINib *sectionNib = [UINib nibWithNibName:@"HomeCollectionReusableView" bundle:nil];
 //    [self.collectionView registerNib:sectionNib forSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:@"Section"];
     
@@ -100,7 +100,7 @@
     [[GXTopicManager sharedManager] subscribeInfoTopic];
     
     //NavItem
-    UIImage *image = [UIImage imageNamed:@"someImage"];
+    UIImage *image = [UIImage imageNamed:@"menu"];
     UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
     button.frame = CGRectMake(0,0,image.size.width, image.size.height);
     [button addTarget:self action:@selector(buttonPress) forControlEvents:UIControlEventTouchDown];
@@ -108,6 +108,7 @@
     
     UIBarButtonItem *navLeftButton = [[UIBarButtonItem alloc] initWithCustomView:button];
     self.navigationItem.leftBarButtonItem = navLeftButton;
+                           
     
 }
 
@@ -188,6 +189,8 @@
 - (UICollectionReusableView *)collectionView:(UICollectionView *)collectionView viewForSupplementaryElementOfKind:(NSString *)kind atIndexPath:(NSIndexPath *)indexPath
 {
     GXHomeCollectionReusableView *sectionView = [self.collectionView dequeueReusableSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:@"Section" forIndexPath:indexPath];
+    sectionView.backgroundColor = [UIColor clearColor];
+    
     if (indexPath.section == 0) {
         sectionView.sectionTitle.text = @"デイリークエスト";
     } else {

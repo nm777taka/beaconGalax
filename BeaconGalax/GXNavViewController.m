@@ -19,6 +19,11 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     [self.view addGestureRecognizer:[[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(panGestureRecognized:)]];
+    [UINavigationBar appearance].barTintColor = [UIColor whiteColor];
+    [UINavigationBar appearance].tintColor = [UIColor turquoiseColor];
+    [UINavigationBar appearance].titleTextAttributes = @{NSForegroundColorAttributeName:[UIColor blackColor]};
+    [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleLightContent];
+    [UITabBar appearance].tintColor = [UIColor turquoiseColor];
 
 }
 
