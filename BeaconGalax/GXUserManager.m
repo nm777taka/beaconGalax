@@ -80,7 +80,7 @@
             //出席データをとっとく
             UIApplication *application = [UIApplication sharedApplication];
             if (application.applicationState == UIApplicationStateInactive || application.applicationState == UIApplicationStateBackground) {
-                [self sendNotification:@"Enter:研究室"];
+                //[self sendNotification:@"Enter:研究室"];
             }
             
             [[GXUserAttendAnalytics sharedInstance] attend];
@@ -105,7 +105,7 @@
         if (!error) {
             UIApplication *application = [UIApplication sharedApplication];
             if (application.applicationState == UIApplicationStateInactive || application.applicationState == UIApplicationStateBackground) {
-                [self sendNotification:@"Exit:研究室"];
+               // [self sendNotification:@"Exit:研究室"];
             }
 
         }

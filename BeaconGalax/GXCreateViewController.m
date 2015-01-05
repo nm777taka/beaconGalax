@@ -203,12 +203,12 @@ const static CGFloat kJVFieldFloatingLabelFontSize = 11.0f;
     NSString *name = [gxUser getObjectForKey:user_name];
     NSString *fbid = [gxUser getObjectForKey:user_fb_id];
     NSString *text = [NSString stringWithFormat:@"%@クエストを作成しました",self.titleField.text];
-    //[[GXActivityList sharedInstance] registerQuestActivity:name title:text fbid:fbid];
+    [[GXActivityList sharedInstance] registerQuestActivity:name title:text fbid:fbid];
 
     //みんなに伝える
     //とりあえずoff -- > dubug
-//    NSString *createdUserName = [gxUser getObjectForKey:@"name"];
-//    [[GXTopicManager sharedManager] sendInviteQuestAlert:createdUserName]; //新しい募集をpushで知らせる (ユーザクエの場合は募集が前提)
+    NSString *createdUserName = [gxUser getObjectForKey:@"name"];
+    [[GXTopicManager sharedManager] sendInviteQuestAlert:createdUserName]; //新しい募集をpushで知らせる (ユーザクエの場合は募集が前提)
     
     //pointゲット
     [[GXPointManager sharedInstance] getCreateQuestPoint];

@@ -10,6 +10,7 @@
 #import "GXEventTableViewCell.h"
 
 #import "GXDictonaryKeys.h"
+#import "GXPageViewAnalyzer.h"
 
 @interface GXEventViewController ()<UITableViewDataSource,UITableViewDelegate>
 
@@ -56,6 +57,8 @@
     float progress = (float)nowClearCount / 100;
     
     [self.questProgressView setProgress:progress animated:YES];
+    
+    [[GXPageViewAnalyzer shareInstance] setPageView:NSStringFromClass([self class])];
     
 }
 
