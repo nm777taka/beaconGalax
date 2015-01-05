@@ -28,6 +28,7 @@
     self.questStatusLabel.layer.cornerRadius = 5.0f;
     self.questStatusLabel.backgroundColor = [UIColor turquoiseColor];
     self.questStatusLabel.textColor = [UIColor whiteColor];
+    self.questStatusLabel.textAlignment = NSTextAlignmentCenter;
     
     self.createrIcon.layer.cornerRadius = 5.0f;
 
@@ -83,7 +84,7 @@
 
 - (void)changeStatusForQuestStarting
 {
-    self.questStatusLabel.text = @"スタート";
+    self.questStatusLabel.text = @"挑戦中";
     self.questStatusLabel.textColor = [UIColor whiteColor];
     self.questStatusLabel.backgroundColor = [UIColor alizarinColor];
 }

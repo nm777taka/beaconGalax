@@ -13,6 +13,7 @@
 @interface GXStatusViewCell : UITableViewCell
 @property (weak, nonatomic) IBOutlet UILabel *title;
 @property (weak, nonatomic) IBOutlet UILabel *startDateLabel;
+@property (weak, nonatomic) IBOutlet UILabel *questStatusLabel;
 @property (nonatomic,strong) GXQuest *quest;
 
 @end

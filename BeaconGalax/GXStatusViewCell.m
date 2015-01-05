@@ -14,6 +14,10 @@
 
 - (void)awakeFromNib {
     // Initialization code
+    self.title.font = [UIFont boldFlatFontOfSize:15];
+    self.startDateLabel.font = [UIFont boldFlatFontOfSize:13];
+    self.questStatusLabel.font = [UIFont boldFlatFontOfSize:13];
+    self.questStatusLabel.textColor = [UIColor darkGrayColor];
 }
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {
@@ -26,17 +30,19 @@
 {
     //タイトル
     self.title.text = quest.title;
-    
     //スタート時間
-//    NSDate *startDate = quest.startDate;
-//    if (startDate) {
-//        NSDateFormatter *df = [NSDateFormatter new];
-//        df.dateFormat = @"MM/dd HH:mm";
-//        NSString *formattedDate = [df stringFromDate:startDate];
-//        self.startDateLabel.text = formattedDate;
-//    } else {
-//        self.startDateLabel.text = @"AnyTime";
-//    }
+    if (quest.startDateString) {
+        NSString *dateLabelText = [NSString stringWithFormat:@"%@に開始予定",quest.startDateString];
+        self.startDateLabel.text = dateLabelText;
+    } else {
+        self.startDateLabel.text = @"AnyTime";
+    }
+    
+    if (quest.isStarted) {
+        self.questStatusLabel.text = @"挑戦中";
+    } else {
+        self.questStatusLabel.text = @"募集中";
+    }
 }
 
 

@@ -256,7 +256,6 @@ static int const QuestType_Inviting = 3;
         BOOL isStarted = [[obj getObjectForKey:quest_isStarted] boolValue];
         BOOL isCompleted = [[obj getObjectForKey:quest_isCompleted] boolValue];
         NSString *startDateString = [obj getObjectForKey:@"start_date"];
-        NSLog(@"startDateString:%@",startDateString);
         NSDate *date = obj.created; //utc
         if (createdUserName == nil) {
             createdUserName = @"BeaconGalax";

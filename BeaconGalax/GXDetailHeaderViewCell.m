@@ -40,7 +40,13 @@
     self.titleLabel.text = quest.title;
     self.iconView.profileID = quest.fb_id;
     self.detailTextView.text = quest.quest_des;
-    self.questStartDateLabel.text = quest.startDateString;
+    
+    if (quest.startDateString) {
+        self.questStartDateLabel.text = quest.startDateString;
+    } else {
+        self.questStartDateLabel.text = @"AnyTime";
+    }
+    
     NSDate *createdDate = quest.createdDate;
     NSDateFormatter *df = [NSDateFormatter new];
     df.dateFormat = @"yyyy/MM/dd HH:mm";
