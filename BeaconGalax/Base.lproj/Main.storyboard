@@ -1388,6 +1388,10 @@
                                             </subviews>
                                         </tableViewCellContentView>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        <connections>
+                                            <outlet property="userIcon" destination="WAJ-am-jIQ" id="Vua-fj-yye"/>
+                                            <outlet property="userNameLabel" destination="xJo-4Q-COb" id="4uD-aC-1YZ"/>
+                                        </connections>
                                     </tableViewCell>
                                 </prototypes>
                             </tableView>

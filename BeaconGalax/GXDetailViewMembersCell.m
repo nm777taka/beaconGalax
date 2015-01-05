@@ -12,6 +12,8 @@
 
 - (void)awakeFromNib {
     // Initialization code
+    self.userIcon.layer.cornerRadius = 5.0f;
+    self.userNameLabel.font = [UIFont boldFlatFontOfSize:15];
 }
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {

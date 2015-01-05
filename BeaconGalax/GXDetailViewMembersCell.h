@@ -9,5 +9,7 @@
 #import <UIKit/UIKit.h>
 
 @interface GXDetailViewMembersCell : UITableViewCell
+@property (weak, nonatomic) IBOutlet FBProfilePictureView *userIcon;
+@property (weak, nonatomic) IBOutlet UILabel *userNameLabel;
 
 @end

@@ -12,7 +12,7 @@
 #import "GXQuestGroupViewController.h"
 #import "GXQuestReadyViewController.h"
 #import "GXQuestExeViewController.h"
-
+#import "GXDetailViewMembersCell.h"
 
 #import <CWStatusBarNotification.h>
 #import "GXQuestBucketManager.h"
@@ -43,6 +43,8 @@
 
 @property KiiObject *selectedQuestObj;
 @property KiiGroup *selectedQuestGroup;
+
+@property UIRefreshControl *refreshConrol;
 
 @property BOOL isOwner;
 @property BOOL isMulti;
@@ -88,26 +90,35 @@
 {
     [super viewDidAppear:animated];
     if ([self isQuestOwner]) {
-        self.selectedQuestGroup = [KiiGroup groupWithURI:self.quest.groupURI];
-        [self.selectedQuestGroup refreshWithBlock:^(KiiGroup *group, NSError *error) {
-            if (!error) {
-                [group getMemberListWithBlock:^(KiiGroup *group, NSArray *members, NSError *error) {
-                    if (!error) {
-                        NSMutableArray *resultsArray = [NSMutableArray new];
-                        for (KiiUser *user in members) {
-                            KiiObject *gx_user = [[GXBucketManager sharedManager] getGalaxUser:user.objectURI];
-                            [resultsArray addObject:gx_user];
-                        }
-                        self.questMembersArray = [NSMutableArray arrayWithArray:resultsArray];
-                        [self.tableView reloadData];
-                    }
-                }];
-            } else {
-                NSLog(@"groupError->%@",error);
-            }
-        }];
+        [self getMemberList];
     }
     
+}
+
+- (void)getMemberList
+{
+    if (!self.quest.groupURI) {return;};
+    
+    self.selectedQuestGroup = [KiiGroup groupWithURI:self.quest.groupURI];
+    [self.selectedQuestGroup refreshWithBlock:^(KiiGroup *group, NSError *error) {
+        if (!error) {
+            [group getMemberListWithBlock:^(KiiGroup *group, NSArray *members, NSError *error) {
+                if (!error) {
+                    NSMutableArray *resultsArray = [NSMutableArray new];
+                    for (KiiUser *user in members) {
+                        KiiObject *gx_user = [[GXBucketManager sharedManager] getGalaxUser:user.objectURI];
+                        [resultsArray addObject:gx_user];
+                    }
+                    self.questMembersArray = [NSMutableArray arrayWithArray:resultsArray];
+                    [self.tableView reloadData];
+                }
+            }];
+        } else {
+            NSLog(@"groupError->%@",error);
+            self.questMembersArray = [NSMutableArray new]; //初期化
+        }
+    }];
+
 }
 
 - (void)viewDidDisappear:(BOOL)animated
@@ -134,6 +145,8 @@
     } else {
         if (buttonIndex == 1) {
             //delete
+            [self deleteInvitedQuest];
+            
         }
     }
 }
@@ -181,8 +194,11 @@
                                             notis.notificationLabelBackgroundColor = [UIColor turquoiseColor];
                                             [notis displayNotificationWithMessage:@"削除しました" forDuration:2.0f];
                                             
-                                            [self.tableView reloadData];
-                                            [SVProgressHUD dismiss];
+                                            [NSObject performBlock:^{
+                                                [self.tableView reloadData];
+                                                [SVProgressHUD dismiss];
+                                                [self dismissViewControllerAnimated:YES completion:nil];
+                                            } afterDelay:1.0f];
                                         }];
                                     }
                                 }];
@@ -214,6 +230,28 @@
     }];
 }
 
+- (void)deleteInvitedQuest
+{
+    [SVProgressHUD showWithStatus:@"クエスト削除中"];
+    KiiBucket *quest_board = [GXBucketManager sharedManager].questBoard;
+    KiiClause *clause = [KiiClause equals:@"title" value:self.quest.title];
+    KiiQuery *query = [KiiQuery queryWithClause:clause ];
+    [quest_board executeQuery:query withBlock:^(KiiQuery *query, KiiBucket *bucket, NSArray *results, KiiQuery *nextQuery, NSError *error) {
+        if (!error) {
+            KiiObject *deleteQuest = results.firstObject;
+            [deleteQuest deleteWithBlock:^(KiiObject *object, NSError *error) {
+                if (!error) {
+                    [SVProgressHUD showSuccessWithStatus:@"削除完了"];
+                    [self dismissViewControllerAnimated:YES completion:nil];
+                } else {
+                    CWStatusBarNotification *notis = [CWStatusBarNotification new];
+                    notis.notificationLabelBackgroundColor = [UIColor alizarinColor];
+                    [notis displayNotificationWithMessage:@"何かしらのエラーで削除できません" forDuration:2.0f];
+                }
+            }];
+        }
+    }];
+}
 
 - (void)getOutQuestGroup:(NSString *)groupURI
 {
@@ -261,7 +299,7 @@
         return 1;
     }
     
-    return 0;
+    return self.questMembersArray.count;
 }
 
 
@@ -276,12 +314,18 @@
             [headerCell configureButtonForOwner];
         } else {
             [self isJoinedQuest:headerCell];
+            
         }
         return headerCell;
+    } else {
+        //グループに参加しているuserを表示
+        GXDetailViewMembersCell *membersCell = [tableView dequeueReusableCellWithIdentifier:@"Cell"];
+        KiiObject *gx_user = self.questMembersArray[indexPath.row];
+        membersCell.userIcon.profileID = [gx_user getObjectForKey:user_fb_id];
+        membersCell.userNameLabel.text = [gx_user getObjectForKey:user_name];
+        return membersCell;
+        
     }
-    
-    GXDetailTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"Cell" forIndexPath:indexPath];
-    return cell;
 }
 
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section
@@ -331,7 +375,7 @@
     BOOL ret = false;
     //自分が作ったクエストかどうか
     //NSString *currentUserName  = [KiiUser currentUser].displayName;
-    NSString *currentUserName = @"Tester";
+    NSString *currentUserName = [KiiUser currentUser].displayName;
     if ([currentUserName isEqualToString:self.quest.createdUserName]) {
         //リーダ権限をもつ
         ret = true;
@@ -357,6 +401,11 @@
                 //join → start
                 [cell configureButtonForJoiner:YES];
                 [cell setNeedsLayout];
+                [self getMemberList];
+                [NSObject performBlock:^{
+                    [self.tableView reloadData];
+                } afterDelay:1.0f];
+                
             } else {
                 [cell configureButtonForJoiner:NO];
                 [cell setNeedsLayout];
@@ -365,16 +414,109 @@
     }];
 }
 
+- (void)requestAddGroup
+{
+    KiiServerCodeEntry *entry = [Kii serverCodeEntry:@"addGroup"];
+    NSString *groupURI = self.quest.groupURI;
+    NSString *kiiuserURI = [KiiUser currentUser].objectURI;
+    // KiiObject *gxUser = [GXUserManager sharedManager].gxUser;
+    KiiObject *gxUser = [[GXBucketManager sharedManager] getGalaxUser:[KiiUser currentUser].objectURI];
+    NSString *gxUserURI = gxUser.objectURI;
+    
+    NSDictionary *argDict = [NSDictionary dictionaryWithObjectsAndKeys:groupURI,@"groupURI",kiiuserURI,@"userURI",gxUserURI,@"gxURI", nil];
+    
+    KiiServerCodeEntryArgument *argument = [KiiServerCodeEntryArgument argumentWithDictionary:argDict];
+    
+    [entry execute:argument withBlock:^(KiiServerCodeEntry *entry, KiiServerCodeEntryArgument *argument, KiiServerCodeExecResult *result, NSError *error) {
+        NSDictionary *retDict = [result returnedValue];
+        NSLog(@"returned:%@",retDict);
+        [self addedGroup];
+    }];
+}
+- (void)addedGroup
+{
+    NSError *error;
+    //今選択しているobjのグループに参加したから
+    NSString *groupURI = self.quest.groupURI;
+    KiiGroup *joinedGroup = [KiiGroup groupWithURI:groupURI];
+    [joinedGroup refreshSynchronous:&error];
+    
+    //トピック購読
+    KiiTopic *topic = [joinedGroup topicWithName:@"quest_start"];
+    [KiiPushSubscription subscribe:topic withBlock:^(KiiPushSubscription *subscription, NSError *error) {
+        if (error) NSLog(@"error:%@",error);
+    }];
+    
+//    //参加したクエストを取得
+//    KiiBucket *bucket = [joinedGroup bucketWithName:@"quest"];
+//    KiiQuery *query = [KiiQuery queryWithClause:nil];
+//    KiiObject *gxUser = [[GXBucketManager sharedManager] getGalaxUser:[KiiUser currentUser].objectURI];
+//    [bucket executeQuery:query withBlock:^(KiiQuery *query, KiiBucket *bucket, NSArray *results, KiiQuery *nextQuery, NSError *error) {
+//        
+//        if (!error) {
+//            KiiObject *obj = results.firstObject;
+//            //自分の参加済み協力クエに登録
+////            [[GXBucketManager sharedManager] acceptNewQuest:self.quest];
+//            //notJoinから消す
+//            //[[GXBucketManager sharedManager] deleteJoinedQuest:self.willDeleteObjAtNotJoin];
+//            //Activity
+//            NSString *name = [gxUser getObjectForKey:user_name];
+//            NSString *questName = [obj getObjectForKey:quest_title];
+//            NSString *text = [NSString stringWithFormat:@"%@クエストに参加しました",questName];
+//            [[GXActivityList sharedInstance] registerQuestActivity:name title:text fbid:[gxUser getObjectForKey:user_fb_id]];
+//            
+//            [[GXActionAnalyzer sharedInstance] setActionName:GXQuestJoin];
+//        }
+//    }];
+
+    [[GXBucketManager sharedManager] acceptNewQuest:self.quest];
+    
+    //アクティビティとか
+    KiiObject *gxUser = [[GXBucketManager sharedManager] getGalaxUser:[KiiUser currentUser].objectURI];
+    NSString *name = [gxUser getObjectForKey:user_name];
+    //NSString *questName = [obj getObjectForKey:quest_title];
+    NSString *questName = self.quest.title;
+    NSString *text = [NSString stringWithFormat:@"%@クエストに参加しました",questName];
+    [[GXActivityList sharedInstance] registerQuestActivity:name title:text fbid:[gxUser getObjectForKey:user_fb_id]];
+    
+    [[GXActionAnalyzer sharedInstance] setActionName:GXQuestJoin];
+
+    
+    KiiBucket *clearJudegeBucket = [joinedGroup bucketWithName:@"clear_judge"];
+    [KiiPushSubscription subscribe:clearJudegeBucket withBlock:^(KiiPushSubscription *subscription, NSError *error) {
+    }];
+    
+    CWStatusBarNotification *notis = [CWStatusBarNotification new];
+    notis.notificationLabelBackgroundColor = [UIColor turquoiseColor];
+    notis.notificationLabel.textColor = [UIColor cloudsColor];
+    notis.notificationStyle = CWNotificationStyleNavigationBarNotification;
+    [notis displayNotificationWithMessage:@"パーティーに参加しました!" forDuration:2.0f];
+    
+    [NSObject performBlock:^{
+        [self.tableView reloadData];
+        [SVProgressHUD dismiss];
+    } afterDelay:1.0f];
+}
+
 #pragma mark - HeaderView delegate
 - (void)joinActionDelegate
 {
     [SVProgressHUD showWithStatus:@"クエスト受注中"];
     
-    [[GXBucketManager sharedManager] acceptNewQuest:self.quest];
-    [NSObject performBlock:^{
-        [self.tableView reloadData];
-        [SVProgressHUD dismiss];
-    } afterDelay:2.0f];
+    NSString *questType = self.quest.type;
+    if ([questType isEqualToString:@"system"]) {
+        //systemが毎日生成するデイリークエスト
+        [[GXBucketManager sharedManager] acceptNewQuest:self.quest];
+        [NSObject performBlock:^{
+            [self.tableView reloadData];
+            [SVProgressHUD dismiss];
+        } afterDelay:2.0f];
+        
+    } else if ([questType isEqualToString:@"user"]) {
+        //userが作成したクエスト
+        //join
+        [self requestAddGroup];
+    }
     
 }
 
@@ -395,9 +537,7 @@
                 return ;
             }
             
-            //debug--->
-            NSString *debugName = @"Tester";
-            if ([debugName isEqualToString:self.quest.createdUserName]) {
+            if ([[KiiUser currentUser].displayName isEqualToString:self.quest.createdUserName]) {
                 //groupViewへ
                 [self performSegueWithIdentifier:@"groupView" sender:self];
             } else {
@@ -417,8 +557,17 @@
 {
     FUIAlertView *alert = [FUIAlertView cautionTheme:@"受注を取り消しますか？"];
     alert.delegate = self;
+    alert.tag = 0;
     [alert show];
+}
 
+//募集したクエストを削除する
+- (void)questDeleteDelgate
+{
+    FUIAlertView *alert = [FUIAlertView cautionTheme:@"募集したクエストを削除しますか?"];
+    alert.delegate = self;
+    alert.tag = 1;
+    [alert show];
 }
 
 #pragma mark - GXNotification

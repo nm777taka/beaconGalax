@@ -184,5 +184,11 @@
             [self.delegate questStatrtDelegate];
         }
     } forControlEvents:UIControlEventTouchUpInside];
+    
+    [self.deleteButton bk_addEventHandler:^(id sender) {
+        if ([self.delegate respondsToSelector:@selector(questDeleteDelgate)]) {
+            [self.delegate questDeleteDelgate];
+        }
+    } forControlEvents:UIControlEventTouchUpInside];
 }
 @end
