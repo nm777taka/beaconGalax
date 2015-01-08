@@ -1063,7 +1063,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ORG-Ua-GGn">
-                                <rect key="frame" x="7" y="105" width="301" height="300"/>
+                                <rect key="frame" x="10" y="105" width="300" height="300"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="p6B-mC-QGh" customClass="FBProfilePictureView">
                                         <rect key="frame" x="8" y="8" width="40" height="40"/>

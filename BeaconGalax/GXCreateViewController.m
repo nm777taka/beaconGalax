@@ -41,6 +41,8 @@ const static CGFloat kJVFieldFloatingLabelFontSize = 11.0f;
 @property (weak, nonatomic) IBOutlet UILabel *userNameLabel;
 @property (weak, nonatomic) IBOutlet UIView *createQuestPanel;
 @property UIButton *dateSettingButton;
+@property UIButton *cancelButotn;
+@property UIButton *doneButton;
 @property NSString *selectedDateString;
 @property NSDate *selectedDate;
 
@@ -168,6 +170,38 @@ const static CGFloat kJVFieldFloatingLabelFontSize = 11.0f;
     // ボタンをビューに追加
     [self.createQuestPanel addSubview:self.dateSettingButton];
     
+    //cancelButton
+    self.cancelButotn = [UIButton new];
+    self.cancelButotn = [UIButton buttonWithType:UIButtonTypeSystem];
+    self.cancelButotn.frame = CGRectMake(kJVFieldMargin+20, self.dateSettingButton.frame.origin.y + self.dateSettingButton.frame.size.height + 15, 100, 40);
+    self.cancelButotn.layer.borderColor = [UIColor turquoiseColor].CGColor;
+    self.cancelButotn.layer.borderWidth = 1.0f;
+    self.cancelButotn.layer.cornerRadius = 5.0f;
+    //キャプション
+    [self.cancelButotn setTitle:@"キャンセル" forState:UIControlStateNormal];
+    self.cancelButotn.tintColor = [UIColor turquoiseColor];
+    [self.cancelButotn bk_addEventHandler:^(id sender) {
+        [self closeView];
+    } forControlEvents:UIControlEventTouchUpInside];
+    
+    [self.createQuestPanel addSubview:self.cancelButotn];
+    
+    //doneButotn
+    self.doneButton = [UIButton new];
+    self.doneButton = [UIButton buttonWithType:UIButtonTypeSystem];
+    self.doneButton.frame = CGRectMake(self.createQuestPanel.frame.size.width - (100+kJVFieldMargin+20), self.dateSettingButton.frame.origin.y + self.dateSettingButton.frame.size.height + 15, 100, 40);
+    self.doneButton.layer.borderColor = [UIColor turquoiseColor].CGColor;
+    self.doneButton.layer.borderWidth = 1.0f;
+    self.doneButton.layer.cornerRadius = 5.0f;
+    //キャプション
+    [self.doneButton setTitle:@"作成" forState:UIControlStateNormal];
+    self.doneButton.tintColor = [UIColor turquoiseColor];
+    [self.doneButton bk_addEventHandler:^(id sender) {
+        [self create];
+    } forControlEvents:UIControlEventTouchUpInside];
+    
+    [self.createQuestPanel addSubview:self.doneButton];
+
 }
 
 //ここでテンプレートの設定を行う
@@ -183,7 +217,8 @@ const static CGFloat kJVFieldFloatingLabelFontSize = 11.0f;
     return YES;
 }
 
-- (IBAction)create:(id)sender
+#pragma mark - Button eventHandler
+- (void)create
 {
     if (self.titleField.text.length == 0) {
         CWStatusBarNotification *notis = [CWStatusBarNotification new];
@@ -232,8 +267,14 @@ const static CGFloat kJVFieldFloatingLabelFontSize = 11.0f;
     [self dismissViewControllerAnimated:YES completion:nil];
 }
 
-- (IBAction)closeView:(id)sender {
-    [self dismissViewControllerAnimated:YES completion:nil];
+- (void)closeView
+{
+    [UIView animateWithDuration:0.5f delay:0.0f options:UIViewAnimationOptionCurveEaseOut animations:^{
+        self.view.alpha = 0.0;
+    } completion:^(BOOL finished) {
+        [self dismissViewControllerAnimated:YES completion:^{
+        }];
+    }];
 }
 
 #pragma mark - RMDataSelectionDelegate

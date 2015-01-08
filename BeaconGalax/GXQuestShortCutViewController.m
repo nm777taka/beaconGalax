@@ -96,6 +96,7 @@
 {
     NSLog(@"touch");
     //とりえずここでテスト
+    self.createViewController = [self.storyboard instantiateViewControllerWithIdentifier:@"createView"];
     [self.view addSubview:self.createViewController.view];
     
 }
