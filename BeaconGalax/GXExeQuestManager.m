@@ -112,47 +112,47 @@
     }];
     
     //appscopeに保存しとく
-    if (isMulti) {
-        if (isUserType) {
-            KiiBucket *bucket = [Kii bucketWithName:@"cleard_UserQuest"];
-            KiiObject *obj = [bucket createObject];
-            for (NSString *key in keys) {
-                [obj setObject:dict[key] forKey:key];
-            }
-            [obj setObject:curretUserID forKey:@"userUUID"];
-            [obj saveWithBlock:^(KiiObject *object, NSError *error) {
-                if (!error) {
-                    NSLog(@"userQuest-APPに保存");
-                }
-            }];
-
-        } else {
-            KiiBucket *bucket = [Kii bucketWithName:@"cleard_MultiQuest"];
-            KiiObject *obj = [bucket createObject];
-            
-            for (NSString *key in keys) {
-                [obj setObject:dict[key] forKey:key];
-            }
-            [obj setObject:curretUserID forKey:@"userUUID"];
-            [obj saveWithBlock:^(KiiObject *object, NSError *error) {
-                if (!error) {
-                    NSLog(@"MultiQuest-APPに保存");
-                }
-            }];
-        }
-        
-    } else {
-        KiiBucket *bucket = [Kii bucketWithName:@"cleard_OneQuest"];
-        KiiObject *obj = [bucket createObject];
-        for (NSString *key in keys) {
-            [obj setObject:dict[key] forKey:key];
-        }
-        [obj saveWithBlock:^(KiiObject *object, NSError *error) {
-            if (!error) {
-                NSLog(@"oneQuest-APPに保存");
-            }
-        }];
-    }
+//    if (isMulti) {
+//        if (isUserType) {
+//            KiiBucket *bucket = [Kii bucketWithName:@"cleard_UserQuest"];
+//            KiiObject *obj = [bucket createObject];
+//            for (NSString *key in keys) {
+//                [obj setObject:dict[key] forKey:key];
+//            }
+//            [obj setObject:curretUserID forKey:@"userUUID"];
+//            [obj saveWithBlock:^(KiiObject *object, NSError *error) {
+//                if (!error) {
+//                    NSLog(@"userQuest-APPに保存");
+//                }
+//            }];
+//
+//        } else {
+//            KiiBucket *bucket = [Kii bucketWithName:@"cleard_MultiQuest"];
+//            KiiObject *obj = [bucket createObject];
+//            
+//            for (NSString *key in keys) {
+//                [obj setObject:dict[key] forKey:key];
+//            }
+//            [obj setObject:curretUserID forKey:@"userUUID"];
+//            [obj saveWithBlock:^(KiiObject *object, NSError *error) {
+//                if (!error) {
+//                    NSLog(@"MultiQuest-APPに保存");
+//                }
+//            }];
+//        }
+//        
+//    } else {
+//        KiiBucket *bucket = [Kii bucketWithName:@"cleard_OneQuest"];
+//        KiiObject *obj = [bucket createObject];
+//        for (NSString *key in keys) {
+//            [obj setObject:dict[key] forKey:key];
+//        }
+//        [obj saveWithBlock:^(KiiObject *object, NSError *error) {
+//            if (!error) {
+//                NSLog(@"oneQuest-APPに保存");
+//            }
+//        }];
+//    }
 }
 
 
