@@ -158,6 +158,8 @@
 		0FDD5FC51A21813F00FBC852 /* GXUserDefaults.m in Sources */ = {isa = PBXBuildFile; fileRef = 0FDD5FC41A21813F00FBC852 /* GXUserDefaults.m */; };
 		0FF16CE9197F86DB00B02702 /* NSMutableArray+Extended.m in Sources */ = {isa = PBXBuildFile; fileRef = 0FF16CE8197F86DB00B02702 /* NSMutableArray+Extended.m */; };
 		0FF87EBF1A2E1E0C00798090 /* GXGoogleFormViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0FF87EBE1A2E1E0C00798090 /* GXGoogleFormViewController.m */; };
+		0FF965181A5E54700026FF24 /* GXQuestShortCutViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0FF965171A5E54700026FF24 /* GXQuestShortCutViewController.m */; };
+		0FF9651C1A5E54B00026FF24 /* GXQuestShortCutTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 0FF9651B1A5E54B00026FF24 /* GXQuestShortCutTableViewCell.m */; };
 		CEEFFA2740D749D0AE5B5B2D /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 0F597A99B7864A4393B072E4 /* libPods.a */; };
 /* End PBXBuildFile section */
 
@@ -417,6 +419,10 @@
 		0FF16CE8197F86DB00B02702 /* NSMutableArray+Extended.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSMutableArray+Extended.m"; sourceTree = "<group>"; };
 		0FF87EBD1A2E1E0C00798090 /* GXGoogleFormViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GXGoogleFormViewController.h; sourceTree = "<group>"; };
 		0FF87EBE1A2E1E0C00798090 /* GXGoogleFormViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GXGoogleFormViewController.m; sourceTree = "<group>"; };
+		0FF965161A5E54700026FF24 /* GXQuestShortCutViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GXQuestShortCutViewController.h; sourceTree = "<group>"; };
+		0FF965171A5E54700026FF24 /* GXQuestShortCutViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GXQuestShortCutViewController.m; sourceTree = "<group>"; };
+		0FF9651A1A5E54B00026FF24 /* GXQuestShortCutTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GXQuestShortCutTableViewCell.h; sourceTree = "<group>"; };
+		0FF9651B1A5E54B00026FF24 /* GXQuestShortCutTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GXQuestShortCutTableViewCell.m; sourceTree = "<group>"; };
 		E359C94E1AFB4D60B499DEE6 /* Pods.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.xcconfig; path = Pods/Pods.xcconfig; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -727,6 +733,7 @@
 		0F42366119BD54130001E204 /* CreateQuest */ = {
 			isa = PBXGroup;
 			children = (
+				0FF965151A5E54440026FF24 /* TempleteNavigation */,
 				0F68FA351A443CAF0085FA2E /* クリア判定=beacon */,
 				0F42366219BD54420001E204 /* GXCreateQuestViewController.h */,
 				0F42366319BD54420001E204 /* GXCreateQuestViewController.m */,
@@ -1283,6 +1290,7 @@
 		0FD26D7C1959F32C005E2B95 /* View */ = {
 			isa = PBXGroup;
 			children = (
+				0FF965191A5E54860026FF24 /* QuestCreateShortCut */,
 				0FC67C9E1A5B1A1600FD82B2 /* EventView */,
 				0FC67C801A5332E900FD82B2 /* QuestDetail */,
 				0F2456161A38DEF300F34724 /* GalaxterStatus */,
@@ -1373,6 +1381,24 @@
 				0FF87EBE1A2E1E0C00798090 /* GXGoogleFormViewController.m */,
 			);
 			name = "アンケート";
+			sourceTree = "<group>";
+		};
+		0FF965151A5E54440026FF24 /* TempleteNavigation */ = {
+			isa = PBXGroup;
+			children = (
+				0FF965161A5E54700026FF24 /* GXQuestShortCutViewController.h */,
+				0FF965171A5E54700026FF24 /* GXQuestShortCutViewController.m */,
+			);
+			name = TempleteNavigation;
+			sourceTree = "<group>";
+		};
+		0FF965191A5E54860026FF24 /* QuestCreateShortCut */ = {
+			isa = PBXGroup;
+			children = (
+				0FF9651A1A5E54B00026FF24 /* GXQuestShortCutTableViewCell.h */,
+				0FF9651B1A5E54B00026FF24 /* GXQuestShortCutTableViewCell.m */,
+			);
+			name = QuestCreateShortCut;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -1603,6 +1629,7 @@
 				0FC67CA11A5B1A2900FD82B2 /* GXEventTableViewCell.m in Sources */,
 				0F3558371A1198610023F2FF /* GXCreateViewController.m in Sources */,
 				0F35583E1A121D600023F2FF /* GXUserQuestExeViewController.m in Sources */,
+				0FF9651C1A5E54B00026FF24 /* GXQuestShortCutTableViewCell.m in Sources */,
 				0F3558341A1197470023F2FF /* NSString+TextDirectionality.m in Sources */,
 				0FC0095819E259DD0026A7DC /* GXFrostedViewController.m in Sources */,
 				0FCFCCC81A1B6CBD0070FA91 /* GXSettingTableViewController.m in Sources */,
@@ -1612,6 +1639,7 @@
 				0F42366719BD58530001E204 /* UIPlaceHolderTextView.m in Sources */,
 				0F2455ED1A3417E000F34724 /* GXRankingViewController.m in Sources */,
 				0FC9FF1719E81FF100E78B39 /* GXClearViewController.m in Sources */,
+				0FF965181A5E54700026FF24 /* GXQuestShortCutViewController.m in Sources */,
 				0F68FA341A4420A10085FA2E /* UILabel+Ajastable.m in Sources */,
 				0F27DAF119824BC20000E0D0 /* GXNavigationItem.m in Sources */,
 				0FDD5FBF1A216A9800FBC852 /* UILocalNotification+GXNotification.m in Sources */,

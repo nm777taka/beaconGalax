@@ -584,7 +584,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="XNB-d8-B19" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3359" y="-1424"/>
+            <point key="canvasLocation" x="3957" y="-768"/>
         </scene>
         <!--Login View Controller-->
         <scene sceneID="pVw-jq-tED">
@@ -616,7 +616,7 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Hbv-Ve-4PE" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <exit id="Ngn-J0-9JT" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
-            <point key="canvasLocation" x="3121" y="-1447"/>
+            <point key="canvasLocation" x="3957" y="-1419"/>
         </scene>
         <!--アクティビティ-->
         <scene sceneID="l70-5i-kJ3">
@@ -894,7 +894,7 @@
                                     </collectionViewCell>
                                 </cells>
                                 <collectionReusableView key="sectionHeaderView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="Section" id="5gj-t3-PHv" customClass="GXHomeCollectionReusableView">
-                                    <rect key="frame" x="0.0" y="0.0" width="320" height="50"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="320" height="40"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="デイリークエスト" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="MFb-Ls-vMp">
@@ -1048,7 +1048,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="fmW-Bd-D31" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3877" y="-1087"/>
+            <point key="canvasLocation" x="3613" y="-761"/>
         </scene>
         <!--クエスト作成-->
         <scene sceneID="AqG-Wx-e1p">
@@ -1094,7 +1094,93 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="egZ-1W-BDW" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2526" y="-1270"/>
+            <point key="canvasLocation" x="2994" y="-1286"/>
+        </scene>
+        <!--ショートカット-->
+        <scene sceneID="Fqc-ml-gUk">
+            <objects>
+                <viewController id="PCq-2Z-4Qy" customClass="GXQuestShortCutViewController" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="pp3-i6-Czj"/>
+                        <viewControllerLayoutGuide type="bottom" id="0YI-rg-ObL"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="YsW-zE-TGf">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="vmi-P9-Pxo">
+                                <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <view key="tableFooterView" contentMode="scaleToFill" id="79A-wt-zIY">
+                                    <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                    <subviews>
+                                        <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="o21-8z-hic">
+                                            <rect key="frame" x="8" y="8" width="304" height="30"/>
+                                            <state key="normal" title="カスタム">
+                                                <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                <color key="titleShadowColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                            </state>
+                                            <connections>
+                                                <action selector="customButtonPushed:" destination="PCq-2Z-4Qy" eventType="touchUpInside" id="7tB-iU-raI"/>
+                                            </connections>
+                                        </button>
+                                    </subviews>
+                                    <color key="backgroundColor" red="0.23018704349999999" green="0.77713233230000001" blue="0.31589496140000001" alpha="1" colorSpace="calibratedRGB"/>
+                                </view>
+                                <prototypes>
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="Cell" rowHeight="60" id="cjL-s6-uMA" customClass="GXQuestShortCutTableViewCell">
+                                        <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="cjL-s6-uMA" id="HdE-3i-xFS">
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="KBo-6C-tsT">
+                                                    <rect key="frame" x="8" y="5" width="50" height="50"/>
+                                                </imageView>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="タイトル" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="e6g-lS-UsN">
+                                                    <rect key="frame" x="66" y="20" width="170" height="21"/>
+                                                    <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="20"/>
+                                                    <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="8gq-Yq-gQr">
+                                                    <rect key="frame" x="266" y="19" width="46" height="30"/>
+                                                    <state key="normal" title="つくる">
+                                                        <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                                    </state>
+                                                    <connections>
+                                                        <action selector="createButtonPushed:" destination="cjL-s6-uMA" eventType="touchUpInside" id="zaJ-R3-zHK"/>
+                                                    </connections>
+                                                </button>
+                                            </subviews>
+                                        </tableViewCellContentView>
+                                        <connections>
+                                            <outlet property="createButton" destination="8gq-Yq-gQr" id="Q6x-TE-mMN"/>
+                                            <outlet property="shortCutImageView" destination="KBo-6C-tsT" id="cCL-Ah-3af"/>
+                                            <outlet property="shortCutTitle" destination="e6g-lS-UsN" id="fyG-r7-MDq"/>
+                                        </connections>
+                                    </tableViewCell>
+                                </prototypes>
+                            </tableView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                    <navigationItem key="navigationItem" title="ショートカット" id="6G4-FA-T54">
+                        <barButtonItem key="leftBarButtonItem" title="閉じる" id="hNN-hU-xZI">
+                            <connections>
+                                <action selector="closeAction:" destination="PCq-2Z-4Qy" id="s0q-tD-WEK"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
+                    <connections>
+                        <outlet property="shortCutTableView" destination="vmi-P9-Pxo" id="ItL-C3-hrD"/>
+                        <segue destination="0sk-fa-YAs" kind="push" identifier="push_custom" id="mD7-VH-sFh"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="RGA-OF-oZJ" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2540" y="-1287"/>
         </scene>
         <!--Create Beacon Quest View Controller-->
         <scene sceneID="Knj-GG-bsZ">
@@ -1289,7 +1375,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="HoD-uz-grb" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2484" y="253"/>
+            <point key="canvasLocation" x="4350" y="-77"/>
         </scene>
         <!--Quest Ready View Controller-->
         <scene sceneID="irT-HR-mCc">
@@ -1339,7 +1425,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Rg5-EO-v8n" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2921" y="-749"/>
+            <point key="canvasLocation" x="2651" y="-626"/>
         </scene>
         <!--クエストパーティー-->
         <scene sceneID="bvE-KX-rpo">
@@ -1423,7 +1509,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="1nY-2Z-ElD" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2921" y="45"/>
+            <point key="canvasLocation" x="2427" y="88"/>
         </scene>
         <!--詳細-->
         <scene sceneID="162-5w-95B">
@@ -1577,7 +1663,7 @@
                     </navigationBar>
                     <nil name="viewControllers"/>
                     <connections>
-                        <segue destination="0sk-fa-YAs" kind="relationship" relationship="rootViewController" id="jdV-b2-E8D"/>
+                        <segue destination="PCq-2Z-4Qy" kind="relationship" relationship="rootViewController" id="5qg-F8-mHj"/>
                     </connections>
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="iy9-bk-fhP" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -1618,7 +1704,7 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="XSc-v7-8zu" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2086" y="244"/>
+            <point key="canvasLocation" x="3952" y="-86"/>
         </scene>
         <!--ランキング-->
         <scene sceneID="wxP-ki-BZ2">
