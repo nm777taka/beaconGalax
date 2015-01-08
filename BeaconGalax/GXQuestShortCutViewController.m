@@ -8,12 +8,15 @@
 
 #import "GXQuestShortCutViewController.h"
 #import "GXQuestShortCutTableViewCell.h"
+#import "GXCreateViewController.h"
 
 @interface GXQuestShortCutViewController ()<UITableViewDataSource,UITableViewDelegate>
 - (IBAction)closeAction:(id)sender;
 - (IBAction)customButtonPushed:(id)sender;
 
 @property (weak, nonatomic) IBOutlet UITableView *shortCutTableView;
+@property (weak,nonatomic) GXCreateViewController *createViewController;
+@property (weak, nonatomic) IBOutlet UIView *footerView;
 
 @property NSArray *shortCutArray;
 
@@ -27,10 +30,14 @@
     self.shortCutTableView.delegate = self;
     self.shortCutTableView.dataSource = self;
     
-    self.shortCutArray = @[@"a",@"b",@"c",@"もっとカスタム"];
+    self.shortCutArray = @[@"a",@"b",@"c"];
     
     //余計なcellを消す
     self.shortCutTableView.tableFooterView = [[UIView alloc] initWithFrame:CGRectZero];
+    
+    //crateViewをインスタンス化しておく
+    self.createViewController = [self.storyboard instantiateViewControllerWithIdentifier:@"createView"];
+    
     
 }
 
@@ -69,6 +76,16 @@
     return 60.0;
 }
 
+- (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section
+{
+    return 50.0f;
+}
+
+- (UIView *)tableView:(UITableView *)tableView viewForFooterInSection:(NSInteger)section
+{
+    return self.footerView;
+}
+
 #pragma mark - IBAction
 - (IBAction)closeAction:(id)sender
 {
@@ -76,6 +93,19 @@
 }
 
 - (IBAction)customButtonPushed:(id)sender
+{
+    //とりえずここでテスト
+    [self.view addSubview:self.createViewController.view];
+    
+}
+
+#pragma mark - Animation
+- (void)fadeIn
+{
+    
+}
+
+- (void)fadeOut
 {
     
 }

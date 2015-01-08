@@ -1053,21 +1053,21 @@
         <!--クエスト作成-->
         <scene sceneID="AqG-Wx-e1p">
             <objects>
-                <viewController id="0sk-fa-YAs" customClass="GXCreateViewController" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="createView" id="0sk-fa-YAs" customClass="GXCreateViewController" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="Vv7-OL-FpN"/>
                         <viewControllerLayoutGuide type="bottom" id="zOu-f7-Jz5"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="fkr-E0-knU">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="300"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="p6B-mC-QGh" customClass="FBProfilePictureView">
-                                <rect key="frame" x="8" y="72" width="40" height="40"/>
+                                <rect key="frame" x="8" y="20" width="40" height="40"/>
                                 <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                             </view>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="MDf-vJ-quq">
-                                <rect key="frame" x="56" y="81" width="171" height="21"/>
+                                <rect key="frame" x="56" y="29" width="171" height="21"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                 <nil key="highlightedColor"/>
@@ -1087,6 +1087,12 @@
                             </connections>
                         </barButtonItem>
                     </navigationItem>
+                    <nil key="simulatedStatusBarMetrics"/>
+                    <nil key="simulatedTopBarMetrics"/>
+                    <nil key="simulatedBottomBarMetrics"/>
+                    <simulatedOrientationMetrics key="simulatedOrientationMetrics"/>
+                    <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+                    <size key="freeformSize" width="320" height="300"/>
                     <connections>
                         <outlet property="userIcon" destination="p6B-mC-QGh" id="neI-ye-4UG"/>
                         <outlet property="userNameLabel" destination="MDf-vJ-quq" id="vEM-VT-a7Z"/>
@@ -1094,7 +1100,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="egZ-1W-BDW" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2994" y="-1286"/>
+            <point key="canvasLocation" x="2978" y="-1286"/>
         </scene>
         <!--ショートカット-->
         <scene sceneID="Fqc-ml-gUk">
@@ -1174,8 +1180,8 @@
                         </barButtonItem>
                     </navigationItem>
                     <connections>
+                        <outlet property="footerView" destination="79A-wt-zIY" id="I4o-8d-y5k"/>
                         <outlet property="shortCutTableView" destination="vmi-P9-Pxo" id="ItL-C3-hrD"/>
-                        <segue destination="0sk-fa-YAs" kind="push" identifier="push_custom" id="mD7-VH-sFh"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="RGA-OF-oZJ" userLabel="First Responder" sceneMemberID="firstResponder"/>
