@@ -15,7 +15,7 @@
 - (IBAction)customButtonPushed:(id)sender;
 
 @property (weak, nonatomic) IBOutlet UITableView *shortCutTableView;
-@property (weak,nonatomic) GXCreateViewController *createViewController;
+@property (strong,nonatomic) GXCreateViewController *createViewController;
 @property (weak, nonatomic) IBOutlet UIView *footerView;
 
 @property NSArray *shortCutArray;
@@ -94,19 +94,10 @@
 
 - (IBAction)customButtonPushed:(id)sender
 {
+    NSLog(@"touch");
     //とりえずここでテスト
     [self.view addSubview:self.createViewController.view];
     
 }
 
-#pragma mark - Animation
-- (void)fadeIn
-{
-    
-}
-
-- (void)fadeOut
-{
-    
-}
 @end

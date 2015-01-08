@@ -39,6 +39,7 @@ const static CGFloat kJVFieldFloatingLabelFontSize = 11.0f;
 @property JVFloatLabeledTextView *descriptionView;
 @property (weak, nonatomic) IBOutlet FBProfilePictureView *userIcon;
 @property (weak, nonatomic) IBOutlet UILabel *userNameLabel;
+@property (weak, nonatomic) IBOutlet UIView *createQuestPanel;
 @property UIButton *dateSettingButton;
 @property NSString *selectedDateString;
 @property NSDate *selectedDate;
@@ -50,6 +51,10 @@ const static CGFloat kJVFieldFloatingLabelFontSize = 11.0f;
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
+    self.view.alpha = 0.0f;
+    self.createQuestPanel.layer.cornerRadius = 5.0f;
+    self.createQuestPanel.layer.borderColor = [UIColor turquoiseColor].CGColor;
+    self.createQuestPanel.layer.borderWidth = 2.0f;
     
     CGFloat topOffset = 64;
     //init
@@ -77,8 +82,12 @@ const static CGFloat kJVFieldFloatingLabelFontSize = 11.0f;
 - (void)viewDidAppear:(BOOL)animated
 {
     [super viewDidAppear:animated];
+    [UIView animateWithDuration:0.5f delay:0.0f options:UIViewAnimationOptionCurveEaseOut animations:^{
+        self.view.alpha = 1.0f;
+    } completion:^(BOOL finished) {
+        ;
+    }];
 }
-
 /*
 #pragma mark - Navigation
 
@@ -96,21 +105,23 @@ const static CGFloat kJVFieldFloatingLabelFontSize = 11.0f;
     UIColor *floatingLabelColor = [UIColor turquoiseColor];
     
     //title
-    self.titleField = [[JVFloatLabeledTextField alloc] initWithFrame:CGRectMake(kJVFieldMargin, self.userIcon.frame.size.height + 64 + 10, self.view.frame.size.width -2 * kJVFieldMargin, kJVFieldHeight)];
+    self.titleField = [[JVFloatLabeledTextField alloc] initWithFrame:CGRectMake(kJVFieldMargin, self.userIcon.frame.size.height + 10, self.createQuestPanel.frame.size.width -2 * kJVFieldMargin, kJVFieldHeight)];
     self.titleField.attributedPlaceholder = [[NSAttributedString alloc] initWithString:@"メンバーとやりたいことをかこう" attributes:@{NSForegroundColorAttributeName:[UIColor darkGrayColor]}];
     self.titleField.font = [UIFont systemFontOfSize:kJVFieldFontSize];
     self.titleField.floatingLabelTextColor = floatingLabelColor;
     self.titleField.clearButtonMode = UITextFieldViewModeWhileEditing;
     self.titleField.delegate = self;
-    [self.view addSubview:self.titleField];
+    [self.createQuestPanel addSubview:self.titleField];
+    
     self.titleField.returnKeyType = UIReturnKeyDone;
+    
     UIView *div1 = [UIView new];
-    div1.frame = CGRectMake(kJVFieldMargin, self.titleField.frame.origin.y + self.titleField.frame.size.height, self.view.frame.size.width -2 * kJVFieldMargin, 1.0f);
+    div1.frame = CGRectMake(kJVFieldMargin, self.titleField.frame.origin.y + self.titleField.frame.size.height, self.createQuestPanel.frame.size.width -2 * kJVFieldMargin, 1.0f);
     div1.backgroundColor = [[UIColor lightGrayColor] colorWithAlphaComponent:0.3f];
-    [self.view addSubview:div1];
+    [self.createQuestPanel addSubview:div1];
     
     //詳細
-    self.descriptionView = [[JVFloatLabeledTextView alloc] initWithFrame:CGRectMake(kJVFieldMargin, div1.frame.origin.y + div1.frame.size.height, self.view.frame.size.width - 2*kJVFieldMargin, kJVFieldHeight*2)];
+    self.descriptionView = [[JVFloatLabeledTextView alloc] initWithFrame:CGRectMake(kJVFieldMargin, div1.frame.origin.y + div1.frame.size.height, self.createQuestPanel.frame.size.width - 2*kJVFieldMargin, kJVFieldHeight*2)];
     self.descriptionView.placeholder = @"クエスト詳細";
     self.descriptionView.placeholderTextColor = [UIColor darkGrayColor];
     self.descriptionView.font = [UIFont systemFontOfSize:kJVFieldFontSize];
@@ -118,7 +129,7 @@ const static CGFloat kJVFieldFloatingLabelFontSize = 11.0f;
     self.descriptionView.floatingLabelFont = [UIFont systemFontOfSize:kJVFieldFontSize];
     self.descriptionView.delegate = self;
     self.descriptionView.returnKeyType = UIReturnKeyDone;
-    [self.view addSubview:self.descriptionView];
+    [self.createQuestPanel addSubview:self.descriptionView];
     
     UIView *accessoryView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 320, 44)];
     accessoryView.backgroundColor = [UIColor darkGrayColor];
@@ -137,7 +148,7 @@ const static CGFloat kJVFieldFloatingLabelFontSize = 11.0f;
 //    [self.view addSubview:div2];
     self.dateSettingButton = [UIButton new];
     self.dateSettingButton = [UIButton buttonWithType:UIButtonTypeSystem];
-    self.dateSettingButton.frame = CGRectMake(kJVFieldMargin, self.descriptionView.frame.origin.y + self.descriptionView.frame.size.height, self.view.frame.size.width -2*kJVFieldMargin, 40);
+    self.dateSettingButton.frame = CGRectMake(kJVFieldMargin, self.descriptionView.frame.origin.y + self.descriptionView.frame.size.height, self.createQuestPanel.frame.size.width -2*kJVFieldMargin, 40);
     self.dateSettingButton.layer.borderColor = [UIColor turquoiseColor].CGColor;
     self.dateSettingButton.layer.borderWidth = 1.0f;
     
@@ -155,9 +166,14 @@ const static CGFloat kJVFieldFloatingLabelFontSize = 11.0f;
         [dateSelectionVC show];
     } forControlEvents:UIControlEventTouchUpInside];
     // ボタンをビューに追加
-    [self.view addSubview:self.dateSettingButton];
+    [self.createQuestPanel addSubview:self.dateSettingButton];
     
+}
 
+//ここでテンプレートの設定を行う
+- (void)configureQuestTemplete
+{
+    
 }
 
 #pragma mark TextField Delegate
