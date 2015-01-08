@@ -549,7 +549,10 @@
         return;
     }
     
-    KiiClause *clause = [KiiClause equals:@"title" value:self.quest.title];
+    //タイトルで探すとコンフリクトする可能性ある
+    //acceptメソッドでjoinedにいれる段階でquestID(not_joinにあるObjのURI)
+    //を設定しているからそれを使う
+    KiiClause *clause = [KiiClause equals:@"questID" value:self.quest.quest_id];
     KiiQuery *query = [KiiQuery queryWithClause:clause];
     KiiBucket *bucket;
     if ([self isQuestOwner]) {
