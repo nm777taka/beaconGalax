@@ -19,6 +19,7 @@
 #import "GXTopicManager.h"
 #import "GXPointManager.h"
 #import "Device.h"
+#import "GXQuest.h"
 
 const static CGFloat kJVFieldHeight = 44.0f;
 const static CGFloat kJVFieldMargin = 10.0f;
@@ -78,6 +79,7 @@ const static CGFloat kJVFieldFloatingLabelFontSize = 11.0f;
     NSDictionary *userInfo = [GXUserDefaults getUserInfomation];
     self.userIcon.profileID = userInfo[@"GXFacebookID"];
     self.userNameLabel.text = userInfo[@"GXUserName"];
+    
     [[GXPageViewAnalyzer shareInstance] setPageView:NSStringFromClass([self class])];
 }
 
@@ -207,7 +209,8 @@ const static CGFloat kJVFieldFloatingLabelFontSize = 11.0f;
 //ここでテンプレートの設定を行う
 - (void)configureQuestTemplete
 {
-    
+    self.titleField.text = self.templeteQuest.title;
+    self.descriptionView.text = self.templeteQuest.description;
 }
 
 #pragma mark TextField Delegate

@@ -7,11 +7,19 @@
 //
 
 #import <UIKit/UIKit.h>
+@class GXQuestShortCutTableViewCell;
+
+@protocol GXQuestShortCutDelegate <NSObject>
+
+- (void)doneCreateButton:(GXQuestShortCutTableViewCell *)cell;
+
+@end
 
 @interface GXQuestShortCutTableViewCell : UITableViewCell
 @property (weak, nonatomic) IBOutlet UIImageView *shortCutImageView;
 @property (weak, nonatomic) IBOutlet UILabel *shortCutTitle;
 @property (weak, nonatomic) IBOutlet UIButton *createButton;
+@property (nonatomic) id<GXQuestShortCutDelegate> delegate;
 - (IBAction)createButtonPushed:(id)sender;
 
 @end

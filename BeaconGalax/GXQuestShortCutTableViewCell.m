@@ -23,5 +23,9 @@
 }
 
 - (IBAction)createButtonPushed:(id)sender {
+    
+    if ([self.delegate respondsToSelector:@selector(doneCreateButton:)]) {
+        [self.delegate doneCreateButton:self];
+    }
 }
 @end

@@ -9,8 +9,11 @@
 #import <UIKit/UIKit.h>
 #import <KiiSDK/Kii.h>
 
+@class GXQuest;
+
 @interface GXCreateViewController : UIViewController
 
-@property KiiObject *templeteQuest;
+@property GXQuest *templeteQuest;
+
 
 @end

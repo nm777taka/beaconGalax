@@ -10,7 +10,7 @@
 #import "GXQuestShortCutTableViewCell.h"
 #import "GXCreateViewController.h"
 
-@interface GXQuestShortCutViewController ()<UITableViewDataSource,UITableViewDelegate>
+@interface GXQuestShortCutViewController ()<UITableViewDataSource,UITableViewDelegate,GXQuestShortCutDelegate>
 - (IBAction)closeAction:(id)sender;
 - (IBAction)customButtonPushed:(id)sender;
 
@@ -31,6 +31,7 @@
     self.shortCutTableView.dataSource = self;
     
     self.shortCutArray = @[@"a",@"b",@"c"];
+    
     
     //余計なcellを消す
     self.shortCutTableView.tableFooterView = [[UIView alloc] initWithFrame:CGRectZero];
@@ -60,6 +61,7 @@
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     GXQuestShortCutTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"Cell" forIndexPath:indexPath];
+    cell.delegate = self;
     [self configureCell:cell atIndexPath:indexPath];
     return cell;
 }
@@ -94,11 +96,15 @@
 
 - (IBAction)customButtonPushed:(id)sender
 {
-    NSLog(@"touch");
-    //とりえずここでテスト
     self.createViewController = [self.storyboard instantiateViewControllerWithIdentifier:@"createView"];
     [self.view addSubview:self.createViewController.view];
     
+}
+
+#pragma mark - GXShortCutCellDelegate
+- (void)doneCreateButton:(GXQuestShortCutTableViewCell *)cell
+{
+    NSLog(@"done");
 }
 
 @end
