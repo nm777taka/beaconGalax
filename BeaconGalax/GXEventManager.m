@@ -36,7 +36,7 @@
 
 - (void)currentEventCommit
 {
-    /*
+    
     KiiBucket *bucket = [Kii bucketWithName:@"Event"];
     KiiClause *clause = [KiiClause equals:@"isCompleted" value:@NO];
     KiiQuery *query = [KiiQuery queryWithClause:clause];
@@ -58,12 +58,12 @@
             
         }
     }];
-     /*
+    
 }
 
 - (void)registerCommiterUser:(BOOL)isOwner type:(NSString *)cleardType
 {
-    /*
+    
     int getPoint = 0;
     
     if ([cleardType isEqualToString:@"system"]) {
@@ -111,7 +111,6 @@
         }
     }];
      
-     */
 }
 
 - (void)registerSystemQuestCleard

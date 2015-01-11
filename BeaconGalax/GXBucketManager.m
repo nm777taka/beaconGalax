@@ -383,27 +383,16 @@
 
 - (void)acceptNewQuest:(GXQuest *)quest
 {
-    //kiiobjectを取得
-    KiiClause *clause = [KiiClause equals:@"title" value:quest.title];
-    KiiQuery *getObjQuery = [KiiQuery queryWithClause:clause];
-    KiiBucket *bucket;
-    if ([quest.type isEqualToString:@"system"]) {
-        bucket = [GXBucketManager sharedManager].notJoinedQuest;
-    } else {
-        bucket = [GXBucketManager sharedManager].questBoard;
-    }
+    KiiObject *questObject = [KiiObject objectWithURI:quest.quest_id];
     
-    [bucket executeQuery:getObjQuery withBlock:^(KiiQuery *query, KiiBucket *bucket, NSArray *results, KiiQuery *nextQuery, NSError *error) {
-        
+    [questObject refreshWithBlock:^(KiiObject *object, NSError *error) {
         if (error) {
             [[NSNotificationCenter defaultCenter] postNotificationName:GXErrorNotification object:@"エラー"];
             return ;
         }
         
-        KiiObject *questObject = results.firstObject;
-        
         //既に受注しているかチェック
-        KiiClause *clause1 = [KiiClause equals:quest_title value:[questObject getObjectForKey:quest_title]];
+        KiiClause *clause1 = [KiiClause equals:@"questID" value:questObject.objectURI];
         KiiClause *clause2 = [KiiClause equals:quest_isCompleted value:@NO];
         NSArray *clauseArray = @[clause1,clause2];
         KiiClause *totalClause = [KiiClause andClauses:clauseArray];
@@ -412,6 +401,7 @@
         [joinedBucket executeQuery:isAlreadyQuery withBlock:^(KiiQuery *query, KiiBucket *bucket, NSArray *results, KiiQuery *nextQuery, NSError *error) {
             
             if (error) {
+                NSLog(@"eerrororororor:%@",error);
                 [[NSNotificationCenter defaultCenter] postNotificationName:GXErrorNotification object:@"エラー"];
                 return ;
             }
@@ -441,11 +431,77 @@
                     [[NSNotificationCenter defaultCenter] postNotificationName:GXErrorNotification object:@"クエストの受注に失敗"];
                 }
             }];
-
+            
             
         }];
+
         
     }];
+    
+    
+    //kiiobjectを取得
+//    KiiClause *clause = [KiiClause equals:@"title" value:quest.title];
+//    KiiQuery *getObjQuery = [KiiQuery queryWithClause:clause];
+//    KiiBucket *bucket;
+//    if ([quest.type isEqualToString:@"system"]) {
+//        bucket = [GXBucketManager sharedManager].notJoinedQuest;
+//    } else {
+//        bucket = [GXBucketManager sharedManager].questBoard;
+//    }
+//    
+//    [bucket executeQuery:getObjQuery withBlock:^(KiiQuery *query, KiiBucket *bucket, NSArray *results, KiiQuery *nextQuery, NSError *error) {
+//        
+//        if (error) {
+//            [[NSNotificationCenter defaultCenter] postNotificationName:GXErrorNotification object:@"エラー"];
+//            return ;
+//        }
+//        
+//        KiiObject *questObject = results.firstObject;
+//        
+//        //既に受注しているかチェック
+//        KiiClause *clause1 = [KiiClause equals:quest_title value:[questObject getObjectForKey:quest_title]];
+//        KiiClause *clause2 = [KiiClause equals:quest_isCompleted value:@NO];
+//        NSArray *clauseArray = @[clause1,clause2];
+//        KiiClause *totalClause = [KiiClause andClauses:clauseArray];
+//        KiiQuery *isAlreadyQuery = [KiiQuery queryWithClause:totalClause];
+//        KiiBucket *joinedBucket = [[KiiUser currentUser] bucketWithName:@"joined_quest"];
+//        [joinedBucket executeQuery:isAlreadyQuery withBlock:^(KiiQuery *query, KiiBucket *bucket, NSArray *results, KiiQuery *nextQuery, NSError *error) {
+//            
+//            if (error) {
+//                [[NSNotificationCenter defaultCenter] postNotificationName:GXErrorNotification object:@"エラー"];
+//                return ;
+//            }
+//            if (results.count >= 1) {
+//                NSLog(@"同じクエストがあるよ");
+//                [[NSNotificationCenter defaultCenter] postNotificationName:GXErrorNotification object:@"既に同じクエストを受注済みです"];
+//                return;
+//            }
+//            
+//            //新しく保存
+//            NSDictionary *dict = questObject.dictionaryValue;
+//            NSArray *allKeys = dict.allKeys;
+//            KiiObject *newObj = [self.joinedQuest createObject];
+//            for (NSString *key in allKeys) {
+//                [newObj setObject:dict[key] forKey:key];
+//            }
+//            //一応uriをつけとく
+//            [newObj setObject:quest.quest_id forKey:@"questID"];
+//            
+//            [newObj saveWithBlock:^(KiiObject *object, NSError *error) {
+//                if (!error) {
+//                    //notis]
+//                    [[NSNotificationCenter defaultCenter] postNotificationName:GXQuestJoinNotification object:nil];
+//                    
+//                } else {
+//                    //error表示
+//                    [[NSNotificationCenter defaultCenter] postNotificationName:GXErrorNotification object:@"クエストの受注に失敗"];
+//                }
+//            }];
+//
+//            
+//        }];
+//        
+//    }];
 }
 
 //Quest_boardからnot_joinedにフェッチ

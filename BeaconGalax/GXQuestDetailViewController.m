@@ -165,8 +165,9 @@
     [SVProgressHUD showWithStatus:@"取り消し中"];
     //bucketからkii_objectを取得
     KiiBucket *bucket = [GXBucketManager sharedManager].joinedQuest;
-    KiiClause *clause = [KiiClause equals:@"title" value:self.quest.title];
+    KiiClause *clause = [KiiClause equals:@"questID" value:self.quest.quest_id];
     KiiQuery *query = [KiiQuery queryWithClause:clause];
+    
     [bucket executeQuery:query withBlock:^(KiiQuery *query, KiiBucket *bucket, NSArray *results, KiiQuery *nextQuery, NSError *error) {
         if (!error) {
             
@@ -398,7 +399,7 @@
 - (void)isJoinedQuest:(GXDetailHeaderViewCell *)cell
 {
     KiiBucket *bucket = [GXBucketManager sharedManager].joinedQuest;
-    KiiClause *clause1 = [KiiClause equals:@"title" value:self.quest.title];
+    KiiClause *clause1 = [KiiClause equals:@"questID" value:self.quest.quest_id];
     KiiClause *clause2 = [KiiClause equals:quest_isCompleted value:@NO];
     NSArray *clauseArray = [NSArray arrayWithObjects:clause1,clause2, nil];
     KiiClause *totalClause = [KiiClause andClauses:clauseArray];
