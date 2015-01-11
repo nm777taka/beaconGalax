@@ -140,9 +140,9 @@
     //evetPT処理
     
     if ([[self.quest getObjectForKey:quest_owner] isEqualToString:[KiiUser currentUser].displayName]) {
-        [[GXEventManager sharedInstance] registerCommiterUser:YES type:questType];
+        //[[GXEventManager sharedInstance] registerCommiterUser:YES type:questType];
     } else {
-        [[GXEventManager sharedInstance] registerCommiterUser:NO type:questType];
+        //[[GXEventManager sharedInstance] registerCommiterUser:NO type:questType];
     }
 
 }

@@ -9,6 +9,7 @@
 #import "GXQuestShortCutViewController.h"
 #import "GXQuestShortCutTableViewCell.h"
 #import "GXCreateViewController.h"
+#import "GXPageViewAnalyzer.h"
 
 @interface GXQuestShortCutViewController ()<UITableViewDataSource,UITableViewDelegate,GXQuestShortCutDelegate>
 - (IBAction)closeAction:(id)sender;
@@ -18,7 +19,7 @@
 @property (strong,nonatomic) GXCreateViewController *createViewController;
 @property (weak, nonatomic) IBOutlet UIView *footerView;
 
-@property NSArray *shortCutArray;
+@property NSMutableArray *templeteQuests;
 
 @end
 
@@ -30,16 +31,25 @@
     self.shortCutTableView.delegate = self;
     self.shortCutTableView.dataSource = self;
     
-    self.shortCutArray = @[@"a",@"b",@"c"];
-    
-    
     //余計なcellを消す
-    self.shortCutTableView.tableFooterView = [[UIView alloc] initWithFrame:CGRectZero];
+    self.shortCutTableView.tableFooterView = self.footerView;
     
     //crateViewをインスタンス化しておく
     self.createViewController = [self.storyboard instantiateViewControllerWithIdentifier:@"createView"];
-    
-    
+
+}
+
+- (void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+    [self fetchTempleteData];
+}
+
+- (void)viewDidAppear:(BOOL)animated
+{
+    [super viewDidAppear:animated];
+    [[GXPageViewAnalyzer shareInstance] setPageView:NSStringFromClass([self class])];
+
 }
 
 - (void)didReceiveMemoryWarning {
@@ -55,7 +65,7 @@
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return self.shortCutArray.count;
+    return self.templeteQuests.count;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -68,7 +78,8 @@
 
 - (void)configureCell:(GXQuestShortCutTableViewCell *)cell atIndexPath:(NSIndexPath *)indexPath
 {
-    cell.shortCutTitle.text = self.shortCutArray[indexPath.row];
+    KiiObject *obj = self.templeteQuests[indexPath.row];
+    cell.shortCutTitle.text = [obj getObjectForKey:@"title"];
     
 }
 
@@ -96,8 +107,7 @@
 
 - (IBAction)customButtonPushed:(id)sender
 {
-    self.createViewController = [self.storyboard instantiateViewControllerWithIdentifier:@"createView"];
-    [self.view addSubview:self.createViewController.view];
+    [self showCreatePanel:nil];
     
 }
 
@@ -105,6 +115,32 @@
 - (void)doneCreateButton:(GXQuestShortCutTableViewCell *)cell
 {
     NSLog(@"done");
+    NSIndexPath *indexPath = [self.shortCutTableView indexPathForCell:cell];
+    KiiObject *selectedObj = self.templeteQuests[indexPath.row];
+    [self showCreatePanel:selectedObj];
+    
+}
+
+#pragma mark - Fetch
+- (void)fetchTempleteData
+{
+    KiiBucket *bucket = [Kii bucketWithName:@"templete_quest"];
+    KiiQuery *query = [KiiQuery queryWithClause:nil];
+    [bucket executeQuery:query withBlock:^(KiiQuery *query, KiiBucket *bucket, NSArray *results, KiiQuery *nextQuery, NSError *error) {
+        if (!error) {
+            self.templeteQuests = [NSMutableArray arrayWithArray:results];
+            [self.shortCutTableView reloadData];
+        }
+    }];
+}
+
+#pragma mark - View Show
+- (void)showCreatePanel:(KiiObject *)obj
+{
+    self.createViewController = [self.storyboard instantiateViewControllerWithIdentifier:@"createView"];
+    self.createViewController.templeteQuest = obj;
+    
+    [self.view addSubview:self.createViewController.view];
 }
 
 @end

@@ -70,6 +70,8 @@
     self.tableView.delegate = self;
     self.tableView.dataSource = self;
     
+    
+    
     //delegateの設定
     
 }
@@ -82,7 +84,11 @@
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(questJoined:) name:GXQuestJoinNotification object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(errorHandler:) name:GXErrorNotification object:nil];
     
+    [self.tableView reloadData];
+    
     [[GXPageViewAnalyzer shareInstance] setPageView:NSStringFromClass([self class])];
+    
+    
     
 }
 
@@ -552,14 +558,19 @@
     //タイトルで探すとコンフリクトする可能性ある
     //acceptメソッドでjoinedにいれる段階でquestID(not_joinにあるObjのURI)
     //を設定しているからそれを使う
-    KiiClause *clause = [KiiClause equals:@"questID" value:self.quest.quest_id];
-    KiiQuery *query = [KiiQuery queryWithClause:clause];
     KiiBucket *bucket;
+    KiiClause *clause;
     if ([self isQuestOwner]) {
         bucket = [GXBucketManager sharedManager].questBoard;
+        clause = [KiiClause equals:@"group_uri" value:self.quest.groupURI];
+        
     } else {
         bucket = [GXBucketManager sharedManager].joinedQuest;
+        NSLog(@"quest_id:%@",self.quest.quest_id);
+        clause = [KiiClause equals:@"questID" value:self.quest.quest_id];
     }
+    
+    KiiQuery *query = [KiiQuery queryWithClause:clause];
     
     //KiiBucket *bucket = [GXBucketManager sharedManager].joinedQuest;
     [bucket executeQuery:query withBlock:^(KiiQuery *query, KiiBucket *bucket, NSArray *results, KiiQuery *nextQuery, NSError *error) {
@@ -567,6 +578,7 @@
         if (!error) {
           //  KiiObject *questObj = results.firstObject;
             self.selectedQuestObj = results.firstObject;
+            NSLog(@"selectedObj:%@",self.selectedQuestObj);
             
             //一人 (現状はシステムの作ったクエスト)
             if ([[self.selectedQuestObj getObjectForKey:quest_player_num] intValue] == 1) {
@@ -643,6 +655,7 @@
         GXQuestGroupViewController *vc = segue.destinationViewController;
         vc.willExeQuest = self.selectedQuestObj;
         vc.selectedQuestGroup = self.selectedQuestGroup;
+        
         [GXExeQuestManager sharedManager].nowExeQuest = self.selectedQuestObj;
         
     }

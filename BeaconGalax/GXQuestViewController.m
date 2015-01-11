@@ -117,7 +117,7 @@
     //eventUI
     self.eventTitleLabel.font = [UIFont boldFlatFontOfSize:15];
     self.eventTitleLabel.textColor = [UIColor whiteColor];
-                           
+    
     
 }
 

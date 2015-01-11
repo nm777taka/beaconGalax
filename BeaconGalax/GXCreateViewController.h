@@ -13,7 +13,7 @@
 
 @interface GXCreateViewController : UIViewController
 
-@property GXQuest *templeteQuest;
+@property KiiObject *templeteQuest;
 
 
 @end

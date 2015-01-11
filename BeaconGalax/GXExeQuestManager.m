@@ -95,10 +95,15 @@
 //                    
 //                }
 //            }];
-            
+            NSLog(@"今やってるクエストをisCompletedをyesにする");
+            NSLog(@"self.nowExeQuest:%@",self.nowExeQuest);
             [self.nowExeQuest setObject:@YES forKey:quest_isCompleted];
             [self.nowExeQuest saveWithBlock:^(KiiObject *object, NSError *error) {
-                
+                if (error) {
+                    NSLog(@"error:%@",error);
+                } else {
+                    NSLog(@"isCompleted - trueに");
+                }
             }];
             
             //system(デイリーの場合、joinedからだけでなく、ソースになっているnotJoinからの消す

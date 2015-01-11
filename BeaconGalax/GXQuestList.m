@@ -247,7 +247,13 @@ static int const QuestType_Inviting = 3;
         NSString *title = [obj getObjectForKey:quest_title];
         //NSString *fbid = [obj getObjectForKey:quest_createdUser_fbid];
         NSString *fbid = [obj getObjectForKey:quest_owner_fbid];
-        NSString *questID = obj.objectURI;
+        NSString *questID;
+        if ([obj getObjectForKey:@"questID"]) {
+            questID = [obj getObjectForKey:@"questID"];
+        } else {
+            questID = obj.objectURI;
+        }
+        
         NSString *questReq = [obj getObjectForKey:quest_requirement];
         NSString *questDes = [obj getObjectForKey:quest_description];
         NSNumber *playerNum = [obj getObjectForKey:quest_player_num];

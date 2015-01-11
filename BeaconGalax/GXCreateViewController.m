@@ -79,8 +79,8 @@ const static CGFloat kJVFieldFloatingLabelFontSize = 11.0f;
     NSDictionary *userInfo = [GXUserDefaults getUserInfomation];
     self.userIcon.profileID = userInfo[@"GXFacebookID"];
     self.userNameLabel.text = userInfo[@"GXUserName"];
+    [self configureQuestTemplete];
     
-    [[GXPageViewAnalyzer shareInstance] setPageView:NSStringFromClass([self class])];
 }
 
 - (void)viewDidAppear:(BOOL)animated
@@ -91,7 +91,12 @@ const static CGFloat kJVFieldFloatingLabelFontSize = 11.0f;
     } completion:^(BOOL finished) {
         ;
     }];
+    
+    [[GXPageViewAnalyzer shareInstance] setPageView:NSStringFromClass([self class])];
+
 }
+
+
 /*
 #pragma mark - Navigation
 
@@ -209,8 +214,8 @@ const static CGFloat kJVFieldFloatingLabelFontSize = 11.0f;
 //ここでテンプレートの設定を行う
 - (void)configureQuestTemplete
 {
-    self.titleField.text = self.templeteQuest.title;
-    self.descriptionView.text = self.templeteQuest.description;
+    self.titleField.text = [self.templeteQuest getObjectForKey:@"description"];
+    
 }
 
 #pragma mark TextField Delegate
@@ -267,7 +272,7 @@ const static CGFloat kJVFieldFloatingLabelFontSize = 11.0f;
     //pointゲット
     [[GXPointManager sharedInstance] getCreateQuestPoint];
     [[GXActionAnalyzer sharedInstance] setActionName:GXQuestCreate];
-    [self dismissViewControllerAnimated:YES completion:nil];
+    [self closeView];
 }
 
 - (void)closeView
