@@ -124,54 +124,54 @@ static NSString *const GXQuestInviteTopic = @"GXQuestInviteTopic";
 #pragma mark - Send Message
 - (void)sendCreateQuestAlert:(NSString *)createdUserName
 {
-//    KiiAPNSFields *apnsFields = [KiiAPNSFields createFields];
-//    NSString *body = [NSString stringWithFormat:@"%@が新しいクエストを作成しました！",createdUserName];
-//    
-//    apnsFields.alertBody = body;
-//    apnsFields.badge = @1;
-//    
-//    KiiPushMessage *pushMessage = [KiiPushMessage composeMessageWithAPNSFields:apnsFields andGCMFields:nil];
-//    
-//    [self.sendingAlertTopic sendMessage:pushMessage withBlock:^(KiiTopic *topic, NSError *error) {
-//        if (error) {
-//        } else {
-//        }
-//    }];
+    KiiAPNSFields *apnsFields = [KiiAPNSFields createFields];
+    NSString *body = [NSString stringWithFormat:@"%@が新しいクエストを作成しました！",createdUserName];
+    
+    apnsFields.alertBody = body;
+    apnsFields.badge = @1;
+    
+    KiiPushMessage *pushMessage = [KiiPushMessage composeMessageWithAPNSFields:apnsFields andGCMFields:nil];
+    
+    [self.sendingAlertTopic sendMessage:pushMessage withBlock:^(KiiTopic *topic, NSError *error) {
+        if (error) {
+        } else {
+        }
+    }];
 }
 
 - (void)sendInviteQuestAlert:(NSString *)createdUserName
 {
-//    KiiAPNSFields *apnsFields = [KiiAPNSFields createFields];
-//    NSString *body = [NSString stringWithFormat:@"%@がクエストの参加者を募集しています！",createdUserName];
-//    
-//    apnsFields.alertBody = body;
-//    apnsFields.badge = @1;
-//    
-//    KiiPushMessage *pushMessage = [KiiPushMessage composeMessageWithAPNSFields:apnsFields andGCMFields:nil];
-//    
-//    [self.sendingAlertTopic sendMessage:pushMessage withBlock:^(KiiTopic *topic, NSError *error) {
-//        if (error) {
-//        } else {
-//        }
-//    }];
+    KiiAPNSFields *apnsFields = [KiiAPNSFields createFields];
+    NSString *body = [NSString stringWithFormat:@"%@がクエストの参加者を募集しています！",createdUserName];
+    
+    apnsFields.alertBody = body;
+    apnsFields.badge = @1;
+    
+    KiiPushMessage *pushMessage = [KiiPushMessage composeMessageWithAPNSFields:apnsFields andGCMFields:nil];
+    
+    [self.sendingAlertTopic sendMessage:pushMessage withBlock:^(KiiTopic *topic, NSError *error) {
+        if (error) {
+        } else {
+        }
+    }];
 }
 
 - (void)sendUserInfoTopic:(NSString *)msg
 {
-//    KiiAPNSFields *apnsFields = [KiiAPNSFields createFields];
-//    NSString *body = msg;
-//    
-//    apnsFields.alertBody = body;
-//    apnsFields.badge = @1;
-//    
-//    KiiPushMessage *pushMessage = [KiiPushMessage composeMessageWithAPNSFields:apnsFields andGCMFields:nil];
-//    [self.infoTopic sendMessage:pushMessage withBlock:^(KiiTopic *topic, NSError *error) {
-//        if (error) {
-//            NSLog(@"sendError:%@",error);
-//        } else {
-//            NSLog(@"send to infoTopic");
-//        }
-//    }];
+    KiiAPNSFields *apnsFields = [KiiAPNSFields createFields];
+    NSString *body = msg;
+    
+    apnsFields.alertBody = body;
+    apnsFields.badge = @1;
+    
+    KiiPushMessage *pushMessage = [KiiPushMessage composeMessageWithAPNSFields:apnsFields andGCMFields:nil];
+    [self.infoTopic sendMessage:pushMessage withBlock:^(KiiTopic *topic, NSError *error) {
+        if (error) {
+            NSLog(@"sendError:%@",error);
+        } else {
+            NSLog(@"send to infoTopic");
+        }
+    }];
 }
 
 - (void)sendAlertForSpecificUser:(NSMutableArray *)targetUsers
