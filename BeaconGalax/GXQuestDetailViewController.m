@@ -70,6 +70,9 @@
     self.tableView.delegate = self;
     self.tableView.dataSource = self;
     
+    self.refreshConrol = [UIRefreshControl new];
+    [self.refreshConrol addTarget:self action:@selector(refresh:) forControlEvents:UIControlEventValueChanged];
+    [self.tableView addSubview:self.refreshConrol];
     
     
     //delegateの設定
@@ -688,5 +691,15 @@
 {
     
 }
+
+#pragma mark - Refresh Control
+- (void)refresh:(UIRefreshControl *)control
+{
+    [self.tableView reloadData];
+    [NSObject performBlock:^{
+        [control endRefreshing];
+    } afterDelay:1.0];
+}
+
 
 @end
